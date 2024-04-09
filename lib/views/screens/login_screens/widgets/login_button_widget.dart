@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/login_controller.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 Widget loginButtonWidget(LoginController loginController) {
@@ -33,9 +34,9 @@ Widget loginButtonWidget(LoginController loginController) {
           ),
         ),
         child: loginController.isLoginLoading
-            ? const Center(
+            ? Center(
                 child: CupertinoActivityIndicator(
-                  color: Colors.green,
+                  color: AppColor.primary,
                 ),
               )
             : textWidget(
