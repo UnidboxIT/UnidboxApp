@@ -1,0 +1,48 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/login_controller.dart';
+import 'package:unidbox_app/views/widgets/text_widget.dart';
+
+Widget loginButtonWidget(LoginController loginController) {
+  return Center(
+    child: Container(
+      width: 40.w,
+      height: 5.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 7,
+            spreadRadius: 3,
+          )
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          loginController.login();
+        },
+        style: ElevatedButton.styleFrom(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: loginController.isLoginLoading
+            ? const Center(
+                child: CupertinoActivityIndicator(
+                  color: Colors.green,
+                ),
+              )
+            : textWidget(
+                "Login",
+                fontWeight: FontWeight.bold,
+              ),
+      ),
+    ),
+  );
+}
