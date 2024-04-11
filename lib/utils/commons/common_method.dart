@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../views/widgets/button_widget.dart';
 import '../constant/app_constant.dart';
@@ -27,6 +29,8 @@ class CommonMethods {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         child: Column(
@@ -35,11 +39,26 @@ class CommonMethods {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
+              style: const TextStyle(
+                fontSize: 13,
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            const SizedBox(height: 30),
-            SizedBox(
+            const SizedBox(height: 20),
+            Container(
               width: 35.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 0,
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
               child: buttonWidget("Ok".tr, () {
                 Get.back();
               }),

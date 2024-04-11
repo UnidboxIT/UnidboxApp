@@ -39,13 +39,9 @@ class LoginController extends GetxController {
         txtPassword.text,
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (response.body['result']['code'] == 200) {
-          Get.to(() => const HomeScreen());
-        } else {
-          CommonMethods.customizedAlertDialog(response.body['result']['error']);
-        }
+        Get.to(() => const HomeScreen());
       } else {
-        superPrint(response.body);
+        CommonMethods.customizedAlertDialog(response.body['result']['error']);
       }
     } catch (e) {
       superPrint(e);
