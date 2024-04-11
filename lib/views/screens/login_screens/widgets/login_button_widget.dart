@@ -23,6 +23,7 @@ Widget loginButtonWidget(LoginController loginController) {
       ),
       child: ElevatedButton(
         onPressed: () {
+          FocusManager.instance.primaryFocus!.unfocus();
           loginController.login();
         },
         style: ElevatedButton.styleFrom(

@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/login_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-
 import '../../widgets/text_widget.dart';
 import 'package:unidbox_app/views/screens/login_screens/widgets/each_text_field_widget.dart';
-
 import 'widgets/login_button_widget.dart';
 import 'widgets/login_image_widget.dart';
 import 'widgets/remember_me_widget.dart';
@@ -44,7 +42,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 3.h),
             textWidget("Password", fontWeight: FontWeight.bold),
             const SizedBox(height: 10),
-            eachPasswordWidget(controller.txtPassword, "Password"),
+            eachPasswordWidget(controller.txtPassword, "Password", controller),
             const SizedBox(height: 20),
             rememberMeWidget(controller),
             SizedBox(height: 5.h),
