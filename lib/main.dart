@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/login_screens/login_screeen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const UnidboxApp());
 }
 
@@ -24,7 +28,7 @@ class UnidboxApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
             useMaterial3: true,
           ),
           home: const LoginScreen(),

@@ -8,7 +8,7 @@ class Admin {
   final int companyId;
   final int partnerId;
   final bool homeActionId;
-  final CacheHashes cacheHashes;
+  final Map<String, dynamic> cacheHashes;
   final Map<String, dynamic> currenciesMap;
   final UserCompanies userCompanies;
   final String showEffect;
@@ -27,7 +27,7 @@ class Admin {
     this.companyId = 0,
     this.partnerId = 0,
     this.homeActionId = false,
-    this.cacheHashes = const CacheHashes(),
+    this.cacheHashes = const {},
     this.currenciesMap = const {},
     this.userCompanies = const UserCompanies(),
     this.showEffect = "",
@@ -56,29 +56,6 @@ class Admin {
       userId: List.from(json['user_id']),
       maxTimeBetweenKeysInMs: json['max_time_between_keys_in_ms'],
       sessionId: json['session_id'],
-    );
-  }
-}
-
-class CacheHashes {
-  final String translations;
-  final String loadMenus;
-  final String qweb;
-  final String assetsDiscussPublic;
-
-  const CacheHashes({
-    this.translations = "",
-    this.loadMenus = "",
-    this.qweb = "",
-    this.assetsDiscussPublic = "",
-  });
-
-  factory CacheHashes.fromJson(Map<String, dynamic> json) {
-    return CacheHashes(
-      translations: json['translations'].toString(),
-      loadMenus: json['load_menus'].toString(),
-      qweb: json['qweb'].toString(),
-      assetsDiscussPublic: json['assets_discuss_public'].toString(),
     );
   }
 }

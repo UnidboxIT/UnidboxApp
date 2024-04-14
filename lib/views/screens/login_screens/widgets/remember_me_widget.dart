@@ -19,7 +19,7 @@ Widget rememberMeWidget(LoginController loginController) {
         children: [
           Icon(
             loginController.isRememberMe
-                ? Icons.check_box_outlined
+                ? Icons.check_box_rounded
                 : Icons.check_box_outline_blank,
             color: loginController.isRememberMe
                 ? AppColor.primary
