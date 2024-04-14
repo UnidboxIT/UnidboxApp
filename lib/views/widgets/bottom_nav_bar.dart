@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -12,7 +11,7 @@ Widget floatingActionBottomWidget() {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(50),
     ),
-    backgroundColor: Colors.black.withOpacity(0.7),
+    backgroundColor: Colors.black.withOpacity(0.8),
     elevation: 0,
     child: const Icon(
       Icons.add,

@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 
 import 'widgets/home_app_bar_widget.dart';
 import 'widgets/important_reminder_widget.dart';
@@ -24,10 +28,46 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HomeAppBarWidget(),
-              Container(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: const ImportantReminderWidget(),
-              ),
+              Stack(
+                  alignment: Alignment.bottomCenter,
+                  clipBehavior: Clip.none,
+                  children: [
+                    Transform.translate(
+                      offset: Offset(44.w, 2.h),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                          height: 20,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: AppColor.primary,
+                            border: const Border(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Transform.translate(
+                      offset: Offset(44.w, 2.h),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Container(
+                          height: 20,
+                          width: 45,
+                          decoration: const BoxDecoration(
+                            color: Color(0xffF6F6F6),
+                            border: Border(),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 20, right: 0),
+                      child: const ImportantReminderWidget(),
+                    ),
+                  ]),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,

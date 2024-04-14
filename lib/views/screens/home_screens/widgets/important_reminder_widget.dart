@@ -11,7 +11,11 @@ class ImportantReminderWidget extends StatelessWidget {
     return Container(
       width: 100.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+        ),
         color: AppColor.primary,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
