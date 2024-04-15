@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../controllers/nav_bar_controller.dart';
+import '../../views/screens/login_screens/login_screeen.dart';
 import '../../views/widgets/button_widget.dart';
 import '../constant/app_constant.dart';
 
@@ -16,7 +18,7 @@ class CommonMethods {
     return {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${box.read(AppKeys.apiToken)}'
+      'X-Openerp-Session-Id': '${box.read(AppKeys.apiToken)}'
     };
   }
 
@@ -66,5 +68,12 @@ class CommonMethods {
     )).then(
       (value) => isPop ? Get.back(closeOverlays: true) : "",
     );
+  }
+
+  static void unAuthorizedLogout() async {
+    Get.find<NavBarController>().currentIndex = 0;
+    Get.find<NavBarController>().update();
+    Get.offAll(() => const LoginScreen());
+    customizedAlertDialog("Session Expired".tr);
   }
 }

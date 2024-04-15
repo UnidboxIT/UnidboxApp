@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/home_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-
 import 'widgets/home_app_bar_widget.dart';
 import 'widgets/important_reminder_widget.dart';
 import 'widgets/my_task_widget.dart';
@@ -16,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
     return SuperScaffold(
       topColor: const Color(0xffF6F6F6),
       botColor: Colors.white,
@@ -47,11 +46,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Transform.translate(
-                      offset: Offset(44.w, 2.h),
+                      offset: Offset(44.w, 2.5.h),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2),
                         child: Container(
-                          height: 20,
+                          height: 30,
                           width: 45,
                           decoration: const BoxDecoration(
                             color: Color(0xffF6F6F6),
