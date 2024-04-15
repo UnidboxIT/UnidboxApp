@@ -32,12 +32,12 @@ class HomeScreen extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     Transform.translate(
-                      offset: Offset(44.w, 2.h),
+                      offset: Offset(45.w, 2.h),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 30),
                         child: Container(
                           height: 20,
-                          width: 40,
+                          width: 30,
                           decoration: BoxDecoration(
                             color: AppColor.primary,
                             border: const Border(),
@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                     Transform.translate(
                       offset: Offset(44.w, 2.5.h),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Container(
                           height: 30,
                           width: 45,
