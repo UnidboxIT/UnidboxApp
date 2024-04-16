@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../utils/constant/app_color.dart';
 import '../views/screens/home_screens/home_screen.dart';
+import '../views/screens/profile_screens/profile_screen.dart';
 
 class NavBar {
   int id;
@@ -90,6 +91,6 @@ class NavBarController extends GetxController {
     Container(),
     Container(),
     Container(),
-    Container(),
+    const ProfileScreen(),
   ];
 }

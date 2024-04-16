@@ -22,23 +22,25 @@ class UnidboxApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var box = GetStorage();
     apiToken = box.read(AppKeys.apiToken) ?? "";
-    return ResponsiveSizer(builder: (context, orientation, screenType) {
-      return MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: MediaQuery.of(context)
-              .textScaler
-              .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.0),
-        ),
-        child: GetMaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
-            useMaterial3: true,
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: MediaQuery.of(context)
+                .textScaler
+                .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.0),
           ),
-          home: xUserAuthorized() ? const MainScreen() : const LoginScreen(),
-        ),
-      );
-    });
+          child: GetMaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primary),
+              useMaterial3: true,
+            ),
+            home: xUserAuthorized() ? const MainScreen() : const LoginScreen(),
+          ),
+        );
+      },
+    );
   }
 }

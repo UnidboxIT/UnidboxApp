@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/home_controller.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 class HomeAppBarWidget extends StatelessWidget {
@@ -8,6 +10,9 @@ class HomeAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<HomeController>().calculateTime();
+    });
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -16,12 +21,14 @@ class HomeAppBarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              textWidget(
-                "Good morning,",
-                fontWeight: FontWeight.w700,
-                size: 14,
-                color: Colors.black.withOpacity(0.6),
-              ),
+              GetBuilder<HomeController>(builder: (controller) {
+                return textWidget(
+                  controller.timeText,
+                  fontWeight: FontWeight.w700,
+                  size: 14,
+                  color: Colors.black.withOpacity(0.6),
+                );
+              }),
               textWidget(
                 "Ah Tan",
                 fontWeight: FontWeight.w600,

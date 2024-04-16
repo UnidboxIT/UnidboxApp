@@ -4,10 +4,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/home_screens/my_task_screen.dart';
+import 'ongoing_job_screen.dart';
 import 'widgets/home_app_bar_widget.dart';
 import 'widgets/important_reminder_widget.dart';
-import 'widgets/my_task_widget.dart';
-import 'widgets/ongoing_job_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
+
     return SuperScaffold(
       topColor: const Color(0xffF6F6F6),
       botColor: Colors.white,
@@ -71,8 +72,8 @@ class HomeScreen extends StatelessWidget {
                 child: ListView(
                   shrinkWrap: true,
                   children: const [
-                    MyTaskWidget(),
-                    OngoingJobWidget(),
+                    MyTaskScreen(),
+                    OngoingJobScreen(),
                   ],
                 ),
               )
