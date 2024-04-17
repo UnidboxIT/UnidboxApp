@@ -16,13 +16,20 @@ Widget eachListTileWidget(IconData iconData, String name, Color color) {
         size: 14,
       ),
       trailing: name == "Notifications"
-          ? Switch(
-              value: controller.isSwitched,
-              onChanged: (value) {
-                controller.toggleSwitch(value);
-              },
+          ? Transform.scale(
+              scale: 0.5,
+              child: Switch(
+                value: controller.isSwitched,
+                onChanged: (value) {
+                  controller.toggleSwitch(value);
+                },
+                inactiveThumbColor: AppColor.fontColor,
+                inactiveTrackColor: Colors.white,
+              ),
             )
-          : const Icon(Icons.arrow_forward_ios_outlined, size: 20),
+          : const SizedBox(
+              child: Icon(Icons.arrow_forward_ios_outlined, size: 20),
+            ),
     );
   });
 }

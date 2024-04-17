@@ -10,6 +10,7 @@ class OngoingJobScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<HomeController>().getAllOngoingJob();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
       child: Column(
@@ -25,7 +26,16 @@ class OngoingJobScreen extends StatelessWidget {
             return GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return eachOngoingJobWidget(controller.ongoingJobList[index]);
+                String jobType = "";
+                for (var data in controller.selectionList) {
+                  if (data.value == controller.ongoingJobList[index].jobType) {
+                    jobType = data.name;
+                  }
+                }
+                return eachOngoingJobWidget(
+                  controller.ongoingJobList[index],
+                  jobType,
+                );
               },
               shrinkWrap: true,
               itemCount: controller.ongoingJobList.length,

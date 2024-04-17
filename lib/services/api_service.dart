@@ -35,7 +35,6 @@ class ApiService {
     // Send the request and get the response
     var streamedResponse = await req.send();
     final response = await http.Response.fromStream(streamedResponse);
-    superPrint(response);
     return response;
   }
 }

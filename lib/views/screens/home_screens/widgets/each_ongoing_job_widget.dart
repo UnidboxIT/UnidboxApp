@@ -4,7 +4,7 @@ import 'package:unidbox_app/models/ongoing_job.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/constant/app_color.dart';
 
-Widget eachOngoingJobWidget(OngoingJob ongoingJob) {
+Widget eachOngoingJobWidget(OngoingJob ongoingJob, String jobType) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -19,37 +19,51 @@ Widget eachOngoingJobWidget(OngoingJob ongoingJob) {
         ]),
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 23),
     child: Stack(
-      alignment: Alignment.topRight,
       clipBehavior: Clip.none,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 32.2.w,
+              width: 26.w,
               color: Colors.transparent,
               child: textWidget(
                 ongoingJob.partnerList[1],
                 color: AppColor.pinkColor,
                 size: 14,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.bold,
                 maxLine: 2,
-                textOverflow: TextOverflow.visible,
+                textOverflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(height: 4),
             textWidget(
-              ongoingJob.jobType == "job" ? "Servicing" : "Delivery",
+              jobType,
               color: AppColor.orangeColor,
               fontWeight: FontWeight.w900,
               size: 14,
             ),
             const Spacer(),
             textWidget(
-              "Blk 123A Houngang North #14-532 S(232 123)",
+              ongoingJob.deliStreet,
               size: 12,
+              maxLine: 1,
               color: AppColor.fontColor,
-            )
+              textOverflow: TextOverflow.ellipsis,
+            ),
+            ongoingJob.deliPostalCode == "false"
+                ? const SizedBox()
+                : const SizedBox(height: 5),
+            textWidget(
+              ongoingJob.deliPostalCode == "false"
+                  ? ""
+                  : "(${ongoingJob.deliPostalCode})",
+              size: 12,
+              maxLine: 1,
+              color: AppColor.fontColor,
+              textOverflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
         Positioned(

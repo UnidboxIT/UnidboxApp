@@ -2,13 +2,18 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:unidbox_app/models/my_task.dart';
 import 'package:unidbox_app/models/ongoing_job.dart';
 import 'package:unidbox_app/services/home_service.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 
 class HomeController extends GetxController {
   List<OngoingJob> ongoingJobList = [];
+  List<MyTask> myTaskList = [];
+  List<SelectionField> selectionList = [];
+
   bool isOngoingJobLoading = false;
+  bool isMyTaskLoading = false;
   String timeText = "";
 
   calculateTime() {
@@ -16,12 +21,33 @@ class HomeController extends GetxController {
     DateTime morningStart = DateTime(now.year, now.month, now.day, 5, 0, 0);
     DateTime morningEnd = DateTime(now.year, now.month, now.day, 11, 59, 59);
     DateTime afternoonStart = DateTime(now.year, now.month, now.day, 12, 0, 0);
-    DateTime afternoonEnd = DateTime(now.year, now.month, now.day, 16, 59, 59);
+    DateTime afternoonEnd = DateTime(now.year, now.month, now.day, 20, 59, 59);
     if (now.isAfter(morningStart) && now.isBefore(morningEnd)) {
       timeText = "Good morning,";
     } else if (now.isAfter(afternoonStart) && now.isBefore(afternoonEnd)) {
       timeText = "Good afternoon,";
+    } else {
+      timeText = "";
     }
+    update();
+  }
+
+  Future<void> getAllMyTask() async {
+    isMyTaskLoading = true;
+    try {
+      http.Response response = await HomeService.myTask();
+      var result = jsonDecode(response.body);
+      myTaskList.clear();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          myTaskList.add(MyTask.fromJson(element));
+        }
+      }
+    } catch (e) {
+      superPrint(e.toString());
+    }
+    isMyTaskLoading = false;
     update();
   }
 
@@ -36,12 +62,28 @@ class HomeController extends GetxController {
         for (var element in dataList) {
           ongoingJobList.add(OngoingJob.fromJson(element));
         }
-        superPrint(ongoingJobList);
+        selectionData();
       }
     } catch (e) {
       superPrint(e.toString());
     }
     isOngoingJobLoading = false;
+    update();
+  }
+
+  Future<void> selectionData() async {
+    try {
+      http.Response response = await HomeService.selectionField();
+      var result = jsonDecode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          selectionList.add(SelectionField.fromJson(element));
+        }
+      }
+    } catch (e) {
+      superPrint(e);
+    }
     update();
   }
 }

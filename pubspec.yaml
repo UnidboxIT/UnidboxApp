@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^6.2.0
   flutter_svg: ^2.0.10+1
   barcode_widget: ^2.0.4
+  cached_network_image: ^3.3.1
   
 
 dev_dependencies:

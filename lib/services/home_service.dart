@@ -5,12 +5,39 @@ import 'package:http/http.dart' as http;
 
 class HomeService {
   /*
-  Login
+  My Task
+  */
+  static Future<Response> myTask() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/mytasks',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  /*
+  Ongoing Job
   */
   static Future<Response> ongoingJob() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/detail?fields=partner_id,job_type&offset=0&limit=80',
+      endpoint:
+          'joborder/detail?fields=partner_id,job_type,deli_postal_code,deli_street&offset=0&limit=80',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  /*
+  Selection 
+  */
+  static Future<Response> selectionField() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'selection/field?fields=job_type&model=job.order',
       headers: CommonMethods.setHeaders(),
     );
 

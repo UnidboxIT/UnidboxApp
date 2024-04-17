@@ -5,7 +5,8 @@ Widget textWidget(String text,
     double size = 14,
     Color color = Colors.black,
     int? maxLine,
-    TextOverflow textOverflow = TextOverflow.visible}) {
+    TextOverflow textOverflow = TextOverflow.visible,
+    TextAlign textAlign = TextAlign.justify}) {
   return Text(
     text,
     style: TextStyle(
@@ -15,5 +16,7 @@ Widget textWidget(String text,
     ),
     overflow: textOverflow,
     maxLines: maxLine,
+    textAlign: textAlign,
+    softWrap: true,
   );
 }
