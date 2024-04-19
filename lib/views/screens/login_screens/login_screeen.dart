@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 7.h),
             textWidget("Employee ID", fontWeight: FontWeight.bold),
             const SizedBox(height: 10),
-            eachTextFieldWidget(controller.txtUserID, "Employee Id"),
+            eachTextFieldWidget(controller.txtUserID, "Employee ID"),
             SizedBox(height: 3.h),
             textWidget("Password", fontWeight: FontWeight.bold),
             const SizedBox(height: 10),

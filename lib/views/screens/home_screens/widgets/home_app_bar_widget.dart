@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controller.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-class HomeAppBarWidget extends StatelessWidget {
+class HomeAppBarWidget extends StatefulWidget {
   const HomeAppBarWidget({super.key});
 
+  @override
+  State<HomeAppBarWidget> createState() => _HomeAppBarWidgetState();
+}
+
+class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -30,7 +36,7 @@ class HomeAppBarWidget extends StatelessWidget {
                 );
               }),
               textWidget(
-                "Ah Tan",
+                admin.name,
                 fontWeight: FontWeight.w600,
                 color: Colors.black.withOpacity(0.8),
                 size: 18,

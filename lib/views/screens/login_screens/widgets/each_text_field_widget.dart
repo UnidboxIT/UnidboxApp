@@ -26,6 +26,7 @@ Widget eachTextFieldWidget(TextEditingController controller, String hintText) {
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        suffix: const SizedBox(width: 25),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,

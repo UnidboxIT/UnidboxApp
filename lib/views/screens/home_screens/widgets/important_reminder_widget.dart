@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/notification_controller.dart';
@@ -38,6 +37,9 @@ class ImportantReminderWidget extends StatelessWidget {
               ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
+                    if (controller.notiList.isEmpty) {
+                      return Container();
+                    }
                     superPrint(controller.notiList.length);
                     return buildReminderTextWidget(controller.notiList[index]);
                   },

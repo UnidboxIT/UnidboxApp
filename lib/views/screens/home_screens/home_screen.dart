@@ -1,17 +1,42 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/home_screens/my_task_screen.dart';
 import '../../../controllers/notification_controller.dart';
+import '../../../models/admin.dart';
+import '../../../utils/commons/common_method.dart';
+import '../../../utils/commons/super_print.dart';
 import 'ongoing_job_screen.dart';
 import 'widgets/home_app_bar_widget.dart';
 import 'widgets/important_reminder_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var box = GetStorage();
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      if (xUserAuthorized()) {
+        var userJson = jsonDecode(box.read(AppKeys.userInfo));
+        admin = Admin.fromJson(userJson);
+        superPrint(admin);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

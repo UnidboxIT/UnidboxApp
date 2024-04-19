@@ -9,7 +9,7 @@ class AuthService {
   */
   static Future<http.Response> login(String userID, String password) async {
     Map<String, dynamic> formData = {
-      "userid": userID,
+      "employeeid": userID,
       "password": password,
     };
     superPrint(formData);
