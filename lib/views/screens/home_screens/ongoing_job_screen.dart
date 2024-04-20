@@ -23,15 +23,25 @@ class OngoingJobScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           GetBuilder<HomeController>(builder: (controller) {
+            if (controller.ongoingJobList.isEmpty) {
+              return const Center(
+                child: Text("No Data"),
+              );
+            }
             return GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
+                if (controller.isOngoingJobLoading) {
+                  return shimmerOngoingJobWidget();
+                }
+
                 String jobType = "";
                 for (var data in controller.selectionList) {
                   if (data.value == controller.ongoingJobList[index].jobType) {
                     jobType = data.name;
                   }
                 }
+
                 return eachOngoingJobWidget(
                   controller.ongoingJobList[index],
                   jobType,

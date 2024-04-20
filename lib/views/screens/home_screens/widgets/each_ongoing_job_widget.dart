@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/models/ongoing_job.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/constant/app_color.dart';
@@ -93,6 +94,93 @@ Widget eachOngoingJobWidget(OngoingJob ongoingJob, String jobType) {
                 : "assets/images/car.png",
             width: 30,
             height: 30,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget shimmerOngoingJobWidget() {
+  return SizedBox(
+    width: 40.w,
+    height: 50.0,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Shimmer.fromColors(
+          baseColor: Colors.grey.shade200,
+          highlightColor: Colors.white,
+          child: Container(
+            width: 40.w,
+            height: 30.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0.h,
+          right: 5,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 10.w,
+              height: 5.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 3.h,
+          left: 20,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 15.w,
+              height: 3.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 7.h,
+          left: 20,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 25.w,
+              height: 3.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 15,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 33.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
           ),
         ),
       ],

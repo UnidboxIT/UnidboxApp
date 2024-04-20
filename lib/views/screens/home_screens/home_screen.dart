@@ -11,7 +11,6 @@ import 'package:unidbox_app/views/screens/home_screens/my_task_screen.dart';
 import '../../../controllers/notification_controller.dart';
 import '../../../models/admin.dart';
 import '../../../utils/commons/common_method.dart';
-import '../../../utils/commons/super_print.dart';
 import 'ongoing_job_screen.dart';
 import 'widgets/home_app_bar_widget.dart';
 import 'widgets/important_reminder_widget.dart';
@@ -32,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
       if (xUserAuthorized()) {
         var userJson = jsonDecode(box.read(AppKeys.userInfo));
         admin = Admin.fromJson(userJson);
-        superPrint(admin);
       }
     });
   }
