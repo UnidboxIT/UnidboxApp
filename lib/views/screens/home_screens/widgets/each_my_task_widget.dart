@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/models/my_task.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
@@ -61,6 +63,60 @@ Widget eachMyTaskWidget(MyTask myTask) {
             ),
             const SizedBox(height: 8)
           ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget shimmerMyTaskWidget() {
+  return SizedBox(
+    width: 40.w,
+    height: 40.0,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Shimmer.fromColors(
+          baseColor: Colors.grey.shade200,
+          highlightColor: Colors.white,
+          child: Container(
+            width: 40.w,
+            height: 25.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 15,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 33.w,
+              height: 15.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 15,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 33.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
         ),
       ],
     ),

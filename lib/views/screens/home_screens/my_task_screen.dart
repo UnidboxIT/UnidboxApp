@@ -33,6 +33,9 @@ class MyTaskScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                 itemBuilder: (context, index) {
+                  if (controller.myTaskList.isEmpty) {
+                    return shimmerMyTaskWidget();
+                  }
                   return eachMyTaskWidget(controller.myTaskList[index]);
                 },
                 itemCount: controller.myTaskList.length,
