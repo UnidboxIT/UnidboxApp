@@ -28,7 +28,7 @@ class ProfileBodyWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          profileImageWidget(),
+          Center(child: profileImageWidget()),
           eachListTileWidget(
             CupertinoIcons.person_fill,
             "Personal Information",

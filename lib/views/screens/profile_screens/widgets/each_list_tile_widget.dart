@@ -18,6 +18,7 @@ Widget eachListTileWidget(IconData iconData, String name, Color color) {
       trailing: name == "Notifications"
           ? Transform.scale(
               scale: 0.5,
+              alignment: Alignment.centerRight,
               child: Switch(
                 value: controller.isSwitched,
                 onChanged: (value) {
