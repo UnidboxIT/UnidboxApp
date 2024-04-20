@@ -31,7 +31,7 @@ class MessageScreen extends StatelessWidget {
                     width: 100.w,
                     height: 100.h,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColor.bgColor,
                         borderRadius: BorderRadius.circular(25)),
                     child: const MessageBodyScreen(),
                   ),
