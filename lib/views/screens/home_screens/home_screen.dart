@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -56,45 +55,46 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const HomeAppBarWidget(),
               Stack(
-                  alignment: Alignment.bottomCenter,
-                  clipBehavior: Clip.none,
-                  children: [
-                    Transform.translate(
-                      offset: Offset(45.w, 2.h),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Container(
-                          height: 20,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor.primary,
-                            border: const Border(),
+                alignment: Alignment.bottomCenter,
+                clipBehavior: Clip.none,
+                children: [
+                  Transform.translate(
+                    offset: Offset(45.w, 2.h),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Container(
+                        height: 20,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColor.primary,
+                          border: const Border(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: Offset(44.1.w, 2.5.h),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: Container(
+                        height: 30,
+                        width: 45,
+                        decoration: const BoxDecoration(
+                          color: Color(0xffF6F6F6),
+                          border: Border(),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(50),
                           ),
                         ),
                       ),
                     ),
-                    Transform.translate(
-                      offset: Offset(44.w, 2.5.h),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                        child: Container(
-                          height: 30,
-                          width: 45,
-                          decoration: const BoxDecoration(
-                            color: Color(0xffF6F6F6),
-                            border: Border(),
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(50),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 20, right: 0),
-                      child: const ImportantReminderWidget(),
-                    ),
-                  ]),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 20, right: 0),
+                    child: const ImportantReminderWidget(),
+                  ),
+                ],
+              ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,

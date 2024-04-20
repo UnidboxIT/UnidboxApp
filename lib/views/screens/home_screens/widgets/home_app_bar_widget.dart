@@ -20,7 +20,7 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
       Get.find<HomeController>().calculateTime();
     });
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 12),
       child: Row(
         children: [
           Column(
@@ -37,9 +37,9 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
               }),
               textWidget(
                 admin.name,
-                fontWeight: FontWeight.w600,
-                color: Colors.black.withOpacity(0.8),
-                size: 18,
+                fontWeight: FontWeight.w900,
+                color: Colors.black,
+                size: 20,
               )
             ],
           ),

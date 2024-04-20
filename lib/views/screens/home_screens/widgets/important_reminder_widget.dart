@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/controllers/notification_controller.dart';
 import 'package:unidbox_app/models/noti.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
@@ -15,11 +15,12 @@ class ImportantReminderWidget extends StatelessWidget {
     Get.find<NotificationController>().getAllNotiReminder();
     return Container(
       width: 100.w,
+      height: 19.h,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
         ),
         color: AppColor.primary,
       ),
@@ -38,9 +39,8 @@ class ImportantReminderWidget extends StatelessWidget {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     if (controller.notiList.isEmpty) {
-                      return Container();
+                      return shimmerReminderWidget();
                     }
-                    superPrint(controller.notiList.length);
                     return buildReminderTextWidget(controller.notiList[index]);
                   },
                   separatorBuilder: (context, index) {
@@ -57,6 +57,55 @@ class ImportantReminderWidget extends StatelessWidget {
   Widget buildReminderTextWidget(Noti noti) {
     return textWidget(
       "${noti.trackingValueList[0].fieldDesc} :  ${noti.trackingValueList[0].oldValue} -> ${noti.trackingValueList[0].newValue}",
+    );
+  }
+
+  Widget shimmerReminderWidget() {
+    return SizedBox(
+      width: 100.w,
+      height: 40.0,
+      child: Row(
+        children: [
+          Shimmer.fromColors(
+            baseColor: Colors.grey.shade200,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 20.w,
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+          const SizedBox(width: 5),
+          Shimmer.fromColors(
+            baseColor: Colors.grey.shade200,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 2.w,
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+          const SizedBox(width: 5),
+          Shimmer.fromColors(
+            baseColor: Colors.grey.shade200,
+            highlightColor: Colors.white,
+            child: Container(
+              width: 50.w,
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
