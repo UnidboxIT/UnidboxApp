@@ -24,16 +24,20 @@ profileBarCodeBottomSheet() {
                 fontWeight: FontWeight.w900,
                 size: 15,
               ),
-              SizedBox(height: 6.h),
+              SizedBox(height: 5.h),
               BarcodeWidget(
                 barcode: Barcode.codabar(printStartStop: true),
                 data: '123456',
                 color: AppColor.primary,
                 width: 50.w,
-                height: 10.h,
+                height: 13.h,
                 textPadding: 10,
                 style: const TextStyle(
-                    color: Colors.black, fontSize: 20, letterSpacing: 10),
+                  color: Colors.black,
+                  fontSize: 20,
+                  letterSpacing: 10,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               SizedBox(height: 10.h),
               SizedBox(

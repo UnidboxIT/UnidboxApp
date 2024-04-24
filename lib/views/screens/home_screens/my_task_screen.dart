@@ -26,12 +26,11 @@ class MyTaskScreen extends StatelessWidget {
           const SizedBox(height: 0),
           GetBuilder<HomeController>(builder: (controller) {
             return SizedBox(
-              height: 26.h,
+              height: 27.h,
               child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                padding: const EdgeInsets.only(right: 20, top: 20, bottom: 10),
                 itemBuilder: (context, index) {
                   if (controller.myTaskList.isEmpty) {
                     return shimmerMyTaskWidget();
@@ -40,7 +39,7 @@ class MyTaskScreen extends StatelessWidget {
                 },
                 itemCount: controller.myTaskList.length,
                 separatorBuilder: (context, index) {
-                  return const SizedBox(width: 15);
+                  return const SizedBox(width: 20);
                 },
               ),
             );

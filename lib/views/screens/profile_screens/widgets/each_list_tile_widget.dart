@@ -4,9 +4,11 @@ import 'package:unidbox_app/controllers/profile_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget eachListTileWidget(IconData iconData, String name, Color color) {
+Widget eachListTileWidget(
+    IconData iconData, String name, Color color, VoidCallback onPressed) {
   return GetBuilder<ProfileController>(builder: (controller) {
     return ListTile(
+      onTap: onPressed,
       leading: Icon(iconData, color: color, size: 23),
       contentPadding: EdgeInsets.zero,
       title: textWidget(

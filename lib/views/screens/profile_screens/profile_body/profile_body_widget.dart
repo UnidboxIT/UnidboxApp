@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
+import '../change_password/change_password_screen.dart';
 import '../widgets/each_list_tile_widget.dart';
 import '../widgets/logout_widget.dart';
 import '../widgets/profile_image_widget.dart';
@@ -29,26 +31,16 @@ class ProfileBodyWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(child: profileImageWidget()),
+          eachListTileWidget(CupertinoIcons.person_fill, "Personal Information",
+              AppColor.orangeColor, () {}),
+          eachListTileWidget(CupertinoIcons.bell_fill, "Notifications",
+              AppColor.pinkColor, () {}),
           eachListTileWidget(
-            CupertinoIcons.person_fill,
-            "Personal Information",
-            AppColor.orangeColor,
-          ),
-          eachListTileWidget(
-            CupertinoIcons.bell_fill,
-            "Notifications",
-            AppColor.pinkColor,
-          ),
-          eachListTileWidget(
-            Icons.calendar_month,
-            "Leave",
-            AppColor.orangeColor,
-          ),
-          eachListTileWidget(
-            CupertinoIcons.padlock_solid,
-            "Change Password",
-            AppColor.pinkColor,
-          ),
+              Icons.calendar_month, "Leave", AppColor.orangeColor, () {}),
+          eachListTileWidget(CupertinoIcons.padlock_solid, "Change Password",
+              AppColor.pinkColor, () {
+            Get.to(() => const ChangePasswordScreen());
+          }),
           const Spacer(),
           logoutWidget(),
           SizedBox(height: 7.h)
