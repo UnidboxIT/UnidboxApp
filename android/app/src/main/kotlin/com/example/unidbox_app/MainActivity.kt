@@ -1,4 +1,4 @@
-package com.example.unidbox_app
+package com.unidbox_home.app
 
 import io.flutter.embedding.android.FlutterActivity
 
