@@ -26,8 +26,10 @@ Widget changePasswordTextFieldWidget(
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle:
-            TextStyle(fontSize: 12, color: AppColor.fontColor.withOpacity(0.6)),
+        hintStyle: TextStyle(
+            fontSize: 13,
+            color: AppColor.fontColor.withOpacity(0.6),
+            fontWeight: FontWeight.w500),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
         suffix: const SizedBox(width: 25),
         border: OutlineInputBorder(

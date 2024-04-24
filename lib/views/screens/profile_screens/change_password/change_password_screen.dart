@@ -77,7 +77,7 @@ class ChangePasswordScreen extends StatelessWidget {
             Center(
               child: SizedBox(
                 width: 40.w,
-                height: 35,
+                height: 38,
                 child: buttonWidget(
                   "Update",
                   () {},
