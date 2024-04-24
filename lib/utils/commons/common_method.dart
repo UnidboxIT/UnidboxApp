@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../controllers/nav_bar_controller.dart';
 import '../../views/screens/login_screens/login_screeen.dart';
-import '../../views/widgets/button_widget.dart';
+import '../../views/widgets/button/button_widget.dart';
 import '../constant/app_constant.dart';
 
 xUserAuthorized() {

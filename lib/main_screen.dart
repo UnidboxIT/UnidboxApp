@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unidbox_app/controllers/nav_bar_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'views/widgets/bottom_nav_bar.dart';
+import 'views/widgets/nav_bar_widget/bottom_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/controllers/login_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import 'dart:math' as math;
+import '../bottom_sheets/logout_bottom_sheet.dart';
 
 Widget logoutWidget() {
   return GestureDetector(
     onTap: () {
-      Get.find<LoginController>().logout();
+      logoutBottomSheet();
     },
     child: Container(
       width: 30.w,
@@ -16,9 +16,12 @@ Widget logoutWidget() {
       color: Colors.transparent,
       child: Row(
         children: [
-          Icon(
-            Icons.logout,
-            color: AppColor.pinkColor,
+          Transform.rotate(
+            angle: math.pi,
+            child: Icon(
+              Icons.logout,
+              color: AppColor.pinkColor,
+            ),
           ),
           const SizedBox(width: 10),
           textWidget(

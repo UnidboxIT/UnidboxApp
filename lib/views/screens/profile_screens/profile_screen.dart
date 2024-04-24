@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/profile_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/profile_screens/widgets/barcode_widget.dart';
-import 'profile_body_widget.dart';
+import 'profile_body/profile_body_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

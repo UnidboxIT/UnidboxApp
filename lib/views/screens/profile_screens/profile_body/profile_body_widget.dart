@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
-import 'widgets/each_list_tile_widget.dart';
-import 'widgets/logout_widget.dart';
-import 'widgets/profile_image_widget.dart';
+import '../widgets/each_list_tile_widget.dart';
+import '../widgets/logout_widget.dart';
+import '../widgets/profile_image_widget.dart';
 
 class ProfileBodyWidget extends StatelessWidget {
   const ProfileBodyWidget({super.key});
