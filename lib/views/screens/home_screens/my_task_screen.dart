@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../controllers/home_controller.dart';
+import '../../../controllers/home_controllers/home_controller.dart';
 import '../../widgets/text_widget.dart';
 import 'widgets/each_my_task_widget.dart';
 

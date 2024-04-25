@@ -10,8 +10,8 @@ import 'package:unidbox_app/services/auth_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
-import 'package:unidbox_app/views/screens/login_screens/login_screeen.dart';
-import '../main_screen.dart';
+import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
+import '../../main_screen.dart';
 import 'package:http/http.dart' as http;
 
 class LoginController extends GetxController {

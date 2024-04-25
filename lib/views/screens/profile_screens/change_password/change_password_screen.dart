@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/controllers/change_password_controller.dart';
+import 'package:unidbox_app/controllers/profile_controllers/change_password_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
-import 'widgets/change_password_text_field_widget.dart';
+import '../widgets/profile_text_field_widget.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -52,14 +50,14 @@ class ChangePasswordScreen extends StatelessWidget {
           children: [
             textWidget("Old Password", fontWeight: FontWeight.bold, size: 14),
             const SizedBox(height: 7),
-            changePasswordTextFieldWidget(
+            profileTextFieldWidget(
               controller.txtOldPwd,
               "Old Password",
             ),
             const SizedBox(height: 15),
             textWidget("New Password", fontWeight: FontWeight.bold, size: 14),
             const SizedBox(height: 7),
-            changePasswordTextFieldWidget(
+            profileTextFieldWidget(
               controller.txtNewPwd,
               "New Password",
             ),
@@ -67,7 +65,7 @@ class ChangePasswordScreen extends StatelessWidget {
             textWidget("Confirm New Password",
                 fontWeight: FontWeight.bold, size: 14),
             const SizedBox(height: 7),
-            changePasswordTextFieldWidget(
+            profileTextFieldWidget(
               controller.txtConfirmPwd,
               "Confirm New Password",
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../controllers/message_controller.dart';
+import '../../../controllers/chat_controllers/message_controller.dart';
 import '../../../utils/constant/app_color.dart';
 import 'message_body_screen.dart';
 import 'widgets/message_app_bar_widget.dart';

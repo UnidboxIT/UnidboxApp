@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unidbox_app/controllers/login_controller.dart';
+import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
 
 Widget eachTextFieldWidget(TextEditingController controller, String hintText) {
   return Container(

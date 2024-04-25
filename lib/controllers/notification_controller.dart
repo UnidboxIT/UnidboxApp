@@ -8,6 +8,13 @@ class NotificationController extends GetxController {
   bool isReminderLoading = false;
   List<Noti> notiList = [];
 
+  bool isSwitched = false;
+
+  void toggleSwitch(value) {
+    isSwitched = value;
+    update();
+  }
+
   Future<void> getAllNotiReminder() async {
     try {
       http.Response response = await NotiService.notiReminder();

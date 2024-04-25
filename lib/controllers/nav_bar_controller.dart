@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
 import '../utils/constant/app_color.dart';
 import '../views/screens/home_screens/home_screen.dart';
 import '../views/screens/message_screens/messages_screen.dart';

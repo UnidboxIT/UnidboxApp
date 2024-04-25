@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'dart:math' as math;
-import 'package:unidbox_app/controllers/login_controller.dart';
+import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constant/app_color.dart';

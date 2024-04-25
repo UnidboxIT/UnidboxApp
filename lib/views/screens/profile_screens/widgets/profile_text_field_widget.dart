@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
-Widget changePasswordTextFieldWidget(
-  TextEditingController controller,
-  String hintText,
-) {
+Widget profileTextFieldWidget(TextEditingController controller, String hintText,
+    {bool isNumber = false}) {
   return Container(
     height: 40,
     decoration: BoxDecoration(
@@ -24,6 +22,7 @@ Widget changePasswordTextFieldWidget(
       controller: controller,
       cursorColor: Colors.grey,
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      keyboardType: isNumber ? TextInputType.phone : TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(

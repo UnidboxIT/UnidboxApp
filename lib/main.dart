@@ -6,7 +6,7 @@ import 'package:unidbox_app/main_screen.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
-import 'package:unidbox_app/views/screens/login_screens/login_screeen.dart';
+import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
 
 import 'controllers/nav_bar_controller.dart';
 
