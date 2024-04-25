@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/profile_controllers/profile_controller.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/profile_screens/widgets/profile_text_field_widget.dart';
@@ -15,10 +16,11 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(ProfileController());
+    Get.find<ProfileController>().getPartnerInfo();
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
             globalAppBarWidget("Personal Information", () {
@@ -35,16 +37,17 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
   }
 
   Widget personalInfoUpdateWidget() {
-    return SingleChildScrollView(
-      child: Container(
-        width: 100.w,
-        height: 100.h,
-        decoration: BoxDecoration(
-            color: AppColor.bgColor, borderRadius: BorderRadius.circular(20)),
-        child: GetBuilder<ProfileController>(builder: (controller) {
-          return Padding(
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColor.bgColor, borderRadius: BorderRadius.circular(20)),
+      child: GetBuilder<ProfileController>(builder: (controller) {
+        return SingleChildScrollView(
+          child: Container(
+            width: 100.w,
+            height: 90.h,
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 titleAndTextFieldWidget(
                   "First Name",
@@ -78,14 +81,15 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                 SizedBox(
                   width: 40.w,
                   child: buttonWidget("Update", () {
+                    superPrint("Here");
                     Get.back();
                   }),
-                )
+                ),
               ],
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 

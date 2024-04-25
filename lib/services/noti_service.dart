@@ -6,7 +6,7 @@ import '../utils/commons/common_method.dart';
 
 class NotiService {
   /*
-  Ongoing Job
+  Reminder
   */
   static Future<Response> notiReminder() async {
     http.Response response = await ApiService().get(
