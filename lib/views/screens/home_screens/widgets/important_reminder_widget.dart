@@ -36,17 +36,18 @@ class ImportantReminderWidget extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    if (controller.notiList.isEmpty) {
-                      return shimmerReminderWidget();
-                    }
-                    return buildReminderTextWidget(controller.notiList[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 5);
-                  },
-                  itemCount: 2),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  if (controller.notiList.isEmpty) {
+                    return shimmerReminderWidget();
+                  }
+                  return buildReminderTextWidget(controller.notiList[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 5);
+                },
+                itemCount: 2,
+              ),
             ],
           );
         },
@@ -55,9 +56,13 @@ class ImportantReminderWidget extends StatelessWidget {
   }
 
   Widget buildReminderTextWidget(Noti noti) {
-    return textWidget(
-      "${noti.trackingValueList[0].fieldDesc} :  ${noti.trackingValueList[0].oldValue} -> ${noti.trackingValueList[0].newValue}",
-    );
+    if (noti.trackingValueList.isNotEmpty) {
+      return textWidget(
+        "${noti.trackingValueList[0].fieldDesc} :  ${noti.trackingValueList[0].oldValue} -> ${noti.trackingValueList[0].newValue}",
+      );
+    } else {
+      return textWidget(noti.body);
+    }
   }
 
   Widget shimmerReminderWidget() {

@@ -5,8 +5,8 @@ class Profile {
   final String mobile;
   final String email;
   final List<dynamic> countryList;
-  final List<String> race;
-  final List<String> religion;
+  final List<dynamic> race;
+  final List<dynamic> religion;
   final String imageUrl;
   final String firstName;
   final String lastName;

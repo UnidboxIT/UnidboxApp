@@ -9,4 +9,5 @@ class AppColor {
   static Color fontColor = const Color(0xff58595B);
   static Color dropshadowColor = const Color(0xff4A4A4A).withOpacity(0.1);
   static Color bgColor = const Color(0xffFAFAFA);
+  static Color bottomSheetBgColor = const Color(0xffD8EDE5);
 }

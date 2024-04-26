@@ -10,7 +10,7 @@ import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import 'dropdown_widget/each_dropdown_widget.dart';
+import 'dropdown_widget/country_dropdown_widget.dart';
 
 class PersonalInfoUpdateScreen extends StatelessWidget {
   const PersonalInfoUpdateScreen({super.key});
@@ -18,7 +18,11 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(ProfileController());
-    Get.find<ProfileController>().getPartnerInfo();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var pfController = Get.find<ProfileController>();
+      pfController.getPartnerInfo();
+      pfController.getCoutry();
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -30,7 +34,7 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
             }),
             Transform.translate(
               offset: Offset(0, 13.h),
-              child: personalInfoUpdateWidget(),
+              child: personalInfoUpdateWidget(context),
             )
           ],
         ),
@@ -38,17 +42,19 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
     );
   }
 
-  Widget personalInfoUpdateWidget() {
+  Widget personalInfoUpdateWidget(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           color: AppColor.bgColor, borderRadius: BorderRadius.circular(20)),
       child: GetBuilder<ProfileController>(builder: (controller) {
         return SingleChildScrollView(
+          reverse: true,
           child: Container(
             width: 100.w,
             height: 90.h,
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 titleAndTextFieldWidget(
@@ -68,19 +74,16 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                   "Email",
                   controller.txtEmail,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textWidget(
-                      "Nationality",
-                      fontWeight: FontWeight.bold,
-                      size: 15,
-                    ),
-                    const SizedBox(height: 7),
-                    eachDropDownWidget(),
-                    const SizedBox(height: 13),
-                  ],
+
+                textWidget(
+                  "Nationality",
+                  fontWeight: FontWeight.bold,
+                  size: 15,
                 ),
+                const SizedBox(height: 7),
+                countryDropDownWidget(context),
+                const SizedBox(height: 13),
+
                 // titleAndTextFieldWidget(
                 //   "Nationality",
                 //   controller.txtNationality,
@@ -94,12 +97,16 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                   controller.txtRace,
                 ),
                 SizedBox(height: 4.h),
-                SizedBox(
-                  width: 40.w,
-                  child: buttonWidget("Update", () {
-                    superPrint("Here");
-                    Get.back();
-                  }),
+                Center(
+                  child: Container(
+                    width: 40.w,
+                    height: 40,
+                    color: Colors.transparent,
+                    child: buttonWidget("Update", () {
+                      superPrint("Here");
+                      Get.back();
+                    }),
+                  ),
                 ),
               ],
             ),

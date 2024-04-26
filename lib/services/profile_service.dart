@@ -31,8 +31,7 @@ class ProfileService {
       String lastName,
       String phone,
       String email,
-      String countryId,
-      String image,
+      int countryId,
       String religion,
       String race) async {
     var box = GetStorage();
@@ -44,7 +43,6 @@ class ProfileService {
       "phone": phone,
       "email": email,
       "country_id": countryId,
-      "image_1920": image,
       "religion": religion,
       "race": race,
     };
