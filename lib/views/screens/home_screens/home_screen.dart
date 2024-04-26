@@ -9,7 +9,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/home_screens/my_task_screen.dart';
 import '../../../controllers/notification_controller.dart';
-import '../../../models/admin.dart';
+import '../../../models/login/admin.dart';
 import '../../../utils/commons/common_method.dart';
 import 'ongoing_job_screen.dart';
 import 'widgets/home_app_bar_widget.dart';

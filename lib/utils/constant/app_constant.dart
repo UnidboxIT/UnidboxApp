@@ -1,4 +1,4 @@
-import 'package:unidbox_app/models/admin.dart';
+import 'package:unidbox_app/models/login/admin.dart';
 
 String apiToken = "";
 

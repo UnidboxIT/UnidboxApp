@@ -3,15 +3,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/services/api_service.dart';
-import '../models/admin.dart';
+import '../models/login/admin.dart';
 import '../utils/commons/common_method.dart';
 import '../utils/constant/app_constant.dart';
 
 class ProfileService {
   /*
-  get all partner
+  get profile data
   */
-  static Future<Response> partner() async {
+  static Future<Response> profile() async {
     var box = GetStorage();
     var userJson = jsonDecode(box.read(AppKeys.userInfo));
     admin = Admin.fromJson(userJson);
@@ -53,6 +53,39 @@ class ProfileService {
       endpoint: 'joborder/partner/update/${admin.partnerId}',
       headers: CommonMethods.setHeaders(),
       formData: formData,
+    );
+
+    return response;
+  }
+
+  //get country
+  static Future<Response> country() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/country',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  //get religion
+  static Future<Response> religion() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/religion',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  //get race
+  static Future<Response> race() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/race',
+      headers: CommonMethods.setHeaders(),
     );
 
     return response;

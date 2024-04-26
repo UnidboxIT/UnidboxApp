@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:unidbox_app/models/my_task.dart';
-import 'package:unidbox_app/models/ongoing_job.dart';
+import 'package:unidbox_app/models/home/my_task.dart';
+import 'package:unidbox_app/models/home/ongoing_job.dart';
 import 'package:unidbox_app/services/home_service.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 

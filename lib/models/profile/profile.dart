@@ -5,8 +5,8 @@ class Profile {
   final String mobile;
   final String email;
   final List<dynamic> countryList;
-  final String race;
-  final String religion;
+  final List<String> race;
+  final List<String> religion;
   final String imageUrl;
   final String firstName;
   final String lastName;
@@ -19,8 +19,8 @@ class Profile {
       this.countryList = const [],
       this.imageUrl = "",
       this.mobile = "",
-      this.race = "",
-      this.religion = "",
+      this.race = const [],
+      this.religion = const [],
       this.firstName = "",
       this.lastName = ""});
 
@@ -32,8 +32,8 @@ class Profile {
       mobile: json['mobile'].toString(),
       email: json['email'].toString(),
       countryList: List.from(json['country_id']),
-      race: json['race'].toString(),
-      religion: json['religion'].toString(),
+      race: List.from(json['race']),
+      religion: List.from(json['religion']),
       imageUrl: json['image_url'].toString(),
       firstName: json['first_name'].toString(),
       lastName: json['last_name'].toString(),

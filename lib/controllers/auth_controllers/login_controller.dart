@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:unidbox_app/controllers/nav_bar_controller.dart';
-import 'package:unidbox_app/models/admin.dart';
+import 'package:unidbox_app/models/login/admin.dart';
 import 'package:unidbox_app/services/auth_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';

@@ -21,7 +21,7 @@ Widget profileTextFieldWidget(TextEditingController controller, String hintText,
       textAlign: TextAlign.left,
       controller: controller,
       cursorColor: Colors.grey,
-      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
       keyboardType: isNumber ? TextInputType.phone : TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,

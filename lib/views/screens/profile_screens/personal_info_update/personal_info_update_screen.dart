@@ -10,6 +10,8 @@ import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import 'dropdown_widget/each_dropdown_widget.dart';
+
 class PersonalInfoUpdateScreen extends StatelessWidget {
   const PersonalInfoUpdateScreen({super.key});
 
@@ -66,10 +68,23 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                   "Email",
                   controller.txtEmail,
                 ),
-                titleAndTextFieldWidget(
-                  "Nationality",
-                  controller.txtNationality,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textWidget(
+                      "Nationality",
+                      fontWeight: FontWeight.bold,
+                      size: 15,
+                    ),
+                    const SizedBox(height: 7),
+                    eachDropDownWidget(),
+                    const SizedBox(height: 13),
+                  ],
                 ),
+                // titleAndTextFieldWidget(
+                //   "Nationality",
+                //   controller.txtNationality,
+                // ),
                 titleAndTextFieldWidget(
                   "Religion",
                   controller.txtReligion,
@@ -78,6 +93,7 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                   "Race",
                   controller.txtRace,
                 ),
+                SizedBox(height: 4.h),
                 SizedBox(
                   width: 40.w,
                   child: buttonWidget("Update", () {
