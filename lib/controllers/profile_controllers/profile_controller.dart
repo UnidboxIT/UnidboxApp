@@ -12,6 +12,8 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:http/http.dart' as http;
 
+import '../../views/widgets/bottom_sheets/successfully_bottom_sheet.dart';
+
 class ProfileController extends GetxController {
   TextEditingController txtFirstName = TextEditingController();
   TextEditingController txtLastName = TextEditingController();
@@ -31,6 +33,8 @@ class ProfileController extends GetxController {
   Country selectedCountry = Country();
   Race selectedRace = Race();
   Religion selectedReligion = Religion();
+
+  bool isUpdateLoading = false;
 
   updateSelectedCountryData(values) {
     for (var data in countryList) {
@@ -171,6 +175,8 @@ class ProfileController extends GetxController {
 
   //update profile
   Future<void> updatePartnerInfo() async {
+    isUpdateLoading = true;
+    update();
     try {
       http.Response response = await ProfileService.updatePartner(
           txtFirstName.text,
@@ -183,12 +189,14 @@ class ProfileController extends GetxController {
       var result = jsonDecode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (result['result']['code'] == 200) {
-          // getPartnerInfo();
+          getPartnerInfo();
+          successfullyBottomSheet();
         }
       }
     } catch (e) {
       superPrint(e);
     }
+    isUpdateLoading = false;
     update();
   }
 }

@@ -20,7 +20,7 @@ successfullyBottomSheet() {
             children: [
               const Spacer(),
               SizedBox(
-                  width: 50.w,
+                  width: 60.w,
                   child: Lottie.asset("assets/lottie/success.json")),
               const Spacer(),
               textWidget(

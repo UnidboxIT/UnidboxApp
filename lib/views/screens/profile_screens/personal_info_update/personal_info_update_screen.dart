@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/profile_controllers/profile_controller.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/profile_screens/personal_info_update/dropdown_widget/race_dropdown_widget.dart';
@@ -11,8 +10,6 @@ import 'package:unidbox_app/views/screens/profile_screens/widgets/profile_text_f
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
-import '../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import 'dropdown_widget/country_dropdown_widget.dart';
 
 class PersonalInfoUpdateScreen extends StatelessWidget {
@@ -109,9 +106,8 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                     height: 40,
                     color: Colors.transparent,
                     child: buttonWidget("Update", () {
-                      successfullyBottomSheet();
-                      //controller.updatePartnerInfo();
-                    }),
+                      controller.updatePartnerInfo();
+                    }, isBool: controller.isUpdateLoading),
                   ),
                 ),
               ],
