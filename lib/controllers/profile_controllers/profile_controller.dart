@@ -178,10 +178,14 @@ class ProfileController extends GetxController {
           txtContactNumber.text,
           txtEmail.text,
           selectedCountry.id,
-          txtReligion.text,
-          txtRace.text);
+          selectedReligion.id,
+          selectedRace.id);
       var result = jsonDecode(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {}
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (result['result']['code'] == 200) {
+          // getPartnerInfo();
+        }
+      }
     } catch (e) {
       superPrint(e);
     }

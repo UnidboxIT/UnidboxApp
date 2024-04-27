@@ -12,6 +12,7 @@ import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import 'dropdown_widget/country_dropdown_widget.dart';
 
 class PersonalInfoUpdateScreen extends StatelessWidget {
@@ -108,8 +109,8 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                     height: 40,
                     color: Colors.transparent,
                     child: buttonWidget("Update", () {
-                      superPrint("Here");
-                      Get.back();
+                      successfullyBottomSheet();
+                      //controller.updatePartnerInfo();
                     }),
                   ),
                 ),

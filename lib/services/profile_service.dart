@@ -26,14 +26,8 @@ class ProfileService {
   }
 
   //Update Partner
-  static Future<Response> updatePartner(
-      String firstName,
-      String lastName,
-      String phone,
-      String email,
-      int countryId,
-      String religion,
-      String race) async {
+  static Future<Response> updatePartner(String firstName, String lastName,
+      String phone, String email, int countryId, int religion, int race) async {
     var box = GetStorage();
     var userJson = jsonDecode(box.read(AppKeys.userInfo));
     admin = Admin.fromJson(userJson);
