@@ -6,7 +6,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../button/button_widget.dart';
 
-successfullyBottomSheet() {
+successfullyBottomSheet(String title, String bodyText) {
   return showModalBottomSheet(
       barrierColor: Colors.transparent,
       backgroundColor: const Color(0xffD8EDE5),
@@ -24,14 +24,14 @@ successfullyBottomSheet() {
                   child: Lottie.asset("assets/lottie/success.json")),
               const Spacer(),
               textWidget(
-                "Successfully Updated",
+                title,
                 fontWeight: FontWeight.w900,
                 color: AppColor.pinkColor,
                 size: 16,
               ),
               const SizedBox(height: 10),
               textWidget(
-                "The informations have been updated",
+                bodyText,
                 fontWeight: FontWeight.w500,
                 size: 14,
               ),

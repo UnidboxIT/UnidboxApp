@@ -18,7 +18,7 @@ class ChangePasswordScreen extends StatelessWidget {
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
-        extendBody: true,
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             globalAppBarWidget("Change Password", () {
@@ -37,52 +37,55 @@ class ChangePasswordScreen extends StatelessWidget {
   Widget changePasswordBodyWidget() {
     return GetBuilder<ChangePasswordController>(builder: (controller) {
       return Container(
-        width: 100.w,
-        height: 100.h,
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppColor.bgColor,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            textWidget("Old Password", fontWeight: FontWeight.bold, size: 14),
-            const SizedBox(height: 7),
-            profileTextFieldWidget(
-              controller.txtOldPwd,
-              "Old Password",
-            ),
-            const SizedBox(height: 15),
-            textWidget("New Password", fontWeight: FontWeight.bold, size: 14),
-            const SizedBox(height: 7),
-            profileTextFieldWidget(
-              controller.txtNewPwd,
-              "New Password",
-            ),
-            const SizedBox(height: 15),
-            textWidget("Confirm New Password",
-                fontWeight: FontWeight.bold, size: 14),
-            const SizedBox(height: 7),
-            profileTextFieldWidget(
-              controller.txtConfirmPwd,
-              "Confirm New Password",
-            ),
-            SizedBox(
-              height: 40.h,
-            ),
-            Center(
-              child: SizedBox(
-                width: 40.w,
-                height: 38,
-                child: buttonWidget(
-                  "Update",
-                  () {},
-                ),
+        child: Container(
+          width: 100.w,
+          height: 90.h,
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              textWidget("Old Password", fontWeight: FontWeight.bold, size: 14),
+              const SizedBox(height: 7),
+              profileTextFieldWidget(
+                controller.txtOldPwd,
+                "Old Password",
               ),
-            )
-          ],
+              const SizedBox(height: 15),
+              textWidget("New Password", fontWeight: FontWeight.bold, size: 14),
+              const SizedBox(height: 7),
+              profileTextFieldWidget(
+                controller.txtNewPwd,
+                "New Password",
+              ),
+              const SizedBox(height: 15),
+              textWidget("Confirm New Password",
+                  fontWeight: FontWeight.bold, size: 14),
+              const SizedBox(height: 7),
+              profileTextFieldWidget(
+                controller.txtConfirmPwd,
+                "Confirm New Password",
+              ),
+              SizedBox(
+                height: 40.h,
+              ),
+              Center(
+                child: Container(
+                  width: 40.w,
+                  height: 38,
+                  color: Colors.transparent,
+                  child: buttonWidget("Update", () {
+                    FocusManager.instance.primaryFocus!.unfocus();
+                    controller.changePwd();
+                  }, isBool: controller.isUpdateLoading),
+                ),
+              )
+            ],
+          ),
         ),
       );
     });

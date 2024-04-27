@@ -190,7 +190,10 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (result['result']['code'] == 200) {
           getPartnerInfo();
-          successfullyBottomSheet();
+          successfullyBottomSheet(
+            "Successfully Updated",
+            "The informations have been updated",
+          );
         }
       }
     } catch (e) {

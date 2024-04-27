@@ -22,4 +22,25 @@ class AuthService {
 
     return response;
   }
+
+  /*
+  Change Password
+  */
+  static Future<http.Response> changePassword(
+      String oldPwd, String newPwd, String confirmPwd) async {
+    Map<String, dynamic> formData = {
+      "old_password": oldPwd,
+      "new_password": newPwd,
+      "confirm_password": confirmPwd,
+    };
+    superPrint(formData);
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/partner/change-password',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }
