@@ -24,16 +24,36 @@ class ProfileController extends GetxController {
   TextEditingController txtSearch = TextEditingController();
 
   Profile profile = Profile();
-  Race race = Race();
-  Religion religion = Religion();
+  List<Race> raceList = [];
+  List<Religion> religionList = [];
   List<Country> countryList = [];
 
   Country selectedCountry = Country();
+  Race selectedRace = Race();
+  Religion selectedReligion = Religion();
 
   updateSelectedCountryData(values) {
     for (var data in countryList) {
       if (data.name.contains(values)) {
         selectedCountry = Country(id: data.id, name: data.name);
+      }
+    }
+    update();
+  }
+
+  updateSelectedRaceData(values) {
+    for (var data in raceList) {
+      if (data.name.contains(values)) {
+        selectedRace = Race(id: data.id, name: data.name);
+      }
+    }
+    update();
+  }
+
+  updateSelectedReligionData(values) {
+    for (var data in religionList) {
+      if (data.name.contains(values)) {
+        selectedReligion = Religion(id: data.id, name: data.name);
       }
     }
     update();
@@ -56,7 +76,9 @@ class ProfileController extends GetxController {
           txtRace.text = profile.race[1];
           selectedCountry =
               Country(id: profile.countryList[0], name: profile.countryList[1]);
-          update();
+          selectedRace = Race(id: profile.race[0], name: profile.race[1]);
+          selectedReligion =
+              Religion(id: profile.religion[0], name: profile.religion[1]);
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
@@ -81,6 +103,16 @@ class ProfileController extends GetxController {
           for (var element in dataList) {
             countryList.add(Country.fromJson(element));
           }
+          countryList.sort((a, b) {
+            if (a.name == selectedCountry.name) {
+              return -1;
+            } else if (b.name == selectedCountry.name) {
+              return 1;
+            } else {
+              return a.name
+                  .compareTo(b.name); // Sort other elements alphabetically
+            }
+          });
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
@@ -90,18 +122,51 @@ class ProfileController extends GetxController {
     } catch (e) {
       superPrint(e);
     }
-
     update();
   }
 
   //get religion
   Future<void> getReligion() async {
-    try {} catch (e) {}
+    try {
+      http.Response response = await ProfileService.religion();
+      var result = jsonDecode(response.body);
+      religionList.clear();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          for (var element in dataList) {
+            religionList.add(Religion.fromJson(element));
+          }
+        } else if (result['result']['code'] == 401) {
+          CommonMethods.unAuthorizedLogout();
+        } else {
+          CommonMethods.customizedAlertDialog(result['result']['message']);
+        }
+      }
+    } catch (e) {
+      superPrint(e);
+    }
   }
 
   //get race
   Future<void> getRace() async {
-    try {} catch (e) {}
+    try {
+      http.Response response = await ProfileService.race();
+      var result = jsonDecode(response.body);
+      raceList.clear();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          for (var element in dataList) {
+            raceList.add(Race.fromJson(element));
+          }
+        } else if (result['result']['code'] == 401) {
+          CommonMethods.unAuthorizedLogout();
+        } else {
+          CommonMethods.customizedAlertDialog(result['result']['message']);
+        }
+      }
+    } catch (e) {}
   }
 
   //update profile
@@ -116,7 +181,6 @@ class ProfileController extends GetxController {
           txtReligion.text,
           txtRace.text);
       var result = jsonDecode(response.body);
-
       if (response.statusCode == 200 || response.statusCode == 201) {}
     } catch (e) {
       superPrint(e);

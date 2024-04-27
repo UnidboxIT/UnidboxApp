@@ -5,6 +5,8 @@ import 'package:unidbox_app/controllers/profile_controllers/profile_controller.d
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/profile_screens/personal_info_update/dropdown_widget/race_dropdown_widget.dart';
+import 'package:unidbox_app/views/screens/profile_screens/personal_info_update/dropdown_widget/religion_dropdown_widget.dart';
 import 'package:unidbox_app/views/screens/profile_screens/widgets/profile_text_field_widget.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
@@ -17,11 +19,12 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var pfController = Get.find<ProfileController>();
       pfController.getPartnerInfo();
       pfController.getCoutry();
+      pfController.getReligion();
+      pfController.getRace();
     });
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -74,7 +77,6 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                   "Email",
                   controller.txtEmail,
                 ),
-
                 textWidget(
                   "Nationality",
                   fontWeight: FontWeight.bold,
@@ -83,19 +85,22 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
                 const SizedBox(height: 7),
                 countryDropDownWidget(context),
                 const SizedBox(height: 13),
-
-                // titleAndTextFieldWidget(
-                //   "Nationality",
-                //   controller.txtNationality,
-                // ),
-                titleAndTextFieldWidget(
+                textWidget(
                   "Religion",
-                  controller.txtReligion,
+                  fontWeight: FontWeight.bold,
+                  size: 15,
                 ),
-                titleAndTextFieldWidget(
+                const SizedBox(height: 7),
+                religionDropDownWidget(context),
+                const SizedBox(height: 13),
+                textWidget(
                   "Race",
-                  controller.txtRace,
+                  fontWeight: FontWeight.bold,
+                  size: 15,
                 ),
+                const SizedBox(height: 7),
+                raceDropDownWidget(context),
+                const SizedBox(height: 13),
                 SizedBox(height: 4.h),
                 Center(
                   child: Container(
