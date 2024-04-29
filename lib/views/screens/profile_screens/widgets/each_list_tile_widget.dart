@@ -30,8 +30,6 @@ Widget eachListTileWidget(
                 thumbColor: Colors.white,
                 activeColor: AppColor.primary,
                 trackColor: Colors.grey,
-                // inactiveThumbColor: AppColor.fontColor,
-                // inactiveTrackColor: Colors.white,
               ),
             )
           : const SizedBox(

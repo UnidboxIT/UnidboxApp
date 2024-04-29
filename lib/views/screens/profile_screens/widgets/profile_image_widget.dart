@@ -13,22 +13,28 @@ Widget profileImageWidget() {
       },
       child: Column(
         children: [
+          const SizedBox(height: 10),
           controller.isUpdateLoading
               ? CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 35,
-                  child: CircularProgressIndicator(
-                    color: AppColor.primary,
-                  ))
+                  backgroundColor: Colors.grey.shade200,
+                  radius: 40,
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: AppColor.primary,
+                    ),
+                  ),
+                )
               : controller.imageFile.path != ""
                   ? CircleAvatar(
                       backgroundColor: Colors.white,
-                      radius: 35,
+                      radius: 40,
                       backgroundImage: FileImage(controller.imageFile),
                     )
                   : CircleAvatar(
                       backgroundColor: Colors.white,
-                      radius: 35,
+                      radius: 40,
                       backgroundImage: NetworkImage(
                         controller.profile.imageUrl,
                       ),
@@ -40,7 +46,7 @@ Widget profileImageWidget() {
             fontWeight: FontWeight.bold,
             size: 18,
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 8),
         ],
       ),
     );
