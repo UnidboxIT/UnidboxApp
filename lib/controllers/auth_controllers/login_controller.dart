@@ -69,6 +69,7 @@ class LoginController extends GetxController {
 
   Future<void> logout() async {
     box.erase();
+    clearTextFieldData();
     Get.offAll(() => const LoginScreen());
     update();
   }

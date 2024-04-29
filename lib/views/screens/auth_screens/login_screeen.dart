@@ -15,7 +15,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
-    Get.find<LoginController>().clearTextFieldData();
     return SuperScaffold(
       child: Scaffold(
         backgroundColor: Colors.white,

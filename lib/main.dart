@@ -8,6 +8,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
 
+import 'controllers/auth_controllers/login_controller.dart';
 import 'controllers/nav_bar_controller.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ class UnidboxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(NavBarController());
+    Get.put(LoginController());
     var box = GetStorage();
     apiToken = box.read(AppKeys.apiToken) ?? "";
     return ResponsiveSizer(
