@@ -36,6 +36,7 @@ class ChangePasswordController extends GetxController {
         CommonMethods.customizedAlertDialog(result['result']['error'],
             isPop: false);
       }
+      FocusManager.instance.primaryFocus!.unfocus();
     } catch (e) {
       superPrint(e);
     }

@@ -5,25 +5,32 @@ import 'package:unidbox_app/controllers/profile_controllers/profile_controller.d
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../bottom_sheets/image_upload_bottom_sheet.dart';
+
 Widget profileImageWidget() {
   return GetBuilder<ProfileController>(builder: (controller) {
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 35,
-          backgroundImage: CachedNetworkImageProvider(
-            controller.profile.imageUrl,
+    return GestureDetector(
+      onTap: () {
+        imageUploadBottomSheet();
+      },
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 35,
+            backgroundImage: CachedNetworkImageProvider(
+              controller.profile.imageUrl,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        textWidget(
-          controller.profile.name,
-          color: AppColor.fontColor,
-          fontWeight: FontWeight.w600,
-          size: 16,
-        )
-      ],
+          const SizedBox(height: 10),
+          textWidget(
+            controller.profile.name,
+            color: AppColor.fontColor,
+            fontWeight: FontWeight.w600,
+            size: 16,
+          )
+        ],
+      ),
     );
   });
 }

@@ -79,7 +79,6 @@ class ChangePasswordScreen extends StatelessWidget {
                   height: 38,
                   color: Colors.transparent,
                   child: buttonWidget("Update", () {
-                    FocusManager.instance.primaryFocus!.unfocus();
                     controller.changePwd();
                   }, isBool: controller.isUpdateLoading),
                 ),

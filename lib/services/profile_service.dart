@@ -18,7 +18,7 @@ class ProfileService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/partner/${admin.partnerId}?fields=name,phone,mobile,email,country_id,image_url,race,religion',
+          'joborder/partner/${admin.partnerId}?fields=name,phone,mobile,email,country_id,image_url,race,religion,default_code',
       headers: CommonMethods.setHeaders(),
     );
 

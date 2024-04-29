@@ -10,6 +10,7 @@ class Profile {
   final String imageUrl;
   final String firstName;
   final String lastName;
+  final String defaultCode;
 
   Profile(
       {this.id = 0,
@@ -22,21 +23,22 @@ class Profile {
       this.race = const [],
       this.religion = const [],
       this.firstName = "",
-      this.lastName = ""});
+      this.lastName = "",
+      this.defaultCode = ""});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      id: json['id'] ?? 0,
-      name: json['name'].toString(),
-      phone: json['phone'].toString(),
-      mobile: json['mobile'].toString(),
-      email: json['email'].toString(),
-      countryList: List.from(json['country_id']),
-      race: List.from(json['race']),
-      religion: List.from(json['religion']),
-      imageUrl: json['image_url'].toString(),
-      firstName: json['first_name'].toString(),
-      lastName: json['last_name'].toString(),
-    );
+        id: json['id'] ?? 0,
+        name: json['name'].toString(),
+        phone: json['phone'].toString(),
+        mobile: json['mobile'].toString(),
+        email: json['email'].toString(),
+        countryList: List.from(json['country_id']),
+        race: List.from(json['race']),
+        religion: List.from(json['religion']),
+        imageUrl: json['image_url'].toString(),
+        firstName: json['first_name'].toString(),
+        lastName: json['last_name'].toString(),
+        defaultCode: json['default_code'].toString());
   }
 }

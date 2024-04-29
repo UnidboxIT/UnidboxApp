@@ -8,6 +8,12 @@ import 'package:unidbox_app/services/home_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 
+extension MapGetExtension<K, V> on Map<K, V> {
+  V? get(String key) {
+    return this[key];
+  }
+}
+
 class HomeController extends GetxController {
   List<OngoingJob> ongoingJobList = [];
   List<MyTask> myTaskList = [];
@@ -57,7 +63,9 @@ class HomeController extends GetxController {
     try {
       http.Response response = await HomeService.ongoingJob();
       var result = jsonDecode(response.body);
+      superPrint(result);
       ongoingJobList.clear();
+
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
@@ -78,14 +86,11 @@ class HomeController extends GetxController {
     try {
       http.Response response = await HomeService.selectionField();
       var result = jsonDecode(response.body);
-
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           selectionList.add(SelectionField.fromJson(element));
         }
-      } else if (result['error']['code'] == 100) {
-        CommonMethods.unAuthorizedLogout();
       }
     } catch (e) {
       superPrint(e);
