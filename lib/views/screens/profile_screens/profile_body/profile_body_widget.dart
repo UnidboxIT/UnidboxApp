@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-
-import '../../../../controllers/profile_controllers/profile_controller.dart';
 import '../change_password/change_password_screen.dart';
 import '../personal_info_update/personal_info_update_screen.dart';
 import '../widgets/each_list_tile_widget.dart';
@@ -16,9 +14,6 @@ class ProfileBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
-    var pfController = Get.find<ProfileController>();
-    pfController.getPartnerInfo();
     return Container(
       width: 100.w,
       decoration: BoxDecoration(

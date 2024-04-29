@@ -62,18 +62,20 @@ class HomeController extends GetxController {
     isOngoingJobLoading = true;
     try {
       http.Response response = await HomeService.ongoingJob();
-      var result = jsonDecode(response.body);
-      superPrint(result);
+      Map<String, dynamic> result = jsonDecode(response.body);
       ongoingJobList.clear();
-
-      if (result['result']['code'] == 200) {
-        Iterable dataList = result['result']['records'];
-        for (var element in dataList) {
-          ongoingJobList.add(OngoingJob.fromJson(element));
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          for (var element in dataList) {
+            ongoingJobList.add(OngoingJob.fromJson(element));
+          }
+          selectionData();
         }
-        selectionData();
-      } else if (result['error']['code'] == 100) {
-        CommonMethods.unAuthorizedLogout();
+      } else if (result.containsKey('error')) {
+        if (result['error']['code'] == 100) {
+          CommonMethods.unAuthorizedLogout();
+        }
       }
     } catch (e) {
       superPrint(e.toString());

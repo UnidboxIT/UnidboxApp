@@ -73,7 +73,7 @@ class ImportantReminderWidget extends StatelessWidget {
         children: [
           Shimmer.fromColors(
             baseColor: Colors.grey.shade200,
-            highlightColor: Colors.white,
+            highlightColor: Colors.grey.shade100,
             child: Container(
               width: 20.w,
               height: 30,

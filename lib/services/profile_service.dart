@@ -50,6 +50,22 @@ class ProfileService {
     return response;
   }
 
+  //image update
+  static Future<Response> imageUpdate(String image) async {
+    var box = GetStorage();
+    var userJson = jsonDecode(box.read(AppKeys.userInfo));
+    admin = Admin.fromJson(userJson);
+    Map<String, dynamic> formData = {"image_1920": image};
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/partner/update/${admin.partnerId}',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
   //get country
   static Future<Response> country() async {
     http.Response response = await ApiService().get(

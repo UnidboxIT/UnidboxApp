@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/profile_controllers/profile_controller.dart';
@@ -14,6 +13,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(ProfileController());
+    var pfController = Get.find<ProfileController>();
+    pfController.getPartnerInfo();
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(

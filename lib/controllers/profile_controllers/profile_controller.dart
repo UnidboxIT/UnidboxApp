@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:unidbox_app/models/profile/country.dart';
 import 'package:unidbox_app/models/profile/profile.dart';
 import 'package:unidbox_app/models/profile/race.dart';
@@ -35,6 +37,32 @@ class ProfileController extends GetxController {
   Religion selectedReligion = Religion();
 
   bool isUpdateLoading = false;
+  File imageFile = File("");
+  final ImagePicker picker = ImagePicker();
+  String base64Image = "";
+
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        base64Image = await imageToBase64(imageFile);
+        Get.back();
+        imageUpload(base64Image);
+      } else {
+        superPrint('No image selected.');
+      }
+    } catch (e) {
+      superPrint('Error picking image: $e');
+    }
+    update();
+  }
+
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
 
   updateSelectedCountryData(values) {
     for (var data in countryList) {
@@ -89,6 +117,7 @@ class ProfileController extends GetxController {
           CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
+      superPrint(profile.imageUrl);
     } catch (e) {
       superPrint(e);
     }
@@ -186,6 +215,29 @@ class ProfileController extends GetxController {
           selectedCountry.id,
           selectedReligion.id,
           selectedRace.id);
+      var result = jsonDecode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (result['result']['code'] == 200) {
+          getPartnerInfo();
+          successfullyBottomSheet(
+            "Successfully Updated",
+            "The informations have been updated",
+          );
+        }
+      }
+    } catch (e) {
+      superPrint(e);
+    }
+    isUpdateLoading = false;
+    update();
+  }
+
+  //Image Upload
+  Future<void> imageUpload(String image) async {
+    isUpdateLoading = true;
+    update();
+    try {
+      http.Response response = await ProfileService.imageUpdate(image);
       var result = jsonDecode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (result['result']['code'] == 200) {
