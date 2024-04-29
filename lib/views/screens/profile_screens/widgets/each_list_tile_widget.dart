@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unidbox_app/controllers/notification_controller.dart';
@@ -13,21 +14,21 @@ Widget eachListTileWidget(
       contentPadding: EdgeInsets.zero,
       title: textWidget(
         name,
-        color: AppColor.fontColor,
-        fontWeight: FontWeight.w600,
-        size: 14,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        size: 16,
       ),
       trailing: name == "Notifications"
           ? Transform.scale(
-              scale: 0.5,
+              scale: 0.6,
               alignment: Alignment.centerRight,
-              child: Switch(
+              child: CupertinoSwitch(
                 value: controller.isSwitched,
                 onChanged: (value) {
                   controller.toggleSwitch(value);
                 },
-                inactiveThumbColor: AppColor.fontColor,
-                inactiveTrackColor: Colors.white,
+                // inactiveThumbColor: AppColor.fontColor,
+                // inactiveTrackColor: Colors.white,
               ),
             )
           : const SizedBox(

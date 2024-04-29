@@ -26,9 +26,9 @@ Widget logoutWidget() {
           const SizedBox(width: 10),
           textWidget(
             "Logout",
-            color: AppColor.fontColor,
-            fontWeight: FontWeight.w600,
-            size: 14,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            size: 16,
           ),
         ],
       ),

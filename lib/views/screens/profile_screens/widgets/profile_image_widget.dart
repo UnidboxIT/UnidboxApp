@@ -20,11 +20,11 @@ Widget profileImageWidget() {
                   child: CircularProgressIndicator(
                     color: AppColor.primary,
                   ))
-              : controller.imageFile?.path != ""
+              : controller.imageFile.path != ""
                   ? CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 35,
-                      backgroundImage: FileImage(controller.imageFile!),
+                      backgroundImage: FileImage(controller.imageFile),
                     )
                   : CircleAvatar(
                       backgroundColor: Colors.white,
@@ -36,10 +36,11 @@ Widget profileImageWidget() {
           const SizedBox(height: 10),
           textWidget(
             controller.profile.name,
-            color: AppColor.fontColor,
-            fontWeight: FontWeight.w600,
-            size: 16,
-          )
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            size: 18,
+          ),
+          const SizedBox(height: 15),
         ],
       ),
     );
