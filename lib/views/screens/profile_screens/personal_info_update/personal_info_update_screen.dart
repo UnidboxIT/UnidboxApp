@@ -19,7 +19,7 @@ class PersonalInfoUpdateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var pfController = Get.find<ProfileController>();
-      pfController.getPartnerInfo();
+
       pfController.getCoutry();
       pfController.getReligion();
       pfController.getRace();

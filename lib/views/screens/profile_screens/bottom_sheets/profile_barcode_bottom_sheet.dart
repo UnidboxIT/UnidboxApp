@@ -26,8 +26,8 @@ profileBarCodeBottomSheet() {
               ),
               SizedBox(height: 5.h),
               BarcodeWidget(
-                barcode: Barcode.codabar(printStartStop: true),
-                data: '123456',
+                barcode: Barcode.ean13(),
+                data: '123456789013',
                 color: AppColor.primary,
                 width: 50.w,
                 height: 13.h,

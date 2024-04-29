@@ -11,10 +11,10 @@ xUserAuthorized() {
   return apiToken.isNotEmpty;
 }
 
+var box = GetStorage();
+
 class CommonMethods {
   static Map<String, String> setHeaders() {
-    var box = GetStorage();
-
     return {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -73,6 +73,7 @@ class CommonMethods {
   static void unAuthorizedLogout() async {
     Get.find<NavBarController>().currentIndex = 0;
     Get.find<NavBarController>().update();
+    box.erase();
     Get.offAll(() => const LoginScreen());
     customizedAlertDialog("Session Expired".tr);
   }

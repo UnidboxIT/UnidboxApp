@@ -17,6 +17,8 @@ class ProfileBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(ProfileController());
+    var pfController = Get.find<ProfileController>();
+    pfController.getPartnerInfo();
     return Container(
       width: 100.w,
       decoration: BoxDecoration(

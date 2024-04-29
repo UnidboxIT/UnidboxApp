@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:unidbox_app/models/home/my_task.dart';
 import 'package:unidbox_app/models/home/ongoing_job.dart';
 import 'package:unidbox_app/services/home_service.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 
 class HomeController extends GetxController {
@@ -57,12 +58,14 @@ class HomeController extends GetxController {
       http.Response response = await HomeService.ongoingJob();
       var result = jsonDecode(response.body);
       ongoingJobList.clear();
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           ongoingJobList.add(OngoingJob.fromJson(element));
         }
         selectionData();
+      } else if (result['error']['code'] == 100) {
+        CommonMethods.unAuthorizedLogout();
       }
     } catch (e) {
       superPrint(e.toString());
@@ -75,11 +78,14 @@ class HomeController extends GetxController {
     try {
       http.Response response = await HomeService.selectionField();
       var result = jsonDecode(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
+
+      if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           selectionList.add(SelectionField.fromJson(element));
         }
+      } else if (result['error']['code'] == 100) {
+        CommonMethods.unAuthorizedLogout();
       }
     } catch (e) {
       superPrint(e);
