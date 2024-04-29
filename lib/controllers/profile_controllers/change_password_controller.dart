@@ -29,7 +29,6 @@ class ChangePasswordController extends GetxController {
         txtConfirmPwd.text,
       );
       var result = jsonDecode(response.body);
-      superPrint(result);
       if (result['result']['code'] == 200) {
         successfullyBottomSheet(
           "Successfully Updated",

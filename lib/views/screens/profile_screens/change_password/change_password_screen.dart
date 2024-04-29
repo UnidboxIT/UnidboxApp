@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/profile_controllers/change_password_controller.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
@@ -79,7 +80,21 @@ class ChangePasswordScreen extends StatelessWidget {
                   height: 38,
                   color: Colors.transparent,
                   child: buttonWidget("Update", () {
-                    controller.changePwd();
+                    if (controller.txtOldPwd.text.isEmpty) {
+                      CommonMethods.customizedAlertDialog(
+                          "Please enter old password",
+                          isPop: false);
+                    } else if (controller.txtNewPwd.text.isEmpty) {
+                      CommonMethods.customizedAlertDialog(
+                          "Please enter new password",
+                          isPop: false);
+                    } else if (controller.txtOldPwd.text.isEmpty) {
+                      CommonMethods.customizedAlertDialog(
+                          "Please enter confirm new password",
+                          isPop: false);
+                    } else {
+                      controller.changePwd();
+                    }
                   }, isBool: controller.isUpdateLoading),
                 ),
               )
