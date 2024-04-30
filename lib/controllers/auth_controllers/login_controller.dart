@@ -55,7 +55,11 @@ class LoginController extends GetxController {
         var userJson = jsonDecode(box.read(AppKeys.userInfo));
         admin = Admin.fromJson(userJson);
         Get.find<NavBarController>().currentIndex = 0;
-        Get.to(() => const MainScreen());
+        await Future.delayed(const Duration(seconds: 1));
+        Get.offAll(() => const MainScreen(),
+            transition: Transition.circularReveal,
+            duration: const Duration(seconds: 1));
+
         update();
       } else {
         CommonMethods.customizedAlertDialog(result['result']['error']);

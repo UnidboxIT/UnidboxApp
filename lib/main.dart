@@ -15,6 +15,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   runApp(const UnidboxApp());
+  Get.config(
+    enableLog: true,
+    defaultPopGesture: true,
+    defaultTransition: Transition.cupertino,
+  );
 }
 
 class UnidboxApp extends StatelessWidget {
@@ -43,6 +48,11 @@ class UnidboxApp extends StatelessWidget {
               useMaterial3: true,
             ),
             home: xUserAuthorized() ? const MainScreen() : const LoginScreen(),
+            defaultTransition: Transition.circularReveal,
+            transitionDuration: Get.defaultDialogTransitionDuration,
+            enableLog: true,
+            opaqueRoute: Get.isOpaqueRouteDefault,
+            popGesture: Get.isPopGestureEnable,
           ),
         );
       },

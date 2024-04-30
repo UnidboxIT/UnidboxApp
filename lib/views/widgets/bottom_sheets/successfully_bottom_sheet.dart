@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -7,13 +6,14 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../button/button_widget.dart';
 import 'global_bottom_sheet.dart';
 
-successfullyBottomSheet(String title, String bodyText) {
+Future<void> successfullyBottomSheet(
+    String title, String bodyText, VoidCallback onPressed) {
   return globalBottomSheet(
-    successfulWidget(title, bodyText),
+    successfulWidget(title, bodyText, onPressed),
   );
 }
 
-Widget successfulWidget(String title, String bodyText) {
+Widget successfulWidget(String title, String bodyText, VoidCallback onPressed) {
   return Container(
     height: 50.h,
     width: 100.w,
@@ -53,9 +53,7 @@ Widget successfulWidget(String title, String bodyText) {
         SizedBox(
           width: 30.w,
           height: 35,
-          child: buttonWidget("Ok", () {
-            Get.back();
-          }),
+          child: buttonWidget("Ok", onPressed),
         ),
         const Spacer(),
       ],

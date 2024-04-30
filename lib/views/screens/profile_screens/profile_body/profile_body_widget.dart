@@ -31,17 +31,27 @@ class ProfileBodyWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(child: profileImageWidget()),
-          eachListTileWidget(CupertinoIcons.person_fill, "Personal Information",
-              AppColor.orangeColor, () {
-            Get.to(() => const PersonalInfoUpdateScreen());
-          }),
+          eachListTileWidget(
+            CupertinoIcons.person_fill,
+            "Personal Information",
+            AppColor.orangeColor,
+            () async {
+              Get.to(() => const PersonalInfoUpdateScreen(),
+                  transition: Transition.circularReveal,
+                  duration: const Duration(seconds: 1));
+            },
+          ),
           eachListTileWidget(CupertinoIcons.bell_fill, "Notifications",
               AppColor.pinkColor, () {}),
           eachListTileWidget(
               Icons.calendar_month, "Leave", AppColor.orangeColor, () {}),
           eachListTileWidget(CupertinoIcons.padlock_solid, "Change Password",
               AppColor.pinkColor, () {
-            Get.to(() => const ChangePasswordScreen());
+            Get.to(
+              () => const ChangePasswordScreen(),
+              transition: Transition.circularReveal,
+              duration: const Duration(seconds: 1),
+            );
           }),
           const Spacer(),
           logoutWidget(),

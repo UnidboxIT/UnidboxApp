@@ -117,7 +117,6 @@ class ProfileController extends GetxController {
           CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
-      superPrint(profile.imageUrl);
     } catch (e) {
       superPrint(e);
     }
@@ -222,6 +221,9 @@ class ProfileController extends GetxController {
           successfullyBottomSheet(
             "Successfully Updated",
             "The informations have been updated",
+            () {
+              Get.back();
+            },
           );
         }
       }
@@ -245,6 +247,9 @@ class ProfileController extends GetxController {
           successfullyBottomSheet(
             "Successfully Updated",
             "The informations have been updated",
+            () {
+              Get.back();
+            },
           );
         }
       }
