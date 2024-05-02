@@ -14,9 +14,11 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(CalendarController());
+
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
+        backgroundColor: AppColor.bgColor,
         body: SizedBox(
             height: 100.h,
             width: 100.w,
@@ -29,11 +31,9 @@ class CalendarScreen extends StatelessWidget {
                     width: 100.w,
                     height: 100.h,
                     decoration: BoxDecoration(
-                      color: AppColor.bgColor,
+                      color: const Color(0xffF6F6F6),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
                     child: const CalendarViewScreen(),
                   ),
                 ),
