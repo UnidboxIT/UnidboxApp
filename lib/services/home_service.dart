@@ -23,8 +23,8 @@ class HomeService {
   static Future<Response> ongoingJob() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint:
-          'joborder/detail?fields=partner_id,job_type,deli_postal_code,deli_street&offset=0&limit=80',
+      endpoint: 'joborder/detail',
+      // 'joborder/detail?fields=partner_id,job_type,deli_postal_code,deli_street&offset=0&limit=80',
       headers: CommonMethods.setHeaders(),
     );
 
