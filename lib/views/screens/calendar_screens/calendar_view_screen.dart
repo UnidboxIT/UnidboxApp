@@ -14,24 +14,17 @@ class CalendarViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (controller) {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: statusWidget(),
           ),
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                controller.isMonthlyVisible
-                    ? const MonthlyCalendarViewWidget()
-                    : const WeekCalendarViewWidget(),
-                const SizedBox(height: 15),
-                const CalendarHandymanAssignWidget()
-              ],
-            ),
-          )
+          controller.isMonthlyVisible
+              ? const MonthlyCalendarViewWidget()
+              : const WeekCalendarViewWidget(),
+          const SizedBox(height: 15),
+          const CalendarHandymanAssignWidget()
         ],
       );
     });
