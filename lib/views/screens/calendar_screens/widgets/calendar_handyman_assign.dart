@@ -67,27 +67,90 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        textWidget("09:00 AM"),
-        Row(
-          children: [
-            textWidget("."),
-            Expanded(
-              child: SizedBox(
-                height: 50,
-                width: 100.w,
-                child: ListView.separated(
+        textWidget(
+          "09:00 AM",
+          fontWeight: FontWeight.bold,
+          size: 13,
+          color: Colors.black,
+        ),
+        Container(
+          height: 13.h,
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.more_vert,
+                size: 30,
+              ),
+              const SizedBox(width: 30),
+              Expanded(
+                child: SizedBox(
+                  width: 100.w,
+                  child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return textWidget("Item $index");
+                      return Container(
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    textWidget("Yan Shan",
+                                        fontWeight: FontWeight.bold, size: 16),
+                                    textWidget("Servicing", size: 13),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 3,
+                                        spreadRadius: 3,
+                                      )
+                                    ],
+                                  ),
+                                  child: SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/service.png',
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            textWidget("Blk 123dkfldf")
+                          ],
+                        ),
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(width: 20);
                     },
-                    itemCount: 10),
-              ),
-            )
-          ],
+                    itemCount: 10,
+                  ),
+                ),
+              )
+            ],
+          ),
         )
       ],
     );
