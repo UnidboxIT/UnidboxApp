@@ -23,9 +23,10 @@ class CalendarViewScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: statusWidget(),
                 ),
-                controller.isMonthlyVisible
-                    ? const MonthlyCalendarViewWidget()
-                    : const WeekCalendarViewWidget(),
+                const MonthlyCalendarViewWidget(),
+                // controller.isMonthlyVisible
+                //     ? const MonthlyCalendarViewWidget()
+                //     : const WeekCalendarViewWidget(),
                 const SizedBox(height: 15),
                 const CalendarHandymanAssignWidget()
               ],

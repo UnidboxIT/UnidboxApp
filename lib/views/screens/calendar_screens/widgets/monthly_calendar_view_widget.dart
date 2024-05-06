@@ -39,7 +39,9 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
               firstDay: DateTime.utc(2023),
               lastDay: DateTime.now().add(const Duration(days: 365)),
               focusedDay: controller.focusedDay,
-              calendarFormat: CalendarFormat.month,
+              calendarFormat: controller.isMonthlyVisible
+                  ? CalendarFormat.month
+                  : CalendarFormat.week,
               headerVisible: true,
               daysOfWeekHeight: 20,
               headerStyle: const HeaderStyle(
@@ -49,11 +51,13 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                 formatButtonVisible: false,
               ),
               onDaySelected: (selectedDay, focusedDay) {
-                controller.updateSelectedDateTime(selectedDay);
-                Get.find<CalendarController>().jobOrderByDateRate(
-                  DateFormat('yyyy-MM-dd').format(selectedDay),
-                  DateFormat('yyyy-MM-dd').format(focusedDay),
-                );
+                if (selectedDay.isAfter(DateTime.now())) {
+                  controller.updateSelectedDateTime(selectedDay);
+                  Get.find<CalendarController>().jobOrderByDateRate(
+                    DateFormat('yyyy-MM-dd').format(selectedDay),
+                    DateFormat('yyyy-MM-dd').format(focusedDay),
+                  );
+                }
               },
               calendarBuilders: CalendarBuilders(
                 headerTitleBuilder: (context, day) {
@@ -145,13 +149,14 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                 },
                 defaultBuilder: (context, day, focusedDay) {
                   int differenceInDays = day.difference(focusedDay).inDays;
+                  final isBeforeToday = day.isBefore(DateTime.now());
                   return Container(
                     height: 40,
                     width: 40,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: day.day == controller.selectedDay?.day
+                        color: day.day == controller.selectedDay.day
                             ? Colors.blue
                             : Colors.white),
                     child: Column(
@@ -159,11 +164,14 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         textWidget(day.day.toString(),
-                            color: day.day == controller.selectedDay?.day
+                            color: day.day == controller.selectedDay.day
                                 ? Colors.white
-                                : Colors.black),
+                                : isBeforeToday
+                                    ? Colors.grey
+                                    : Colors.black),
                         differenceInDays < 4 &&
-                                day.month == DateTime.now().month
+                                day.month == DateTime.now().month &&
+                                !isBeforeToday
                             ? Container(
                                 width: 5,
                                 height: 5,
@@ -183,7 +191,7 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: day.day == controller.selectedDay?.day
+                      color: day.day == controller.selectedDay.day
                           ? Colors.blue
                           : Colors.lightBlueAccent.withOpacity(0.15),
                     ),
@@ -192,7 +200,7 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         textWidget(day.day.toString(),
-                            color: day.day == controller.selectedDay?.day
+                            color: day.day == controller.selectedDay.day
                                 ? Colors.white
                                 : Colors.black),
                         Container(
