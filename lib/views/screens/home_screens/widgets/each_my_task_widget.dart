@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
@@ -39,8 +38,8 @@ Widget eachMyTaskWidget(MyTask myTask) {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: 3.h),
-            CachedNetworkImage(
-              imageUrl: myTask.imageUrl,
+            Image.network(
+              myTask.imageUrl,
               width: 150,
               height: 13.h,
               fit: BoxFit.contain,
