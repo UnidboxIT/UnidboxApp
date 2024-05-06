@@ -35,8 +35,9 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                 ),
               ]),
           child: TableCalendar(
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
+            // firstDay: DateTime.utc(2010, 10, 16),
+            firstDay: DateTime.utc(2023),
+            lastDay: DateTime.now().add(const Duration(days: 365)),
             focusedDay: focusedDay,
             calendarFormat: CalendarFormat.month,
             headerVisible: true,
