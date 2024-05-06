@@ -1,11 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_available_widget.dart';
+import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_busy_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+
+import '../../../../models/job_order/job_order.dart';
 
 class CalendarHandymanAssignWidget extends StatelessWidget {
   const CalendarHandymanAssignWidget({super.key});
@@ -88,112 +92,147 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
 
   Widget handymanAssignWidget() {
     return GetBuilder<CalendarController>(builder: (controller) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: controller.handymanTimeFree.map((e) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textWidget(
-                e,
-                fontWeight: FontWeight.bold,
-                size: 13,
-                color: Colors.black,
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            textWidget(
+              controller.handymanTimeFree[0],
+              fontWeight: FontWeight.bold,
+              size: 13,
+              color: Colors.black,
+            ),
+            Container(
+              height: 12.h,
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  const Icon(
+                    Icons.more_vert,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 30),
+                  handymanWidget(controller,
+                      controller.dateRangeMap['9:00 AM : 12:00 PM']!),
+                ],
               ),
-              e == "05:00 PM"
-                  ? SizedBox(height: 10.h)
-                  : Container(
-                      height: 13.h,
-                      alignment: Alignment.center,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.more_vert,
-                            size: 30,
-                          ),
-                          const SizedBox(width: 30),
-                          Expanded(
-                            child: SizedBox(
-                              width: 100.w,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    width: 60.w,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                textWidget("Yan Shan",
-                                                    fontWeight: FontWeight.bold,
-                                                    size: 16),
-                                                textWidget("Servicing",
-                                                    size: 13),
-                                              ],
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: 40,
-                                              height: 40,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 6,
-                                                      vertical: 6),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 3,
-                                                    spreadRadius: 3,
-                                                  )
-                                                ],
-                                              ),
-                                              child: SizedBox(
-                                                child: Image.asset(
-                                                  'assets/images/service.png',
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        textWidget("Blk 123dkfldf")
-                                      ],
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox(width: 20);
-                                },
-                                itemCount: 10,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-            ],
-          );
-        }).toList(),
-      );
+            ),
+            textWidget(
+              controller.handymanTimeFree[1],
+              fontWeight: FontWeight.bold,
+              size: 13,
+              color: Colors.black,
+            ),
+            Container(
+              height: 12.h,
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  const Icon(
+                    Icons.more_vert,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 30),
+                  handymanWidget(controller,
+                      controller.dateRangeMap['12:00 PM : 4:00 PM'] ?? []),
+                ],
+              ),
+            ),
+            textWidget(
+              controller.handymanTimeFree[2],
+              fontWeight: FontWeight.bold,
+              size: 13,
+              color: Colors.black,
+            ),
+            Container(
+              height: 12.h,
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  const Icon(
+                    Icons.more_vert,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 30),
+                  handymanWidget(controller,
+                      controller.dateRangeMap['4:00 PM : 7:00 PM']!),
+                ],
+              ),
+            ),
+            textWidget(
+              controller.handymanTimeFree[3],
+              fontWeight: FontWeight.bold,
+              size: 13,
+              color: Colors.black,
+            ),
+            Container(
+              height: 12.h,
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  const Icon(
+                    Icons.more_vert,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 30),
+                  handymanWidget(controller,
+                      controller.dateRangeMap['7:00 PM : 10:00 PM']!),
+                ],
+              ),
+            ),
+            textWidget(
+              controller.handymanTimeFree[4],
+              fontWeight: FontWeight.bold,
+              size: 13,
+              color: Colors.black,
+            ),
+            SizedBox(
+              height: 20.h,
+            )
+          ],
+        ),
+      ]);
     });
+  }
+
+  Widget handymanWidget(
+      CalendarController controller, List<JobOrder> dateRangeMap) {
+    superPrint(dateRangeMap);
+    return Expanded(
+      child: SizedBox(
+        width: 100.w,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            if (dateRangeMap.isEmpty) {
+              return jobOrderAvailableWidget(
+                  controller.handymanList[index].name);
+            }
+            if (dateRangeMap[0]
+                .handymanIDs
+                .contains(controller.handymanList[index].id)) {
+              String jobType = dateRangeMap[0].jobType;
+              String address = dateRangeMap[0].deliStreet;
+              return jobOrderBusyWidget(
+                controller.handymanList[index].name,
+                jobType,
+                address,
+              );
+            }
+            return jobOrderAvailableWidget(controller.handymanList[index].name);
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(width: 20);
+          },
+          itemCount: controller.handymanList.length,
+        ),
+      ),
+    );
   }
 }
