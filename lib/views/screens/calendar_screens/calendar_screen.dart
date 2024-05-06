@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -14,14 +15,15 @@ class CalendarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(CalendarController());
     var calendarController = Get.find<CalendarController>();
+    calendarController.selectedDay = DateTime.now();
     // calendarController.jobOrderByDateRate(
     //     DateFormat('yyyy-MM-dd').format(DateTime.now()),
     //     DateFormat('yyyy-MM-dd')
     //         .format(DateTime.now().add(const Duration(days: 30))));
-    calendarController.jobOrderByDateRate("2024-05-06", "2024-05-06"
-        // DateFormat('yyyy-MM-dd').format(DateTime.now()),
-        // DateFormat('yyyy-MM-dd').format(DateTime.now()),
-        );
+    calendarController.jobOrderByDateRate(
+      DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      DateFormat('yyyy-MM-dd').format(DateTime.now()),
+    );
     calendarController.getAllHandyMan();
 
     return SuperScaffold(

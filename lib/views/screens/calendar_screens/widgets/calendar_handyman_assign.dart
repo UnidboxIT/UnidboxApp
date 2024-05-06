@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_available_widget.dart';
 import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_busy_widget.dart';
@@ -55,7 +54,8 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                             ? const SizedBox(height: 10)
                             : Center(child: headWidget()),
                         textWidget(
-                          DateFormat('dd MMM yyyy').format(DateTime.now()),
+                          DateFormat('dd MMM yyyy')
+                              .format(controller.selectedDay),
                           fontWeight: FontWeight.bold,
                           size: 16,
                         ),
@@ -115,7 +115,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 30),
                   handymanWidget(controller,
-                      controller.dateRangeMap['9:00 AM : 12:00 PM']!),
+                      controller.dateRangeMap['9:00 AM : 12:00 PM'] ?? []),
                 ],
               ),
             ),
@@ -159,7 +159,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 30),
                   handymanWidget(controller,
-                      controller.dateRangeMap['4:00 PM : 7:00 PM']!),
+                      controller.dateRangeMap['4:00 PM : 7:00 PM'] ?? []),
                 ],
               ),
             ),
@@ -181,7 +181,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 30),
                   handymanWidget(controller,
-                      controller.dateRangeMap['7:00 PM : 10:00 PM']!),
+                      controller.dateRangeMap['7:00 PM : 10:00 PM'] ?? []),
                 ],
               ),
             ),
@@ -202,7 +202,6 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
 
   Widget handymanWidget(
       CalendarController controller, List<JobOrder> dateRangeMap) {
-    superPrint(dateRangeMap);
     return Expanded(
       child: SizedBox(
         width: 100.w,

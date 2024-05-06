@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:unidbox_app/models/job_order/job_order.dart';
 import 'package:unidbox_app/services/job_order_service.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../models/job_order/handyman.dart';
 
 class CalendarController extends GetxController {
@@ -21,6 +20,14 @@ class CalendarController extends GetxController {
   List<HandyMan> handymanList = [];
   List<JobOrder> jobOrderList = [];
   Map<String, List<JobOrder>> dateRangeMap = {};
+
+  DateTime focusedDay = DateTime.now();
+  DateTime selectedDay = DateTime.now();
+
+  updateSelectedDateTime(DateTime dateTime) {
+    selectedDay = dateTime;
+    update();
+  }
 
   toggleMonthlyVisible() {
     isMonthlyVisible = !isMonthlyVisible;
@@ -74,7 +81,6 @@ class CalendarController extends GetxController {
           } else {
             dateRangeMap[timeSlot.trim()] = [data];
           }
-          superPrint(timeSlot);
         }
       } else {}
     } catch (e) {}
