@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,42 +12,67 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: 100.w,
-        height: 50.h,
-        decoration: BoxDecoration(
-          color: AppColor.bottomSheetBgColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
+    return GetBuilder<CalendarController>(builder: (controller) {
+      return Expanded(
+        child: Container(
+          width: 100.w,
+          height: 50.h,
+          decoration: BoxDecoration(
+            color: AppColor.bottomSheetBgColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15, top: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Center(child: headWidget()),
-              textWidget(
-                DateFormat('dd MMM yyyy').format(DateTime.now()),
-                fontWeight: FontWeight.bold,
-                size: 16,
-              ),
-              const SizedBox(height: 8),
-              Expanded(
-                child: ListView(
-                  children: [
-                    handymanAssignWidget(),
-                  ],
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    controller.toggleShowFullScreenSize();
+                  },
+                  child: Container(
+                    width: 100.w,
+                    padding: const EdgeInsets.only(top: 15),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(25),
+                      ),
+                      color: Colors.transparent,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        controller.isShowAllFullScreenSize
+                            ? const SizedBox(height: 10)
+                            : Center(child: headWidget()),
+                        textWidget(
+                          DateFormat('dd MMM yyyy').format(DateTime.now()),
+                          fontWeight: FontWeight.bold,
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              )
-            ],
+                const SizedBox(height: 8),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      handymanAssignWidget(),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget headWidget() {

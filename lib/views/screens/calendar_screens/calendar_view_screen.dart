@@ -13,20 +13,23 @@ class CalendarViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (controller) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: statusWidget(),
-          ),
-          controller.isMonthlyVisible
-              ? const MonthlyCalendarViewWidget()
-              : const WeekCalendarViewWidget(),
-          const SizedBox(height: 15),
-          const CalendarHandymanAssignWidget()
-        ],
-      );
+      return controller.isShowAllFullScreenSize
+          ? const CalendarHandymanAssignWidget()
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: statusWidget(),
+                ),
+                controller.isMonthlyVisible
+                    ? const MonthlyCalendarViewWidget()
+                    : const WeekCalendarViewWidget(),
+                const SizedBox(height: 15),
+                const CalendarHandymanAssignWidget()
+              ],
+            );
     });
   }
 }

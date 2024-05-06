@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class CalendarController extends GetxController {
   bool isMonthlyVisible = true;
-  bool isShowAllFullScreenSize = true;
+  bool isShowAllFullScreenSize = false;
   List<String> handymanTimeFree = [
     "09:00 AM",
     "10:00 AM",
