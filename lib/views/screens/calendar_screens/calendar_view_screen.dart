@@ -5,7 +5,6 @@ import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller
 import 'package:unidbox_app/views/screens/calendar_screens/widgets/status_widget.dart';
 import 'widgets/calendar_handyman_assign.dart';
 import 'widgets/monthly_calendar_view_widget.dart';
-import 'widgets/week_calendar_view_widget.dart';
 
 class CalendarViewScreen extends StatelessWidget {
   const CalendarViewScreen({super.key});
