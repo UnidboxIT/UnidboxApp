@@ -35,19 +35,22 @@ class ImportantReminderWidget extends StatelessWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  if (controller.notiList.isEmpty) {
-                    return shimmerReminderWidget();
-                  }
-                  return buildReminderTextWidget(controller.notiList[index]);
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 5);
-                },
-                itemCount: 2,
-              ),
+              controller.notiList.isEmpty
+                  ? textWidget("No Important Reminder")
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        // if (controller.isReminderLoading) {
+                        //   return shimmerReminderWidget();
+                        // }
+                        return buildReminderTextWidget(
+                            controller.notiList[index]);
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 5);
+                      },
+                      itemCount: 2,
+                    ),
             ],
           );
         },
@@ -72,8 +75,8 @@ class ImportantReminderWidget extends StatelessWidget {
       child: Row(
         children: [
           Shimmer.fromColors(
-            baseColor: Colors.grey.shade200,
-            highlightColor: Colors.grey.shade100,
+            baseColor: Colors.grey.shade100,
+            highlightColor: Colors.grey.shade50,
             child: Container(
               width: 20.w,
               height: 30,
@@ -85,7 +88,7 @@ class ImportantReminderWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Shimmer.fromColors(
-            baseColor: Colors.grey.shade200,
+            baseColor: Colors.grey.shade100,
             highlightColor: Colors.white,
             child: Container(
               width: 2.w,
@@ -98,7 +101,7 @@ class ImportantReminderWidget extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Shimmer.fromColors(
-            baseColor: Colors.grey.shade200,
+            baseColor: Colors.grey.shade100,
             highlightColor: Colors.white,
             child: Container(
               width: 50.w,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/views/screens/job_order_update/widgets/job_order_detail/job_detail_widget.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 
 import '../../../utils/constant/app_color.dart';
 import 'widgets/job_order_detail/job_information_widget.dart';
@@ -37,15 +39,20 @@ class JobOrderDetailScreen extends StatelessWidget {
 
   Widget jobOrderDetailBodyWidget() {
     return Container(
-      height: 50.h,
+      width: 100.w,
+      height: 100.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
       ),
       child: ListView(
+        shrinkWrap: true,
         children: [
           partnerWidget(),
           const JobOrderInfoWidget(),
+          const JobOrderDetailWidget(),
+          SizedBox(
+              width: 10, height: 40, child: buttonWidget("Confirm Job", () {}))
         ],
       ),
     );
