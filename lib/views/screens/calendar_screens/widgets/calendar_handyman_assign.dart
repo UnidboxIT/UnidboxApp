@@ -216,13 +216,8 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             if (dateRangeMap.isEmpty) {
-              return GestureDetector(
-                onTap: () {
-                  Get.to(() => const JobOrderDetailScreen());
-                },
-                child: jobOrderAvailableWidget(
-                    controller.handymanList[index].name),
-              );
+              return jobOrderAvailableWidget(
+                  controller.handymanList[index].name);
             }
             if (dateRangeMap[0]
                 .handymanIDs
@@ -230,7 +225,9 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
               String jobType = dateRangeMap[0].jobType;
               String address = dateRangeMap[0].deliStreet;
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const JobOrderDetailScreen());
+                },
                 child: jobOrderBusyWidget(
                   controller.handymanList[index].name,
                   jobType,

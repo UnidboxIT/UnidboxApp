@@ -18,6 +18,7 @@ class JobOrderAppBArWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 10),
             IconButton(
               onPressed: () {
                 Get.back();
@@ -25,10 +26,34 @@ class JobOrderAppBArWidget extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
+                size: 28,
               ),
             ),
-            textWidget("No. #$handymanID",
-                color: Colors.white, size: 20, fontWeight: FontWeight.bold),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  textWidget(
+                    "No. #$handymanID",
+                    color: Colors.white,
+                    size: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.edit_document,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ));
   }
