@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
@@ -51,7 +52,13 @@ class _MonthlyCalendarViewWidgetState extends State<MonthlyCalendarViewWidget> {
                 formatButtonVisible: false,
               ),
               onDaySelected: (selectedDay, focusedDay) {
-                if (selectedDay.isAfter(DateTime.now())) {
+                if (selectedDay.day == DateTime.now().day) {
+                  controller.updateSelectedDateTime(selectedDay);
+                  Get.find<CalendarController>().jobOrderByDateRate(
+                    DateFormat('yyyy-MM-dd').format(selectedDay),
+                    DateFormat('yyyy-MM-dd').format(focusedDay),
+                  );
+                } else if (selectedDay.isAfter(DateTime.now())) {
                   controller.updateSelectedDateTime(selectedDay);
                   Get.find<CalendarController>().jobOrderByDateRate(
                     DateFormat('yyyy-MM-dd').format(selectedDay),

@@ -6,8 +6,8 @@ import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_available_widget.dart';
 import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_busy_widget.dart';
+import 'package:unidbox_app/views/screens/job_order_update/job_order_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../../../models/job_order/job_order.dart';
 
 class CalendarHandymanAssignWidget extends StatelessWidget {
@@ -16,67 +16,73 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (controller) {
+      if (controller.isShowAllFullScreenSize) {
+        return calendarHandymanBodyWidget(controller);
+      }
       return Expanded(
-        child: Container(
-          width: 100.w,
-          height: 50.h,
-          decoration: BoxDecoration(
-            color: AppColor.bottomSheetBgColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    controller.toggleShowFullScreenSize();
-                  },
-                  child: Container(
-                    width: 100.w,
-                    padding: const EdgeInsets.only(top: 15),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(25),
-                      ),
-                      color: Colors.transparent,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        controller.isShowAllFullScreenSize
-                            ? const SizedBox(height: 10)
-                            : Center(child: headWidget()),
-                        textWidget(
-                          DateFormat('dd MMM yyyy')
-                              .format(controller.selectedDay),
-                          fontWeight: FontWeight.bold,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      handymanAssignWidget(),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        child: calendarHandymanBodyWidget(controller),
       );
     });
+  }
+
+  Widget calendarHandymanBodyWidget(CalendarController controller) {
+    return Container(
+      width: 100.w,
+      height: 50.h,
+      decoration: BoxDecoration(
+        color: AppColor.bottomSheetBgColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                controller.toggleShowFullScreenSize();
+              },
+              child: Container(
+                width: 100.w,
+                padding: const EdgeInsets.only(top: 15),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                  ),
+                  color: Colors.transparent,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    controller.isShowAllFullScreenSize
+                        ? const SizedBox(height: 10)
+                        : Center(child: headWidget()),
+                    textWidget(
+                      DateFormat('dd MMM yyyy').format(controller.selectedDay),
+                      fontWeight: FontWeight.bold,
+                      size: 16,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: ListView(
+                children: [
+                  handymanAssignWidget(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget headWidget() {
@@ -114,7 +120,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                     size: 30,
                   ),
                   const SizedBox(width: 30),
-                  handymanWidget(controller,
+                  eachHandymanWidget(controller,
                       controller.dateRangeMap['9:00 AM : 12:00 PM'] ?? []),
                 ],
               ),
@@ -136,7 +142,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                     size: 30,
                   ),
                   const SizedBox(width: 30),
-                  handymanWidget(controller,
+                  eachHandymanWidget(controller,
                       controller.dateRangeMap['12:00 PM : 4:00 PM'] ?? []),
                 ],
               ),
@@ -158,7 +164,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                     size: 30,
                   ),
                   const SizedBox(width: 30),
-                  handymanWidget(controller,
+                  eachHandymanWidget(controller,
                       controller.dateRangeMap['4:00 PM : 7:00 PM'] ?? []),
                 ],
               ),
@@ -180,7 +186,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
                     size: 30,
                   ),
                   const SizedBox(width: 30),
-                  handymanWidget(controller,
+                  eachHandymanWidget(controller,
                       controller.dateRangeMap['7:00 PM : 10:00 PM'] ?? []),
                 ],
               ),
@@ -200,7 +206,7 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
     });
   }
 
-  Widget handymanWidget(
+  Widget eachHandymanWidget(
       CalendarController controller, List<JobOrder> dateRangeMap) {
     return Expanded(
       child: SizedBox(
@@ -210,18 +216,26 @@ class CalendarHandymanAssignWidget extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             if (dateRangeMap.isEmpty) {
-              return jobOrderAvailableWidget(
-                  controller.handymanList[index].name);
+              return GestureDetector(
+                onTap: () {
+                  Get.to(() => const JobOrderDetailScreen());
+                },
+                child: jobOrderAvailableWidget(
+                    controller.handymanList[index].name),
+              );
             }
             if (dateRangeMap[0]
                 .handymanIDs
                 .contains(controller.handymanList[index].id)) {
               String jobType = dateRangeMap[0].jobType;
               String address = dateRangeMap[0].deliStreet;
-              return jobOrderBusyWidget(
-                controller.handymanList[index].name,
-                jobType,
-                address,
+              return GestureDetector(
+                onTap: () {},
+                child: jobOrderBusyWidget(
+                  controller.handymanList[index].name,
+                  jobType,
+                  address,
+                ),
               );
             }
             return jobOrderAvailableWidget(controller.handymanList[index].name);
