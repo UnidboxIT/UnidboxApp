@@ -63,23 +63,24 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
       child: GetBuilder<InventoryController>(builder: (controller) {
         return Column(
           children: [
-            searchTextFieldWidget(),
+            searchTextFieldWidget(controller, false, true),
             controller.isDetailLoading
                 ? Expanded(
                     child: CupertinoActivityIndicator(
                       color: AppColor.primary,
                     ),
                   )
-                : controller.inventoryTrackerSubCategoryList.isEmpty
+                : controller.searchInventoryTrackerSubCategoryList.isEmpty
                     ? ProductWidget(name: name)
                     : Expanded(
                         child: ListView.separated(
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               String name = controller
-                                  .inventoryTrackerSubCategoryList[index].name;
+                                  .searchInventoryTrackerSubCategoryList[index]
+                                  .name;
                               String image = controller
-                                  .inventoryTrackerSubCategoryList[index]
+                                  .searchInventoryTrackerSubCategoryList[index]
                                   .imageUrl;
                               return eachInventoryTrackerWidget(
                                   image, name, () {});
@@ -88,7 +89,7 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
                               return const SizedBox(height: 10);
                             },
                             itemCount: controller
-                                .inventoryTrackerSubCategoryList.length),
+                                .searchInventoryTrackerSubCategoryList.length),
                       ),
           ],
         );

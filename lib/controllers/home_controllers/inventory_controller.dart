@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/models/home/inventory_tracker.dart';
@@ -7,19 +8,52 @@ import '../../utils/commons/super_print.dart';
 
 class InventoryController extends GetxController {
   List<InventoryTracker> inventoryTrackerList = [];
+  List<InventoryTracker> searchInventoryTrackerList = [];
   List<InventoryTracker> inventoryTrackerSubCategoryList = [];
+  List<InventoryTracker> searchInventoryTrackerSubCategoryList = [];
   bool isDetailLoading = false;
+
+  TextEditingController txtSearch = TextEditingController();
+
+  Future<void> filterInventroyCategory(String query) async {
+    searchInventoryTrackerList.clear();
+    if (query.isEmpty) {
+      searchInventoryTrackerList.addAll(inventoryTrackerList);
+    } else {
+      searchInventoryTrackerList = inventoryTrackerList
+          .where((element) =>
+              element.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    update();
+  }
+
+  Future<void> filterInventroySubCategory(String query) async {
+    superPrint(query);
+    searchInventoryTrackerSubCategoryList.clear();
+    if (query.isEmpty) {
+      searchInventoryTrackerSubCategoryList
+          .addAll(inventoryTrackerSubCategoryList);
+    } else {
+      searchInventoryTrackerSubCategoryList = inventoryTrackerSubCategoryList
+          .where((element) =>
+              element.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    update();
+  }
 
   Future<void> getAllInventoryTracker() async {
     try {
       http.Response response = await InventoryService.inventoryTracker();
       var result = jsonDecode(response.body);
-
+      searchInventoryTrackerList.clear();
       inventoryTrackerList.clear();
       if (response.statusCode == 200 || response.statusCode == 201) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           inventoryTrackerList.add(InventoryTracker.fromJson(element));
+          searchInventoryTrackerList.add(InventoryTracker.fromJson(element));
         }
       }
     } catch (e) {
@@ -36,10 +70,13 @@ class InventoryController extends GetxController {
           await InventoryService.inventoryTrackerByID(parentID);
       var result = jsonDecode(response.body);
       inventoryTrackerSubCategoryList.clear();
+      searchInventoryTrackerSubCategoryList.clear();
       if (response.statusCode == 200 || response.statusCode == 201) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           inventoryTrackerSubCategoryList
+              .add(InventoryTracker.fromJson(element));
+          searchInventoryTrackerSubCategoryList
               .add(InventoryTracker.fromJson(element));
         }
       }

@@ -12,7 +12,7 @@ class ProductWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         color: AppColor.bgColor,
-        child: textWidget("On Progress"),
+        child: textWidget("No Data"),
       ),
     );
   }

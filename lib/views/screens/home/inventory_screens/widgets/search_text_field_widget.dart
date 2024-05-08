@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unidbox_app/controllers/home_controllers/inventory_controller.dart';
 
-Widget searchTextFieldWidget() {
+Widget searchTextFieldWidget(
+  InventoryController controller,
+  bool isInventoryCategory,
+  bool isInventorySubCategory,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     child: Container(
@@ -20,9 +25,16 @@ Widget searchTextFieldWidget() {
       ),
       child: TextField(
         textAlign: TextAlign.left,
-        controller: TextEditingController(),
+        controller: controller.txtSearch,
         cursorColor: Colors.grey,
         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        onChanged: (value) {
+          if (isInventoryCategory) {
+            controller.filterInventroyCategory(value);
+          } else if (isInventorySubCategory) {
+            controller.filterInventroySubCategory(value);
+          }
+        },
         decoration: InputDecoration(
           hintText: "Search",
           hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),

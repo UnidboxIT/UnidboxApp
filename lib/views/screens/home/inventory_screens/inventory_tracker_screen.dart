@@ -59,16 +59,18 @@ class InventoryTrackerScreen extends StatelessWidget {
         builder: (controller) {
           return Column(
             children: [
-              searchTextFieldWidget(),
+              searchTextFieldWidget(controller, true, false),
               Expanded(
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      String id =
-                          controller.inventoryTrackerList[index].id.toString();
-                      String name = controller.inventoryTrackerList[index].name;
+                      String id = controller
+                          .searchInventoryTrackerList[index].id
+                          .toString();
+                      String name =
+                          controller.searchInventoryTrackerList[index].name;
                       String image =
-                          controller.inventoryTrackerList[index].imageUrl;
+                          controller.searchInventoryTrackerList[index].imageUrl;
 
                       return eachInventoryTrackerWidget(image, name, () {
                         Get.to(
@@ -82,7 +84,7 @@ class InventoryTrackerScreen extends StatelessWidget {
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);
                     },
-                    itemCount: controller.inventoryTrackerList.length),
+                    itemCount: controller.searchInventoryTrackerList.length),
               ),
             ],
           );
