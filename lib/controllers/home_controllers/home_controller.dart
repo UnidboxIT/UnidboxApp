@@ -17,10 +17,12 @@ extension MapGetExtension<K, V> on Map<K, V> {
 class HomeController extends GetxController {
   List<OngoingJob> ongoingJobList = [];
   List<MyTask> myTaskList = [];
+  List<MyTask> myTaskDetailList = [];
   List<SelectionField> selectionList = [];
 
   bool isOngoingJobLoading = false;
   bool isMyTaskLoading = false;
+  bool isMyTaskDetailLoading = false;
   String timeText = "";
 
   calculateTime() {
@@ -97,6 +99,26 @@ class HomeController extends GetxController {
     } catch (e) {
       superPrint(e);
     }
+    update();
+  }
+
+  Future<void> getMyTaskByID(String parentID) async {
+    isMyTaskDetailLoading = true;
+    update();
+    try {
+      http.Response response = await HomeService.myTaskByID(parentID);
+      var result = jsonDecode(response.body);
+      myTaskDetailList.clear();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          myTaskDetailList.add(MyTask.fromJson(element));
+        }
+      }
+    } catch (e) {
+      superPrint(e.toString());
+    }
+    isMyTaskDetailLoading = false;
     update();
   }
 }

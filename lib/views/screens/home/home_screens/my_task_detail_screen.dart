@@ -3,16 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/home_controllers/home_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-class InventoryScreen extends StatelessWidget {
-  const InventoryScreen({super.key});
+import '../inventory_screens/inventory_tracker_screen.dart';
+
+class MyTaskDetailScreen extends StatelessWidget {
+  final String name;
+  final String parentID;
+
+  const MyTaskDetailScreen(
+      {super.key, required this.parentID, required this.name});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<HomeController>().getMyTaskByID(parentID);
+    });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -23,7 +34,7 @@ class InventoryScreen extends StatelessWidget {
           height: 100.h,
           child: Stack(
             children: [
-              globalAppBarWidget("Inventory", () {
+              globalAppBarWidget(name, () {
                 Get.back();
               }),
               Transform.translate(
@@ -38,36 +49,49 @@ class InventoryScreen extends StatelessWidget {
   }
 
   Widget inventoryBodyWidget() {
-    return Container(
-      width: 100.w,
-      height: 80.h,
-      decoration: BoxDecoration(
-        color: AppColor.bgColor,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return eachInventoryWidget(
-              "https://img.freepik.com/free-vector/hand-drawn-flat-design-handyman-logo_23-2149250423.jpg",
-              "Inventory Tracker",
-              "3");
-        },
-        separatorBuilder: (context, index) {
-          return Container(height: 4.h);
-        },
-        itemCount: 3,
-      ),
-    );
+    return GetBuilder<HomeController>(builder: (controller) {
+      return Container(
+        width: 100.w,
+        height: 80.h,
+        decoration: BoxDecoration(
+          color: AppColor.bgColor,
+          borderRadius: BorderRadius.circular(25),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
+        child: controller.isMyTaskDetailLoading
+            ? Center(
+                child: CupertinoActivityIndicator(
+                  color: AppColor.primary,
+                ),
+              )
+            : ListView.separated(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => const InventoryTrackerScreen());
+                    },
+                    child: eachMyTaskDetailWidget(
+                        controller.myTaskDetailList[index].imageUrl,
+                        controller.myTaskDetailList[index].name,
+                        "3"),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Container(height: 4.h);
+                },
+                itemCount: controller.myTaskDetailList.length,
+              ),
+      );
+    });
   }
 
-  Widget eachInventoryWidget(String image, String name, String count) {
+  Widget eachMyTaskDetailWidget(String image, String name, String count) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.topRight,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -85,7 +109,8 @@ class InventoryScreen extends StatelessWidget {
                 width: 50.w,
                 height: 16.h,
               ),
-              Expanded(
+              SizedBox(
+                width: 23.w,
                 child: textWidget(name, size: 18, fontWeight: FontWeight.bold),
               ),
             ],

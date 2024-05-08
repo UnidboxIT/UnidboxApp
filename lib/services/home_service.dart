@@ -43,4 +43,15 @@ class HomeService {
 
     return response;
   }
+
+  // MyTask by id
+  static Future<Response> myTaskByID(String parentID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/mytasks?parent_id=$parentID',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

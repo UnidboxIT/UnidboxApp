@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../../utils/constant/app_color.dart';
+import '../../../../widgets/text_widget.dart';
 
-Widget globalAppBarWidget(
-  String text,
-  VoidCallback onPressed, {
-  bool isBackIcon = false,
-  bool isIcon = false,
-}) {
+Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
+    VoidCallback iconOnPressed, IconData iconData) {
   return Container(
     height: 20.h,
     width: 100.w,
@@ -31,11 +27,24 @@ Widget globalAppBarWidget(
           ),
         ),
         const SizedBox(height: 8),
-        textWidget(
-          text,
-          fontWeight: FontWeight.w900,
-          size: 25,
-          color: Colors.white,
+        Row(
+          children: [
+            textWidget(
+              name,
+              fontWeight: FontWeight.w900,
+              size: 25,
+              color: Colors.white,
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: iconOnPressed,
+              icon: Icon(
+                iconData,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ],
         ),
       ],
     ),
