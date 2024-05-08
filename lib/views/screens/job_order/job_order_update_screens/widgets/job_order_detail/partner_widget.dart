@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import '../../../../widgets/icon_widget/circle_icon_widget.dart';
+import '../../../../../widgets/icon_widget/circle_icon_widget.dart';
 
 Widget partnerWidget() {
   return Container(

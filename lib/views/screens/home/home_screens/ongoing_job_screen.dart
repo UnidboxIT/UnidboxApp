@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controllers/home_controllers/home_controller.dart';
-import '../../widgets/text_widget.dart';
+import '../../../../controllers/home_controllers/home_controller.dart';
+import '../../../widgets/text_widget.dart';
 import 'widgets/each_ongoing_job_widget.dart';
 
 class OngoingJobScreen extends StatelessWidget {

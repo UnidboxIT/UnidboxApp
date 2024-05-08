@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../utils/constant/app_color.dart';
-import '../../../widgets/text_widget.dart';
+import '../../../../widgets/text_widget.dart';
 
-Widget jobOrderAvailableWidget(String name) {
+Widget jobOrderBusyWidget(String name, String jobType, String address) {
   return Container(
     width: 60.w,
     decoration: BoxDecoration(
-      color: AppColor.primary,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(15),
     ),
     padding: const EdgeInsets.symmetric(
@@ -23,9 +22,15 @@ Widget jobOrderAvailableWidget(String name) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                textWidget(name,
-                    fontWeight: FontWeight.bold, size: 16, color: Colors.white),
-                textWidget("Available", size: 13, color: Colors.white),
+                textWidget(
+                  name,
+                  fontWeight: FontWeight.bold,
+                  size: 16,
+                ),
+                textWidget(
+                  jobType == "delivery" ? "Delivery" : "Servicing",
+                  size: 13,
+                ),
               ],
             ),
             const Spacer(),
@@ -46,12 +51,14 @@ Widget jobOrderAvailableWidget(String name) {
               ),
               child: SizedBox(
                 child: Image.asset(
-                  'assets/images/available.png',
+                  'assets/images/service.png',
                 ),
               ),
             )
           ],
         ),
+        const SizedBox(height: 8),
+        textWidget(address)
       ],
     ),
   );

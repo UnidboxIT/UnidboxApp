@@ -3,7 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/models/home/ongoing_job.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../../utils/constant/app_color.dart';
+import '../../../../../utils/constant/app_color.dart';
 
 Widget eachOngoingJobWidget(OngoingJob ongoingJob, String jobType) {
   return Container(

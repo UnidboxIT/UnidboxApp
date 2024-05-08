@@ -4,11 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/calendar_controllers/calendar_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_available_widget.dart';
-import 'package:unidbox_app/views/screens/calendar_screens/widgets/job_order_busy_widget.dart';
-import 'package:unidbox_app/views/screens/job_order_update/job_order_detail_screen.dart';
+import 'package:unidbox_app/views/screens/job_order/calendar_screens/widgets/job_order_available_widget.dart';
+import 'package:unidbox_app/views/screens/job_order/calendar_screens/widgets/job_order_busy_widget.dart';
+import 'package:unidbox_app/views/screens/job_order/job_order_update_screens/job_order_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../../models/job_order/job_order.dart';
+import '../../../../../models/job_order/job_order.dart';
 
 class CalendarHandymanAssignWidget extends StatelessWidget {
   const CalendarHandymanAssignWidget({super.key});

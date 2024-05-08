@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../controllers/home_controllers/home_controller.dart';
-import '../../widgets/text_widget.dart';
+import '../../../../controllers/home_controllers/home_controller.dart';
+import '../../../widgets/text_widget.dart';
 import '../inventory_screens/inventory_screen.dart';
 import 'widgets/each_my_task_widget.dart';
 
