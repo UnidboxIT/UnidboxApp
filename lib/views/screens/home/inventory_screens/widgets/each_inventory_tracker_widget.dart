@@ -25,7 +25,7 @@ Widget eachInventoryTrackerWidget(
             child: ListTile(
               onTap: onPressed,
               leading: Image.network(
-                image == "null"
+                image == "false"
                     ? "https://rukminim2.flixcart.com/image/850/1000/xif0q/fan/x/q/u/brio-turbo-high-speed-decorative-50-1-ceiling-fan-600-candes-original-imaghrauuhzsujcy.jpeg?q=90&crop=false"
                     : image,
                 width: 45,

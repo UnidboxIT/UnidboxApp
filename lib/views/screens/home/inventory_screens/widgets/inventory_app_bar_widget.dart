@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
@@ -28,14 +29,19 @@ Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
         ),
         const SizedBox(height: 8),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            textWidget(
-              name,
-              fontWeight: FontWeight.w900,
-              size: 25,
-              color: Colors.white,
+            Flexible(
+              child: textWidget(
+                name,
+                fontWeight: FontWeight.w900,
+                size: 25,
+                color: Colors.white,
+                textAlign: TextAlign.left,
+                maxLine: 1,
+                textOverflow: TextOverflow.ellipsis,
+              ),
             ),
-            const Spacer(),
             IconButton(
               onPressed: iconOnPressed,
               icon: Icon(

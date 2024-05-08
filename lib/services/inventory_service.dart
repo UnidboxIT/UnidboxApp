@@ -8,7 +8,18 @@ class InventoryService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/category?fields=id,name,parent_id&offset=1&parent_id=',
+          'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  static Future<Response> inventoryTrackerByID(String parentID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=$parentID',
       headers: CommonMethods.setHeaders(),
     );
 

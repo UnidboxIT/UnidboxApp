@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/inventory_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/details/inventory_tracker_sub_category_screen.dart';
 import 'create_product_screen.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
@@ -48,13 +49,14 @@ class InventoryTrackerScreen extends StatelessWidget {
 
   Widget inventoryTrackerBodyWidget() {
     return Container(
-        width: 100.w,
-        height: 100.h,
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: GetBuilder<InventoryController>(builder: (controller) {
+      width: 100.w,
+      height: 82.h,
+      decoration: BoxDecoration(
+        color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: GetBuilder<InventoryController>(
+        builder: (controller) {
           return Column(
             children: [
               searchTextFieldWidget(),
@@ -62,19 +64,30 @@ class InventoryTrackerScreen extends StatelessWidget {
                 child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      String id =
+                          controller.inventoryTrackerList[index].id.toString();
                       String name = controller.inventoryTrackerList[index].name;
                       String image =
                           controller.inventoryTrackerList[index].imageUrl;
-                      return eachInventoryTrackerWidget(image, name, () {});
+
+                      return eachInventoryTrackerWidget(image, name, () {
+                        Get.to(
+                          () => InventoryTrackerSubCategoryScreen(
+                            parentID: id,
+                            name: name,
+                          ),
+                        );
+                      });
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);
                     },
                     itemCount: controller.inventoryTrackerList.length),
               ),
-              const SizedBox(height: 20)
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 }
