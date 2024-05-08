@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/home_controller.dart';
+import 'package:unidbox_app/controllers/home_controllers/inventory_controller.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
+import '../inventory_screens/internal_transfer_screen.dart';
 import '../inventory_screens/inventory_tracker_screen.dart';
+import '../inventory_screens/order_receving_screen.dart';
 
 class MyTaskDetailScreen extends StatelessWidget {
   final String name;
@@ -20,6 +21,7 @@ class MyTaskDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(InventoryController());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Get.find<HomeController>().getMyTaskByID(parentID);
     });
@@ -39,7 +41,7 @@ class MyTaskDetailScreen extends StatelessWidget {
               }),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: inventoryBodyWidget(),
+                child: mytaskDetailBodyWidget(),
               ),
             ],
           ),
@@ -48,41 +50,54 @@ class MyTaskDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget inventoryBodyWidget() {
+  Widget mytaskDetailBodyWidget() {
     return GetBuilder<HomeController>(builder: (controller) {
       return Container(
-        width: 100.w,
-        height: 80.h,
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
-        child: controller.isMyTaskDetailLoading
-            ? Center(
-                child: CupertinoActivityIndicator(
-                  color: AppColor.primary,
-                ),
-              )
-            : ListView.separated(
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(() => const InventoryTrackerScreen());
-                    },
-                    child: eachMyTaskDetailWidget(
-                        controller.myTaskDetailList[index].imageUrl,
-                        controller.myTaskDetailList[index].name,
-                        "3"),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Container(height: 4.h);
-                },
-                itemCount: controller.myTaskDetailList.length,
-              ),
-      );
+          width: 100.w,
+          height: 80.h,
+          decoration: BoxDecoration(
+            color: AppColor.bgColor,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
+          child: controller.isMyTaskDetailLoading
+              ? Center(
+                  child: CupertinoActivityIndicator(
+                    color: AppColor.primary,
+                  ),
+                )
+              : detailListViewWidget(controller));
     });
+  }
+
+  Widget detailListViewWidget(HomeController controller) {
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            switch (controller.myTaskDetailList[index].name) {
+              case "Inventory Tracker":
+                Get.to(() => const InventoryTrackerScreen());
+                break;
+              case "Order Receiving":
+                Get.to(() => const OrderReceivingScreen());
+                break;
+              case "Internal Transfer":
+                Get.to(() => const InternalTransferScreen());
+                break;
+            }
+          },
+          child: eachMyTaskDetailWidget(
+              controller.myTaskDetailList[index].imageUrl,
+              controller.myTaskDetailList[index].name,
+              "3"),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Container(height: 4.h);
+      },
+      itemCount: controller.myTaskDetailList.length,
+    );
   }
 
   Widget eachMyTaskDetailWidget(String image, String name, String count) {
