@@ -3,7 +3,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/job_order_update/widgets/job_order_detail/job_detail_widget.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
-
 import '../../../utils/constant/app_color.dart';
 import 'widgets/job_order_detail/job_information_widget.dart';
 import 'widgets/joborder_app_bar_widget.dart';

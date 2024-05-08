@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../controllers/home_controllers/home_controller.dart';
 import '../../widgets/text_widget.dart';
+import '../inventory_screens/inventory_screen.dart';
 import 'widgets/each_my_task_widget.dart';
 
 class MyTaskScreen extends StatelessWidget {
@@ -35,7 +36,13 @@ class MyTaskScreen extends StatelessWidget {
                   if (controller.myTaskList.isEmpty) {
                     return shimmerMyTaskWidget();
                   }
-                  return eachMyTaskWidget(controller.myTaskList[index]);
+                  return GestureDetector(
+                      onTap: () {
+                        if (index == 0) {
+                          Get.to(() => const InventoryScreen());
+                        }
+                      },
+                      child: eachMyTaskWidget(controller.myTaskList[index]));
                 },
                 itemCount: controller.myTaskList.length,
                 separatorBuilder: (context, index) {
