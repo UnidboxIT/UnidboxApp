@@ -5,6 +5,7 @@ import 'package:unidbox_app/controllers/home_controllers/inventory_controller.da
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/details/inventory_tracker_sub_category_screen.dart';
+import '../../../../controllers/home_controllers/product_controller.dart';
 import 'create_product_screen.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
@@ -15,6 +16,7 @@ class InventoryTrackerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProductController());
     Get.find<InventoryController>().getAllInventoryTracker();
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -59,7 +61,7 @@ class InventoryTrackerScreen extends StatelessWidget {
         builder: (controller) {
           return Column(
             children: [
-              searchTextFieldWidget(controller),
+              searchTextFieldWidget(),
               Expanded(
                 child: ListView.separated(
                     shrinkWrap: true,
@@ -72,14 +74,18 @@ class InventoryTrackerScreen extends StatelessWidget {
                       String image =
                           controller.searchInventoryTrackerList[index].imageUrl;
 
-                      return eachInventoryTrackerWidget(image, name, () {
-                        Get.to(
-                          () => InventoryTrackerSubCategoryScreen(
-                            parentID: id,
-                            name: name,
-                          ),
-                        );
-                      });
+                      return eachInventoryTrackerWidget(
+                        image,
+                        name,
+                        () {
+                          Get.to(
+                            () => InventoryTrackerSubCategoryScreen(
+                              parentID: id,
+                              name: name,
+                            ),
+                          );
+                        },
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);

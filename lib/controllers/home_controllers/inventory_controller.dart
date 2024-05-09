@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/models/home/inventory_tracker.dart';
-import 'package:unidbox_app/services/inventory_service.dart';
+import 'package:unidbox_app/services/home/inventory_service.dart';
 import '../../utils/commons/super_print.dart';
 
 class InventoryController extends GetxController {

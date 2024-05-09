@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
-import '../utils/commons/common_method.dart';
-import 'api_service.dart';
+import '../../utils/commons/common_method.dart';
+import '../api_service.dart';
 import 'package:http/http.dart' as http;
 
 class HomeService {

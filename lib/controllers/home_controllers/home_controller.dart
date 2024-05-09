@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/models/home/my_task.dart';
 import 'package:unidbox_app/models/home/ongoing_job.dart';
-import 'package:unidbox_app/services/home_service.dart';
+import 'package:unidbox_app/services/home/home_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 
@@ -50,18 +50,20 @@ class HomeController extends GetxController {
       myTaskList.clear();
       myTaskDetailMap.clear();
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Iterable dataList = result['result']['records'];
-        for (var element in dataList) {
-          myTaskHomeMenuList.add(MyTask.fromJson(element));
-        }
-        for (var myTask in myTaskHomeMenuList) {
-          if (myTask.parentID.isEmpty) {
-            myTaskList.add(myTask);
-          } else {
-            if (myTaskDetailMap.containsKey(myTask.parentID[0])) {
-              myTaskDetailMap[myTask.parentID[0]]?.add(myTask);
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          for (var element in dataList) {
+            myTaskHomeMenuList.add(MyTask.fromJson(element));
+          }
+          for (var myTask in myTaskHomeMenuList) {
+            if (myTask.parentID.isEmpty) {
+              myTaskList.add(myTask);
             } else {
-              myTaskDetailMap[myTask.parentID[0]] = [myTask];
+              if (myTaskDetailMap.containsKey(myTask.parentID[0])) {
+                myTaskDetailMap[myTask.parentID[0]]?.add(myTask);
+              } else {
+                myTaskDetailMap[myTask.parentID[0]] = [myTask];
+              }
             }
           }
         }
