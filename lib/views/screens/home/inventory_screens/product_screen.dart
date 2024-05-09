@@ -1,131 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
-import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/text_widget.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/create_product_screen.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/widgets/product_widget.dart';
 
-class ProductWidget extends StatelessWidget {
-  final String id;
+import '../../../../utils/commons/super_scaffold.dart';
+import '../../../../utils/constant/app_color.dart';
+import 'widgets/inventory_app_bar_widget.dart';
+
+class ProductScreen extends StatelessWidget {
+  final String parentID;
   final String name;
-  const ProductWidget({super.key, required this.id, required this.name});
+  const ProductScreen({super.key, required this.parentID, required this.name});
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<ProductController>().getAllProductsByCategoryID(id);
-    });
-
-    return Expanded(
-      child: Container(
-        height: 80.h,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        color: AppColor.bgColor,
-        child: productBodyWidget(),
-      ),
-    );
-  }
-
-  Widget productBodyWidget() {
-    return GetBuilder<ProductController>(builder: (controller) {
-      return GridView.builder(
-          shrinkWrap: true,
-          itemCount: controller.searchProductsList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 0,
-            childAspectRatio: 0.93,
-          ),
-          itemBuilder: (context, index) {
-            // String image = controller.searchProductsList[index].
-            String name = controller.searchProductsList[index].name;
-            double qty = controller.searchProductsList[index].quantity;
-            double price = controller.searchProductsList[index].price;
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: AppColor.dropshadowColor,
-                          blurRadius: 3,
-                          spreadRadius: 3),
-                    ]),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Container(
-                            height: 14.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(10),
-                              // image: const DecorationImage(
-                              //   image: NetworkImage(""),
-                              // ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 3.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                            ),
-                            color: AppColor.orangeColor,
-                          ),
-                          alignment: Alignment.center,
-                          child: textWidget("Sufficient Stock",
-                              color: Colors.white,
-                              size: 12.5,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: textWidget(name,
-                          maxLine: 2,
-                          textOverflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          size: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          textWidget("Qty : $qty",
-                              textOverflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              size: 12,
-                              fontWeight: FontWeight.w500),
-                          textWidget("\$ : $price",
-                              textOverflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              size: 12,
-                              fontWeight: FontWeight.w500),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10)
-                  ],
+    return SuperScaffold(
+      topColor: AppColor.primary,
+      child: Scaffold(
+        body: SizedBox(
+          width: 100.w,
+          height: 100.h,
+          child: Stack(
+            children: [
+              inventoryAppBarWidget(
+                name,
+                () {
+                  Get.back();
+                },
+                () {
+                  Get.to(() => const CreateProductScreen());
+                },
+                Icons.add,
+              ),
+              Transform.translate(
+                offset: Offset(0, 14.h),
+                child: ProductWidget(
+                  id: parentID,
+                  name: name,
+                  isSubCategory: true,
                 ),
               ),
-            );
-          });
-    });
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

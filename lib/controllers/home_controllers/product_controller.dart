@@ -32,8 +32,10 @@ class ProductController extends GetxController {
   }
 
   Future<void> getAllProductsByCategoryID(String categoryID) async {
-    isProductLoading = true;
-    update();
+    if (productList.isEmpty) {
+      isProductLoading = true;
+      update();
+    }
     try {
       http.Response response = await ProductService.products(categoryID);
       var result = jsonDecode(response.body);
@@ -44,7 +46,6 @@ class ProductController extends GetxController {
         for (var element in dataList) {
           productList.add(Products.fromJson(element));
         }
-
         for (var data in productList) {
           searchProductsList.add(data);
         }
