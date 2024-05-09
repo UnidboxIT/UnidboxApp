@@ -21,7 +21,7 @@ class HomeController extends GetxController {
   Map<int, List<MyTask>> myTaskDetailMap = {};
   List<SelectionField> selectionList = [];
 
-  bool isOngoingJobLoading = false;
+  // bool isOngoingJobLoading = false;
   bool isMyTaskLoading = false;
   String timeText = "";
 
@@ -54,7 +54,6 @@ class HomeController extends GetxController {
         for (var element in dataList) {
           myTaskHomeMenuList.add(MyTask.fromJson(element));
         }
-
         for (var myTask in myTaskHomeMenuList) {
           if (myTask.parentID.isEmpty) {
             myTaskList.add(myTask);

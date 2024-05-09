@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/inventory_controller.dart';
+import 'package:unidbox_app/models/home/inventory_tracker.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/product_screen.dart';
@@ -20,9 +21,9 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((tp) {
-      Get.find<InventoryController>().getInventoryTrackerByParentID(parentID);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((tp) {
+    //   Get.find<InventoryController>().getInventoryTrackerByParentID(parentID);
+    // });
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -61,36 +62,26 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       child: GetBuilder<InventoryController>(builder: (controller) {
+        List<InventoryTracker> inventoryTrackerList =
+            controller.inventoryTrackerDetailMap[int.parse(parentID)] ?? [];
         return Column(
           children: [
-            searchTextFieldWidget(controller, false, true),
-            controller.isDetailLoading
-                ? Expanded(
-                    child: CupertinoActivityIndicator(
-                      color: AppColor.primary,
-                    ),
-                  )
-                : controller.searchInventoryTrackerSubCategoryList.isEmpty
-                    ? ProductWidget(name: name)
-                    : Expanded(
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              String name = controller
-                                  .searchInventoryTrackerSubCategoryList[index]
-                                  .name;
-                              String image = controller
-                                  .searchInventoryTrackerSubCategoryList[index]
-                                  .imageUrl;
-                              return eachInventoryTrackerWidget(
-                                  image, name, () {});
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 10);
-                            },
-                            itemCount: controller
-                                .searchInventoryTrackerSubCategoryList.length),
-                      ),
+            searchTextFieldWidget(controller),
+            inventoryTrackerList.isEmpty
+                ? ProductWidget(name: name)
+                : Expanded(
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          String name = inventoryTrackerList[index].name;
+                          String image = inventoryTrackerList[index].imageUrl;
+                          return eachInventoryTrackerWidget(image, name, () {});
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 10);
+                        },
+                        itemCount: inventoryTrackerList.length),
+                  ),
           ],
         );
       }),

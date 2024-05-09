@@ -59,7 +59,7 @@ class InventoryTrackerScreen extends StatelessWidget {
         builder: (controller) {
           return Column(
             children: [
-              searchTextFieldWidget(controller, true, false),
+              searchTextFieldWidget(controller),
               Expanded(
                 child: ListView.separated(
                     shrinkWrap: true,

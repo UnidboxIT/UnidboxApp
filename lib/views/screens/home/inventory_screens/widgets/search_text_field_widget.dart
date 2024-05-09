@@ -4,8 +4,6 @@ import 'package:unidbox_app/controllers/home_controllers/inventory_controller.da
 
 Widget searchTextFieldWidget(
   InventoryController controller,
-  bool isInventoryCategory,
-  bool isInventorySubCategory,
 ) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -29,11 +27,7 @@ Widget searchTextFieldWidget(
         cursorColor: Colors.grey,
         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         onChanged: (value) {
-          if (isInventoryCategory) {
-            controller.filterInventroyCategory(value);
-          } else if (isInventorySubCategory) {
-            controller.filterInventroySubCategory(value);
-          }
+          controller.filterInventroyCategory(value);
         },
         decoration: InputDecoration(
           hintText: "Search",

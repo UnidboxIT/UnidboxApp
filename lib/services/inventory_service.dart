@@ -7,22 +7,21 @@ class InventoryService {
   static Future<Response> inventoryTracker() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint:
-          'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=',
+      endpoint: 'joborder/category?fields=id,name,parent_id,image_url&offset=1',
       headers: CommonMethods.setHeaders(),
     );
 
     return response;
   }
 
-  static Future<Response> inventoryTrackerByID(String parentID) async {
-    http.Response response = await ApiService().get(
-      url: baseUrl,
-      endpoint:
-          'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=$parentID',
-      headers: CommonMethods.setHeaders(),
-    );
+  // static Future<Response> inventoryTrackerByID(String parentID) async {
+  //   http.Response response = await ApiService().get(
+  //     url: baseUrl,
+  //     endpoint:
+  //         'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=$parentID',
+  //     headers: CommonMethods.setHeaders(),
+  //   );
 
-    return response;
-  }
+  //   return response;
+  // }
 }
