@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -22,9 +21,6 @@ class MyTaskDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(InventoryController());
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<HomeController>().getMyTaskByID(parentID);
-    });
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -60,44 +56,41 @@ class MyTaskDetailScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
-          child: controller.isMyTaskDetailLoading
-              ? Center(
-                  child: CupertinoActivityIndicator(
-                    color: AppColor.primary,
-                  ),
-                )
-              : detailListViewWidget(controller));
+          child: detailListViewWidget(controller));
     });
   }
 
   Widget detailListViewWidget(HomeController controller) {
     return ListView.separated(
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            switch (controller.myTaskDetailList[index].name) {
-              case "Inventory Tracker":
-                Get.to(() => const InventoryTrackerScreen());
-                break;
-              case "Order Receiving":
-                Get.to(() => const OrderReceivingScreen());
-                break;
-              case "Internal Transfer":
-                Get.to(() => const InternalTransferScreen());
-                break;
-            }
-          },
-          child: eachMyTaskDetailWidget(
-              controller.myTaskDetailList[index].imageUrl,
-              controller.myTaskDetailList[index].name,
-              "3"),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Container(height: 4.h);
-      },
-      itemCount: controller.myTaskDetailList.length,
-    );
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: controller.myTaskDetailMap[int.parse(parentID)]!.length,
+        itemBuilder: (context, index) {
+          var task = controller.myTaskDetailMap[int.parse(parentID)]![index];
+          return GestureDetector(
+            onTap: () {
+              switch (task.name) {
+                case "Inventory Tracker":
+                  Get.to(() => const InventoryTrackerScreen());
+                  break;
+                case "Order Receiving":
+                  Get.to(() => const OrderReceivingScreen());
+                  break;
+                case "Internal Transfer":
+                  Get.to(() => const InternalTransferScreen());
+                  break;
+              }
+            },
+            child: eachMyTaskDetailWidget(
+              task.imageUrl,
+              task.name,
+              "3",
+            ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(height: 4.h);
+        });
   }
 
   Widget eachMyTaskDetailWidget(String image, String name, String count) {

@@ -17,12 +17,12 @@ extension MapGetExtension<K, V> on Map<K, V> {
 class HomeController extends GetxController {
   List<OngoingJob> ongoingJobList = [];
   List<MyTask> myTaskList = [];
-  List<MyTask> myTaskDetailList = [];
+  List<MyTask> myTaskHomeMenuList = [];
+  Map<int, List<MyTask>> myTaskDetailMap = {};
   List<SelectionField> selectionList = [];
 
   bool isOngoingJobLoading = false;
   bool isMyTaskLoading = false;
-  bool isMyTaskDetailLoading = false;
   String timeText = "";
 
   calculateTime() {
@@ -46,11 +46,25 @@ class HomeController extends GetxController {
     try {
       http.Response response = await HomeService.myTask();
       var result = jsonDecode(response.body);
+      myTaskHomeMenuList.clear();
       myTaskList.clear();
+      myTaskDetailMap.clear();
       if (response.statusCode == 200 || response.statusCode == 201) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
-          myTaskList.add(MyTask.fromJson(element));
+          myTaskHomeMenuList.add(MyTask.fromJson(element));
+        }
+
+        for (var myTask in myTaskHomeMenuList) {
+          if (myTask.parentID.isEmpty) {
+            myTaskList.add(myTask);
+          } else {
+            if (myTaskDetailMap.containsKey(myTask.parentID[0])) {
+              myTaskDetailMap[myTask.parentID[0]]?.add(myTask);
+            } else {
+              myTaskDetailMap[myTask.parentID[0]] = [myTask];
+            }
+          }
         }
       }
     } catch (e) {
@@ -61,7 +75,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getAllOngoingJob() async {
-    isOngoingJobLoading = true;
+    // isOngoingJobLoading = true;
     try {
       http.Response response = await HomeService.ongoingJob();
       Map<String, dynamic> result = jsonDecode(response.body);
@@ -82,7 +96,7 @@ class HomeController extends GetxController {
     } catch (e) {
       superPrint(e.toString());
     }
-    isOngoingJobLoading = false;
+    // isOngoingJobLoading = false;
     update();
   }
 
@@ -99,26 +113,6 @@ class HomeController extends GetxController {
     } catch (e) {
       superPrint(e);
     }
-    update();
-  }
-
-  Future<void> getMyTaskByID(String parentID) async {
-    isMyTaskDetailLoading = true;
-    update();
-    try {
-      http.Response response = await HomeService.myTaskByID(parentID);
-      var result = jsonDecode(response.body);
-      myTaskDetailList.clear();
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Iterable dataList = result['result']['records'];
-        for (var element in dataList) {
-          myTaskDetailList.add(MyTask.fromJson(element));
-        }
-      }
-    } catch (e) {
-      superPrint(e.toString());
-    }
-    isMyTaskDetailLoading = false;
     update();
   }
 }

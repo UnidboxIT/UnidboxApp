@@ -31,9 +31,9 @@ class OngoingJobScreen extends StatelessWidget {
             return GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                if (controller.isOngoingJobLoading) {
-                  return shimmerOngoingJobWidget();
-                }
+                // if (controller.isOngoingJobLoading) {
+                //   return shimmerOngoingJobWidget();
+                // }
 
                 String jobType = "";
                 for (var data in controller.selectionList) {
