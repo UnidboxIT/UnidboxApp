@@ -9,7 +9,7 @@ class ProductService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,name,default_code,categ_id,barcode,price&offset=1&sort=id&categ_id=$categoryID',
+          'joborder/product?fields=id,name,default_code,categ_id,barcode,price,quantity&offset=1&sort=id&categ_id=$categoryID',
       headers: CommonMethods.setHeaders(),
     );
 
