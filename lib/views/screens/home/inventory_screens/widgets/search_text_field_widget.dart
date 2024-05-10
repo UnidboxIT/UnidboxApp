@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/scanner/barcode_scanner_screen.dart';
 
 Widget searchTextFieldWidget() {
   return GetBuilder<ProductController>(builder: (controller) {
@@ -39,7 +40,9 @@ Widget searchTextFieldWidget() {
                 CupertinoIcons.qrcode_viewfinder,
                 size: 18,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const BarCodeScannerScreen());
+              },
             ),
             prefixIcon: const Icon(
               CupertinoIcons.search,

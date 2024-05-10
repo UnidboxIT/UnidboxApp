@@ -15,4 +15,15 @@ class ProductService {
 
     return response;
   }
+
+  static Future<Response> scanProduct(String barcode) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/product?fields=id,name,default_code,categ_id,barcode,price,quantity&barcode=$barcode',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

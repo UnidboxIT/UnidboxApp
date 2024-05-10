@@ -8,6 +8,7 @@ import 'package:unidbox_app/views/screens/home/inventory_screens/widgets/product
 import '../../../../utils/commons/super_scaffold.dart';
 import '../../../../utils/constant/app_color.dart';
 import 'widgets/inventory_app_bar_widget.dart';
+import 'widgets/search_text_field_widget.dart';
 
 class ProductScreen extends StatelessWidget {
   final String parentID;
@@ -36,15 +37,29 @@ class ProductScreen extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: ProductWidget(
-                  id: parentID,
-                  name: name,
-                  isSubCategory: true,
-                ),
+                child: productBodyWidget(),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget productBodyWidget() {
+    return Container(
+      width: 100.w,
+      height: 80.h,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25), color: Colors.white),
+      child: Column(
+        children: [
+          searchTextFieldWidget(),
+          ProductWidget(
+            id: parentID,
+            name: name,
+          ),
+        ],
       ),
     );
   }

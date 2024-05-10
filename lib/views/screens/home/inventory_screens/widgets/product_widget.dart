@@ -9,42 +9,20 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 class ProductWidget extends StatelessWidget {
   final String id;
   final String name;
-  final bool isSubCategory;
-  const ProductWidget(
-      {super.key,
-      required this.id,
-      required this.name,
-      required this.isSubCategory});
+  const ProductWidget({
+    super.key,
+    required this.id,
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Get.find<ProductController>().getAllProductsByCategoryID(id);
     });
-    if (isSubCategory) {
-      return Container(
-        width: 100.w,
-        height: 82.h,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: productBodyWidget(),
-      );
-    }
 
     return Expanded(
-      child: Container(
-        width: 100.w,
-        height: 82.h,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: productBodyWidget(),
-      ),
+      child: productBodyWidget(),
     );
   }
 
