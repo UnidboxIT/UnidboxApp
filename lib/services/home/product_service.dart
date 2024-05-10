@@ -5,11 +5,11 @@ import 'package:unidbox_app/services/api_service.dart';
 import '../../utils/commons/common_method.dart';
 
 class ProductService {
-  static Future<Response> products(String categoryID) async {
+  static Future<Response> products(String categoryID, int pageNumber) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,name,default_code,categ_id,barcode,price,quantity&offset=1&sort=id&categ_id=$categoryID',
+          'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url&offset=1&sort=id&categ_id=$categoryID',
       headers: CommonMethods.setHeaders(),
     );
 

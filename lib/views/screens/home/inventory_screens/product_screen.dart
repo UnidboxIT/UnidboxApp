@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/create_product_screen.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/widgets/product_widget.dart';
 
@@ -20,6 +22,7 @@ class ProductScreen extends StatelessWidget {
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SizedBox(
           width: 100.w,
           height: 100.h,
@@ -49,7 +52,7 @@ class ProductScreen extends StatelessWidget {
   Widget productBodyWidget() {
     return Container(
       width: 100.w,
-      height: 80.h,
+      height: 81.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(

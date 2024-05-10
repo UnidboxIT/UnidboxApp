@@ -13,6 +13,47 @@ class ProductController extends GetxController {
   bool isProductLoading = false;
   List<Products> searchProductsList = [];
   TextEditingController txtSearch = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  bool xDataExit = true;
+  bool xLoading = false;
+  //int pageNumber = 1;
+  String categoryID = "";
+
+  @override
+  onInit() {
+    super.onInit();
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) {
+        if (xDataExit) {
+          if (!xLoading) {
+            xLoading = true;
+            superPrint(xLoading);
+            update();
+            //++pageNumber;
+            //await getAllProductsByCategoryID();
+            await Future.delayed(const Duration(seconds: 1));
+            xLoading = false;
+            update();
+          }
+        } else {
+          xDataExit = true;
+          update();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  updateCategoryID(String id) async {
+    categoryID = id;
+    update();
+  }
 
   Future<void> searchProductByText(String query) async {
     searchProductsList.clear();
@@ -32,13 +73,12 @@ class ProductController extends GetxController {
     update();
   }
 
-  Future<void> getAllProductsByCategoryID(String categoryID) async {
-    if (productList.isEmpty) {
-      isProductLoading = true;
-      update();
-    }
+  Future<void> getAllProductsByCategoryID(String id) async {
+    isProductLoading = true;
+    update();
+
     try {
-      http.Response response = await ProductService.products(categoryID);
+      http.Response response = await ProductService.products(id, 0);
       var result = jsonDecode(response.body);
       productList.clear();
       searchProductsList.clear();
@@ -50,6 +90,10 @@ class ProductController extends GetxController {
         for (var data in productList) {
           searchProductsList.add(data);
         }
+        // if (dataList.isEmpty) {
+        //   xDataExit = false;
+        //   update();
+        // }
       }
     } catch (e) {
       superPrint(e.toString());
