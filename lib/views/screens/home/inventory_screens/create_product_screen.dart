@@ -6,6 +6,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
 import 'create_product_widget/camera_widget.dart';
+import 'create_product_widget/each_text_field_widget.dart';
 
 class CreateProductScreen extends StatelessWidget {
   const CreateProductScreen({super.key});
@@ -49,6 +50,22 @@ class CreateProductScreen extends StatelessWidget {
     return ListView(
       children: [
         cameraWidget(),
+        eachTextFieldWidget("Name", TextEditingController(), "Name"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget("Model", TextEditingController(), "Model"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget("Vendor", TextEditingController(), "Vendor"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget("Brand", TextEditingController(), "Brand"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget("Barcode", TextEditingController(), "Barcode"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget(
+            "Sale Price (GTS 9% Inc.)", TextEditingController(), "Created by"),
+        const SizedBox(height: 10),
+        eachTextFieldWidget(
+            "Cost (GST Excluded)", TextEditingController(), "Cost"),
+        SizedBox(height: 20.h)
       ],
     );
   }
