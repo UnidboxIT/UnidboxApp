@@ -74,8 +74,10 @@ class ProductController extends GetxController {
   }
 
   Future<void> getAllProductsByCategoryID(String id) async {
-    isProductLoading = true;
-    update();
+    if (productList.isNotEmpty) {
+      isProductLoading = true;
+      update();
+    }
 
     try {
       http.Response response = await ProductService.products(id, 0);

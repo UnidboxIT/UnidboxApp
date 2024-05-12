@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/create_product_screen.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/widgets/product_widget.dart';
-
 import '../../../../utils/commons/super_scaffold.dart';
 import '../../../../utils/constant/app_color.dart';
 import 'widgets/inventory_app_bar_widget.dart';
