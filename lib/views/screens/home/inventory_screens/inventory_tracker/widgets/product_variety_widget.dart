@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
@@ -7,6 +6,7 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../create_product_widget/each_text_field_widget.dart';
+import 'show_uom_dialog.dart';
 
 Widget productVarietyWidget() {
   return GetBuilder<ProductController>(builder: (controller) {
@@ -23,7 +23,7 @@ Widget productVarietyWidget() {
             ),
             GestureDetector(
               onTap: () {
-                if (controller.txtBarCode.text.isNotEmpty &&
+                if (controller.txtVarietyBarCode.text.isNotEmpty &&
                     controller.txtFactor.text.isNotEmpty &&
                     controller.txtPrice.text.isNotEmpty) {
                   controller.incrementProductVariety();
@@ -97,13 +97,16 @@ Widget eachProductVarietyWidget(ProductController controller) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 42.w,
-                child: eachTextFieldWidget(
-                  "Uom",
-                  TextEditingController(),
-                  "Price",
-                  horizontal: 0,
+              GestureDetector(
+                onTap: () {
+                  showUomDialog();
+                },
+                child: SizedBox(
+                  width: 42.w,
+                  child: eachUomTextWidget(
+                    "Uom",
+                    controller.uomName,
+                  ),
                 ),
               ),
               SizedBox(
@@ -112,11 +115,8 @@ Widget eachProductVarietyWidget(ProductController controller) {
                     ? eachProductVarietyTextFieldWidget("Factor",
                         controller.varietyValueMap[e]['factor'].toString())
                     : eachTextFieldWidget(
-                        "Factor",
-                        controller.txtFactor,
-                        "Factor",
-                        horizontal: 0,
-                      ),
+                        "Factor", controller.txtFactor, "Factor",
+                        horizontal: 0, isNumber: true),
               ),
             ],
           ),
@@ -133,12 +133,8 @@ Widget eachProductVarietyWidget(ProductController controller) {
                 child: controller.varietyValueMap[e] != null
                     ? eachProductVarietyTextFieldWidget("Price",
                         controller.varietyValueMap[e]['price'].toString())
-                    : eachTextFieldWidget(
-                        "Price",
-                        controller.txtPrice,
-                        "Price",
-                        horizontal: 0,
-                      ),
+                    : eachTextFieldWidget("Price", controller.txtPrice, "Price",
+                        horizontal: 0, isNumber: true),
               ),
               SizedBox(
                 width: 42.w,
@@ -147,7 +143,7 @@ Widget eachProductVarietyWidget(ProductController controller) {
                         "Barcode", controller.varietyValueMap[e]['barcode'])
                     : eachTextFieldWidget(
                         "Barcode",
-                        controller.txtBarCode,
+                        controller.txtVarietyBarCode,
                         "Barcode",
                         horizontal: 0,
                       ),
