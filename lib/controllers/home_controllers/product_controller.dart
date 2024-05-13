@@ -20,6 +20,12 @@ class ProductController extends GetxController {
   String categoryID = "";
 
   int productVarietyIncrement = 1;
+  List varietyIncrementValueList = [];
+  Map<int, dynamic> varietyValueMap = {};
+
+  TextEditingController txtBarCode = TextEditingController();
+  TextEditingController txtPrice = TextEditingController();
+  TextEditingController txtFactor = TextEditingController();
 
   @override
   onInit() {
@@ -53,15 +59,47 @@ class ProductController extends GetxController {
   }
 
   incrementProductVariety() {
-    productVarietyIncrement++;
+    addProductVariety();
+    txtBarCode.clear();
+    txtFactor.clear();
+    txtPrice.clear();
+    productVarietyIncrement += 1;
+    varietyIncrementValueList.add(productVarietyIncrement);
+    superPrint(varietyValueMap);
     update();
   }
 
-  decrementProductVariety() {
+  addProductVariety() {
+    varietyValueMap.addAll({
+      productVarietyIncrement: {
+        "barcode": txtBarCode.text,
+        "uom_option": "BX",
+        "factor": txtFactor.text.toString(),
+        "price": txtPrice.text.toString(),
+      },
+    });
+    superPrint(varietyValueMap);
+    update();
+  }
+
+  decrementProductVariety(int data) {
     if (productVarietyIncrement > 1) {
-      productVarietyIncrement--;
+      varietyIncrementValueList.remove(data);
+      varietyValueMap.remove(data);
       update();
     }
+    superPrint(varietyValueMap);
+  }
+
+  clearProductVariety() {
+    txtBarCode.clear();
+    txtFactor.clear();
+    txtPrice.clear();
+    varietyValueMap.clear();
+    productVarietyIncrement = 1;
+    varietyIncrementValueList.clear();
+    varietyIncrementValueList.add(1);
+    update();
   }
 
   updateCategoryID(String id) async {
