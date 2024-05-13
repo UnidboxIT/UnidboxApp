@@ -19,6 +19,8 @@ class ProductController extends GetxController {
   //int pageNumber = 1;
   String categoryID = "";
 
+  int productVarietyIncrement = 1;
+
   @override
   onInit() {
     super.onInit();
@@ -48,6 +50,18 @@ class ProductController extends GetxController {
   void dispose() {
     scrollController.dispose();
     super.dispose();
+  }
+
+  incrementProductVariety() {
+    productVarietyIncrement++;
+    update();
+  }
+
+  decrementProductVariety() {
+    if (productVarietyIncrement > 1) {
+      productVarietyIncrement--;
+      update();
+    }
   }
 
   updateCategoryID(String id) async {
