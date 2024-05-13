@@ -6,7 +6,7 @@ import 'package:unidbox_app/models/home/inventory_tracker.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/home/inventory_screens/widgets/product_widget.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/widgets/product_widget.dart';
 import '../create_product_screen.dart';
 import '../product_screen.dart';
 import '../widgets/each_inventory_tracker_widget.dart';

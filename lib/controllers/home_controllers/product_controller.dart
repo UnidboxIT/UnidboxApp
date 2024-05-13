@@ -5,7 +5,7 @@ import 'package:unidbox_app/services/home/product_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:http/http.dart' as http;
-import 'package:unidbox_app/views/screens/home/inventory_screens/product_screen.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/product_screen.dart';
 import '../../models/home/product.dart';
 
 class ProductController extends GetxController {
@@ -69,7 +69,8 @@ class ProductController extends GetxController {
     update();
   }
 
-  Future<void> searchProductByText(String query) async {
+  Future<void> searchProductByText(String query,
+      {bool isInventoryTracker = false}) async {
     searchProductsList.clear();
     if (query.isEmpty) {
       searchProductsList.addAll(productList);
@@ -84,6 +85,7 @@ class ProductController extends GetxController {
                   .contains(query.toLowerCase()))
           .toList();
     }
+
     update();
   }
 

@@ -7,9 +7,9 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../inventory_screens/internal_transfer_screen.dart';
-import '../inventory_screens/inventory_tracker_screen.dart';
-import '../inventory_screens/order_receving_screen.dart';
+import '../inventory_screens/internal_transfer/internal_transfer_screen.dart';
+import '../inventory_screens/inventory_tracker/inventory_tracker_screen.dart';
+import '../inventory_screens/order_receiving/order_receving_screen.dart';
 
 class MyTaskDetailScreen extends StatelessWidget {
   final String name;

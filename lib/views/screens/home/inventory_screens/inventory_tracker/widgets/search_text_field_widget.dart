@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
-import 'package:unidbox_app/views/screens/home/inventory_screens/scanner/barcode_scanner_screen.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/scanner/barcode_scanner_screen.dart';
 
 Widget searchTextFieldWidget() {
   return GetBuilder<ProductController>(builder: (controller) {

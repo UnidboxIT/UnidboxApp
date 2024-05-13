@@ -12,30 +12,34 @@ Widget globalAppBarWidget(
   return Container(
     height: 20.h,
     width: 100.w,
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
     decoration: BoxDecoration(color: AppColor.primary),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 5),
         GestureDetector(
           onTap: onPressed,
           child: Container(
-            height: 35,
-            width: 200,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            height: 60,
+            width: 70.w,
             color: Colors.transparent,
             alignment: Alignment.centerLeft,
             child: const Icon(
               Icons.arrow_back,
               color: Colors.white,
+              size: 30,
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        textWidget(
-          text,
-          fontWeight: FontWeight.w900,
-          size: 25,
-          color: Colors.white,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          child: textWidget(
+            text,
+            fontWeight: FontWeight.w900,
+            size: 25,
+            color: Colors.white,
+          ),
         ),
       ],
     ),

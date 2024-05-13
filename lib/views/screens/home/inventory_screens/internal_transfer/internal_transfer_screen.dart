@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/commons/super_scaffold.dart';
-import '../../../../utils/constant/app_color.dart';
+import '../../../../../utils/commons/super_scaffold.dart';
+import '../../../../../utils/constant/app_color.dart';
 
 class InternalTransferScreen extends StatelessWidget {
   const InternalTransferScreen({super.key});

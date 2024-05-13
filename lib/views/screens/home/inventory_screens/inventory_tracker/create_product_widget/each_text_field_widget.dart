@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import '../../../profile_screens/widgets/profile_text_field_widget.dart';
+import '../../../../profile_screens/widgets/profile_text_field_widget.dart';
 
 Widget eachTextFieldWidget(
     String name, TextEditingController controller, String hintText,
