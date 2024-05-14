@@ -20,14 +20,14 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var productController = Get.find<ProductController>();
-      // productController.productList.clear();
-      // productController.searchProductsList.clear();
-      // productController.xDataExit = true;
-      // productController.xLoading = false;
-      // productController.pageNumber = 50;
-      // productController.update();
-      //productController.updateCategoryID(id);
-      productController.getAllProductsByCategoryID(id);
+      productController.productList.clear();
+      productController.searchProductsList.clear();
+      productController.xDataExit = true;
+      productController.xLoading = false;
+      productController.pageNumber = 50;
+      productController.update();
+      productController.updateCategoryID(id);
+      productController.getAllProductsByCategoryID();
     });
 
     return Expanded(
@@ -37,13 +37,13 @@ class ProductWidget extends StatelessWidget {
 
   Widget productBodyWidget() {
     return GetBuilder<ProductController>(builder: (controller) {
-      if (controller.isProductLoading) {
-        return Center(
-          child: CupertinoActivityIndicator(
-            color: AppColor.pinkColor,
-          ),
-        );
-      }
+      // if (controller.isProductLoading) {
+      //   return Center(
+      //     child: CupertinoActivityIndicator(
+      //       color: AppColor.pinkColor,
+      //     ),
+      //   );
+      // }
       if (controller.searchProductsList.isEmpty) {
         return Center(
           child: textWidget(
@@ -167,27 +167,27 @@ class ProductWidget extends StatelessWidget {
                   );
                 }),
           ),
-          // if (controller.xLoading && controller.isProductLoading)
-          //   SizedBox(
-          //     height: 30,
-          //     child: Container(
-          //       padding: const EdgeInsets.symmetric(vertical: 5),
-          //       decoration: BoxDecoration(
-          //           color: AppColor.bgColor,
-          //           borderRadius: BorderRadius.circular(4)),
-          //       alignment: Alignment.center,
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           textWidget("Loadmore ...",
-          //               color: AppColor.pinkColor,
-          //               fontWeight: FontWeight.bold,
-          //               size: 15),
-          //           CupertinoActivityIndicator(color: AppColor.pinkColor),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
+          if (controller.xLoading && controller.isProductLoading)
+            SizedBox(
+              height: 30,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                decoration: BoxDecoration(
+                    color: AppColor.bgColor,
+                    borderRadius: BorderRadius.circular(4)),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textWidget("Loadmore ...",
+                        color: AppColor.pinkColor,
+                        fontWeight: FontWeight.bold,
+                        size: 15),
+                    CupertinoActivityIndicator(color: AppColor.pinkColor),
+                  ],
+                ),
+              ),
+            ),
         ],
       );
     });

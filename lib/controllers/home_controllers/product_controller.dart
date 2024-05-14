@@ -54,8 +54,8 @@ class ProductController extends GetxController {
             xLoading = true;
             superPrint(xLoading);
             update();
-            //++pageNumber;
-            //await getAllProductsByCategoryID();
+            ++pageNumber;
+            await getAllProductsByCategoryID();
             await Future.delayed(const Duration(seconds: 1));
             xLoading = false;
             update();
@@ -177,17 +177,19 @@ class ProductController extends GetxController {
     update();
   }
 
-  Future<void> getAllProductsByCategoryID(String id) async {
+  Future<void> getAllProductsByCategoryID() async {
+    superPrint(categoryID);
     if (productList.isNotEmpty) {
       isProductLoading = true;
       update();
     }
 
     try {
-      http.Response response = await ProductService.products(id, 0);
+      http.Response response =
+          await ProductService.products(categoryID, pageNumber);
       var result = jsonDecode(response.body);
-      productList.clear();
-      searchProductsList.clear();
+      // productList.clear();
+      // searchProductsList.clear();
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
@@ -196,10 +198,10 @@ class ProductController extends GetxController {
         for (var data in productList) {
           searchProductsList.add(data);
         }
-        // if (dataList.isEmpty) {
-        //   xDataExit = false;
-        //   update();
-        // }
+        if (dataList.isEmpty) {
+          xDataExit = false;
+          update();
+        }
       }
     } catch (e) {
       superPrint(e.toString());
