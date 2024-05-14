@@ -71,4 +71,15 @@ class ProductService {
 
     return response;
   }
+
+  static Future<Response> productByID(String productID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/product/$productID?fields=id,name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

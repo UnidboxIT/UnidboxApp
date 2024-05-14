@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/details/product_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+
+import '../../../../../../controllers/home_controllers/product_detail_controller.dart';
 
 class ProductWidget extends StatelessWidget {
   final String id;
@@ -18,6 +20,7 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProductDetailController());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var productController = Get.find<ProductController>();
       productController.productList.clear();
@@ -66,102 +69,115 @@ class ProductWidget extends StatelessWidget {
                   childAspectRatio: 0.93,
                 ),
                 itemBuilder: (context, index) {
+                  String productId =
+                      controller.searchProductsList[index].id.toString();
                   String image = controller.searchProductsList[index].imageUrl;
                   String name = controller.searchProductsList[index].name;
                   double qty = controller.searchProductsList[index].quantity;
                   double price = controller.searchProductsList[index].price;
                   double qtyOutStock =
                       controller.searchProductsList[index].qtyOutStock;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: AppColor.dropshadowColor,
-                                blurRadius: 3,
-                                spreadRadius: 3),
-                          ]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Container(
-                                  height: 14.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: image != "false"
-                                          ? NetworkImage(image)
-                                          : const NetworkImage(
-                                              "https://w7.pngwing.com/pngs/37/23/png-transparent-computer-icons-icon-design-information-computer-software-category-management-text-trademark-logo.png",
-                                            ),
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetailScreen(
+                            productID: productId,
+                            productName: name,
+                          ));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 3,
+                                  spreadRadius: 3),
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Container(
+                                    height: 14.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: image != "false"
+                                            ? NetworkImage(image)
+                                            : const NetworkImage(
+                                                "https://w7.pngwing.com/pngs/37/23/png-transparent-computer-icons-icon-design-information-computer-software-category-management-text-trademark-logo.png",
+                                              ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                height: 3.h,
-                                width: 100.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
+                                Container(
+                                  height: 3.h,
+                                  width: 100.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    color: qtyOutStock > 10
+                                        ? AppColor.orangeColor
+                                        : Colors.red,
                                   ),
-                                  color: qtyOutStock > 10
-                                      ? AppColor.orangeColor
-                                      : Colors.red,
+                                  alignment: Alignment.center,
+                                  child: textWidget(
+                                      qtyOutStock > 10
+                                          ? "Sufficient Stock"
+                                          : "Insufficient Stock",
+                                      color: Colors.white,
+                                      size: 12.5,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                alignment: Alignment.center,
-                                child: textWidget(
-                                    qtyOutStock > 10
-                                        ? "Sufficient Stock"
-                                        : "Insufficient Stock",
-                                    color: Colors.white,
-                                    size: 12.5,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: textWidget(name,
-                                maxLine: 2,
-                                textOverflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                size: 13,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                textWidget("Qty : $qty",
-                                    textOverflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    size: 12,
-                                    fontWeight: FontWeight.w500),
-                                textWidget("\$ $price",
-                                    textOverflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    size: 12,
-                                    fontWeight: FontWeight.w500),
                               ],
                             ),
-                          ),
-                          const SizedBox(height: 10)
-                        ],
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: textWidget(name,
+                                  maxLine: 2,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  size: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  textWidget("Qty : $qty",
+                                      textOverflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      size: 12,
+                                      fontWeight: FontWeight.w500),
+                                  textWidget("\$ $price",
+                                      textOverflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      size: 12,
+                                      fontWeight: FontWeight.w500),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10)
+                          ],
+                        ),
                       ),
                     ),
                   );

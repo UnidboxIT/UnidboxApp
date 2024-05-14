@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -37,7 +36,7 @@ Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
                 child: textWidget(
                   name,
                   fontWeight: FontWeight.w900,
-                  size: 25,
+                  size: 23,
                   color: Colors.white,
                   textAlign: TextAlign.left,
                   maxLine: 1,

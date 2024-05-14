@@ -157,6 +157,28 @@ class ProductController extends GetxController {
     update();
   }
 
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        base64Image = await imageToBase64(imageFile);
+        Get.back();
+      } else {
+        superPrint('No image selected.');
+      }
+    } catch (e) {
+      superPrint('Error picking image: $e');
+    }
+    update();
+  }
+
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
   Future<void> searchProductByText(String query,
       {bool isInventoryTracker = false}) async {
     searchProductsList.clear();
@@ -183,13 +205,11 @@ class ProductController extends GetxController {
       isProductLoading = true;
       update();
     }
-
     try {
       http.Response response =
           await ProductService.products(categoryID, pageNumber);
       var result = jsonDecode(response.body);
-      // productList.clear();
-      // searchProductsList.clear();
+
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
@@ -243,28 +263,6 @@ class ProductController extends GetxController {
     }
     isProductLoading = false;
     update();
-  }
-
-  Future<void> pickImage(ImageSource source) async {
-    try {
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        base64Image = await imageToBase64(imageFile);
-        Get.back();
-      } else {
-        superPrint('No image selected.');
-      }
-    } catch (e) {
-      superPrint('Error picking image: $e');
-    }
-    update();
-  }
-
-  Future<String> imageToBase64(File imageFile) async {
-    List<int> imageBytes = await imageFile.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
-    return base64Image;
   }
 
   clearSelectedImage() {
