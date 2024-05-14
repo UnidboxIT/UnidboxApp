@@ -114,7 +114,7 @@ class ProductWidget extends StatelessWidget {
                                         image: image != "false"
                                             ? NetworkImage(image)
                                             : const NetworkImage(
-                                                "https://w7.pngwing.com/pngs/37/23/png-transparent-computer-icons-icon-design-information-computer-software-category-management-text-trademark-logo.png",
+                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
                                               ),
                                       ),
                                     ),

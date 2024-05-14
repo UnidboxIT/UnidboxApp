@@ -10,6 +10,7 @@ import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_track
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../widgets/stock_button_widget.dart';
+import 'Inhouse_stock_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String productID;
@@ -66,15 +67,26 @@ class ProductDetailScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  stockButtonWidget(() {
-                    controller.toggleInHouseStockButton("In-house Stock");
-                  }, "In-house Stock", controller),
-                  stockButtonWidget(() {
-                    controller.toggleInHouseStockButton("Stock Ordering");
-                  }, "Stock Ordering", controller),
+                  stockButtonWidget(
+                    () {
+                      controller.toggleInHouseStockButton("In-house Stock");
+                    },
+                    "In-house Stock",
+                    controller,
+                  ),
+                  stockButtonWidget(
+                    () {
+                      controller.toggleInHouseStockButton("Stock Ordering");
+                    },
+                    "Stock Ordering",
+                    controller,
+                  ),
                 ],
               ),
             ),
+            controller.stockName == "In-house Stock"
+                ? inhouseStockWidget()
+                : const SizedBox()
           ],
         ),
       );

@@ -82,4 +82,14 @@ class ProductService {
 
     return response;
   }
+
+  static Future<Response> inHouseStock(String productID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/stock-quant/$productID',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }
