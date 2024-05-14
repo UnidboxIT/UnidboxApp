@@ -18,7 +18,6 @@ class MyTaskScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           textWidget(
             "My Task",
             fontWeight: FontWeight.w600,
