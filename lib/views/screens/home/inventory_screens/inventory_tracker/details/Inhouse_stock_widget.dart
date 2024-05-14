@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:unidbox_app/controllers/home_controllers/product_detail_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget inhouseStockWidget() {
+Widget inhouseStockWidget(ProductDetailController controller) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     child: Column(
@@ -40,15 +39,17 @@ Widget inhouseStockWidget() {
         ListView.separated(
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              String location = "Kapo";
-              String qty = "1";
-              String id = index.toString();
-              return eachInhouseStockWidget(location, qty, id);
+              String location =
+                  controller.inhouseStockList[index].warehouseList[1];
+              double qty = controller.inhouseStockList[index].qty;
+              String id = controller.inhouseStockList[index].warehouseList[0]
+                  .toString();
+              return eachInhouseStockWidget(location, qty.toString(), id);
             },
             separatorBuilder: (context, index) {
               return const SizedBox(height: 10);
             },
-            itemCount: 10)
+            itemCount: controller.inhouseStockList.length)
       ],
     ),
   );

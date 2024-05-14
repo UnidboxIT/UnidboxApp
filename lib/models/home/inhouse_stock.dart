@@ -10,13 +10,9 @@ class InhouseStock {
 
   factory InhouseStock.fromJson(Map<String, dynamic> json) {
     return InhouseStock(
-      productList: List.from(
-        json['product'],
-      ),
-      qty: json['quantity'] ?? 0.0,
-      warehouseList: List.from(
-        json['warehouse'],
-      ),
+      productList: List.from(json['product']),
+      qty: json['quantity'],
+      warehouseList: List.from(json['warehouse']),
     );
   }
 }

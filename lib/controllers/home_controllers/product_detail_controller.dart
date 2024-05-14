@@ -34,7 +34,13 @@ class ProductDetailController extends GetxController {
       http.Response response = await ProductService.inHouseStock(productID);
       var result = jsonDecode(response.body);
       superPrint(result);
-      if (result['result']['code'] == 200) {}
+      if (result['result']['code'] == 200) {
+        Iterable dataList = result['result']['result'];
+        inhouseStockList.clear();
+        for (var element in dataList) {
+          inhouseStockList.add(InhouseStock.fromJson(element));
+        }
+      }
     } catch (e) {
       superPrint(e);
     }

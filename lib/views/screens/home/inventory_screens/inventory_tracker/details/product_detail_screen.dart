@@ -20,7 +20,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<ProductDetailController>().productByID(productID);
+    var controller = Get.find<ProductDetailController>();
+    controller.productByID(productID);
+    controller.inHouseStockByProductID(productID);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -85,7 +87,7 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
             controller.stockName == "In-house Stock"
-                ? inhouseStockWidget()
+                ? inhouseStockWidget(controller)
                 : const SizedBox()
           ],
         ),
