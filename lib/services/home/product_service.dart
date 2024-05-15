@@ -92,4 +92,31 @@ class ProductService {
 
     return response;
   }
+
+  static Future<Response> racks() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/racks',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  static Future<Response> updateProduct(String productID, List rackList,
+      String salePrice, String costPrice) async {
+    Map<String, dynamic> formData = {
+      "racks": rackList,
+      "sale_price": salePrice,
+      "cost_price": costPrice
+    };
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/product/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }

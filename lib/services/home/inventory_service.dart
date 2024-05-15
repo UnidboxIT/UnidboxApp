@@ -21,7 +21,6 @@ class InventoryService {
   //         'joborder/category?fields=id,name,parent_id,image_url&offset=1&parent_id=$parentID',
   //     headers: CommonMethods.setHeaders(),
   //   );
-
   //   return response;
   // }
 }

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_detail_controller.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/widgets/inventory_app_bar_widget.dart';
@@ -12,6 +13,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../widgets/stock_button_widget.dart';
 import 'Inhouse_stock_widget.dart';
+import 'product_detail_update.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String productID;
@@ -21,9 +23,13 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<ProductDetailController>();
-    controller.productByID(productID);
-    controller.inHouseStockByProductID(productID);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var controller = Get.find<ProductDetailController>();
+      controller.productByID(productID);
+      controller.inHouseStockByProductID(productID);
+      superPrint(productID);
+    });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -39,7 +45,11 @@ class ProductDetailScreen extends StatelessWidget {
                 () {
                   Get.back();
                 },
-                () {},
+                () {
+                  Get.to(() => ProductDetailUpdateScreen(
+                        productID: productID,
+                      ));
+                },
                 Icons.edit_document,
               ),
               Transform.translate(
@@ -107,7 +117,7 @@ class ProductDetailScreen extends StatelessWidget {
       String costPrice = controller.productsDetail.costPrice.toString();
       List attribueList = controller.productsDetail.attributeList;
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
         child: Column(
           children: [
             Row(
@@ -131,12 +141,23 @@ class ProductDetailScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: eachProductWidget(
-                      brand, sku, model, attribueList, barcode),
+                    brand,
+                    sku,
+                    model,
+                    attribueList,
+                    barcode,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 15),
-            priceWidget(retailPrice, costPrice),
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: priceWidget(
+                retailPrice,
+                costPrice,
+              ),
+            ),
           ],
         ),
       );

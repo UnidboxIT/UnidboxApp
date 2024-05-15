@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../models/home/inhouse_stock.dart';
 import '../../models/home/product.dart';
+import '../../models/home/racks.dart';
 import '../../services/home/product_service.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/commons/super_print.dart';
@@ -11,9 +15,28 @@ class ProductDetailController extends GetxController {
   String stockName = "In-house Stock";
   List<InhouseStock> inhouseStockList = [];
   bool isInHouseLoading = false;
+  List<Racks> racksList = [];
+
+  TextEditingController txtSearch = TextEditingController();
+  TextEditingController txtRetailPrice = TextEditingController();
+  TextEditingController txtCostPrice = TextEditingController();
+
+  Racks selectedRackValue = Racks();
+  String inHouseQty = "";
 
   void toggleInHouseStockButton(String name) {
     stockName = name;
+    update();
+  }
+
+  addValueForProductUpdate() {}
+
+  updateSelectedRacksData(values) {
+    for (var data in racksList) {
+      if (data.name.contains(values)) {
+        selectedRackValue = Racks(id: data.id, name: data.name);
+      }
+    }
     update();
   }
 
@@ -49,6 +72,42 @@ class ProductDetailController extends GetxController {
       superPrint(e);
     }
     isInHouseLoading = false;
+    update();
+  }
+
+  Future<void> getAllRacks() async {
+    try {
+      http.Response response = await ProductService.racks();
+      var result = jsonDecode(response.body);
+      superPrint(result);
+      racksList.clear();
+      if (result['result']['code'] == 200) {
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          racksList.add(Racks.fromJson(element));
+        }
+      }
+    } catch (e) {
+      superPrint(e);
+    }
+    update();
+  }
+
+  Future<void> updateProductDetail(String productID) async {
+    try {
+      http.Response response = await ProductService.updateProduct(
+          productID, [], txtRetailPrice.text, txtCostPrice.text);
+      var result = jsonDecode(response.body);
+      racksList.clear();
+      if (result['result']['code'] == 200) {
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          racksList.add(Racks.fromJson(element));
+        }
+      }
+    } catch (e) {
+      superPrint(e);
+    }
     update();
   }
 }
