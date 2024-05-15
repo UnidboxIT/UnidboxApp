@@ -14,6 +14,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../widgets/stock_button_widget.dart';
 import 'Inhouse_stock_widget.dart';
 import 'product_detail_update.dart';
+import 'stock_ordering_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String productID;
@@ -99,7 +100,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             controller.stockName == "In-house Stock"
                 ? inhouseStockWidget(controller)
-                : const SizedBox()
+                : stockOrderingWidget(controller)
           ],
         ),
       );
