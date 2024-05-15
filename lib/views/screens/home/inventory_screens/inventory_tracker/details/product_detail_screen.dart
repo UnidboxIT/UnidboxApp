@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -104,6 +105,7 @@ class ProductDetailScreen extends StatelessWidget {
       String model = controller.productsDetail.model;
       String retailPrice = controller.productsDetail.price.toString();
       String costPrice = controller.productsDetail.costPrice.toString();
+      List attribueList = controller.productsDetail.attributeList;
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
@@ -111,8 +113,8 @@ class ProductDetailScreen extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height: 18.h,
-                  width: 35.w,
+                  height: 25.h,
+                  width: 38.w,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(10),
@@ -128,7 +130,8 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
-                  child: eachProductWidget(brand, sku, model, "Black", barcode),
+                  child: eachProductWidget(
+                      brand, sku, model, attribueList, barcode),
                 ),
               ],
             ),
@@ -141,7 +144,7 @@ class ProductDetailScreen extends StatelessWidget {
   }
 
   Widget eachProductWidget(String brandValue, String skuValue,
-      String modelValue, String colorValue, String barcode) {
+      String modelValue, List attribute, String barcode) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -174,19 +177,38 @@ class ProductDetailScreen extends StatelessWidget {
                     color: AppColor.pinkColor),
                 textWidget(modelValue, size: 13),
                 const SizedBox(height: 8),
-                textWidget("Color",
+                textWidget("Barcode",
                     fontWeight: FontWeight.bold,
                     size: 13,
                     color: AppColor.pinkColor),
-                textWidget(colorValue, size: 13),
+                textWidget(barcode, size: 13),
               ],
             ),
           ],
         ),
         const SizedBox(height: 10),
-        textWidget("Barcode",
+        textWidget("Attribute",
             fontWeight: FontWeight.bold, size: 13, color: AppColor.pinkColor),
-        textWidget(barcode, size: 13),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: attribute
+              .map(
+                (e) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 5, top: 4, bottom: 4, right: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: textWidget(e, size: 12),
+                  ),
+                ),
+              )
+              .toList(),
+        )
       ],
     );
   }

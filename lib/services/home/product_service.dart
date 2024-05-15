@@ -10,7 +10,7 @@ class ProductService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
+          'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -21,7 +21,7 @@ class ProductService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,name,default_code,categ_id,barcode,price,quantity&barcode=$barcode',
+          'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -76,7 +76,7 @@ class ProductService {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product/$productID?fields=id,name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model',
+          'joborder/product/$productID?fields=id,name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids',
       headers: CommonMethods.setHeaders(),
     );
 

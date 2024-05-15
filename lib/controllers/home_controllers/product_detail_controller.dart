@@ -10,6 +10,8 @@ class ProductDetailController extends GetxController {
   Products productsDetail = Products();
   String stockName = "In-house Stock";
   List<InhouseStock> inhouseStockList = [];
+  bool isInHouseLoading = false;
+
   void toggleInHouseStockButton(String name) {
     stockName = name;
     update();
@@ -30,6 +32,8 @@ class ProductDetailController extends GetxController {
   }
 
   Future<void> inHouseStockByProductID(String productID) async {
+    isInHouseLoading = true;
+    update();
     try {
       http.Response response = await ProductService.inHouseStock(productID);
       var result = jsonDecode(response.body);
@@ -44,6 +48,7 @@ class ProductDetailController extends GetxController {
     } catch (e) {
       superPrint(e);
     }
+    isInHouseLoading = false;
     update();
   }
 }
