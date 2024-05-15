@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_detail_controller.dart';
@@ -67,6 +68,38 @@ class ProductDetailUpdateScreen extends StatelessWidget {
             const SizedBox(height: 10),
             eachTextFieldWidget("Cost Price", controller.txtCostPrice, ""),
             const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textWidget(
+                    "In-house Quantity",
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.pinkColor,
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    width: 100.w,
+                    height: 40,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade100,
+                            blurRadius: 3,
+                            spreadRadius: 3,
+                            offset: const Offset(0, 3),
+                          )
+                        ]),
+                    child: textWidget(controller.inHouseQty),
+                  ),
+                ],
+              ),
+            ),
             const Spacer(),
             SizedBox(width: 30.w, child: buttonWidget("Update", () {})),
             SizedBox(height: 10.h),

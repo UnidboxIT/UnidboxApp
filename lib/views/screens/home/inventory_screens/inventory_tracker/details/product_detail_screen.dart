@@ -116,6 +116,7 @@ class ProductDetailScreen extends StatelessWidget {
       String retailPrice = controller.productsDetail.price.toString();
       String costPrice = controller.productsDetail.costPrice.toString();
       List attribueList = controller.productsDetail.attributeList;
+      controller.addRetailPriceCostPrice(retailPrice, costPrice);
       return Padding(
         padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
         child: Column(

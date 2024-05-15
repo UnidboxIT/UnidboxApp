@@ -29,7 +29,10 @@ class ProductDetailController extends GetxController {
     update();
   }
 
-  addValueForProductUpdate() {}
+  addRetailPriceCostPrice(String retailPrice, String costPrice) {
+    txtRetailPrice.text = retailPrice;
+    txtCostPrice.text = costPrice;
+  }
 
   updateSelectedRacksData(values) {
     for (var data in racksList) {

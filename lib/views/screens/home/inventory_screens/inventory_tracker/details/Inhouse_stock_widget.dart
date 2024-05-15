@@ -56,6 +56,7 @@ Widget inhouseStockWidget(ProductDetailController controller) {
                   String id = controller
                       .inhouseStockList[index].warehouseList[0]
                       .toString();
+                  controller.inHouseQty = qty;
                   return eachInhouseStockWidget(
                       location, qty.toString(), id, index);
                 },
