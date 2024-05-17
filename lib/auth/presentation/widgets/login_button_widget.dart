@@ -1,23 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/auth/repository/auth_state_notifier_controller.dart';
+import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget loginButtonWidget(TextEditingController txtUserID,
-    TextEditingController txtPassword, context, WidgetRef ref) {
-  ref.listen<AsyncValue<void>>(
-    authStateNotifierControllerProvider,
-    (_, state) => state.whenOrNull(error: (e, t) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
-    }),
-  );
-  final authRepository = ref.read(authStateNotifierControllerProvider.notifier);
-  final paymentState = ref.watch(authStateNotifierControllerProvider).isLoading;
+Widget loginButtonWidget(LoginController loginController) {
   return Center(
     child: Container(
       width: 40.w,
@@ -36,8 +24,7 @@ Widget loginButtonWidget(TextEditingController txtUserID,
       child: ElevatedButton(
         onPressed: () {
           FocusManager.instance.primaryFocus!.unfocus();
-          authRepository.signIn(
-              txtUserID.text.trim(), txtPassword.text.trim(), context);
+          loginController.login();
         },
         style: ElevatedButton.styleFrom(
           surfaceTintColor: Colors.white,
@@ -47,7 +34,7 @@ Widget loginButtonWidget(TextEditingController txtUserID,
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: paymentState
+        child: loginController.isLoginLoading
             ? Center(
                 child: CupertinoActivityIndicator(
                   color: AppColor.primary,

@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unidbox_app/app_screen.dart';
 import 'package:unidbox_app/main_screen.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
+import 'auth/repository/auth_state_notifier_controller.dart';
 import 'controllers/auth_controllers/login_controller.dart';
 import 'controllers/nav_bar_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
-  runApp(const UnidboxApp());
-  Get.config(
-    enableLog: true,
-    defaultPopGesture: true,
-    defaultTransition: Transition.cupertino,
+  // await GetStorage.init();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  runApp(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      ],
+      child: const AppScreen(),
+    ),
   );
+  //runApp(const UnidboxApp());
+  // Get.config(
+  //   enableLog: true,
+  //   defaultPopGesture: true,
+  //   defaultTransition: Transition.cupertino,
+  // );
 }
 
 class UnidboxApp extends StatelessWidget {

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget rememberMeWidget() {
+Widget rememberMeWidget(LoginController loginController) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      loginController.clickRememberMe();
+    },
     child: Container(
       width: 50.w,
       height: 40,
@@ -14,8 +18,12 @@ Widget rememberMeWidget() {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Icon(
-            Icons.check_box_outline_blank,
-            color: Colors.grey.shade400,
+            loginController.isRememberMe
+                ? Icons.check_box_rounded
+                : Icons.check_box_outline_blank,
+            color: loginController.isRememberMe
+                ? AppColor.primary
+                : Colors.grey.shade400,
             size: 20,
           ),
           const SizedBox(width: 10),

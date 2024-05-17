@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -10,7 +9,6 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../widgets/stock_button_widget.dart';
 import 'Inhouse_stock_widget.dart';
 import 'product_detail_update.dart';
