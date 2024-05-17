@@ -10,7 +10,7 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
-import 'auth/repository/auth_state_notifier_controller.dart';
+import 'auth/repository/auth_state_notifier.dart';
 import 'controllers/auth_controllers/login_controller.dart';
 import 'controllers/nav_bar_controller.dart';
 

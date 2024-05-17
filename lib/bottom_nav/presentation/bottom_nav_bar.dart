@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../repository/bottom_nav_state_notifier_controller.dart';
+import '../repository/bottom_nav_state_notifier.dart';
 
 Widget floatingActionBottomWidget() {
   return FloatingActionButton(

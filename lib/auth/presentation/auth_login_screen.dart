@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/auth/presentation/widgets/each_text_field_widget.dart';
+import 'package:unidbox_app/auth/presentation/widgets/login_button_widget.dart';
+import 'package:unidbox_app/auth/presentation/widgets/login_image_widget.dart';
+import 'package:unidbox_app/auth/presentation/widgets/remember_me_widget.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-
-import '../../views/screens/auth_screens/widgets/each_text_field_widget.dart';
-import '../../views/screens/auth_screens/widgets/login_button_widget.dart';
-import '../../views/screens/auth_screens/widgets/login_image_widget.dart';
-import '../../views/screens/auth_screens/widgets/remember_me_widget.dart';
 import '../../views/widgets/text_widget.dart';
 
 class AuthLoginScreen extends ConsumerStatefulWidget {
@@ -43,7 +42,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
               const SizedBox(height: 10),
               eachPasswordWidget(txtPassword, "Password"),
               const SizedBox(height: 20),
-              rememberMeWidget(),
+              rememberMeWidget(ref),
               SizedBox(height: 5.h),
               loginButtonWidget(txtUserID, txtPassword, context, ref),
             ],

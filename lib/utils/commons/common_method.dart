@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
+import '../../auth/repository/auth_state_notifier.dart';
 import '../../controllers/nav_bar_controller.dart';
-import '../../views/screens/auth_screens/login_screeen.dart';
 import '../../views/widgets/button/button_widget.dart';
 import '../constant/app_constant.dart';
+
+xCheckUserAuthorized(WidgetRef ref) {
+  return ref
+      .watch(authStateNotifierControllerProvider.notifier)
+      .checkUserAuthorization();
+}
 
 xUserAuthorized() {
   return apiToken.isNotEmpty;
@@ -74,7 +82,7 @@ class CommonMethods {
     Get.find<NavBarController>().currentIndex = 0;
     Get.find<NavBarController>().update();
     box.erase();
-    Get.offAll(() => const LoginScreen());
+    Get.offAll(() => const AuthLoginScreen());
     customizedAlertDialog("Session Expired".tr);
   }
 }

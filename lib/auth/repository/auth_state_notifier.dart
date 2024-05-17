@@ -15,18 +15,26 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError();
 });
 
+final isCheckRememberMeProvider = Provider<bool>((ref) {
+  return false;
+});
+
 final authStateNotifierControllerProvider =
     StateNotifierProvider<AuthStateNotifierController, AsyncValue>((ref) {
   final sharedPreferences = ref.watch(sharedPreferencesProvider);
   final authController = ref.watch(authSateProvider);
-  return AuthStateNotifierController(authController, sharedPreferences);
+  final isCheckController = ref.watch(isCheckRememberMeProvider);
+  return AuthStateNotifierController(
+      authController, sharedPreferences, isCheckController);
 });
 
 class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
-  AuthStateNotifierController(this._authRepository, this.sharedPreferences)
+  AuthStateNotifierController(
+      this._authRepository, this.sharedPreferences, this.isSelected)
       : super(const AsyncValue.data(null));
   final AuthRepository _authRepository;
   final SharedPreferences sharedPreferences;
+  bool isSelected;
 
   void signIn(String username, String password, BuildContext context) async {
     try {
@@ -36,7 +44,6 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
       if (result['result']['code'] == 200) {
         Admin adminData = Admin.fromJson(result['result']);
         saveLogin(adminData.sessionId, result['result']);
-        superPrint(result['result']);
         if (context.mounted) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomeScreen()));
@@ -54,7 +61,21 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
   void saveLogin(String apiToken, result) async {
     sharedPreferences.setString(AppKeys.apiToken, apiToken);
     sharedPreferences.setString(AppKeys.userInfo, jsonEncode(result));
+  }
+
+  void selectedCheckBox(bool selected) {
+    isSelected = selected;
+  }
+
+  checkUserAuthorization() {
+    apiToken = sharedPreferences.getString('apiToken') ?? '';
+    return apiToken.isNotEmpty;
+  }
+
+  Admin getAdminInfo() {
     var data = jsonDecode(sharedPreferences.getString(AppKeys.userInfo)!);
-    Admin admin = Admin.fromJson(data);
+    admin = Admin.fromJson(data);
+    superPrint(admin.name);
+    return admin;
   }
 }
