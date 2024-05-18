@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:unidbox_app/controllers/notification_controller.dart';
 import 'package:unidbox_app/home/repository/home_state_notifier.dart';
 import 'package:unidbox_app/models/noti.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-class ImportantReminderWidget extends StatelessWidget {
-  final List<Noti> notiList;
-  const ImportantReminderWidget({super.key, required this.notiList});
+class ImportantReminderWidget extends ConsumerWidget {
+  const ImportantReminderWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    superPrint(notiList);
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Noti> notiList =
+        ref.watch(homeStateNotifierProvider.notifier).notiList;
     return Stack(
       children: [
         Transform.translate(

@@ -7,7 +7,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../auth/repository/auth_state_notifier.dart';
 
 Widget homeAppBarWidget(WidgetRef ref) {
-  final time = ref.watch(timeStateNotifierProvider);
+  final time = ref.watch(timeStateNotifierProvier);
   return Container(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 12),
     child: Row(
