@@ -32,8 +32,8 @@ class ChangePasswordController extends GetxController {
       if (result['result']['code'] == 200) {
         successfullyBottomSheet(
             "Successfully Updated", "The informations have been updated", () {
-          var userJson = jsonDecode(box.read(AppKeys.userInfo));
-          admin = Admin.fromJson(userJson);
+          // var userJson = jsonDecode(box.read(AppKeys.userInfo));
+          //   admin = Admin.fromJson(userJson);
           var loginController = Get.find<LoginController>();
           loginController.txtUserID.text = admin.username;
           loginController.txtPassword.clear();

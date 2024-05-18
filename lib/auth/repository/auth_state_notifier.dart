@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/auth/repository/auth_repository.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../home/presentation/home_screen.dart';
 import '../../models/login/admin.dart';
 import '../../utils/constant/app_constant.dart';
@@ -75,7 +74,6 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
   Admin getAdminInfo() {
     var data = jsonDecode(sharedPreferences.getString(AppKeys.userInfo)!);
     admin = Admin.fromJson(data);
-    superPrint(admin.name);
     return admin;
   }
 }

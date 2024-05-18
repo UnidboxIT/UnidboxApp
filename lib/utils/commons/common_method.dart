@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../auth/repository/auth_state_notifier.dart';
 import '../../controllers/nav_bar_controller.dart';
 import '../../views/widgets/button/button_widget.dart';
@@ -19,14 +20,12 @@ xUserAuthorized() {
   return apiToken.isNotEmpty;
 }
 
-var box = GetStorage();
-
 class CommonMethods {
   static Map<String, String> setHeaders() {
     return {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'X-Openerp-Session-Id': '${box.read(AppKeys.apiToken)}'
+      'X-Openerp-Session-Id': apiToken
     };
   }
 
@@ -79,9 +78,8 @@ class CommonMethods {
   }
 
   static void unAuthorizedLogout() async {
-    Get.find<NavBarController>().currentIndex = 0;
-    Get.find<NavBarController>().update();
-    box.erase();
+    // Get.find<NavBarController>().currentIndex = 0;
+    // Get.find<NavBarController>().update();
     Get.offAll(() => const AuthLoginScreen());
     customizedAlertDialog("Session Expired".tr);
   }
