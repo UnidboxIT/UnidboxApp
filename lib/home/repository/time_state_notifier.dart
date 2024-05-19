@@ -1,15 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final timeProvider = StateProvider((ref) => TimeStateNotifier());
-
 final timeStateNotifierProvier =
     StateNotifierProvider<TimeStateNotifier, String>((ref) {
-  ref.read(timeProvider).calculateTime();
   return TimeStateNotifier();
 });
 
 class TimeStateNotifier extends StateNotifier<String> {
-  TimeStateNotifier() : super("");
+  TimeStateNotifier() : super("") {
+    calculateTime();
+  }
 
   String calculateTime() {
     DateTime now = DateTime.now();

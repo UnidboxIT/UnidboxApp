@@ -11,9 +11,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await ref.watch(homeStateNotifierProvider.notifier).notiReminder();
-    });
     return SuperScaffold(
       topColor: const Color(0xffF6F6F6),
       botColor: Colors.white,

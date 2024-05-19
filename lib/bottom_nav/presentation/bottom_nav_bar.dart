@@ -20,9 +20,8 @@ Widget floatingActionBottomWidget() {
   );
 }
 
-Widget bottomNavBarWidget(WidgetRef ref) {
-  final indexScreen = ref.watch(bottomNavNotifierControllerProvider.notifier);
-  final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
+Widget bottomNavBarWidget(int currentIndex,
+    BottomNavNotifierController bottomNavNotifier, WidgetRef ref) {
   return BottomAppBar(
     padding: const EdgeInsets.symmetric(horizontal: 15),
     height: 55,
@@ -33,7 +32,7 @@ Widget bottomNavBarWidget(WidgetRef ref) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: indexScreen.navBarList
+      children: bottomNavNotifier.navBarList
           .map(
             (e) => GestureDetector(
               onTap: () {

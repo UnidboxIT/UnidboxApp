@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/auth/repository/auth_repository.dart';
-import '../../home/presentation/home_screen.dart';
+import 'package:unidbox_app/main_screen.dart';
 import '../../models/login/admin.dart';
 import '../../utils/constant/app_constant.dart';
 
@@ -35,7 +35,8 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
   final SharedPreferences sharedPreferences;
   bool isSelected;
 
-  void signIn(String username, String password, BuildContext context) async {
+  void signIn(String username, String password, WidgetRef ref,
+      BuildContext context) async {
     try {
       state = const AsyncValue.loading();
       http.Response response = await _authRepository.login(username, password);
@@ -44,8 +45,8 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
         Admin adminData = Admin.fromJson(result['result']);
         saveLogin(adminData.sessionId, result['result']);
         if (context.mounted) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainScreen()));
         }
       } else {
         state = AsyncValue.error(result['result']['error'], StackTrace.current);

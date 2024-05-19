@@ -3,7 +3,7 @@ import '../../services/api_service.dart';
 import '../../utils/commons/common_method.dart';
 
 class HomeRepository {
-  static Future<http.Response> reminder() async {
+  Future<http.Response> reminder() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:

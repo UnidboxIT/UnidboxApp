@@ -37,7 +37,7 @@ Widget loginButtonWidget(TextEditingController txtUserID,
         onPressed: () {
           FocusManager.instance.primaryFocus!.unfocus();
           authRepository.signIn(
-              txtUserID.text.trim(), txtPassword.text.trim(), context);
+              txtUserID.text.trim(), txtPassword.text.trim(), ref, context);
         },
         style: ElevatedButton.styleFrom(
           surfaceTintColor: Colors.white,

@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/home/presentation/home_screen.dart';
+import 'package:unidbox_app/profile/presentation/profile_screen.dart';
 
 import '../../utils/constant/app_color.dart';
 import '../domain/nav_bar.dart';
 
 final bottomNavNotifierControllerProvider =
-    StateNotifierProvider<BottomNavNotifierController, int>(
-        (ref) => BottomNavNotifierController());
+    StateNotifierProvider<BottomNavNotifierController, int>((ref) {
+  return BottomNavNotifierController();
+});
 
 class BottomNavNotifierController extends StateNotifier<int> {
   BottomNavNotifierController() : super(0);
@@ -18,7 +20,7 @@ class BottomNavNotifierController extends StateNotifier<int> {
     Container(),
     Container(),
     Container(),
-    Container(),
+    const ProfileScreen(),
   ];
 
   List<NavBar> navBarList = [

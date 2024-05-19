@@ -14,18 +14,20 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final indexScreen = ref.watch(bottomNavNotifierControllerProvider.notifier);
     final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
+    final bottomNavNotifier =
+        ref.watch(bottomNavNotifierControllerProvider.notifier);
     return SuperScaffold(
       topColor: const Color(0xffF6F6F6),
       botColor: Colors.white,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: indexScreen.indexWidgets[currentIndex],
+        body: bottomNavNotifier.indexWidgets[currentIndex],
         extendBody: true,
         floatingActionButton: floatingActionBottomWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: bottomNavBarWidget(ref),
+        bottomNavigationBar:
+            bottomNavBarWidget(currentIndex, bottomNavNotifier, ref),
       ),
     );
   }

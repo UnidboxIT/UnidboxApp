@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/home/repository/home_state_notifier.dart';
 import 'package:unidbox_app/models/noti.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 class ImportantReminderWidget extends ConsumerWidget {
@@ -11,8 +12,15 @@ class ImportantReminderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Noti> notiList =
-        ref.watch(homeStateNotifierProvider.notifier).notiList;
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    //   List noti =
+    //       await ref.watch(homeStateNotifierProvider.notifier).notiReminder();
+    //   superPrint(noti);
+    // });
+    var notiList = ref.watch(homeStateNotifierProvider);
+    // List<Noti> notiList =
+    //     ref.watch(homeStateNotifierProvider.notifier).notiList;
+    superPrint(notiList);
     return Stack(
       children: [
         Transform.translate(
@@ -33,21 +41,24 @@ class ImportantReminderWidget extends ConsumerWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
-              notiList.isEmpty
-                  ? textWidget("No Important Reminder")
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        // if (controller.isReminderLoading) {
-                        //   return shimmerReminderWidget();
-                        // }
-                        return buildReminderTextWidget(notiList[index]);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 5);
-                      },
-                      itemCount: 2,
-                    ),
+              notiList.isLoading
+                  ? shimmerReminderWidget()
+                  : notiList.notiList.isEmpty
+                      ? textWidget("No Important Reminder")
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            // if (controller.isReminderLoading) {
+                            //   return shimmerReminderWidget();
+                            // }
+                            return buildReminderTextWidget(
+                                notiList.notiList[index]);
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 5);
+                          },
+                          itemCount: 2,
+                        ),
             ],
           ),
         ),
