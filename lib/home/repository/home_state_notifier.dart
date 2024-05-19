@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/home/repository/home_repository.dart';
 import 'package:unidbox_app/models/noti.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 
 final homeStateProvider = StateProvider((ref) => HomeStateNotifier());
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
@@ -9,8 +8,6 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:http/http.dart' as http;
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/auth_screens/login_screeen.dart';
-
-import '../../models/login/admin.dart';
 import '../../views/widgets/bottom_sheets/successfully_bottom_sheet.dart';
 
 class ChangePasswordController extends GetxController {
