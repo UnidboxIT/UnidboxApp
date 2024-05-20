@@ -78,12 +78,12 @@ class InventoryTrackerScreen extends StatelessWidget {
                         image,
                         name,
                         () {
-                          Get.to(
-                            () => InventoryTrackerSubCategoryScreen(
-                              parentID: id,
-                              name: name,
-                            ),
-                          );
+                          // Get.to(
+                          //   () => InventoryTrackerSubCategoryScreen(
+                          //     parentID: id,
+                          //     name: name,
+                          //   ),
+                          // )
                         },
                       );
                     },

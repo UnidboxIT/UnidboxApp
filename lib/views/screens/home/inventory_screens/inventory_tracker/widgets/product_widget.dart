@@ -7,8 +7,6 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/details/product_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import '../../../../../../controllers/home_controllers/product_detail_controller.dart';
-
 class ProductWidget extends StatelessWidget {
   final String id;
   final String name;
@@ -20,7 +18,6 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProductDetailController());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var productController = Get.find<ProductController>();
       productController.productList.clear();

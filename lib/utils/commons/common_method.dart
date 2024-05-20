@@ -27,7 +27,7 @@ class CommonMethods {
   }
 
   static void customizedAlertDialog(String message, {bool isPop = true}) {
-    Get.dialog(Dialog(
+    Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -69,8 +69,6 @@ class CommonMethods {
           ],
         ),
       ),
-    )).then(
-      (value) => isPop ? Get.back(closeOverlays: true) : "",
     );
   }
 

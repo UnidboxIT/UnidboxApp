@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/home/domain/my_task.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
@@ -26,7 +26,6 @@ class MyTaskDetailScreen extends ConsumerStatefulWidget {
 class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    superPrint(widget.myTaskDetail);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -74,9 +73,10 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
           return GestureDetector(
             onTap: () {
               switch (task.name) {
-                // case "Inventory Tracker":
-                //   Get.to(() => const InventoryTrackerScreen());
-                //   break;
+                case "Inventory Tracker":
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const InventoryTrackerScreen()));
+                  break;
                 // case "Order Receiving":
                 //   Get.to(() => const OrderReceivingScreen());
                 //   break;
