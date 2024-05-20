@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/home/repository/provider/home_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'bottom_nav/presentation/bottom_nav_bar.dart';
 import 'bottom_nav/repository/bottom_nav_state_notifier.dart';
@@ -13,10 +14,18 @@ class MainScreen extends ConsumerStatefulWidget {
 
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ref.watch(homeStateNotifierProvider);
     final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
     final bottomNavNotifier =
         ref.watch(bottomNavNotifierControllerProvider.notifier);
+
     return SuperScaffold(
       topColor: const Color(0xffF6F6F6),
       botColor: Colors.white,

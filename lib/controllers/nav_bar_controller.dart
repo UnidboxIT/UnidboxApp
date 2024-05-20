@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utils/constant/app_color.dart';
 import '../views/screens/job_order/calendar_screens/calendar_screen.dart';
-import '../views/screens/home/home_screens/home_screen.dart';
 import '../views/screens/message_screens/messages_screen.dart';
 import '../views/screens/profile_screens/profile_screen.dart';
 
@@ -87,7 +86,7 @@ class NavBarController extends GetxController {
   }
 
   final List<Widget> indexWidgets = <Widget>[
-    const HomeScreen(),
+    // const HomeScreen(),
     const CalendarScreen(),
     Container(),
     const MessageScreen(),

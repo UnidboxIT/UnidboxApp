@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:unidbox_app/models/home/my_task.dart';
 import 'package:unidbox_app/models/noti.dart';
+import '../../domain/my_task.dart';
 part 'home_state.freezed.dart';
 
 extension Getters on HomeState {

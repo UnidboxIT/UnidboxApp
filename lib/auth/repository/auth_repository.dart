@@ -14,7 +14,6 @@ class AuthRepository {
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
-    print("Response ::: ${response.body}");
     return response;
   }
 }

@@ -27,15 +27,15 @@ class ChangePasswordController extends GetxController {
       );
       var result = jsonDecode(response.body);
       if (result['result']['code'] == 200) {
-        successfullyBottomSheet(
-            "Successfully Updated", "The informations have been updated", () {
-          // var userJson = jsonDecode(box.read(AppKeys.userInfo));
-          //   admin = Admin.fromJson(userJson);
-          var loginController = Get.find<LoginController>();
-          loginController.txtUserID.text = admin.username;
-          loginController.txtPassword.clear();
-          Get.offAll(() => const LoginScreen());
-        });
+        // successfullyBottomSheet(
+        //     "Successfully Updated", "The informations have been updated", () {
+        //   // var userJson = jsonDecode(box.read(AppKeys.userInfo));
+        //   //   admin = Admin.fromJson(userJson);
+        //   var loginController = Get.find<LoginController>();
+        //   loginController.txtUserID.text = admin.username;
+        //   loginController.txtPassword.clear();
+        //   Get.offAll(() => const LoginScreen());
+        // });
         clearValue();
       } else {
         CommonMethods.customizedAlertDialog(result['result']['error'],

@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:unidbox_app/models/home/my_task.dart';
 import 'package:unidbox_app/models/home/ongoing_job.dart';
 import 'package:unidbox_app/services/home/home_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
@@ -16,9 +14,9 @@ extension MapGetExtension<K, V> on Map<K, V> {
 
 class HomeController extends GetxController {
   List<OngoingJob> ongoingJobList = [];
-  List<MyTask> myTaskList = [];
-  List<MyTask> myTaskHomeMenuList = [];
-  Map<int, List<MyTask>> myTaskDetailMap = {};
+  // List<MyTask> myTaskList = [];
+  // List<MyTask> myTaskHomeMenuList = [];
+  // Map<int, List<MyTask>> myTaskDetailMap = {};
   List<SelectionField> selectionList = [];
 
   // bool isOngoingJobLoading = false;
@@ -41,39 +39,39 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getAllMyTask() async {
-    isMyTaskLoading = true;
-    try {
-      http.Response response = await HomeService.myTask();
-      var result = jsonDecode(response.body);
-      myTaskHomeMenuList.clear();
-      myTaskList.clear();
-      myTaskDetailMap.clear();
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        if (result['result']['code'] == 200) {
-          Iterable dataList = result['result']['records'];
-          for (var element in dataList) {
-            myTaskHomeMenuList.add(MyTask.fromJson(element));
-          }
-          for (var myTask in myTaskHomeMenuList) {
-            if (myTask.parentID.isEmpty) {
-              myTaskList.add(myTask);
-            } else {
-              if (myTaskDetailMap.containsKey(myTask.parentID[0])) {
-                myTaskDetailMap[myTask.parentID[0]]?.add(myTask);
-              } else {
-                myTaskDetailMap[myTask.parentID[0]] = [myTask];
-              }
-            }
-          }
-        }
-      }
-    } catch (e) {
-      superPrint(e.toString());
-    }
-    isMyTaskLoading = false;
-    update();
-  }
+  // Future<void> getAllMyTask() async {
+  //   isMyTaskLoading = true;
+  //   try {
+  //     http.Response response = await HomeService.myTask();
+  //     var result = jsonDecode(response.body);
+  //     myTaskHomeMenuList.clear();
+  //     myTaskList.clear();
+  //     myTaskDetailMap.clear();
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       if (result['result']['code'] == 200) {
+  //         Iterable dataList = result['result']['records'];
+  //         for (var element in dataList) {
+  //           myTaskHomeMenuList.add(MyTask.fromJson(element));
+  //         }
+  //         for (var myTask in myTaskHomeMenuList) {
+  //           if (myTask.parentID.isEmpty) {
+  //             myTaskList.add(myTask);
+  //           } else {
+  //             if (myTaskDetailMap.containsKey(myTask.parentID[0])) {
+  //               myTaskDetailMap[myTask.parentID[0]]?.add(myTask);
+  //             } else {
+  //               myTaskDetailMap[myTask.parentID[0]] = [myTask];
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     superPrint(e.toString());
+  //   }
+  //   isMyTaskLoading = false;
+  //   update();
+  // }
 
   Future<void> getAllOngoingJob() async {
     // isOngoingJobLoading = true;

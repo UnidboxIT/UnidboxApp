@@ -14,7 +14,7 @@ Widget cameraWidget(ProductController controller) {
       children: [
         GestureDetector(
           onTap: () {
-            productImageUploadBottomSheet();
+            // productImageUploadBottomSheet();
           },
           child: Container(
             width: 100.w,

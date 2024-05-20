@@ -8,40 +8,40 @@ import 'package:unidbox_app/views/widgets/bottom_sheets/global_bottom_sheet.dart
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import 'dart:math' as math;
 
-productImageUploadBottomSheet() {
-  return globalBottomSheet(
-    GetBuilder<ProductController>(builder: (controller) {
-      return Container(
-        height: 25.h,
-        width: 100.w,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
-            ),
-            color: const Color(0xffD8EDE5),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 5,
-              ),
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            imageIconWidget(() {
-              controller.pickImage(ImageSource.gallery);
-            }, "Upload", Icons.logout),
-            imageIconWidget(() {
-              controller.pickImage(ImageSource.camera);
-            }, "Use camera", Icons.camera_enhance),
-          ],
-        ),
-      );
-    }),
-  );
-}
+// productImageUploadBottomSheet() {
+//   return globalBottomSheet(
+//     GetBuilder<ProductController>(builder: (controller) {
+//       return Container(
+//         height: 25.h,
+//         width: 100.w,
+//         decoration: BoxDecoration(
+//             borderRadius: const BorderRadius.only(
+//               topLeft: Radius.circular(25),
+//               topRight: Radius.circular(25),
+//             ),
+//             color: const Color(0xffD8EDE5),
+//             boxShadow: [
+//               BoxShadow(
+//                 color: Colors.black.withOpacity(0.1),
+//                 blurRadius: 10,
+//                 spreadRadius: 5,
+//               ),
+//             ]),
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//           children: [
+//             imageIconWidget(() {
+//               controller.pickImage(ImageSource.gallery);
+//             }, "Upload", Icons.logout),
+//             imageIconWidget(() {
+//               controller.pickImage(ImageSource.camera);
+//             }, "Use camera", Icons.camera_enhance),
+//           ],
+//         ),
+//       );
+//     }),
+//   );
+// }
 
 Widget imageIconWidget(VoidCallback onPressed, String text, IconData iconData) {
   return GestureDetector(

@@ -11,11 +11,11 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../../widgets/button/button_widget.dart';
 
-profileBarCodeBottomSheet(ProfileController controller) {
-  return globalBottomSheet(
-    barcodeBottomSheetWidget(),
-  );
-}
+// profileBarCodeBottomSheet(ProfileController controller) {
+//   return globalBottomSheet(
+//     barcodeBottomSheetWidget(),
+//   );
+// }
 
 Widget barcodeBottomSheetWidget() {
   return Container(

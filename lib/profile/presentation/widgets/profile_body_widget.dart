@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/profile/presentation/widgets/logout_widget.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
-class ProfileBodyWidget extends StatelessWidget {
+class ProfileBodyWidget extends ConsumerWidget {
   const ProfileBodyWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
       decoration: BoxDecoration(
@@ -49,7 +50,7 @@ class ProfileBodyWidget extends StatelessWidget {
           //   );
           // }),
           // const Spacer(),
-          logoutWidget(),
+          logoutWidget(ref, context),
           SizedBox(height: 7.h)
         ],
       ),

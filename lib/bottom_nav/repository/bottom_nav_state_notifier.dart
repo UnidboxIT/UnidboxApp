@@ -83,4 +83,8 @@ class BottomNavNotifierController extends StateNotifier<int> {
   void setIndex(int index) {
     state = index;
   }
+
+  void reset() {
+    state = 0;
+  }
 }

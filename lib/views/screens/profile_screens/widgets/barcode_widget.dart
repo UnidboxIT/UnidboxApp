@@ -27,7 +27,7 @@ Widget barcodeWidget() {
             const Spacer(),
             GestureDetector(
               onTap: () {
-                profileBarCodeBottomSheet(controller);
+                // profileBarCodeBottomSheet(controller);
               },
               child: SizedBox(
                 width: 110,

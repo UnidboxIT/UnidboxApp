@@ -1,8 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-globalBottomSheet(Widget dynamicWidget) {
+globalBottomSheet(Widget dynamicWidget, BuildContext context) {
   return showModalBottomSheet(
     backgroundColor: Colors.black.withOpacity(0.1),
     barrierColor: Colors.black.withOpacity(0.3),
@@ -12,7 +11,7 @@ globalBottomSheet(Widget dynamicWidget) {
         topRight: Radius.circular(25),
       ),
     ),
-    context: Get.context!,
+    context: context,
     elevation: 0,
     useSafeArea: true,
     builder: (context) {

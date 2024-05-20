@@ -6,12 +6,12 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../button/button_widget.dart';
 import 'global_bottom_sheet.dart';
 
-Future<void> successfullyBottomSheet(
-    String title, String bodyText, VoidCallback onPressed) {
-  return globalBottomSheet(
-    successfulWidget(title, bodyText, onPressed),
-  );
-}
+// Future<void> successfullyBottomSheet(
+//     String title, String bodyText, VoidCallback onPressed) {
+//   // return globalBottomSheet(
+//   //     //successfulWidget(title, bodyText, onPressed),
+//   //     );
+// }
 
 Widget successfulWidget(String title, String bodyText, VoidCallback onPressed) {
   return Container(

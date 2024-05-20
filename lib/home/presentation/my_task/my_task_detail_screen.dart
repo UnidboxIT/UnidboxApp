@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/home/domain/my_task.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../models/home/my_task.dart';
 
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
   final String name;

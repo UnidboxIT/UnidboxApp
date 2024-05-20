@@ -9,9 +9,9 @@ import '../../../../utils/constant/app_color.dart';
 import '../../../widgets/button/button_widget.dart';
 import '../../../widgets/text_widget.dart';
 
-logoutBottomSheet() {
-  return globalBottomSheet(logoutBottomSheetWidget());
-}
+// logoutBottomSheet() {
+//   return globalBottomSheet(logoutBottomSheetWidget());
+// }
 
 Widget logoutBottomSheetWidget() {
   return Container(

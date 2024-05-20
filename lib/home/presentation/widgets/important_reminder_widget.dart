@@ -2,47 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:unidbox_app/home/repository/state/home_state.dart';
 import 'package:unidbox_app/models/noti.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../repository/provider/home_provider.dart';
 
-class ImportantReminderWidget extends ConsumerStatefulWidget {
-  const ImportantReminderWidget({super.key});
-
-  @override
-  ConsumerState<ImportantReminderWidget> createState() =>
-      _ImportantReminderrWidgetState();
-}
-
-class _ImportantReminderrWidgetState
-    extends ConsumerState<ImportantReminderWidget> {
-  List<Noti> notiList = [];
-  bool isLoading = false;
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(homeStateNotifierProvider.notifier).notiReminder();
-    });
-  }
+class ImportantReminderWidget extends ConsumerWidget {
+  final List<Noti> notiList;
+  const ImportantReminderWidget({super.key, required this.notiList});
 
   @override
-  Widget build(BuildContext context) {
-    ref.listen(homeStateNotifierProvider, (prev, next) {
-      if (next is Loading) {
-        notiList = [];
-        setState(() {
-          isLoading = true;
-        });
-      }
-      if (next is NotiList) {
-        setState(() {
-          notiList = next.notiList;
-          isLoading = false;
-        });
-      }
-    });
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
         Transform.translate(
@@ -63,23 +31,21 @@ class _ImportantReminderrWidgetState
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
-              isLoading
+              notiList.isEmpty
                   ? Container()
-                  : notiList.isEmpty
-                      ? shimmerReminderWidget()
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            // if (controller.isReminderLoading) {
-                            //   return shimmerReminderWidget();
-                            // }
-                            return buildReminderTextWidget(notiList[index]);
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: 5);
-                          },
-                          itemCount: 2,
-                        ),
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        // if (controller.isReminderLoading) {
+                        //   return shimmerReminderWidget();
+                        // }
+                        return buildReminderTextWidget(notiList[index]);
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 5);
+                      },
+                      itemCount: 2,
+                    ),
             ],
           ),
         ),

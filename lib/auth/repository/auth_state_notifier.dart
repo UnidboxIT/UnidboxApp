@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
+import '../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../models/login/admin.dart';
 import '../../utils/constant/app_constant.dart';
+import 'state/auth_state.dart';
 
 final authSateProvider = StateProvider((ref) => AuthRepository());
 
@@ -19,7 +22,7 @@ final isCheckRememberMeProvider = Provider<bool>((ref) {
 });
 
 final authStateNotifierControllerProvider =
-    StateNotifierProvider<AuthStateNotifierController, AsyncValue>((ref) {
+    StateNotifierProvider<AuthStateNotifierController, AuthState>((ref) {
   final sharedPreferences = ref.watch(sharedPreferencesProvider);
   final authController = ref.watch(authSateProvider);
   final isCheckController = ref.watch(isCheckRememberMeProvider);
@@ -27,10 +30,10 @@ final authStateNotifierControllerProvider =
       authController, sharedPreferences, isCheckController);
 });
 
-class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
+class AuthStateNotifierController extends StateNotifier<AuthState> {
   AuthStateNotifierController(
       this._authRepository, this.sharedPreferences, this.isSelected)
-      : super(const AsyncValue.data(null));
+      : super(const AuthState.initial());
   final AuthRepository _authRepository;
   final SharedPreferences sharedPreferences;
   bool isSelected;
@@ -38,23 +41,23 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
   void signIn(String username, String password, WidgetRef ref,
       BuildContext context) async {
     try {
-      state = const AsyncValue.loading();
+      state = const AuthState.loading();
       http.Response response = await _authRepository.login(username, password);
       Map<String, dynamic> result = jsonDecode(response.body);
       if (result['result']['code'] == 200) {
         Admin adminData = Admin.fromJson(result['result']);
         saveLogin(adminData.sessionId, result['result']);
         if (context.mounted) {
+          ref.read(bottomNavNotifierControllerProvider.notifier).reset();
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MainScreen()));
         }
+        state = const AuthState.success();
       } else {
-        state = AsyncValue.error(result['result']['error'], StackTrace.current);
+        state = AuthState.error(result['result']['error'].toString());
       }
     } catch (e) {
-      state = AsyncValue.error('Could not place order', StackTrace.current);
-    } finally {
-      state = const AsyncValue.data(null);
+      state = const AuthState.error('Could not place order');
     }
   }
 
@@ -73,8 +76,19 @@ class AuthStateNotifierController extends StateNotifier<AsyncValue<void>> {
   }
 
   Admin getAdminInfo() {
-    var data = jsonDecode(sharedPreferences.getString(AppKeys.userInfo)!);
-    admin = Admin.fromJson(data);
+    admin = Admin.fromJson(
+        jsonDecode(sharedPreferences.getString(AppKeys.userInfo) ?? ""));
     return admin;
+  }
+
+  void logout(BuildContext context, WidgetRef ref) {
+    sharedPreferences.remove(AppKeys.apiToken);
+    sharedPreferences.remove(AppKeys.userInfo);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AuthLoginScreen(),
+      ),
+    );
   }
 }

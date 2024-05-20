@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/auth/repository/auth_state_notifier.dart';
 import 'dart:math' as math;
-import 'package:unidbox_app/controllers/auth_controllers/login_controller.dart';
-import 'package:get/get.dart';
 import 'package:unidbox_app/views/widgets/bottom_sheets/global_bottom_sheet.dart';
-
 import '../../../../utils/constant/app_color.dart';
 import '../../../views/widgets/button/button_widget.dart';
 import '../../../views/widgets/text_widget.dart';
 
-logoutBottomSheet() {
-  return globalBottomSheet(logoutBottomSheetWidget());
+logoutBottomSheet(context, ref) {
+  return globalBottomSheet(logoutBottomSheetWidget(ref, context), context);
 }
 
-Widget logoutBottomSheetWidget() {
+Widget logoutBottomSheetWidget(WidgetRef ref, context) {
   return Container(
     height: 30.h,
     width: 100.w,
@@ -58,7 +57,11 @@ Widget logoutBottomSheetWidget() {
           width: 30.w,
           height: 35,
           child: buttonWidget("Ok", () {
-            Get.put(LoginController()).logout();
+            ref
+                .read(authStateNotifierControllerProvider.notifier)
+                .logout(context, ref);
+
+            // Get.put(LoginController()).logout();
           }),
         )
       ],

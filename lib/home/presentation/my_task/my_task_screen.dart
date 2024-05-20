@@ -2,49 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/home/presentation/my_task/my_task_detail_screen.dart';
-import 'package:unidbox_app/models/home/my_task.dart';
 import '../../../views/widgets/text_widget.dart';
-import '../../repository/provider/home_provider.dart';
-import '../../repository/state/home_state.dart';
+import '../../domain/my_task.dart';
 import '../widgets/each_my_task_widget.dart';
 
-class MyTaskScreen extends ConsumerStatefulWidget {
-  const MyTaskScreen({super.key});
+class MyTaskScreen extends ConsumerWidget {
+  final List<MyTask> myTaskList;
+  final Map<int, List<MyTask>> myTaskDetailMap;
+  const MyTaskScreen(
+      {super.key, required this.myTaskList, required this.myTaskDetailMap});
 
   @override
-  ConsumerState<MyTaskScreen> createState() => _MyTaskScreenState();
-}
-
-class _MyTaskScreenState extends ConsumerState<MyTaskScreen> {
-  List<MyTask> myTaskList = [];
-  Map<int, List<MyTask>> myTaskDetailMap = {};
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    ref.listen(homeStateNotifierProvider, (prev, next) {
-      if (next is Loading) {
-        myTaskList = [];
-      }
-      if (next is MyTaskList) {
-        setState(() {
-          myTaskList = next.myTaskList;
-        });
-      }
-      if (next is MyTaskDetailMap) {
-        setState(() {
-          myTaskDetailMap = next.myTaskDetailMap;
-        });
-      }
-    });
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.only(left: 20),
       child: Column(
@@ -68,11 +37,10 @@ class _MyTaskScreenState extends ConsumerState<MyTaskScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => MyTaskDetailScreen(
-                            parentID: myTaskList[index].id.toString(),
-                            name: myTaskList[index].name.toString(),
-                            myTaskDetail:
-                                myTaskDetailMap[myTaskList[index].id] ?? [],
-                          ),
+                              parentID: myTaskList[index].id.toString(),
+                              name: myTaskList[index].name.toString(),
+                              myTaskDetail:
+                                  myTaskDetailMap[myTaskList[index].id] ?? []),
                         ),
                       );
                     },

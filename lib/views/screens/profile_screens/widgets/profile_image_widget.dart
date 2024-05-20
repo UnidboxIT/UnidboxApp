@@ -9,7 +9,7 @@ Widget profileImageWidget() {
   return GetBuilder<ProfileController>(builder: (controller) {
     return GestureDetector(
       onTap: () {
-        imageUploadBottomSheet();
+        // imageUploadBottomSheet();
       },
       child: Column(
         children: [

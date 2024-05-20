@@ -8,7 +8,7 @@ import '../bottom_sheets/logout_bottom_sheet.dart';
 Widget logoutWidget() {
   return GestureDetector(
     onTap: () {
-      logoutBottomSheet();
+      // logoutBottomSheet();
     },
     child: Container(
       width: 30.w,
