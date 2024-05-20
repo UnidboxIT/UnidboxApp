@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/home/presentation/my_task/my_task_screen.dart';
+import 'package:unidbox_app/home/presentation/ongoing_job/ongoing_job_screen.dart';
 import 'package:unidbox_app/home/presentation/widgets/home_app_bar_widget.dart';
 import '../../utils/commons/super_scaffold.dart';
 import 'widgets/important_reminder_widget.dart';
@@ -29,7 +30,7 @@ class HomeScreen extends ConsumerWidget {
                   shrinkWrap: true,
                   children: const [
                     MyTaskScreen(),
-                    //OngoingJobScreen(),
+                    OngoingJobScreen(),
                   ],
                 ),
               )

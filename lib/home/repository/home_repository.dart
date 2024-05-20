@@ -21,4 +21,22 @@ class HomeRepository {
     );
     return response;
   }
+
+  Future<http.Response> ongoingJob() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/detail',
+      headers: CommonMethods.setHeaders(),
+    );
+    return response;
+  }
+
+  Future<http.Response> selectionField() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'selection/field?fields=job_type&model=job.order',
+      headers: CommonMethods.setHeaders(),
+    );
+    return response;
+  }
 }

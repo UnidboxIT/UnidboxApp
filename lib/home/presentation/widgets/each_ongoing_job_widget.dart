@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:unidbox_app/models/home/ongoing_job.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 
-Widget eachOngoingJobWidget(OngoingJob ongoingJob, String jobType) {
+Widget eachOngoingJobWidget(ongoingJob, String jobType) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
