@@ -2,25 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:unidbox_app/home/repository/home_state_notifier.dart';
+import 'package:unidbox_app/home/repository/state/home_state.dart';
 import 'package:unidbox_app/models/noti.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../repository/provider/home_provider.dart';
 
-class ImportantReminderWidget extends ConsumerWidget {
+class ImportantReminderWidget extends ConsumerStatefulWidget {
   const ImportantReminderWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   List noti =
-    //       await ref.watch(homeStateNotifierProvider.notifier).notiReminder();
-    //   superPrint(noti);
-    // });
-    var notiList = ref.watch(homeStateNotifierProvider);
-    // List<Noti> notiList =
-    //     ref.watch(homeStateNotifierProvider.notifier).notiList;
-    superPrint(notiList);
+  ConsumerState<ImportantReminderWidget> createState() =>
+      _ImportantReminderrWidgetState();
+}
+
+class _ImportantReminderrWidgetState
+    extends ConsumerState<ImportantReminderWidget> {
+  List<Noti> notiList = [];
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(homeStateNotifierProvider.notifier).notiReminder();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(homeStateNotifierProvider, (prev, next) {
+      if (next is Loading) {
+        notiList = [];
+        setState(() {
+          isLoading = true;
+        });
+      }
+      if (next is NotiList) {
+        setState(() {
+          notiList = next.notiList;
+          isLoading = false;
+        });
+      }
+    });
     return Stack(
       children: [
         Transform.translate(
@@ -41,18 +63,17 @@ class ImportantReminderWidget extends ConsumerWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
-              notiList.isLoading
-                  ? shimmerReminderWidget()
-                  : notiList.notiList.isEmpty
-                      ? textWidget("No Important Reminder")
+              isLoading
+                  ? Container()
+                  : notiList.isEmpty
+                      ? shimmerReminderWidget()
                       : ListView.separated(
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             // if (controller.isReminderLoading) {
                             //   return shimmerReminderWidget();
                             // }
-                            return buildReminderTextWidget(
-                                notiList.notiList[index]);
+                            return buildReminderTextWidget(notiList[index]);
                           },
                           separatorBuilder: (context, index) {
                             return const SizedBox(height: 5);

@@ -12,4 +12,13 @@ class HomeRepository {
     );
     return response;
   }
+
+  Future<http.Response> myTask() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/mytasks',
+      headers: CommonMethods.setHeaders(),
+    );
+    return response;
+  }
 }

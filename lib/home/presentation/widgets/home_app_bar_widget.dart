@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/home/repository/time_state_notifier.dart';
+import 'package:unidbox_app/home/repository/state_notifier/time_state_notifier.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../auth/repository/auth_state_notifier.dart';
 
