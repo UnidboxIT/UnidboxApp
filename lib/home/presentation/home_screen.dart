@@ -23,6 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Noti> notiList = [];
+  bool isNotiLoading = false;
 
   @override
   void initState() {
@@ -41,10 +42,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.listen(homeStateNotifierProvider, (prev, next) {
       if (next is Loading) {
         notiList = [];
+        setState(() {
+          isNotiLoading = true;
+        });
       }
       if (next is NotiList) {
         setState(() {
           notiList = next.notiList;
+          isNotiLoading = false;
         });
       }
     });
@@ -75,8 +80,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               const HomeAppBarWidget(),
               ImportantReminderWidget(
-                notiList: notiList,
-              ),
+                  notiList: notiList, isLoading: isNotiLoading),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,

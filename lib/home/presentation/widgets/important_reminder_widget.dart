@@ -7,7 +7,9 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 class ImportantReminderWidget extends ConsumerWidget {
   final List<Noti> notiList;
-  const ImportantReminderWidget({super.key, required this.notiList});
+  final bool isLoading;
+  const ImportantReminderWidget(
+      {super.key, required this.notiList, required this.isLoading});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,21 +33,25 @@ class ImportantReminderWidget extends ConsumerWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
-              notiList.isEmpty
+              isLoading
                   ? Container()
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        // if (controller.isReminderLoading) {
-                        //   return shimmerReminderWidget();
-                        // }
-                        return buildReminderTextWidget(notiList[index]);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 5);
-                      },
-                      itemCount: 2,
-                    ),
+                  : notiList.isEmpty
+                      ? Container(
+                          child: textWidget("No Important Reminders"),
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            // if (controller.isReminderLoading) {
+                            //   return shimmerReminderWidget();
+                            // }
+                            return buildReminderTextWidget(notiList[index]);
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 5);
+                          },
+                          itemCount: 2,
+                        ),
             ],
           ),
         ),
