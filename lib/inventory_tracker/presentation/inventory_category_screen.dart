@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/product_screen.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -62,32 +63,35 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
       child: Column(
         children: [
           searchTextFieldWidget(),
-          // inventoryTrackerList.isEmpty
-          //     // ? ProductWidget(
-          //     //     id: parentID,
-          //     //     name: name,
-          //     //   )
-          //     // :
-          Expanded(
-            child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  superPrint(inventoryTrackerList[index].parentID);
-                  String name = inventoryTrackerList[index].name;
-                  String image = inventoryTrackerList[index].imageUrl;
-                  return eachInventoryTrackerWidget(image, name, () {
-                    // Get.to(() => ProductScreen(
-                    //       parentID:
-                    //           inventoryTrackerList[index].id.toString(),
-                    //       name: name,
-                    // ));
-                  });
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 10);
-                },
-                itemCount: inventoryTrackerList.length),
-          ),
+          inventoryTrackerList.isEmpty
+              ? ProductWidget(
+                  id: parentID,
+                  name: name,
+                )
+              : Expanded(
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        superPrint(inventoryTrackerList[index].parentID);
+                        String name = inventoryTrackerList[index].name;
+                        String image = inventoryTrackerList[index].imageUrl;
+                        return eachInventoryTrackerWidget(image, name, () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ProductScreen(
+                                      parentID: inventoryTrackerList[index]
+                                          .id
+                                          .toString(),
+                                      name: name,
+                                    )),
+                          );
+                        });
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 10);
+                      },
+                      itemCount: inventoryTrackerList.length),
+                ),
         ],
       ),
     );

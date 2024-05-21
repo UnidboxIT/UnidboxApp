@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/inventory_category_screen.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/each_inventory_tracker_widget.dart';

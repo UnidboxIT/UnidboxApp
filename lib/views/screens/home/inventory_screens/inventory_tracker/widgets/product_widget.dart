@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/details/product_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -76,10 +75,10 @@ class ProductWidget extends StatelessWidget {
                       controller.searchProductsList[index].qtyOutStock;
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => ProductDetailScreen(
-                            productID: productId,
-                            productName: name,
-                          ));
+                      // Get.to(() => ProductDetailScreen(
+                      //       productID: productId,
+                      //       productName: name,
+                      //     ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),

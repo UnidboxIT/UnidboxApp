@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:unidbox_app/home/repository/home_repository.dart';
 import 'package:unidbox_app/home/repository/state/home_state.dart';
 import 'package:unidbox_app/models/noti.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../domain/my_task.dart';
 
 class HomeStateNotifier extends StateNotifier<HomeState> {
@@ -19,13 +18,12 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
   Map<int, List<MyTask>> myTaskDetailMap = {};
   Future<void> notiReminder() async {
     try {
-      state = const HomeState.loading();
+      //state = const HomeState.loading();
       http.Response response = await _homeRepository.reminder();
       Map<String, dynamic> result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       List<Noti> notiList = dataList.map((e) => Noti.fromJson(e)).toList();
       state = HomeState.loadNoti(notiList);
-      superPrint(notiList);
     } catch (e) {
       state = HomeState.error(error: e.toString());
     }
@@ -33,7 +31,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
 
   Future<void> getAllMyTask() async {
     try {
-      state = const HomeState.loading();
+      // state = const HomeState.loading();
       http.Response response = await _homeRepository.myTask();
       Map<String, dynamic> result = jsonDecode(response.body);
       myTaskList.clear();
@@ -56,7 +54,6 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
           }
         }
       }
-      superPrint(myTaskList);
       state = HomeState.loadMyTask(myTaskList);
       state = HomeState.loadMyTaskDetail(myTaskDetailMap);
     } catch (e) {

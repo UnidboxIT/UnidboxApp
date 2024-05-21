@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/inventory_tacker_state.dart';
 import 'package:http/http.dart' as http;
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../domain/inventory_tracker.dart';
 
 class InventoryTrackerStateNotifier
@@ -27,7 +25,6 @@ class InventoryTrackerStateNotifier
       inventoryTrackerList.clear();
       tempInventoryTrackerList.clear();
       inventoryTrackerDetailMap.clear();
-      superPrint(result);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
