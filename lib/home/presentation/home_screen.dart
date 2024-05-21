@@ -11,6 +11,9 @@ import '../../utils/commons/super_scaffold.dart';
 import '../repository/provider/home_provider.dart';
 import 'widgets/important_reminder_widget.dart';
 
+List<MyTask> myTaskList = [];
+Map<int, List<MyTask>> myTaskDetailMap = {};
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -20,16 +23,16 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Noti> notiList = [];
-  List<MyTask> myTaskList = [];
-  Map<int, List<MyTask>> myTaskDetailMap = {};
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(homeStateNotifierProvider.notifier).notiReminder();
-      ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+      final state = ref.read(homeStateNotifierProvider);
+      if (state is Initial) {
+        ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+      }
     });
   }
 
@@ -47,9 +50,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
 
     ref.listen(homeStateNotifierProvider, (prev, next) {
-      if (next is Loading) {
-        myTaskList = [];
-      }
       if (next is MyTaskList) {
         setState(() {
           myTaskList = next.myTaskList;

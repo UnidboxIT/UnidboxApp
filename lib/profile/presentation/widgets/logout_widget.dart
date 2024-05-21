@@ -14,7 +14,7 @@ Widget logoutWidget(WidgetRef ref, BuildContext context) {
     child: Container(
       width: 30.w,
       height: 50,
-      color: Colors.red,
+      color: Colors.transparent,
       child: Row(
         children: [
           Transform.rotate(

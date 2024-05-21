@@ -25,6 +25,7 @@ class ProfileBodyWidget extends ConsumerWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           // Center(child: profileImageWidget()),
           // eachListTileWidget(
@@ -49,7 +50,7 @@ class ProfileBodyWidget extends ConsumerWidget {
           //     duration: const Duration(seconds: 1),
           //   );
           // }),
-          // const Spacer(),
+
           logoutWidget(ref, context),
           SizedBox(height: 7.h)
         ],

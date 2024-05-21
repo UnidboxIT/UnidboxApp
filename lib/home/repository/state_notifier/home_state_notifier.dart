@@ -14,6 +14,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
   final HomeRepository _homeRepository;
 
   List<MyTask> myTaskList = [];
+  List<MyTask> tempTaskList = [];
   List<MyTask> myTaskHomeMenuList = [];
   Map<int, List<MyTask>> myTaskDetailMap = {};
   Future<void> notiReminder() async {

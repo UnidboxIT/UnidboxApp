@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/domain/inhouse_stock.dart';
 import 'package:unidbox_app/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/details/Inhouse_stock_widget.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/details/stock_ordering_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/stock_button_widget.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -147,10 +148,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     ],
                   ),
                 ),
-                inhouseStockWidget(inHouseStockList)
-                // stockName == "In-house Stock"
-                //     ? inhouseStockWidget()
-                //     : stockOrderingWidget()
+                stockName == "In-house Stock"
+                    ? inhouseStockWidget(inHouseStockList)
+                    : stockOrderingWidget(inHouseStockList)
               ],
             ),
     );
