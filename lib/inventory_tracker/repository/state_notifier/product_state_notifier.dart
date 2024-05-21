@@ -11,6 +11,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
 
   final InventoryTrackerRepository _inventoryTrackerRepository;
   List<Products> productList = [];
+  Products productsDetail = Products();
 
   Future<void> getAllProductsByCategoryID(
     String categoryID,
@@ -33,6 +34,21 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
           state = const ProductState.isDataExist(false);
         }
       }
+    } catch (e) {
+      state = ProductState.error(error: e.toString());
+    }
+  }
+
+  Future<void> productByID(String productID) async {
+    try {
+      state = const ProductState.loading();
+      Response response =
+          await _inventoryTrackerRepository.productByID(productID);
+      var result = jsonDecode(response.body);
+      if (result['result']['code'] == 200) {
+        productsDetail = Products.fromJson(result['result']['records'][0]);
+      }
+      state = ProductState.loadProductDetail(productsDetail);
     } catch (e) {
       state = ProductState.error(error: e.toString());
     }

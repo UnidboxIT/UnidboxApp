@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/details/product_detail_screen.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/home/inventory_screens/inventory_tracker/details/product_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../../utils/commons/common_method.dart';
 import '../../domain/product.dart';
 import '../../repository/state/product_state.dart';
@@ -70,7 +68,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
   Widget build(BuildContext context) {
     ref.listen(productStateNotifierProvider, (prev, next) {
       if (next is Loading) {
-        productList = [];
         setState(() {
           isLoading = true;
         });
@@ -134,10 +131,17 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 double qtyOutStock = productList[index].qtyOutStock;
                 return GestureDetector(
                   onTap: () {
-                    Get.to(() => ProductDetailScreen(
-                          productID: productId,
-                          productName: name,
-                        ));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                                  productID: productId,
+                                  productName: name,
+                                )))
+                        .then((_) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
