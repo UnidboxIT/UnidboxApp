@@ -27,16 +27,43 @@ class ProductWidget extends ConsumerStatefulWidget {
 
 class _ProductWidgetState extends ConsumerState<ProductWidget> {
   List<Products> productList = [];
-  int pageNumber = 1;
+  int pageNumber = 0;
   bool isLoading = false;
+  bool xLoading = false;
+  bool isDataExist = true;
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
+    ref.read(productStateNotifierProvider.notifier).clearProductValue();
+    scrollController.addListener(_scrollListener);
+    _loadProducts();
+  }
+
+  void _loadProducts() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(productStateNotifierProvider.notifier)
           .getAllProductsByCategoryID(widget.id, pageNumber);
     });
+  }
+
+  void _scrollListener() async {
+    if (isDataExist) {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !isLoading) {
+        setState(() {
+          xLoading = true;
+        });
+        pageNumber += 20;
+        _loadProducts();
+        await Future.delayed(const Duration(seconds: 1));
+        setState(() {
+          xLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -52,6 +79,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
         setState(() {
           productList = next.productList;
           isLoading = false;
+        });
+      }
+
+      if (next is IsDataExit) {
+        setState(() {
+          isDataExist = next.isExit;
         });
       }
 
@@ -83,7 +116,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
       children: [
         Expanded(
           child: GridView.builder(
-              //controller: controller.scrollController,
+              controller: scrollController,
               shrinkWrap: true,
               itemCount: productList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -202,28 +235,34 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 );
               }),
         ),
-        // if (controller.xLoading && controller.isProductLoading)
-        //   SizedBox(
-        //     height: 30,
-        //     child: Container(
-        //       padding: const EdgeInsets.symmetric(vertical: 5),
-        //       decoration: BoxDecoration(
-        //           color: AppColor.bgColor,
-        //           borderRadius: BorderRadius.circular(4)),
-        //       alignment: Alignment.center,
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           textWidget("Loadmore ...",
-        //               color: AppColor.pinkColor,
-        //               fontWeight: FontWeight.bold,
-        //               size: 15),
-        //           CupertinoActivityIndicator(color: AppColor.pinkColor),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
+        if (xLoading)
+          SizedBox(
+            height: 30,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              decoration: BoxDecoration(
+                  color: AppColor.bgColor,
+                  borderRadius: BorderRadius.circular(4)),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  textWidget("Loadmore ...",
+                      color: AppColor.pinkColor,
+                      fontWeight: FontWeight.bold,
+                      size: 15),
+                  CupertinoActivityIndicator(color: AppColor.pinkColor),
+                ],
+              ),
+            ),
+          ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }

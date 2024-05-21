@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/product_screen.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
@@ -72,7 +71,6 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
                   child: ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        superPrint(inventoryTrackerList[index].parentID);
                         String name = inventoryTrackerList[index].name;
                         String image = inventoryTrackerList[index].imageUrl;
                         return eachInventoryTrackerWidget(image, name, () {

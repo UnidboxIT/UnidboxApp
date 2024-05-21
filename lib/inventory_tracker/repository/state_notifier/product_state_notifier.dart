@@ -17,27 +17,28 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
     int pageNumber,
   ) async {
     try {
-      state = const ProductState.loading();
+      if (productList.isEmpty) {
+        state = const ProductState.loading();
+      }
       Response response =
           await _inventoryTrackerRepository.products(categoryID, pageNumber);
       var result = jsonDecode(response.body);
-      productList.clear();
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
           productList.add(Products.fromJson(element));
         }
         state = ProductState.loadProduct(productList);
-        // for (var data in productList) {
-        //   searchProductsList.add(data);
-        // }
-        // if (dataList.isEmpty) {
-        //   xDataExit = false;
-        //   update();
-        // }
+        if (dataList.isEmpty) {
+          state = const ProductState.isDataExist(false);
+        }
       }
     } catch (e) {
       state = ProductState.error(error: e.toString());
     }
+  }
+
+  clearProductValue() {
+    productList.clear();
   }
 }

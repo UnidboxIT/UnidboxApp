@@ -19,6 +19,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -27,6 +28,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -35,6 +37,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -44,6 +47,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -52,6 +56,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -60,6 +65,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -159,6 +165,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -170,6 +177,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -181,6 +189,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -196,6 +205,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -207,6 +217,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -218,6 +229,7 @@ class _$ProductsListImpl implements ProductsList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -237,6 +249,157 @@ abstract class ProductsList implements ProductState {
   List<Products> get productList;
   @JsonKey(ignore: true)
   _$$ProductsListImplCopyWith<_$ProductsListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$IsDataExitImplCopyWith<$Res> {
+  factory _$$IsDataExitImplCopyWith(
+          _$IsDataExitImpl value, $Res Function(_$IsDataExitImpl) then) =
+      __$$IsDataExitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isExit});
+}
+
+/// @nodoc
+class __$$IsDataExitImplCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$IsDataExitImpl>
+    implements _$$IsDataExitImplCopyWith<$Res> {
+  __$$IsDataExitImplCopyWithImpl(
+      _$IsDataExitImpl _value, $Res Function(_$IsDataExitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isExit = null,
+  }) {
+    return _then(_$IsDataExitImpl(
+      null == isExit
+          ? _value.isExit
+          : isExit // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsDataExitImpl implements IsDataExit {
+  const _$IsDataExitImpl(this.isExit);
+
+  @override
+  final bool isExit;
+
+  @override
+  String toString() {
+    return 'ProductState.isDataExist(isExit: $isExit)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IsDataExitImpl &&
+            (identical(other.isExit, isExit) || other.isExit == isExit));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isExit);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IsDataExitImplCopyWith<_$IsDataExitImpl> get copyWith =>
+      __$$IsDataExitImplCopyWithImpl<_$IsDataExitImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return isDataExist(isExit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return isDataExist?.call(isExit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (isDataExist != null) {
+      return isDataExist(isExit);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return isDataExist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return isDataExist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (isDataExist != null) {
+      return isDataExist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IsDataExit implements ProductState {
+  const factory IsDataExit(final bool isExit) = _$IsDataExitImpl;
+
+  bool get isExit;
+  @JsonKey(ignore: true)
+  _$$IsDataExitImplCopyWith<_$IsDataExitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -279,6 +442,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -290,6 +454,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -301,6 +466,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -316,6 +482,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -327,6 +494,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -338,6 +506,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -393,6 +562,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -404,6 +574,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -415,6 +586,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -430,6 +602,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -441,6 +614,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -452,6 +626,7 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -533,6 +708,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -544,6 +720,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -555,6 +732,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -570,6 +748,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -581,6 +760,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -592,6 +772,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProductsList value)? loadProduct,
+    TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
