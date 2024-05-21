@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/product_state.dart';
+import '../../../utils/commons/super_print.dart';
+import '../../domain/inhouse_stock.dart';
 import '../../domain/product.dart';
 
 class ProductStateNotifier extends StateNotifier<ProductState> {
@@ -12,7 +14,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
   final InventoryTrackerRepository _inventoryTrackerRepository;
   List<Products> productList = [];
   Products productsDetail = Products();
-
+  List<InhouseStock> inHouseStockList = [];
   Future<void> getAllProductsByCategoryID(
     String categoryID,
     int pageNumber,
@@ -51,6 +53,28 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
       state = ProductState.loadProductDetail(productsDetail);
     } catch (e) {
       state = ProductState.error(error: e.toString());
+    }
+  }
+
+  Future<void> getInHouseStock(int productID) async {
+    try {
+      state = const ProductState.loading();
+      Response response =
+          await _inventoryTrackerRepository.inhouseStock(productID);
+      var result = jsonDecode(response.body);
+      superPrint(result['result']['result']);
+      if (result['result']['code'] == 200) {
+        Iterable dataList = result['result']['result'];
+        superPrint(dataList.length);
+        inHouseStockList.clear();
+        for (var data in dataList) {
+          inHouseStockList.add(InhouseStock.fromJson(data));
+        }
+        state = ProductState.loadInHouseStock(inHouseStockList);
+      }
+    } catch (e) {
+      state = ProductState.error(error: e.toString());
+      superPrint(e);
     }
   }
 

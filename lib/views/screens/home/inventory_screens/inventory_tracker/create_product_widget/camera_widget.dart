@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/controllers/home_controllers/product_controller.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import '../widgets/image_upload_bottom_sheet.dart';
 
 Widget cameraWidget(ProductController controller) {
   return Padding(

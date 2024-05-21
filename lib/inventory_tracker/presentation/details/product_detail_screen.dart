@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/inventory_tracker/domain/inhouse_stock.dart';
 import 'package:unidbox_app/inventory_tracker/domain/product.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/details/Inhouse_stock_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/widgets/stock_button_widget.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -25,14 +28,31 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Products productDetail = Products();
+  List<InhouseStock> inHouseStockList = [];
   bool isLoading = false;
+  String stockName = "In-house Stock";
+
   @override
   void initState() {
     super.initState();
+    loadData();
+  }
+
+  void loadData() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(productStateNotifierProvider.notifier)
           .productByID(widget.productID);
+      ref
+          .read(productStateNotifierProvider.notifier)
+          .getInHouseStock(int.parse(widget.productID));
+      superPrint(widget.productID);
+    });
+  }
+
+  void toggleInHouseStockButton(String name) {
+    setState(() {
+      stockName = name;
     });
   }
 
@@ -48,6 +68,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       if (next is ProductDetail) {
         setState(() {
           productDetail = next.products;
+          isLoading = false;
+        });
+      }
+      if (next is InhouseStockList) {
+        setState(() {
+          inHouseStockList = next.inhouseStock;
           isLoading = false;
         });
       }
@@ -94,36 +120,39 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: ListView(
-        children: [
-          productDetailWidget(),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       stockButtonWidget(
-          //         () {
-          //           controller.toggleInHouseStockButton("In-house Stock");
-          //         },
-          //         "In-house Stock",
-          //         controller,
-          //       ),
-          //       stockButtonWidget(
-          //         () {
-          //           controller.toggleInHouseStockButton("Stock Ordering");
-          //         },
-          //         "Stock Ordering",
-          //         controller,
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // controller.stockName == "In-house Stock"
-          //     ? inhouseStockWidget(controller)
-          //     : stockOrderingWidget(controller)
-        ],
-      ),
+      child: isLoading
+          ? const SizedBox.shrink()
+          : ListView(
+              children: [
+                productDetailWidget(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      stockButtonWidget(
+                        () {
+                          toggleInHouseStockButton("In-house Stock");
+                        },
+                        "In-house Stock",
+                        stockName,
+                      ),
+                      stockButtonWidget(
+                        () {
+                          toggleInHouseStockButton("Stock Ordering");
+                        },
+                        "Stock Ordering",
+                        stockName,
+                      ),
+                    ],
+                  ),
+                ),
+                inhouseStockWidget(inHouseStockList)
+                // stockName == "In-house Stock"
+                //     ? inhouseStockWidget()
+                //     : stockOrderingWidget()
+              ],
+            ),
     );
   }
 
@@ -137,55 +166,54 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     String costPrice = productDetail.costPrice.toString();
     List attribueList = productDetail.attributeList;
 
-    if (isLoading) {
-      return const SizedBox.shrink();
-    }
     //controller.addRetailPriceCostPrice(retailPrice, costPrice);
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 25.h,
-                width: 38.w,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: image != "false"
-                        ? NetworkImage(image)
-                        : const NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
-                          ),
-                    fit: BoxFit.cover,
+    return isLoading
+        ? const SizedBox.shrink()
+        : Padding(
+            padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 25.h,
+                      width: 38.w,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: image != "false"
+                              ? NetworkImage(image)
+                              : const NetworkImage(
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
+                                ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: eachProductWidget(
+                        brand,
+                        sku,
+                        model,
+                        attribueList,
+                        barcode,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: priceWidget(
+                    retailPrice,
+                    costPrice,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: eachProductWidget(
-                  brand,
-                  sku,
-                  model,
-                  attribueList,
-                  barcode,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: priceWidget(
-              retailPrice,
-              costPrice,
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Widget eachProductWidget(String brandValue, String skuValue,
@@ -242,7 +270,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Container(
                     padding: const EdgeInsets.only(
-                        left: 5, top: 4, bottom: 4, right: 5),
+                        left: 8, top: 4, bottom: 4, right: 8),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.black),
@@ -310,9 +338,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           ),
           const Spacer(),
           textWidget(
-              "Last updated ${DateFormat('d MMM yyyy').format(DateTime.now())}",
-              size: 11,
-              color: Colors.black.withOpacity(0.6))
+            "Last updated ${DateFormat('d MMM yyyy').format(DateTime.now())}",
+            size: 11,
+            color: Colors.black.withOpacity(0.6),
+          )
         ],
       ),
     );

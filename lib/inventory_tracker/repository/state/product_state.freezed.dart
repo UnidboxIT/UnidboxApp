@@ -21,6 +21,7 @@ mixin _$ProductState {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -31,6 +32,7 @@ mixin _$ProductState {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -41,6 +43,7 @@ mixin _$ProductState {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -52,6 +55,7 @@ mixin _$ProductState {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -62,6 +66,7 @@ mixin _$ProductState {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -72,6 +77,7 @@ mixin _$ProductState {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -173,6 +179,7 @@ class _$ProductsListImpl implements ProductsList {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -186,6 +193,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -199,6 +207,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -216,6 +225,7 @@ class _$ProductsListImpl implements ProductsList {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -229,6 +239,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -242,6 +253,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -332,6 +344,7 @@ class _$ProductDetailImpl implements ProductDetail {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -345,6 +358,7 @@ class _$ProductDetailImpl implements ProductDetail {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -358,6 +372,7 @@ class _$ProductDetailImpl implements ProductDetail {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -375,6 +390,7 @@ class _$ProductDetailImpl implements ProductDetail {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -388,6 +404,7 @@ class _$ProductDetailImpl implements ProductDetail {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -401,6 +418,7 @@ class _$ProductDetailImpl implements ProductDetail {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -489,6 +507,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -502,6 +521,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -515,6 +535,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -532,6 +553,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -545,6 +567,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -558,6 +581,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -576,6 +600,179 @@ abstract class IsDataExit implements ProductState {
   bool get isExit;
   @JsonKey(ignore: true)
   _$$IsDataExitImplCopyWith<_$IsDataExitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InhouseStockListImplCopyWith<$Res> {
+  factory _$$InhouseStockListImplCopyWith(_$InhouseStockListImpl value,
+          $Res Function(_$InhouseStockListImpl) then) =
+      __$$InhouseStockListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<InhouseStock> inhouseStock});
+}
+
+/// @nodoc
+class __$$InhouseStockListImplCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$InhouseStockListImpl>
+    implements _$$InhouseStockListImplCopyWith<$Res> {
+  __$$InhouseStockListImplCopyWithImpl(_$InhouseStockListImpl _value,
+      $Res Function(_$InhouseStockListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? inhouseStock = null,
+  }) {
+    return _then(_$InhouseStockListImpl(
+      null == inhouseStock
+          ? _value._inhouseStock
+          : inhouseStock // ignore: cast_nullable_to_non_nullable
+              as List<InhouseStock>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InhouseStockListImpl implements InhouseStockList {
+  const _$InhouseStockListImpl(final List<InhouseStock> inhouseStock)
+      : _inhouseStock = inhouseStock;
+
+  final List<InhouseStock> _inhouseStock;
+  @override
+  List<InhouseStock> get inhouseStock {
+    if (_inhouseStock is EqualUnmodifiableListView) return _inhouseStock;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_inhouseStock);
+  }
+
+  @override
+  String toString() {
+    return 'ProductState.loadInHouseStock(inhouseStock: $inhouseStock)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InhouseStockListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._inhouseStock, _inhouseStock));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_inhouseStock));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InhouseStockListImplCopyWith<_$InhouseStockListImpl> get copyWith =>
+      __$$InhouseStockListImplCopyWithImpl<_$InhouseStockListImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Products> productList) loadProduct,
+    required TResult Function(Products products) loadProductDetail,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return loadInHouseStock(inhouseStock);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Products> productList)? loadProduct,
+    TResult? Function(Products products)? loadProductDetail,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return loadInHouseStock?.call(inhouseStock);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Products> productList)? loadProduct,
+    TResult Function(Products products)? loadProductDetail,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (loadInHouseStock != null) {
+      return loadInHouseStock(inhouseStock);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProductsList value) loadProduct,
+    required TResult Function(ProductDetail value) loadProductDetail,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return loadInHouseStock(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ProductsList value)? loadProduct,
+    TResult? Function(ProductDetail value)? loadProductDetail,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return loadInHouseStock?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProductsList value)? loadProduct,
+    TResult Function(ProductDetail value)? loadProductDetail,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loadInHouseStock != null) {
+      return loadInHouseStock(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InhouseStockList implements ProductState {
+  const factory InhouseStockList(final List<InhouseStock> inhouseStock) =
+      _$InhouseStockListImpl;
+
+  List<InhouseStock> get inhouseStock;
+  @JsonKey(ignore: true)
+  _$$InhouseStockListImplCopyWith<_$InhouseStockListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -620,6 +817,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -633,6 +831,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -646,6 +845,7 @@ class _$InitialImpl implements Initial {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -663,6 +863,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -676,6 +877,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -689,6 +891,7 @@ class _$InitialImpl implements Initial {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -746,6 +949,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -759,6 +963,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -772,6 +977,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -789,6 +995,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -802,6 +1009,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -815,6 +1023,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
@@ -898,6 +1107,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(List<Products> productList) loadProduct,
     required TResult Function(Products products) loadProductDetail,
     required TResult Function(bool isExit) isDataExist,
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -911,6 +1121,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(List<Products> productList)? loadProduct,
     TResult? Function(Products products)? loadProductDetail,
     TResult? Function(bool isExit)? isDataExist,
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -924,6 +1135,7 @@ class _$ErrorImpl implements Error {
     TResult Function(List<Products> productList)? loadProduct,
     TResult Function(Products products)? loadProductDetail,
     TResult Function(bool isExit)? isDataExist,
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -941,6 +1153,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(ProductDetail value) loadProductDetail,
     required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(InhouseStockList value) loadInHouseStock,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
@@ -954,6 +1167,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(ProductDetail value)? loadProductDetail,
     TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
@@ -967,6 +1181,7 @@ class _$ErrorImpl implements Error {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(ProductDetail value)? loadProductDetail,
     TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(InhouseStockList value)? loadInHouseStock,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,

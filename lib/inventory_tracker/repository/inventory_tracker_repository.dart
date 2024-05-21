@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../services/api_service.dart';
 import '../../utils/commons/common_method.dart';
 
@@ -33,6 +34,17 @@ class InventoryTrackerRepository {
       headers: CommonMethods.setHeaders(),
     );
 
+    return response;
+  }
+
+  Future<Response> inhouseStock(int productID) async {
+    superPrint(productID);
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/stock-quant/$productID',
+      headers: CommonMethods.setHeaders(),
+    );
+    superPrint(response.body);
     return response;
   }
 }
