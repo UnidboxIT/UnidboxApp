@@ -42,7 +42,7 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: subCategoryBodyWidget(),
+                child: subCategoryBodyWidget(context),
               ),
             ],
           ),
@@ -51,7 +51,7 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
     );
   }
 
-  Widget subCategoryBodyWidget() {
+  Widget subCategoryBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
       height: 82.h,
@@ -61,7 +61,7 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(),
+          searchTextFieldWidget(context),
           inventoryTrackerList.isEmpty
               ? ProductWidget(
                   id: parentID,
@@ -77,11 +77,12 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => ProductScreen(
-                                      parentID: inventoryTrackerList[index]
-                                          .id
-                                          .toString(),
-                                      name: name,
-                                    )),
+                                    parentID: inventoryTrackerList[index]
+                                        .id
+                                        .toString(),
+                                    name: name,
+                                    isScanBarCode: false,
+                                    productList: const [])),
                           );
                         });
                       },

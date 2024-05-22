@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
+import '../domain/product.dart';
+import 'barcode_scanner/scan_product_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
 class ProductScreen extends StatelessWidget {
   final String parentID;
   final String name;
-  const ProductScreen({super.key, required this.parentID, required this.name});
+  final bool isScanBarCode;
+  final List<Products> productList;
+  const ProductScreen({
+    super.key,
+    required this.parentID,
+    required this.name,
+    required this.isScanBarCode,
+    required this.productList,
+  });
 
   @override
   Widget build(BuildContext context) {
+    superPrint(productList);
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -34,7 +46,7 @@ class ProductScreen extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: productBodyWidget(),
+                child: productBodyWidget(context),
               ),
             ],
           ),
@@ -43,7 +55,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
-  Widget productBodyWidget() {
+  Widget productBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
       height: 81.h,
@@ -51,11 +63,17 @@ class ProductScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(
         children: [
-          searchTextFieldWidget(),
-          ProductWidget(
-            id: parentID,
-            name: name,
-          ),
+          searchTextFieldWidget(context),
+          isScanBarCode
+              ? ScanProductWidget(
+                  id: parentID,
+                  name: name,
+                  productList: productList,
+                )
+              : ProductWidget(
+                  id: parentID,
+                  name: name,
+                ),
         ],
       ),
     );

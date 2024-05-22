@@ -75,7 +75,8 @@ class _InventoryTrackerScreenState
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: inventoryTrackerBodyWidget(inventoryTrackerList),
+                child:
+                    inventoryTrackerBodyWidget(inventoryTrackerList, context),
               ),
             ],
           ),
@@ -85,7 +86,7 @@ class _InventoryTrackerScreenState
   }
 
   Widget inventoryTrackerBodyWidget(
-      List<InventoryTracker> inventoryTrackerList) {
+      List<InventoryTracker> inventoryTrackerList, BuildContext context) {
     return Container(
       width: 100.w,
       height: 82.h,
@@ -95,7 +96,7 @@ class _InventoryTrackerScreenState
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(),
+          searchTextFieldWidget(context),
           Expanded(
             child: ListView.separated(
                 shrinkWrap: true,

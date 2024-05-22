@@ -1,115 +1,39 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/details/product_detail_screen.dart';
-import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../utils/commons/common_method.dart';
 import '../../domain/product.dart';
-import '../../repository/state/product_state.dart';
 
-class ProductWidget extends ConsumerStatefulWidget {
+class ScanProductWidget extends ConsumerStatefulWidget {
   final String id;
   final String name;
+  final List<Products> productList;
 
-  const ProductWidget({
+  const ScanProductWidget({
     super.key,
     required this.id,
     required this.name,
+    required this.productList,
   });
 
   @override
-  ConsumerState<ProductWidget> createState() => _ProductWidgetState();
+  ConsumerState<ScanProductWidget> createState() => _ProductWidgetState();
 }
 
-class _ProductWidgetState extends ConsumerState<ProductWidget> {
-  List<Products> productList = [];
-  int pageNumber = 0;
-  bool isLoading = false;
-  bool xLoading = false;
-  bool isDataExist = true;
-  ScrollController scrollController = ScrollController();
-  @override
-  void initState() {
-    super.initState();
-
-    ref.read(productStateNotifierProvider.notifier).clearProductValue();
-    scrollController.addListener(_scrollListener);
-    _loadProducts();
-  }
-
-  void _loadProducts() {
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(productStateNotifierProvider.notifier)
-          .getAllProductsByCategoryID(widget.id, pageNumber);
-    });
-  }
-
-  void _scrollListener() async {
-    if (isDataExist) {
-      if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
-          !isLoading) {
-        setState(() {
-          xLoading = true;
-        });
-        pageNumber += 20;
-        _loadProducts();
-        await Future.delayed(const Duration(seconds: 1));
-        setState(() {
-          xLoading = false;
-        });
-      }
-    }
-  }
-
+class _ProductWidgetState extends ConsumerState<ScanProductWidget> {
   @override
   Widget build(BuildContext context) {
-    ref.listen(productStateNotifierProvider, (prev, next) {
-      if (next is Loading) {
-        setState(() {
-          productList = [];
-          isLoading = true;
-        });
-      }
-      if (next is ProductsList) {
-        setState(() {
-          productList = next.productList;
-          superPrint(productList.first.barcode);
-          isLoading = false;
-        });
-      }
-
-      if (next is IsDataExit) {
-        setState(() {
-          isDataExist = next.isExit;
-        });
-      }
-
-      if (next is Error) {
-        CommonMethods.customizedAlertDialog(next.error.toString());
-      }
-    });
-
     return Expanded(
-      child: isLoading
+      child: widget.productList.isEmpty
           ? Center(
-              child: CupertinoActivityIndicator(
-                color: AppColor.pinkColor,
+              child: textWidget(
+                "No Product",
+                color: AppColor.fontColor,
               ),
             )
-          : productList.isEmpty
-              ? Center(
-                  child: textWidget(
-                    "No Product",
-                    color: AppColor.fontColor,
-                  ),
-                )
-              : productBodyWidget(),
+          : productBodyWidget(),
     );
   }
 
@@ -118,9 +42,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
       children: [
         Expanded(
           child: GridView.builder(
-              controller: scrollController,
               shrinkWrap: true,
-              itemCount: productList.length,
+              itemCount: widget.productList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
@@ -128,25 +51,19 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 childAspectRatio: 0.93,
               ),
               itemBuilder: (context, index) {
-                String productId = productList[index].id.toString();
-                String image = productList[index].imageUrl;
-                String name = productList[index].name;
-                double qty = productList[index].quantity;
-                double price = productList[index].price;
-                double qtyOutStock = productList[index].qtyOutStock;
+                String productId = widget.productList[index].id.toString();
+                String image = widget.productList[index].imageUrl;
+                String name = widget.productList[index].name;
+                double qty = widget.productList[index].quantity;
+                double price = widget.productList[index].price;
+                double qtyOutStock = widget.productList[index].qtyOutStock;
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
-                            builder: (context) => ProductDetailScreen(
-                                  productID: productId,
-                                  productName: name,
-                                )))
-                        .then((_) {
-                      setState(() {
-                        isLoading = false;
-                      });
-                    });
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                              productID: productId,
+                              productName: name,
+                            )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -244,34 +161,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 );
               }),
         ),
-        if (xLoading)
-          SizedBox(
-            height: 30,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(4)),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textWidget("Loadmore ...",
-                      color: AppColor.pinkColor,
-                      fontWeight: FontWeight.bold,
-                      size: 15),
-                  CupertinoActivityIndicator(color: AppColor.pinkColor),
-                ],
-              ),
-            ),
-          ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unidbox_app/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
 
-Widget searchTextFieldWidget() {
+Widget searchTextFieldWidget(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     child: Container(
@@ -37,7 +38,8 @@ Widget searchTextFieldWidget() {
               size: 18,
             ),
             onPressed: () {
-              //Get.to(() => const BarCodeScannerScreen());
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const BarCodeScannerScreen()));
             },
           ),
           prefixIcon: const Icon(
