@@ -14,11 +14,12 @@ import '../../repository/state/product_state.dart';
 class ProductWidget extends ConsumerStatefulWidget {
   final String id;
   final String name;
-
+  final bool isBack;
   const ProductWidget({
     super.key,
     required this.id,
     required this.name,
+    required this.isBack,
   });
 
   @override
@@ -35,7 +36,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
   @override
   void initState() {
     super.initState();
-
     ref.read(productStateNotifierProvider.notifier).clearProductValue();
     scrollController.addListener(_scrollListener);
     _loadProducts();
@@ -79,7 +79,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
       if (next is ProductsList) {
         setState(() {
           productList = next.productList;
-          superPrint(productList.first.barcode);
           isLoading = false;
         });
       }
@@ -144,7 +143,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                 )))
                         .then((_) {
                       setState(() {
-                        isLoading = false;
+                        // final state = ref.read(productStateNotifierProvider);
+                        // superPrint(state);
+                        // if (state is ProductsList) {
+                        //   productList = state.productList;
+                        //   isLoading = false;
+                        // }
                       });
                     });
                   },

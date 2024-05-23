@@ -9,12 +9,14 @@ import 'package:unidbox_app/inventory_tracker/presentation/details/Inhouse_stock
 import 'package:unidbox_app/inventory_tracker/presentation/details/stock_ordering_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/stock_button_widget.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/product_detail_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../repository/provider/product_provider.dart';
-import '../../repository/state/product_state.dart';
+import '../../repository/provider/inhouse_stock_provider.dart';
+import '../../repository/provider/product_detail_provider.dart';
+import '../../repository/state/inhouse_stock_state.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
@@ -42,10 +44,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   void loadData() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
-          .read(productStateNotifierProvider.notifier)
+          .read(productDetailStateNotifierProvider.notifier)
           .productByID(widget.productID);
       ref
-          .read(productStateNotifierProvider.notifier)
+          .read(inhouseStockStateNotifierProvider.notifier)
           .getInHouseStock(int.parse(widget.productID));
       superPrint(widget.productID);
     });
@@ -59,8 +61,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(productStateNotifierProvider, (prev, next) {
-      if (next is Loading) {
+    ref.listen(productDetailStateNotifierProvider, (prev, next) {
+      if (next is ProductDetailLoading) {
         productDetail = Products();
         setState(() {
           isLoading = true;
@@ -70,6 +72,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         setState(() {
           productDetail = next.products;
           isLoading = false;
+        });
+      }
+    });
+    ref.listen(inhouseStockStateNotifierProvider, (prev, next) {
+      if (next is InHouseLoading) {
+        setState(() {
+          isLoading = true;
         });
       }
       if (next is InhouseStockList) {

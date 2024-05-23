@@ -24,7 +24,6 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    superPrint(productList);
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -73,6 +72,7 @@ class ProductScreen extends StatelessWidget {
               : ProductWidget(
                   id: parentID,
                   name: name,
+                  isBack: false,
                 ),
         ],
       ),

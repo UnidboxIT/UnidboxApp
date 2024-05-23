@@ -66,6 +66,7 @@ class InventoryTrackerSubCategoryScreen extends StatelessWidget {
               ? ProductWidget(
                   id: parentID,
                   name: name,
+                  isBack: false,
                 )
               : Expanded(
                   child: ListView.separated(

@@ -16,7 +16,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
   final InventoryTrackerRepository _inventoryTrackerRepository;
   List<Products> productList = [];
   List<Products> scanProductList = [];
-  Products productsDetail = Products();
+
   List<InhouseStock> inHouseStockList = [];
   Future<void> getAllProductsByCategoryID(
     String categoryID,
@@ -41,43 +41,6 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
       }
     } catch (e) {
       state = ProductState.error(error: e.toString());
-    }
-  }
-
-  Future<void> productByID(String productID) async {
-    try {
-      state = const ProductState.loading();
-      Response response =
-          await _inventoryTrackerRepository.productByID(productID);
-      var result = jsonDecode(response.body);
-      if (result['result']['code'] == 200) {
-        productsDetail = Products.fromJson(result['result']['records'][0]);
-      }
-      state = ProductState.loadProductDetail(productsDetail);
-    } catch (e) {
-      state = ProductState.error(error: e.toString());
-    }
-  }
-
-  Future<void> getInHouseStock(int productID) async {
-    try {
-      state = const ProductState.loading();
-      Response response =
-          await _inventoryTrackerRepository.inhouseStock(productID);
-      var result = jsonDecode(response.body);
-      superPrint(result['result']['result']);
-      if (result['result']['code'] == 200) {
-        Iterable dataList = result['result']['result'];
-        superPrint(dataList.length);
-        inHouseStockList.clear();
-        for (var data in dataList) {
-          inHouseStockList.add(InhouseStock.fromJson(data));
-        }
-        state = ProductState.loadInHouseStock(inHouseStockList);
-      }
-    } catch (e) {
-      state = ProductState.error(error: e.toString());
-      superPrint(e);
     }
   }
 
