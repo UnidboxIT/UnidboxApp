@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/product_state.dart';
+import '../../../utils/commons/common_method.dart';
 import '../../../utils/commons/super_print.dart';
 import '../../domain/inhouse_stock.dart';
 import '../../domain/product.dart';
@@ -66,7 +67,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => ProductScreen(
-                  name: scanProductList[0].categoryIdList[1],
+                  name: scanProductList[0].brand,
                   parentID: scanProductList[0].categoryIdList[0].toString(),
                   isScanBarCode: true,
                   productList: scanProductList),
@@ -74,7 +75,9 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
           );
           state = ProductState.loadProduct(scanProductList);
         } else {
-          state = const ProductState.error(error: "No Product!");
+          Navigator.of(context).pop();
+          CommonMethods.customizedAlertDialog("No product found!", context);
+          state = const ProductState.error(error: "No product found!");
         }
       }
     } catch (e) {

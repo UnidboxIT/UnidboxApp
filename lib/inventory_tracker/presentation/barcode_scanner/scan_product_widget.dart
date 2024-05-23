@@ -7,13 +7,11 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
 
 class ScanProductWidget extends ConsumerStatefulWidget {
-  final String id;
   final String name;
   final List<Products> productList;
 
   const ScanProductWidget({
     super.key,
-    required this.id,
     required this.name,
     required this.productList,
   });

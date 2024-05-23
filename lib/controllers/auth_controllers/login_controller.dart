@@ -62,7 +62,7 @@ class LoginController extends GetxController {
 
         update();
       } else {
-        CommonMethods.customizedAlertDialog(result['result']['error']);
+        // CommonMethods.customizedAlertDialog(result['result']['error']);
       }
     } catch (e) {
       superPrint(e);

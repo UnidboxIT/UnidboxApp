@@ -255,7 +255,7 @@ class ProductController extends GetxController {
                 parentID: searchProductsList[0].categoryIdList[0].toString(),
               ));
         } else {
-          CommonMethods.customizedAlertDialog("No Product!", isPop: false);
+          //CommonMethods.customizedAlertDialog("No Product!", isPop: false);
         }
       }
     } catch (e) {
@@ -287,8 +287,8 @@ class ProductController extends GetxController {
         varietyValueMap.values.toList(),
       );
       var result = jsonDecode(response.body);
-      CommonMethods.customizedAlertDialog(result['result']['message'],
-          isPop: false);
+      // CommonMethods.customizedAlertDialog(result['result']['message'],
+      //     isPop: false);
       clearProductVariety();
     } catch (e) {
       superPrint(e.toString());

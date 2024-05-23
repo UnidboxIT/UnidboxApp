@@ -38,8 +38,8 @@ class ChangePasswordController extends GetxController {
         // });
         clearValue();
       } else {
-        CommonMethods.customizedAlertDialog(result['result']['error'],
-            isPop: false);
+        // CommonMethods.customizedAlertDialog(result['result']['error'],
+        //     isPop: false);
       }
       FocusManager.instance.primaryFocus!.unfocus();
     } catch (e) {

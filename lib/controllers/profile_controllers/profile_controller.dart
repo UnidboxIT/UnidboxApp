@@ -114,7 +114,7 @@ class ProfileController extends GetxController {
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
-          CommonMethods.customizedAlertDialog(result['result']['message']);
+          //  CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
     } catch (e) {
@@ -148,7 +148,7 @@ class ProfileController extends GetxController {
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
-          CommonMethods.customizedAlertDialog(result['result']['message']);
+          //  CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
     } catch (e) {
@@ -172,7 +172,7 @@ class ProfileController extends GetxController {
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
-          CommonMethods.customizedAlertDialog(result['result']['message']);
+          // CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
     } catch (e) {
@@ -195,7 +195,7 @@ class ProfileController extends GetxController {
         } else if (result['result']['code'] == 401) {
           CommonMethods.unAuthorizedLogout();
         } else {
-          CommonMethods.customizedAlertDialog(result['result']['message']);
+          // CommonMethods.customizedAlertDialog(result['result']['message']);
         }
       }
     } catch (e) {}

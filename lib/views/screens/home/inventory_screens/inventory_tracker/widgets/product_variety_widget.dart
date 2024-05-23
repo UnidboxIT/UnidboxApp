@@ -28,8 +28,8 @@ Widget productVarietyWidget() {
                     controller.txtPrice.text.isNotEmpty) {
                   controller.incrementProductVariety();
                 } else {
-                  CommonMethods.customizedAlertDialog("Please fill all",
-                      isPop: false);
+                  // CommonMethods.customizedAlertDialog("Please fill all",
+                  //     isPop: false);
                 }
               },
               child: Container(

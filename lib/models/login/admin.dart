@@ -16,6 +16,7 @@ class Admin {
   final List<int> userId;
   final int maxTimeBetweenKeysInMs;
   final String sessionId;
+  final List warehouseMap;
 
   Admin({
     this.uid = 0,
@@ -35,28 +36,29 @@ class Admin {
     this.userId = const [],
     this.maxTimeBetweenKeysInMs = 0,
     this.sessionId = "",
+    this.warehouseMap = const [],
   });
 
   factory Admin.fromJson(Map<String, dynamic> json) {
     return Admin(
-      uid: json['uid'],
-      isSystem: json['is_system'],
-      isAdmin: json['is_admin'],
-      name: json['name'],
-      username: json['username'],
-      partnerDisplayName: json['partner_display_name'],
-      companyId: json['company_id'],
-      partnerId: json['partner_id'],
-      homeActionId: json['home_action_id'],
-      cacheHashes: json['cache_hashes'],
-      currenciesMap: json['currencies'],
-      userCompanies: UserCompanies.fromJson(json['user_companies']),
-      showEffect: json['show_effect'],
-      displaySwitchCompanyMenu: json['display_switch_company_menu'],
-      userId: List.from(json['user_id']),
-      maxTimeBetweenKeysInMs: json['max_time_between_keys_in_ms'],
-      sessionId: json['session_id'],
-    );
+        uid: json['uid'],
+        isSystem: json['is_system'],
+        isAdmin: json['is_admin'],
+        name: json['name'],
+        username: json['username'],
+        partnerDisplayName: json['partner_display_name'],
+        companyId: json['company_id'],
+        partnerId: json['partner_id'],
+        homeActionId: json['home_action_id'],
+        cacheHashes: json['cache_hashes'],
+        currenciesMap: json['currencies'],
+        userCompanies: UserCompanies.fromJson(json['user_companies']),
+        showEffect: json['show_effect'],
+        displaySwitchCompanyMenu: json['display_switch_company_menu'],
+        userId: List.from(json['user_id']),
+        maxTimeBetweenKeysInMs: json['max_time_between_keys_in_ms'],
+        sessionId: json['session_id'],
+        warehouseMap: List.from(json['warehouse_id']));
   }
 }
 

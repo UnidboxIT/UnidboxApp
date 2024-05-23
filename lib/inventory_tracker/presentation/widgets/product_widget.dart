@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/details/product_detail_screen.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../utils/commons/common_method.dart';
@@ -90,7 +89,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
       }
 
       if (next is Error) {
-        CommonMethods.customizedAlertDialog(next.error.toString());
+        CommonMethods.customizedAlertDialog(next.error.toString(), context);
       }
     });
 

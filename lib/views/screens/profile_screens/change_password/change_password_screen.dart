@@ -80,21 +80,21 @@ class ChangePasswordScreen extends StatelessWidget {
                   height: 38,
                   color: Colors.transparent,
                   child: buttonWidget("Update", () {
-                    if (controller.txtOldPwd.text.isEmpty) {
-                      CommonMethods.customizedAlertDialog(
-                          "Please enter old password",
-                          isPop: false);
-                    } else if (controller.txtNewPwd.text.isEmpty) {
-                      CommonMethods.customizedAlertDialog(
-                          "Please enter new password",
-                          isPop: false);
-                    } else if (controller.txtOldPwd.text.isEmpty) {
-                      CommonMethods.customizedAlertDialog(
-                          "Please enter confirm new password",
-                          isPop: false);
-                    } else {
-                      controller.changePwd();
-                    }
+                    // if (controller.txtOldPwd.text.isEmpty) {
+                    //   CommonMethods.customizedAlertDialog(
+                    //       "Please enter old password",
+                    //       isPop: false);
+                    // } else if (controller.txtNewPwd.text.isEmpty) {
+                    //   CommonMethods.customizedAlertDialog(
+                    //       "Please enter new password",
+                    //       isPop: false);
+                    // } else if (controller.txtOldPwd.text.isEmpty) {
+                    //   CommonMethods.customizedAlertDialog(
+                    //       "Please enter confirm new password",
+                    //       isPop: false);
+                    // } else {
+                    //   controller.changePwd();
+                    // }
                   }, isBool: controller.isUpdateLoading),
                 ),
               )

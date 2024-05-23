@@ -85,76 +85,76 @@ class CreateProductScreen extends StatelessWidget {
           const SizedBox(height: 10),
           productVarietyWidget(),
           const SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10),
-            child: buttonWidget(
-              "Submit",
-              () {
-                controller.addProductVariety();
-                controller.txtName.text.isEmpty
-                    ? CommonMethods.customizedAlertDialog(
-                        "Please enter name",
-                        isPop: false,
-                      )
-                    : controller.txtModel.text.isEmpty
-                        ? CommonMethods.customizedAlertDialog(
-                            "Please enter model",
-                            isPop: false,
-                          )
-                        : controller.txtVendor.text.isEmpty
-                            ? CommonMethods.customizedAlertDialog(
-                                "Please enter vendor",
-                                isPop: false,
-                              )
-                            : controller.txtBrand.text.isEmpty
-                                ? CommonMethods.customizedAlertDialog(
-                                    "Please enter brand",
-                                    isPop: false,
-                                  )
-                                : controller.txtBarcode.text.isEmpty
-                                    ? CommonMethods.customizedAlertDialog(
-                                        "Please enter barcode",
-                                        isPop: false,
-                                      )
-                                    : controller.txtSalePrice.text.isEmpty
-                                        ? CommonMethods.customizedAlertDialog(
-                                            "Please enter sale price",
-                                            isPop: false,
-                                          )
-                                        : controller.txtCost.text.isEmpty
-                                            ? CommonMethods
-                                                .customizedAlertDialog(
-                                                "Please enter cost",
-                                                isPop: false,
-                                              )
-                                            : controller.txtFactor.text.isEmpty
-                                                ? CommonMethods
-                                                    .customizedAlertDialog(
-                                                    "Please enter factor",
-                                                    isPop: false,
-                                                  )
-                                                : controller
-                                                        .txtFactor.text.isEmpty
-                                                    ? CommonMethods
-                                                        .customizedAlertDialog(
-                                                        "Please enter price",
-                                                        isPop: false,
-                                                      )
-                                                    : controller
-                                                            .txtVarietyBarCode
-                                                            .text
-                                                            .isEmpty
-                                                        ? CommonMethods
-                                                            .customizedAlertDialog(
-                                                            "Please enter product variety barcode",
-                                                            isPop: false,
-                                                          )
-                                                        : controller
-                                                            .createEachProduct();
-              },
-              isBool: controller.isCreateProductLoading,
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10),
+          //   child: buttonWidget(
+          //     "Submit",
+          //     () {
+          //       controller.addProductVariety();
+          //       controller.txtName.text.isEmpty
+          //           ? CommonMethods.customizedAlertDialog(
+          //               "Please enter name",
+          //               isPop: false,
+          //             )
+          //           : controller.txtModel.text.isEmpty
+          //               ? CommonMethods.customizedAlertDialog(
+          //                   "Please enter model",
+          //                   isPop: false,
+          //                 )
+          //               : controller.txtVendor.text.isEmpty
+          //                   ? CommonMethods.customizedAlertDialog(
+          //                       "Please enter vendor",
+          //                       isPop: false,
+          //                     )
+          //                   : controller.txtBrand.text.isEmpty
+          //                       ? CommonMethods.customizedAlertDialog(
+          //                           "Please enter brand",
+          //                           isPop: false,
+          //                         )
+          //                       : controller.txtBarcode.text.isEmpty
+          //                           ? CommonMethods.customizedAlertDialog(
+          //                               "Please enter barcode",
+          //                               isPop: false,
+          //                             )
+          //                           : controller.txtSalePrice.text.isEmpty
+          //                               ? CommonMethods.customizedAlertDialog(
+          //                                   "Please enter sale price",
+          //                                   isPop: false,
+          //                                 )
+          //                               : controller.txtCost.text.isEmpty
+          //                                   ? CommonMethods
+          //                                       .customizedAlertDialog(
+          //                                       "Please enter cost",
+          //                                       isPop: false,
+          //                                     )
+          //                                   : controller.txtFactor.text.isEmpty
+          //                                       ? CommonMethods
+          //                                           .customizedAlertDialog(
+          //                                           "Please enter factor",
+          //                                           isPop: false,
+          //                                         )
+          //                                       : controller
+          //                                               .txtFactor.text.isEmpty
+          //                                           ? CommonMethods
+          //                                               .customizedAlertDialog(
+          //                                               "Please enter price",
+          //                                               isPop: false,
+          //                                             )
+          //                                           : controller
+          //                                                   .txtVarietyBarCode
+          //                                                   .text
+          //                                                   .isEmpty
+          //                                               ? CommonMethods
+          //                                                   .customizedAlertDialog(
+          //                                                   "Please enter product variety barcode",
+          //                                                   isPop: false,
+          //                                                 )
+          //                                               : controller
+          //                                                   .createEachProduct();
+          //     },
+          //     isBool: controller.isCreateProductLoading,
+          //   ),
+          // ),
           SizedBox(height: 20.h)
         ],
       );

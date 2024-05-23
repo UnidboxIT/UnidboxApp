@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../auth/repository/auth_state_notifier.dart';
 import '../../views/widgets/button/button_widget.dart';
 import '../constant/app_constant.dart';
@@ -26,47 +28,50 @@ class CommonMethods {
     };
   }
 
-  static void customizedAlertDialog(String message, {bool isPop = true}) {
-    Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      alignment: Alignment.center,
-      backgroundColor: Colors.white,
-      surfaceTintColor: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 13,
+  static void customizedAlertDialog(String message, BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.white,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          width: 100.w,
+          height: 25.h,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(
+                Icons.warning,
+                color: AppColor.pinkColor,
+                size: 30,
+              ),
+              textWidget(
+                message,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
-                fontWeight: FontWeight.w600,
+                size: 15,
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: 35.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 0,
-                    spreadRadius: 0,
-                  )
-                ],
+              Container(
+                width: 35.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 0,
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: buttonWidget("Ok".tr, () {
+                  Navigator.of(context).pop();
+                }),
               ),
-              child: buttonWidget("Ok".tr, () {
-                Get.back();
-              }),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -76,6 +81,6 @@ class CommonMethods {
     // Get.find<NavBarController>().currentIndex = 0;
     // Get.find<NavBarController>().update();
     Get.offAll(() => const AuthLoginScreen());
-    customizedAlertDialog("Session Expired".tr);
+    //customizedAlertDialog("Session Expired".tr);
   }
 }

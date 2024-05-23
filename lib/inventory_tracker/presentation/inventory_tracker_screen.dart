@@ -50,7 +50,7 @@ class _InventoryTrackerScreenState
         });
       }
       if (next is Error) {
-        CommonMethods.customizedAlertDialog(next.error.toString());
+        CommonMethods.customizedAlertDialog(next.error.toString(), context);
       }
     });
     return SuperScaffold(

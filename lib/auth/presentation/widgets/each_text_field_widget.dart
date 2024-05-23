@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Widget eachTextFieldWidget(TextEditingController controller, String hintText) {
@@ -41,6 +42,8 @@ Widget eachTextFieldWidget(TextEditingController controller, String hintText) {
 Widget eachPasswordWidget(
   TextEditingController controller,
   String hintText,
+  bool isVisiblity,
+  VoidCallback onPressed,
 ) {
   return Container(
     height: 40,
@@ -61,24 +64,19 @@ Widget eachPasswordWidget(
       controller: controller,
       cursorColor: Colors.grey,
       obscuringCharacter: "*",
-      //obscureText: loginController.isVisiblity ? false : true,
+      obscureText: isVisiblity ? false : true,
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-        // suffixIcon: IconButton(
-        //   icon: Icon(
-        //     loginController.isVisiblity
-        //         ? CupertinoIcons.eye
-        //         : CupertinoIcons.eye_slash,
-        //     size: 18,
-        //   ),
-        //   onPressed: () {
-        //     FocusManager.instance.primaryFocus!.unfocus();
-        //     loginController.isToggleVisiblity();
-        //   },
-        // ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            isVisiblity ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+            size: 18,
+          ),
+          onPressed: onPressed,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,

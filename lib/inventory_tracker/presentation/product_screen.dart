@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../domain/product.dart';
@@ -65,7 +64,6 @@ class ProductScreen extends StatelessWidget {
           searchTextFieldWidget(context),
           isScanBarCode
               ? ScanProductWidget(
-                  id: parentID,
                   name: name,
                   productList: productList,
                 )

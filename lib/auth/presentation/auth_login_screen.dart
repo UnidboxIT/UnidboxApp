@@ -23,6 +23,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
   TextEditingController txtUserID = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   bool paymentState = false;
+  bool isVisiblity = false;
   @override
   Widget build(BuildContext context) {
     ref.watch(authStateNotifierControllerProvider);
@@ -33,17 +34,17 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
         });
       }
       if (next is Error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.message)),
-        );
         setState(() {
           paymentState = false;
         });
       }
       if (next is Success) {
-        ref
-            .watch(authStateNotifierControllerProvider.notifier)
-            .checkUserAuthorization();
+        setState(() {
+          ref
+              .watch(authStateNotifierControllerProvider.notifier)
+              .checkUserAuthorization();
+          paymentState = false;
+        });
       }
     });
     return SuperScaffold(
@@ -65,7 +66,12 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
               SizedBox(height: 3.h),
               textWidget("Password", fontWeight: FontWeight.bold),
               const SizedBox(height: 10),
-              eachPasswordWidget(txtPassword, "Password"),
+              eachPasswordWidget(txtPassword, "Password", isVisiblity, () {
+                FocusManager.instance.primaryFocus!.unfocus();
+                setState(() {
+                  isVisiblity = !isVisiblity;
+                });
+              }),
               const SizedBox(height: 20),
               rememberMeWidget(ref),
               SizedBox(height: 5.h),

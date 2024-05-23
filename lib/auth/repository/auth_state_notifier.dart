@@ -8,6 +8,7 @@ import 'package:unidbox_app/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
 import '../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../models/login/admin.dart';
+import '../../utils/commons/common_method.dart';
 import '../../utils/constant/app_constant.dart';
 import 'state/auth_state.dart';
 
@@ -54,6 +55,8 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
         }
         state = const AuthState.success();
       } else {
+        CommonMethods.customizedAlertDialog(
+            result['result']['error'].toString(), context);
         state = AuthState.error(result['result']['error'].toString());
       }
     } catch (e) {
