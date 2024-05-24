@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/inhouse_stock_provider.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/inhouse_stock_state.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
@@ -37,7 +36,10 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    selectedBox = widget.productDetail.uomList[0];
+    selectedBox = widget.productDetail.uomList.isNotEmpty
+        ? widget.productDetail.uomList[0]
+        : 0;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(

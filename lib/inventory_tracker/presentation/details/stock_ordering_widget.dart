@@ -1,84 +1,161 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/inventory_tracker/domain/stock_order.dart';
+import 'package:unidbox_app/inventory_tracker/repository/provider/stock_order_provider.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import '../../domain/inhouse_stock.dart';
+class StockOrderingWidget extends ConsumerStatefulWidget {
+  final List<StockOrder> stockOrderList;
+  const StockOrderingWidget({super.key, required this.stockOrderList});
 
-Widget stockOrderingWidget(List<InhouseStock> inHouseStockList) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 4,
-              child: textWidget(
-                "Vendor",
-                fontWeight: FontWeight.bold,
-                color: AppColor.orangeColor,
-                size: 14,
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: textWidget(
-                "Cost",
-                color: AppColor.orangeColor,
-                size: 14,
-                fontWeight: FontWeight.bold,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Expanded(
-              flex: 4,
-              child: SizedBox(),
-            )
-          ],
-        ),
-        const SizedBox(height: 10),
-        ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              String location = inHouseStockList[index].warehouseList[1];
-              String qty = inHouseStockList[index].qty;
-              String id = inHouseStockList[index].warehouseList[0].toString();
-
-              return eachInhouseStockWidget(
-                  location, qty.toString(), id, index);
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 10);
-            },
-            itemCount: inHouseStockList.length)
-      ],
-    ),
-  );
+  @override
+  ConsumerState<StockOrderingWidget> createState() =>
+      _StockOrderingWidgetState();
 }
 
-Widget eachInhouseStockWidget(
-    String location, String qty, String id, int index) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Expanded(
-        flex: 4,
-        child: textWidget(location,
-            color: Colors.black, size: 14, textAlign: TextAlign.left),
+class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
+  int qty = 0;
+  Map<int, int> totalQty = {};
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(stockOrderStateNotifierProvider, (pre, next) {
+      if (next is IncrementStockOrderQty) {
+        setState(() {
+          totalQty = next.qty;
+        });
+      }
+      if (next is DecrementStockOrderQty) {
+        setState(() {
+          totalQty = next.qty;
+        });
+      }
+    });
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 4,
+                child: textWidget(
+                  "Vendor",
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.orangeColor,
+                  size: 14,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: textWidget(
+                  "Cost",
+                  color: AppColor.orangeColor,
+                  size: 14,
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: 10),
+              const Expanded(
+                flex: 4,
+                child: SizedBox(),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                String vendor = widget.stockOrderList[index].name[1];
+                String price = widget.stockOrderList[index].price.toString();
+                int stockOrderID = widget.stockOrderList[index].id;
+
+                return eachStockOrderingWidget(vendor, price, stockOrderID);
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 10);
+              },
+              itemCount: widget.stockOrderList.length)
+        ],
       ),
-      Expanded(
-        flex: 3,
-        child: textWidget(qty,
-            color: Colors.black, size: 14, textAlign: TextAlign.center),
+    );
+  }
+
+  Widget eachStockOrderingWidget(String vendor, String price, int vendorId) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 4,
+          child: textWidget(vendor,
+              color: Colors.black, size: 14, textAlign: TextAlign.left),
+        ),
+        Expanded(
+          flex: 3,
+          child: textWidget(price,
+              color: Colors.black, size: 14, textAlign: TextAlign.center),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          flex: 4,
+          child: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    addMinusIconButtonWidget(
+                      () {
+                        ref
+                            .read(stockOrderStateNotifierProvider.notifier)
+                            .decrementTotalQty(vendorId, totalQty);
+                      },
+                      CupertinoIcons.minus_circle_fill,
+                    ),
+                    const SizedBox(width: 10),
+                    textWidget(
+                      totalQty[vendorId].toString(),
+                      size: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    const SizedBox(width: 10),
+                    addMinusIconButtonWidget(
+                      () {
+                        ref
+                            .read(stockOrderStateNotifierProvider.notifier)
+                            .incrementTotalQty(vendorId, totalQty);
+                      },
+                      CupertinoIcons.add_circled_solid,
+                    ),
+                  ],
+                )
+              : buttonWidget("Add To Cart", () {
+                  ref
+                      .read(stockOrderStateNotifierProvider.notifier)
+                      .incrementTotalQty(vendorId, totalQty);
+                }),
+        )
+      ],
+    );
+  }
+
+  Widget addMinusIconButtonWidget(VoidCallback onPressed, IconData iconData) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 45,
+        height: 50,
+        color: Colors.transparent,
+        child: Icon(
+          iconData,
+          color: AppColor.primary,
+          size: 35,
+        ),
       ),
-      const SizedBox(width: 10),
-      Expanded(
-        flex: 4,
-        child: buttonWidget("Add To Cart", () {}),
-      )
-    ],
-  );
+    );
+  }
 }

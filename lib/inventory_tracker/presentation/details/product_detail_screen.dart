@@ -9,11 +9,13 @@ import 'package:unidbox_app/inventory_tracker/presentation/details/Inhouse_stock
 import 'package:unidbox_app/inventory_tracker/presentation/details/stock_ordering_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/stock_button_widget.dart';
+import 'package:unidbox_app/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/product_detail_state.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
@@ -32,7 +34,9 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Products productDetail = Products();
   List<InhouseStock> inHouseStockList = [];
+  List<StockOrder> stockOrderList = [];
   bool isLoading = false;
+  bool isInHouseLoading = false;
   String stockName = "In-house Stock";
 
   @override
@@ -49,7 +53,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       ref
           .read(inhouseStockStateNotifierProvider.notifier)
           .getInHouseStock(int.parse(widget.productID));
-      superPrint(widget.productID);
+      ref
+          .read(stockOrderStateNotifierProvider.notifier)
+          .getStockOrder(int.parse(widget.productID));
     });
   }
 
@@ -78,14 +84,25 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     ref.listen(inhouseStockStateNotifierProvider, (prev, next) {
       if (next is InHouseLoading) {
         setState(() {
-          isLoading = true;
+          isInHouseLoading = true;
         });
       }
       if (next is InhouseStockList) {
         setState(() {
           inHouseStockList = next.inhouseStock;
-          isLoading = false;
+          isInHouseLoading = false;
         });
+      }
+    });
+
+    ref.listen(stockOrderStateNotifierProvider, (pre, next) {
+      if (next is StockOrderingLoading) {
+        setState(() {
+          stockOrderList = [];
+        });
+      }
+      if (next is StockOrderingList) {
+        stockOrderList = next.stockOrdering;
       }
     });
 
@@ -158,10 +175,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   ),
                 ),
                 stockName == "In-house Stock"
-                    ? InhouseStockWidget(
-                        inHouseStockList: inHouseStockList,
-                        productDetail: productDetail)
-                    : stockOrderingWidget(inHouseStockList)
+                    ? isInHouseLoading
+                        ? Container()
+                        : InhouseStockWidget(
+                            inHouseStockList: inHouseStockList,
+                            productDetail: productDetail)
+                    : StockOrderingWidget(stockOrderList: stockOrderList)
               ],
             ),
     );

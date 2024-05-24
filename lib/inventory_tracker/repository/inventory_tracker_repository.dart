@@ -99,7 +99,17 @@ class InventoryTrackerRepository {
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
-    superPrint(formData);
+
+    return response;
+  }
+
+  Future<Response> stockOrder(int productID) async {
+    superPrint(productID);
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/stock-supplier/$productID',
+      headers: CommonMethods.setHeaders(),
+    );
     superPrint(response.body);
     return response;
   }

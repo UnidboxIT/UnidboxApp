@@ -1,0 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/stock_ordering_state.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state_notifier/stock_ordering_state_notifier.dart';
+import 'inventory_tracker_provider.dart';
+
+final stockOrderStateNotifierProvider =
+    StateNotifierProvider<StockOrderingStateNotifier, StockOrderingState>(
+  (ref) => StockOrderingStateNotifier(ref.watch(inventoryTrackerProvider)),
+);
