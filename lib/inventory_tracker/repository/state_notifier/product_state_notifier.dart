@@ -17,8 +17,8 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
   final InventoryTrackerRepository _inventoryTrackerRepository;
   List<Products> productList = [];
   List<Products> scanProductList = [];
-
   List<InhouseStock> inHouseStockList = [];
+
   Future<void> getAllProductsByCategoryID(
     String categoryID,
     int pageNumber,
@@ -30,6 +30,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
       Response response =
           await _inventoryTrackerRepository.products(categoryID, pageNumber);
       var result = jsonDecode(response.body);
+      superPrint(result);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {
@@ -83,5 +84,39 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
     } catch (e) {
       superPrint(e.toString());
     }
+  }
+
+  Future<void> searchProduct(
+    String name,
+    BuildContext context,
+    String pageNumber,
+  ) async {
+    try {
+      state = const ProductState.loading();
+      Response response =
+          await _inventoryTrackerRepository.searchProduct(name, pageNumber);
+      var result = jsonDecode(response.body);
+      scanProductList.clear();
+      superPrint(result['result']['records']);
+      if (result['result']['code'] == 200) {
+        Iterable dataList = result['result']['records'];
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            scanProductList.add(Products.fromJson(element));
+          }
+          state = ProductState.loadProduct(scanProductList);
+        } else {
+          state = const ProductState.error(error: "No product found!");
+        }
+      }
+      superPrint(scanProductList.length);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  clearSearchProductValue() {
+    scanProductList.clear();
+    state = ProductState.loadProduct(scanProductList);
   }
 }

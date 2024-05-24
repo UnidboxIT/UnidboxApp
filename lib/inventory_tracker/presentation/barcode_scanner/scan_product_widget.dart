@@ -7,13 +7,14 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
 
 class ScanProductWidget extends ConsumerStatefulWidget {
-  final String name;
   final List<Products> productList;
+
+  final bool isSearch;
 
   const ScanProductWidget({
     super.key,
-    required this.name,
     required this.productList,
+    required this.isSearch,
   });
 
   @override
@@ -27,7 +28,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductWidget> {
       child: widget.productList.isEmpty
           ? Center(
               child: textWidget(
-                "No Product",
+                widget.isSearch ? "Search your product" : "No Product",
                 color: AppColor.fontColor,
               ),
             )

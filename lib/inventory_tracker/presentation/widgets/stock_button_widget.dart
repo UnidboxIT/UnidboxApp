@@ -6,7 +6,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 Widget stockButtonWidget(
     VoidCallback onPressed, String text, String stockName) {
   return Container(
-    height: 35,
+    height: 45,
     width: 42.5.w,
     decoration: BoxDecoration(
         color: Colors.white,
@@ -34,7 +34,7 @@ Widget stockButtonWidget(
       child: textWidget(
         text,
         fontWeight: FontWeight.bold,
-        size: 13,
+        size: 14,
         color: stockName == text ? Colors.white : Colors.black,
       ),
     ),

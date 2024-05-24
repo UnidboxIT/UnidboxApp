@@ -11,6 +11,10 @@ extension Getters on InhouseStockState {
 class InhouseStockState with _$InhouseStockState {
   const factory InhouseStockState.loadInHouseStock(
       List<InhouseStock> inhouseStock) = InhouseStockList;
+  const factory InhouseStockState.selectedBox(int uomIndex) = SelectedBoxType;
+  const factory InhouseStockState.incrementQty(int qty) = IncrementQty;
+  const factory InhouseStockState.decrementQty(int qty) = DecrementQty;
+  const factory InhouseStockState.urgent(bool selectedUrgent) = Urgent;
   const factory InhouseStockState.initial() = Initial;
   const factory InhouseStockState.loading() = InHouseLoading;
   const factory InhouseStockState.error({String? error}) = Error;

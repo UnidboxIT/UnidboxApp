@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/product_screen.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
-import '../repository/provider/product_provider.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
@@ -31,11 +29,6 @@ class _InventoryCategoryScreenState
     extends ConsumerState<InventoryTrackerSubCategoryScreen> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.read(productStateNotifierProvider);
-    superPrint(state);
-    ref.listen(productStateNotifierProvider, (pre, next) {
-      superPrint(next);
-    });
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -75,12 +68,14 @@ class _InventoryCategoryScreenState
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(context),
+          searchTextFieldWidget(context, ref,
+              isInventoryTracker:
+                  widget.inventoryTrackerList.isEmpty ? false : true,
+              name: widget.name),
           widget.inventoryTrackerList.isEmpty
               ? ProductWidget(
                   id: widget.parentID,
                   name: widget.name,
-                  isBack: false,
                 )
               : Expanded(
                   child: ListView.separated(

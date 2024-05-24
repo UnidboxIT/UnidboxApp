@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
@@ -8,7 +9,7 @@ import 'barcode_scanner/scan_product_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends ConsumerWidget {
   final String parentID;
   final String name;
   final bool isScanBarCode;
@@ -22,7 +23,7 @@ class ProductScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SuperScaffold(
       topColor: AppColor.primary,
       child: Scaffold(
@@ -44,7 +45,7 @@ class ProductScreen extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: productBodyWidget(context),
+                child: productBodyWidget(context, ref),
               ),
             ],
           ),
@@ -53,7 +54,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
-  Widget productBodyWidget(BuildContext context) {
+  Widget productBodyWidget(BuildContext context, ref) {
     return Container(
       width: 100.w,
       height: 81.h,
@@ -61,16 +62,15 @@ class ProductScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(
         children: [
-          searchTextFieldWidget(context),
+          searchTextFieldWidget(context, ref),
           isScanBarCode
               ? ScanProductWidget(
-                  name: name,
                   productList: productList,
+                  isSearch: false,
                 )
               : ProductWidget(
                   id: parentID,
                   name: name,
-                  isBack: false,
                 ),
         ],
       ),

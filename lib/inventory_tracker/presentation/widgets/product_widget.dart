@@ -13,12 +13,11 @@ import '../../repository/state/product_state.dart';
 class ProductWidget extends ConsumerStatefulWidget {
   final String id;
   final String name;
-  final bool isBack;
+
   const ProductWidget({
     super.key,
     required this.id,
     required this.name,
-    required this.isBack,
   });
 
   @override

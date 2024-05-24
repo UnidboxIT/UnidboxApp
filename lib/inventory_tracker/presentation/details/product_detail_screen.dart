@@ -158,7 +158,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   ),
                 ),
                 stockName == "In-house Stock"
-                    ? inhouseStockWidget(inHouseStockList)
+                    ? InhouseStockWidget(
+                        inHouseStockList: inHouseStockList,
+                        productDetail: productDetail)
                     : stockOrderingWidget(inHouseStockList)
               ],
             ),

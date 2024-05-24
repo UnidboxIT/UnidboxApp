@@ -35,4 +35,26 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
       superPrint(e);
     }
   }
+
+  selectedRequestBox(int uomIndex) {
+    state = InhouseStockState.selectedBox(uomIndex);
+  }
+
+  incrementTotalQty(int qty) {
+    qty++;
+    state = InhouseStockState.incrementQty(qty);
+  }
+
+  decrementTotalQty(int qty) {
+    if (qty > 1) {
+      qty--;
+      state = InhouseStockState.decrementQty(qty);
+    }
+  }
+
+  bool isUrgent = false;
+  selectedUrgent() {
+    isUrgent = !isUrgent;
+    state = InhouseStockState.urgent(isUrgent);
+  }
 }

@@ -96,7 +96,12 @@ class _InventoryTrackerScreenState
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(context),
+          searchTextFieldWidget(
+            context,
+            ref,
+            isInventoryTracker: true,
+            name: "Inventory Tracker",
+          ),
           Expanded(
             child: ListView.separated(
                 shrinkWrap: true,
