@@ -79,28 +79,29 @@ class _InventoryCategoryScreenState
                 )
               : Expanded(
                   child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        String name = widget.inventoryTrackerList[index].name;
-                        String image =
-                            widget.inventoryTrackerList[index].imageUrl;
-                        return eachInventoryTrackerWidget(image, name, () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ProductScreen(
-                                    parentID: widget
-                                        .inventoryTrackerList[index].id
-                                        .toString(),
-                                    name: name,
-                                    isScanBarCode: false,
-                                    productList: const [])),
-                          );
-                        });
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 10);
-                      },
-                      itemCount: widget.inventoryTrackerList.length),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      String name = widget.inventoryTrackerList[index].name;
+                      String image =
+                          widget.inventoryTrackerList[index].imageUrl;
+                      return eachInventoryTrackerWidget(image, name, () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ProductScreen(
+                                  parentID: widget
+                                      .inventoryTrackerList[index].id
+                                      .toString(),
+                                  name: name,
+                                  isScanBarCode: false,
+                                  productList: const [])),
+                        );
+                      });
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 10);
+                    },
+                    itemCount: widget.inventoryTrackerList.length,
+                  ),
                 ),
         ],
       ),

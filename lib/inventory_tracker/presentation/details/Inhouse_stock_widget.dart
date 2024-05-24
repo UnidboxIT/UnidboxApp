@@ -74,7 +74,9 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             ],
           ),
           const SizedBox(height: 10),
-          widget.inHouseStockList[0].warehouseList[0] != admin.warehouseMap[0]
+          widget.inHouseStockList.isNotEmpty &&
+                  widget.inHouseStockList[0].warehouseList[0] !=
+                      admin.warehouseMap[0]
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -96,7 +98,9 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                   ],
                 )
               : const SizedBox(),
-          widget.inHouseStockList[0].warehouseList[0] != admin.warehouseMap[0]
+          widget.inHouseStockList.isNotEmpty &&
+                  widget.inHouseStockList[0].warehouseList[0] !=
+                      admin.warehouseMap[0]
               ? const SizedBox(height: 10)
               : const SizedBox.shrink(),
           ListView.separated(

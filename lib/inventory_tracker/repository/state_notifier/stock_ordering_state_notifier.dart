@@ -20,7 +20,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       Response response =
           await _inventoryTrackerRepository.stockOrder(productID);
       var result = jsonDecode(response.body);
-      superPrint(result['result']['records']);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         stockOrderList.clear();
@@ -35,28 +34,113 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     }
   }
 
-  incrementTotalQty(int vendorId, Map<int, int> qtyMap) {
+  incrementTotalQty(
+    int vendorId,
+    String vendorName,
+    Map<int, int> qtyMap,
+    List<Map<String, dynamic>> orderLineMap,
+    Map<String, Map<String, dynamic>> checkOutDataMap,
+    int productID,
+    String productName,
+    int uomID,
+    double priceUnit,
+  ) {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (qtyMap.containsKey(vendorId)) {
-      superPrint("HERE");
       mutableQtyMap[vendorId] = mutableQtyMap[vendorId]! + 1;
     } else {
       mutableQtyMap[vendorId] = 1;
     }
+
+    List<Map<String, dynamic>> mutableOrderLines = [];
+    mutableOrderLines = List.from(orderLineMap);
+    var existingOrder = mutableOrderLines.firstWhere(
+        (order) => order['product_id'] == productID,
+        orElse: () => {});
+
+    if (existingOrder.isNotEmpty) {
+      existingOrder['product_qty'] = mutableQtyMap[vendorId];
+    } else {
+      mutableOrderLines.add({
+        'product_id': productID,
+        'name': productName,
+        'product_qty': mutableQtyMap[vendorId],
+        'product_uom': uomID,
+        'price_unit': priceUnit,
+      });
+    }
+
+    Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
+    if (checkOutMap.containsKey(vendorName)) {
+      checkOutMap[vendorName]!.addAll({
+        'product_id': productID,
+        'name': productName,
+        'product_qty': mutableQtyMap[vendorId],
+        'product_uom': uomID,
+        'price_unit': priceUnit,
+      });
+    } else {
+      checkOutMap[vendorName] = {
+        'product_id': productID,
+        'name': productName,
+        'product_qty': mutableQtyMap[vendorId],
+        'product_uom': uomID,
+        'price_unit': priceUnit,
+      };
+    }
+    state = StockOrderingState.checkOut(checkOutMap);
+    state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.incrementStockOrderQty(mutableQtyMap);
   }
 
-  decrementTotalQty(int vendorId, Map<int, int> qtyMap) {
+  decrementTotalQty(
+    int vendorId,
+    String vendorName,
+    Map<int, int> qtyMap,
+    List<Map<String, dynamic>> orderLineMap,
+    Map<String, Map<String, dynamic>> checkOutDataMap,
+    int productID,
+    String productName,
+    int uomID,
+    double priceUnit,
+  ) {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (mutableQtyMap.containsKey(vendorId)) {
-      superPrint("HERE");
       if (mutableQtyMap[vendorId]! >= 1) {
         mutableQtyMap[vendorId] = mutableQtyMap[vendorId]! - 1;
       }
-      superPrint(mutableQtyMap[vendorId]);
     } else {
       mutableQtyMap[vendorId] = -1;
     }
+    List<Map<String, dynamic>> mutableOrderLines = [];
+    mutableOrderLines = List.from(orderLineMap);
+    var existingOrder = mutableOrderLines.firstWhere(
+        (order) => order['product_id'] == productID,
+        orElse: () => {});
+
+    if (existingOrder.isNotEmpty) {
+      existingOrder['product_qty'] = mutableQtyMap[vendorId];
+    }
+    Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
+    if (checkOutMap.containsKey(vendorName)) {
+      checkOutMap[vendorName]!.addAll({
+        'product_id': productID,
+        'name': productName,
+        'product_qty': mutableQtyMap[vendorId],
+        'product_uom': uomID,
+        'price_unit': priceUnit,
+      });
+    } else {
+      checkOutMap[vendorName] = {
+        'product_id': productID,
+        'name': productName,
+        'product_qty': mutableQtyMap[vendorId],
+        'product_uom': uomID,
+        'price_unit': priceUnit,
+      };
+    }
+    superPrint(checkOutMap);
+    state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import '../../services/api_service.dart';
 import '../../utils/commons/common_method.dart';
 
@@ -92,6 +93,46 @@ class InventoryTrackerRepository {
       "quantity": totalQty,
       "price": price,
       "uom_id": uomID
+    };
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock/request',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
+  Future<Response> checkout(
+    int companyID,
+    int partnerID,
+    String dateTime,
+    List orderLine,
+  ) async {
+    Map<String, dynamic> formData = {
+      "user_id": admin.userId,
+      "company_id": companyID,
+      "partner_id": partnerID,
+      "date": dateTime,
+      "order_line": [
+        {
+          "product_id": 1002,
+          "name":
+              "[01-01-00001] CRESTAR VALUEAIR 5BLADES (48/55INCH) [VALUEAIR] (WHITE, WITH LED, 48'', DC)",
+          "product_qty": 5,
+          "product_uom": 1,
+          "price_unit": 150
+        },
+        {
+          "product_id": 46445,
+          "name":
+              "[00-00-00679] SUNFLAG BABY SCREWDRIVER 18X100MM [007-135-1300]",
+          "product_qty": 5,
+          "product_uom": 1,
+          "price_unit": 5
+        }
+      ]
     };
     http.Response response = await ApiService().post(
       url: baseUrl,

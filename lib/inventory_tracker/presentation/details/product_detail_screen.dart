@@ -14,11 +14,13 @@ import 'package:unidbox_app/inventory_tracker/repository/state/product_detail_st
 import 'package:unidbox_app/inventory_tracker/repository/state/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
+import 'check_out_order_detail_screen.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
@@ -38,6 +40,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   bool isLoading = false;
   bool isInHouseLoading = false;
   String stockName = "In-house Stock";
+  Map<int, int> totalQty = {};
+  List<Map<String, dynamic>> orderLineList = [];
+  Map<String, Map<String, dynamic>> checkOutDataMap = {};
 
   @override
   void initState() {
@@ -104,6 +109,28 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       if (next is StockOrderingList) {
         stockOrderList = next.stockOrdering;
       }
+      if (next is IncrementStockOrderQty) {
+        setState(() {
+          totalQty = next.qty;
+        });
+      }
+      if (next is DecrementStockOrderQty) {
+        setState(() {
+          totalQty = next.qty;
+        });
+      }
+
+      if (next is OrderLines) {
+        setState(() {
+          orderLineList = next.orderLine;
+        });
+      }
+
+      if (next is CheckOutMap) {
+        setState(() {
+          checkOutDataMap = next.checkoutMap;
+        });
+      }
     });
 
     return SuperScaffold(
@@ -131,7 +158,57 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               Transform.translate(
                 offset: Offset(0, 14.h),
                 child: productDetailBodyWidget(),
-              )
+              ),
+              Positioned(
+                bottom: 0,
+                child: stockName == "In-house Stock"
+                    ? const SizedBox.shrink()
+                    : totalQty.isEmpty || totalQty.values.contains(0)
+                        ? const SizedBox.shrink()
+                        : Container(
+                            width: 100.w,
+                            height: 7.h,
+                            decoration: BoxDecoration(
+                              color: AppColor.primary,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                const Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(width: 10),
+                                for (var data in totalQty.values)
+                                  textWidget(data.toString(),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      size: 16),
+                                const SizedBox(width: 5),
+                                textWidget("Items",
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    size: 16),
+                                const Spacer(),
+                                buttonWidget("Check Out", () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => CheckOutOrderDetailScreen(
+                                          orderLine: orderLineList,
+                                          checkOutDataMap: checkOutDataMap),
+                                    ),
+                                  );
+                                }),
+                                const SizedBox(width: 10),
+                              ],
+                            ),
+                          ),
+              ),
             ],
           ),
         ),
@@ -175,12 +252,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   ),
                 ),
                 stockName == "In-house Stock"
-                    ? isInHouseLoading
-                        ? Container()
-                        : InhouseStockWidget(
-                            inHouseStockList: inHouseStockList,
-                            productDetail: productDetail)
-                    : StockOrderingWidget(stockOrderList: stockOrderList)
+                    ? InhouseStockWidget(
+                        inHouseStockList: inHouseStockList,
+                        productDetail: productDetail)
+                    : StockOrderingWidget(
+                        stockOrderList: stockOrderList,
+                        productDetail: productDetail)
               ],
             ),
     );

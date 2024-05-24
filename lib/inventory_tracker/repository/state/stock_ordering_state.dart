@@ -15,6 +15,10 @@ class StockOrderingState with _$StockOrderingState {
       IncrementStockOrderQty;
   const factory StockOrderingState.decremenStockOrderQty(Map<int, int> qty) =
       DecrementStockOrderQty;
+  const factory StockOrderingState.addOrder(
+      List<Map<String, dynamic>> orderLine) = OrderLines;
+  const factory StockOrderingState.checkOut(
+      Map<String, Map<String, dynamic>> checkoutMap) = CheckOutMap;
   const factory StockOrderingState.initial() = Initial;
   const factory StockOrderingState.loading() = StockOrderingLoading;
   const factory StockOrderingState.error({String? error}) = Error;

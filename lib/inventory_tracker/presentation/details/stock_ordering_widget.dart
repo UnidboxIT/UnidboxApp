@@ -8,9 +8,13 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../domain/product.dart';
+
 class StockOrderingWidget extends ConsumerStatefulWidget {
   final List<StockOrder> stockOrderList;
-  const StockOrderingWidget({super.key, required this.stockOrderList});
+  final Products productDetail;
+  const StockOrderingWidget(
+      {super.key, required this.stockOrderList, required this.productDetail});
 
   @override
   ConsumerState<StockOrderingWidget> createState() =>
@@ -20,6 +24,8 @@ class StockOrderingWidget extends ConsumerStatefulWidget {
 class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   int qty = 0;
   Map<int, int> totalQty = {};
+  List<Map<String, dynamic>> orderLineList = [];
+  Map<String, Map<String, dynamic>> checkOutDataMap = {};
   @override
   Widget build(BuildContext context) {
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
@@ -31,6 +37,18 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
       if (next is DecrementStockOrderQty) {
         setState(() {
           totalQty = next.qty;
+        });
+      }
+
+      if (next is OrderLines) {
+        setState(() {
+          orderLineList = next.orderLine;
+        });
+      }
+
+      if (next is CheckOutMap) {
+        setState(() {
+          checkOutDataMap = next.checkoutMap;
         });
       }
     });
@@ -62,7 +80,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
               ),
               const SizedBox(width: 10),
               const Expanded(
-                flex: 4,
+                flex: 5,
                 child: SizedBox(),
               )
             ],
@@ -102,7 +120,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
         ),
         const SizedBox(width: 10),
         Expanded(
-          flex: 4,
+          flex: 5,
           child: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +129,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                       () {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
-                            .decrementTotalQty(vendorId, totalQty);
+                            .decrementTotalQty(
+                              vendorId,
+                              vendor,
+                              totalQty,
+                              orderLineList,
+                              checkOutDataMap,
+                              widget.productDetail.id,
+                              widget.productDetail.name,
+                              widget.productDetail.uomList[0],
+                              widget.productDetail.price,
+                            );
                       },
                       CupertinoIcons.minus_circle_fill,
                     ),
@@ -127,7 +155,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                       () {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
-                            .incrementTotalQty(vendorId, totalQty);
+                            .incrementTotalQty(
+                              vendorId,
+                              vendor,
+                              totalQty,
+                              orderLineList,
+                              checkOutDataMap,
+                              widget.productDetail.id,
+                              widget.productDetail.name,
+                              widget.productDetail.uomList[0],
+                              widget.productDetail.price,
+                            );
                       },
                       CupertinoIcons.add_circled_solid,
                     ),
@@ -136,7 +174,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
               : buttonWidget("Add To Cart", () {
                   ref
                       .read(stockOrderStateNotifierProvider.notifier)
-                      .incrementTotalQty(vendorId, totalQty);
+                      .incrementTotalQty(
+                        vendorId,
+                        vendor,
+                        totalQty,
+                        orderLineList,
+                        checkOutDataMap,
+                        widget.productDetail.id,
+                        widget.productDetail.name,
+                        widget.productDetail.uomList[0],
+                        widget.productDetail.price,
+                      );
                 }),
         )
       ],
@@ -153,7 +201,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
         child: Icon(
           iconData,
           color: AppColor.primary,
-          size: 35,
+          size: 30,
         ),
       ),
     );
