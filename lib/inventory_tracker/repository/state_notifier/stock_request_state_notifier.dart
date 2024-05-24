@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:unidbox_app/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/stock_request_state.dart';
 import '../../../utils/commons/super_print.dart';
@@ -31,7 +32,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           companyID,
           productID,
           productName,
-          DateTime.now().toString(),
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           totalQty,
           price,
           uomID);
@@ -41,9 +42,12 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
         state =
             StockRequestState.success(result['result']['message'].toString());
         successfullyBottomSheet(
-            "Request Sent!", "Check status under pending equests", () {
+                "Request Sent!", "Check status under pending requests", () {
           Navigator.of(context).pop();
-        }, context);
+        }, context)
+            .then((_) {
+          Navigator.of(context).pop();
+        });
       }
     } catch (e) {
       state = StockRequestState.error(error: e.toString());

@@ -37,7 +37,6 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    superPrint(widget.productDetail.uomList[0]);
     selectedBox = widget.productDetail.uomList[0];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -141,7 +140,11 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
           flex: 4,
           child: index == 0
               ? const SizedBox()
-              : SizedBox(height: 40, child: buttonWidget("Request", () {})),
+              : SizedBox(
+                  height: 40,
+                  child: buttonWidget("Request", () {
+                    showBottomSheet(location, id);
+                  })),
         )
       ],
     );
