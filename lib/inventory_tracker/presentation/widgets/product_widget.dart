@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/details/product_detail_screen.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../utils/commons/common_method.dart';
@@ -36,10 +39,10 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
     super.initState();
     ref.read(productStateNotifierProvider.notifier).clearProductValue();
     scrollController.addListener(_scrollListener);
-    _loadProducts();
+    _loadProducts(0);
   }
 
-  void _loadProducts() {
+  void _loadProducts(pageNumber) {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(productStateNotifierProvider.notifier)
@@ -48,15 +51,16 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
   }
 
   void _scrollListener() async {
-    if (isDataExist) {
-      if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
-          !isLoading) {
+    if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent &&
+        !xLoading) {
+      if (isDataExist) {
         setState(() {
           xLoading = true;
         });
         pageNumber += 20;
-        _loadProducts();
+        superPrint("HERE $pageNumber");
+        _loadProducts(pageNumber);
         await Future.delayed(const Duration(seconds: 1));
         setState(() {
           xLoading = false;
@@ -77,6 +81,9 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
       if (next is ProductsList) {
         setState(() {
           productList = next.productList;
+          if (next.productList.isEmpty) {
+            isDataExist = false;
+          }
           isLoading = false;
         });
       }
@@ -267,6 +274,9 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
               ),
             ),
           ),
+        Platform.isIOS && xLoading
+            ? SizedBox(height: 3.h)
+            : const SizedBox.shrink()
       ],
     );
   }

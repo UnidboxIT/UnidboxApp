@@ -23,7 +23,7 @@ class InventoryTrackerRepository {
           'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
       headers: CommonMethods.setHeaders(),
     );
-
+    superPrint(pageNumber, title: "Page Number");
     return response;
   }
 

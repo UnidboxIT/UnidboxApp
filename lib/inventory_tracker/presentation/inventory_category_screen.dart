@@ -31,10 +31,13 @@ class _InventoryCategoryScreenState
   Widget build(BuildContext context) {
     return SuperScaffold(
       topColor: AppColor.primary,
+      botColor: AppColor.bgColor,
       child: Scaffold(
-        body: SizedBox(
+        backgroundColor: AppColor.bgColor,
+        body: Container(
           width: 100.w,
           height: 100.h,
+          color: AppColor.bgColor,
           child: Stack(
             children: [
               inventoryAppBarWidget(
@@ -61,7 +64,7 @@ class _InventoryCategoryScreenState
   Widget subCategoryBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
-      height: 82.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

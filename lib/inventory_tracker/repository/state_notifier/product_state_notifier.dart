@@ -30,7 +30,6 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
       Response response =
           await _inventoryTrackerRepository.products(categoryID, pageNumber);
       var result = jsonDecode(response.body);
-      superPrint(result);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         for (var element in dataList) {

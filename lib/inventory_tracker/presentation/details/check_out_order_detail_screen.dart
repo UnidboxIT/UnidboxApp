@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../utils/constant/app_color.dart';
@@ -31,6 +29,7 @@ class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
 
 class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
+  double totalPrice = 0.0;
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(
@@ -64,21 +63,21 @@ class _CheckOutOrderDetailScreenState
                           fontWeight: FontWeight.bold,
                           size: 16),
                       const SizedBox(width: 5),
-                      textWidget("\$ 300",
+                      textWidget("\$ $totalPrice",
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           size: 16),
                       const Spacer(),
-                      // buttonWidget("Submit", () {
-                      //   ref
-                      //       .read(checkoutOrderStateNotifierProvider.notifier)
-                      //       .checkOutOrder(
-                      //         widget.companyID,
-                      //         widget.partnerId,
-                      //         widget.orderLine,
-                      //         context,
-                      //       );
-                      // }),
+                      buttonWidget("Submit", () {
+                        // ref
+                        //     .read(checkoutOrderStateNotifierProvider.notifier)
+                        //     .checkOutOrder(
+                        //       widget.companyID,
+                        //       widget.partnerId,
+                        //       widget.orderLine,
+                        //       context,
+                        //     );
+                      }),
                       const SizedBox(width: 10),
                     ],
                   ),
@@ -107,7 +106,17 @@ class _CheckOutOrderDetailScreenState
       child: ListView.separated(
           itemBuilder: (context, index) {
             orderLineList.entries.elementAt(index);
-            superPrint(orderLineList.entries.elementAt(index).value);
+            int totalQty =
+                orderLineList.entries.elementAt(index).value['product_qty'];
+            String image =
+                orderLineList.entries.elementAt(index).value['image'];
+            String name = orderLineList.entries.elementAt(index).value['name'];
+            String sku = orderLineList.entries.elementAt(index).value['sku'];
+            double price =
+                orderLineList.entries.elementAt(index).value['price_unit'];
+
+            totalPrice = (totalQty * price);
+            superPrint(totalPrice);
             return Stack(
               children: [
                 Padding(
@@ -143,9 +152,11 @@ class _CheckOutOrderDetailScreenState
                                         )
                                       ],
                                       borderRadius: BorderRadius.circular(10),
-                                      image: const DecorationImage(
+                                      image: DecorationImage(
                                           image: NetworkImage(
-                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
+                                            image != "false"
+                                                ? image
+                                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
                                           ),
                                           fit: BoxFit.cover),
                                     ),
@@ -158,22 +169,19 @@ class _CheckOutOrderDetailScreenState
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        textWidget(
-                                            orderLineList.entries
-                                                .elementAt(index)
-                                                .value['name'],
+                                        textWidget(name,
                                             size: 15,
                                             fontWeight: FontWeight.bold,
                                             maxLine: 2,
                                             textOverflow: TextOverflow.fade,
                                             textAlign: TextAlign.left),
-                                        textWidget("08-22-00123",
+                                        textWidget(sku,
                                             size: 13, color: Colors.grey),
                                         const SizedBox(height: 8),
                                         Row(
                                           children: [
                                             textWidget(
-                                              "\$ ${orderLineList.entries.elementAt(index).value['price_unit']}",
+                                              "\$ $price",
                                               fontWeight: FontWeight.bold,
                                               size: 15,
                                             ),
@@ -199,9 +207,7 @@ class _CheckOutOrderDetailScreenState
                           separatorBuilder: (context, index) {
                             return const SizedBox(height: 15);
                           },
-                          itemCount: orderLineList.entries
-                              .elementAt(index)
-                              .value['product_qty'],
+                          itemCount: totalQty,
                         ),
                       ],
                     ),

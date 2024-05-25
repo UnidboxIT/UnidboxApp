@@ -20,6 +20,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       Response response =
           await _inventoryTrackerRepository.stockOrder(productID);
       var result = jsonDecode(response.body);
+      superPrint(result);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         stockOrderList.clear();
@@ -44,6 +45,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String productName,
     int uomID,
     double priceUnit,
+    String image,
+    String sku,
   ) {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (qtyMap.containsKey(vendorId)) {
@@ -78,6 +81,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         'product_qty': mutableQtyMap[vendorId],
         'product_uom': uomID,
         'price_unit': priceUnit,
+        "image": image,
+        "sku": sku,
       });
     } else {
       checkOutMap[vendorName] = {
@@ -86,6 +91,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         'product_qty': mutableQtyMap[vendorId],
         'product_uom': uomID,
         'price_unit': priceUnit,
+        "image": image,
+        "sku": sku,
       };
     }
     state = StockOrderingState.checkOut(checkOutMap);
@@ -103,6 +110,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String productName,
     int uomID,
     double priceUnit,
+    String image,
+    String sku,
   ) {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (mutableQtyMap.containsKey(vendorId)) {
@@ -129,6 +138,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         'product_qty': mutableQtyMap[vendorId],
         'product_uom': uomID,
         'price_unit': priceUnit,
+        "image": image,
+        "sku": sku,
       });
     } else {
       checkOutMap[vendorName] = {
@@ -137,6 +148,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         'product_qty': mutableQtyMap[vendorId],
         'product_uom': uomID,
         'price_unit': priceUnit,
+        "image": image,
+        "sku": sku,
       };
     }
     superPrint(checkOutMap);

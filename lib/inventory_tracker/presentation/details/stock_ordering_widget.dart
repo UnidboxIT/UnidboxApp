@@ -130,16 +130,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
                             .decrementTotalQty(
-                              vendorId,
-                              vendor,
-                              totalQty,
-                              orderLineList,
-                              checkOutDataMap,
-                              widget.productDetail.id,
-                              widget.productDetail.name,
-                              widget.productDetail.uomList[0],
-                              widget.productDetail.price,
-                            );
+                                vendorId,
+                                vendor,
+                                totalQty,
+                                orderLineList,
+                                checkOutDataMap,
+                                widget.productDetail.id,
+                                widget.productDetail.name,
+                                widget.productDetail.uomList[0],
+                                widget.productDetail.price,
+                                widget.productDetail.imageUrl,
+                                widget.productDetail.defaultCode);
                       },
                       CupertinoIcons.minus_circle_fill,
                     ),
@@ -156,16 +157,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
                             .incrementTotalQty(
-                              vendorId,
-                              vendor,
-                              totalQty,
-                              orderLineList,
-                              checkOutDataMap,
-                              widget.productDetail.id,
-                              widget.productDetail.name,
-                              widget.productDetail.uomList[0],
-                              widget.productDetail.price,
-                            );
+                                vendorId,
+                                vendor,
+                                totalQty,
+                                orderLineList,
+                                checkOutDataMap,
+                                widget.productDetail.id,
+                                widget.productDetail.name,
+                                widget.productDetail.uomList[0],
+                                widget.productDetail.price,
+                                widget.productDetail.imageUrl,
+                                widget.productDetail.defaultCode);
                       },
                       CupertinoIcons.add_circled_solid,
                     ),
@@ -175,16 +177,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                   ref
                       .read(stockOrderStateNotifierProvider.notifier)
                       .incrementTotalQty(
-                        vendorId,
-                        vendor,
-                        totalQty,
-                        orderLineList,
-                        checkOutDataMap,
-                        widget.productDetail.id,
-                        widget.productDetail.name,
-                        widget.productDetail.uomList[0],
-                        widget.productDetail.price,
-                      );
+                          vendorId,
+                          vendor,
+                          totalQty,
+                          orderLineList,
+                          checkOutDataMap,
+                          widget.productDetail.id,
+                          widget.productDetail.name,
+                          widget.productDetail.uomList[0],
+                          widget.productDetail.price,
+                          widget.productDetail.imageUrl,
+                          widget.productDetail.defaultCode);
                 }),
         )
       ],
