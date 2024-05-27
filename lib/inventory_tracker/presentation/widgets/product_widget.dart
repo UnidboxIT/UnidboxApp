@@ -124,7 +124,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 0,
-                childAspectRatio: 0.9,
+                childAspectRatio: 0.82,
               ),
               itemBuilder: (context, index) {
                 String productId = productList[index].id.toString();
@@ -214,7 +214,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: textWidget(name,
-                                maxLine: 2,
+                                maxLine: 3,
                                 textOverflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 size: 13,
