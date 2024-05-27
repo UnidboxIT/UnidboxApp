@@ -24,10 +24,6 @@ class ProfileBodyWidget extends ConsumerStatefulWidget {
 }
 
 class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
-  bool isUpdateLoading = false;
-  File imageFile = File("");
-  final ImagePicker picker = ImagePicker();
-  String base64Image = "";
   Profile profile = Profile();
   @override
   void initState() {
@@ -36,28 +32,6 @@ class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(profileStateNotifierProvider.notifier).getPartnerInfo();
     });
-  }
-
-  Future<void> pickImage(ImageSource source) async {
-    try {
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        base64Image = await imageToBase64(imageFile);
-        Navigator.of(context).pop();
-        // imageUpload(base64Image);
-      } else {
-        superPrint('No image selected.');
-      }
-    } catch (e) {
-      superPrint('Error picking image: $e');
-    }
-  }
-
-  Future<String> imageToBase64(File imageFile) async {
-    List<int> imageBytes = await imageFile.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
-    return base64Image;
   }
 
   @override
@@ -86,7 +60,10 @@ class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Center(child: profileImageWidget(profile)),
+          Center(
+              child: ProfileImageWidget(
+            profileData: profile,
+          )),
           eachListTileWidget(
             CupertinoIcons.person_fill,
             "Personal Information",

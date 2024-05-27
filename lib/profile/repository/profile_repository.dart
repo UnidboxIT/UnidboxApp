@@ -15,4 +15,17 @@ class ProfileRepository {
 
     return response;
   }
+
+  //image update
+  Future<Response> imageUpdate(String image) async {
+    Map<String, dynamic> formData = {"image_1920": image};
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/partner/update/${admin.partnerId}',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }
