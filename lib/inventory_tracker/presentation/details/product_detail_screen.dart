@@ -12,6 +12,7 @@ import 'package:unidbox_app/inventory_tracker/presentation/widgets/stock_button_
 import 'package:unidbox_app/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/product_detail_state.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/stock_ordering_state.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
@@ -424,8 +425,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          eachPriceWidget("Retail Price", salePrice, DateTime.now().toString()),
-          eachPriceWidget("Cost Price", costPrice, DateTime.now().toString())
+          eachPriceWidget(
+              "Retail Price",
+              CommonMethods.twoDecimalPrice(double.parse(salePrice)),
+              DateTime.now().toString()),
+          eachPriceWidget(
+              "Cost Price",
+              CommonMethods.threeDecimalPrice(double.parse(costPrice)),
+              DateTime.now().toString())
         ],
       ),
     );

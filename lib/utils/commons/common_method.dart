@@ -28,6 +28,14 @@ class CommonMethods {
     };
   }
 
+  static String twoDecimalPrice(double number) {
+    return number.toStringAsFixed(2);
+  }
+
+  static threeDecimalPrice(double number) {
+    return number.toStringAsFixed(3);
+  }
+
   static void customizedAlertDialog(String message, BuildContext context) {
     showDialog(
       context: context,

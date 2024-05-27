@@ -9,6 +9,7 @@ import 'package:unidbox_app/inventory_tracker/repository/state/scan_product_stat
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../utils/commons/common_method.dart';
 import '../../../utils/commons/super_print.dart';
 import '../../domain/product.dart';
 import '../widgets/inventory_app_bar_widget.dart';
@@ -288,7 +289,8 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                               textAlign: TextAlign.left,
                               size: 12,
                               fontWeight: FontWeight.w500),
-                          textWidget("\$ $price",
+                          textWidget(
+                              "\$ ${CommonMethods.twoDecimalPrice(price)}",
                               textOverflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               size: 12,

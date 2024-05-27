@@ -8,6 +8,7 @@ import 'package:unidbox_app/inventory_tracker/repository/provider/product_provid
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../utils/commons/common_method.dart';
 import '../../domain/product.dart';
 import '../../repository/state/product_state.dart';
 
@@ -230,7 +231,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                     textAlign: TextAlign.left,
                                     size: 12,
                                     fontWeight: FontWeight.w500),
-                                textWidget("\$ $price",
+                                textWidget(
+                                    "\$ ${CommonMethods.twoDecimalPrice(price)}",
                                     textOverflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     size: 12,

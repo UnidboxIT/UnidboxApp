@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/search_product_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import '../../../utils/commons/common_method.dart';
 import '../../../utils/commons/super_scaffold.dart';
 import '../../../utils/constant/app_color.dart';
 import '../../../views/widgets/text_widget.dart';
@@ -359,7 +360,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                 textAlign: TextAlign.left,
                                                 size: 12,
                                                 fontWeight: FontWeight.w500),
-                                            textWidget("\$ $price",
+                                            textWidget(
+                                                "\$ ${CommonMethods.twoDecimalPrice(price)}",
                                                 textOverflow:
                                                     TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
