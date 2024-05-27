@@ -34,7 +34,7 @@ class ProductScreen extends ConsumerWidget {
           child: Stack(
             children: [
               inventoryAppBarWidget(
-                name,
+                isScanBarCode ? productList.first.categoryIdList[1] : name,
                 () {
                   Navigator.of(context).pop();
                 },

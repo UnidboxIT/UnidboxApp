@@ -20,7 +20,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
+          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
       headers: CommonMethods.setHeaders(),
     );
     superPrint(pageNumber, title: "Page Number");
@@ -31,7 +31,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product/$productID?fields=id,name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id',
+          'joborder/product/$productID?fields=id,display_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -53,7 +53,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,brand,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
+          'joborder/product?fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -65,7 +65,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids',
+          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids',
       headers: CommonMethods.setHeaders(),
     );
 

@@ -42,7 +42,7 @@ class Products {
         quantity: json['quantity'] ?? 0.0,
         imageUrl: json['image_url'].toString(),
         qtyOutStock: json['qty_warning_out_stock'] ?? 0.0,
-        name: json['name'].toString(),
+        name: json['display_name'].toString(),
         categoryIdList: List.from(json['categ_id']),
         costPrice: json['cost_price'] ?? 0.0,
         price: json['sale_price'] ?? 0.0,

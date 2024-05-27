@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
-import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
-
 import '../search_product/search_product_screen.dart';
 
 class SearchTextFieldWidget extends ConsumerStatefulWidget {
@@ -26,7 +23,6 @@ class SearchTextFieldWidget extends ConsumerStatefulWidget {
 }
 
 class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
-  bool isSearching = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,45 +42,25 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
           ],
         ),
         child: TextField(
-          autofocus: widget.isAutoFocus,
+          autofocus: false,
           textAlign: TextAlign.left,
           controller: txtSearchProduct,
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           onTap: () {
             if (widget.isInventoryTracker) {
-              FocusManager.instance.primaryFocus!.unfocus();
               Navigator.of(context)
                   .push(
                 MaterialPageRoute(
-                  builder: (context) => const SearchProductScreen(),
+                  builder: (context) => SearchProductScreen(
+                    name: widget.name,
+                  ),
                 ),
               )
                   .then((_) {
+                txtSearchProduct.clear();
                 FocusManager.instance.primaryFocus!.unfocus();
               });
-            }
-          },
-          onChanged: (value) async {
-            superPrint(value, title: "Clear");
-            if (!widget.isInventoryTracker) {
-              if (!isSearching) {
-                setState(() {
-                  isSearching = true;
-                });
-                txtSearchProduct.text = value;
-                ref
-                    .read(productStateNotifierProvider.notifier)
-                    .clearSearchProductValue();
-                ref
-                    .read(productStateNotifierProvider.notifier)
-                    .searchProduct(value, context, 0);
-                await Future.delayed(const Duration(seconds: 2));
-                setState(() {
-                  isSearching = false;
-                });
-                superPrint(isSearching, title: "Search Control");
-              }
             }
           },
           decoration: InputDecoration(
