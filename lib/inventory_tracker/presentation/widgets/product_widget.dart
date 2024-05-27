@@ -93,10 +93,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
           isDataExist = next.isExit;
         });
       }
-
-      if (next is Error) {
-        CommonMethods.customizedAlertDialog(next.error.toString(), context);
-      }
     });
 
     return Expanded(

@@ -71,9 +71,10 @@ class _InventoryCategoryScreenState
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(context, ref,
+          SearchTextFieldWidget(
               isInventoryTracker:
                   widget.inventoryTrackerList.isEmpty ? false : true,
+              isAutoFocus: false,
               name: widget.name),
           widget.inventoryTrackerList.isEmpty
               ? ProductWidget(

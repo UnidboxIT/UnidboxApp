@@ -88,34 +88,34 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
   Future<void> searchProduct(
     String name,
     BuildContext context,
-    String pageNumber,
+    int pageNumber,
   ) async {
     try {
-      state = const ProductState.loading();
+      if (scanProductList.isEmpty) {
+        state = const ProductState.loading();
+      }
       Response response =
           await _inventoryTrackerRepository.searchProduct(name, pageNumber);
       var result = jsonDecode(response.body);
-      scanProductList.clear();
-      superPrint(result['result']['records']);
+      //superPrint(result);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
-        if (dataList.isNotEmpty) {
-          for (var element in dataList) {
-            scanProductList.add(Products.fromJson(element));
-          }
-          state = ProductState.loadProduct(scanProductList);
-        } else {
-          state = const ProductState.error(error: "No product found!");
+        for (var element in dataList) {
+          scanProductList.add(Products.fromJson(element));
         }
+        state = ProductState.loadProduct(scanProductList);
+        if (dataList.isEmpty) {
+          state = const ProductState.isDataExist(false);
+        }
+        superPrint(scanProductList.length, title: "Search Product Length");
       }
-      superPrint(scanProductList.length);
     } catch (e) {
       superPrint(e.toString());
     }
   }
 
-  clearSearchProductValue() {
+  Future<void> clearSearchProductValue() async {
     scanProductList.clear();
-    state = ProductState.loadProduct(scanProductList);
+    superPrint(scanProductList, title: "Provider Clear");
   }
 }

@@ -62,11 +62,14 @@ class ProductScreen extends ConsumerWidget {
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(
         children: [
-          searchTextFieldWidget(context, ref),
+          const SearchTextFieldWidget(
+            isAutoFocus: false,
+            isInventoryTracker: false,
+            name: "",
+          ),
           isScanBarCode
               ? ScanProductWidget(
                   productList: productList,
-                  isSearch: false,
                 )
               : ProductWidget(
                   id: parentID,

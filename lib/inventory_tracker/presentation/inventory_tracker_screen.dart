@@ -96,10 +96,9 @@ class _InventoryTrackerScreenState
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(
-            context,
-            ref,
+          const SearchTextFieldWidget(
             isInventoryTracker: true,
+            isAutoFocus: false,
             name: "Inventory Tracker",
           ),
           Expanded(

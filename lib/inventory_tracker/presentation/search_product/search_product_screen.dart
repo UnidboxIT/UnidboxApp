@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -6,16 +8,18 @@ import 'package:unidbox_app/inventory_tracker/repository/state/product_state.dar
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../utils/commons/super_scaffold.dart';
 import '../../../utils/constant/app_color.dart';
+import '../../../views/widgets/text_widget.dart';
 import '../../domain/product.dart';
-import '../barcode_scanner/scan_product_widget.dart';
+import '../barcode_scanner/barcode_scanner_screen.dart';
+import '../details/product_detail_screen.dart';
 import '../widgets/inventory_app_bar_widget.dart';
-import '../widgets/search_text_field_widget.dart';
 
 TextEditingController txtSearchProduct = TextEditingController();
 
 class SearchProductScreen extends ConsumerStatefulWidget {
-  final String name;
-  const SearchProductScreen({super.key, required this.name});
+  const SearchProductScreen({
+    super.key,
+  });
 
   @override
   ConsumerState<SearchProductScreen> createState() =>
@@ -24,19 +28,78 @@ class SearchProductScreen extends ConsumerStatefulWidget {
 
 class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   List<Products> productList = [];
+  int pageNumber = 0;
+  bool isLoading = false;
+  bool xLoading = false;
+  bool isDataExist = true;
+  bool isSearching = false;
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(productStateNotifierProvider.notifier).clearSearchProductValue();
+    scrollController.addListener(_scrollListener);
+    _loadProducts(0);
+  }
+
+  void _loadProducts(pageNumber) {
+    if (txtSearchProduct.text.isNotEmpty) {
+      Future.delayed(const Duration(milliseconds: 10), () {
+        superPrint(txtSearchProduct.text);
+        ref
+            .read(productStateNotifierProvider.notifier)
+            .searchProduct(txtSearchProduct.text, context, pageNumber);
+      });
+    }
+  }
+
+  void _scrollListener() async {
+    if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent &&
+        !xLoading) {
+      if (isDataExist) {
+        setState(() {
+          xLoading = true;
+        });
+        pageNumber += 10;
+        superPrint("HERE $pageNumber");
+        _loadProducts(pageNumber);
+        await Future.delayed(const Duration(seconds: 1));
+        setState(() {
+          xLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    ref.listen(productStateNotifierProvider, (pre, next) {
+    ref.listen(productStateNotifierProvider, (prev, next) {
       if (next is Loading) {
-        productList = [];
+        setState(() {
+          productList = [];
+          isLoading = true;
+        });
       }
       if (next is ProductsList) {
         setState(() {
           productList = next.productList;
-          superPrint(productList);
+          if (next.productList.isEmpty) {
+            isDataExist = false;
+          }
+          isLoading = false;
+        });
+        // superPrint(productList);
+      }
+
+      if (next is IsDataExit) {
+        setState(() {
+          isDataExist = next.isExit;
         });
       }
     });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -53,8 +116,10 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
             child: Stack(
               children: [
                 inventoryAppBarWidget(
-                  widget.name,
+                  "",
+                  // productList[0].categoryIdList[1],
                   () {
+                    txtSearchProduct.clear();
                     FocusManager.instance.primaryFocus!.unfocus();
                     Navigator.of(context).pop();
                   },
@@ -84,13 +149,250 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
       ),
       child: Column(
         children: [
-          searchTextFieldWidget(context, ref, isAutoFocus: true),
-          ScanProductWidget(
-            productList: productList,
-            isSearch: true,
-          )
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: TextField(
+                autofocus: true,
+                textAlign: TextAlign.left,
+                controller: txtSearchProduct,
+                cursorColor: Colors.grey,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                onChanged: (value) async {
+                  superPrint(value, title: "Clear");
+                  if (!isSearching) {
+                    setState(() {
+                      isSearching = true;
+                    });
+                    txtSearchProduct.text = value;
+                    pageNumber = 0;
+                    isLoading = false;
+                    xLoading = false;
+                    isDataExist = true;
+                    ref
+                        .read(productStateNotifierProvider.notifier)
+                        .clearSearchProductValue();
+                    ref
+                        .read(productStateNotifierProvider.notifier)
+                        .searchProduct(value, context, 0);
+                    await Future.delayed(const Duration(seconds: 2));
+                    setState(() {
+                      isSearching = false;
+                    });
+                    superPrint(isSearching, title: "Search Control");
+                  }
+                },
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.qrcode_viewfinder,
+                      size: 18,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const BarCodeScannerScreen()));
+                    },
+                  ),
+                  prefixIcon: const Icon(
+                    CupertinoIcons.search,
+                    size: 18,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          productList.isEmpty
+              ? Center(
+                  child: textWidget(
+                    "Search your product",
+                    color: AppColor.fontColor,
+                  ),
+                )
+              : Expanded(
+                  child: GridView.builder(
+                      controller: scrollController,
+                      shrinkWrap: true,
+                      itemCount: productList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 0,
+                        childAspectRatio: 0.93,
+                      ),
+                      itemBuilder: (context, index) {
+                        String productId = productList[index].id.toString();
+                        String image = productList[index].imageUrl;
+                        String name = productList[index].name;
+                        double qty = productList[index].quantity;
+                        double price = productList[index].price;
+                        double qtyOutStock = productList[index].qtyOutStock;
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductDetailScreen(
+                                      productID: productId,
+                                      productName: name,
+                                    )));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: AppColor.dropshadowColor,
+                                        blurRadius: 3,
+                                        spreadRadius: 3),
+                                  ]),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Container(
+                                          height: 14.h,
+                                          width: 100.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: image != "false"
+                                                  ? NetworkImage(image)
+                                                  : const NetworkImage(
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
+                                                    ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 3.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
+                                          ),
+                                          color: qtyOutStock > 10
+                                              ? AppColor.orangeColor
+                                              : Colors.red,
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: textWidget(
+                                            qtyOutStock > 10
+                                                ? "Sufficient Stock"
+                                                : "Insufficient Stock",
+                                            color: Colors.white,
+                                            size: 12.5,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: textWidget(name,
+                                        maxLine: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        size: 13,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        textWidget("Qty : $qty",
+                                            textOverflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            size: 12,
+                                            fontWeight: FontWeight.w500),
+                                        textWidget("\$ $price",
+                                            textOverflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            size: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10)
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+          if (xLoading)
+            SizedBox(
+              height: 30,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                decoration: BoxDecoration(
+                    color: AppColor.bgColor,
+                    borderRadius: BorderRadius.circular(4)),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textWidget("Loadmore ...",
+                        color: AppColor.pinkColor,
+                        fontWeight: FontWeight.bold,
+                        size: 15),
+                    CupertinoActivityIndicator(color: AppColor.pinkColor),
+                  ],
+                ),
+              ),
+            ),
+          Platform.isIOS && xLoading
+              ? SizedBox(height: 3.h)
+              : const SizedBox.shrink()
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }

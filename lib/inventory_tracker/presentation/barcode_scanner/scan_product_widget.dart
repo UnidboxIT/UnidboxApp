@@ -9,12 +9,9 @@ import '../../domain/product.dart';
 class ScanProductWidget extends ConsumerStatefulWidget {
   final List<Products> productList;
 
-  final bool isSearch;
-
   const ScanProductWidget({
     super.key,
     required this.productList,
-    required this.isSearch,
   });
 
   @override
@@ -28,7 +25,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductWidget> {
       child: widget.productList.isEmpty
           ? Center(
               child: textWidget(
-                widget.isSearch ? "Search your product" : "No Product",
+                "No Product",
                 color: AppColor.fontColor,
               ),
             )

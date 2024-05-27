@@ -60,7 +60,8 @@ class InventoryTrackerRepository {
     return response;
   }
 
-  Future<Response> searchProduct(String name, String pageNumber) async {
+  Future<Response> searchProduct(String name, int pageNumber) async {
+    superPrint(pageNumber, title: "Search Product Page Number");
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
