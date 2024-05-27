@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
-import 'package:unidbox_app/inventory_tracker/repository/state/product_state.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/search_product_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../utils/commons/super_scaffold.dart';
 import '../../../utils/constant/app_color.dart';
@@ -37,7 +37,9 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(productStateNotifierProvider.notifier).clearSearchProductValue();
+    ref
+        .read(searchProductStateNotifierProvier.notifier)
+        .clearSearchProductValue();
     scrollController.addListener(_scrollListener);
     _loadProducts(0);
   }
@@ -47,7 +49,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
       Future.delayed(const Duration(milliseconds: 10), () {
         superPrint(txtSearchProduct.text);
         ref
-            .read(productStateNotifierProvider.notifier)
+            .read(searchProductStateNotifierProvier.notifier)
             .searchProduct(txtSearchProduct.text, context, pageNumber);
       });
     }
@@ -74,17 +76,17 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(productStateNotifierProvider, (prev, next) {
+    ref.listen(searchProductStateNotifierProvier, (prev, next) {
       if (next is Loading) {
         setState(() {
           productList = [];
           isLoading = true;
         });
       }
-      if (next is ProductsList) {
+      if (next is SearchProductList) {
         setState(() {
-          productList = next.productList;
-          if (next.productList.isEmpty) {
+          productList = next.searchProductList;
+          if (next.searchProductList.isEmpty) {
             isDataExist = false;
           }
           isLoading = false;
@@ -92,7 +94,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
         // superPrint(productList);
       }
 
-      if (next is IsDataExit) {
+      if (next is IsSearchDataExit) {
         setState(() {
           isDataExist = next.isExit;
         });
@@ -183,10 +185,10 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                     xLoading = false;
                     isDataExist = true;
                     ref
-                        .read(productStateNotifierProvider.notifier)
+                        .read(searchProductStateNotifierProvier.notifier)
                         .clearSearchProductValue();
                     ref
-                        .read(productStateNotifierProvider.notifier)
+                        .read(searchProductStateNotifierProvier.notifier)
                         .searchProduct(value, context, 0);
                     await Future.delayed(const Duration(seconds: 2));
                     setState(() {
@@ -205,6 +207,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                       size: 18,
                     ),
                     onPressed: () {
+                      txtSearchProduct.clear();
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (_) => const BarCodeScannerScreen()));
                     },
@@ -252,7 +255,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                             crossAxisCount: 2,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 0,
-                            childAspectRatio: 0.93,
+                            childAspectRatio: 0.9,
                           ),
                           itemBuilder: (context, index) {
                             String productId = productList[index].id.toString();
@@ -290,7 +293,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
+                                                horizontal: 8, vertical: 8),
                                             child: Container(
                                               height: 14.h,
                                               width: 100.w,
@@ -299,12 +302,11 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: image != "false"
-                                                      ? NetworkImage(image)
-                                                      : const NetworkImage(
-                                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
-                                                        ),
-                                                ),
+                                                    image: image != "false"
+                                                        ? NetworkImage(image)
+                                                        : const AssetImage(
+                                                            "assets/images/app_icon.jpeg",
+                                                          )),
                                               ),
                                             ),
                                           ),

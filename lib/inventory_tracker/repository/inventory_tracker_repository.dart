@@ -49,11 +49,12 @@ class InventoryTrackerRepository {
     return response;
   }
 
-  Future<Response> scanProduct(String barcode) async {
+  Future<Response> scanProduct(String barcode, int pageNumber) async {
+    superPrint(pageNumber, title: "Scan Product Page Number");
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
+          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 

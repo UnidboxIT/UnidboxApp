@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
+import '../barcode_scanner/barcode_scanner_screen.dart';
 import '../search_product/search_product_screen.dart';
 
 class SearchTextFieldWidget extends ConsumerStatefulWidget {
   final bool isInventoryTracker;
-  //false
   final bool isAutoFocus;
-  //false
   final String name;
-  //""
   const SearchTextFieldWidget(
       {super.key,
       required this.isInventoryTracker,
@@ -48,21 +45,37 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           onTap: () {
-            if (widget.isInventoryTracker) {
-              Navigator.of(context)
-                  .push(
-                MaterialPageRoute(
-                  builder: (context) => SearchProductScreen(
-                    name: widget.name,
-                  ),
+            Navigator.of(context)
+                .push(
+              MaterialPageRoute(
+                builder: (context) => SearchProductScreen(
+                  name: widget.name,
                 ),
-              )
-                  .then((_) {
-                txtSearchProduct.clear();
-                FocusManager.instance.primaryFocus!.unfocus();
-              });
-            }
+              ),
+            )
+                .then((_) {
+              txtSearchProduct.clear();
+              FocusManager.instance.primaryFocus!.unfocus();
+            });
           },
+          // onChanged: (value) {
+          //   if (value.isNotEmpty) {
+          //     Navigator.of(context).pop();
+          //     Navigator.of(context)
+          //         .push(
+          //       MaterialPageRoute(
+          //         builder: (context) => SearchProductScreen(
+          //           name: widget.name,
+          //         ),
+          //       ),
+          //     )
+          //         .then((_) {
+          //       txtSearchProduct.clear();
+          //       FocusManager.instance.primaryFocus!.unfocus();
+          //     });
+          //   }
+          //   superPrint(value);
+          // },
           decoration: InputDecoration(
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
@@ -74,8 +87,13 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
                 size: 18,
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => const BarCodeScannerScreen()));
+                txtSearchProduct.clear();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(
+                        builder: (_) => const BarCodeScannerScreen()))
+                    .then((_) {
+                  //Navigator.of(context).pop();
+                });
               },
             ),
             prefixIcon: const Icon(

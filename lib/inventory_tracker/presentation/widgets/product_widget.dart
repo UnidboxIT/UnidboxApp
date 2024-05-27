@@ -123,7 +123,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 0,
-                childAspectRatio: 0.93,
+                childAspectRatio: 0.9,
               ),
               itemBuilder: (context, index) {
                 String productId = productList[index].id.toString();
@@ -169,8 +169,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                           Stack(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 8),
                                 child: Container(
                                   height: 14.h,
                                   width: 100.w,
@@ -178,12 +178,11 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                     color: Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                      image: image != "false"
-                                          ? NetworkImage(image)
-                                          : const NetworkImage(
-                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
-                                            ),
-                                    ),
+                                        image: image != "false"
+                                            ? NetworkImage(image)
+                                            : const AssetImage(
+                                                "assets/images/app_icon.jpeg",
+                                              )),
                                   ),
                                 ),
                               ),

@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/product_provider.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
@@ -95,13 +94,14 @@ class _BarcodeScannerWithOverlayState
               scanWindow: scanWindow,
               onDetect: (capture) {
                 mobileScanner.start();
+                ref
+                    .read(scanProductStateNotifierProvier.notifier)
+                    .clearScanProduct();
                 for (var barcode in capture.barcodes) {
-                  superPrint(barcode.rawValue);
                   ref
-                      .read(productStateNotifierProvider.notifier)
+                      .read(scanProductStateNotifierProvier.notifier)
                       .scanProductByBarCode(
-                          barcode.rawValue.toString(), context);
-                  // controller.scanProductByBarCode(barcode.rawValue.toString());
+                          barcode.rawValue.toString(), context, 0);
                 }
                 mobileScanner.stop();
               },

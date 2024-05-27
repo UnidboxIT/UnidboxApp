@@ -5,7 +5,6 @@ import 'package:unidbox_app/inventory_tracker/presentation/widgets/product_widge
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../domain/product.dart';
-import 'barcode_scanner/scan_product_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
@@ -34,7 +33,7 @@ class ProductScreen extends ConsumerWidget {
           child: Stack(
             children: [
               inventoryAppBarWidget(
-                isScanBarCode ? productList.first.categoryIdList[1] : name,
+                name,
                 () {
                   Navigator.of(context).pop();
                 },
@@ -45,7 +44,7 @@ class ProductScreen extends ConsumerWidget {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: productBodyWidget(context, ref),
+                child: productBodyWidget(),
               ),
             ],
           ),
@@ -54,7 +53,7 @@ class ProductScreen extends ConsumerWidget {
     );
   }
 
-  Widget productBodyWidget(BuildContext context, ref) {
+  Widget productBodyWidget() {
     return Container(
       width: 100.w,
       height: 81.h,
@@ -62,19 +61,15 @@ class ProductScreen extends ConsumerWidget {
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(
         children: [
-          const SearchTextFieldWidget(
+          SearchTextFieldWidget(
             isAutoFocus: false,
             isInventoryTracker: false,
-            name: "",
+            name: name,
           ),
-          isScanBarCode
-              ? ScanProductWidget(
-                  productList: productList,
-                )
-              : ProductWidget(
-                  id: parentID,
-                  name: name,
-                ),
+          ProductWidget(
+            id: parentID,
+            name: name,
+          ),
         ],
       ),
     );
