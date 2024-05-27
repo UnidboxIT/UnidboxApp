@@ -5,7 +5,7 @@ class InhouseStock {
 
   InhouseStock(
       {this.productList = const [],
-      this.qty = "",
+      this.qty = "0",
       this.warehouseList = const []});
 
   factory InhouseStock.fromJson(Map<String, dynamic> json) {

@@ -20,7 +20,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       Response response =
           await _inventoryTrackerRepository.stockOrder(productID);
       var result = jsonDecode(response.body);
-      superPrint(result);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];
         stockOrderList.clear();

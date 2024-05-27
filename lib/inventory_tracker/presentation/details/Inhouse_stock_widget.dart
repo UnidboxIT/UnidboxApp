@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/provider/inhouse_stock_provider.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/inhouse_stock_state.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
@@ -108,12 +109,23 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               itemBuilder: (context, index) {
                 String location =
                     widget.inHouseStockList[index].warehouseList[1];
-                String qty = widget.inHouseStockList[index].qty;
+                double qty = widget.inHouseStockList[index].qty == 'null'
+                    ? 0
+                    : double.parse(
+                        widget.inHouseStockList[index].qty.toString());
                 int id = widget.inHouseStockList[index].warehouseList[0];
+
                 if (widget.inHouseStockList[0].warehouseList[0] !=
                     admin.warehouseMap[0]) {
-                  return eachInhouseStockNotContainWidget(
-                      location, qty.toString(), id, context);
+                  superPrint(qty);
+                  if (qty > 0 ||
+                      widget.inHouseStockList[0].warehouseList[0] ==
+                          admin.warehouseMap[0]) {
+                    return eachInhouseStockNotContainWidget(
+                        location, qty.toString(), id, context);
+                  } else {
+                    return Container();
+                  }
                 }
                 return eachInhouseStockWidget(
                     location, qty.toString(), id, index, context);
@@ -139,7 +151,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
         ),
         Expanded(
           flex: 3,
-          child: textWidget(qty,
+          child: textWidget(qty.toString(),
               color: Colors.black, size: 14, textAlign: TextAlign.center),
         ),
         Expanded(
@@ -168,7 +180,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
         ),
         Expanded(
           flex: 3,
-          child: textWidget(qty,
+          child: textWidget(qty.toString(),
               color: Colors.black, size: 14, textAlign: TextAlign.center),
         ),
         Expanded(
