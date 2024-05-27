@@ -286,20 +286,29 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             child: Column(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       height: 25.h,
                       width: 38.w,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColor.dropshadowColor,
+                            blurRadius: 3,
+                            spreadRadius: 3,
+                            offset: const Offset(0, 3),
+                          )
+                        ],
                         image: DecorationImage(
                           image: image != "false"
                               ? NetworkImage(image)
-                              : const NetworkImage(
-                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
+                              : const AssetImage(
+                                  "assets/images/app_icon.jpeg",
                                 ),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -343,13 +352,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     fontWeight: FontWeight.bold,
                     size: 13,
                     color: AppColor.pinkColor),
-                textWidget(brandValue, size: 13),
+                textWidget(brandValue == "false" ? "" : brandValue, size: 13),
                 const SizedBox(height: 8),
                 textWidget("SKU",
                     fontWeight: FontWeight.bold,
                     size: 13,
                     color: AppColor.pinkColor),
-                textWidget(skuValue, size: 13),
+                textWidget(skuValue == "false" ? "" : skuValue, size: 13),
               ],
             ),
             SizedBox(width: 4.w),
@@ -360,13 +369,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     fontWeight: FontWeight.bold,
                     size: 13,
                     color: AppColor.pinkColor),
-                textWidget(modelValue, size: 13),
+                textWidget(modelValue == "false" ? "" : modelValue, size: 13),
                 const SizedBox(height: 8),
                 textWidget("Barcode",
                     fontWeight: FontWeight.bold,
                     size: 13,
                     color: AppColor.pinkColor),
-                textWidget(barcode, size: 13),
+                textWidget(barcode == "false" ? "" : barcode, size: 13),
               ],
             ),
           ],

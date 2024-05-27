@@ -39,13 +39,12 @@ class InventoryTrackerRepository {
   }
 
   Future<Response> inhouseStock(int productID) async {
-    superPrint(productID);
+    superPrint(productID, title: "product id");
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint: 'joborder/stock-quant/$productID',
       headers: CommonMethods.setHeaders(),
     );
-    superPrint(response.body);
     return response;
   }
 
