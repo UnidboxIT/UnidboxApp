@@ -6,11 +6,9 @@ import 'package:unidbox_app/profile/repository/state/profile_state.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/text_widget.dart';
 import 'dart:math' as math;
 
 import '../../../utils/commons/super_print.dart';
