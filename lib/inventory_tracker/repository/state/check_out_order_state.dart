@@ -8,6 +8,8 @@ extension Getters on CheckOutOrderState {
 @freezed
 class CheckOutOrderState with _$CheckOutOrderState {
   const factory CheckOutOrderState.success(String success) = Successful;
+  const factory CheckOutOrderState.calculateTotalPrice(double totalPrice) =
+      CalculateTotalPrice;
   const factory CheckOutOrderState.initial() = Initial;
   const factory CheckOutOrderState.loading() = CheckOutLoading;
   const factory CheckOutOrderState.error({String? error}) = Error;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/inventory_tracker/repository/state/check_out_order_state.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
@@ -30,6 +31,16 @@ class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
   double totalPrice = 0.0;
   bool isSubmit = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var data in widget.orderLine) {
+      totalPrice += (data['product_qty'] * data["price_unit"]);
+    }
+    superPrint(totalPrice);
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(checkoutOrderStateNotifierProvider, (pre, next) {
@@ -75,7 +86,8 @@ class _CheckOutOrderDetailScreenState
                           fontWeight: FontWeight.bold,
                           size: 16),
                       const SizedBox(width: 5),
-                      textWidget("\$ $totalPrice",
+                      textWidget(
+                          "\$ ${CommonMethods.twoDecimalPrice(totalPrice)}",
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           size: 16),
@@ -127,8 +139,6 @@ class _CheckOutOrderDetailScreenState
             double price =
                 orderLineList.entries.elementAt(index).value['price_unit'];
 
-            totalPrice = (totalQty * price);
-            superPrint(totalPrice);
             return Stack(
               children: [
                 Padding(

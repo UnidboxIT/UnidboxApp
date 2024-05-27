@@ -19,6 +19,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -27,6 +28,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -35,6 +37,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -44,6 +47,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
     required TResult Function(Error value) error,
@@ -52,6 +56,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -60,6 +65,7 @@ mixin _$CheckOutOrderState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
     TResult Function(Error value)? error,
@@ -151,6 +157,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -162,6 +169,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -173,6 +181,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -188,6 +197,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
     required TResult Function(Error value) error,
@@ -199,6 +209,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -210,6 +221,7 @@ class _$SuccessfulImpl implements Successful {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
     TResult Function(Error value)? error,
@@ -228,6 +240,160 @@ abstract class Successful implements CheckOutOrderState {
   String get success;
   @JsonKey(ignore: true)
   _$$SuccessfulImplCopyWith<_$SuccessfulImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CalculateTotalPriceImplCopyWith<$Res> {
+  factory _$$CalculateTotalPriceImplCopyWith(_$CalculateTotalPriceImpl value,
+          $Res Function(_$CalculateTotalPriceImpl) then) =
+      __$$CalculateTotalPriceImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double totalPrice});
+}
+
+/// @nodoc
+class __$$CalculateTotalPriceImplCopyWithImpl<$Res>
+    extends _$CheckOutOrderStateCopyWithImpl<$Res, _$CalculateTotalPriceImpl>
+    implements _$$CalculateTotalPriceImplCopyWith<$Res> {
+  __$$CalculateTotalPriceImplCopyWithImpl(_$CalculateTotalPriceImpl _value,
+      $Res Function(_$CalculateTotalPriceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? totalPrice = null,
+  }) {
+    return _then(_$CalculateTotalPriceImpl(
+      null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CalculateTotalPriceImpl implements CalculateTotalPrice {
+  const _$CalculateTotalPriceImpl(this.totalPrice);
+
+  @override
+  final double totalPrice;
+
+  @override
+  String toString() {
+    return 'CheckOutOrderState.calculateTotalPrice(totalPrice: $totalPrice)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CalculateTotalPriceImpl &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, totalPrice);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CalculateTotalPriceImplCopyWith<_$CalculateTotalPriceImpl> get copyWith =>
+      __$$CalculateTotalPriceImplCopyWithImpl<_$CalculateTotalPriceImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return calculateTotalPrice(totalPrice);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return calculateTotalPrice?.call(totalPrice);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (calculateTotalPrice != null) {
+      return calculateTotalPrice(totalPrice);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
+    required TResult Function(Initial value) initial,
+    required TResult Function(CheckOutLoading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return calculateTotalPrice(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(CheckOutLoading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return calculateTotalPrice?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
+    TResult Function(Initial value)? initial,
+    TResult Function(CheckOutLoading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (calculateTotalPrice != null) {
+      return calculateTotalPrice(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CalculateTotalPrice implements CheckOutOrderState {
+  const factory CalculateTotalPrice(final double totalPrice) =
+      _$CalculateTotalPriceImpl;
+
+  double get totalPrice;
+  @JsonKey(ignore: true)
+  _$$CalculateTotalPriceImplCopyWith<_$CalculateTotalPriceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -270,6 +436,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -281,6 +448,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -292,6 +460,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -307,6 +476,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
     required TResult Function(Error value) error,
@@ -318,6 +488,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -329,6 +500,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
     TResult Function(Error value)? error,
@@ -384,6 +556,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -395,6 +568,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -406,6 +580,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -421,6 +596,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
     required TResult Function(Error value) error,
@@ -432,6 +608,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -443,6 +620,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
     TResult Function(Error value)? error,
@@ -524,6 +702,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String success) success,
+    required TResult Function(double totalPrice) calculateTotalPrice,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -535,6 +714,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String success)? success,
+    TResult? Function(double totalPrice)? calculateTotalPrice,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -546,6 +726,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String success)? success,
+    TResult Function(double totalPrice)? calculateTotalPrice,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -561,6 +742,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Successful value) success,
+    required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
     required TResult Function(Error value) error,
@@ -572,6 +754,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Successful value)? success,
+    TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -583,6 +766,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Successful value)? success,
+    TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
     TResult Function(Error value)? error,
