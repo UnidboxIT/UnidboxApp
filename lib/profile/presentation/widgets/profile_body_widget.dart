@@ -1,15 +1,74 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/profile/domain/profile.dart';
+import 'package:unidbox_app/profile/presentation/widgets/each_list_tile_widget.dart';
 import 'package:unidbox_app/profile/presentation/widgets/logout_widget.dart';
+import 'package:unidbox_app/profile/presentation/widgets/profile_image_widget.dart';
+import 'package:unidbox_app/profile/repository/provider/profile_state_notifier_provider.dart';
+import 'package:unidbox_app/profile/repository/state/profile_state.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
-class ProfileBodyWidget extends ConsumerWidget {
+import '../../../utils/commons/super_print.dart';
+
+class ProfileBodyWidget extends ConsumerStatefulWidget {
   const ProfileBodyWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfileBodyWidget> createState() => _ProfileBodyWidgetState();
+}
+
+class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
+  bool isUpdateLoading = false;
+  File imageFile = File("");
+  final ImagePicker picker = ImagePicker();
+  String base64Image = "";
+  Profile profile = Profile();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(profileStateNotifierProvider.notifier).getPartnerInfo();
+    });
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        base64Image = await imageToBase64(imageFile);
+        Navigator.of(context).pop();
+        // imageUpload(base64Image);
+      } else {
+        superPrint('No image selected.');
+      }
+    } catch (e) {
+      superPrint('Error picking image: $e');
+    }
+  }
+
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(profileStateNotifierProvider, (pre, next) {
+      if (next is ProfileData) {
+        setState(() {
+          profile = next.profile;
+        });
+      }
+    });
     return Container(
       width: 100.w,
       decoration: BoxDecoration(
@@ -27,30 +86,30 @@ class ProfileBodyWidget extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // Center(child: profileImageWidget()),
-          // eachListTileWidget(
-          //   CupertinoIcons.person_fill,
-          //   "Personal Information",
-          //   AppColor.orangeColor,
-          //   () async {
-          //     Get.to(() => const PersonalInfoUpdateScreen(),
-          //         transition: Transition.circularReveal,
-          //         duration: const Duration(seconds: 1));
-          //   },
-          // ),
-          // eachListTileWidget(CupertinoIcons.bell_fill, "Notifications",
-          //     AppColor.pinkColor, () {}),
-          // eachListTileWidget(
-          //     Icons.calendar_month, "Leave", AppColor.orangeColor, () {}),
-          // eachListTileWidget(CupertinoIcons.padlock_solid, "Change Password",
-          //     AppColor.pinkColor, () {
-          //   Get.to(
-          //     () => const ChangePasswordScreen(),
-          //     transition: Transition.circularReveal,
-          //     duration: const Duration(seconds: 1),
-          //   );
-          // }),
-
+          Center(child: profileImageWidget(profile)),
+          eachListTileWidget(
+            CupertinoIcons.person_fill,
+            "Personal Information",
+            AppColor.orangeColor,
+            () async {
+              // Get.to(() => const PersonalInfoUpdateScreen(),
+              //     transition: Transition.circularReveal,
+              //     duration: const Duration(seconds: 1));
+            },
+          ),
+          eachListTileWidget(CupertinoIcons.bell_fill, "Notifications",
+              AppColor.pinkColor, () {}),
+          eachListTileWidget(
+              Icons.calendar_month, "Leave", AppColor.orangeColor, () {}),
+          eachListTileWidget(CupertinoIcons.padlock_solid, "Change Password",
+              AppColor.pinkColor, () {
+            // Get.to(
+            //   () => const ChangePasswordScreen(),
+            //   transition: Transition.circularReveal,
+            //   duration: const Duration(seconds: 1),
+            // );
+          }),
+          const Spacer(),
           logoutWidget(ref, context),
           SizedBox(height: 7.h)
         ],
