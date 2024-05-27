@@ -48,6 +48,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String image,
     String sku,
   ) {
+    //increment qty
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (qtyMap.containsKey(vendorId)) {
       mutableQtyMap[vendorId] = mutableQtyMap[vendorId]! + 1;
@@ -55,6 +56,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       mutableQtyMap[vendorId] = 1;
     }
 
+    //for orderlist to backend
     List<Map<String, dynamic>> mutableOrderLines = [];
     mutableOrderLines = List.from(orderLineMap);
     var existingOrder = mutableOrderLines.firstWhere(
@@ -73,6 +75,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       });
     }
 
+    //for show checkout detail screen
     Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
     if (checkOutMap.containsKey(vendorName)) {
       checkOutMap[vendorName]!.addAll({
@@ -155,5 +158,9 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     superPrint(checkOutMap);
     state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
+  }
+
+  clearTotalQty() {
+    state = const StockOrderingState.clearTotalQty({});
   }
 }

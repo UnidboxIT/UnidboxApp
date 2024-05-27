@@ -111,32 +111,16 @@ class InventoryTrackerRepository {
     List orderLine,
   ) async {
     Map<String, dynamic> formData = {
-      "user_id": admin.userId,
+      "user_id": admin.uid,
       "company_id": companyID,
       "partner_id": partnerID,
       "date": dateTime,
-      "order_line": [
-        {
-          "product_id": 1002,
-          "name":
-              "[01-01-00001] CRESTAR VALUEAIR 5BLADES (48/55INCH) [VALUEAIR] (WHITE, WITH LED, 48'', DC)",
-          "product_qty": 5,
-          "product_uom": 1,
-          "price_unit": 150
-        },
-        {
-          "product_id": 46445,
-          "name":
-              "[00-00-00679] SUNFLAG BABY SCREWDRIVER 18X100MM [007-135-1300]",
-          "product_qty": 5,
-          "product_uom": 1,
-          "price_unit": 5
-        }
-      ]
+      "order_line": orderLine,
     };
+    superPrint(formData);
     http.Response response = await ApiService().post(
       url: baseUrl,
-      endpoint: 'joborder/stock/request',
+      endpoint: 'joborder/purchase-order/create',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );

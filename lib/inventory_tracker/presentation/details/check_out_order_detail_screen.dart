@@ -2,22 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/inventory_tracker/repository/state/check_out_order_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import '../../../utils/constant/app_color.dart';
 import '../../../views/widgets/button/button_widget.dart';
 import '../../../views/widgets/text_widget.dart';
+import '../../repository/provider/stock_order_provider.dart';
 import '../widgets/inventory_app_bar_widget copy.dart';
 
 class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
-  // final int companyID;
-  // final int partnerId;
   final List<Map<String, dynamic>> orderLine;
   final Map<String, Map<String, dynamic>> checkOutDataMap;
   const CheckOutOrderDetailScreen({
     super.key,
-    // required this.companyID,
-    // required this.partnerId,
     required this.orderLine,
     required this.checkOutDataMap,
   });
@@ -30,8 +29,21 @@ class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
 class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
   double totalPrice = 0.0;
+  bool isSubmit = false;
   @override
   Widget build(BuildContext context) {
+    ref.listen(checkoutOrderStateNotifierProvider, (pre, next) {
+      if (next is CheckOutLoading) {
+        setState(() {
+          isSubmit = true;
+        });
+      }
+      if (next is Successful) {
+        setState(() {
+          isSubmit = false;
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.primary,
@@ -68,16 +80,16 @@ class _CheckOutOrderDetailScreenState
                           fontWeight: FontWeight.bold,
                           size: 16),
                       const Spacer(),
-                      buttonWidget("Submit", () {
-                        // ref
-                        //     .read(checkoutOrderStateNotifierProvider.notifier)
-                        //     .checkOutOrder(
-                        //       widget.companyID,
-                        //       widget.partnerId,
-                        //       widget.orderLine,
-                        //       context,
-                        //     );
-                      }),
+                      SizedBox(
+                        height: 45,
+                        width: 30.w,
+                        child: buttonWidget("Submit", () {
+                          ref
+                              .read(checkoutOrderStateNotifierProvider.notifier)
+                              .checkOutOrder(admin.companyId, admin.partnerId,
+                                  widget.orderLine, context, ref);
+                        }, isBool: isSubmit),
+                      ),
                       const SizedBox(width: 10),
                     ],
                   ),

@@ -131,6 +131,11 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           checkOutDataMap = next.checkoutMap;
         });
       }
+      if (next is ClearTotalQty) {
+        setState(() {
+          totalQty = next.totalQty;
+        });
+      }
     });
 
     return SuperScaffold(
