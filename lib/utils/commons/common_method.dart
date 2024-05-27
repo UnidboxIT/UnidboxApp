@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -29,11 +30,13 @@ class CommonMethods {
   }
 
   static String twoDecimalPrice(double number) {
-    return number.toStringAsFixed(2);
+    NumberFormat formatter = NumberFormat('#,##0.00');
+    return formatter.format(number);
   }
 
   static threeDecimalPrice(double number) {
-    return number.toStringAsFixed(3);
+    NumberFormat formatter = NumberFormat('#,##0.000');
+    return formatter.format(number);
   }
 
   static void customizedAlertDialog(String message, BuildContext context) {

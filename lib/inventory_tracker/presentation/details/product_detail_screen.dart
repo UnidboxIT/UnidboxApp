@@ -408,7 +408,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     );
   }
 
-  Widget priceWidget(String salePrice, String costPrice) {
+  Widget priceWidget(
+    String salePrice,
+    String costPrice,
+  ) {
     return Container(
       width: 100.w,
       height: 10.h,
