@@ -28,4 +28,15 @@ class ProfileRepository {
 
     return response;
   }
+
+  //get country
+  Future<Response> country() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/country',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:unidbox_app/profile/domain/country.dart';
 import 'package:unidbox_app/profile/repository/profile_repository.dart';
 import 'package:unidbox_app/profile/repository/state/profile_state.dart';
 import '../../../utils/commons/super_print.dart';

@@ -61,19 +61,26 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
                     ),
                   ),
                 )
-              : imageFile.path != ""
-                  ? CircleAvatar(
+              : widget.profileData.imageUrl.isEmpty
+                  ? const CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 40,
-                      backgroundImage: FileImage(imageFile),
+                      backgroundImage:
+                          AssetImage("assets/images/app_icon.jpeg"),
                     )
-                  : CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 40,
-                      backgroundImage: NetworkImage(
-                        widget.profileData.imageUrl,
-                      ),
-                    ),
+                  : imageFile.path != ""
+                      ? CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          backgroundImage: FileImage(imageFile),
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          backgroundImage: NetworkImage(
+                            widget.profileData.imageUrl,
+                          ),
+                        ),
           const SizedBox(height: 10),
           textWidget(
             widget.profileData.name,
