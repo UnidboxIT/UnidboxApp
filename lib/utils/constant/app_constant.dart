@@ -8,4 +8,7 @@ class AppKeys {
   static String appLanguage = "appLanguage";
   static String apiToken = "apiToken";
   static String userInfo = "userInfo";
+
+  static String userName = "userName";
+  static String password = "password";
 }

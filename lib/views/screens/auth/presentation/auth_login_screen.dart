@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/widgets/each_text_field_widget.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/widgets/login_image_widget.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/widgets/remember_me_widget.dart';
@@ -24,6 +26,20 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
   TextEditingController txtPassword = TextEditingController();
   bool paymentState = false;
   bool isVisiblity = false;
+  bool isCheck = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final state = ref.read(sharedPreferencesProvider);
+    setState(() {
+      txtUserID.text = state.getString(AppKeys.userName) ?? "";
+      txtPassword.text = state.getString(AppKeys.password) ?? "";
+      isCheck = state.getBool("isRemember") ?? false;
+    });
+    superPrint(isCheck);
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.watch(authStateNotifierControllerProvider);
@@ -75,7 +91,17 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
                   });
                 }),
                 const SizedBox(height: 20),
-                rememberMeWidget(ref),
+                rememberMeWidget(ref, isCheck, () {
+                  setState(() {
+                    isCheck = !isCheck;
+                  });
+                  superPrint(isCheck);
+                  Future.delayed(const Duration(milliseconds: 10), () {
+                    ref
+                        .read(authStateNotifierControllerProvider.notifier)
+                        .rememberMe(txtUserID.text, txtPassword.text, isCheck);
+                  });
+                }),
                 SizedBox(height: 5.h),
                 Center(
                   child: Container(
@@ -98,7 +124,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
                         ref
                             .read(authStateNotifierControllerProvider.notifier)
                             .signIn(txtUserID.text.trim(),
-                                txtPassword.text.trim(), ref, context);
+                                txtPassword.text.trim(), ref, context, isCheck);
                       },
                       style: ElevatedButton.styleFrom(
                         surfaceTintColor: Colors.white,

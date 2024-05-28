@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/auth/repository/auth_state_notifier.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget rememberMeWidget(WidgetRef ref) {
-  final isCheck =
-      ref.watch(authStateNotifierControllerProvider.notifier).isSelected;
+Widget rememberMeWidget(WidgetRef ref, isCheck, VoidCallback onPressed) {
   return GestureDetector(
-    onTap: () {
-      ref
-          .read(authStateNotifierControllerProvider.notifier)
-          .selectedCheckBox(true);
-    },
+    onTap: onPressed,
     child: Container(
       width: 50.w,
       height: 40,
@@ -23,7 +17,7 @@ Widget rememberMeWidget(WidgetRef ref) {
         children: [
           Icon(
             isCheck ? Icons.check_box_rounded : Icons.check_box_outline_blank,
-            color: Colors.grey.shade400,
+            color: isCheck ? AppColor.primary : Colors.grey.shade400,
             size: 20,
           ),
           const SizedBox(width: 10),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
@@ -40,7 +41,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
   bool isSelected;
 
   void signIn(String username, String password, WidgetRef ref,
-      BuildContext context) async {
+      BuildContext context, isCheck) async {
     try {
       state = const AuthState.loading();
       http.Response response = await _authRepository.login(username, password);
@@ -85,6 +86,11 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
   }
 
   void logout(BuildContext context, WidgetRef ref) {
+    superPrint(sharedPreferences.getString(AppKeys.userName));
+    rememberMe(
+        sharedPreferences.getString(AppKeys.userName) ?? "",
+        sharedPreferences.getString(AppKeys.password) ?? "",
+        sharedPreferences.getBool("isRemember") ?? false);
     sharedPreferences.remove(AppKeys.apiToken);
     sharedPreferences.remove(AppKeys.userInfo);
     Navigator.pushReplacement(
@@ -93,5 +99,21 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
         builder: (context) => const AuthLoginScreen(),
       ),
     );
+  }
+
+  rememberMe(String name, String password, bool isCheck) {
+    superPrint(isCheck);
+    if (isCheck) {
+      sharedPreferences.setString(AppKeys.userName, name);
+      sharedPreferences.setString(AppKeys.password, password);
+      sharedPreferences.setBool("isRemember", isCheck);
+      state = AuthState.rememberMe(name, password, isCheck);
+    } else {
+      sharedPreferences.remove(AppKeys.userName);
+      sharedPreferences.remove(AppKeys.password);
+      sharedPreferences.remove("isRemember");
+      state = const AuthState.rememberMe("", "", false);
+    }
+    superPrint(name);
   }
 }

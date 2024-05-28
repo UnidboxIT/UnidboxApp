@@ -24,7 +24,7 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
         ),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'UnidboxApp',
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,

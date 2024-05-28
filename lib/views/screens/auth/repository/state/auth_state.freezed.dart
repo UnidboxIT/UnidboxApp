@@ -22,6 +22,8 @@ mixin _$AuthState {
     required TResult Function() loading,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +32,7 @@ mixin _$AuthState {
     TResult? Function()? loading,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +41,7 @@ mixin _$AuthState {
     TResult Function()? loading,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +51,7 @@ mixin _$AuthState {
     required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +60,7 @@ mixin _$AuthState {
     TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +69,7 @@ mixin _$AuthState {
     TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +134,8 @@ class _$InitialImpl implements Initial {
     required TResult Function() loading,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
   }) {
     return initial();
   }
@@ -138,6 +147,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? loading,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
   }) {
     return initial?.call();
   }
@@ -149,6 +159,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? loading,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -164,6 +175,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
   }) {
     return initial(this);
   }
@@ -175,6 +187,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
   }) {
     return initial?.call(this);
   }
@@ -186,6 +199,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,6 +255,8 @@ class _$LoadingImpl implements Loading {
     required TResult Function() loading,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
   }) {
     return loading();
   }
@@ -252,6 +268,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function()? loading,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
   }) {
     return loading?.call();
   }
@@ -263,6 +280,7 @@ class _$LoadingImpl implements Loading {
     TResult Function()? loading,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -278,6 +296,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
   }) {
     return loading(this);
   }
@@ -289,6 +308,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
   }) {
     return loading?.call(this);
   }
@@ -300,6 +320,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -355,6 +376,8 @@ class _$SuccessImpl implements Success {
     required TResult Function() loading,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
   }) {
     return success();
   }
@@ -366,6 +389,7 @@ class _$SuccessImpl implements Success {
     TResult? Function()? loading,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
   }) {
     return success?.call();
   }
@@ -377,6 +401,7 @@ class _$SuccessImpl implements Success {
     TResult Function()? loading,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -392,6 +417,7 @@ class _$SuccessImpl implements Success {
     required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
   }) {
     return success(this);
   }
@@ -403,6 +429,7 @@ class _$SuccessImpl implements Success {
     TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
   }) {
     return success?.call(this);
   }
@@ -414,6 +441,7 @@ class _$SuccessImpl implements Success {
     TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -495,6 +523,8 @@ class _$ErrorImpl implements Error {
     required TResult Function() loading,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
   }) {
     return error(message);
   }
@@ -506,6 +536,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? loading,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
   }) {
     return error?.call(message);
   }
@@ -517,6 +548,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? loading,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -532,6 +564,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
   }) {
     return error(this);
   }
@@ -543,6 +576,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
   }) {
     return error?.call(this);
   }
@@ -554,6 +588,7 @@ class _$ErrorImpl implements Error {
     TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -569,5 +604,178 @@ abstract class Error implements AuthState {
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RememberMeImplCopyWith<$Res> {
+  factory _$$RememberMeImplCopyWith(
+          _$RememberMeImpl value, $Res Function(_$RememberMeImpl) then) =
+      __$$RememberMeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name, String password, bool isCheck});
+}
+
+/// @nodoc
+class __$$RememberMeImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$RememberMeImpl>
+    implements _$$RememberMeImplCopyWith<$Res> {
+  __$$RememberMeImplCopyWithImpl(
+      _$RememberMeImpl _value, $Res Function(_$RememberMeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? password = null,
+    Object? isCheck = null,
+  }) {
+    return _then(_$RememberMeImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == isCheck
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RememberMeImpl implements RememberMe {
+  const _$RememberMeImpl(this.name, this.password, this.isCheck);
+
+  @override
+  final String name;
+  @override
+  final String password;
+  @override
+  final bool isCheck;
+
+  @override
+  String toString() {
+    return 'AuthState.rememberMe(name: $name, password: $password, isCheck: $isCheck)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RememberMeImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.isCheck, isCheck) || other.isCheck == isCheck));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, password, isCheck);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RememberMeImplCopyWith<_$RememberMeImpl> get copyWith =>
+      __$$RememberMeImplCopyWithImpl<_$RememberMeImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String message) error,
+    required TResult Function(String name, String password, bool isCheck)
+        rememberMe,
+  }) {
+    return rememberMe(name, password, isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String message)? error,
+    TResult? Function(String name, String password, bool isCheck)? rememberMe,
+  }) {
+    return rememberMe?.call(name, password, isCheck);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String message)? error,
+    TResult Function(String name, String password, bool isCheck)? rememberMe,
+    required TResult orElse(),
+  }) {
+    if (rememberMe != null) {
+      return rememberMe(name, password, isCheck);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
+    required TResult Function(RememberMe value) rememberMe,
+  }) {
+    return rememberMe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
+    TResult? Function(RememberMe value)? rememberMe,
+  }) {
+    return rememberMe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
+    TResult Function(RememberMe value)? rememberMe,
+    required TResult orElse(),
+  }) {
+    if (rememberMe != null) {
+      return rememberMe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RememberMe implements AuthState {
+  const factory RememberMe(
+          final String name, final String password, final bool isCheck) =
+      _$RememberMeImpl;
+
+  String get name;
+  String get password;
+  bool get isCheck;
+  @JsonKey(ignore: true)
+  _$$RememberMeImplCopyWith<_$RememberMeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
