@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../utils/constant/app_color.dart';
 import '../views/screens/job_order/calendar_screens/calendar_screen.dart';
 import '../views/screens/message_screens/messages_screen.dart';
-import '../views/screens/profile_screens/profile_screen.dart';
 
 class NavBar {
   int id;
@@ -90,6 +89,6 @@ class NavBarController extends GetxController {
     const CalendarScreen(),
     Container(),
     const MessageScreen(),
-    const ProfileScreen(),
+    Container(),
   ];
 }

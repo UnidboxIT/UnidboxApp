@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/profile/domain/profile.dart';
+import 'package:unidbox_app/profile/presentation/change_password/change_password_screen.dart';
 import 'package:unidbox_app/profile/presentation/personal_info_update/personal_info_update_screen.dart';
 import 'package:unidbox_app/profile/presentation/widgets/each_list_tile_widget.dart';
 import 'package:unidbox_app/profile/presentation/widgets/logout_widget.dart';
@@ -108,11 +109,11 @@ class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
               Icons.calendar_month, "Leave", AppColor.orangeColor, () {}),
           eachListTileWidget(CupertinoIcons.padlock_solid, "Change Password",
               AppColor.pinkColor, () {
-            // Get.to(
-            //   () => const ChangePasswordScreen(),
-            //   transition: Transition.circularReveal,
-            //   duration: const Duration(seconds: 1),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ChangePasswordScreen(),
+              ),
+            );
           }),
           const Spacer(),
           logoutWidget(ref, context),
