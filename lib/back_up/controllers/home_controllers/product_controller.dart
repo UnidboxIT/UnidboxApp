@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:unidbox_app/services/home/product_service.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:http/http.dart' as http;
-import '../../../models/home/uom.dart';
+import '../../models/home/uom.dart';
 
 class ProductController extends GetxController {
   bool isProductLoading = false;

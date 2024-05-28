@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import '../../../models/home/racks.dart';
+import '../../models/home/racks.dart';
 import '../../../services/home/product_service.dart';
 import 'package:http/http.dart' as http;
 import '../../../utils/commons/super_print.dart';

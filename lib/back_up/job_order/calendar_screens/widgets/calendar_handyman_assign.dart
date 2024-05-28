@@ -8,7 +8,7 @@ import 'package:unidbox_app/back_up/job_order/calendar_screens/widgets/job_order
 import 'package:unidbox_app/back_up/job_order/calendar_screens/widgets/job_order_busy_widget.dart';
 import 'package:unidbox_app/back_up/job_order/job_order_update_screens/job_order_detail_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../../models/job_order/job_order.dart';
+import '../../../models/job_order/job_order.dart';
 
 class CalendarHandymanAssignWidget extends StatelessWidget {
   const CalendarHandymanAssignWidget({super.key});

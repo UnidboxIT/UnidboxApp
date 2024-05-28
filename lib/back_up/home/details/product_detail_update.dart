@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/back_up/controllers/home_controllers/product_detail_controller.dart';
-import 'package:unidbox_app/models/home/racks.dart';
+import 'package:unidbox_app/back_up/models/home/racks.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/back_up/home/create_product_widget/each_text_field_widget.dart';
