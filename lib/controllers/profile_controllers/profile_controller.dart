@@ -14,8 +14,6 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:http/http.dart' as http;
 
-import '../../views/widgets/bottom_sheets/successfully_bottom_sheet.dart';
-
 class ProfileController extends GetxController {
   TextEditingController txtFirstName = TextEditingController();
   TextEditingController txtLastName = TextEditingController();

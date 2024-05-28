@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'profile_state.dart';
+part of 'race_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,10 +15,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ProfileState {
+mixin _$RaceState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Profile profile) loadProfile,
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -26,7 +27,8 @@ mixin _$ProfileState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Profile profile)? loadProfile,
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -34,7 +36,8 @@ mixin _$ProfileState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Profile profile)? loadProfile,
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -43,25 +46,28 @@ mixin _$ProfileState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ProfileData value) loadProfile,
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
     required TResult Function(Initial value) initial,
-    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ProfileData value)? loadProfile,
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
     TResult? Function(Initial value)? initial,
-    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProfileData value)? loadProfile,
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
     TResult Function(Initial value)? initial,
-    TResult Function(ProfileLoading value)? loading,
+    TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -69,16 +75,15 @@ mixin _$ProfileState {
 }
 
 /// @nodoc
-abstract class $ProfileStateCopyWith<$Res> {
-  factory $ProfileStateCopyWith(
-          ProfileState value, $Res Function(ProfileState) then) =
-      _$ProfileStateCopyWithImpl<$Res, ProfileState>;
+abstract class $RaceStateCopyWith<$Res> {
+  factory $RaceStateCopyWith(RaceState value, $Res Function(RaceState) then) =
+      _$RaceStateCopyWithImpl<$Res, RaceState>;
 }
 
 /// @nodoc
-class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
-    implements $ProfileStateCopyWith<$Res> {
-  _$ProfileStateCopyWithImpl(this._value, this._then);
+class _$RaceStateCopyWithImpl<$Res, $Val extends RaceState>
+    implements $RaceStateCopyWith<$Res> {
+  _$RaceStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -87,99 +92,108 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
 }
 
 /// @nodoc
-abstract class _$$ProfileDataImplCopyWith<$Res> {
-  factory _$$ProfileDataImplCopyWith(
-          _$ProfileDataImpl value, $Res Function(_$ProfileDataImpl) then) =
-      __$$ProfileDataImplCopyWithImpl<$Res>;
+abstract class _$$RaceListImplCopyWith<$Res> {
+  factory _$$RaceListImplCopyWith(
+          _$RaceListImpl value, $Res Function(_$RaceListImpl) then) =
+      __$$RaceListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Profile profile});
+  $Res call({List<Race> raceList});
 }
 
 /// @nodoc
-class __$$ProfileDataImplCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileDataImpl>
-    implements _$$ProfileDataImplCopyWith<$Res> {
-  __$$ProfileDataImplCopyWithImpl(
-      _$ProfileDataImpl _value, $Res Function(_$ProfileDataImpl) _then)
+class __$$RaceListImplCopyWithImpl<$Res>
+    extends _$RaceStateCopyWithImpl<$Res, _$RaceListImpl>
+    implements _$$RaceListImplCopyWith<$Res> {
+  __$$RaceListImplCopyWithImpl(
+      _$RaceListImpl _value, $Res Function(_$RaceListImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? profile = null,
+    Object? raceList = null,
   }) {
-    return _then(_$ProfileDataImpl(
-      null == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile,
+    return _then(_$RaceListImpl(
+      null == raceList
+          ? _value._raceList
+          : raceList // ignore: cast_nullable_to_non_nullable
+              as List<Race>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$ProfileDataImpl implements ProfileData {
-  const _$ProfileDataImpl(this.profile);
+class _$RaceListImpl implements RaceList {
+  const _$RaceListImpl(final List<Race> raceList) : _raceList = raceList;
 
+  final List<Race> _raceList;
   @override
-  final Profile profile;
+  List<Race> get raceList {
+    if (_raceList is EqualUnmodifiableListView) return _raceList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_raceList);
+  }
 
   @override
   String toString() {
-    return 'ProfileState.loadProfile(profile: $profile)';
+    return 'RaceState.laodRace(raceList: $raceList)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProfileDataImpl &&
-            (identical(other.profile, profile) || other.profile == profile));
+            other is _$RaceListImpl &&
+            const DeepCollectionEquality().equals(other._raceList, _raceList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_raceList));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith =>
-      __$$ProfileDataImplCopyWithImpl<_$ProfileDataImpl>(this, _$identity);
+  _$$RaceListImplCopyWith<_$RaceListImpl> get copyWith =>
+      __$$RaceListImplCopyWithImpl<_$RaceListImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Profile profile) loadProfile,
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
   }) {
-    return loadProfile(profile);
+    return laodRace(raceList);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Profile profile)? loadProfile,
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
   }) {
-    return loadProfile?.call(profile);
+    return laodRace?.call(raceList);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Profile profile)? loadProfile,
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
-    if (loadProfile != null) {
-      return loadProfile(profile);
+    if (laodRace != null) {
+      return laodRace(raceList);
     }
     return orElse();
   }
@@ -187,47 +201,201 @@ class _$ProfileDataImpl implements ProfileData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ProfileData value) loadProfile,
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
     required TResult Function(Initial value) initial,
-    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
   }) {
-    return loadProfile(this);
+    return laodRace(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ProfileData value)? loadProfile,
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
     TResult? Function(Initial value)? initial,
-    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
   }) {
-    return loadProfile?.call(this);
+    return laodRace?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProfileData value)? loadProfile,
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
     TResult Function(Initial value)? initial,
-    TResult Function(ProfileLoading value)? loading,
+    TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
-    if (loadProfile != null) {
-      return loadProfile(this);
+    if (laodRace != null) {
+      return laodRace(this);
     }
     return orElse();
   }
 }
 
-abstract class ProfileData implements ProfileState {
-  const factory ProfileData(final Profile profile) = _$ProfileDataImpl;
+abstract class RaceList implements RaceState {
+  const factory RaceList(final List<Race> raceList) = _$RaceListImpl;
 
-  Profile get profile;
+  List<Race> get raceList;
   @JsonKey(ignore: true)
-  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith =>
+  _$$RaceListImplCopyWith<_$RaceListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectedRaceImplCopyWith<$Res> {
+  factory _$$SelectedRaceImplCopyWith(
+          _$SelectedRaceImpl value, $Res Function(_$SelectedRaceImpl) then) =
+      __$$SelectedRaceImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Race race});
+}
+
+/// @nodoc
+class __$$SelectedRaceImplCopyWithImpl<$Res>
+    extends _$RaceStateCopyWithImpl<$Res, _$SelectedRaceImpl>
+    implements _$$SelectedRaceImplCopyWith<$Res> {
+  __$$SelectedRaceImplCopyWithImpl(
+      _$SelectedRaceImpl _value, $Res Function(_$SelectedRaceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? race = null,
+  }) {
+    return _then(_$SelectedRaceImpl(
+      null == race
+          ? _value.race
+          : race // ignore: cast_nullable_to_non_nullable
+              as Race,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectedRaceImpl implements SelectedRace {
+  const _$SelectedRaceImpl(this.race);
+
+  @override
+  final Race race;
+
+  @override
+  String toString() {
+    return 'RaceState.selectedRace(race: $race)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedRaceImpl &&
+            (identical(other.race, race) || other.race == race));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, race);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedRaceImplCopyWith<_$SelectedRaceImpl> get copyWith =>
+      __$$SelectedRaceImplCopyWithImpl<_$SelectedRaceImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return selectedRace(race);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return selectedRace?.call(race);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (selectedRace != null) {
+      return selectedRace(race);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
+    required TResult Function(Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return selectedRace(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return selectedRace?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
+    TResult Function(Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (selectedRace != null) {
+      return selectedRace(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelectedRace implements RaceState {
+  const factory SelectedRace(final Race race) = _$SelectedRaceImpl;
+
+  Race get race;
+  @JsonKey(ignore: true)
+  _$$SelectedRaceImplCopyWith<_$SelectedRaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -240,7 +408,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$RaceStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -254,7 +422,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'ProfileState.initial()';
+    return 'RaceState.initial()';
   }
 
   @override
@@ -269,7 +437,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Profile profile) loadProfile,
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -280,7 +449,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Profile profile)? loadProfile,
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -291,7 +461,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Profile profile)? loadProfile,
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -306,9 +477,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ProfileData value) loadProfile,
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
     required TResult Function(Initial value) initial,
-    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -317,9 +489,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ProfileData value)? loadProfile,
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
     TResult? Function(Initial value)? initial,
-    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -328,9 +501,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProfileData value)? loadProfile,
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
     TResult Function(Initial value)? initial,
-    TResult Function(ProfileLoading value)? loading,
+    TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -341,40 +515,40 @@ class _$InitialImpl implements Initial {
   }
 }
 
-abstract class Initial implements ProfileState {
+abstract class Initial implements RaceState {
   const factory Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$ProfileLoadingImplCopyWith<$Res> {
-  factory _$$ProfileLoadingImplCopyWith(_$ProfileLoadingImpl value,
-          $Res Function(_$ProfileLoadingImpl) then) =
-      __$$ProfileLoadingImplCopyWithImpl<$Res>;
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ProfileLoadingImplCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileLoadingImpl>
-    implements _$$ProfileLoadingImplCopyWith<$Res> {
-  __$$ProfileLoadingImplCopyWithImpl(
-      _$ProfileLoadingImpl _value, $Res Function(_$ProfileLoadingImpl) _then)
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$RaceStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ProfileLoadingImpl implements ProfileLoading {
-  const _$ProfileLoadingImpl();
+class _$LoadingImpl implements Loading {
+  const _$LoadingImpl();
 
   @override
   String toString() {
-    return 'ProfileState.loading()';
+    return 'RaceState.loading()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ProfileLoadingImpl);
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
@@ -383,7 +557,8 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Profile profile) loadProfile,
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -394,7 +569,8 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Profile profile)? loadProfile,
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -405,7 +581,8 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Profile profile)? loadProfile,
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -420,9 +597,10 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ProfileData value) loadProfile,
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
     required TResult Function(Initial value) initial,
-    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -431,9 +609,10 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ProfileData value)? loadProfile,
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
     TResult? Function(Initial value)? initial,
-    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -442,9 +621,10 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProfileData value)? loadProfile,
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
     TResult Function(Initial value)? initial,
-    TResult Function(ProfileLoading value)? loading,
+    TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -455,8 +635,8 @@ class _$ProfileLoadingImpl implements ProfileLoading {
   }
 }
 
-abstract class ProfileLoading implements ProfileState {
-  const factory ProfileLoading() = _$ProfileLoadingImpl;
+abstract class Loading implements RaceState {
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -470,7 +650,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$RaceStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -500,7 +680,7 @@ class _$ErrorImpl implements Error {
 
   @override
   String toString() {
-    return 'ProfileState.error(error: $error)';
+    return 'RaceState.error(error: $error)';
   }
 
   @override
@@ -523,7 +703,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Profile profile) loadProfile,
+    required TResult Function(List<Race> raceList) laodRace,
+    required TResult Function(Race race) selectedRace,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -534,7 +715,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Profile profile)? loadProfile,
+    TResult? Function(List<Race> raceList)? laodRace,
+    TResult? Function(Race race)? selectedRace,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -545,7 +727,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Profile profile)? loadProfile,
+    TResult Function(List<Race> raceList)? laodRace,
+    TResult Function(Race race)? selectedRace,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -560,9 +743,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ProfileData value) loadProfile,
+    required TResult Function(RaceList value) laodRace,
+    required TResult Function(SelectedRace value) selectedRace,
     required TResult Function(Initial value) initial,
-    required TResult Function(ProfileLoading value) loading,
+    required TResult Function(Loading value) loading,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -571,9 +755,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ProfileData value)? loadProfile,
+    TResult? Function(RaceList value)? laodRace,
+    TResult? Function(SelectedRace value)? selectedRace,
     TResult? Function(Initial value)? initial,
-    TResult? Function(ProfileLoading value)? loading,
+    TResult? Function(Loading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -582,9 +767,10 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ProfileData value)? loadProfile,
+    TResult Function(RaceList value)? laodRace,
+    TResult Function(SelectedRace value)? selectedRace,
     TResult Function(Initial value)? initial,
-    TResult Function(ProfileLoading value)? loading,
+    TResult Function(Loading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -595,7 +781,7 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements ProfileState {
+abstract class Error implements RaceState {
   const factory Error({final String? error}) = _$ErrorImpl;
 
   String? get error;

@@ -31,7 +31,7 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
   @override
   Widget build(BuildContext context) {
     ref.listen(profileStateNotifierProvider, (pre, next) {
-      if (next is Loading) {
+      if (next is ProfileLoading) {
         setState(() {
           isUpdateLoading = true;
         });

@@ -39,4 +39,48 @@ class ProfileRepository {
 
     return response;
   }
+
+  //get religion
+  Future<Response> religion() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/religion',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  //get race
+  Future<Response> race() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/race',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  //Update Partner
+  Future<Response> updatePartner(String firstName, String lastName,
+      String phone, String email, int countryId, int religion, int race) async {
+    Map<String, dynamic> formData = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "phone": phone,
+      "email": email,
+      "country_id": countryId,
+      "religion": religion,
+      "race": race,
+    };
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/partner/update/${admin.partnerId}',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }

@@ -6,7 +6,6 @@ import 'package:unidbox_app/profile/domain/country.dart';
 import 'package:unidbox_app/profile/domain/profile.dart';
 import 'package:unidbox_app/profile/repository/provider/profile_state_notifier_provider.dart';
 import 'package:unidbox_app/profile/repository/state/country_state.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/constant/app_color.dart';
 
 class CountryDropdownWidget extends ConsumerStatefulWidget {
@@ -26,6 +25,10 @@ class _CountryDropdownWidgetState extends ConsumerState<CountryDropdownWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadCountry();
+  }
+
+  loadCountry() {
     setState(() {
       selectedCountry = Country(
           id: widget.profile.countryList[0],
