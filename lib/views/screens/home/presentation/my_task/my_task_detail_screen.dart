@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
-import 'package:unidbox_app/inventory_tracker/presentation/inventory_tracker_screen.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';

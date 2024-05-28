@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
-import '../../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
+import '../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../domain/admin.dart';
 import '../../../../utils/commons/common_method.dart';
 import '../../../../utils/constant/app_constant.dart';

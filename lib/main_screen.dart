@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/home/repository/provider/home_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'bottom_nav/presentation/bottom_nav_bar.dart';
-import 'bottom_nav/repository/bottom_nav_state_notifier.dart';
+import 'views/screens/bottom_nav/presentation/bottom_nav_bar.dart';
+import 'views/screens/bottom_nav/repository/bottom_nav_state_notifier.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
