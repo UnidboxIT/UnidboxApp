@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/auth/presentation/auth_login_screen.dart';
+import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../auth/repository/auth_state_notifier.dart';
+import '../../views/screens/auth/repository/auth_state_notifier.dart';
 import '../../views/widgets/button/button_widget.dart';
 import '../constant/app_constant.dart';
 

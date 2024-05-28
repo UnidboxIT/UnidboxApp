@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/auth/repository/auth_state_notifier.dart';
+import 'package:unidbox_app/views/screens/auth/repository/auth_state_notifier.dart';
 import 'dart:math' as math;
 import 'package:unidbox_app/views/widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../../../utils/constant/app_color.dart';

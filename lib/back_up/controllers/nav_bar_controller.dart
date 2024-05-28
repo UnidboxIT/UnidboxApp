@@ -1,27 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/views/screens/home/presentation/home_screen.dart';
-import 'package:unidbox_app/profile/presentation/profile_screen.dart';
-
+import 'package:get/get.dart';
 import '../../utils/constant/app_color.dart';
-import '../domain/nav_bar.dart';
+import '../job_order/calendar_screens/calendar_screen.dart';
+import '../message_screens/messages_screen.dart';
 
-final bottomNavNotifierControllerProvider =
-    StateNotifierProvider<BottomNavNotifierController, int>((ref) {
-  return BottomNavNotifierController();
-});
+class NavBar {
+  int id;
+  Widget unselectedIcon;
+  Widget selectedIcon;
+  String name;
 
-class BottomNavNotifierController extends StateNotifier<int> {
-  BottomNavNotifierController() : super(0);
+  NavBar({
+    required this.id,
+    required this.unselectedIcon,
+    required this.selectedIcon,
+    required this.name,
+  });
+}
 
-  final List<Widget> indexWidgets = <Widget>[
-    const HomeScreen(),
-    Container(),
-    Container(),
-    Container(),
-    const ProfileScreen(),
-  ];
+class NavBarController extends GetxController {
+  int currentIndex = 0;
 
   List<NavBar> navBarList = [
     NavBar(
@@ -80,11 +79,16 @@ class BottomNavNotifierController extends StateNotifier<int> {
     ),
   ];
 
-  void setIndex(int index) {
-    state = index;
+  void changePage(int index) {
+    currentIndex = index;
+    update();
   }
 
-  void reset() {
-    state = 0;
-  }
+  final List<Widget> indexWidgets = <Widget>[
+    // const HomeScreen(),
+    const CalendarScreen(),
+    Container(),
+    const MessageScreen(),
+    Container(),
+  ];
 }
