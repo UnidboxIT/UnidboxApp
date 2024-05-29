@@ -48,6 +48,12 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             .then((_) {
           Navigator.of(context).pop();
         });
+      } else {
+        successfullyBottomSheet("Request Sent Fail!", result['result']['error'],
+            () {
+          Navigator.of(context).pop();
+        }, isFail: true, context);
+        superPrint("Here");
       }
     } catch (e) {
       state = StockRequestState.error(error: e.toString());

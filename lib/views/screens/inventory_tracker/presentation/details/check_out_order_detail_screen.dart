@@ -138,7 +138,7 @@ class _CheckOutOrderDetailScreenState
             String sku = orderLineList.entries.elementAt(index).value['sku'];
             double price =
                 orderLineList.entries.elementAt(index).value['price_unit'];
-
+            superPrint(totalQty);
             return Stack(
               children: [
                 Padding(
@@ -175,11 +175,10 @@ class _CheckOutOrderDetailScreenState
                                       ],
                                       borderRadius: BorderRadius.circular(10),
                                       image: DecorationImage(
-                                          image: NetworkImage(
-                                            image != "false"
-                                                ? image
-                                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1xt3vxTKed2Dq6Qphc1IgbLU0LKwVVRg1-kxBwFeTg&s",
-                                          ),
+                                          image: image != "false"
+                                              ? NetworkImage(image)
+                                              : const AssetImage(
+                                                  'assets/images/app_icon.jpeg'),
                                           fit: BoxFit.cover),
                                     ),
                                     height: 11.h,

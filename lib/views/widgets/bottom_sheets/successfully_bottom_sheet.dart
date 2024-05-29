@@ -7,12 +7,14 @@ import '../button/button_widget.dart';
 import 'global_bottom_sheet.dart';
 
 Future<void> successfullyBottomSheet(
-    String title, String bodyText, VoidCallback onPressed, context) {
+    String title, String bodyText, VoidCallback onPressed, context,
+    {bool isFail = false}) {
   return globalBottomSheet(
-      successfulWidget(title, bodyText, onPressed), context);
+      successfulWidget(title, bodyText, onPressed, isFail: isFail), context);
 }
 
-Widget successfulWidget(String title, String bodyText, VoidCallback onPressed) {
+Widget successfulWidget(String title, String bodyText, VoidCallback onPressed,
+    {bool isFail = false}) {
   return Container(
     height: 50.h,
     width: 100.w,
@@ -34,7 +36,10 @@ Widget successfulWidget(String title, String bodyText, VoidCallback onPressed) {
       children: [
         const Spacer(),
         SizedBox(
-            width: 60.w, child: Lottie.asset("assets/lottie/success.json")),
+            width: 60.w,
+            child: isFail
+                ? Lottie.asset("assets/lottie/fail.json")
+                : Lottie.asset("assets/lottie/success.json")),
         const Spacer(),
         textWidget(
           title,

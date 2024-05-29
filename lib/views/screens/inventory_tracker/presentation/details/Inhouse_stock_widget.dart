@@ -114,24 +114,16 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                     : double.parse(
                         widget.inHouseStockList[index].qty.toString());
                 int id = widget.inHouseStockList[index].warehouseList[0];
-
                 if (widget.inHouseStockList[0].warehouseList[0] !=
                     admin.warehouseMap[0]) {
-                  superPrint(qty);
-                  if (qty > 0 ||
-                      widget.inHouseStockList[0].warehouseList[0] ==
-                          admin.warehouseMap[0]) {
-                    return eachInhouseStockNotContainWidget(
-                        location, qty.toString(), id, context);
-                  } else {
-                    return Container();
-                  }
+                  return eachInhouseStockNotContainWidget(
+                      location, qty.toString(), id, context);
                 }
                 return eachInhouseStockWidget(
                     location, qty.toString(), id, index, context);
               },
               separatorBuilder: (context, index) {
-                return const SizedBox(height: 10);
+                return const SizedBox.shrink();
               },
               itemCount: widget.inHouseStockList.length)
         ],
@@ -141,56 +133,77 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   Widget eachInhouseStockWidget(
       String location, String qty, int id, int index, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    superPrint(qty);
+    superPrint(location);
+    superPrint("Contain");
+    if (double.parse(qty) < 0) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
       children: [
-        Expanded(
-          flex: 4,
-          child: textWidget(location,
-              color: Colors.black, size: 14, textAlign: TextAlign.left),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 4,
+              child: textWidget(location,
+                  color: Colors.black, size: 14, textAlign: TextAlign.left),
+            ),
+            Expanded(
+              flex: 3,
+              child: textWidget(qty.toString(),
+                  color: Colors.black, size: 14, textAlign: TextAlign.center),
+            ),
+            Expanded(
+              flex: 4,
+              child: index == 0
+                  ? const SizedBox()
+                  : SizedBox(
+                      height: 40,
+                      child: buttonWidget("Request", () {
+                        showBottomSheet(location, id);
+                      })),
+            )
+          ],
         ),
-        Expanded(
-          flex: 3,
-          child: textWidget(qty.toString(),
-              color: Colors.black, size: 14, textAlign: TextAlign.center),
-        ),
-        Expanded(
-          flex: 4,
-          child: index == 0
-              ? const SizedBox()
-              : SizedBox(
-                  height: 40,
-                  child: buttonWidget("Request", () {
-                    showBottomSheet(location, id);
-                  })),
-        )
+        const SizedBox(height: 10)
       ],
     );
   }
 
   Widget eachInhouseStockNotContainWidget(
       String location, String qty, int id, context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    if (double.parse(qty) < 0) {
+      return const SizedBox.shrink();
+    }
+    superPrint("Not Contain");
+    return Column(
       children: [
-        Expanded(
-          flex: 4,
-          child: textWidget(location,
-              color: Colors.black, size: 14, textAlign: TextAlign.left),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 4,
+              child: textWidget(location,
+                  color: Colors.black, size: 14, textAlign: TextAlign.left),
+            ),
+            Expanded(
+              flex: 3,
+              child: textWidget(qty.toString(),
+                  color: Colors.black, size: 14, textAlign: TextAlign.center),
+            ),
+            Expanded(
+              flex: 4,
+              child: SizedBox(
+                  height: 40,
+                  child: buttonWidget("Request", () {
+                    showBottomSheet(location, id);
+                  })),
+            )
+          ],
         ),
-        Expanded(
-          flex: 3,
-          child: textWidget(qty.toString(),
-              color: Colors.black, size: 14, textAlign: TextAlign.center),
-        ),
-        Expanded(
-          flex: 4,
-          child: SizedBox(
-              height: 40,
-              child: buttonWidget("Request", () {
-                showBottomSheet(location, id);
-              })),
-        )
+        const SizedBox(height: 10)
       ],
     );
   }
@@ -314,6 +327,9 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
           ),
           const SizedBox(height: 20),
           buttonWidget("Send Request", () {
+            superPrint(
+              admin.companyId,
+            );
             ref
                 .read(stockRequesstStateNotifierProvider.notifier)
                 .requestInHouseStock(
