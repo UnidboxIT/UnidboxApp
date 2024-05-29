@@ -11,6 +11,7 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
+import 'create_product/create_product_screen.dart';
 
 class InventoryTrackerScreen extends ConsumerStatefulWidget {
   const InventoryTrackerScreen({super.key});
@@ -69,7 +70,8 @@ class _InventoryTrackerScreenState
                   Navigator.of(context).pop();
                 },
                 () {
-                  //  Get.to(() => const CreateProductScreen());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CreateProductScreen()));
                 },
                 Icons.add,
               ),

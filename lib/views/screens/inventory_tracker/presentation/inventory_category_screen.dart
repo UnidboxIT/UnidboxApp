@@ -6,6 +6,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
+import 'create_product/create_product_screen.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
@@ -46,7 +47,8 @@ class _InventoryCategoryScreenState
                   Navigator.of(context).pop();
                 },
                 () {
-                  // Get.to(() => const CreateProductScreen());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CreateProductScreen()));
                 },
                 Icons.add,
               ),

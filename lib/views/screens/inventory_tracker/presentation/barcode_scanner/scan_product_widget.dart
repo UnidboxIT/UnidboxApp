@@ -12,6 +12,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../domain/product.dart';
+import '../create_product/create_product_screen.dart';
 import '../widgets/inventory_app_bar_widget.dart';
 import '../widgets/search_text_field_widget.dart';
 
@@ -117,7 +118,8 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                   Navigator.of(context).pop();
                 },
                 () {
-                  // Get.to(() => const CreateProductScreen());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CreateProductScreen()));
                 },
                 Icons.add,
               ),

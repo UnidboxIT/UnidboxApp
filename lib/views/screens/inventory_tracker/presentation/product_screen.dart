@@ -5,6 +5,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import '../../../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../../../utils/constant/app_color.dart';
 import '../domain/product.dart';
+import 'create_product/create_product_screen.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
@@ -38,7 +39,8 @@ class ProductScreen extends ConsumerWidget {
                   Navigator.of(context).pop();
                 },
                 () {
-                  // Get.to(() => const CreateProductScreen());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CreateProductScreen()));
                 },
                 Icons.add,
               ),

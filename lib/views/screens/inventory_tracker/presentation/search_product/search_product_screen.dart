@@ -7,6 +7,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/search_product_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import '../../../../../back_up/home/create_product_screen.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
@@ -128,7 +129,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                     Navigator.of(context).pop();
                   },
                   () {
-                    //  Get.to(() => const CreateProductScreen());
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CreateProductScreen()));
                   },
                   Icons.add,
                 ),
