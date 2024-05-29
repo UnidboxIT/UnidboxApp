@@ -5,8 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/profile/domain/profile.dart';
 import 'package:unidbox_app/views/screens/profile/domain/race.dart';
 import 'package:unidbox_app/views/screens/profile/repository/provider/profile_state_notifier_provider.dart';
-import 'package:unidbox_app/views/screens/profile/repository/state/race_state.dart';
 import '../../../../../../../utils/constant/app_color.dart';
+import '../../../repository/state/race_state.dart';
 
 class RaceDropdownWidget extends ConsumerStatefulWidget {
   final Profile profile;

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/inhouse_stock.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/Inhouse_stock_widget.dart';
@@ -21,6 +23,7 @@ import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
+import '../update_product/product_detail_update.dart';
 import 'check_out_order_detail_screen.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
@@ -155,9 +158,29 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   Navigator.of(context).pop();
                 },
                 () {
-                  // Get.to(() => ProductDetailUpdateScreen(
-                  //       productID: productID,
-                  //     ));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => ProductDetailUpdateScreen(
+                                productID: widget.productID,
+                                rackIdList: productDetail.rackIdList,
+                                retailPrice: CommonMethods.twoDecimalPrice(
+                                    productDetail.price),
+                                costPrice: CommonMethods.threeDecimalPrice(
+                                    productDetail.costPrice),
+                              )))
+                      .then((_) {
+                    ref
+                        .read(productDetailStateNotifierProvider.notifier)
+                        .productByID(widget.productID);
+                    final state = ref.read(productDetailStateNotifierProvider);
+                    if (state is ProductDetail) {
+                      setState(() {
+                        productDetail = state.products;
+                      });
+                    }
+                    superPrint("Here");
+                    superPrint(productDetail.rackIdList);
+                  });
                 },
                 Icons.edit_document,
               ),

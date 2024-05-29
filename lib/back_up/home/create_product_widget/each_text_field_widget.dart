@@ -3,6 +3,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../../views/screens/profile/presentation/change_password/profile_text_field_widget.dart';
+
 Widget eachTextFieldWidget(
     String name, TextEditingController controller, String hintText,
     {double horizontal = 20, bool isNumber = false}) {
@@ -17,7 +19,7 @@ Widget eachTextFieldWidget(
           color: AppColor.pinkColor,
         ),
         const SizedBox(height: 5),
-        //profileTextFieldWidget(controller, hintText, isNumber: isNumber)
+        profileTextFieldWidget(controller, hintText, isNumber: isNumber)
       ],
     ),
   );

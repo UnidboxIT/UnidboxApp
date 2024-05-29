@@ -20,7 +20,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
+          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id,rack_ids&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
       headers: CommonMethods.setHeaders(),
     );
     superPrint(pageNumber, title: "Page Number");
@@ -31,7 +31,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product/$productID?fields=id,display_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id',
+          'joborder/product/$productID?fields=id,display_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id,rack_ids',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -137,6 +137,34 @@ class InventoryTrackerRepository {
       headers: CommonMethods.setHeaders(),
     );
     superPrint(response.body);
+    return response;
+  }
+
+  Future<Response> racks() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/racks',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  Future<Response> updateProduct(String productID, List rackList,
+      String salePrice, String costPrice) async {
+    Map<String, dynamic> formData = {
+      "racks": rackList,
+      "sale_price": salePrice,
+      "cost_price": costPrice
+    };
+    superPrint(formData);
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/product/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
     return response;
   }
 }
