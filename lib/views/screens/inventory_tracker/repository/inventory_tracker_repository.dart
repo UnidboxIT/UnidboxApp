@@ -86,7 +86,7 @@ class InventoryTrackerRepository {
     Map<String, dynamic> formData = {
       "code": "internal",
       "request_to_wh": currentWarehouseID,
-      "request_from_wh": requestWarehouseID,
+      "requested_wh": requestWarehouseID,
       "company_id": companyID,
       "product_id": productID,
       "name": productName,

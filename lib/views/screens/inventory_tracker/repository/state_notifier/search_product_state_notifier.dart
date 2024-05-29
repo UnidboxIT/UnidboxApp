@@ -19,6 +19,7 @@ class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
     BuildContext context,
     int pageNumber,
   ) async {
+    superPrint(name);
     try {
       if (searchProductList.isEmpty) {
         state = const SearchProductState.loading();

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   bool isDataExist = true;
   bool isSearching = false;
   ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -141,7 +143,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
     );
   }
 
-  Widget searchBodyWidget(BuildContext context, ref) {
+  Widget searchBodyWidget(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
       height: 82.h,
@@ -168,19 +170,45 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                   ),
                 ],
               ),
-              child: TextField(
+              child: TextFormField(
                 autofocus: true,
                 textAlign: TextAlign.left,
                 controller: txtSearchProduct,
                 cursorColor: Colors.grey,
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                textInputAction: TextInputAction.search,
                 onChanged: (value) async {
+                  setState(() {
+                    txtSearchProduct.text = value;
+                    superPrint(txtSearchProduct.text);
+                  });
+                  // if (!isSearching) {
+                  //   setState(() {
+                  //     isSearching = true;
+                  //   });
+                  //   pageNumber = 0;
+                  //   isLoading = false;
+                  //   xLoading = false;
+                  //   isDataExist = true;
+                  //   ref
+                  //       .read(searchProductStateNotifierProvier.notifier)
+                  //       .clearSearchProductValue();
+                  //   ref
+                  //       .read(searchProductStateNotifierProvier.notifier)
+                  //       .searchProduct(value, context, 0);
+                  //   await Future.delayed(const Duration(seconds: 1));
+                  //   setState(() {
+                  //     isSearching = false;
+                  //   });
+                  // }
+                },
+                onEditingComplete: () async {
+                  superPrint(txtSearchProduct.text);
                   if (!isSearching) {
                     setState(() {
                       isSearching = true;
                     });
-                    txtSearchProduct.text = value;
                     pageNumber = 0;
                     isLoading = false;
                     xLoading = false;
@@ -190,8 +218,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                         .clearSearchProductValue();
                     ref
                         .read(searchProductStateNotifierProvier.notifier)
-                        .searchProduct(value, context, 0);
-                    await Future.delayed(const Duration(seconds: 2));
+                        .searchProduct(txtSearchProduct.text, context, 0);
+                    await Future.delayed(const Duration(seconds: 1));
                     setState(() {
                       isSearching = false;
                     });
@@ -229,7 +257,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
               ),
             ),
           ),
-          isLoading
+          isLoading || isSearching
               ? Container(
                   height: 50.h,
                   alignment: Alignment.center,
@@ -267,6 +295,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                             double qtyOutStock = productList[index].qtyOutStock;
                             return GestureDetector(
                               onTap: () {
+                                FocusManager.instance.primaryFocus!.unfocus();
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ProductDetailScreen(
                                           productID: productId,
