@@ -185,25 +185,25 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                     txtSearchProduct.text = value;
                     superPrint(txtSearchProduct.text);
                   });
-                  // if (!isSearching) {
-                  //   setState(() {
-                  //     isSearching = true;
-                  //   });
-                  //   pageNumber = 0;
-                  //   isLoading = false;
-                  //   xLoading = false;
-                  //   isDataExist = true;
-                  //   ref
-                  //       .read(searchProductStateNotifierProvier.notifier)
-                  //       .clearSearchProductValue();
-                  //   ref
-                  //       .read(searchProductStateNotifierProvier.notifier)
-                  //       .searchProduct(value, context, 0);
-                  //   await Future.delayed(const Duration(seconds: 1));
-                  //   setState(() {
-                  //     isSearching = false;
-                  //   });
-                  // }
+                  if (!isSearching) {
+                    setState(() {
+                      isSearching = true;
+                    });
+                    pageNumber = 0;
+                    isLoading = false;
+                    xLoading = false;
+                    isDataExist = true;
+                    ref
+                        .read(searchProductStateNotifierProvier.notifier)
+                        .clearSearchProductValue();
+                    ref
+                        .read(searchProductStateNotifierProvier.notifier)
+                        .searchProduct(value, context, 0);
+                    await Future.delayed(const Duration(seconds: 1));
+                    setState(() {
+                      isSearching = false;
+                    });
+                  }
                 },
                 onEditingComplete: () async {
                   superPrint(txtSearchProduct.text);

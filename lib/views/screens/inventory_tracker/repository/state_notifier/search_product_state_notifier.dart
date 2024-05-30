@@ -24,6 +24,7 @@ class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
       if (searchProductList.isEmpty) {
         state = const SearchProductState.loading();
       }
+
       Response response =
           await _inventoryTrackerRepository.searchProduct(name, pageNumber);
       var result = jsonDecode(response.body);
