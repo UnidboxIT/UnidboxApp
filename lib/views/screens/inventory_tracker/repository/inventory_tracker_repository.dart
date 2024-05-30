@@ -167,4 +167,37 @@ class InventoryTrackerRepository {
 
     return response;
   }
+
+  Future<Response> createProduct(
+    String image,
+    String name,
+    String model,
+    String vendor,
+    String brand,
+    String barcode,
+    String salePrice,
+    String cost,
+    List productVarietyList,
+  ) async {
+    Map<String, dynamic> formData = {
+      "image": image,
+      "name": name,
+      "model": model,
+      "vendor": vendor,
+      "brand": brand,
+      "barcode": barcode,
+      "sale_price": salePrice,
+      "cost_price": cost,
+      "variety": productVarietyList
+    };
+    superPrint(formData);
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/product/create',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }

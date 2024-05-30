@@ -12,6 +12,8 @@ import 'dart:math' as math;
 import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../../../widgets/text_widget.dart';
 
+String base64Image = "";
+
 class CameraWidget extends ConsumerStatefulWidget {
   const CameraWidget({super.key});
 
@@ -23,21 +25,9 @@ class _CameraWidgetState extends ConsumerState<CameraWidget> {
   bool isUpdateLoading = false;
   File imageFile = File("");
   final ImagePicker picker = ImagePicker();
-  String base64Image = "";
+
   @override
   Widget build(BuildContext context) {
-    // ref.listen(profileStateNotifierProvider, (pre, next) {
-    //   if (next is ProfileLoading) {
-    //     setState(() {
-    //       isUpdateLoading = true;
-    //     });
-    //   }
-    //   if (next is ProfileData) {
-    //     setState(() {
-    //       isUpdateLoading = false;
-    //     });
-    //   }
-    // });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Stack(
@@ -167,11 +157,11 @@ class _CameraWidgetState extends ConsumerState<CameraWidget> {
       final pickedFile = await picker.pickImage(source: source);
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
-        base64Image = await imageToBase64(imageFile);
+        String image64 = await imageToBase64(imageFile);
+        setState(() {
+          base64Image = image64;
+        });
         Navigator.of(context).pop();
-        // ref
-        //     .read(profileStateNotifierProvider.notifier)
-        //     .imageUpload(base64Image, context);
       } else {
         superPrint('No image selected.');
       }
