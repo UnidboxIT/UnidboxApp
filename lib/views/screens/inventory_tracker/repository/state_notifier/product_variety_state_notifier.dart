@@ -14,10 +14,12 @@ class ProductVarietyStateNotifier extends StateNotifier<ProductVarietyState> {
   Future<void> incrementProductVariety(
     int productVarietyIncrement,
     String varietyBarcode,
+    String uom,
     String factor,
     String price,
   ) async {
-    addProductVariety(productVarietyIncrement, varietyBarcode, factor, price);
+    addProductVariety(
+        productVarietyIncrement, varietyBarcode, uom, factor, price);
     productVarietyIncrement += 1;
     state =
         ProductVarietyState.incrementProductVariety(productVarietyIncrement);
@@ -35,13 +37,14 @@ class ProductVarietyStateNotifier extends StateNotifier<ProductVarietyState> {
   Future<void> addProductVariety(
     int productVarietyIncrement,
     String varietyBarcode,
+    String uom,
     String factor,
     String price,
   ) async {
     varietyValueMap.addAll({
       productVarietyIncrement: {
         "barcode": varietyBarcode,
-        "uom_option": "BX",
+        "uom_option": uom,
         "factor": factor,
         "price": price,
       },

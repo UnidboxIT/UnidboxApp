@@ -7,6 +7,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/pro
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
+import '../../domain/uom.dart';
 import '../../repository/provider/create_product_provider.dart';
 import 'show_uom_dialog.dart';
 
@@ -16,6 +17,7 @@ TextEditingController txtVarietyPrice = TextEditingController();
 String uomName = "";
 Map<int, dynamic> varietyValueMap = {};
 int productVarietyIncrement = 1;
+Uom selectedUom = Uom(id: 0, name: '');
 
 class ProductVarietyWidget extends ConsumerStatefulWidget {
   const ProductVarietyWidget({super.key});
@@ -32,6 +34,11 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadData();
+  }
+
+  loadData() {
+    selectedUom = Uom(id: 0, name: '');
     txtVarietyBarCode.clear();
     txtVarietyFactor.clear();
     txtVarietyPrice.clear();
@@ -40,6 +47,9 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
         .clearProductVarietyMap();
     productVarietyIncrement = 1;
     varietyIncrementValueList.add(1);
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(uomStateNotifierProvider.notifier).getUom();
+    });
   }
 
   @override
@@ -83,9 +93,11 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
                       .incrementProductVariety(
                           productVarietyIncrement,
                           txtVarietyBarCode.text,
+                          selectedUom.name,
                           txtVarietyFactor.text,
                           txtVarietyPrice.text)
                       .then((_) {
+                    selectedUom = Uom(id: 0, name: '');
                     txtVarietyBarCode.clear();
                     txtVarietyFactor.clear();
                     txtVarietyPrice.clear();
@@ -115,7 +127,6 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
   }
 
   Widget eachProductVarietyWidget() {
-    superPrint(varietyIncrementValueList);
     return Column(
         children: varietyIncrementValueList.map((e) {
       return Column(
@@ -162,18 +173,27 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    showUomDialog();
-                  },
-                  child: SizedBox(
+                SizedBox(
                     width: 42.w,
-                    child: eachUomTextWidget(
-                      "Uom",
-                      uomName,
-                    ),
-                  ),
-                ),
+                    child: varietyValueMap[e] != null
+                        ? eachProductVarietyTextFieldWidget("Factor",
+                            varietyValueMap[e]['uom_option'].toString())
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textWidget(
+                                  "Uom",
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.pinkColor,
+                                ),
+                                const SizedBox(height: 5),
+                                const UomDropDownDialog()
+                              ],
+                            ),
+                          )),
                 SizedBox(
                   width: 42.w,
                   child: varietyValueMap[e] != null

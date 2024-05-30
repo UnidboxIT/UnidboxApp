@@ -1,85 +1,171 @@
-import 'package:flutter/cupertino.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:unidbox_app/back_up/controllers/home_controllers/product_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/uom_state.dart';
 
-import '../../../../widgets/text_widget.dart';
+import 'product_variety_widget.dart';
 
-showUomDialog() {
-  return showModalBottomSheet(
-    builder: (context) {
-      return GetBuilder<ProductController>(builder: (controller) {
-        return ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 350),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: textWidget("Select Uom",
-                      color: AppColor.pinkColor,
-                      fontWeight: FontWeight.bold,
-                      size: 15),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: controller.uomScrollController,
-                    itemCount: controller.uomList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          controller.uomList[index].name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: controller.uomList[index].name ==
-                                    controller.uomName
-                                ? AppColor.pinkColor
-                                : Colors.black,
-                          ),
-                        ),
-                        onTap: () {
-                          FocusManager.instance.primaryFocus!.unfocus();
-                          controller
-                              .updateUomName(controller.uomList[index].name);
-                          Get.back();
-                        },
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 10),
-                if (controller.xLoading)
-                  SizedBox(
-                    height: 30,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                          color: AppColor.bgColor,
-                          borderRadius: BorderRadius.circular(4)),
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          textWidget("Loadmore ...",
-                              color: AppColor.pinkColor,
-                              fontWeight: FontWeight.bold,
-                              size: 15),
-                          CupertinoActivityIndicator(color: AppColor.pinkColor),
-                        ],
-                      ),
+class UomDropDownDialog extends ConsumerStatefulWidget {
+  const UomDropDownDialog({super.key});
+
+  @override
+  ConsumerState<UomDropDownDialog> createState() =>
+      _CountryDropdownWidgetState();
+}
+
+class _CountryDropdownWidgetState extends ConsumerState<UomDropDownDialog> {
+  TextEditingController txtSearch = TextEditingController();
+  List<Uom> uomList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(uomStateNotifierProvider.notifier).getUom();
+    });
+  }
+
+  updateSelectedUom(values) {
+    for (var data in uomList) {
+      if (data.name.contains(values)) {
+        setState(() {
+          selectedUom = Uom(id: data.id, name: data.name);
+          ref
+              .read(uomStateNotifierProvider.notifier)
+              .eachSelectedUom(selectedUom);
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(uomStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          uomList = [];
+        });
+      }
+      if (next is UomList) {
+        setState(() {
+          uomList = next.uomList;
+        });
+      }
+    });
+
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<String>(
+        isExpanded: true,
+        autofocus: true,
+        isDense: true,
+        hint: Text(
+          'Select Uom',
+          style: TextStyle(
+              fontSize: 13,
+              color: AppColor.fontColor.withOpacity(0.6),
+              fontWeight: FontWeight.w500),
+        ),
+        items: uomList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item.name,
+                  child: Text(
+                    item.name,
+                    style: const TextStyle(
+                      fontSize: 14,
                     ),
                   ),
-              ],
+                ))
+            .toList(),
+        value: selectedUom.name.isEmpty ? null : selectedUom.name,
+        onChanged: (value) {
+          updateSelectedUom(value);
+        },
+        buttonStyleData: ButtonStyleData(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 40,
+          width: 100.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+        ),
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 30.h,
+          decoration: BoxDecoration(
+            color: AppColor.bottomSheetBgColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          scrollbarTheme: ScrollbarThemeData(
+            thumbColor: WidgetStatePropertyAll(AppColor.primary),
+          ),
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 40,
+        ),
+        dropdownSearchData: DropdownSearchData(
+          searchController: txtSearch,
+          searchInnerWidgetHeight: 50,
+          searchInnerWidget: Container(
+            height: 50,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            child: TextFormField(
+              autofocus: false,
+              expands: true,
+              maxLines: null,
+              controller: txtSearch,
+              textInputAction: TextInputAction.done,
+              style: TextStyle(
+                fontSize: 13,
+                color: AppColor.fontColor,
+                fontWeight: FontWeight.bold,
+              ),
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                hintText: 'Search nationality',
+                hintStyle: const TextStyle(fontSize: 12),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.bgColor)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.primary)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.dropshadowColor)),
+              ),
             ),
           ),
-        );
-      });
-    },
-    context: Get.context!,
-  );
+          searchMatchFn: (item, searchValue) {
+            return item.value
+                .toString()
+                .toLowerCase()
+                .contains(searchValue.toLowerCase());
+          },
+        ),
+        onMenuStateChange: (isOpen) {
+          if (!isOpen) {
+            txtSearch.clear();
+          }
+        },
+      ),
+    );
+  }
 }

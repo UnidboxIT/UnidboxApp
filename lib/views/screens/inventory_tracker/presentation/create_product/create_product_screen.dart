@@ -108,6 +108,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                   .addProductVariety(
                     productVarietyIncrement,
                     txtVarietyBarCode.text,
+                    selectedUom.name,
                     txtVarietyFactor.text,
                     txtVarietyPrice.text,
                   );

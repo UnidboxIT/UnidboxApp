@@ -200,4 +200,14 @@ class InventoryTrackerRepository {
 
     return response;
   }
+
+  Future<Response> uom() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/uom?fields=id,name&offset=0&sort=name',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }
