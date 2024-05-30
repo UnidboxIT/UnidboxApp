@@ -8,6 +8,8 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../../order_receiving/presentation/order_receiving_screen.dart';
+
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
   final String name;
   final String parentID;
@@ -77,9 +79,10 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const InventoryTrackerScreen()));
                   break;
-                // case "Order Receiving":
-                //   Get.to(() => const OrderReceivingScreen());
-                //   break;
+                case "Order Receiving":
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const OrderReceivingScreen()));
+                  break;
                 // case "Internal Transfer":
                 //   Get.to(() => const InternalTransferScreen());
                 //   break;
