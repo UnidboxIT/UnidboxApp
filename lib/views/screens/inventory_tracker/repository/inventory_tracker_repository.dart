@@ -220,4 +220,14 @@ class InventoryTrackerRepository {
 
     return response;
   }
+
+  Future<Response> attributeByID(String id) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/product-attribute-value/$id?fields=id,name',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

@@ -13,6 +13,7 @@ class AttributeStateNotifier extends StateNotifier<AttributeState> {
   final InventoryTrackerRepository _inventoryTrackerRepository;
 
   List<Attribute> attributeList = [];
+  List<Attribute> attributeListByID = [];
   Future<void> getAttribute() async {
     try {
       state = const AttributeState.loading();
@@ -27,5 +28,26 @@ class AttributeStateNotifier extends StateNotifier<AttributeState> {
     } catch (e) {
       superPrint(e.toString());
     }
+  }
+
+  Future<void> getAttributeByID(id) async {
+    try {
+      state = const AttributeState.attributeLoading();
+      Response response = await _inventoryTrackerRepository.attributeByID(id);
+      var result = jsonDecode(response.body);
+      Iterable dataList = result['result']['records'];
+      attributeListByID.clear();
+      for (var element in dataList) {
+        attributeListByID.add(Attribute.fromJson(element));
+      }
+      state = AttributeState.loadAttributeListByID(attributeListByID);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  void eachSelectedUom(Attribute attribute) {
+    state = AttributeState.selectedAttribute(attribute);
+    superPrint(attribute.name);
   }
 }
