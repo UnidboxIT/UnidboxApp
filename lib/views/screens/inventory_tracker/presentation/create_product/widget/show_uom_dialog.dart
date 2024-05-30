@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/uom_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
 
 import 'product_variety_widget.dart';
 

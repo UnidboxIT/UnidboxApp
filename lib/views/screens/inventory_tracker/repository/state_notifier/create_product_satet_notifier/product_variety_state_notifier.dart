@@ -1,12 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
-import '../state/product_variety_state.dart';
+import '../../state/create_product_state/product_variety_state.dart';
 
 class ProductVarietyStateNotifier extends StateNotifier<ProductVarietyState> {
-  ProductVarietyStateNotifier(this._inventoryTrackerRepository)
-      : super(const ProductVarietyState.initial());
-  final InventoryTrackerRepository _inventoryTrackerRepository;
+  ProductVarietyStateNotifier() : super(const ProductVarietyState.initial());
 
   Map<int, dynamic> varietyValueMap = {};
   List varietyIncrementValueList = [];

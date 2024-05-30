@@ -3,9 +3,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-import '../../../profile/presentation/change_password/profile_text_field_widget.dart';
+import '../../../../profile/presentation/change_password/profile_text_field_widget.dart';
 
-Widget eachTextFieldWidget(
+Widget eachCreateProductTextFieldWidget(
     String name, TextEditingController controller, String hintText,
     {double horizontal = 20, bool isNumber = false}) {
   return Padding(

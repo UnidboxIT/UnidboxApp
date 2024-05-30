@@ -9,8 +9,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'dart:math' as math;
-import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
-import '../../../../widgets/text_widget.dart';
+import '../../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
+import '../../../../../widgets/text_widget.dart';
 
 String base64Image = "";
 

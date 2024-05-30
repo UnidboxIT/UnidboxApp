@@ -4,14 +4,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/product_variety_widget.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/widget/product_variety_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/button/button_widget.dart';
-import '../../repository/state/product_variety_state.dart';
-import 'camera_widget.dart';
-import 'each_create_text_field_widget.dart';
+import '../../repository/state/create_product_state/product_variety_state.dart';
+import 'widget/attribute_widget.dart';
+import 'widget/camera_widget.dart';
+import 'widget/each_create_text_field_widget.dart';
 
 class CreateProductScreen extends ConsumerStatefulWidget {
   const CreateProductScreen({super.key});
@@ -29,6 +29,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   TextEditingController txtBarcode = TextEditingController();
   TextEditingController txtSalePrice = TextEditingController();
   TextEditingController txtCost = TextEditingController();
+  TextEditingController txtUom = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
     return Stack(
       children: [
         globalAppBarWidget(
-          "Create Product",
+          "Temporary Product",
           () {
             Navigator.of(context).pop();
           },
@@ -79,7 +80,8 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
     return ListView(
       children: [
         const CameraWidget(),
-        eachCreateProductTextFieldWidget("Name", txtName, "Name"),
+        eachCreateProductTextFieldWidget(
+            "Product Name", txtName, "Product Name"),
         const SizedBox(height: 10),
         eachCreateProductTextFieldWidget("Model", txtModel, "Model"),
         const SizedBox(height: 10),
@@ -87,14 +89,19 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
         const SizedBox(height: 10),
         eachCreateProductTextFieldWidget("Brand", txtBrand, "Brand"),
         const SizedBox(height: 10),
+        eachCreateProductTextFieldWidget("Uom", txtUom, "Uom"),
+        const SizedBox(height: 10),
         eachCreateProductTextFieldWidget("Barcode", txtBarcode, "Barcode"),
         const SizedBox(height: 10),
         eachCreateProductTextFieldWidget(
-            "Sale Price (GTS 9% Inc.)", txtSalePrice, "Created by",
+            "Retail Price (Before GST)", txtSalePrice, "Retail Price",
             isNumber: true),
         const SizedBox(height: 10),
-        eachCreateProductTextFieldWidget("Cost (GST Excluded)", txtCost, "Cost",
+        eachCreateProductTextFieldWidget(
+            "Cost Price (Before GST)", txtSalePrice, "Cost Price",
             isNumber: true),
+        const SizedBox(height: 10),
+        const AttributeWidget(),
         const SizedBox(height: 10),
         const ProductVarietyWidget(),
         const SizedBox(height: 20),

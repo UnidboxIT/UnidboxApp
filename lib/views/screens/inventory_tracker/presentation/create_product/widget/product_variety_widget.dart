@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/each_text_field_widget.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/product_variety_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/widget/each_text_field_widget.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/product_variety_state.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../../../utils/commons/common_method.dart';
-import '../../../../../utils/commons/super_print.dart';
-import '../../domain/uom.dart';
-import '../../repository/provider/create_product_provider.dart';
+import '../../../../../../utils/commons/common_method.dart';
+import '../../../domain/uom.dart';
+import '../../../repository/provider/create_product_provider.dart';
 import 'show_uom_dialog.dart';
 
 TextEditingController txtVarietyFactor = TextEditingController();
@@ -80,8 +79,12 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: textWidget("Product Variety",
-                  color: AppColor.primary, size: 15),
+              child: textWidget(
+                "Multi UOM",
+                color: AppColor.primary,
+                size: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -109,7 +112,7 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
               },
               child: Container(
                 width: 150,
-                height: 30,
+                height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 color: Colors.transparent,
                 alignment: Alignment.centerRight,
