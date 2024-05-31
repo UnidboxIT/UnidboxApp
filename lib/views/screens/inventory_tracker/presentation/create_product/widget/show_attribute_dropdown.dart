@@ -10,6 +10,8 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../repository/provider/create_product_provider.dart';
 
 Attribute selectedAttribute = Attribute();
+List<Map<String, dynamic>> attributeMapList = [];
+Map<String, dynamic> attributeMap = {};
 
 class ShowAttributeDropdown extends ConsumerStatefulWidget {
   final String id;
@@ -26,17 +28,16 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
   TextEditingController txtSearch = TextEditingController();
   List<Attribute> attributeListByID = [];
 
-  List<Map<String, dynamic>> attributeMap = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(attributeStateNotifierProvider.notifier)
-          .getAttributeByID(widget.id);
-      superPrint(widget.id);
-    });
+    // Future.delayed(const Duration(milliseconds: 10), () {
+    //   ref
+    //       .read(attributeStateNotifierProvider.notifier)
+    //       .getAttributeByID(widget.id);
+    //   superPrint(widget.id);
+    // });
   }
 
   updateSelectedUom(values) {
@@ -50,9 +51,11 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
         });
       }
     }
-    attributeMap.add(
+    attributeMap.addAll({widget.id: selectedAttribute});
+    attributeMapList.add(
       {"attribute_id": widget.id, "value_id": selectedAttribute.id},
     );
+    superPrint(attributeMapList);
     superPrint(attributeMap);
   }
 

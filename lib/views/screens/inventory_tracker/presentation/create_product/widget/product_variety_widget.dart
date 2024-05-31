@@ -13,8 +13,8 @@ import 'show_uom_dialog.dart';
 TextEditingController txtVarietyFactor = TextEditingController();
 TextEditingController txtVarietyBarCode = TextEditingController();
 TextEditingController txtVarietyPrice = TextEditingController();
-String uomName = "";
 Map<int, dynamic> varietyValueMap = {};
+List<Map<String, dynamic>> varietyValueMapList = [];
 int productVarietyIncrement = 1;
 Uom selectedUom = Uom(id: 0, name: '');
 
@@ -31,7 +31,6 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadData();
   }
@@ -179,8 +178,8 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
                 SizedBox(
                     width: 42.w,
                     child: varietyValueMap[e] != null
-                        ? eachProductVarietyTextFieldWidget("Factor",
-                            varietyValueMap[e]['uom_option'].toString())
+                        ? eachProductVarietyTextFieldWidget(
+                            "Uom", varietyValueMap[e]['uom_option'].toString())
                         : Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 0),

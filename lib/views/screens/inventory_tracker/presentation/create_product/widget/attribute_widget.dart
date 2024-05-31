@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/attribute_state.dart';
@@ -21,8 +23,10 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
   List<Attribute> attributeIdList = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    selectedAttribute = Attribute(id: 0, name: '');
+    attributeMap.clear();
+    attributeMapList.clear();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(attributeStateNotifierProvider.notifier).getAttribute();
     });
@@ -84,10 +88,36 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 42.w,
-                child: ShowAttributeDropdown(
-                  id: attributeIdList[index].id.toString(),
-                  name: attributeIdList[index].name,
-                ),
+                child:
+                    attributeMap[attributeIdList[index].id.toString()] != null
+                        ? Container(
+                            height: 40,
+                            width: 40.w,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  spreadRadius: 3,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: textWidget(
+                              attributeMap[attributeIdList[index].id.toString()]
+                                  .name,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            ),
+                          )
+                        : ShowAttributeDropdown(
+                            id: attributeIdList[index].id.toString(),
+                            name: attributeIdList[index].name,
+                          ),
               );
             },
           ),
@@ -111,14 +141,29 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                selectedAttribute = Attribute();
+                superPrint(selectedAttribute.name);
                 if (!attributeIdList.contains(attributeList[index])) {
+                  // if (selectedAttribute.name.isNotEmpty) {
                   setState(() {
                     attributeIdList.add(attributeList[index]);
+                    selectedAttribute = Attribute(id: 0, name: '');
                     ref
                         .read(attributeStateNotifierProvider.notifier)
                         .getAttributeByID(attributeList[index].id.toString());
                   });
+                  // } else {
+                  //   CommonMethods.customizedAlertDialog(
+                  //       "Please Select Attribute", context);
+                  // }
+                  // if (attributeIdList.isEmpty) {
+                  //   setState(() {
+                  //     attributeIdList.add(attributeList[index]);
+                  //     selectedAttribute = Attribute(id: 0, name: '');
+                  //     ref
+                  //         .read(attributeStateNotifierProvider.notifier)
+                  //         .getAttributeByID(attributeList[index].id.toString());
+                  //   });
+                  // }
                 } else {
                   setState(() {
                     attributeIdList.remove(attributeList[index]);

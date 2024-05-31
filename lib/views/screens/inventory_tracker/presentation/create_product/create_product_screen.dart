@@ -12,6 +12,7 @@ import '../../repository/state/create_product_state/product_variety_state.dart';
 import 'widget/attribute_widget.dart';
 import 'widget/camera_widget.dart';
 import 'widget/each_create_text_field_widget.dart';
+import 'widget/show_attribute_dropdown.dart';
 
 class CreateProductScreen extends ConsumerStatefulWidget {
   const CreateProductScreen({super.key});
@@ -119,6 +120,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                     txtVarietyFactor.text,
                     txtVarietyPrice.text,
                   );
+              superPrint(attributeMapList);
               superPrint(varietyValueMap);
               //       controller.txtName.text.isEmpty
               //           ? CommonMethods.customizedAlertDialog(

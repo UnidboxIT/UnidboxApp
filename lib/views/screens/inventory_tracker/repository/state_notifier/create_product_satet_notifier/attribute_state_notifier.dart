@@ -14,6 +14,7 @@ class AttributeStateNotifier extends StateNotifier<AttributeState> {
 
   List<Attribute> attributeList = [];
   List<Attribute> attributeListByID = [];
+
   Future<void> getAttribute() async {
     try {
       state = const AttributeState.loading();
