@@ -174,9 +174,11 @@ class InventoryTrackerRepository {
     String model,
     String vendor,
     String brand,
+    String uomName,
     String barcode,
     String salePrice,
     String cost,
+    List attributeList,
     List productVarietyList,
   ) async {
     Map<String, dynamic> formData = {
@@ -185,10 +187,12 @@ class InventoryTrackerRepository {
       "model": model,
       "vendor": vendor,
       "brand": brand,
+      "uom_option": uomName,
       "barcode": barcode,
       "sale_price": salePrice,
       "cost_price": cost,
-      "variety": productVarietyList
+      "variety": productVarietyList,
+      "attributes": attributeList,
     };
     superPrint(formData);
     http.Response response = await ApiService().post(

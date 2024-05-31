@@ -44,6 +44,16 @@ class HomeAppBarWidget extends ConsumerWidget {
             alignment: Alignment.centerRight,
             color: Colors.transparent,
             child: const Icon(
+              Icons.shopping_cart_rounded,
+              color: Colors.redAccent,
+            ),
+          ),
+          Container(
+            width: 10.w,
+            height: 50,
+            alignment: Alignment.centerRight,
+            color: Colors.transparent,
+            child: const Icon(
               CupertinoIcons.qrcode_viewfinder,
               color: Colors.redAccent,
             ),

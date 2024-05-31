@@ -4,19 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/create_product_screen.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
 
-import 'product_variety_widget.dart';
-
-class UomDropDownDialog extends ConsumerStatefulWidget {
-  const UomDropDownDialog({super.key});
+class MainProductDropdown extends ConsumerStatefulWidget {
+  const MainProductDropdown({super.key});
 
   @override
-  ConsumerState<UomDropDownDialog> createState() => _UomDropDownDialogState();
+  ConsumerState<MainProductDropdown> createState() => _UomDropDownDialogState();
 }
 
-class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
+class _UomDropDownDialogState extends ConsumerState<MainProductDropdown> {
   TextEditingController txtSearch = TextEditingController();
   List<Uom> uomList = [];
 
@@ -24,33 +23,18 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedUom = Uom(id: 0, name: "");
+    selectedUomMainProduct = Uom(id: 0, name: "");
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(uomStateNotifierProvider.notifier).getUom();
     });
   }
 
   updateSelectedUom(values) {
-    // setState(() {
-    //   selectedUom = values ?? Uom(id: 0, name: ''); // Set default value if null
-    // });
     if (values != null) {
       setState(() {
-        selectedUom = values;
+        selectedUomMainProduct = values;
       });
-      ref.read(uomStateNotifierProvider.notifier).eachSelectedUom(selectedUom);
     }
-    // for (var data in uomList) {
-    //   if (data.name.contains(values)) {
-    //     superPrint(data.id);
-    //     setState(() {
-    //       selectedUom = Uom(id: data.id, name: data.name);
-    //       ref
-    //           .read(uomStateNotifierProvider.notifier)
-    //           .eachSelectedUom(selectedUom);
-    //     });
-    //   }
-    // }
   }
 
   @override
@@ -74,7 +58,7 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
         autofocus: true,
         isDense: true,
         hint: Text(
-          'Select Uom',
+          'Uom',
           style: TextStyle(
               fontSize: 13,
               color: AppColor.fontColor.withOpacity(0.6),
@@ -91,7 +75,8 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
                   ),
                 ))
             .toList(),
-        value: selectedUom.name.isEmpty ? null : selectedUom,
+        value:
+            selectedUomMainProduct.name.isEmpty ? null : selectedUomMainProduct,
         onChanged: (value) {
           updateSelectedUom(value);
         },

@@ -11,8 +11,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'dart:math' as math;
 import '../../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../../../../widgets/text_widget.dart';
-
-String base64Image = "";
+import '../create_product_screen.dart';
 
 class CameraWidget extends ConsumerStatefulWidget {
   const CameraWidget({super.key});

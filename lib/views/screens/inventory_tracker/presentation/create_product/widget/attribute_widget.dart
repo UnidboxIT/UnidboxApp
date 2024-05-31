@@ -21,6 +21,7 @@ class AttributeWidget extends ConsumerStatefulWidget {
 class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
   List<Attribute> attributeList = [];
   List<Attribute> attributeIdList = [];
+  bool isVisiblity = false;
   @override
   void initState() {
     super.initState();
@@ -57,21 +58,28 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
                 fontWeight: FontWeight.bold,
                 size: 14,
               ),
-              Container(
-                width: 40.w,
-                height: 40,
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(right: 20),
-                color: Colors.transparent,
-                child: const Icon(
-                  CupertinoIcons.eye,
-                  size: 20,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isVisiblity = !isVisiblity;
+                  });
+                },
+                child: Container(
+                  width: 40.w,
+                  height: 40,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20),
+                  color: Colors.transparent,
+                  child: Icon(
+                    isVisiblity ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+                    size: 20,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        attributeAllWidget(),
+        Visibility(visible: isVisiblity, child: attributeAllWidget()),
         const SizedBox(height: 15),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -143,27 +151,29 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
               onTap: () {
                 superPrint(selectedAttribute.name);
                 if (!attributeIdList.contains(attributeList[index])) {
-                  // if (selectedAttribute.name.isNotEmpty) {
-                  setState(() {
-                    attributeIdList.add(attributeList[index]);
-                    selectedAttribute = Attribute(id: 0, name: '');
-                    ref
-                        .read(attributeStateNotifierProvider.notifier)
-                        .getAttributeByID(attributeList[index].id.toString());
-                  });
-                  // } else {
-                  //   CommonMethods.customizedAlertDialog(
-                  //       "Please Select Attribute", context);
-                  // }
-                  // if (attributeIdList.isEmpty) {
-                  //   setState(() {
-                  //     attributeIdList.add(attributeList[index]);
-                  //     selectedAttribute = Attribute(id: 0, name: '');
-                  //     ref
-                  //         .read(attributeStateNotifierProvider.notifier)
-                  //         .getAttributeByID(attributeList[index].id.toString());
-                  //   });
-                  // }
+                  if (attributeIdList.isEmpty) {
+                    setState(() {
+                      attributeIdList.add(attributeList[index]);
+                      selectedAttribute = Attribute(id: 0, name: '');
+                      ref
+                          .read(attributeStateNotifierProvider.notifier)
+                          .getAttributeByID(attributeList[index].id.toString());
+                    });
+                  } else {
+                    if (selectedAttribute.name.isNotEmpty) {
+                      setState(() {
+                        attributeIdList.add(attributeList[index]);
+                        selectedAttribute = Attribute(id: 0, name: '');
+                        ref
+                            .read(attributeStateNotifierProvider.notifier)
+                            .getAttributeByID(
+                                attributeList[index].id.toString());
+                      });
+                    } else {
+                      CommonMethods.customizedAlertDialog(
+                          "Please Select Attribute", context);
+                    }
+                  }
                 } else {
                   setState(() {
                     attributeIdList.remove(attributeList[index]);

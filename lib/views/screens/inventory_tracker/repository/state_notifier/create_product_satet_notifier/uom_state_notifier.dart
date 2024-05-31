@@ -16,13 +16,14 @@ class UomStateNotifier extends StateNotifier<UomState> {
   Future<void> getUom() async {
     try {
       state = const UomState.loading();
+      uomList.clear();
       Response response = await _inventoryTrackerRepository.uom();
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
-      uomList.clear();
       for (var element in dataList) {
         uomList.add(Uom.fromJson(element));
       }
+
       state = UomState.loadUomList(uomList);
     } catch (e) {
       superPrint(e.toString());
@@ -32,5 +33,6 @@ class UomStateNotifier extends StateNotifier<UomState> {
   void eachSelectedUom(Uom uom) {
     state = UomState.selectedUom(uom);
     superPrint(uom.name);
+    superPrint(uom.id);
   }
 }

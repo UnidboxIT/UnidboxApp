@@ -20,31 +20,33 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
       String model,
       String vendor,
       String brand,
+      String uomName,
       String barcode,
       String salePrice,
       String costPrice,
+      List attributeList,
       List productVarietyList,
       BuildContext context) async {
     try {
+      state = const CreateProductState.loading();
       Response response = await _inventoryTrackerRepository.createProduct(
           base64Image,
           name,
           model,
           vendor,
           brand,
+          uomName,
           barcode,
           salePrice,
           costPrice,
-          productVarietyList
-          // varietyValueMap.values.toList(),
-          );
+          attributeList,
+          productVarietyList);
       var result = jsonDecode(response.body);
       successfullyBottomSheet("Temporary Product", result['result']['message'],
           () {
         Navigator.of(context).pop();
       }, context);
-      // CommonMethods.customizedAlertDialog(result['result']['message'],
-      //     isPop: false);
+      state = const CreateProductState.success();
     } catch (e) {
       superPrint(e.toString());
     }
