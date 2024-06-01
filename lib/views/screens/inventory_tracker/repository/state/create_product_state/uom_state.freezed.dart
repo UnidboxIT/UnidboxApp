@@ -52,7 +52,7 @@ mixin _$UomState {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) =>
@@ -62,7 +62,7 @@ mixin _$UomState {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) =>
@@ -72,7 +72,7 @@ mixin _$UomState {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -213,7 +213,7 @@ class _$UomListImpl implements UomList {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -226,7 +226,7 @@ class _$UomListImpl implements UomList {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -239,7 +239,7 @@ class _$UomListImpl implements UomList {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -371,7 +371,7 @@ class _$SelectedUomImpl implements SelectedUom {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -384,7 +384,7 @@ class _$SelectedUomImpl implements SelectedUom {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -397,7 +397,7 @@ class _$SelectedUomImpl implements SelectedUom {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -502,7 +502,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -515,7 +515,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -528,7 +528,7 @@ class _$InitialImpl implements Initial {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -545,25 +545,25 @@ abstract class Initial implements UomState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$LoadingUomImplCopyWith<$Res> {
+  factory _$$LoadingUomImplCopyWith(
+          _$LoadingUomImpl value, $Res Function(_$LoadingUomImpl) then) =
+      __$$LoadingUomImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$LoadingUomImplCopyWithImpl<$Res>
+    extends _$UomStateCopyWithImpl<$Res, _$LoadingUomImpl>
+    implements _$$LoadingUomImplCopyWith<$Res> {
+  __$$LoadingUomImplCopyWithImpl(
+      _$LoadingUomImpl _value, $Res Function(_$LoadingUomImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$LoadingUomImpl implements LoadingUom {
+  const _$LoadingUomImpl();
 
   @override
   String toString() {
@@ -573,7 +573,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$LoadingUomImpl);
   }
 
   @override
@@ -628,7 +628,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -641,7 +641,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -654,7 +654,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -666,8 +666,8 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements UomState {
-  const factory Loading() = _$LoadingImpl;
+abstract class LoadingUom implements UomState {
+  const factory LoadingUom() = _$LoadingUomImpl;
 }
 
 /// @nodoc
@@ -754,7 +754,7 @@ class _$SuccessImpl implements Success {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -767,7 +767,7 @@ class _$SuccessImpl implements Success {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -780,7 +780,7 @@ class _$SuccessImpl implements Success {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
@@ -906,7 +906,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(UomList value) loadUomList,
     required TResult Function(SelectedUom value) selectedUom,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
     required TResult Function(Error value) error,
   }) {
@@ -919,7 +919,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(UomList value)? loadUomList,
     TResult? Function(SelectedUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
     TResult? Function(Error value)? error,
   }) {
@@ -932,7 +932,7 @@ class _$ErrorImpl implements Error {
     TResult Function(UomList value)? loadUomList,
     TResult Function(SelectedUom value)? selectedUom,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),

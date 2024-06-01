@@ -20,6 +20,8 @@ mixin _$CreateProductState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
   }) =>
@@ -28,6 +30,8 @@ mixin _$CreateProductState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
   }) =>
@@ -36,6 +40,8 @@ mixin _$CreateProductState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -44,24 +50,30 @@ mixin _$CreateProductState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -126,6 +138,8 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
   }) {
@@ -137,6 +151,8 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
   }) {
@@ -148,6 +164,8 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -162,8 +180,10 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -173,8 +193,10 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -184,8 +206,10 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -201,25 +225,25 @@ abstract class Initial implements CreateProductState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$LoadingProductImplCopyWith<$Res> {
+  factory _$$LoadingProductImplCopyWith(_$LoadingProductImpl value,
+          $Res Function(_$LoadingProductImpl) then) =
+      __$$LoadingProductImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$CreateProductStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$LoadingProductImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$LoadingProductImpl>
+    implements _$$LoadingProductImplCopyWith<$Res> {
+  __$$LoadingProductImplCopyWithImpl(
+      _$LoadingProductImpl _value, $Res Function(_$LoadingProductImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$LoadingProductImpl implements LoadingProduct {
+  const _$LoadingProductImpl();
 
   @override
   String toString() {
@@ -229,7 +253,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$LoadingProductImpl);
   }
 
   @override
@@ -240,6 +264,8 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
   }) {
@@ -251,6 +277,8 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
   }) {
@@ -262,6 +290,8 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -276,8 +306,10 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -287,8 +319,10 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -298,8 +332,10 @@ class _$LoadingImpl implements Loading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -310,30 +346,346 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements CreateProductState {
-  const factory Loading() = _$LoadingImpl;
+abstract class LoadingProduct implements CreateProductState {
+  const factory LoadingProduct() = _$LoadingProductImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$SaveImageBase64ImplCopyWith<$Res> {
+  factory _$$SaveImageBase64ImplCopyWith(_$SaveImageBase64Impl value,
+          $Res Function(_$SaveImageBase64Impl) then) =
+      __$$SaveImageBase64ImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String image});
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$CreateProductStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$SaveImageBase64ImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$SaveImageBase64Impl>
+    implements _$$SaveImageBase64ImplCopyWith<$Res> {
+  __$$SaveImageBase64ImplCopyWithImpl(
+      _$SaveImageBase64Impl _value, $Res Function(_$SaveImageBase64Impl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? image = null,
+  }) {
+    return _then(_$SaveImageBase64Impl(
+      null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SaveImageBase64Impl implements SaveImageBase64 {
+  const _$SaveImageBase64Impl(this.image);
+
+  @override
+  final String image;
+
+  @override
+  String toString() {
+    return 'CreateProductState.saveImage(image: $image)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SaveImageBase64Impl &&
+            (identical(other.image, image) || other.image == image));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, image);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SaveImageBase64ImplCopyWith<_$SaveImageBase64Impl> get copyWith =>
+      __$$SaveImageBase64ImplCopyWithImpl<_$SaveImageBase64Impl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
+    required TResult Function() success,
+    required TResult Function(String? error) error,
+  }) {
+    return saveImage(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
+    TResult? Function()? success,
+    TResult? Function(String? error)? error,
+  }) {
+    return saveImage?.call(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
+    TResult Function()? success,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (saveImage != null) {
+      return saveImage(image);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
+    required TResult Function(Error value) error,
+  }) {
+    return saveImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
+    TResult? Function(Error value)? error,
+  }) {
+    return saveImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (saveImage != null) {
+      return saveImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SaveImageBase64 implements CreateProductState {
+  const factory SaveImageBase64(final String image) = _$SaveImageBase64Impl;
+
+  String get image;
+  @JsonKey(ignore: true)
+  _$$SaveImageBase64ImplCopyWith<_$SaveImageBase64Impl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectedMainUomImplCopyWith<$Res> {
+  factory _$$SelectedMainUomImplCopyWith(_$SelectedMainUomImpl value,
+          $Res Function(_$SelectedMainUomImpl) then) =
+      __$$SelectedMainUomImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Uom uom});
+}
+
+/// @nodoc
+class __$$SelectedMainUomImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$SelectedMainUomImpl>
+    implements _$$SelectedMainUomImplCopyWith<$Res> {
+  __$$SelectedMainUomImplCopyWithImpl(
+      _$SelectedMainUomImpl _value, $Res Function(_$SelectedMainUomImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uom = null,
+  }) {
+    return _then(_$SelectedMainUomImpl(
+      null == uom
+          ? _value.uom
+          : uom // ignore: cast_nullable_to_non_nullable
+              as Uom,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectedMainUomImpl implements SelectedMainUom {
+  const _$SelectedMainUomImpl(this.uom);
+
+  @override
+  final Uom uom;
+
+  @override
+  String toString() {
+    return 'CreateProductState.selectedMainUom(uom: $uom)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedMainUomImpl &&
+            (identical(other.uom, uom) || other.uom == uom));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, uom);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedMainUomImplCopyWith<_$SelectedMainUomImpl> get copyWith =>
+      __$$SelectedMainUomImplCopyWithImpl<_$SelectedMainUomImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
+    required TResult Function() success,
+    required TResult Function(String? error) error,
+  }) {
+    return selectedMainUom(uom);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
+    TResult? Function()? success,
+    TResult? Function(String? error)? error,
+  }) {
+    return selectedMainUom?.call(uom);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
+    TResult Function()? success,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (selectedMainUom != null) {
+      return selectedMainUom(uom);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
+    required TResult Function(Error value) error,
+  }) {
+    return selectedMainUom(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
+    TResult? Function(Error value)? error,
+  }) {
+    return selectedMainUom?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (selectedMainUom != null) {
+      return selectedMainUom(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelectedMainUom implements CreateProductState {
+  const factory SelectedMainUom(final Uom uom) = _$SelectedMainUomImpl;
+
+  Uom get uom;
+  @JsonKey(ignore: true)
+  _$$SelectedMainUomImplCopyWith<_$SelectedMainUomImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessCreateProductImplCopyWith<$Res> {
+  factory _$$SuccessCreateProductImplCopyWith(_$SuccessCreateProductImpl value,
+          $Res Function(_$SuccessCreateProductImpl) then) =
+      __$$SuccessCreateProductImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SuccessCreateProductImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$SuccessCreateProductImpl>
+    implements _$$SuccessCreateProductImplCopyWith<$Res> {
+  __$$SuccessCreateProductImplCopyWithImpl(_$SuccessCreateProductImpl _value,
+      $Res Function(_$SuccessCreateProductImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SuccessImpl implements Success {
-  const _$SuccessImpl();
+class _$SuccessCreateProductImpl implements SuccessCreateProduct {
+  const _$SuccessCreateProductImpl();
 
   @override
   String toString() {
@@ -343,7 +695,8 @@ class _$SuccessImpl implements Success {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessCreateProductImpl);
   }
 
   @override
@@ -354,6 +707,8 @@ class _$SuccessImpl implements Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
   }) {
@@ -365,6 +720,8 @@ class _$SuccessImpl implements Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
   }) {
@@ -376,6 +733,8 @@ class _$SuccessImpl implements Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -390,8 +749,10 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
     required TResult Function(Error value) error,
   }) {
     return success(this);
@@ -401,8 +762,10 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
     TResult? Function(Error value)? error,
   }) {
     return success?.call(this);
@@ -412,8 +775,10 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -424,8 +789,8 @@ class _$SuccessImpl implements Success {
   }
 }
 
-abstract class Success implements CreateProductState {
-  const factory Success() = _$SuccessImpl;
+abstract class SuccessCreateProduct implements CreateProductState {
+  const factory SuccessCreateProduct() = _$SuccessCreateProductImpl;
 }
 
 /// @nodoc
@@ -494,6 +859,8 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
   }) {
@@ -505,6 +872,8 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
   }) {
@@ -516,6 +885,8 @@ class _$ErrorImpl implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
     required TResult orElse(),
@@ -530,8 +901,10 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -541,8 +914,10 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -552,8 +927,10 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

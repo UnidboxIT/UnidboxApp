@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -9,18 +14,18 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import '../../../../../utils/commons/common_method.dart';
+import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../domain/uom.dart';
+import '../../repository/state/create_product_state/create_product_state.dart';
 import '../../repository/state/create_product_state/product_variety_state.dart';
+import '../../repository/state/create_product_state/uom_state.dart';
 import 'widget/attribute_widget.dart';
-import 'widget/camera_widget.dart';
 import 'widget/each_create_text_field_widget.dart';
 import 'widget/main_product_dropdown.dart';
 import 'widget/show_attribute_dropdown.dart';
-
-String base64Image = "";
-Uom selectedUomMainProduct = Uom(id: 0, name: '');
+import 'dart:math' as math;
 
 class CreateProductScreen extends ConsumerStatefulWidget {
   const CreateProductScreen({super.key});
@@ -40,18 +45,46 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   TextEditingController txtRetailPrice = TextEditingController();
   TextEditingController txtUom = TextEditingController();
   bool isCreateProductLoading = false;
+  bool isUpdateLoading = false;
+  File imageFile = File("");
+  final ImagePicker picker = ImagePicker();
+  String base64Image = "";
+  TextEditingController txtSearch = TextEditingController();
+  List<Uom> uomList = [];
+  Uom selectedUomMainProduct = Uom(id: 0, name: '');
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     selectedUomMainProduct = Uom(id: 0, name: '');
-    // Future.delayed(const Duration(milliseconds: 10), () {
-    //   ref.read(uomStateNotifierProvider.notifier).getUom();
-    // });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(uomStateNotifierProvider.notifier).getUom();
+    });
+  }
+
+  updateSelectedUom(values) {
+    if (values != null) {
+      setState(() {
+        selectedUomMainProduct = values;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(uomStateNotifierProvider, (pre, next) {
+      if (next is LoadingUom) {
+        setState(() {
+          uomList = [];
+        });
+      }
+      if (next is UomList) {
+        setState(() {
+          uomList = next.uomList;
+        });
+      }
+    });
     ref.listen(productVariteyStateNotifierProvider, (pre, next) {
       if (next is ProductVarietyValueMap) {
         setState(() {
@@ -62,12 +95,13 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
     });
 
     ref.listen(createProductStateNotifierProvider, (pre, next) {
-      if (next is Loading) {
+      if (next is LoadingProduct) {
         setState(() {
           isCreateProductLoading = false;
         });
       }
-      if (next is Success) {
+
+      if (next is SuccessCreateProduct) {
         setState(() {
           isCreateProductLoading = true;
         });
@@ -86,6 +120,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   }
 
   Widget createProductWidget(BuildContext context) {
+    superPrint(base64Image);
     return Stack(
       children: [
         globalAppBarWidget(
@@ -111,7 +146,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   Widget productBodyWidget() {
     return ListView(
       children: [
-        const CameraWidget(),
+        cameraWidget(),
         eachCreateProductTextFieldWidget(
             "Product Name", txtName, "Product Name"),
         const SizedBox(height: 10),
@@ -132,7 +167,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                 color: AppColor.pinkColor,
               ),
               const SizedBox(height: 5),
-              const MainProductDropdown()
+              uomMainProductWidget()
             ],
           ),
         ),
@@ -217,6 +252,275 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
         ),
         SizedBox(height: 20.h)
       ],
+    );
+  }
+
+  Widget cameraWidget() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          GestureDetector(
+            onTap: () {
+              imageUploadBottomSheet(context);
+            },
+            child: Container(
+              width: 100.w,
+              height: 20.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.dropshadowColor,
+                    blurRadius: 3,
+                    spreadRadius: 3,
+                  )
+                ],
+              ),
+              child: imageFile.path.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.file(
+                        imageFile,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : const Icon(
+                      Icons.camera_alt_rounded,
+                      color: Colors.grey,
+                      size: 35,
+                    ),
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                // clearSelectedImage();
+                superPrint("Icon Button");
+              },
+              icon: const Icon(
+                CupertinoIcons.delete,
+                size: 18,
+              ))
+        ],
+      ),
+    );
+  }
+
+  imageUploadBottomSheet(BuildContext context) {
+    return globalBottomSheet(
+        Container(
+          height: 25.h,
+          width: 100.w,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+              ),
+              color: const Color(0xffD8EDE5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              imageIconWidget(() {
+                pickImage(ImageSource.gallery, context, ref);
+              }, "Upload", Icons.logout),
+              imageIconWidget(() {
+                pickImage(ImageSource.camera, context, ref);
+              }, "Use camera", Icons.camera_enhance),
+            ],
+          ),
+        ),
+        context);
+  }
+
+  Widget imageIconWidget(
+      VoidCallback onPressed, String text, IconData iconData) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 5,
+                      spreadRadius: 5)
+                ]),
+            child: text == "Upload"
+                ? Transform.rotate(
+                    angle: -math.pi / 2,
+                    child: Icon(
+                      iconData,
+                      color: AppColor.orangeColor,
+                    ),
+                  )
+                : Icon(
+                    iconData,
+                    color: AppColor.pinkColor,
+                  ),
+          ),
+          const SizedBox(height: 10),
+          textWidget(text, fontWeight: FontWeight.bold)
+        ],
+      ),
+    );
+  }
+
+  Future<void> pickImage(ImageSource source, context, WidgetRef ref) async {
+    try {
+      final pickedFile = await picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        String image64 = await imageToBase64(imageFile);
+        base64Image = image64;
+        ref
+            .read(createProductStateNotifierProvider.notifier)
+            .saveImage(base64Image);
+        final state = ref.watch(createProductStateNotifierProvider);
+        if (state is SaveImageBase64) {
+          setState(() {
+            base64Image = state.image;
+          });
+        }
+        Navigator.of(context).pop();
+      } else {
+        superPrint('No image selected.');
+      }
+    } catch (e) {
+      superPrint('Error picking image: $e');
+    }
+  }
+
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
+  Widget uomMainProductWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<Uom>(
+        isExpanded: true,
+        autofocus: true,
+        isDense: true,
+        hint: Text(
+          'Uom',
+          style: TextStyle(
+              fontSize: 13,
+              color: AppColor.fontColor.withOpacity(0.6),
+              fontWeight: FontWeight.w500),
+        ),
+        items: uomList
+            .map((item) => DropdownMenuItem<Uom>(
+                  value: item,
+                  child: Text(
+                    item.name,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ))
+            .toList(),
+        value:
+            selectedUomMainProduct.name.isEmpty ? null : selectedUomMainProduct,
+        onChanged: (value) {
+          updateSelectedUom(value);
+        },
+        buttonStyleData: ButtonStyleData(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 40,
+          width: 100.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+        ),
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 30.h,
+          decoration: BoxDecoration(
+            color: AppColor.bottomSheetBgColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          scrollbarTheme: ScrollbarThemeData(
+            thumbColor: WidgetStatePropertyAll(AppColor.primary),
+          ),
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 40,
+        ),
+        dropdownSearchData: DropdownSearchData(
+          searchController: txtSearch,
+          searchInnerWidgetHeight: 50,
+          searchInnerWidget: Container(
+            height: 50,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            child: TextFormField(
+              autofocus: false,
+              expands: true,
+              maxLines: null,
+              controller: txtSearch,
+              textInputAction: TextInputAction.done,
+              style: TextStyle(
+                fontSize: 13,
+                color: AppColor.fontColor,
+                fontWeight: FontWeight.bold,
+              ),
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                hintText: 'Search nationality',
+                hintStyle: const TextStyle(fontSize: 12),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.bgColor)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.primary)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColor.dropshadowColor)),
+              ),
+            ),
+          ),
+          searchMatchFn: (item, searchValue) {
+            return item.value
+                .toString()
+                .toLowerCase()
+                .contains(searchValue.toLowerCase());
+          },
+        ),
+        onMenuStateChange: (isOpen) {
+          if (!isOpen) {
+            txtSearch.clear();
+          }
+        },
+      ),
     );
   }
 }

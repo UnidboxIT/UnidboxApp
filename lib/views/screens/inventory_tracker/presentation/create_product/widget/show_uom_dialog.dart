@@ -56,7 +56,7 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
   @override
   Widget build(BuildContext context) {
     ref.listen(uomStateNotifierProvider, (pre, next) {
-      if (next is Loading) {
+      if (next is LoadingUom) {
         setState(() {
           uomList = [];
         });

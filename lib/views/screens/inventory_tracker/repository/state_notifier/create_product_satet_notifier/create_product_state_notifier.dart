@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/widgets/bottom_sheets/successfully_bottom_sheet.dart';
 
@@ -50,5 +51,13 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
     } catch (e) {
       superPrint(e.toString());
     }
+  }
+
+  saveImage(String image) {
+    state = CreateProductState.saveImage(image);
+  }
+
+  uomSelected(Uom uom) {
+    state = CreateProductState.selectedMainUom(uom);
   }
 }
