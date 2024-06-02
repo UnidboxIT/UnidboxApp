@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/attribute_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/create_product_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/main_uom_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/product_variety_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_notifier/create_product_satet_notifier/attribute_state_notifier.dart';
@@ -8,6 +9,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_not
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_notifier/create_product_satet_notifier/product_variety_state_notifier.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_notifier/create_product_satet_notifier/uom_state_notifier.dart';
 
+import '../state_notifier/create_product_satet_notifier/main_product_uom_list.dart';
 import 'inventory_tracker_provider.dart';
 
 final createProductStateNotifierProvider =
@@ -23,6 +25,11 @@ final productVariteyStateNotifierProvider =
 final uomStateNotifierProvider =
     StateNotifierProvider<UomStateNotifier, UomState>(
   (ref) => UomStateNotifier(ref.watch(inventoryTrackerProvider)),
+);
+
+final mainUomStateNotifierProvider =
+    StateNotifierProvider<MainUomStateNotifier, MainUomState>(
+  (ref) => MainUomStateNotifier(ref.watch(inventoryTrackerProvider)),
 );
 
 final attributeStateNotifierProvider =

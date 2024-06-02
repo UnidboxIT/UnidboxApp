@@ -8,6 +8,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/commons/common_method.dart';
 import '../../../domain/uom.dart';
 import '../../../repository/provider/create_product_provider.dart';
+import '../create_product_screen.dart';
 import 'show_uom_dialog.dart';
 
 TextEditingController txtVarietyFactor = TextEditingController();
@@ -27,24 +28,12 @@ class ProductVarietyWidget extends ConsumerStatefulWidget {
 }
 
 class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
-  List varietyIncrementValueList = [];
-
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
-
-  loadData() {
-    selectedUom = Uom(id: 0, name: '');
-    txtVarietyBarCode.clear();
-    txtVarietyFactor.clear();
-    txtVarietyPrice.clear();
-    ref
-        .read(productVariteyStateNotifierProvider.notifier)
-        .clearProductVarietyMap();
-    productVarietyIncrement = 1;
-    varietyIncrementValueList.add(1);
+    // ref
+    //     .read(productVariteyStateNotifierProvider.notifier)
+    //     .clearProductVarietyMap();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(uomStateNotifierProvider.notifier).getUom();
     });
@@ -99,6 +88,9 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
                           txtVarietyFactor.text,
                           txtVarietyPrice.text)
                       .then((_) {
+                    Future.delayed(const Duration(milliseconds: 10), () {
+                      ref.read(uomStateNotifierProvider.notifier).getUom();
+                    });
                     selectedUom = Uom(id: 0, name: '');
                     txtVarietyBarCode.clear();
                     txtVarietyFactor.clear();

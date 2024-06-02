@@ -25,15 +25,15 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
     // TODO: implement initState
     super.initState();
     selectedUom = Uom(id: 0, name: "");
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(uomStateNotifierProvider.notifier).getUom();
-    });
+    // Future.delayed(const Duration(milliseconds: 10), () {
+    //   ref.read(uomStateNotifierProvider.notifier).getUom();
+    // });
   }
 
   updateSelectedUom(values) {
-    // setState(() {
-    //   selectedUom = values ?? Uom(id: 0, name: ''); // Set default value if null
-    // });
+    setState(() {
+      selectedUom = values ?? Uom(id: 0, name: ''); // Set default value if null
+    });
     if (values != null) {
       setState(() {
         selectedUom = values;

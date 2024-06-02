@@ -28,8 +28,18 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
       List attributeList,
       List productVarietyList,
       BuildContext context) async {
+    state = const CreateProductState.loading();
     try {
-      state = const CreateProductState.loading();
+      superPrint(name);
+      superPrint(model);
+      superPrint(vendor);
+      superPrint(brand);
+      superPrint(uomName);
+      superPrint(barcode);
+      superPrint(salePrice);
+      superPrint(costPrice);
+      superPrint(attributeList);
+      superPrint(productVarietyList);
       Response response = await _inventoryTrackerRepository.createProduct(
           base64Image,
           name,
@@ -42,7 +52,10 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
           costPrice,
           attributeList,
           productVarietyList);
+
       var result = jsonDecode(response.body);
+      superPrint(result['error']['message']);
+
       successfullyBottomSheet("Temporary Product", result['result']['message'],
           () {
         Navigator.of(context).pop();
@@ -57,7 +70,7 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
     state = CreateProductState.saveImage(image);
   }
 
-  uomSelected(Uom uom) {
-    state = CreateProductState.selectedMainUom(uom);
-  }
+  // uomSelected(Uom uom) {
+  //   state = CreateProductState.selectedMainUom(uom);
+  // }
 }

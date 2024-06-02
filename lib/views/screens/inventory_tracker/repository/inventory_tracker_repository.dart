@@ -194,7 +194,7 @@ class InventoryTrackerRepository {
       "variety": productVarietyList,
       "attributes": attributeList,
     };
-    superPrint(formData);
+
     http.Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/product/create',

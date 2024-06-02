@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/widget/product_variety_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/main_uom_state.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
@@ -20,12 +20,12 @@ import '../../../../widgets/text_widget.dart';
 import '../../domain/uom.dart';
 import '../../repository/state/create_product_state/create_product_state.dart';
 import '../../repository/state/create_product_state/product_variety_state.dart';
-import '../../repository/state/create_product_state/uom_state.dart';
 import 'widget/attribute_widget.dart';
 import 'widget/each_create_text_field_widget.dart';
-import 'widget/main_product_dropdown.dart';
 import 'widget/show_attribute_dropdown.dart';
 import 'dart:math' as math;
+
+List varietyIncrementValueList = [];
 
 class CreateProductScreen extends ConsumerStatefulWidget {
   const CreateProductScreen({super.key});
@@ -57,7 +57,24 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    varietyIncrementValueList.clear();
     selectedUomMainProduct = Uom(id: 0, name: '');
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(mainUomStateNotifierProvider.notifier).getMainUom();
+    });
+    loadData();
+  }
+
+  loadData() {
+    selectedUom = Uom(id: 0, name: '');
+    txtVarietyBarCode.clear();
+    txtVarietyFactor.clear();
+    txtVarietyPrice.clear();
+    ref
+        .read(productVariteyStateNotifierProvider.notifier)
+        .clearProductVarietyMap();
+    productVarietyIncrement = 1;
+    varietyIncrementValueList.add(1);
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(uomStateNotifierProvider.notifier).getUom();
     });
@@ -73,24 +90,16 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(uomStateNotifierProvider, (pre, next) {
-      if (next is LoadingUom) {
+    ref.listen(mainUomStateNotifierProvider, (pre, next) {
+      if (next is LoadingMainUom) {
         setState(() {
           uomList = [];
         });
       }
-      if (next is UomList) {
+      if (next is MainUomList) {
         setState(() {
           uomList = next.uomList;
         });
-      }
-    });
-    ref.listen(productVariteyStateNotifierProvider, (pre, next) {
-      if (next is ProductVarietyValueMap) {
-        setState(() {
-          varietyValueMap = next.varietyValueMap;
-        });
-        superPrint(varietyValueMap);
       }
     });
 
@@ -107,6 +116,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
         });
       }
     });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),

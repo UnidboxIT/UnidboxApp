@@ -1,166 +1,165 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/create_product_screen.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
+// import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:responsive_sizer/responsive_sizer.dart';
+// import 'package:unidbox_app/utils/constant/app_color.dart';
+// import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
+// import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/create_product_screen.dart';
+// import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
+// import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
 
-class MainProductDropdown extends ConsumerStatefulWidget {
-  const MainProductDropdown({super.key});
+// class MainProductDropdown extends ConsumerStatefulWidget {
+//   const MainProductDropdown({super.key});
 
-  @override
-  ConsumerState<MainProductDropdown> createState() => _UomDropDownDialogState();
-}
+//   @override
+//   ConsumerState<MainProductDropdown> createState() => _UomDropDownDialogState();
+// }
 
-class _UomDropDownDialogState extends ConsumerState<MainProductDropdown> {
-  TextEditingController txtSearch = TextEditingController();
-  List<Uom> uomList = [];
+// class _UomDropDownDialogState extends ConsumerState<MainProductDropdown> {
+  
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    selectedUomMainProduct = Uom(id: 0, name: "");
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(uomStateNotifierProvider.notifier).getUom();
-    });
-  }
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     selectedUomMainProduct = Uom(id: 0, name: "");
+//     Future.delayed(const Duration(milliseconds: 10), () {
+//       ref.read(uomStateNotifierProvider.notifier).getUom();
+//     });
+//   }
 
-  updateSelectedUom(values) {
-    if (values != null) {
-      setState(() {
-        selectedUomMainProduct = values;
-      });
-    }
-  }
+//   updateSelectedUom(values) {
+//     if (values != null) {
+//       setState(() {
+//         selectedUomMainProduct = values;
+//       });
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    ref.listen(uomStateNotifierProvider, (pre, next) {
-      if (next is Loading) {
-        setState(() {
-          uomList = [];
-        });
-      }
-      if (next is UomList) {
-        setState(() {
-          uomList = next.uomList;
-        });
-      }
-    });
+//   @override
+//   Widget build(BuildContext context) {
+//     ref.listen(uomStateNotifierProvider, (pre, next) {
+//       if (next is Loading) {
+//         setState(() {
+//           uomList = [];
+//         });
+//       }
+//       if (next is UomList) {
+//         setState(() {
+//           uomList = next.uomList;
+//         });
+//       }
+//     });
 
-    return DropdownButtonHideUnderline(
-      child: DropdownButton2<Uom>(
-        isExpanded: true,
-        autofocus: true,
-        isDense: true,
-        hint: Text(
-          'Uom',
-          style: TextStyle(
-              fontSize: 13,
-              color: AppColor.fontColor.withOpacity(0.6),
-              fontWeight: FontWeight.w500),
-        ),
-        items: uomList
-            .map((item) => DropdownMenuItem<Uom>(
-                  value: item,
-                  child: Text(
-                    item.name,
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ))
-            .toList(),
-        value:
-            selectedUomMainProduct.name.isEmpty ? null : selectedUomMainProduct,
-        onChanged: (value) {
-          updateSelectedUom(value);
-        },
-        buttonStyleData: ButtonStyleData(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          height: 40,
-          width: 100.w,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 3,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-        ),
-        dropdownStyleData: DropdownStyleData(
-          maxHeight: 30.h,
-          decoration: BoxDecoration(
-            color: AppColor.bottomSheetBgColor,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          scrollbarTheme: ScrollbarThemeData(
-            thumbColor: WidgetStatePropertyAll(AppColor.primary),
-          ),
-        ),
-        menuItemStyleData: const MenuItemStyleData(
-          height: 40,
-        ),
-        dropdownSearchData: DropdownSearchData(
-          searchController: txtSearch,
-          searchInnerWidgetHeight: 50,
-          searchInnerWidget: Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            child: TextFormField(
-              autofocus: false,
-              expands: true,
-              maxLines: null,
-              controller: txtSearch,
-              textInputAction: TextInputAction.done,
-              style: TextStyle(
-                fontSize: 13,
-                color: AppColor.fontColor,
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                hintText: 'Search nationality',
-                hintStyle: const TextStyle(fontSize: 12),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.bgColor)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.primary)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.dropshadowColor)),
-              ),
-            ),
-          ),
-          searchMatchFn: (item, searchValue) {
-            return item.value
-                .toString()
-                .toLowerCase()
-                .contains(searchValue.toLowerCase());
-          },
-        ),
-        onMenuStateChange: (isOpen) {
-          if (!isOpen) {
-            txtSearch.clear();
-          }
-        },
-      ),
-    );
-  }
-}
+//     return DropdownButtonHideUnderline(
+//       child: DropdownButton2<Uom>(
+//         isExpanded: true,
+//         autofocus: true,
+//         isDense: true,
+//         hint: Text(
+//           'Uom',
+//           style: TextStyle(
+//               fontSize: 13,
+//               color: AppColor.fontColor.withOpacity(0.6),
+//               fontWeight: FontWeight.w500),
+//         ),
+//         items: uomList
+//             .map((item) => DropdownMenuItem<Uom>(
+//                   value: item,
+//                   child: Text(
+//                     item.name,
+//                     style: const TextStyle(
+//                       fontSize: 14,
+//                     ),
+//                   ),
+//                 ))
+//             .toList(),
+//         value:
+//             selectedUomMainProduct.name.isEmpty ? null : selectedUomMainProduct,
+//         onChanged: (value) {
+//           updateSelectedUom(value);
+//         },
+//         buttonStyleData: ButtonStyleData(
+//           padding: const EdgeInsets.symmetric(horizontal: 10),
+//           height: 40,
+//           width: 100.w,
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             borderRadius: BorderRadius.circular(8),
+//             boxShadow: [
+//               BoxShadow(
+//                 color: Colors.grey.withOpacity(0.3),
+//                 spreadRadius: 3,
+//                 blurRadius: 7,
+//                 offset: const Offset(0, 3),
+//               ),
+//             ],
+//           ),
+//         ),
+//         dropdownStyleData: DropdownStyleData(
+//           maxHeight: 30.h,
+//           decoration: BoxDecoration(
+//             color: AppColor.bottomSheetBgColor,
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           scrollbarTheme: ScrollbarThemeData(
+//             thumbColor: WidgetStatePropertyAll(AppColor.primary),
+//           ),
+//         ),
+//         menuItemStyleData: const MenuItemStyleData(
+//           height: 40,
+//         ),
+//         dropdownSearchData: DropdownSearchData(
+//           searchController: txtSearch,
+//           searchInnerWidgetHeight: 50,
+//           searchInnerWidget: Container(
+//             height: 50,
+//             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+//             child: TextFormField(
+//               autofocus: false,
+//               expands: true,
+//               maxLines: null,
+//               controller: txtSearch,
+//               textInputAction: TextInputAction.done,
+//               style: TextStyle(
+//                 fontSize: 13,
+//                 color: AppColor.fontColor,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//               decoration: InputDecoration(
+//                 fillColor: Colors.white,
+//                 filled: true,
+//                 contentPadding: const EdgeInsets.symmetric(
+//                   horizontal: 10,
+//                   vertical: 8,
+//                 ),
+//                 hintText: 'Search nationality',
+//                 hintStyle: const TextStyle(fontSize: 12),
+//                 border: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(8),
+//                     borderSide: BorderSide(color: AppColor.bgColor)),
+//                 focusedBorder: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(8),
+//                     borderSide: BorderSide(color: AppColor.primary)),
+//                 enabledBorder: OutlineInputBorder(
+//                     borderRadius: BorderRadius.circular(8),
+//                     borderSide: BorderSide(color: AppColor.dropshadowColor)),
+//               ),
+//             ),
+//           ),
+//           searchMatchFn: (item, searchValue) {
+//             return item.value
+//                 .toString()
+//                 .toLowerCase()
+//                 .contains(searchValue.toLowerCase());
+//           },
+//         ),
+//         onMenuStateChange: (isOpen) {
+//           if (!isOpen) {
+//             txtSearch.clear();
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }
