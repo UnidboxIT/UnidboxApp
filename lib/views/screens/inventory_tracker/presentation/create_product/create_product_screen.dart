@@ -19,7 +19,6 @@ import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../domain/uom.dart';
 import '../../repository/state/create_product_state/create_product_state.dart';
-import '../../repository/state/create_product_state/product_variety_state.dart';
 import 'widget/attribute_widget.dart';
 import 'widget/each_create_text_field_widget.dart';
 import 'widget/show_attribute_dropdown.dart';
@@ -90,19 +89,6 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(mainUomStateNotifierProvider, (pre, next) {
-      if (next is LoadingMainUom) {
-        setState(() {
-          uomList = [];
-        });
-      }
-      if (next is MainUomList) {
-        setState(() {
-          uomList = next.uomList;
-        });
-      }
-    });
-
     ref.listen(createProductStateNotifierProvider, (pre, next) {
       if (next is LoadingProduct) {
         setState(() {
@@ -113,6 +99,19 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
       if (next is SuccessCreateProduct) {
         setState(() {
           isCreateProductLoading = true;
+        });
+      }
+    });
+
+    ref.listen(mainUomStateNotifierProvider, (pre, next) {
+      if (next is LoadingMainUom) {
+        setState(() {
+          uomList = [];
+        });
+      }
+      if (next is MainUomList) {
+        setState(() {
+          uomList = next.uomList;
         });
       }
     });
@@ -210,8 +209,6 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                     txtVarietyFactor.text,
                     txtVarietyPrice.text,
                   );
-              superPrint(attributeMapList);
-              superPrint(varietyValueMap.values.toList());
               txtName.text.isEmpty
                   ? CommonMethods.customizedAlertDialog(
                       "Please enter name", context)

@@ -55,12 +55,21 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
 
       var result = jsonDecode(response.body);
       superPrint(result['error']['message']);
-
-      successfullyBottomSheet("Temporary Product", result['result']['message'],
-          () {
-        Navigator.of(context).pop();
-      }, context);
-      state = const CreateProductState.success();
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          successfullyBottomSheet(
+              "Temporary Product", result['result']['message'], () {
+            Navigator.of(context).pop();
+          }, context);
+          state = const CreateProductState.success();
+        }
+      } else if (result.containsKey('error')) {
+        successfullyBottomSheet("Temporary Product", result['error']['message'],
+            () {
+          Navigator.of(context).pop();
+        }, context, isFail: true);
+        state = const CreateProductState.error();
+      }
     } catch (e) {
       superPrint(e.toString());
     }

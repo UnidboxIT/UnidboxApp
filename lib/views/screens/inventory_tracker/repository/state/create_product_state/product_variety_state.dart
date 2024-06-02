@@ -8,7 +8,6 @@ extension Getters on ProductVarietyState {
 @freezed
 class ProductVarietyState with _$ProductVarietyState {
   const factory ProductVarietyState.initial() = Initial;
-  const factory ProductVarietyState.loading() = Loading;
   const factory ProductVarietyState.success() = Success;
   const factory ProductVarietyState.incrementProductVariety(int qty) =
       IncrementProductVariety;
