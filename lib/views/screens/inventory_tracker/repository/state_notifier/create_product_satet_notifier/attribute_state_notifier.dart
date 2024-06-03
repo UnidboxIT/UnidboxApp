@@ -49,6 +49,5 @@ class AttributeStateNotifier extends StateNotifier<AttributeState> {
 
   void eachSelectedUom(Attribute attribute) {
     state = AttributeState.selectedAttribute(attribute);
-    superPrint(attribute.name);
   }
 }

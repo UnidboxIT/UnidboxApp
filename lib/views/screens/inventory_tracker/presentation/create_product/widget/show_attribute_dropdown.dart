@@ -30,19 +30,12 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // Future.delayed(const Duration(milliseconds: 10), () {
-    //   ref
-    //       .read(attributeStateNotifierProvider.notifier)
-    //       .getAttributeByID(widget.id);
-    //   superPrint(widget.id);
-    // });
   }
 
-  updateSelectedUom(values) {
+  updateSelectedUom(String attributeId, String attributeValues) {
     for (var data in attributeListByID) {
-      if (data.name.contains(values)) {
+      if (data.name.contains(attributeValues)) {
         setState(() {
           selectedAttribute = Attribute(id: data.id, name: data.name);
           ref
@@ -52,14 +45,33 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
       }
     }
     attributeMap.addAll({widget.id: selectedAttribute});
-    attributeMapList.add(
-      {
+    bool isUpdated = false;
+    // Check if the list is not empty
+    if (attributeMapList.isNotEmpty) {
+      for (var data in attributeMapList) {
+        if (data["attribute_id"].toString() == widget.id.toString()) {
+          data["value_id"] = selectedAttribute.id;
+          isUpdated = true;
+          break; // Exit the loop since the update is done
+        }
+      }
+
+      // If the attribute_id was not found, add the new entry
+      if (!isUpdated) {
+        attributeMapList.add({
+          "attribute_id": int.parse(widget.id),
+          "value_id": selectedAttribute.id,
+        });
+      }
+    } else {
+      attributeMapList.add({
         "attribute_id": int.parse(widget.id),
         "value_id": selectedAttribute.id,
-      },
-    );
+      });
+    }
+
     superPrint(attributeMapList);
-    superPrint(attributeMap);
+    superPrint(attributeMap.values.toList());
   }
 
   @override
@@ -102,7 +114,7 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
             .toList(),
         value: selectedAttribute.name.isEmpty ? null : selectedAttribute.name,
         onChanged: (value) {
-          updateSelectedUom(value);
+          updateSelectedUom(widget.id, value!);
         },
         buttonStyleData: ButtonStyleData(
           padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/attribute_state.dart';
@@ -149,9 +148,6 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                superPrint(attributeIdList);
-                superPrint(attributeList[index]);
-                superPrint(selectedAttribute.name);
                 if (!attributeIdList.contains(attributeList[index])) {
                   if (attributeIdList.isEmpty) {
                     setState(() {
