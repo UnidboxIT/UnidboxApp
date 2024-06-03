@@ -19,8 +19,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -31,8 +31,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -42,8 +42,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -54,8 +54,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -68,8 +68,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -79,8 +79,8 @@ mixin _$ProductVarietyState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -147,8 +147,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -162,8 +162,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -176,8 +176,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -194,8 +194,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -211,8 +211,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -225,8 +225,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -242,142 +242,6 @@ class _$InitialImpl implements Initial {
 
 abstract class Initial implements ProductVarietyState {
   const factory Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ProductVarietyStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
-
-  @override
-  String toString() {
-    return 'ProductVarietyState.loading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(int qty) incrementProductVariety,
-    required TResult Function(int removeId) decrementProductVariety,
-    required TResult Function(Map<int, dynamic> varietyValueMap)
-        addProductVarietyMap,
-    required TResult Function(String? error) error,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(int qty)? incrementProductVariety,
-    TResult? Function(int removeId)? decrementProductVariety,
-    TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
-    TResult? Function(String? error)? error,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(int qty)? incrementProductVariety,
-    TResult Function(int removeId)? decrementProductVariety,
-    TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
-    TResult Function(String? error)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Success value) success,
-    required TResult Function(IncrementProductVariety value)
-        incrementProductVariety,
-    required TResult Function(DecrementProductVariety value)
-        decrementProductVariety,
-    required TResult Function(ProductVarietyValueMap value)
-        addProductVarietyMap,
-    required TResult Function(Error value) error,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Success value)? success,
-    TResult? Function(IncrementProductVariety value)? incrementProductVariety,
-    TResult? Function(DecrementProductVariety value)? decrementProductVariety,
-    TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
-    TResult? Function(Error value)? error,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(IncrementProductVariety value)? incrementProductVariety,
-    TResult Function(DecrementProductVariety value)? decrementProductVariety,
-    TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
-    TResult Function(Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Loading implements ProductVarietyState {
-  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -419,8 +283,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -434,8 +298,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -448,8 +312,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -466,8 +330,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -483,8 +347,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -497,8 +361,8 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -514,6 +378,142 @@ class _$SuccessImpl implements Success {
 
 abstract class Success implements ProductVarietyState {
   const factory Success() = _$SuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$ProductVarietyStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadingImpl implements Loading {
+  const _$LoadingImpl();
+
+  @override
+  String toString() {
+    return 'ProductVarietyState.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() success,
+    required TResult Function() loading,
+    required TResult Function(int qty) incrementProductVariety,
+    required TResult Function(int removeId) decrementProductVariety,
+    required TResult Function(Map<int, dynamic> varietyValueMap)
+        addProductVarietyMap,
+    required TResult Function(String? error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? success,
+    TResult? Function()? loading,
+    TResult? Function(int qty)? incrementProductVariety,
+    TResult? Function(int removeId)? decrementProductVariety,
+    TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
+    TResult? Function(String? error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? success,
+    TResult Function()? loading,
+    TResult Function(int qty)? incrementProductVariety,
+    TResult Function(int removeId)? decrementProductVariety,
+    TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
+    required TResult Function(IncrementProductVariety value)
+        incrementProductVariety,
+    required TResult Function(DecrementProductVariety value)
+        decrementProductVariety,
+    required TResult Function(ProductVarietyValueMap value)
+        addProductVarietyMap,
+    required TResult Function(Error value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(IncrementProductVariety value)? incrementProductVariety,
+    TResult? Function(DecrementProductVariety value)? decrementProductVariety,
+    TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
+    TResult? Function(Error value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
+    TResult Function(IncrementProductVariety value)? incrementProductVariety,
+    TResult Function(DecrementProductVariety value)? decrementProductVariety,
+    TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Loading implements ProductVarietyState {
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -585,8 +585,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -600,8 +600,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -614,8 +614,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -632,8 +632,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -649,8 +649,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -663,8 +663,8 @@ class _$IncrementProductVarietyImpl implements IncrementProductVariety {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -758,8 +758,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -773,8 +773,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -787,8 +787,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -805,8 +805,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -822,8 +822,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -836,8 +836,8 @@ class _$DecrementProductVarietyImpl implements DecrementProductVariety {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -938,8 +938,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -953,8 +953,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -967,8 +967,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -985,8 +985,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -1002,8 +1002,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -1016,8 +1016,8 @@ class _$ProductVarietyValueMapImpl implements ProductVarietyValueMap {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -1106,8 +1106,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
     required TResult Function() success,
+    required TResult Function() loading,
     required TResult Function(int qty) incrementProductVariety,
     required TResult Function(int removeId) decrementProductVariety,
     required TResult Function(Map<int, dynamic> varietyValueMap)
@@ -1121,8 +1121,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
     TResult? Function()? success,
+    TResult? Function()? loading,
     TResult? Function(int qty)? incrementProductVariety,
     TResult? Function(int removeId)? decrementProductVariety,
     TResult? Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -1135,8 +1135,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
     TResult Function()? success,
+    TResult Function()? loading,
     TResult Function(int qty)? incrementProductVariety,
     TResult Function(int removeId)? decrementProductVariety,
     TResult Function(Map<int, dynamic> varietyValueMap)? addProductVarietyMap,
@@ -1153,8 +1153,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
     required TResult Function(Success value) success,
+    required TResult Function(Loading value) loading,
     required TResult Function(IncrementProductVariety value)
         incrementProductVariety,
     required TResult Function(DecrementProductVariety value)
@@ -1170,8 +1170,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
     TResult? Function(Success value)? success,
+    TResult? Function(Loading value)? loading,
     TResult? Function(IncrementProductVariety value)? incrementProductVariety,
     TResult? Function(DecrementProductVariety value)? decrementProductVariety,
     TResult? Function(ProductVarietyValueMap value)? addProductVarietyMap,
@@ -1184,8 +1184,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
     TResult Function(Success value)? success,
+    TResult Function(Loading value)? loading,
     TResult Function(IncrementProductVariety value)? incrementProductVariety,
     TResult Function(DecrementProductVariety value)? decrementProductVariety,
     TResult Function(ProductVarietyValueMap value)? addProductVarietyMap,

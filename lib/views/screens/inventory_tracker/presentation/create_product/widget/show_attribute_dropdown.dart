@@ -53,7 +53,10 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
     }
     attributeMap.addAll({widget.id: selectedAttribute});
     attributeMapList.add(
-      {"attribute_id": widget.id, "value_id": selectedAttribute.id},
+      {
+        "attribute_id": int.parse(widget.id),
+        "value_id": selectedAttribute.id,
+      },
     );
     superPrint(attributeMapList);
     superPrint(attributeMap);

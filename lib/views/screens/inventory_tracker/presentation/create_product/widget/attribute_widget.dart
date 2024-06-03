@@ -149,6 +149,8 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
+                superPrint(attributeIdList);
+                superPrint(attributeList[index]);
                 superPrint(selectedAttribute.name);
                 if (!attributeIdList.contains(attributeList[index])) {
                   if (attributeIdList.isEmpty) {

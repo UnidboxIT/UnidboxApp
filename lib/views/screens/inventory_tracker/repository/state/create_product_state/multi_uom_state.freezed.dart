@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'uom_state.dart';
+part of 'multi_uom_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,11 +15,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UomState {
+mixin _$MultiUomState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -28,8 +28,8 @@ mixin _$UomState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -38,8 +38,8 @@ mixin _$UomState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -49,8 +49,8 @@ mixin _$UomState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -59,8 +59,8 @@ mixin _$UomState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -69,8 +69,8 @@ mixin _$UomState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -81,15 +81,16 @@ mixin _$UomState {
 }
 
 /// @nodoc
-abstract class $UomStateCopyWith<$Res> {
-  factory $UomStateCopyWith(UomState value, $Res Function(UomState) then) =
-      _$UomStateCopyWithImpl<$Res, UomState>;
+abstract class $MultiUomStateCopyWith<$Res> {
+  factory $MultiUomStateCopyWith(
+          MultiUomState value, $Res Function(MultiUomState) then) =
+      _$MultiUomStateCopyWithImpl<$Res, MultiUomState>;
 }
 
 /// @nodoc
-class _$UomStateCopyWithImpl<$Res, $Val extends UomState>
-    implements $UomStateCopyWith<$Res> {
-  _$UomStateCopyWithImpl(this._value, this._then);
+class _$MultiUomStateCopyWithImpl<$Res, $Val extends MultiUomState>
+    implements $MultiUomStateCopyWith<$Res> {
+  _$MultiUomStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -98,20 +99,20 @@ class _$UomStateCopyWithImpl<$Res, $Val extends UomState>
 }
 
 /// @nodoc
-abstract class _$$UomListImplCopyWith<$Res> {
-  factory _$$UomListImplCopyWith(
-          _$UomListImpl value, $Res Function(_$UomListImpl) then) =
-      __$$UomListImplCopyWithImpl<$Res>;
+abstract class _$$MultiUomListImplCopyWith<$Res> {
+  factory _$$MultiUomListImplCopyWith(
+          _$MultiUomListImpl value, $Res Function(_$MultiUomListImpl) then) =
+      __$$MultiUomListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Uom> uomList});
+  $Res call({List<MultiUom> uomList});
 }
 
 /// @nodoc
-class __$$UomListImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$UomListImpl>
-    implements _$$UomListImplCopyWith<$Res> {
-  __$$UomListImplCopyWithImpl(
-      _$UomListImpl _value, $Res Function(_$UomListImpl) _then)
+class __$$MultiUomListImplCopyWithImpl<$Res>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$MultiUomListImpl>
+    implements _$$MultiUomListImplCopyWith<$Res> {
+  __$$MultiUomListImplCopyWithImpl(
+      _$MultiUomListImpl _value, $Res Function(_$MultiUomListImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -119,23 +120,23 @@ class __$$UomListImplCopyWithImpl<$Res>
   $Res call({
     Object? uomList = null,
   }) {
-    return _then(_$UomListImpl(
+    return _then(_$MultiUomListImpl(
       null == uomList
           ? _value._uomList
           : uomList // ignore: cast_nullable_to_non_nullable
-              as List<Uom>,
+              as List<MultiUom>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$UomListImpl implements UomList {
-  const _$UomListImpl(final List<Uom> uomList) : _uomList = uomList;
+class _$MultiUomListImpl implements MultiUomList {
+  const _$MultiUomListImpl(final List<MultiUom> uomList) : _uomList = uomList;
 
-  final List<Uom> _uomList;
+  final List<MultiUom> _uomList;
   @override
-  List<Uom> get uomList {
+  List<MultiUom> get uomList {
     if (_uomList is EqualUnmodifiableListView) return _uomList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_uomList);
@@ -143,14 +144,14 @@ class _$UomListImpl implements UomList {
 
   @override
   String toString() {
-    return 'UomState.loadUomList(uomList: $uomList)';
+    return 'MultiUomState.loadUomList(uomList: $uomList)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UomListImpl &&
+            other is _$MultiUomListImpl &&
             const DeepCollectionEquality().equals(other._uomList, _uomList));
   }
 
@@ -161,14 +162,14 @@ class _$UomListImpl implements UomList {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UomListImplCopyWith<_$UomListImpl> get copyWith =>
-      __$$UomListImplCopyWithImpl<_$UomListImpl>(this, _$identity);
+  _$$MultiUomListImplCopyWith<_$MultiUomListImpl> get copyWith =>
+      __$$MultiUomListImplCopyWithImpl<_$MultiUomListImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -180,8 +181,8 @@ class _$UomListImpl implements UomList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -193,8 +194,8 @@ class _$UomListImpl implements UomList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -210,8 +211,8 @@ class _$UomListImpl implements UomList {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -223,8 +224,8 @@ class _$UomListImpl implements UomList {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -236,8 +237,8 @@ class _$UomListImpl implements UomList {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -251,30 +252,30 @@ class _$UomListImpl implements UomList {
   }
 }
 
-abstract class UomList implements UomState {
-  const factory UomList(final List<Uom> uomList) = _$UomListImpl;
+abstract class MultiUomList implements MultiUomState {
+  const factory MultiUomList(final List<MultiUom> uomList) = _$MultiUomListImpl;
 
-  List<Uom> get uomList;
+  List<MultiUom> get uomList;
   @JsonKey(ignore: true)
-  _$$UomListImplCopyWith<_$UomListImpl> get copyWith =>
+  _$$MultiUomListImplCopyWith<_$MultiUomListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SelectedUomImplCopyWith<$Res> {
-  factory _$$SelectedUomImplCopyWith(
-          _$SelectedUomImpl value, $Res Function(_$SelectedUomImpl) then) =
-      __$$SelectedUomImplCopyWithImpl<$Res>;
+abstract class _$$SelectedMultiUomImplCopyWith<$Res> {
+  factory _$$SelectedMultiUomImplCopyWith(_$SelectedMultiUomImpl value,
+          $Res Function(_$SelectedMultiUomImpl) then) =
+      __$$SelectedMultiUomImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Uom selectedRack});
+  $Res call({MultiUom selectedRack});
 }
 
 /// @nodoc
-class __$$SelectedUomImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$SelectedUomImpl>
-    implements _$$SelectedUomImplCopyWith<$Res> {
-  __$$SelectedUomImplCopyWithImpl(
-      _$SelectedUomImpl _value, $Res Function(_$SelectedUomImpl) _then)
+class __$$SelectedMultiUomImplCopyWithImpl<$Res>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$SelectedMultiUomImpl>
+    implements _$$SelectedMultiUomImplCopyWith<$Res> {
+  __$$SelectedMultiUomImplCopyWithImpl(_$SelectedMultiUomImpl _value,
+      $Res Function(_$SelectedMultiUomImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -282,33 +283,33 @@ class __$$SelectedUomImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedRack = null,
   }) {
-    return _then(_$SelectedUomImpl(
+    return _then(_$SelectedMultiUomImpl(
       null == selectedRack
           ? _value.selectedRack
           : selectedRack // ignore: cast_nullable_to_non_nullable
-              as Uom,
+              as MultiUom,
     ));
   }
 }
 
 /// @nodoc
 
-class _$SelectedUomImpl implements SelectedUom {
-  const _$SelectedUomImpl(this.selectedRack);
+class _$SelectedMultiUomImpl implements SelectedMultiUom {
+  const _$SelectedMultiUomImpl(this.selectedRack);
 
   @override
-  final Uom selectedRack;
+  final MultiUom selectedRack;
 
   @override
   String toString() {
-    return 'UomState.selectedUom(selectedRack: $selectedRack)';
+    return 'MultiUomState.selectedUom(selectedRack: $selectedRack)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SelectedUomImpl &&
+            other is _$SelectedMultiUomImpl &&
             (identical(other.selectedRack, selectedRack) ||
                 other.selectedRack == selectedRack));
   }
@@ -319,14 +320,15 @@ class _$SelectedUomImpl implements SelectedUom {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SelectedUomImplCopyWith<_$SelectedUomImpl> get copyWith =>
-      __$$SelectedUomImplCopyWithImpl<_$SelectedUomImpl>(this, _$identity);
+  _$$SelectedMultiUomImplCopyWith<_$SelectedMultiUomImpl> get copyWith =>
+      __$$SelectedMultiUomImplCopyWithImpl<_$SelectedMultiUomImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -338,8 +340,8 @@ class _$SelectedUomImpl implements SelectedUom {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -351,8 +353,8 @@ class _$SelectedUomImpl implements SelectedUom {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -368,8 +370,8 @@ class _$SelectedUomImpl implements SelectedUom {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -381,8 +383,8 @@ class _$SelectedUomImpl implements SelectedUom {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -394,8 +396,8 @@ class _$SelectedUomImpl implements SelectedUom {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -409,12 +411,13 @@ class _$SelectedUomImpl implements SelectedUom {
   }
 }
 
-abstract class SelectedUom implements UomState {
-  const factory SelectedUom(final Uom selectedRack) = _$SelectedUomImpl;
+abstract class SelectedMultiUom implements MultiUomState {
+  const factory SelectedMultiUom(final MultiUom selectedRack) =
+      _$SelectedMultiUomImpl;
 
-  Uom get selectedRack;
+  MultiUom get selectedRack;
   @JsonKey(ignore: true)
-  _$$SelectedUomImplCopyWith<_$SelectedUomImpl> get copyWith =>
+  _$$SelectedMultiUomImplCopyWith<_$SelectedMultiUomImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -427,7 +430,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -441,7 +444,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'UomState.initial()';
+    return 'MultiUomState.initial()';
   }
 
   @override
@@ -456,8 +459,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -469,8 +472,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -482,8 +485,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -499,8 +502,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -512,8 +515,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -525,8 +528,8 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -540,7 +543,7 @@ class _$InitialImpl implements Initial {
   }
 }
 
-abstract class Initial implements UomState {
+abstract class Initial implements MultiUomState {
   const factory Initial() = _$InitialImpl;
 }
 
@@ -553,7 +556,7 @@ abstract class _$$LoadingUomImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingUomImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$LoadingUomImpl>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$LoadingUomImpl>
     implements _$$LoadingUomImplCopyWith<$Res> {
   __$$LoadingUomImplCopyWithImpl(
       _$LoadingUomImpl _value, $Res Function(_$LoadingUomImpl) _then)
@@ -567,7 +570,7 @@ class _$LoadingUomImpl implements LoadingUom {
 
   @override
   String toString() {
-    return 'UomState.loading()';
+    return 'MultiUomState.loading()';
   }
 
   @override
@@ -582,8 +585,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -595,8 +598,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -608,8 +611,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -625,8 +628,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -638,8 +641,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -651,8 +654,8 @@ class _$LoadingUomImpl implements LoadingUom {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -666,7 +669,7 @@ class _$LoadingUomImpl implements LoadingUom {
   }
 }
 
-abstract class LoadingUom implements UomState {
+abstract class LoadingUom implements MultiUomState {
   const factory LoadingUom() = _$LoadingUomImpl;
 }
 
@@ -679,7 +682,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -693,7 +696,7 @@ class _$SuccessImpl implements Success {
 
   @override
   String toString() {
-    return 'UomState.success()';
+    return 'MultiUomState.success()';
   }
 
   @override
@@ -708,8 +711,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -721,8 +724,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -734,8 +737,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -751,8 +754,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -764,8 +767,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -777,8 +780,8 @@ class _$SuccessImpl implements Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -792,7 +795,7 @@ class _$SuccessImpl implements Success {
   }
 }
 
-abstract class Success implements UomState {
+abstract class Success implements MultiUomState {
   const factory Success() = _$SuccessImpl;
 }
 
@@ -807,7 +810,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UomStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$MultiUomStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -837,7 +840,7 @@ class _$ErrorImpl implements Error {
 
   @override
   String toString() {
-    return 'UomState.error(error: $error)';
+    return 'MultiUomState.error(error: $error)';
   }
 
   @override
@@ -860,8 +863,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Uom> uomList) loadUomList,
-    required TResult Function(Uom selectedRack) selectedUom,
+    required TResult Function(List<MultiUom> uomList) loadUomList,
+    required TResult Function(MultiUom selectedRack) selectedUom,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -873,8 +876,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Uom> uomList)? loadUomList,
-    TResult? Function(Uom selectedRack)? selectedUom,
+    TResult? Function(List<MultiUom> uomList)? loadUomList,
+    TResult? Function(MultiUom selectedRack)? selectedUom,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -886,8 +889,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Uom> uomList)? loadUomList,
-    TResult Function(Uom selectedRack)? selectedUom,
+    TResult Function(List<MultiUom> uomList)? loadUomList,
+    TResult Function(MultiUom selectedRack)? selectedUom,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -903,8 +906,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UomList value) loadUomList,
-    required TResult Function(SelectedUom value) selectedUom,
+    required TResult Function(MultiUomList value) loadUomList,
+    required TResult Function(SelectedMultiUom value) selectedUom,
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingUom value) loading,
     required TResult Function(Success value) success,
@@ -916,8 +919,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UomList value)? loadUomList,
-    TResult? Function(SelectedUom value)? selectedUom,
+    TResult? Function(MultiUomList value)? loadUomList,
+    TResult? Function(SelectedMultiUom value)? selectedUom,
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingUom value)? loading,
     TResult? Function(Success value)? success,
@@ -929,8 +932,8 @@ class _$ErrorImpl implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UomList value)? loadUomList,
-    TResult Function(SelectedUom value)? selectedUom,
+    TResult Function(MultiUomList value)? loadUomList,
+    TResult Function(SelectedMultiUom value)? selectedUom,
     TResult Function(Initial value)? initial,
     TResult Function(LoadingUom value)? loading,
     TResult Function(Success value)? success,
@@ -944,7 +947,7 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements UomState {
+abstract class Error implements MultiUomState {
   const factory Error({final String? error}) = _$ErrorImpl;
 
   String? get error;

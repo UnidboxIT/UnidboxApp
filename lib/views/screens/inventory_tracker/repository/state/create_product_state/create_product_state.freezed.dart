@@ -21,6 +21,7 @@ mixin _$CreateProductState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -31,6 +32,7 @@ mixin _$CreateProductState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -41,6 +43,7 @@ mixin _$CreateProductState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -52,9 +55,10 @@ mixin _$CreateProductState {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,9 +66,10 @@ mixin _$CreateProductState {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,9 +77,10 @@ mixin _$CreateProductState {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,6 +145,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -152,6 +159,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -165,6 +173,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -182,9 +191,10 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return initial(this);
   }
@@ -195,9 +205,10 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -208,9 +219,10 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -265,6 +277,7 @@ class _$LoadingProductImpl implements LoadingProduct {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -278,6 +291,7 @@ class _$LoadingProductImpl implements LoadingProduct {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -291,6 +305,7 @@ class _$LoadingProductImpl implements LoadingProduct {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -308,9 +323,10 @@ class _$LoadingProductImpl implements LoadingProduct {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return loading(this);
   }
@@ -321,9 +337,10 @@ class _$LoadingProductImpl implements LoadingProduct {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -334,9 +351,10 @@ class _$LoadingProductImpl implements LoadingProduct {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -418,6 +436,7 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -431,6 +450,7 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -444,6 +464,7 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -461,9 +482,10 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return saveImage(this);
   }
@@ -474,9 +496,10 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return saveImage?.call(this);
   }
@@ -487,9 +510,10 @@ class _$SaveImageBase64Impl implements SaveImageBase64 {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (saveImage != null) {
@@ -506,6 +530,138 @@ abstract class SaveImageBase64 implements CreateProductState {
   @JsonKey(ignore: true)
   _$$SaveImageBase64ImplCopyWith<_$SaveImageBase64Impl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearImageImplCopyWith<$Res> {
+  factory _$$ClearImageImplCopyWith(
+          _$ClearImageImpl value, $Res Function(_$ClearImageImpl) then) =
+      __$$ClearImageImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearImageImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$ClearImageImpl>
+    implements _$$ClearImageImplCopyWith<$Res> {
+  __$$ClearImageImplCopyWithImpl(
+      _$ClearImageImpl _value, $Res Function(_$ClearImageImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearImageImpl implements ClearImage {
+  const _$ClearImageImpl();
+
+  @override
+  String toString() {
+    return 'CreateProductState.clearImage()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearImageImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
+    required TResult Function(Uom uom) selectedMainUom,
+    required TResult Function() success,
+    required TResult Function(String? error) error,
+  }) {
+    return clearImage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
+    TResult? Function(Uom uom)? selectedMainUom,
+    TResult? Function()? success,
+    TResult? Function(String? error)? error,
+  }) {
+    return clearImage?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
+    TResult Function(Uom uom)? selectedMainUom,
+    TResult Function()? success,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (clearImage != null) {
+      return clearImage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(LoadingProduct value) loading,
+    required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
+    required TResult Function(SelectedMainUom value) selectedMainUom,
+    required TResult Function(SuccessCreateProduct value) success,
+    required TResult Function(CreateProductError value) error,
+  }) {
+    return clearImage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(LoadingProduct value)? loading,
+    TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
+    TResult? Function(SelectedMainUom value)? selectedMainUom,
+    TResult? Function(SuccessCreateProduct value)? success,
+    TResult? Function(CreateProductError value)? error,
+  }) {
+    return clearImage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(LoadingProduct value)? loading,
+    TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
+    TResult Function(SelectedMainUom value)? selectedMainUom,
+    TResult Function(SuccessCreateProduct value)? success,
+    TResult Function(CreateProductError value)? error,
+    required TResult orElse(),
+  }) {
+    if (clearImage != null) {
+      return clearImage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ClearImage implements CreateProductState {
+  const factory ClearImage() = _$ClearImageImpl;
 }
 
 /// @nodoc
@@ -576,6 +732,7 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -589,6 +746,7 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -602,6 +760,7 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -619,9 +778,10 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return selectedMainUom(this);
   }
@@ -632,9 +792,10 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return selectedMainUom?.call(this);
   }
@@ -645,9 +806,10 @@ class _$SelectedMainUomImpl implements SelectedMainUom {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (selectedMainUom != null) {
@@ -708,6 +870,7 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -721,6 +884,7 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -734,6 +898,7 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -751,9 +916,10 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return success(this);
   }
@@ -764,9 +930,10 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return success?.call(this);
   }
@@ -777,9 +944,10 @@ class _$SuccessCreateProductImpl implements SuccessCreateProduct {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -794,20 +962,20 @@ abstract class SuccessCreateProduct implements CreateProductState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$CreateProductErrorImplCopyWith<$Res> {
+  factory _$$CreateProductErrorImplCopyWith(_$CreateProductErrorImpl value,
+          $Res Function(_$CreateProductErrorImpl) then) =
+      __$$CreateProductErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CreateProductStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$CreateProductErrorImplCopyWithImpl<$Res>
+    extends _$CreateProductStateCopyWithImpl<$Res, _$CreateProductErrorImpl>
+    implements _$$CreateProductErrorImplCopyWith<$Res> {
+  __$$CreateProductErrorImplCopyWithImpl(_$CreateProductErrorImpl _value,
+      $Res Function(_$CreateProductErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -815,7 +983,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$CreateProductErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -826,8 +994,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$CreateProductErrorImpl implements CreateProductError {
+  const _$CreateProductErrorImpl({this.error});
 
   @override
   final String? error;
@@ -841,7 +1009,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$CreateProductErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -851,8 +1019,9 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$CreateProductErrorImplCopyWith<_$CreateProductErrorImpl> get copyWith =>
+      __$$CreateProductErrorImplCopyWithImpl<_$CreateProductErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -860,6 +1029,7 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String image) saveImage,
+    required TResult Function() clearImage,
     required TResult Function(Uom uom) selectedMainUom,
     required TResult Function() success,
     required TResult Function(String? error) error,
@@ -873,6 +1043,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String image)? saveImage,
+    TResult? Function()? clearImage,
     TResult? Function(Uom uom)? selectedMainUom,
     TResult? Function()? success,
     TResult? Function(String? error)? error,
@@ -886,6 +1057,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String image)? saveImage,
+    TResult Function()? clearImage,
     TResult Function(Uom uom)? selectedMainUom,
     TResult Function()? success,
     TResult Function(String? error)? error,
@@ -903,9 +1075,10 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(LoadingProduct value) loading,
     required TResult Function(SaveImageBase64 value) saveImage,
+    required TResult Function(ClearImage value) clearImage,
     required TResult Function(SelectedMainUom value) selectedMainUom,
     required TResult Function(SuccessCreateProduct value) success,
-    required TResult Function(Error value) error,
+    required TResult Function(CreateProductError value) error,
   }) {
     return error(this);
   }
@@ -916,9 +1089,10 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(LoadingProduct value)? loading,
     TResult? Function(SaveImageBase64 value)? saveImage,
+    TResult? Function(ClearImage value)? clearImage,
     TResult? Function(SelectedMainUom value)? selectedMainUom,
     TResult? Function(SuccessCreateProduct value)? success,
-    TResult? Function(Error value)? error,
+    TResult? Function(CreateProductError value)? error,
   }) {
     return error?.call(this);
   }
@@ -929,9 +1103,10 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(LoadingProduct value)? loading,
     TResult Function(SaveImageBase64 value)? saveImage,
+    TResult Function(ClearImage value)? clearImage,
     TResult Function(SelectedMainUom value)? selectedMainUom,
     TResult Function(SuccessCreateProduct value)? success,
-    TResult Function(Error value)? error,
+    TResult Function(CreateProductError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -941,11 +1116,12 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements CreateProductState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class CreateProductError implements CreateProductState {
+  const factory CreateProductError({final String? error}) =
+      _$CreateProductErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$CreateProductErrorImplCopyWith<_$CreateProductErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

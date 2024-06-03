@@ -12,8 +12,8 @@ class ProductVarietyStateNotifier extends StateNotifier<ProductVarietyState> {
     int productVarietyIncrement,
     String varietyBarcode,
     String uom,
-    String factor,
-    String price,
+    int factor,
+    int price,
   ) async {
     addProductVariety(
         productVarietyIncrement, varietyBarcode, uom, factor, price);
@@ -35,8 +35,8 @@ class ProductVarietyStateNotifier extends StateNotifier<ProductVarietyState> {
     int productVarietyIncrement,
     String varietyBarcode,
     String uom,
-    String factor,
-    String price,
+    int factor,
+    int price,
   ) async {
     varietyValueMap.addAll({
       productVarietyIncrement: {

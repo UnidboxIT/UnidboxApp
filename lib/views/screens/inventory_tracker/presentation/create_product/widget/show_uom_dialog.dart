@@ -5,8 +5,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/uom.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/uom_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/multi_uom_state.dart';
 
+import '../../../domain/multi_uom.dart';
 import 'product_variety_widget.dart';
 
 class UomDropDownDialog extends ConsumerStatefulWidget {
@@ -18,13 +19,13 @@ class UomDropDownDialog extends ConsumerStatefulWidget {
 
 class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
   TextEditingController txtSearch = TextEditingController();
-  List<Uom> uomList = [];
+  List<MultiUom> uomList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedUom = Uom(id: 0, name: "");
+    selectedUom = MultiUom(value: "", name: "");
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   ref.read(uomStateNotifierProvider.notifier).getUom();
     // });
@@ -61,7 +62,7 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
           uomList = [];
         });
       }
-      if (next is UomList) {
+      if (next is MultiUomList) {
         setState(() {
           uomList = next.uomList;
         });
@@ -69,7 +70,7 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
     });
 
     return DropdownButtonHideUnderline(
-      child: DropdownButton2<Uom>(
+      child: DropdownButton2<MultiUom>(
         isExpanded: true,
         autofocus: true,
         isDense: true,
@@ -81,7 +82,7 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
               fontWeight: FontWeight.w500),
         ),
         items: uomList
-            .map((item) => DropdownMenuItem<Uom>(
+            .map((item) => DropdownMenuItem<MultiUom>(
                   value: item,
                   child: Text(
                     item.name,

@@ -9,6 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/domain/multi_uom.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_product/widget/product_variety_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/main_uom_state.dart';
@@ -65,7 +66,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   }
 
   loadData() {
-    selectedUom = Uom(id: 0, name: '');
+    selectedUom = MultiUom(value: "", name: '');
     txtVarietyBarCode.clear();
     txtVarietyFactor.clear();
     txtVarietyPrice.clear();
@@ -75,7 +76,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
     productVarietyIncrement = 1;
     varietyIncrementValueList.add(1);
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(uomStateNotifierProvider.notifier).getUom();
+      ref.read(uomStateNotifierProvider.notifier).getMultiUom();
     });
   }
 
@@ -92,13 +93,18 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
     ref.listen(createProductStateNotifierProvider, (pre, next) {
       if (next is LoadingProduct) {
         setState(() {
-          isCreateProductLoading = false;
+          isCreateProductLoading = true;
         });
       }
 
       if (next is SuccessCreateProduct) {
         setState(() {
-          isCreateProductLoading = true;
+          isCreateProductLoading = false;
+        });
+      }
+      if (next is CreateProductError) {
+        setState(() {
+          isCreateProductLoading = false;
         });
       }
     });
@@ -129,7 +135,6 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
   }
 
   Widget createProductWidget(BuildContext context) {
-    superPrint(base64Image);
     return Stack(
       children: [
         globalAppBarWidget(
@@ -205,9 +210,9 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                   .addProductVariety(
                     productVarietyIncrement,
                     txtVarietyBarCode.text,
-                    selectedUom.name,
-                    txtVarietyFactor.text,
-                    txtVarietyPrice.text,
+                    selectedUom.value,
+                    int.parse(txtVarietyFactor.text),
+                    int.parse(txtVarietyPrice.text),
                   );
               txtName.text.isEmpty
                   ? CommonMethods.customizedAlertDialog(
@@ -246,10 +251,10 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                                                           txtModel.text,
                                                           txtVendor.text,
                                                           txtBrand.text,
-                                                          selectedUomMainProduct.name,
                                                           txtBarcode.text,
-                                                          txtSalePrice.text,
-                                                          txtRetailPrice.text,
+                                                          int.parse(txtSalePrice.text),
+                                                          int.parse(txtRetailPrice.text),
+                                                          selectedUomMainProduct.id,
                                                           attributeMapList,
                                                           varietyValueMap.values.toList(),
                                                           context);
@@ -303,8 +308,17 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
           ),
           IconButton(
               onPressed: () {
-                // clearSelectedImage();
-                superPrint("Icon Button");
+                ref
+                    .read(createProductStateNotifierProvider.notifier)
+                    .clearImage();
+                final state = ref.watch(createProductStateNotifierProvider);
+                if (state is ClearImage) {
+                  setState(() {
+                    base64Image = "";
+                    imageFile = File("");
+                  });
+                }
+                superPrint(base64Image);
               },
               icon: const Icon(
                 CupertinoIcons.delete,
@@ -516,8 +530,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
             ),
           ),
           searchMatchFn: (item, searchValue) {
-            return item.value
-                .toString()
+            return item.value!.name
                 .toLowerCase()
                 .contains(searchValue.toLowerCase());
           },

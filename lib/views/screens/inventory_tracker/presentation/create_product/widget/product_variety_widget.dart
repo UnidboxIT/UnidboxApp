@@ -6,7 +6,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/create_
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/product_variety_state.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/commons/common_method.dart';
-import '../../../domain/uom.dart';
+import '../../../domain/multi_uom.dart';
 import '../../../repository/provider/create_product_provider.dart';
 import '../create_product_screen.dart';
 import 'show_uom_dialog.dart';
@@ -17,7 +17,7 @@ TextEditingController txtVarietyPrice = TextEditingController();
 Map<int, dynamic> varietyValueMap = {};
 List<Map<String, dynamic>> varietyValueMapList = [];
 int productVarietyIncrement = 1;
-Uom selectedUom = Uom(id: 0, name: '');
+MultiUom selectedUom = MultiUom(value: "", name: '');
 
 class ProductVarietyWidget extends ConsumerStatefulWidget {
   const ProductVarietyWidget({super.key});
@@ -35,7 +35,7 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
     //     .read(productVariteyStateNotifierProvider.notifier)
     //     .clearProductVarietyMap();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(uomStateNotifierProvider.notifier).getUom();
+      ref.read(uomStateNotifierProvider.notifier).getMultiUom();
     });
   }
 
@@ -84,14 +84,14 @@ class _ProductVarietyWidgetState extends ConsumerState<ProductVarietyWidget> {
                       .incrementProductVariety(
                           productVarietyIncrement,
                           txtVarietyBarCode.text,
-                          selectedUom.name,
-                          txtVarietyFactor.text,
-                          txtVarietyPrice.text)
+                          selectedUom.value,
+                          int.parse(txtVarietyFactor.text),
+                          int.parse(txtVarietyPrice.text))
                       .then((_) {
                     Future.delayed(const Duration(milliseconds: 10), () {
-                      ref.read(uomStateNotifierProvider.notifier).getUom();
+                      ref.read(uomStateNotifierProvider.notifier).getMultiUom();
                     });
-                    selectedUom = Uom(id: 0, name: '');
+                    selectedUom = MultiUom(value: "", name: '');
                     txtVarietyBarCode.clear();
                     txtVarietyFactor.clear();
                     txtVarietyPrice.clear();

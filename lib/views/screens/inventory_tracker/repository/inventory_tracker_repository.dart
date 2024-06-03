@@ -174,10 +174,10 @@ class InventoryTrackerRepository {
     String model,
     String vendor,
     String brand,
-    String uomName,
     String barcode,
-    String salePrice,
-    String cost,
+    int salePrice,
+    int cost,
+    int uomName,
     List attributeList,
     List productVarietyList,
   ) async {
@@ -187,10 +187,10 @@ class InventoryTrackerRepository {
       "model": model,
       "vendor": vendor,
       "brand": brand,
-      "uom_option": uomName,
       "barcode": barcode,
       "sale_price": salePrice,
       "cost_price": cost,
+      "uom_id": uomName,
       "variety": productVarietyList,
       "attributes": attributeList,
     };
@@ -208,7 +208,17 @@ class InventoryTrackerRepository {
   Future<Response> uom() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/uom?fields=id,name&offset=0&sort=name',
+      endpoint: 'joborder/uom?fields=id,name&sort=name',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  Future<Response> multiUom() async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'selection/field?fields=uom_option&model=other.uom.lines',
       headers: CommonMethods.setHeaders(),
     );
 

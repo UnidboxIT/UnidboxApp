@@ -11,7 +11,8 @@ class CreateProductState with _$CreateProductState {
   const factory CreateProductState.initial() = Initial;
   const factory CreateProductState.loading() = LoadingProduct;
   const factory CreateProductState.saveImage(String image) = SaveImageBase64;
+  const factory CreateProductState.clearImage() = ClearImage;
   const factory CreateProductState.selectedMainUom(Uom uom) = SelectedMainUom;
   const factory CreateProductState.success() = SuccessCreateProduct;
-  const factory CreateProductState.error({String? error}) = Error;
+  const factory CreateProductState.error({String? error}) = CreateProductError;
 }

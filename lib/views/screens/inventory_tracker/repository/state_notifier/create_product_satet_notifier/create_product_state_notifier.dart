@@ -18,10 +18,10 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
       String model,
       String vendor,
       String brand,
-      String uomName,
       String barcode,
-      String salePrice,
-      String costPrice,
+      int salePrice,
+      int costPrice,
+      int uomName,
       List attributeList,
       List productVarietyList,
       BuildContext context) async {
@@ -43,25 +43,33 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
           model,
           vendor,
           brand,
-          uomName,
           barcode,
           salePrice,
           costPrice,
+          uomName,
           attributeList,
           productVarietyList);
 
       var result = jsonDecode(response.body);
-      superPrint(result['error']['message']);
-      if (result.containsKey('result')) {
-        if (result['result']['code'] == 200) {
+      superPrint(result);
+      if (response.statusCode == 200) {
+        if (result.containsKey('result')) {
+          if (result['result']['code'] == 200) {
+            successfullyBottomSheet(
+                "Temporary Product", result['result']['message'], () {
+              Navigator.of(context).pop();
+            }, context);
+            state = const CreateProductState.success();
+          }
+        } else if (result.containsKey('error')) {
           successfullyBottomSheet(
-              "Temporary Product", result['result']['message'], () {
+              "Temporary Product", result['error']['message'], () {
             Navigator.of(context).pop();
-          }, context);
-          state = const CreateProductState.success();
+          }, context, isFail: true);
+          state = const CreateProductState.error();
         }
-      } else if (result.containsKey('error')) {
-        successfullyBottomSheet("Temporary Product", result['error']['message'],
+      } else {
+        successfullyBottomSheet("Temporary Product", result['result']['error'],
             () {
           Navigator.of(context).pop();
         }, context, isFail: true);
@@ -74,6 +82,10 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
 
   saveImage(String image) {
     state = CreateProductState.saveImage(image);
+  }
+
+  clearImage() {
+    state = const CreateProductState.clearImage();
   }
 
   // uomSelected(Uom uom) {
