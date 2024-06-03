@@ -515,7 +515,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                   horizontal: 10,
                   vertical: 8,
                 ),
-                hintText: 'Search nationality',
+                hintText: 'Search uom',
                 hintStyle: const TextStyle(fontSize: 12),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),

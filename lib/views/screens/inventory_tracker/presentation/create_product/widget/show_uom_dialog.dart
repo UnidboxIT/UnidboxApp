@@ -18,7 +18,7 @@ class UomDropDownDialog extends ConsumerStatefulWidget {
 }
 
 class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
-  TextEditingController txtSearch = TextEditingController();
+  // TextEditingController txtSearch = TextEditingController();
   List<MultiUom> uomList = [];
 
   @override
@@ -126,56 +126,56 @@ class _UomDropDownDialogState extends ConsumerState<UomDropDownDialog> {
         menuItemStyleData: const MenuItemStyleData(
           height: 40,
         ),
-        dropdownSearchData: DropdownSearchData(
-          searchController: txtSearch,
-          searchInnerWidgetHeight: 50,
-          searchInnerWidget: Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            child: TextFormField(
-              autofocus: false,
-              expands: true,
-              maxLines: null,
-              controller: txtSearch,
-              textInputAction: TextInputAction.done,
-              style: TextStyle(
-                fontSize: 13,
-                color: AppColor.fontColor,
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                hintText: 'Search nationality',
-                hintStyle: const TextStyle(fontSize: 12),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.bgColor)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.primary)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColor.dropshadowColor)),
-              ),
-            ),
-          ),
-          searchMatchFn: (item, searchValue) {
-            return item.value
-                .toString()
-                .toLowerCase()
-                .contains(searchValue.toLowerCase());
-          },
-        ),
-        onMenuStateChange: (isOpen) {
-          if (!isOpen) {
-            txtSearch.clear();
-          }
-        },
+        // dropdownSearchData: DropdownSearchData(
+        //   searchController: txtSearch,
+        //   searchInnerWidgetHeight: 50,
+        //   searchInnerWidget: Container(
+        //     height: 50,
+        //     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        //     child: TextFormField(
+        //       autofocus: false,
+        //       expands: true,
+        //       maxLines: null,
+        //       controller: txtSearch,
+        //       textInputAction: TextInputAction.done,
+        //       style: TextStyle(
+        //         fontSize: 13,
+        //         color: AppColor.fontColor,
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        //       decoration: InputDecoration(
+        //         fillColor: Colors.white,
+        //         filled: true,
+        //         contentPadding: const EdgeInsets.symmetric(
+        //           horizontal: 10,
+        //           vertical: 8,
+        //         ),
+        //         hintText: 'Search nationality',
+        //         hintStyle: const TextStyle(fontSize: 12),
+        //         border: OutlineInputBorder(
+        //             borderRadius: BorderRadius.circular(8),
+        //             borderSide: BorderSide(color: AppColor.bgColor)),
+        //         focusedBorder: OutlineInputBorder(
+        //             borderRadius: BorderRadius.circular(8),
+        //             borderSide: BorderSide(color: AppColor.primary)),
+        //         enabledBorder: OutlineInputBorder(
+        //             borderRadius: BorderRadius.circular(8),
+        //             borderSide: BorderSide(color: AppColor.dropshadowColor)),
+        //       ),
+        //     ),
+        //   ),
+        //   searchMatchFn: (item, searchValue) {
+        //     return item.value
+        //         .toString()
+        //         .toLowerCase()
+        //         .contains(searchValue.toLowerCase());
+        //   },
+        // ),
+        // onMenuStateChange: (isOpen) {
+        //   if (!isOpen) {
+        //     txtSearch.clear();
+        //   }
+        // },
       ),
     );
   }

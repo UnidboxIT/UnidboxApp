@@ -19,16 +19,17 @@ class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
         width: 100.w,
         height: 45,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.dropshadowColor,
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: const Offset(3, 0),
-              ),
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.dropshadowColor,
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(3, -3),
+            ),
+          ],
+        ),
         child: TextField(
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),

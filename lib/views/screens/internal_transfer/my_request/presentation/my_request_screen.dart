@@ -4,6 +4,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import 'my_requests_detail_screen.dart';
 import 'widgets/my_request_search_widget.dart';
 
 class MyRequestScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
           const MyRequestSearchWidget(),
           requestHistoryWidget(),
           pendingRequestWidget(),
+          const Expanded(child: MyRequestsDetailScreen()),
         ],
       ),
     );
@@ -90,10 +92,10 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColor.dropshadowColor,
-                      blurRadius: 5,
-                      spreadRadius: 5,
-                    )
+                        color: AppColor.dropshadowColor,
+                        blurRadius: 1,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 3))
                   ],
                 ),
                 child: textWidget(
