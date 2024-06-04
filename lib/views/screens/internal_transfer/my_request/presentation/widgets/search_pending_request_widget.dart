@@ -49,7 +49,7 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
             suffixIcon: IconButton(
               onPressed: () {},
               icon: const Icon(
-                CupertinoIcons.square_fill_line_vertical_square,
+                Icons.filter_alt_outlined,
                 color: Colors.black,
               ),
             ),

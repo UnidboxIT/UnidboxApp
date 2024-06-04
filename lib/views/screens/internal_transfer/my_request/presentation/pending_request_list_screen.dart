@@ -30,7 +30,7 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
           child: Stack(
             children: [
               globalAppBarWidget(
-                "Pending Request",
+                "Pending Requests",
                 () {
                   Navigator.of(context).pop();
                 },

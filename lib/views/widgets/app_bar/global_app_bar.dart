@@ -37,7 +37,7 @@ Widget globalAppBarWidget(
           child: textWidget(
             text,
             fontWeight: FontWeight.w900,
-            size: 25,
+            size: 30,
             color: Colors.white,
           ),
         ),

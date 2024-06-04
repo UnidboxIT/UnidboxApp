@@ -41,7 +41,7 @@ class _MyRequestsDetailScreenState
         setState(() {
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
-            if (data.intStatus == 'requested') {
+            if (data.intStatus == 'action') {
               pendingRequestList.add(data);
             }
           }
