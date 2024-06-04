@@ -17,6 +17,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
   List<MyTask> tempTaskList = [];
   List<MyTask> myTaskHomeMenuList = [];
   Map<int, List<MyTask>> myTaskDetailMap = {};
+
   Future<void> notiReminder() async {
     try {
       //state = const HomeState.loading();
@@ -55,6 +56,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
           }
         }
       }
+
       state = HomeState.loadMyTask(myTaskList);
       state = HomeState.loadMyTaskDetail(myTaskDetailMap);
     } catch (e) {

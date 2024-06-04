@@ -1,18 +1,24 @@
 class MyRequest {
   int id;
+  String name;
   String intStatus;
   List requestToWh;
   List requestFromWh;
   List userId;
+  List requisitionIdList;
   List<ProductLineId> productLineList;
+  String createDate;
 
   MyRequest({
     this.id = 0,
+    this.name = "",
     this.intStatus = "",
     this.requestToWh = const [],
     this.requestFromWh = const [],
     this.userId = const [],
+    this.requisitionIdList = const [],
     this.productLineList = const [],
+    this.createDate = "",
   });
 
   factory MyRequest.fromJson(Map<String, dynamic> json) {
@@ -26,11 +32,16 @@ class MyRequest {
     }
     return MyRequest(
         id: json['id'] ?? 0,
+        name: json['name'].toString(),
         intStatus: json['int_status'].toString(),
         requestToWh: List.from(json['request_to_wh']),
         requestFromWh: List.from(json['requested_wh']),
         userId: List.from(json['user_id']),
-        productLineList: productList);
+        requisitionIdList: json['requisition_id'] == false
+            ? []
+            : List.from(json['requisition_id']),
+        productLineList: productList,
+        createDate: json['create_date'].toString());
   }
 }
 

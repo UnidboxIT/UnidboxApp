@@ -3,17 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget buttonWidget(String text, VoidCallback onPressed,
-    {bool isBool = false}) {
+Widget buttonWidget(
+  String text,
+  VoidCallback onPressed, {
+  bool isBool = false,
+  double elevation = 1,
+  Color bgColor = Colors.white,
+  Color fontColor = Colors.black,
+}) {
   return ElevatedButton(
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
-      surfaceTintColor: Colors.white,
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.white,
+      surfaceTintColor: bgColor,
+      backgroundColor: bgColor,
+      foregroundColor: bgColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      elevation: elevation,
     ),
     child: isBool
         ? Center(
@@ -25,6 +32,7 @@ Widget buttonWidget(String text, VoidCallback onPressed,
             text,
             fontWeight: FontWeight.w600,
             size: 14,
+            color: fontColor,
           ),
   );
 }

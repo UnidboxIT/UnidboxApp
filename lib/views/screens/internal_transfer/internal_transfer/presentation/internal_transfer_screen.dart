@@ -2,26 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/internal_transfer/domain/internal_transfer.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/other_request_screen.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../home/domain/my_task.dart';
 import '../../my_request/presentation/my_request_screen.dart';
 
 class InternalTransferScreen extends StatefulWidget {
-  const InternalTransferScreen({super.key});
+  final List<MyTask> internalTransferList;
+  const InternalTransferScreen({super.key, required this.internalTransferList});
 
   @override
   State<InternalTransferScreen> createState() => _InternalTransferScreenState();
 }
 
 class _InternalTransferScreenState extends State<InternalTransferScreen> {
-  List<InternalTransfer> internalTransferList = [
-    InternalTransfer(
-        id: 1, image: "assets/images/app_icon.jpeg", name: "My Requests"),
-    InternalTransfer(
-        id: 1, image: "assets/images/app_icon.jpeg", name: "Other Requests"),
-  ];
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(
@@ -73,8 +68,8 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
                   }
                 },
                 child: eachInternalTransferWidget(
-                  internalTransferList[index].image,
-                  internalTransferList[index].name,
+                  widget.internalTransferList[index].imageUrl,
+                  widget.internalTransferList[index].name,
                   index,
                 ),
               );
@@ -82,7 +77,7 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
             separatorBuilder: (context, index) {
               return const SizedBox(height: 30);
             },
-            itemCount: internalTransferList.length));
+            itemCount: widget.internalTransferList.length));
   }
 
   Widget eachInternalTransferWidget(String image, String name, int count) {
@@ -104,7 +99,7 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
               ]),
           child: Row(
             children: [
-              Image.asset(
+              Image.network(
                 image,
                 width: 50.w,
                 height: 16.h,

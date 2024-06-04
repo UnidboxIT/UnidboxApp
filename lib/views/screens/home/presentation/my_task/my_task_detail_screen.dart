@@ -10,6 +10,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
 import '../../../order_receiving/presentation/order_receiving_screen.dart';
+import '../home_screen.dart';
 
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
   final String name;
@@ -82,7 +83,9 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                   break;
                 case "Internal Transfer":
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const InternalTransferScreen()));
+                      builder: (context) => InternalTransferScreen(
+                          internalTransferList:
+                              myTaskDetailMap[task.id] ?? [])));
                   break;
                 case "Order Receiving":
                   Navigator.of(context).push(MaterialPageRoute(

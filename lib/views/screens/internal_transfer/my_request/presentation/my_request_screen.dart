@@ -15,8 +15,8 @@ class MyRequestScreen extends StatefulWidget {
 }
 
 class _MyRequestScreenState extends State<MyRequestScreen> {
-  List<String> requestList = ["My\nRequests", "Requests\nHistory"];
-  String selectedRequest = "My\nRequests";
+  // List<String> requestList = ["My\nRequests", "Requests\nHistory"];
+  // String selectedRequest = "My\nRequests";
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(
@@ -57,70 +57,64 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
       child: Column(
         children: [
           const MyRequestSearchWidget(),
-          requestHistoryWidget(),
+          // requestHistoryWidget(),
           pendingRequestWidget(),
-          const Expanded(child: MyRequestsDetailScreen()),
+          const SizedBox(height: 20),
+          const Expanded(child: MyRequestsDetailScreen())
         ],
       ),
     );
   }
 
-  Widget requestHistoryWidget() {
-    return Container(
-      height: 8.h,
-      width: 100.w,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedRequest = requestList[index];
-                });
-              },
-              child: Container(
-                width: 42.w,
-                alignment: Alignment.center,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 0),
-                decoration: BoxDecoration(
-                  color: selectedRequest == requestList[index]
-                      ? AppColor.pinkColor
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColor.dropshadowColor,
-                        blurRadius: 1,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 3))
-                  ],
-                ),
-                child: textWidget(
-                  requestList[index],
-                  color: selectedRequest == requestList[index]
-                      ? Colors.white
-                      : Colors.black,
-                  fontWeight: FontWeight.bold,
-                  maxLine: 2,
-                  size: 15,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return const SizedBox(width: 20);
-          },
-          itemCount: requestList.length),
-    );
-  }
+  // Widget requestHistoryWidget() {
+  //   return Container(
+  //     height: 8.h,
+  //     width: 100.w,
+  //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+  //     child: ListView.separated(
+  //         scrollDirection: Axis.horizontal,
+  //         shrinkWrap: true,
+  //         itemBuilder: (context, index) {
+  //           return Container(
+  //             width: 42.w,
+  //             alignment: Alignment.center,
+  //             padding:
+  //                 const EdgeInsets.symmetric(horizontal: 35, vertical: 0),
+  //             decoration: BoxDecoration(
+  //               color: selectedRequest == requestList[index]
+  //                   ? AppColor.pinkColor
+  //                   : Colors.white,
+  //               borderRadius: BorderRadius.circular(10),
+  //               boxShadow: [
+  //                 BoxShadow(
+  //                     color: AppColor.dropshadowColor,
+  //                     blurRadius: 1,
+  //                     spreadRadius: 1,
+  //                     offset: const Offset(0, 3))
+  //               ],
+  //             ),
+  //             child: textWidget(
+  //               requestList[index],
+  //               color: selectedRequest == requestList[index]
+  //                   ? Colors.white
+  //                   : Colors.black,
+  //               fontWeight: FontWeight.bold,
+  //               maxLine: 2,
+  //               size: 15,
+  //               textAlign: TextAlign.center,
+  //             ),
+  //           );
+  //         },
+  //         separatorBuilder: (context, index) {
+  //           return const SizedBox(width: 20);
+  //         },
+  //         itemCount: requestList.length),
+  //   );
+  // }
 
   Widget pendingRequestWidget() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
       child: Stack(
         alignment: Alignment.topRight,
         clipBehavior: Clip.none,

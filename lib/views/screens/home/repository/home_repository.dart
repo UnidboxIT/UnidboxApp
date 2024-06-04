@@ -16,7 +16,7 @@ class HomeRepository {
   Future<http.Response> myTask() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/mytasks',
+      endpoint: 'joborder/mytasks?fields=id,name,parent_id,image_url',
       headers: CommonMethods.setHeaders(),
     );
     return response;
