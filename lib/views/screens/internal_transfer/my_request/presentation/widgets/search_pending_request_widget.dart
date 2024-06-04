@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../utils/constant/app_color.dart';
 
-class MyRequestSearchWidget extends StatefulWidget {
-  const MyRequestSearchWidget({super.key});
+class SearchPendingRequestWidget extends StatefulWidget {
+  const SearchPendingRequestWidget({super.key});
 
   @override
-  State<MyRequestSearchWidget> createState() => _SearchOrderReceivingState();
+  State<SearchPendingRequestWidget> createState() =>
+      _SearchOrderReceivingState();
 }
 
-class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
+class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +43,13 @@ class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
               onPressed: () {},
               icon: const Icon(
                 CupertinoIcons.search,
+                color: Colors.black,
+              ),
+            ),
+            suffixIcon: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                CupertinoIcons.square_fill_line_vertical_square,
                 color: Colors.black,
               ),
             ),
