@@ -63,7 +63,7 @@ class _MyRequestsDetailScreenState
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
                 String name = myRequestList[index].userId[1];
-                String requestFrom = myRequestList[index].requestFromWh[1];
+                String requestFrom = myRequestList[index].requestToWh[1];
                 String status = myRequestList[index].intStatus;
                 List<ProductLineId> productList =
                     myRequestList[index].productLineList;

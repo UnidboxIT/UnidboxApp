@@ -21,7 +21,7 @@ class _OngoingJobScreenState extends ConsumerState<OngoingJobScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(ongoingJobStateNotifier.notifier).getAllOngoingJob();
+      ref.read(ongoingJobStateNotifier.notifier).getAllOngoingJob(context, ref);
     });
   }
 

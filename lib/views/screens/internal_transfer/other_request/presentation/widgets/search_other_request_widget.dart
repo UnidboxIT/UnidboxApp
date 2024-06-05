@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyRequestSearchWidget extends StatefulWidget {
-  const MyRequestSearchWidget({super.key});
+class SearchOtherRequestWidget extends ConsumerStatefulWidget {
+  const SearchOtherRequestWidget({super.key});
 
   @override
-  State<MyRequestSearchWidget> createState() => _SearchOrderReceivingState();
+  ConsumerState<SearchOtherRequestWidget> createState() =>
+      _SearchOrderReceivingState();
 }
 
-class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
+class _SearchOrderReceivingState
+    extends ConsumerState<SearchOtherRequestWidget> {
   TextEditingController txtSearchMyRequest = TextEditingController();
   @override
   Widget build(BuildContext context) {

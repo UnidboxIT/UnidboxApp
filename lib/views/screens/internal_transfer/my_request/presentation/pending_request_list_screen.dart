@@ -65,7 +65,7 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
                   String requestCode = widget.pendingRequestList[index].name;
                   String name = widget.pendingRequestList[index].userId[1];
                   String requestFrom =
-                      widget.pendingRequestList[index].requestFromWh[1];
+                      widget.pendingRequestList[index].requestToWh[1];
                   String status = widget.pendingRequestList[index].intStatus;
                   List<ProductLineId> productList =
                       widget.pendingRequestList[index].productLineList;

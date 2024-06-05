@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../views/screens/auth/repository/auth_state_notifier.dart';
@@ -88,10 +87,12 @@ class CommonMethods {
     );
   }
 
-  static void unAuthorizedLogout() async {
-    // Get.find<NavBarController>().currentIndex = 0;
-    // Get.find<NavBarController>().update();
-    Get.offAll(() => const AuthLoginScreen());
-    //customizedAlertDialog("Session Expired".tr);
-  }
+  // static void unAuthorizedLogout(BuildContext context) async {
+  //   // Get.find<NavBarController>().currentIndex = 0;
+  //   // Get.find<NavBarController>().update();
+
+  //   Navigator.pushReplacement(context,
+  //       MaterialPageRoute(builder: (context) => const AuthLoginScreen()));
+  //   //customizedAlertDialog("Session Expired".tr);
+  // }
 }

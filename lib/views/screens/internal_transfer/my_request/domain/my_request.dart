@@ -51,6 +51,8 @@ class ProductLineId {
   String code;
   String model;
   double qty;
+  String imageUrl;
+  double price;
 
   ProductLineId({
     this.id = 0,
@@ -58,6 +60,8 @@ class ProductLineId {
     this.code = "",
     this.model = "",
     this.qty = 0.0,
+    this.imageUrl = "",
+    this.price = 0.0,
   });
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
@@ -67,6 +71,8 @@ class ProductLineId {
       code: json['code'].toString(),
       model: json['model'].toString(),
       qty: json['quantity'] ?? 0.0,
+      imageUrl: json['image_url'].toString(),
+      price: json['price'] ?? 0.0,
     );
   }
 }

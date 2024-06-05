@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -7,18 +8,49 @@ import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/presentation/my_request_screen.dart';
+import '../../other_request/domain/other_request.dart';
+import '../../other_request/repository/provider/other_request_provider.dart';
+import '../../other_request/repository/state/other_request_state.dart';
 
-class InternalTransferScreen extends StatefulWidget {
+class InternalTransferScreen extends ConsumerStatefulWidget {
   final List<MyTask> internalTransferList;
   const InternalTransferScreen({super.key, required this.internalTransferList});
 
   @override
-  State<InternalTransferScreen> createState() => _InternalTransferScreenState();
+  ConsumerState<InternalTransferScreen> createState() =>
+      _InternalTransferScreenState();
 }
 
-class _InternalTransferScreenState extends State<InternalTransferScreen> {
+class _InternalTransferScreenState
+    extends ConsumerState<InternalTransferScreen> {
+  List<OtherRequest> otherRequestList = [];
+  List<OtherRequest> acceptRequestList = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        otherRequestList = [];
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          for (var data in otherRequestList) {
+            if (data.intStatus == 'accept') {
+              acceptRequestList.add(data);
+            }
+          }
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -64,7 +96,10 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
                         builder: (context) => const MyRequestScreen()));
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const OtherRequestScreen()));
+                        builder: (context) => OtherRequestScreen(
+                              otherRequestList: otherRequestList,
+                              acceptRequestList: acceptRequestList,
+                            )));
                   }
                 },
                 child: eachInternalTransferWidget(
@@ -112,7 +147,7 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
           ),
         ),
         Visibility(
-          visible: count != 0,
+          visible: count != 0 && otherRequestList.isNotEmpty,
           child: Positioned(
             top: -10,
             right: -5,
@@ -120,7 +155,7 @@ class _InternalTransferScreenState extends State<InternalTransferScreen> {
               backgroundColor: AppColor.pinkColor,
               radius: 19,
               child: textWidget(
-                "3",
+                otherRequestList.length.toString(),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 size: 13,
