@@ -35,7 +35,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         floatingActionButton: floatingActionBottomWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar:
-            bottomNavBarWidget(currentIndex, bottomNavNotifier, ref),
+            bottomNavBarWidget(currentIndex, bottomNavNotifier, ref, context),
       ),
     );
   }

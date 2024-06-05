@@ -8,6 +8,8 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
+import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
 import '../../../order_receiving/presentation/order_receiving_screen.dart';
 import '../home_screen.dart';
@@ -30,6 +32,9 @@ class MyTaskDetailScreen extends ConsumerStatefulWidget {
 class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
+    final bottomNavNotifier =
+        ref.watch(bottomNavNotifierControllerProvider.notifier);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -50,6 +55,11 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
             ],
           ),
         ),
+        floatingActionButton: floatingActionBottomWidget(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: bottomNavBarWidget(
+            currentIndex, bottomNavNotifier, ref, context,
+            needControl: true),
       ),
     );
   }

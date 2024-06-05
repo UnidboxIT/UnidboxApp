@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/main_screen.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../repository/bottom_nav_state_notifier.dart';
@@ -20,8 +21,12 @@ Widget floatingActionBottomWidget() {
   );
 }
 
-Widget bottomNavBarWidget(int currentIndex,
-    BottomNavNotifierController bottomNavNotifier, WidgetRef ref) {
+Widget bottomNavBarWidget(
+    int currentIndex,
+    BottomNavNotifierController bottomNavNotifier,
+    WidgetRef ref,
+    BuildContext context,
+    {bool needControl = false}) {
   return BottomAppBar(
     padding: const EdgeInsets.symmetric(horizontal: 15),
     height: 55,
@@ -40,6 +45,14 @@ Widget bottomNavBarWidget(int currentIndex,
                   ref
                       .read(bottomNavNotifierControllerProvider.notifier)
                       .setIndex(e.id);
+                  if (needControl) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MainScreen()),
+                      (route) => false,
+                    );
+                  }
                 }
               },
               child: Container(

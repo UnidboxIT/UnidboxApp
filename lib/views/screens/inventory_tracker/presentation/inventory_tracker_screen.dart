@@ -54,6 +54,7 @@ class _InventoryTrackerScreenState
         CommonMethods.customizedAlertDialog(next.error.toString(), context);
       }
     });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
