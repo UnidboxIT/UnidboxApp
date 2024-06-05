@@ -22,11 +22,11 @@ class MyTaskScreen extends ConsumerWidget {
           textWidget(
             "My Task",
             fontWeight: FontWeight.w600,
-            size: 16,
+            size: 20,
           ),
           const SizedBox(height: 0),
           SizedBox(
-            height: 27.h,
+            height: 29.h,
             child: ListView.separated(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

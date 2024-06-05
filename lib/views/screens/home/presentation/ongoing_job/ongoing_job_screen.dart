@@ -50,7 +50,7 @@ class _OngoingJobScreenState extends ConsumerState<OngoingJobScreen> {
           textWidget(
             "Ongoing Job",
             fontWeight: FontWeight.w600,
-            size: 16,
+            size: 20,
           ),
           const SizedBox(height: 20),
 

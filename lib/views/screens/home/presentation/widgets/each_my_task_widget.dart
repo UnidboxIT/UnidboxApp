@@ -7,7 +7,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 Widget eachMyTaskWidget(MyTask myTask) {
   return Container(
-    width: 42.w,
+    width: 45.w,
     padding: const EdgeInsets.symmetric(vertical: 0),
     decoration: BoxDecoration(
       color: Colors.white,
@@ -27,7 +27,7 @@ Widget eachMyTaskWidget(MyTask myTask) {
       children: [
         Positioned(
           top: -2.h,
-          left: 34.w,
+          left: 37.w,
           child: CircleAvatar(
             backgroundColor: AppColor.pinkColor,
             child: textWidget("18", color: Colors.white, size: 14),
@@ -37,13 +37,17 @@ Widget eachMyTaskWidget(MyTask myTask) {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 3.h),
-            Image.network(
-              myTask.imageUrl,
+            SizedBox(height: 2.h),
+            SizedBox(
               width: 150,
               height: 13.h,
-              fit: BoxFit.contain,
+              child: Image.network(
+                myTask.imageUrl,
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.high,
+              ),
             ),
+            const SizedBox(height: 8),
             Container(
               height: 6.h,
               width: 100.w,
@@ -53,12 +57,12 @@ Widget eachMyTaskWidget(MyTask myTask) {
                 myTask.name,
                 color: AppColor.fontColor,
                 fontWeight: FontWeight.w800,
-                size: 16,
+                size: 20,
                 maxLine: 2,
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 8)
+            const SizedBox(height: 10)
           ],
         ),
       ],

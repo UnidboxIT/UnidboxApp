@@ -33,7 +33,7 @@ class HomeAppBarWidget extends ConsumerWidget {
                     .name,
                 fontWeight: FontWeight.w900,
                 color: Colors.black,
-                size: 20,
+                size: 25,
               )
             ],
           ),
