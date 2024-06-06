@@ -12,6 +12,7 @@ Widget eachProductLineWidget(
   String requestCode,
   String name,
   String currentDate,
+  String requestWarehouse,
   List<ProductLineId> productList,
 ) {
   return ListView.separated(
@@ -136,7 +137,7 @@ Widget eachProductLineWidget(
                           size: 12.5,
                         ),
                         textWidget(
-                          productList[index].requestWarehouse[1],
+                          requestWarehouse,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           size: 14,

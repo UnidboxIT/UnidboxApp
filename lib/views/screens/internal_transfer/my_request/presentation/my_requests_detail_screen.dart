@@ -127,9 +127,12 @@ class _MyRequestsDetailScreenState
                 List<ProductLineId> productList =
                     myRequestList[index].productLineList;
                 String currentDate = myRequestList[index].createDate;
-
-                return eachProductLineWidget(
-                    requestCode, name, currentDate, productList);
+                String requestWarehouse =
+                    myRequestList[index].requestToWh.isEmpty
+                        ? ""
+                        : myRequestList[index].requestToWh[1];
+                return eachProductLineWidget(requestCode, name, currentDate,
+                    requestWarehouse, productList);
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 20);

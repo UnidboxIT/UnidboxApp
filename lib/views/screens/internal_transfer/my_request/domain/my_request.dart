@@ -3,6 +3,7 @@ class MyRequest {
   String name;
   String intStatus;
   List userId;
+  List requestToWh;
   List<ProductLineId> productLineList;
   String createDate;
 
@@ -11,6 +12,7 @@ class MyRequest {
     this.name = "",
     this.intStatus = "",
     this.userId = const [],
+    this.requestToWh = const [],
     this.productLineList = const [],
     this.createDate = "",
   });
@@ -29,6 +31,9 @@ class MyRequest {
         name: json['name'].toString(),
         intStatus: json['int_status'].toString(),
         userId: List.from(json['user_id']),
+        requestToWh: json['request_to_wh'] == false
+            ? []
+            : List.from(json['request_to_wh']),
         productLineList: productList,
         createDate: json['date'].toString());
   }

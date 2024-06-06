@@ -14,4 +14,14 @@ class OtherRequestRepository {
 
     return response;
   }
+
+  Future<Response> warehouse() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/warehouse?fields=id,name',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }
