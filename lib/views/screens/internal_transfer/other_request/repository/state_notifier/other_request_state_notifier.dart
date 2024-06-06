@@ -20,7 +20,6 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       otherRequestList.clear();
       Response response = await _otherRequestRepository.otherRequest();
       var result = jsonDecode(response.body);
-      superPrint(result);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         otherRequestList.add(OtherRequest.fromJson(element));

@@ -19,7 +19,7 @@ class ImportantReminderWidget extends ConsumerWidget {
         Transform.translate(
           offset: Offset(2.w, 0),
           child: Image.asset(
-            "assets/images/reminder_image.jpeg",
+            "assets/images/reminder_image.png",
           ),
         ),
         Container(

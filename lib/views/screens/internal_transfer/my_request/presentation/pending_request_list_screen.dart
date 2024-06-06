@@ -64,15 +64,22 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
                 itemBuilder: (context, index) {
                   String requestCode = widget.pendingRequestList[index].name;
                   String name = widget.pendingRequestList[index].userId[1];
-                  String requestFrom =
-                      widget.pendingRequestList[index].requestToWh[1];
+
                   String status = widget.pendingRequestList[index].intStatus;
-                  List<ProductLineId> productList =
-                      widget.pendingRequestList[index].productLineList;
+                  List<ProductLineId> productList = [];
+
+                  for (var element
+                      in widget.pendingRequestList[index].productLineList) {
+                    if (element.status == 'action') {
+                      productList.add(element);
+                    }
+                  }
+
+                  widget.pendingRequestList[index].productLineList;
                   String currentDate =
                       widget.pendingRequestList[index].createDate;
-                  return eachProductLineWidget(requestCode, name, requestFrom,
-                      status, currentDate, productList);
+                  return eachProductLineWidget(
+                      requestCode, name, status, currentDate, productList);
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 20);

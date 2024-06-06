@@ -4,8 +4,6 @@ class OtherRequest {
   int id;
   String name;
   String intStatus;
-  List requestToWh;
-  List requestFromWh;
   List userId;
   List<ProductLineId> productLineList;
   String createDate;
@@ -14,8 +12,6 @@ class OtherRequest {
     this.id = 0,
     this.name = "",
     this.intStatus = "",
-    this.requestToWh = const [],
-    this.requestFromWh = const [],
     this.userId = const [],
     this.productLineList = const [],
     this.createDate = "",
@@ -34,12 +30,6 @@ class OtherRequest {
         id: json['id'] ?? 0,
         name: json['name'].toString(),
         intStatus: json['int_status'].toString(),
-        requestToWh: json['request_to_wh'] == false
-            ? []
-            : List.from(json['request_to_wh']),
-        requestFromWh: json['requested_wh'] == false
-            ? []
-            : List.from(json['requested_wh']),
         userId: json['user_id'] == false ? [] : List.from(json['user_id']),
         productLineList: productList,
         createDate: json['create_date'].toString());

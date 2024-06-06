@@ -111,7 +111,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
           );
         },
         separatorBuilder: (context, index) {
-          return SizedBox(height: 4.h);
+          return SizedBox(height: 2.5.h);
         });
   }
 
@@ -121,23 +121,24 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
       alignment: Alignment.topRight,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          height: 20.h,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: AppColor.dropshadowColor,
-                  blurRadius: 3,
-                  spreadRadius: 3,
-                ),
+                    color: AppColor.dropshadowColor,
+                    blurRadius: 3,
+                    spreadRadius: 3,
+                    offset: const Offset(-3, 3)),
               ]),
           child: Row(
             children: [
               Image.network(
                 image,
                 width: 50.w,
-                height: 16.h,
+                height: 14.h,
               ),
               SizedBox(
                 width: 23.w,

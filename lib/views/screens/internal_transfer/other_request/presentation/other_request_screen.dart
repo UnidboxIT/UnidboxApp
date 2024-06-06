@@ -9,16 +9,12 @@ import '../../../../../utils/commons/super_print.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../domain/other_request.dart';
 import 'other_request_detail_screen.dart';
 
 class OtherRequestScreen extends ConsumerStatefulWidget {
-  final List<OtherRequest> otherRequestList;
-  final List<OtherRequest> acceptRequestList;
-  const OtherRequestScreen(
-      {super.key,
-      required this.otherRequestList,
-      required this.acceptRequestList});
+  const OtherRequestScreen({
+    super.key,
+  });
 
   @override
   ConsumerState<OtherRequestScreen> createState() => _OtherRequestScreenState();
@@ -94,14 +90,10 @@ class _OtherRequestScreenState extends ConsumerState<OtherRequestScreen> {
           color: AppColor.bgColor,
           borderRadius: BorderRadius.circular(25),
         ),
-        child: Column(
+        child: const Column(
           children: [
-            const SearchOtherRequestWidget(),
-            Expanded(
-                child: OtherRequestDetailScreen(
-              otherRequestList: widget.otherRequestList,
-              acceptRequestList: widget.acceptRequestList,
-            ))
+            SearchOtherRequestWidget(),
+            Expanded(child: OtherRequestDetailScreen())
           ],
         ),
       ),

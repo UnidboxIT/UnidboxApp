@@ -21,7 +21,7 @@ class MyRequestsDetailScreen extends ConsumerStatefulWidget {
 class _MyRequestsDetailScreenState
     extends ConsumerState<MyRequestsDetailScreen> {
   List<MyRequest> myRequestList = [];
-  List<MyRequest> pendingRequestList = [];
+  List<ProductLineId> pendingRequestList = [];
 
   @override
   void initState() {
@@ -36,13 +36,16 @@ class _MyRequestsDetailScreenState
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestLoading) {
         myRequestList = [];
+        pendingRequestList.clear();
       }
       if (next is MyRequestList) {
         setState(() {
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
-            if (data.intStatus == 'action') {
-              pendingRequestList.add(data);
+            for (var element in data.productLineList) {
+              if (element.status == 'done') {
+                pendingRequestList.add(element);
+              }
             }
           }
         });
@@ -63,13 +66,12 @@ class _MyRequestsDetailScreenState
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
                 String name = myRequestList[index].userId[1];
-                String requestFrom = myRequestList[index].requestToWh[1];
                 String status = myRequestList[index].intStatus;
                 List<ProductLineId> productList =
                     myRequestList[index].productLineList;
                 String currentDate = myRequestList[index].createDate;
-                return eachProductLineWidget(requestCode, name, requestFrom,
-                    status, currentDate, productList);
+                return eachProductLineWidget(
+                    requestCode, name, status, currentDate, productList);
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 20);
@@ -85,7 +87,7 @@ class _MyRequestsDetailScreenState
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PendingRequestListScreen(
-                  pendingRequestList: pendingRequestList,
+                  pendingRequestList: myRequestList,
                 )));
       },
       child: Padding(

@@ -11,7 +11,6 @@ import '../../domain/my_request.dart';
 Widget eachProductLineWidget(
   String requestCode,
   String name,
-  String requestFrom,
   String status,
   String currentDate,
   List<ProductLineId> productList,
@@ -50,9 +49,9 @@ Widget eachProductLineWidget(
                         DateFormat('dd MMM yyyy').format(
                           DateTime.parse(currentDate),
                         ),
-                        color: AppColor.pinkColor,
-                        fontWeight: FontWeight.bold,
-                        size: 15)
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        size: 17)
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -69,11 +68,11 @@ Widget eachProductLineWidget(
                           )
                         ],
                         borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                            image: AssetImage('assets/images/app_icon.jpeg'),
-                            // productList[index].image != "false"
-                            //     ? NetworkImage(image)
-                            //     :
+                        image: DecorationImage(
+                            image: productList[index].imageUrl != "false"
+                                ? NetworkImage(productList[index].imageUrl)
+                                : const AssetImage(
+                                    'assets/images/app_icon.jpeg'),
                             fit: BoxFit.cover),
                       ),
                       height: 12.h,
@@ -96,7 +95,7 @@ Widget eachProductLineWidget(
                               color: Colors.black.withOpacity(0.6),
                               fontWeight: FontWeight.w500),
                           textWidget(
-                            "RHW-2388",
+                            productList[index].model,
                             fontWeight: FontWeight.w500,
                             size: 13,
                           ),
@@ -137,7 +136,7 @@ Widget eachProductLineWidget(
                           size: 12.5,
                         ),
                         textWidget(
-                          requestFrom,
+                          productList[index].requestWarehouse[1],
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           size: 14,
@@ -151,21 +150,24 @@ Widget eachProductLineWidget(
                       ],
                     ),
                     SizedBox(width: 10.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textWidget(
-                          "Status",
-                          color: AppColor.orangeColor,
-                          size: 12.5,
-                        ),
-                        textWidget(
-                          capitalizeFirstLetter(status),
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
-                        ),
-                      ],
+                    Visibility(
+                      visible: status != 'action',
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textWidget(
+                            "Status",
+                            color: AppColor.orangeColor,
+                            size: 12.5,
+                          ),
+                          textWidget(
+                            capitalizeFirstLetter(status),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            size: 14,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

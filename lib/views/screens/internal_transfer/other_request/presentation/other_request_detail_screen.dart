@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
+
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
@@ -10,12 +12,7 @@ import '../../my_request/domain/my_request.dart';
 import 'widgets/each_other_request_product_widget.dart';
 
 class OtherRequestDetailScreen extends ConsumerStatefulWidget {
-  final List<OtherRequest> otherRequestList;
-  final List<OtherRequest> acceptRequestList;
-  const OtherRequestDetailScreen(
-      {super.key,
-      required this.otherRequestList,
-      required this.acceptRequestList});
+  const OtherRequestDetailScreen({super.key});
 
   @override
   ConsumerState<OtherRequestDetailScreen> createState() =>
@@ -25,14 +22,14 @@ class OtherRequestDetailScreen extends ConsumerStatefulWidget {
 class _OtherRequestsDetailScreenState
     extends ConsumerState<OtherRequestDetailScreen> {
   List<OtherRequest> otherRequestList = [];
-  List<OtherRequest> acceptRequestList = [];
+  List<ProductLineId> acceptProductList = [];
+  List<ProductLineId> requestProductList = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      otherRequestList = widget.otherRequestList;
-      acceptRequestList = widget.acceptRequestList;
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
   }
 
@@ -41,15 +38,24 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         otherRequestList = [];
+        requestProductList.clear();
+        acceptProductList.clear();
       }
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
           for (var data in otherRequestList) {
-            if (data.intStatus == 'progress') {
-              acceptRequestList.add(data);
+            for (var element in data.productLineList) {
+              if (element.status == 'progress') {
+                acceptProductList.add(element);
+              }
+              if (element.status == "requested") {
+                requestProductList.add(element);
+              }
             }
           }
+          superPrint(acceptProductList);
+          superPrint(requestProductList);
         });
       }
     });
@@ -59,7 +65,7 @@ class _OtherRequestsDetailScreenState
   Widget myrequestDetailWidget() {
     return Column(
       children: [
-        pendingRequestWidget(),
+        acceptRequestWidget(),
         const SizedBox(height: 20),
         Expanded(
           child: ListView.separated(
@@ -68,21 +74,13 @@ class _OtherRequestsDetailScreenState
               itemBuilder: (context, index) {
                 String requestCode = otherRequestList[index].name;
                 String name = otherRequestList[index].userId[1];
-                String requestFrom = otherRequestList[index].requestToWh.isEmpty
-                    ? ""
-                    : otherRequestList[index].requestToWh[1];
-                String status = otherRequestList[index].intStatus;
-
-                List<ProductLineId> productList =
-                    otherRequestList[index].productLineList;
+                //String status = otherRequestList[index].intStatus;
                 String currentDate = otherRequestList[index].createDate;
                 return eachOtherRequestProductLineWidget(
                   requestCode,
                   name,
-                  requestFrom,
-                  status,
                   currentDate,
-                  productList,
+                  requestProductList,
                 );
               },
               separatorBuilder: (context, index) {
@@ -94,7 +92,7 @@ class _OtherRequestsDetailScreenState
     );
   }
 
-  Widget pendingRequestWidget() {
+  Widget acceptRequestWidget() {
     return GestureDetector(
       onTap: () {
         // Navigator.of(context).push(MaterialPageRoute(
@@ -131,7 +129,7 @@ class _OtherRequestsDetailScreenState
               ),
             ),
             Visibility(
-              visible: acceptRequestList.isNotEmpty,
+              visible: acceptProductList.isNotEmpty,
               child: Positioned(
                 top: -15,
                 right: -10,
@@ -139,7 +137,7 @@ class _OtherRequestsDetailScreenState
                   radius: 18,
                   backgroundColor: AppColor.pinkColor,
                   child: textWidget(
-                    acceptRequestList.length.toString(),
+                    acceptProductList.length.toString(),
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

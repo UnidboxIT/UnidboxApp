@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/other_request_screen.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
+import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/presentation/my_request_screen.dart';
 import '../../other_request/domain/other_request.dart';
@@ -24,7 +27,8 @@ class InternalTransferScreen extends ConsumerStatefulWidget {
 class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
   List<OtherRequest> otherRequestList = [];
-  List<OtherRequest> acceptRequestList = [];
+  List<ProductLineId> requestProductList = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,18 +43,24 @@ class _InternalTransferScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         otherRequestList = [];
+        requestProductList.clear();
       }
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
           for (var data in otherRequestList) {
-            if (data.intStatus == 'accept') {
-              acceptRequestList.add(data);
+            for (var element in data.productLineList) {
+              if (element.status == "requested") {
+                requestProductList.add(element);
+              }
             }
           }
         });
       }
     });
+    final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
+    final bottomNavNotifier =
+        ref.watch(bottomNavNotifierControllerProvider.notifier);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -74,6 +84,11 @@ class _InternalTransferScreenState
             ],
           ),
         ),
+        floatingActionButton: floatingActionBottomWidget(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: bottomNavBarWidget(
+            currentIndex, bottomNavNotifier, ref, context,
+            needControl: true),
       ),
     );
   }
@@ -96,10 +111,7 @@ class _InternalTransferScreenState
                         builder: (context) => const MyRequestScreen()));
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OtherRequestScreen(
-                              otherRequestList: otherRequestList,
-                              acceptRequestList: acceptRequestList,
-                            )));
+                        builder: (context) => const OtherRequestScreen()));
                   }
                 },
                 child: eachInternalTransferWidget(
@@ -139,6 +151,7 @@ class _InternalTransferScreenState
                 width: 50.w,
                 height: 16.h,
               ),
+              const SizedBox(width: 10),
               SizedBox(
                 width: 23.w,
                 child: textWidget(name, size: 18, fontWeight: FontWeight.bold),

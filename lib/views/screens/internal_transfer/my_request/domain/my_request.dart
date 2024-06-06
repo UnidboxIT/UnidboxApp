@@ -2,8 +2,6 @@ class MyRequest {
   int id;
   String name;
   String intStatus;
-  List requestToWh;
-  List requestFromWh;
   List userId;
   List requisitionIdList;
   List<ProductLineId> productLineList;
@@ -13,8 +11,6 @@ class MyRequest {
     this.id = 0,
     this.name = "",
     this.intStatus = "",
-    this.requestToWh = const [],
-    this.requestFromWh = const [],
     this.userId = const [],
     this.requisitionIdList = const [],
     this.productLineList = const [],
@@ -34,8 +30,6 @@ class MyRequest {
         id: json['id'] ?? 0,
         name: json['name'].toString(),
         intStatus: json['int_status'].toString(),
-        requestToWh: List.from(json['request_to_wh']),
-        requestFromWh: List.from(json['requested_wh']),
         userId: List.from(json['user_id']),
         requisitionIdList: json['requisition_id'] == false
             ? []
@@ -53,26 +47,36 @@ class ProductLineId {
   double qty;
   String imageUrl;
   double price;
+  String status;
+  List warehouseList;
+  List requestWarehouse;
 
-  ProductLineId({
-    this.id = 0,
-    this.productIdList = const [],
-    this.code = "",
-    this.model = "",
-    this.qty = 0.0,
-    this.imageUrl = "",
-    this.price = 0.0,
-  });
+  ProductLineId(
+      {this.id = 0,
+      this.productIdList = const [],
+      this.code = "",
+      this.model = "",
+      this.qty = 0.0,
+      this.imageUrl = "",
+      this.price = 0.0,
+      this.status = "",
+      this.warehouseList = const [],
+      this.requestWarehouse = const []});
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
-      id: json['id'],
-      productIdList: List.from(json['product_id']),
-      code: json['code'].toString(),
-      model: json['model'].toString(),
-      qty: json['quantity'] ?? 0.0,
-      imageUrl: json['image_url'].toString(),
-      price: json['price'] ?? 0.0,
-    );
+        id: json['id'],
+        productIdList: List.from(json['product_id']),
+        code: json['code'].toString(),
+        model: json['model'].toString(),
+        qty: json['quantity'] ?? 0.0,
+        imageUrl: json['image_url'].toString(),
+        price: json['price'] ?? 0.0,
+        status: json['status'].toString(),
+        warehouseList: json['warehouse_id'] == false
+            ? []
+            : List.from(json['warehouse_id']),
+        requestWarehouse:
+            json['wh_from_id'] == false ? [] : List.from(json['wh_from_id']));
   }
 }

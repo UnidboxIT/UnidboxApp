@@ -11,8 +11,6 @@ import '../../../my_request/domain/my_request.dart';
 Widget eachOtherRequestProductLineWidget(
   String requestCode,
   String name,
-  String requestFrom,
-  String status,
   String currentDate,
   List<ProductLineId> productList,
 ) {
@@ -139,7 +137,7 @@ Widget eachOtherRequestProductLineWidget(
                           size: 12.5,
                         ),
                         textWidget(
-                          requestFrom,
+                          productList[index].requestWarehouse[1],
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           size: 14,
@@ -153,32 +151,13 @@ Widget eachOtherRequestProductLineWidget(
                       ],
                     ),
                     const Spacer(),
-                    Visibility(
-                      visible: status == "requested",
-                      child: SizedBox(
-                        height: 35,
-                        width: 30.w,
-                        child: buttonWidget("Accept", () {}),
-                      ),
+                    SizedBox(
+                      height: 35,
+                      width: 30.w,
+                      child: buttonWidget("Accept", () {}),
                     ),
                   ],
                 ),
-                Visibility(
-                    visible: status == 'issued',
-                    child: const SizedBox(height: 10)),
-                Visibility(
-                  visible: status == 'issued',
-                  child: SizedBox(
-                    width: 80.w,
-                    child: buttonWidget(
-                      "Received",
-                      () {},
-                      elevation: 0,
-                      bgColor: AppColor.pinkColor,
-                      fontColor: Colors.white,
-                    ),
-                  ),
-                )
               ],
             ),
           ),
