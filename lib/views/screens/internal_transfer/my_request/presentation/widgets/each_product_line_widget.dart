@@ -41,8 +41,9 @@ Widget eachProductLineWidget(
                   children: [
                     textWidget(
                       requestCode,
-                      fontWeight: FontWeight.bold,
-                      size: 18,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      size: 20,
                     ),
                     textWidget(
                         DateFormat('dd MMM yyyy').format(
@@ -53,7 +54,7 @@ Widget eachProductLineWidget(
                         size: 17)
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 13),
                 Row(
                   children: [
                     Container(

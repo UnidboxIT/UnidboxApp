@@ -94,8 +94,6 @@ class _OtherRequestsDetailScreenState
             }
           }
           requestLoading = false;
-          superPrint(acceptProductList);
-          superPrint(requestProductList);
         });
       }
       if (next is IsDataExit) {

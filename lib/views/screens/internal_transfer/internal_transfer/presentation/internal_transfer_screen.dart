@@ -28,11 +28,13 @@ class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
   List<OtherRequest> otherRequestList = [];
   List<ProductLineId> requestProductList = [];
+  bool isLoading = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(otherRequestStateNotifierProvider.notifier)
@@ -44,8 +46,11 @@ class _InternalTransferScreenState
   Widget build(BuildContext context) {
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
-        otherRequestList = [];
-        requestProductList.clear();
+        setState(() {
+          isLoading = true;
+          otherRequestList = [];
+          requestProductList.clear();
+        });
       }
       if (next is OtherRequestList) {
         setState(() {
@@ -57,6 +62,7 @@ class _InternalTransferScreenState
               }
             }
           }
+          isLoading = false;
         });
       }
     });
@@ -161,23 +167,25 @@ class _InternalTransferScreenState
             ],
           ),
         ),
-        Visibility(
-          visible: count != 0 && otherRequestList.isNotEmpty,
-          child: Positioned(
-            top: -10,
-            right: -5,
-            child: CircleAvatar(
-              backgroundColor: AppColor.pinkColor,
-              radius: 19,
-              child: textWidget(
-                otherRequestList.length.toString(),
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                size: 13,
+        isLoading
+            ? Container()
+            : Visibility(
+                visible: count != 0 && requestProductList.isNotEmpty,
+                child: Positioned(
+                  top: -10,
+                  right: -5,
+                  child: CircleAvatar(
+                    backgroundColor: AppColor.pinkColor,
+                    radius: 19,
+                    child: textWidget(
+                      requestProductList.length.toString(),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      size: 13,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
       ],
     );
   }
