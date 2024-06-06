@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
+import '../../../../widgets/load_more_widget.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -69,9 +70,9 @@ class _MyRequestsDetailScreenState
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestLoading) {
         setState(() {
+          pendingRequestList.clear();
           requestLoading = true;
           myRequestList = [];
-          pendingRequestList.clear();
         });
       }
       if (next is MyRequestList) {
@@ -79,7 +80,7 @@ class _MyRequestsDetailScreenState
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == 'done') {
+              if (element.status == 'action') {
                 pendingRequestList.add(element);
               }
             }
@@ -122,40 +123,20 @@ class _MyRequestsDetailScreenState
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
                 String name = myRequestList[index].userId[1];
-                String status = myRequestList[index].intStatus;
+                //String status = myRequestList[index].intStatus;
                 List<ProductLineId> productList =
                     myRequestList[index].productLineList;
                 String currentDate = myRequestList[index].createDate;
-                superPrint(productList.length);
+
                 return eachProductLineWidget(
-                    requestCode, name, status, currentDate, productList);
+                    requestCode, name, currentDate, productList);
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 20);
               },
               itemCount: myRequestList.length),
         ),
-        if (xLoading)
-          SizedBox(
-            height: 30,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(4)),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textWidget("Loadmore ...",
-                      color: AppColor.pinkColor,
-                      fontWeight: FontWeight.bold,
-                      size: 15),
-                  CupertinoActivityIndicator(color: AppColor.pinkColor),
-                ],
-              ),
-            ),
-          ),
+        if (xLoading) loadMoreWidget(),
         Platform.isIOS && xLoading
             ? SizedBox(height: 3.h)
             : const SizedBox.shrink()

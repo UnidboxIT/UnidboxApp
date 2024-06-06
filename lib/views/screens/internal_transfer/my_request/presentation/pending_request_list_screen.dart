@@ -65,7 +65,7 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
                   String requestCode = widget.pendingRequestList[index].name;
                   String name = widget.pendingRequestList[index].userId[1];
 
-                  String status = widget.pendingRequestList[index].intStatus;
+                  //String status = widget.pendingRequestList[index].intStatus;
                   List<ProductLineId> productList = [];
 
                   for (var element
@@ -79,7 +79,7 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
                   String currentDate =
                       widget.pendingRequestList[index].createDate;
                   return eachProductLineWidget(
-                      requestCode, name, status, currentDate, productList);
+                      requestCode, name, currentDate, productList);
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 20);

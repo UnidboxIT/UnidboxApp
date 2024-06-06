@@ -11,7 +11,6 @@ import '../../domain/my_request.dart';
 Widget eachProductLineWidget(
   String requestCode,
   String name,
-  String status,
   String currentDate,
   List<ProductLineId> productList,
 ) {
@@ -151,7 +150,7 @@ Widget eachProductLineWidget(
                     ),
                     SizedBox(width: 10.w),
                     Visibility(
-                      visible: status != 'action',
+                      visible: productList[index].status != 'action',
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -161,7 +160,7 @@ Widget eachProductLineWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            capitalizeFirstLetter(status),
+                            capitalizeFirstLetter(productList[index].status),
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
@@ -172,10 +171,10 @@ Widget eachProductLineWidget(
                   ],
                 ),
                 Visibility(
-                    visible: status == 'issued',
+                    visible: productList[index].status == 'receiving',
                     child: const SizedBox(height: 10)),
                 Visibility(
-                  visible: status == 'issued',
+                  visible: productList[index].status == 'receiving',
                   child: SizedBox(
                     width: 80.w,
                     child: buttonWidget(

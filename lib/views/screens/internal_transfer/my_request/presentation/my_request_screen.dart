@@ -18,8 +18,6 @@ class MyRequestScreen extends ConsumerStatefulWidget {
 }
 
 class _MyRequestScreenState extends ConsumerState<MyRequestScreen> {
-  // List<String> requestList = ["My\nRequests", "Requests\nHistory"];
-  // String selectedRequest = "My\nRequests";
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(

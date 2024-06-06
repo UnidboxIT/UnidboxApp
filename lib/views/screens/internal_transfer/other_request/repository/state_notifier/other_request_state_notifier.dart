@@ -14,19 +14,28 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   final OtherRequestRepository _otherRequestRepository;
   List<OtherRequest> otherRequestList = [];
 
-  Future<void> getAllOtherRequest() async {
+  Future<void> getAllOtherRequest(int offset) async {
     try {
-      state = const OtherRequestState.loading();
-      otherRequestList.clear();
-      Response response = await _otherRequestRepository.otherRequest();
+      if (otherRequestList.isEmpty) {
+        state = const OtherRequestState.loading();
+      }
+
+      Response response = await _otherRequestRepository.otherRequest(offset);
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         otherRequestList.add(OtherRequest.fromJson(element));
       }
       state = OtherRequestState.loadOtherRequestData(otherRequestList);
+      if (dataList.isEmpty) {
+        state = const OtherRequestState.isDataExist(false);
+      }
     } catch (e) {
       superPrint(e.toString());
     }
+  }
+
+  clearMyRequestValue() {
+    otherRequestList.clear();
   }
 }

@@ -34,7 +34,9 @@ class _InternalTransferScreenState
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+      ref
+          .read(otherRequestStateNotifierProvider.notifier)
+          .getAllOtherRequest(0);
     });
   }
 

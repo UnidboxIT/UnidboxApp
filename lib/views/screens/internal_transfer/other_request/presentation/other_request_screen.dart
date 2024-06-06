@@ -80,7 +80,7 @@ class _OtherRequestScreenState extends ConsumerState<OtherRequestScreen> {
         Future.delayed(const Duration(milliseconds: 10), () {
           ref
               .read(otherRequestStateNotifierProvider.notifier)
-              .getAllOtherRequest();
+              .getAllOtherRequest(0);
         });
       },
       child: Container(
