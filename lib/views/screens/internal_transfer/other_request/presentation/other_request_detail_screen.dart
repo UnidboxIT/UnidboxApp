@@ -10,6 +10,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/accepted_list_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
@@ -107,7 +108,8 @@ class _OtherRequestsDetailScreenState
           otherRequestList = next.otherRequestList;
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == 'progress') {
+              if (element.status == 'requested') {
+                // 'progress') {
                 acceptProductList.add(element);
               }
               if (element.status == "requested") {
@@ -118,67 +120,68 @@ class _OtherRequestsDetailScreenState
           requestLoading = false;
         });
       }
-      superPrint(requestProductList.length);
+
       if (next is IsDataExit) {
         setState(() {
           isDataExist = next.isExit;
         });
       }
     });
+    superPrint(acceptProductList);
     return myrequestDetailWidget();
   }
 
   Widget myrequestDetailWidget() {
-    if (requestLoading) {
-      return Center(
-        child: CupertinoActivityIndicator(
-          color: AppColor.pinkColor,
-        ),
-      );
-    }
-    if (otherRequestList.isEmpty) {
-      return Center(
-        child: textWidget("No Data !"),
-      );
-    }
     return Column(
       children: [
         acceptRequestWidget(),
         const SizedBox(height: 15),
         warehouseWidget(),
         const SizedBox(height: 15),
-        Expanded(
-          child: productByWarehouse.isEmpty && selectedWarehouseID != -1
-              ? Center(child: textWidget("No Data !"))
-              : ListView.separated(
-                  controller: scrollController,
-                  padding: const EdgeInsets.only(bottom: 20),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    String requestCode = otherRequestList[index].name;
-                    String name = otherRequestList[index].userId[1];
-                    //String status = otherRequestList[index].intStatus;
-                    String currentDate = otherRequestList[index].createDate;
-                    if (productByWarehouse.isNotEmpty) {
-                      return eachOtherRequestProductLineWidget(
-                        requestCode,
-                        name,
-                        currentDate,
-                        productByWarehouse,
-                      );
-                    }
-                    return eachOtherRequestProductLineWidget(
-                      requestCode,
-                      name,
-                      currentDate,
-                      requestProductList,
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 20);
-                  },
-                  itemCount: otherRequestList.length),
-        ),
+        requestLoading
+            ? Expanded(
+                child: CupertinoActivityIndicator(
+                  color: AppColor.pinkColor,
+                ),
+              )
+            : otherRequestList.isEmpty
+                ? Center(
+                    child: textWidget("No Data !"),
+                  )
+                : Expanded(
+                    child: productByWarehouse.isEmpty &&
+                            selectedWarehouseID != -1
+                        ? Center(child: textWidget("No Data !"))
+                        : ListView.separated(
+                            controller: scrollController,
+                            padding: const EdgeInsets.only(bottom: 20),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              String requestCode = otherRequestList[index].name;
+                              String name = otherRequestList[index].userId[1];
+                              //String status = otherRequestList[index].intStatus;
+                              String currentDate =
+                                  otherRequestList[index].createDate;
+                              if (productByWarehouse.isNotEmpty) {
+                                return eachOtherRequestProductLineWidget(
+                                  requestCode,
+                                  name,
+                                  currentDate,
+                                  productByWarehouse,
+                                );
+                              }
+                              return eachOtherRequestProductLineWidget(
+                                requestCode,
+                                name,
+                                currentDate,
+                                requestProductList,
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 20);
+                            },
+                            itemCount: otherRequestList.length),
+                  ),
         if (xLoading) loadMoreWidget(),
         Platform.isIOS && xLoading
             ? SizedBox(height: 3.h)
@@ -280,10 +283,13 @@ class _OtherRequestsDetailScreenState
   Widget acceptRequestWidget() {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => PendingRequestListScreen(
-        //           pendingRequestList: pendingRequestList,
-        //         )));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AcceptedListScreen(
+                  otherRequestList: otherRequestList,
+                  requestProductList: requestProductList,
+                  acceptProductList: acceptProductList,
+                  warehouseList: warehouseList,
+                )));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),

@@ -28,50 +28,48 @@ class _OtherRequestScreenState extends ConsumerState<OtherRequestScreen> {
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: Container(
-          child: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(
-              children: [
-                globalAppBarWidget(
-                  "Requests",
-                  () {
-                    ref
-                        .read(otherRequestStateNotifierProvider.notifier)
-                        .clearMyRequestValue();
-                    Navigator.of(context).pop();
+        body: SizedBox(
+          width: 100.w,
+          height: 100.h,
+          child: Stack(
+            children: [
+              globalAppBarWidget(
+                "Requests",
+                () {
+                  ref
+                      .read(otherRequestStateNotifierProvider.notifier)
+                      .clearMyRequestValue();
+                  Navigator.of(context).pop();
+                },
+              ),
+              Transform.translate(
+                offset: Offset(65.w, 6.h),
+                child: GestureDetector(
+                  onTap: () {
+                    superPrint("Other request History");
                   },
-                ),
-                Transform.translate(
-                  offset: Offset(65.w, 6.h),
-                  child: GestureDetector(
-                    onTap: () {
-                      superPrint("Other request History");
-                    },
-                    child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: AppColor.orangeColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: AppColor.orangeColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
                         ),
-                        child: textWidget("Transfered\nHistory",
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            size: 17,
-                            textAlign: TextAlign.center)),
-                  ),
+                      ),
+                      child: textWidget("Transfered\nHistory",
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          size: 17,
+                          textAlign: TextAlign.center)),
                 ),
-                Transform.translate(
-                  offset: Offset(0, 14.h),
-                  child: otherRequestWidget(),
-                ),
-              ],
-            ),
+              ),
+              Transform.translate(
+                offset: Offset(0, 14.h),
+                child: otherRequestWidget(),
+              ),
+            ],
           ),
         ),
       ),
@@ -82,6 +80,9 @@ class _OtherRequestScreenState extends ConsumerState<OtherRequestScreen> {
     return RefreshIndicator(
       color: AppColor.primary,
       onRefresh: () async {
+        ref
+            .read(otherRequestStateNotifierProvider.notifier)
+            .clearMyRequestValue();
         Future.delayed(const Duration(milliseconds: 10), () {
           ref
               .read(otherRequestStateNotifierProvider.notifier)
