@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
 import '../repository/provider/my_request_provider.dart';
@@ -22,21 +26,53 @@ class _MyRequestsDetailScreenState
     extends ConsumerState<MyRequestsDetailScreen> {
   List<MyRequest> myRequestList = [];
   List<ProductLineId> pendingRequestList = [];
-
+  int offset = 0;
+  bool requestLoading = false;
+  bool xLoading = false;
+  bool isDataExist = true;
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
+    ref.read(myRequestStateNotifierProvider.notifier).clearMyRequestValue();
+    scrollController.addListener(_scrollListener);
+    _loadProducts(0);
+  }
+
+  void _loadProducts(int offset) {
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest(offset);
     });
+  }
+
+  void _scrollListener() async {
+    if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent &&
+        !xLoading) {
+      if (isDataExist) {
+        setState(() {
+          xLoading = true;
+        });
+        offset += 10;
+        superPrint("HERE $offset");
+        _loadProducts(offset);
+        await Future.delayed(const Duration(seconds: 1));
+        setState(() {
+          xLoading = false;
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestLoading) {
-        myRequestList = [];
-        pendingRequestList.clear();
+        setState(() {
+          requestLoading = true;
+          myRequestList = [];
+          pendingRequestList.clear();
+        });
       }
       if (next is MyRequestList) {
         setState(() {
@@ -48,6 +84,13 @@ class _MyRequestsDetailScreenState
               }
             }
           }
+          requestLoading = false;
+        });
+      }
+
+      if (next is IsDataExit) {
+        setState(() {
+          isDataExist = next.isExit;
         });
       }
     });
@@ -55,12 +98,25 @@ class _MyRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
+    if (requestLoading) {
+      return Center(
+        child: CupertinoActivityIndicator(
+          color: AppColor.pinkColor,
+        ),
+      );
+    }
+    if (myRequestList.isEmpty) {
+      return Center(
+        child: textWidget("No Data !"),
+      );
+    }
     return Column(
       children: [
         pendingRequestWidget(),
         const SizedBox(height: 20),
         Expanded(
           child: ListView.separated(
+              controller: scrollController,
               padding: const EdgeInsets.only(bottom: 20),
               shrinkWrap: true,
               itemBuilder: (context, index) {
@@ -70,6 +126,7 @@ class _MyRequestsDetailScreenState
                 List<ProductLineId> productList =
                     myRequestList[index].productLineList;
                 String currentDate = myRequestList[index].createDate;
+                superPrint(productList.length);
                 return eachProductLineWidget(
                     requestCode, name, status, currentDate, productList);
               },
@@ -78,6 +135,30 @@ class _MyRequestsDetailScreenState
               },
               itemCount: myRequestList.length),
         ),
+        if (xLoading)
+          SizedBox(
+            height: 30,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              decoration: BoxDecoration(
+                  color: AppColor.bgColor,
+                  borderRadius: BorderRadius.circular(4)),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  textWidget("Loadmore ...",
+                      color: AppColor.pinkColor,
+                      fontWeight: FontWeight.bold,
+                      size: 15),
+                  CupertinoActivityIndicator(color: AppColor.pinkColor),
+                ],
+              ),
+            ),
+          ),
+        Platform.isIOS && xLoading
+            ? SizedBox(height: 3.h)
+            : const SizedBox.shrink()
       ],
     );
   }

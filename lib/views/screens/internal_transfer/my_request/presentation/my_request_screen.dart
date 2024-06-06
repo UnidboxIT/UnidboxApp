@@ -76,7 +76,7 @@ class _MyRequestScreenState extends ConsumerState<MyRequestScreen> {
       color: AppColor.primary,
       onRefresh: () async {
         Future.delayed(const Duration(milliseconds: 10), () {
-          ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+          ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest(0);
         });
       },
       child: Container(

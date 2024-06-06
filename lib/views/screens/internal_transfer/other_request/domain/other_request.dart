@@ -32,6 +32,6 @@ class OtherRequest {
         intStatus: json['int_status'].toString(),
         userId: json['user_id'] == false ? [] : List.from(json['user_id']),
         productLineList: productList,
-        createDate: json['create_date'].toString());
+        createDate: json['date'].toString());
   }
 }
