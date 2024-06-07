@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -34,6 +33,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> productByWarehouse = [];
   int offset = 0;
   bool requestLoading = false;
+  bool acceptLoading = false;
   bool xLoading = false;
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
@@ -109,8 +109,7 @@ class _OtherRequestsDetailScreenState
           otherRequestList = next.otherRequestList;
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == 'requested') {
-                // 'progress') {
+              if (element.status == 'packed') {
                 acceptProductList.add(element);
               }
               if (element.status == "requested") {
@@ -118,13 +117,19 @@ class _OtherRequestsDetailScreenState
               }
             }
           }
-          requestLoading = false;
+
+          acceptLoading = false;
         });
       }
 
       if (next is IsDataExit) {
         setState(() {
           isDataExist = next.isExit;
+        });
+      }
+      if (next is AcceptLoading) {
+        setState(() {
+          acceptLoading = true;
         });
       }
     });
@@ -146,52 +151,41 @@ class _OtherRequestsDetailScreenState
         const SizedBox(height: 15),
         warehouseWidget(),
         const SizedBox(height: 15),
-        requestLoading
-            ? Expanded(
-                child: CupertinoActivityIndicator(
-                  color: AppColor.pinkColor,
-                ),
-              )
-            : otherRequestList.isEmpty
-                ? Center(
-                    child: textWidget("No Data !"),
-                  )
-                : Expanded(
-                    child: productByWarehouse.isEmpty &&
-                            selectedWarehouseID != -1
-                        ? Center(child: textWidget("No Data !"))
-                        : ListView.separated(
-                            controller: scrollController,
-                            padding: const EdgeInsets.only(bottom: 20),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              String requestCode = otherRequestList[index].name;
-                              String name = otherRequestList[index].userId[1];
-                              //String status = otherRequestList[index].intStatus;
-                              String currentDate =
-                                  otherRequestList[index].createDate;
-                              if (productByWarehouse.isNotEmpty) {
-                                return eachOtherRequestProductLineWidget(
-                                    requestCode,
-                                    name,
-                                    currentDate,
-                                    productByWarehouse,
-                                    ref,
-                                    otherRequestList);
-                              }
-                              return eachOtherRequestProductLineWidget(
-                                  requestCode,
-                                  name,
-                                  currentDate,
-                                  requestProductList,
-                                  ref,
-                                  otherRequestList);
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(height: 20);
-                            },
-                            itemCount: otherRequestList.length),
-                  ),
+        Expanded(
+          child: productByWarehouse.isEmpty && selectedWarehouseID != -1
+              ? Center(child: textWidget("No Data !"))
+              : ListView.separated(
+                  controller: scrollController,
+                  padding: const EdgeInsets.only(bottom: 20),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    String requestCode = otherRequestList[index].name;
+                    String name = otherRequestList[index].userId[1];
+                    //String status = otherRequestList[index].intStatus;
+                    String currentDate = otherRequestList[index].createDate;
+                    if (productByWarehouse.isNotEmpty) {
+                      return eachOtherRequestProductLineWidget(
+                          requestCode,
+                          name,
+                          currentDate,
+                          productByWarehouse,
+                          ref,
+                          acceptLoading);
+                    }
+                    return eachOtherRequestProductLineWidget(
+                      requestCode,
+                      name,
+                      currentDate,
+                      requestProductList,
+                      ref,
+                      acceptLoading,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 20);
+                  },
+                  itemCount: otherRequestList.length),
+        ),
         if (xLoading) loadMoreWidget(),
         Platform.isIOS && xLoading
             ? SizedBox(height: 3.h)
@@ -297,9 +291,6 @@ class _OtherRequestsDetailScreenState
           MaterialPageRoute(
             builder: (context) => AcceptedListScreen(
               otherRequestList: otherRequestList,
-              requestProductList: requestProductList,
-              acceptProductList: acceptProductList,
-              warehouseList: warehouseList,
             ),
           ),
         );

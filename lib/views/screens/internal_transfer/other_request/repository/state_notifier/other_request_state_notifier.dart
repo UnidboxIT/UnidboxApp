@@ -22,6 +22,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
 
       Response response = await _otherRequestRepository.otherRequest(offset);
       var result = jsonDecode(response.body);
+      superPrint("Here");
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         otherRequestList.add(OtherRequest.fromJson(element));
@@ -37,5 +38,18 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
 
   clearMyRequestValue() {
     otherRequestList.clear();
+  }
+
+  Future<void> acceptOtherRequest(int productID, int offset) async {
+    try {
+      state = const OtherRequestState.acceptLoading();
+      Response response = await _otherRequestRepository.accepted(productID);
+      var result = jsonDecode(response.body);
+      superPrint(result);
+      clearMyRequestValue();
+      getAllOtherRequest(offset);
+    } catch (e) {
+      superPrint(e.toString());
+    }
   }
 }

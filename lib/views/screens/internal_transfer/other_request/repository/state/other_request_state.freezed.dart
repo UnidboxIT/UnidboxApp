@@ -23,6 +23,7 @@ mixin _$OtherRequestState {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -33,6 +34,7 @@ mixin _$OtherRequestState {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -42,6 +44,7 @@ mixin _$OtherRequestState {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -52,6 +55,7 @@ mixin _$OtherRequestState {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,6 +65,7 @@ mixin _$OtherRequestState {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +75,7 @@ mixin _$OtherRequestState {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -173,6 +179,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) {
     return loadOtherRequestData(otherRequestList);
@@ -186,6 +193,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) {
     return loadOtherRequestData?.call(otherRequestList);
@@ -198,6 +206,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -214,6 +223,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) {
     return loadOtherRequestData(this);
@@ -226,6 +236,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) {
     return loadOtherRequestData?.call(this);
@@ -238,6 +249,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -327,6 +339,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) {
     return isDataExist(isExit);
@@ -340,6 +353,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) {
     return isDataExist?.call(isExit);
@@ -352,6 +366,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -368,6 +383,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) {
     return isDataExist(this);
@@ -380,6 +396,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) {
     return isDataExist?.call(this);
@@ -392,6 +409,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -454,6 +472,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -467,6 +486,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -479,6 +499,7 @@ class _$InitialImpl implements Initial {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -495,6 +516,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -507,6 +529,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -519,6 +542,7 @@ class _$InitialImpl implements Initial {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -577,6 +601,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -590,6 +615,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -602,6 +628,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -618,6 +645,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -630,6 +658,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -642,6 +671,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -654,6 +684,134 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
 
 abstract class OtherRequestLoading implements OtherRequestState {
   const factory OtherRequestLoading() = _$OtherRequestLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$AcceptLoadingImplCopyWith<$Res> {
+  factory _$$AcceptLoadingImplCopyWith(
+          _$AcceptLoadingImpl value, $Res Function(_$AcceptLoadingImpl) then) =
+      __$$AcceptLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AcceptLoadingImplCopyWithImpl<$Res>
+    extends _$OtherRequestStateCopyWithImpl<$Res, _$AcceptLoadingImpl>
+    implements _$$AcceptLoadingImplCopyWith<$Res> {
+  __$$AcceptLoadingImplCopyWithImpl(
+      _$AcceptLoadingImpl _value, $Res Function(_$AcceptLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AcceptLoadingImpl implements AcceptLoading {
+  const _$AcceptLoadingImpl();
+
+  @override
+  String toString() {
+    return 'OtherRequestState.acceptLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AcceptLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<OtherRequest> otherRequestList)
+        loadOtherRequestData,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() acceptLoading,
+    required TResult Function(String? error) error,
+  }) {
+    return acceptLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<OtherRequest> otherRequestList)?
+        loadOtherRequestData,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
+    TResult? Function(String? error)? error,
+  }) {
+    return acceptLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<OtherRequest> otherRequestList)? loadOtherRequestData,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? acceptLoading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (acceptLoading != null) {
+      return acceptLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OtherRequestList value) loadOtherRequestData,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(Error value) error,
+  }) {
+    return acceptLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OtherRequestList value)? loadOtherRequestData,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(Error value)? error,
+  }) {
+    return acceptLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OtherRequestList value)? loadOtherRequestData,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (acceptLoading != null) {
+      return acceptLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AcceptLoading implements OtherRequestState {
+  const factory AcceptLoading() = _$AcceptLoadingImpl;
 }
 
 /// @nodoc
@@ -725,6 +883,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() acceptLoading,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -738,6 +897,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -750,6 +910,7 @@ class _$ErrorImpl implements Error {
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? acceptLoading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -766,6 +927,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -778,6 +940,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -790,6 +953,7 @@ class _$ErrorImpl implements Error {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

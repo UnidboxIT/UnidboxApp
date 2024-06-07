@@ -4,23 +4,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
-import '../../my_request/domain/my_request.dart';
 import '../domain/other_request.dart';
-import '../domain/warehouse.dart';
 import 'accepted_detail_screen.dart';
 import 'widgets/search_other_request_widget.dart';
 
 class AcceptedListScreen extends ConsumerStatefulWidget {
   final List<OtherRequest> otherRequestList;
-  final List<ProductLineId> requestProductList;
-  final List<ProductLineId> acceptProductList;
-  final List<Warehouse> warehouseList;
-  const AcceptedListScreen(
-      {super.key,
-      required this.otherRequestList,
-      required this.requestProductList,
-      required this.acceptProductList,
-      required this.warehouseList});
+
+  const AcceptedListScreen({
+    super.key,
+    required this.otherRequestList,
+  });
 
   @override
   ConsumerState<AcceptedListScreen> createState() => _AcceptedListScreenState();
@@ -70,9 +64,6 @@ class _AcceptedListScreenState extends ConsumerState<AcceptedListScreen> {
           Expanded(
               child: AcceptedDetailScreen(
             otherRequestList: widget.otherRequestList,
-            requestProductList: widget.requestProductList,
-            acceptProductList: widget.acceptProductList,
-            warehouseList: widget.warehouseList,
           )),
         ],
       ),

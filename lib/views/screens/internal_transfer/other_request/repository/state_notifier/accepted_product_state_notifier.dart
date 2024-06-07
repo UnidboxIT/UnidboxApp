@@ -5,7 +5,6 @@ import 'package:unidbox_app/views/screens/internal_transfer/other_request/reposi
 
 class AcceptedProductStateNotifier extends StateNotifier<AcceptedProductState> {
   AcceptedProductStateNotifier() : super(const AcceptedProductState.initial());
-
   Map<int, Map<String, dynamic>> otherRequestMap = {};
 
   addAcceptedProdutcLine(

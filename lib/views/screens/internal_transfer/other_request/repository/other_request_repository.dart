@@ -8,7 +8,7 @@ class OtherRequestRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/stock-request-list/?fields=id,name,date,move_lines,request_to_wh,int_status,user_id&limit=10&offset=$offset&sort=id&others_request=1',
+          'joborder/stock-request-list/?fields=id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -20,6 +20,18 @@ class OtherRequestRepository {
       url: baseUrl,
       endpoint: 'joborder/warehouse?fields=id,name',
       headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
+  Future<Response> accepted(int productID) async {
+    Map<String, dynamic> formData = {"state": "packed"};
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
     );
 
     return response;
