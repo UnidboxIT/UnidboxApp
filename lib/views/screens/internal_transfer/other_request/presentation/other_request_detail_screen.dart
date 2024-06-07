@@ -33,13 +33,15 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> productByWarehouse = [];
   int offset = 0;
   bool requestLoading = false;
-  bool acceptLoading = false;
   bool xLoading = false;
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
   int selectedWarehouseID = -1;
   Map<int, Map<String, dynamic>> acceptedProductLineByMap = {};
-
+  Map<int, dynamic> requestedMap = {};
+  Map<String, List<ProductLineId>> requestProductLineMap = {};
+  int acceptProductID = -1;
+  bool acceptLoading = false;
   @override
   void initState() {
     super.initState();
@@ -107,17 +109,38 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
+          requestProductLineMap.clear();
+          requestedMap.clear();
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == 'packed') {
+              if (element.status == 'accepted') {
                 acceptProductList.add(element);
               }
               if (element.status == "requested") {
-                requestProductList.add(element);
+                //requestProductList.add(element);
+                if (!requestProductLineMap.containsKey(data.name)) {
+                  requestProductLineMap[data.name] = [];
+                }
+                requestProductLineMap[data.name]!.add(element);
+
+                if (requestedMap.containsKey(element.warehouseList[0])) {
+                  requestedMap[element.warehouseList[0]]!.addAll({
+                    "warehouse_name": element.warehouseList[1],
+                    "name": data.userId[1],
+                    "date": data.createDate,
+                    "product_line": requestProductLineMap
+                  });
+                } else {
+                  requestedMap[element.warehouseList[0]] = {
+                    "warehouse_name": element.warehouseList[1],
+                    "name": data.userId[1],
+                    "date": data.createDate,
+                    "product_line": requestProductLineMap
+                  };
+                }
               }
             }
           }
-
           acceptLoading = false;
         });
       }
@@ -132,6 +155,11 @@ class _OtherRequestsDetailScreenState
           acceptLoading = true;
         });
       }
+      if (next is AcceptProductID) {
+        setState(() {
+          acceptProductID = next.productID;
+        });
+      }
     });
     ref.listen(acceptedStateNotifierProvider, (pre, next) {
       if (next is AcceptedProductLineMap) {
@@ -140,7 +168,7 @@ class _OtherRequestsDetailScreenState
         });
       }
     });
-
+    superPrint(requestProductLineMap.entries);
     return myrequestDetailWidget();
   }
 
@@ -152,39 +180,12 @@ class _OtherRequestsDetailScreenState
         warehouseWidget(),
         const SizedBox(height: 15),
         Expanded(
-          child: productByWarehouse.isEmpty && selectedWarehouseID != -1
-              ? Center(child: textWidget("No Data !"))
-              : ListView.separated(
-                  controller: scrollController,
-                  padding: const EdgeInsets.only(bottom: 20),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    String requestCode = otherRequestList[index].name;
-                    String name = otherRequestList[index].userId[1];
-                    //String status = otherRequestList[index].intStatus;
-                    String currentDate = otherRequestList[index].createDate;
-                    if (productByWarehouse.isNotEmpty) {
-                      return eachOtherRequestProductLineWidget(
-                          requestCode,
-                          name,
-                          currentDate,
-                          productByWarehouse,
-                          ref,
-                          acceptLoading);
-                    }
-                    return eachOtherRequestProductLineWidget(
-                      requestCode,
-                      name,
-                      currentDate,
-                      requestProductList,
-                      ref,
-                      acceptLoading,
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 20);
-                  },
-                  itemCount: otherRequestList.length),
+          child: requestedMap[selectedWarehouseID] != null ||
+                  selectedWarehouseID == -1
+              ? acceptedProductLineWidget(requestedMap)
+              : Center(
+                  child: textWidget("No Data !"),
+                ),
         ),
         if (xLoading) loadMoreWidget(),
         Platform.isIOS && xLoading
@@ -192,6 +193,55 @@ class _OtherRequestsDetailScreenState
             : const SizedBox.shrink()
       ],
     );
+  }
+
+  Widget acceptedProductLineWidget(
+    Map<int, dynamic> requestedMap,
+  ) {
+    return ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (context, mainIndex) {
+          int key = requestedMap.keys.elementAt(mainIndex);
+          superPrint(key);
+          Map<String, dynamic> warehouseData = requestedMap[key]!;
+          Map<String, dynamic> productLineMap = warehouseData['product_line'];
+
+          return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 20);
+              },
+              itemCount: productLineMap.keys.length,
+              itemBuilder: (context, index) {
+                String productLineKey = productLineMap.keys.elementAt(index);
+                List<ProductLineId> productList =
+                    productLineMap[productLineKey];
+
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, subIndex) {
+                    return const SizedBox(height: 10);
+                  },
+                  itemCount: productList.length,
+                  itemBuilder: (context, subIndex) {
+                    return eachAcceptedDataWiget(
+                        productLineKey,
+                        warehouseData['name'],
+                        warehouseData['date'],
+                        productList[subIndex],
+                        ref,
+                        isAcceptLoading: acceptLoading,
+                        acceptProductID: acceptProductID);
+                  },
+                );
+              });
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 20);
+        },
+        itemCount: requestedMap.length);
   }
 
   Widget warehouseWidget() {
@@ -207,11 +257,28 @@ class _OtherRequestsDetailScreenState
             onTap: () {
               setState(() {
                 selectedWarehouseID = -1;
+                if (requestedMap[selectedWarehouseID] == -1) {
+                  Map<String, dynamic> value =
+                      requestedMap[selectedWarehouseID];
+                  requestedMap.clear();
+                  if (requestedMap.containsKey(selectedWarehouseID)) {
+                    // If the warehouseId exists, append the product line to the existing list
+                    requestedMap[selectedWarehouseID]!.addAll({
+                      "warehouse_name": value['warehouse_name'],
+                      "name": value['name'],
+                      "date": value['date'],
+                      "product_line": value['product_line'],
+                    });
+                  } else {
+                    requestedMap[selectedWarehouseID] = {
+                      "warehouse_name": value['warehouse_name'],
+                      "name": value['name'],
+                      "date": value['date'],
+                      "product_line": value['product_line'],
+                    };
+                  }
+                }
               });
-              ref
-                  .read(otherRequestStateNotifierProvider.notifier)
-                  .clearMyRequestValue();
-              _loadProducts(0);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -244,11 +311,30 @@ class _OtherRequestsDetailScreenState
                   onTap: () {
                     setState(() {
                       selectedWarehouseID = warehouseList[index].id;
-                      productByWarehouse.clear();
-                      for (var data in requestProductList) {
-                        if (selectedWarehouseID == data.warehouseList[0]) {
-                          productByWarehouse.add(data);
+                      if (requestedMap[selectedWarehouseID] != null) {
+                        Map<String, dynamic> value =
+                            requestedMap[selectedWarehouseID];
+                        requestedMap.clear();
+                        if (requestedMap.containsKey(selectedWarehouseID)) {
+                          // If the warehouseId exists, append the product line to the existing list
+                          requestedMap[selectedWarehouseID]!.addAll({
+                            "warehouse_name": value['warehouse_name'],
+                            "name": value['name'],
+                            "date": value['date'],
+                            "product_line": value['product_line'],
+                          });
+                        } else {
+                          requestedMap[selectedWarehouseID] = {
+                            "warehouse_name": value['warehouse_name'],
+                            "name": value['name'],
+                            "date": value['date'],
+                            "product_line": value['product_line'],
+                          };
                         }
+                      } else {
+                        setState(() {
+                          requestedMap.remove(selectedWarehouseID);
+                        });
                       }
                     });
                   },

@@ -26,6 +26,18 @@ class OtherRequestRepository {
   }
 
   Future<Response> accepted(int productID) async {
+    Map<String, dynamic> formData = {"state": "accepted"};
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
+  Future<Response> packed(int productID) async {
     Map<String, dynamic> formData = {"state": "packed"};
     Response response = await ApiService().post(
       url: baseUrl,

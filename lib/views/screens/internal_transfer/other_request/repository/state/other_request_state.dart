@@ -15,5 +15,7 @@ class OtherRequestState with _$OtherRequestState {
   const factory OtherRequestState.initial() = Initial;
   const factory OtherRequestState.loading() = OtherRequestLoading;
   const factory OtherRequestState.acceptLoading() = AcceptLoading;
+  const factory OtherRequestState.acceptProductID(int productID) =
+      AcceptProductID;
   const factory OtherRequestState.error({String? error}) = Error;
 }

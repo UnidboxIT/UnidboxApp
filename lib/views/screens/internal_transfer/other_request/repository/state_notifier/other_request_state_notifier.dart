@@ -48,6 +48,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       superPrint(result);
       clearMyRequestValue();
       getAllOtherRequest(offset);
+      state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
     }

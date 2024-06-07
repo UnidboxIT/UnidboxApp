@@ -24,6 +24,7 @@ mixin _$OtherRequestState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -35,6 +36,7 @@ mixin _$OtherRequestState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,6 +47,7 @@ mixin _$OtherRequestState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -56,6 +59,7 @@ mixin _$OtherRequestState {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +70,7 @@ mixin _$OtherRequestState {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -76,6 +81,7 @@ mixin _$OtherRequestState {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -180,6 +186,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return loadOtherRequestData(otherRequestList);
@@ -194,6 +201,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return loadOtherRequestData?.call(otherRequestList);
@@ -207,6 +215,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -224,6 +233,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return loadOtherRequestData(this);
@@ -237,6 +247,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return loadOtherRequestData?.call(this);
@@ -250,6 +261,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -340,6 +352,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return isDataExist(isExit);
@@ -354,6 +367,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return isDataExist?.call(isExit);
@@ -367,6 +381,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -384,6 +399,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return isDataExist(this);
@@ -397,6 +413,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return isDataExist?.call(this);
@@ -410,6 +427,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -473,6 +491,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -487,6 +506,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -500,6 +520,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -517,6 +538,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -530,6 +552,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -543,6 +566,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -602,6 +626,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -616,6 +641,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -629,6 +655,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -646,6 +673,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -659,6 +687,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -672,6 +701,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -730,6 +760,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return acceptLoading();
@@ -744,6 +775,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return acceptLoading?.call();
@@ -757,6 +789,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -774,6 +807,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return acceptLoading(this);
@@ -787,6 +821,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return acceptLoading?.call(this);
@@ -800,6 +835,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -812,6 +848,173 @@ class _$AcceptLoadingImpl implements AcceptLoading {
 
 abstract class AcceptLoading implements OtherRequestState {
   const factory AcceptLoading() = _$AcceptLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$AcceptProductIDImplCopyWith<$Res> {
+  factory _$$AcceptProductIDImplCopyWith(_$AcceptProductIDImpl value,
+          $Res Function(_$AcceptProductIDImpl) then) =
+      __$$AcceptProductIDImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int productID});
+}
+
+/// @nodoc
+class __$$AcceptProductIDImplCopyWithImpl<$Res>
+    extends _$OtherRequestStateCopyWithImpl<$Res, _$AcceptProductIDImpl>
+    implements _$$AcceptProductIDImplCopyWith<$Res> {
+  __$$AcceptProductIDImplCopyWithImpl(
+      _$AcceptProductIDImpl _value, $Res Function(_$AcceptProductIDImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+  }) {
+    return _then(_$AcceptProductIDImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AcceptProductIDImpl implements AcceptProductID {
+  const _$AcceptProductIDImpl(this.productID);
+
+  @override
+  final int productID;
+
+  @override
+  String toString() {
+    return 'OtherRequestState.acceptProductID(productID: $productID)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AcceptProductIDImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AcceptProductIDImplCopyWith<_$AcceptProductIDImpl> get copyWith =>
+      __$$AcceptProductIDImplCopyWithImpl<_$AcceptProductIDImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<OtherRequest> otherRequestList)
+        loadOtherRequestData,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
+    required TResult Function(String? error) error,
+  }) {
+    return acceptProductID(productID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<OtherRequest> otherRequestList)?
+        loadOtherRequestData,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
+    TResult? Function(String? error)? error,
+  }) {
+    return acceptProductID?.call(productID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<OtherRequest> otherRequestList)? loadOtherRequestData,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (acceptProductID != null) {
+      return acceptProductID(productID);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OtherRequestList value) loadOtherRequestData,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(OtherRequestLoading value) loading,
+    required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
+    required TResult Function(Error value) error,
+  }) {
+    return acceptProductID(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OtherRequestList value)? loadOtherRequestData,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(OtherRequestLoading value)? loading,
+    TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
+    TResult? Function(Error value)? error,
+  }) {
+    return acceptProductID?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OtherRequestList value)? loadOtherRequestData,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(OtherRequestLoading value)? loading,
+    TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (acceptProductID != null) {
+      return acceptProductID(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AcceptProductID implements OtherRequestState {
+  const factory AcceptProductID(final int productID) = _$AcceptProductIDImpl;
+
+  int get productID;
+  @JsonKey(ignore: true)
+  _$$AcceptProductIDImplCopyWith<_$AcceptProductIDImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -884,6 +1087,7 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
+    required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -898,6 +1102,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
+    TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -911,6 +1116,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
+    TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -928,6 +1134,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(OtherRequestLoading value) loading,
     required TResult Function(AcceptLoading value) acceptLoading,
+    required TResult Function(AcceptProductID value) acceptProductID,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -941,6 +1148,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(OtherRequestLoading value)? loading,
     TResult? Function(AcceptLoading value)? acceptLoading,
+    TResult? Function(AcceptProductID value)? acceptProductID,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -954,6 +1162,7 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(OtherRequestLoading value)? loading,
     TResult Function(AcceptLoading value)? acceptLoading,
+    TResult Function(AcceptProductID value)? acceptProductID,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

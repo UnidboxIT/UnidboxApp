@@ -77,31 +77,18 @@ class _OtherRequestScreenState extends ConsumerState<OtherRequestScreen> {
   }
 
   Widget otherRequestWidget() {
-    return RefreshIndicator(
-      color: AppColor.primary,
-      onRefresh: () async {
-        ref
-            .read(otherRequestStateNotifierProvider.notifier)
-            .clearMyRequestValue();
-        Future.delayed(const Duration(milliseconds: 10), () {
-          ref
-              .read(otherRequestStateNotifierProvider.notifier)
-              .getAllOtherRequest(0);
-        });
-      },
-      child: Container(
-        width: 100.w,
-        height: 81.h,
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: const Column(
-          children: [
-            SearchOtherRequestWidget(),
-            Expanded(child: OtherRequestDetailScreen())
-          ],
-        ),
+    return Container(
+      width: 100.w,
+      height: 81.h,
+      decoration: BoxDecoration(
+        color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: const Column(
+        children: [
+          SearchOtherRequestWidget(),
+          Expanded(child: OtherRequestDetailScreen())
+        ],
       ),
     );
   }
