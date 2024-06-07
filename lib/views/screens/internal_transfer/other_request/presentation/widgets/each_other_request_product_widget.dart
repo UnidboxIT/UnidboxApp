@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -7,13 +8,16 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../my_request/domain/my_request.dart';
+import '../../domain/other_request.dart';
+import '../../repository/provider/other_request_provider.dart';
 
 Widget eachOtherRequestProductLineWidget(
-  String requestCode,
-  String name,
-  String currentDate,
-  List<ProductLineId> productList,
-) {
+    String requestCode,
+    String name,
+    String currentDate,
+    List<ProductLineId> productList,
+    WidgetRef ref,
+    List<OtherRequest> otherRequestList) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -152,10 +156,31 @@ Widget eachOtherRequestProductLineWidget(
                       ],
                     ),
                     const Spacer(),
-                    SizedBox(
-                      height: 35,
-                      width: 30.w,
-                      child: buttonWidget("Accept", () {}),
+                    Visibility(
+                      visible: productList[index].status == "requested",
+                      child: SizedBox(
+                        height: 35,
+                        width: 30.w,
+                        child: buttonWidget("Accept", () {
+                          ref
+                              .read(acceptedStateNotifierProvider.notifier)
+                              .addAcceptedProdutcLine(
+                                  productList[index].warehouseList[0],
+                                  productList[index].warehouseList[1],
+                                  requestCode,
+                                  name,
+                                  currentDate,
+                                  productList[index]);
+                        }),
+                      ),
+                    ),
+                    Visibility(
+                      visible: productList[index].status == "progress",
+                      child: SizedBox(
+                        height: 35,
+                        width: 30.w,
+                        child: buttonWidget("Pack", () {}),
+                      ),
                     ),
                   ],
                 ),

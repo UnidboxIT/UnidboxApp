@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
-
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
@@ -175,18 +172,20 @@ class _OtherRequestsDetailScreenState
                                   otherRequestList[index].createDate;
                               if (productByWarehouse.isNotEmpty) {
                                 return eachOtherRequestProductLineWidget(
+                                    requestCode,
+                                    name,
+                                    currentDate,
+                                    productByWarehouse,
+                                    ref,
+                                    otherRequestList);
+                              }
+                              return eachOtherRequestProductLineWidget(
                                   requestCode,
                                   name,
                                   currentDate,
-                                  productByWarehouse,
-                                );
-                              }
-                              return eachOtherRequestProductLineWidget(
-                                requestCode,
-                                name,
-                                currentDate,
-                                requestProductList,
-                              );
+                                  requestProductList,
+                                  ref,
+                                  otherRequestList);
                             },
                             separatorBuilder: (context, index) {
                               return const SizedBox(height: 20);
