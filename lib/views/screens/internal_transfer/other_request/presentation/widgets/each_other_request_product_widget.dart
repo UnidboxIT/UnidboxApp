@@ -345,7 +345,13 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                 child: SizedBox(
                   height: 35,
                   width: 30.w,
-                  child: buttonWidget("Pack", () {}),
+                  child: buttonWidget("Pack", () {
+                    ref
+                        .read(otherRequestStateNotifierProvider.notifier)
+                        .packOtherRequest(productLine.id, 0);
+                  },
+                      isBool:
+                          isAcceptLoading && acceptProductID == productLine.id),
                 ),
               ),
               Visibility(
@@ -360,6 +366,17 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                   },
                       isBool:
                           isAcceptLoading && acceptProductID == productLine.id),
+                ),
+              ),
+              Visibility(
+                visible: productLine.status == 'packed',
+                child: SizedBox(
+                  height: 35,
+                  width: 30.w,
+                  child: buttonWidget(
+                    "Packed",
+                    () {},
+                  ),
                 ),
               ),
             ],

@@ -53,4 +53,18 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       superPrint(e.toString());
     }
   }
+
+  Future<void> packOtherRequest(int productID, int offset) async {
+    try {
+      state = const OtherRequestState.acceptLoading();
+      Response response = await _otherRequestRepository.packed(productID);
+      var result = jsonDecode(response.body);
+      superPrint(result);
+      clearMyRequestValue();
+      getAllOtherRequest(offset);
+      state = OtherRequestState.acceptProductID(productID);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
 }

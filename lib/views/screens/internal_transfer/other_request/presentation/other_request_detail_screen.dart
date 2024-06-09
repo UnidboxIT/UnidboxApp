@@ -9,7 +9,6 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_request/repositor
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/accepted_list_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/accepted_product_state.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
@@ -161,13 +160,13 @@ class _OtherRequestsDetailScreenState
         });
       }
     });
-    ref.listen(acceptedStateNotifierProvider, (pre, next) {
-      if (next is AcceptedProductLineMap) {
-        setState(() {
-          acceptedProductLineByMap.addAll(next.acceptedProductLineMap);
-        });
-      }
-    });
+    // ref.listen(acceptedStateNotifierProvider, (pre, next) {
+    //   if (next is AcceptedProductLineMap) {
+    //     setState(() {
+    //       acceptedProductLineByMap.addAll(next.acceptedProductLineMap);
+    //     });
+    //   }
+    // });
     superPrint(requestProductLineMap.entries);
     return myrequestDetailWidget();
   }
