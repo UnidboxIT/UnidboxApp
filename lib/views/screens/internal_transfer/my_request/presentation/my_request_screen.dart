@@ -8,7 +8,6 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'my_requests_detail_screen.dart';
-import 'widgets/my_request_search_widget.dart';
 
 class MyRequestScreen extends ConsumerStatefulWidget {
   const MyRequestScreen({super.key});

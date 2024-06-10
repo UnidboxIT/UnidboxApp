@@ -10,7 +10,6 @@ import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import 'pending_request_list_screen.dart';
 import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
@@ -80,7 +79,7 @@ class _MyRequestsDetailScreenState
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == 'action') {
+              if (element.status == 'requested') {
                 pendingRequestList.add(element);
               }
             }

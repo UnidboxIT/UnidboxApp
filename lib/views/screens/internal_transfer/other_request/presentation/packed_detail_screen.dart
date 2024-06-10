@@ -7,7 +7,9 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../repository/state/other_request_state.dart';
 import 'widgets/each_other_request_product_widget.dart';
 
 class PackedDetailScreen extends ConsumerStatefulWidget {
@@ -27,11 +29,12 @@ class _OtherRequestsDetailScreenState
     extends ConsumerState<PackedDetailScreen> {
   List<OtherRequest> otherRequestList = [];
   Map<String, List<ProductLineId>> packedProductMap = {};
-
   int selectedWarehouseID = -1;
   Map<int, dynamic> packedWarehouseMap = {};
   List<ProductLineId> packedProductList = [];
   bool isSwipeLoading = false;
+  Map<String, dynamic> deliveryMap = {};
+  Map<int, List<ProductLineId>> deliveryFinalMap = {};
   @override
   void initState() {
     super.initState();
@@ -44,6 +47,7 @@ class _OtherRequestsDetailScreenState
   loadWarehouseData() {
     packedWarehouseMap.clear();
     packedProductMap.clear();
+    deliveryFinalMap.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("packed")) {
@@ -52,7 +56,9 @@ class _OtherRequestsDetailScreenState
           setState(() {
             if (!packedProductMap.containsKey(data.name)) {
               packedProductMap[data.name] = [];
+              deliveryFinalMap[data.id] = [];
             }
+            deliveryFinalMap[data.id]!.add(element);
             packedProductMap[data.name]!.add(element);
             if (packedWarehouseMap.containsKey(element.warehouseList[0])) {
               // If the warehouseId exists, append the product line to the existing list
@@ -75,11 +81,26 @@ class _OtherRequestsDetailScreenState
         }
       }
     }
-    superPrint(packedWarehouseMap);
+    superPrint(deliveryFinalMap);
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        setState(() {
+          packedProductList.clear();
+          otherRequestList = [];
+        });
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          loadWarehouseData();
+        });
+      }
+    });
+
     return myrequestDetailWidget();
   }
 
@@ -106,25 +127,6 @@ class _OtherRequestsDetailScreenState
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-          // child: SliderButton(
-          //   action: () async {
-          //     ///Do something here OnSlide
-          //     return true;
-          //   },
-
-          //   disable: false,
-          //   shimmer: false,
-          //   alignLabel: const Alignment(0.3, 0),
-          //   label: const Text(
-          //     ">>  Slide to Issue",
-          //     style: TextStyle(
-          //         color: Colors.black,
-          //         fontWeight: FontWeight.w600,
-          //         fontSize: 18),
-          //   ),
-          //   //buttonColor: AppColor.orangeColor,
-          //   icon: Center(child: Lottie.asset('assets/lottie/delivery.json')),
-          // ),
           child: SlideAction(
             thumbWidth: 100,
             rightToLeft: isSwipeLoading,
@@ -194,6 +196,19 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       isSwipeLoading = true;
                     });
+                    setState(() {
+                      deliveryFinalMap.forEach((key, value) {
+                        superPrint("HERE");
+                        ref
+                            .read(otherRequestStateNotifierProvider.notifier)
+                            .deliveryOtherRequest(
+                                key,
+                                value
+                                    .map((productLineId) => productLineId.id)
+                                    .toList(),
+                                0);
+                      });
+                    });
                   },
                 );
               }
@@ -211,11 +226,9 @@ class _OtherRequestsDetailScreenState
         shrinkWrap: true,
         itemBuilder: (context, mainIndex) {
           int key = acceptedWarehouseMap.keys.elementAt(mainIndex);
-          superPrint(key);
           Map<String, dynamic> warehouseData = acceptedWarehouseMap[key]!;
           Map<String, dynamic> productLineMap = warehouseData['product_line'];
-          superPrint(productLineMap);
-          superPrint(productLineMap.keys);
+
           return ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

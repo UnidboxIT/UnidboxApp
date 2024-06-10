@@ -46,6 +46,7 @@ class _OtherRequestsDetailScreenState
   }
 
   loadWarehouseData() {
+    packedProductList.clear();
     acceptProductMap.clear();
     acceptedWarehouseMap.clear();
     for (var data in otherRequestList) {

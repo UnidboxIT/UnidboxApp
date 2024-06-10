@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 
 import '../../../../../services/api_service.dart';
 import '../../../../../utils/commons/common_method.dart';
@@ -42,6 +43,23 @@ class OtherRequestRepository {
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
+  Future<Response> delivery(int otherRequestID, List<int> productID) async {
+    Map<String, dynamic> formData = {
+      "id": otherRequestID,
+      "move_line_ids": productID,
+      "state": "delivery"
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
