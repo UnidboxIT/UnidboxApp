@@ -3,19 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
-
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../domain/my_request.dart';
 
 Widget eachProductLineWidget(
-  String requestCode,
-  String name,
-  String currentDate,
-  String requestWarehouse,
-  List<ProductLineId> productList,
-) {
+    String requestCode,
+    String name,
+    String currentDate,
+    String requestWarehouse,
+    List<ProductLineId> productList,
+    {bool isPending = false}) {
+  List<ProductLineId> myRequestProdutList = [];
+  for (var data in productList) {
+    if (data.status != 'requested' && data.status != "done") {
+      myRequestProdutList.add(data);
+    }
+  }
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -71,10 +76,12 @@ Widget eachProductLineWidget(
                         ],
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: productList[index].imageUrl != "false"
-                                ? NetworkImage(productList[index].imageUrl)
-                                : const AssetImage(
-                                    'assets/images/app_icon.jpeg'),
+                            image:
+                                myRequestProdutList[index].imageUrl != "false"
+                                    ? NetworkImage(
+                                        myRequestProdutList[index].imageUrl)
+                                    : const AssetImage(
+                                        'assets/images/app_icon.jpeg'),
                             fit: BoxFit.cover),
                       ),
                       height: 12.h,
@@ -85,19 +92,20 @@ Widget eachProductLineWidget(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          textWidget(productList[index].productIdList[1],
+                          textWidget(
+                              myRequestProdutList[index].productIdList[1],
                               size: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               maxLine: 2,
                               textOverflow: TextOverflow.fade,
                               textAlign: TextAlign.left),
-                          textWidget(productList[index].code,
+                          textWidget(myRequestProdutList[index].code,
                               size: 12,
                               color: Colors.black.withOpacity(0.6),
                               fontWeight: FontWeight.w500),
                           textWidget(
-                            productList[index].model,
+                            myRequestProdutList[index].model,
                             fontWeight: FontWeight.w500,
                             size: 13,
                           ),
@@ -110,7 +118,8 @@ Widget eachProductLineWidget(
                                 CupertinoIcons.minus_circle_fill,
                               ),
                               const SizedBox(width: 10),
-                              textWidget(productList[index].qty.toString(),
+                              textWidget(
+                                  myRequestProdutList[index].qty.toString(),
                                   color: AppColor.primary,
                                   fontWeight: FontWeight.bold,
                                   size: 13),
@@ -153,7 +162,7 @@ Widget eachProductLineWidget(
                     ),
                     SizedBox(width: 10.w),
                     Visibility(
-                      visible: productList[index].status != 'action',
+                      visible: myRequestProdutList[index].status != 'action',
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -163,7 +172,8 @@ Widget eachProductLineWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            capitalizeFirstLetter(productList[index].status),
+                            capitalizeFirstLetter(
+                                myRequestProdutList[index].status),
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
@@ -174,10 +184,10 @@ Widget eachProductLineWidget(
                   ],
                 ),
                 Visibility(
-                    visible: productList[index].status == 'receiving',
+                    visible: myRequestProdutList[index].status == 'receiving',
                     child: const SizedBox(height: 10)),
                 Visibility(
-                  visible: productList[index].status == 'receiving',
+                  visible: myRequestProdutList[index].status == 'receiving',
                   child: SizedBox(
                     width: 80.w,
                     child: buttonWidget(
@@ -200,7 +210,7 @@ Widget eachProductLineWidget(
       separatorBuilder: (context, index) {
         return const SizedBox(height: 20);
       },
-      itemCount: productList.length);
+      itemCount: myRequestProdutList.length);
 }
 
 String capitalizeFirstLetter(String word) {

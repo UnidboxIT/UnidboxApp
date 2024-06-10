@@ -71,6 +71,7 @@ class _MyRequestsDetailScreenState
         setState(() {
           pendingRequestList.clear();
           requestLoading = true;
+
           myRequestList = [];
         });
       }
@@ -94,6 +95,7 @@ class _MyRequestsDetailScreenState
         });
       }
     });
+
     return Column(
       children: [
         MyRequestSearchWidget(myRequestList: myRequestList),

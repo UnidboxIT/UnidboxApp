@@ -81,7 +81,8 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
                   String currentDate =
                       widget.pendingRequestList[index].createDate;
                   return eachProductLineWidget(requestCode, name, currentDate,
-                      requestWarehouse, productList);
+                      requestWarehouse, productList,
+                      isPending: true);
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 20);

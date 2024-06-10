@@ -33,9 +33,10 @@ class Profile {
         phone: json['phone'].toString(),
         mobile: json['mobile'].toString(),
         email: json['email'].toString(),
-        countryList: List.from(json['country_id']),
-        race: List.from(json['race']),
-        religion: List.from(json['religion']),
+        countryList:
+            json['country_id'] == false ? [] : List.from(json['country_id']),
+        race: json['race'] == false ? [] : List.from(json['race']),
+        religion: json['religion'] == false ? [] : List.from(json['religion']),
         imageUrl: json['image_url'].toString(),
         firstName: json['first_name'].toString(),
         lastName: json['last_name'].toString(),

@@ -84,15 +84,11 @@ class InventoryTrackerRepository {
     int uomID,
   ) async {
     Map<String, dynamic> formData = {
-      "code": "internal",
       "request_to_wh": requestWarehouseID,
       "requested_wh": currentWarehouseID,
-      "company_id": companyID,
       "product_id": productID,
-      "name": productName,
       "date": dateTime,
       "quantity": totalQty,
-      "price": price,
       "uom_id": uomID
     };
     superPrint(formData);

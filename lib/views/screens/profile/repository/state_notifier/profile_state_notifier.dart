@@ -21,6 +21,7 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
       state = const ProfileState.loading();
       Response response = await _profileRepository.profile();
       var result = jsonDecode(response.body);
+      superPrint(result);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (result['result']['code'] == 200) {
           profile = Profile.fromJson(result['result']['records'][0]);

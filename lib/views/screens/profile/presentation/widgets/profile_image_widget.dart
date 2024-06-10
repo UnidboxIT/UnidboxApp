@@ -61,7 +61,7 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
                     ),
                   ),
                 )
-              : widget.profileData.imageUrl.isEmpty
+              : widget.profileData.imageUrl == "false"
                   ? const CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 40,
