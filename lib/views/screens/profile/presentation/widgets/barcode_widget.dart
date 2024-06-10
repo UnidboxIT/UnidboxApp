@@ -29,7 +29,7 @@ Widget barcodeWidget(BuildContext context) {
               width: 110,
               height: 30,
               child: SfBarcodeGenerator(
-                value: '123456789012',
+                value: 'UN001',
                 showValue: false,
                 barColor: Colors.white,
                 backgroundColor: Colors.transparent,

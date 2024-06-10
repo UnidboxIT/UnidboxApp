@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
 
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
@@ -181,7 +182,10 @@ Widget eachProductLineWidget(
                     width: 80.w,
                     child: buttonWidget(
                       "Received",
-                      () {},
+                      () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ReceiveScanScreen()));
+                      },
                       elevation: 0,
                       bgColor: AppColor.pinkColor,
                       fontColor: Colors.white,

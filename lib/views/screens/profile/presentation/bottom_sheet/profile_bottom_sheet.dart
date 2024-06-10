@@ -41,9 +41,10 @@ Widget barcodeBottomSheetWidget(BuildContext context) {
           width: 80.w,
           height: 13.h,
           child: SfBarcodeGenerator(
-            value: '123456789012',
+            value: "UN001",
             showValue: true,
-            symbology: EAN13(),
+            symbology: Code128(),
+            // symbology: EAN13(),
             barColor: AppColor.primary,
             textStyle: const TextStyle(
               color: Colors.black,
