@@ -84,12 +84,7 @@ class _MyRequestScreenState extends ConsumerState<MyRequestScreen> {
           color: AppColor.bgColor,
           borderRadius: BorderRadius.circular(25),
         ),
-        child: const Column(
-          children: [
-            MyRequestSearchWidget(),
-            Expanded(child: MyRequestsDetailScreen())
-          ],
-        ),
+        child: const MyRequestsDetailScreen(),
       ),
     );
   }

@@ -13,6 +13,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import 'pending_request_list_screen.dart';
 import 'widgets/each_product_line_widget.dart';
+import 'widgets/my_request_search_widget.dart';
 
 class MyRequestsDetailScreen extends ConsumerStatefulWidget {
   const MyRequestsDetailScreen({super.key});
@@ -94,7 +95,12 @@ class _MyRequestsDetailScreenState
         });
       }
     });
-    return myrequestDetailWidget();
+    return Column(
+      children: [
+        MyRequestSearchWidget(myRequestList: myRequestList),
+        Expanded(child: myrequestDetailWidget()),
+      ],
+    );
   }
 
   Widget myrequestDetailWidget() {

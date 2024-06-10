@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
+
+import '../../domain/my_request.dart';
 
 class MyRequestSearchWidget extends StatefulWidget {
-  const MyRequestSearchWidget({super.key});
+  final List<MyRequest> myRequestList;
+  const MyRequestSearchWidget({super.key, required this.myRequestList});
 
   @override
   State<MyRequestSearchWidget> createState() => _SearchOrderReceivingState();
@@ -35,7 +39,18 @@ class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           textInputAction: TextInputAction.done,
-          onChanged: (value) async {},
+          onChanged: (query) async {
+            setState(() {
+              List<MyRequest> searchRequest =
+                  widget.myRequestList.where((request) {
+                return request.name
+                        .toLowerCase()
+                        .contains(query.toLowerCase()) ||
+                    request.userId[1].contains(query);
+              }).toList();
+              superPrint(searchRequest);
+            });
+          },
           decoration: InputDecoration(
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
