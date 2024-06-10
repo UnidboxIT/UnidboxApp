@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:slider_button/slider_button.dart';
+import 'package:slide_action/slide_action.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
@@ -32,7 +31,7 @@ class _OtherRequestsDetailScreenState
   int selectedWarehouseID = -1;
   Map<int, dynamic> packedWarehouseMap = {};
   List<ProductLineId> packedProductList = [];
-
+  bool isSwipeLoading = false;
   @override
   void initState() {
     super.initState();
@@ -107,20 +106,98 @@ class _OtherRequestsDetailScreenState
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-          child: SliderButton(
-            action: () async {
-              ///Do something here OnSlide
-              return true;
+          // child: SliderButton(
+          //   action: () async {
+          //     ///Do something here OnSlide
+          //     return true;
+          //   },
+
+          //   disable: false,
+          //   shimmer: false,
+          //   alignLabel: const Alignment(0.3, 0),
+          //   label: const Text(
+          //     ">>  Slide to Issue",
+          //     style: TextStyle(
+          //         color: Colors.black,
+          //         fontWeight: FontWeight.w600,
+          //         fontSize: 18),
+          //   ),
+          //   //buttonColor: AppColor.orangeColor,
+          //   icon: Center(child: Lottie.asset('assets/lottie/delivery.json')),
+          // ),
+          child: SlideAction(
+            thumbWidth: 100,
+            rightToLeft: isSwipeLoading,
+            trackBuilder: (context, state) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(
+                      left:
+                          state.isPerformingAction || isSwipeLoading ? 0 : 20.w,
+                      right: state.isPerformingAction || isSwipeLoading
+                          ? 20.w
+                          : 0),
+                  child: Text(
+                    // Show loading if async operation is being performed
+                    isSwipeLoading
+                        ? "Issued"
+                        : state.isPerformingAction
+                            ? "Loading..."
+                            : ">>  Slide to Issue",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 17,
+                    ),
+                  ),
+                ),
+              );
             },
-            label: const Text(
-              "Slide to cancel Event",
-              style: TextStyle(
-                  color: Color(0xff4a4a4a),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 17),
-            ),
-            //buttonColor: AppColor.orangeColor,
-            icon: Center(child: Lottie.asset('assets/lottie/delivery.json')),
+            thumbBuilder: (context, state) {
+              return Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                margin: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Center(
+                  // Show loading indicator if async operation is being performed
+                  child: state.isPerformingAction
+                      ? const CupertinoActivityIndicator(
+                          color: Colors.white,
+                        )
+                      : const Icon(
+                          CupertinoIcons.car,
+                          color: Colors.white,
+                        ),
+                ),
+              );
+            },
+            action: () async {
+              // Async operation
+              if (!isSwipeLoading) {
+                await Future.delayed(
+                  const Duration(milliseconds: 10),
+                  () {
+                    setState(() {
+                      isSwipeLoading = true;
+                    });
+                  },
+                );
+              }
+            },
           ),
         )
       ],
