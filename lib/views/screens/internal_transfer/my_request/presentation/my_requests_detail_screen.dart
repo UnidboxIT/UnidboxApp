@@ -1,10 +1,12 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/request_history_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
-import '../../../../widgets/load_more_widget.dart';
+import '../../../../../utils/commons/super_print.dart';
+import '../../../../../utils/commons/super_scaffold.dart';
+import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -25,20 +27,15 @@ class _MyRequestsDetailScreenState
     extends ConsumerState<MyRequestsDetailScreen> {
   List<MyRequest> myRequestList = [];
   List<ProductLineId> pendingRequestList = [];
-  int offset = 0;
+
   bool requestLoading = false;
-  bool xLoading = false;
-  bool isDataExist = true;
-  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    // ref.read(myRequestStateNotifierProvider.notifier).clearMyRequestValue();
-    // scrollController.addListener(_scrollListener);
-    _loadProducts(0);
+    _loadProducts();
   }
 
-  void _loadProducts(int offset) {
+  void _loadProducts() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
     });
@@ -67,20 +64,75 @@ class _MyRequestsDetailScreenState
           requestLoading = false;
         });
       }
-
-      if (next is IsDataExit) {
-        setState(() {
-          isDataExist = next.isExit;
-        });
-      }
     });
 
-    return Column(
-      children: [
-        MyRequestSearchWidget(myRequestList: myRequestList),
-        Expanded(child: myrequestDetailWidget()),
-      ],
+    return SuperScaffold(
+      topColor: AppColor.primary,
+      botColor: const Color(0xffF6F6F6),
+      child: Scaffold(
+        backgroundColor: const Color(0xffF6F6F6),
+        body: SizedBox(
+          width: 100.w,
+          height: 100.h,
+          child: Stack(
+            children: [
+              globalAppBarWidget(
+                "My Requests",
+                () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              Transform.translate(
+                offset: Offset(65.w, 6.h),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => RequestHistoryScreen(
+                              pendingRequestList: myRequestList,
+                            )));
+                    superPrint("My Request History");
+                  },
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: AppColor.orangeColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
+                      ),
+                      child: textWidget("Request\nHistory",
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          size: 17)),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0, 14.h),
+                child: orderReceivingBodyWidget(),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  Widget orderReceivingBodyWidget() {
+    return Container(
+        width: 100.w,
+        height: 81.h,
+        decoration: BoxDecoration(
+          color: AppColor.bgColor,
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Column(
+          children: [
+            MyRequestSearchWidget(myRequestList: myRequestList),
+            Expanded(child: myrequestDetailWidget()),
+          ],
+        ));
   }
 
   Widget myrequestDetailWidget() {
@@ -131,10 +183,6 @@ class _MyRequestsDetailScreenState
               },
               itemCount: myRequestList.length),
         ),
-        if (xLoading) loadMoreWidget(),
-        Platform.isIOS && xLoading
-            ? SizedBox(height: 3.h)
-            : const SizedBox.shrink()
       ],
     );
   }

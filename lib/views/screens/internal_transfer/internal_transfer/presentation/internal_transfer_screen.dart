@@ -10,7 +10,7 @@ import '../../../../widgets/text_widget.dart';
 import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
 import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
-import '../../my_request/presentation/my_request_screen.dart';
+import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../other_request/domain/other_request.dart';
 import '../../other_request/repository/provider/other_request_provider.dart';
 import '../../other_request/repository/state/other_request_state.dart';
@@ -116,7 +116,7 @@ class _InternalTransferScreenState
                 onTap: () {
                   if (index == 0) {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyRequestScreen()));
+                        builder: (context) => const MyRequestsDetailScreen()));
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const OtherRequestScreen()));
