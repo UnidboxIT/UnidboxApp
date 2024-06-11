@@ -104,6 +104,7 @@ class _OtherRequestsDetailScreenState
           requestProductList.clear();
           acceptProductList.clear();
           productByWarehouse = [];
+          requestedMapList.clear();
         });
       }
       if (next is OtherRequestList) {
@@ -118,28 +119,52 @@ class _OtherRequestsDetailScreenState
                 acceptProductList.add(element);
               }
               if (element.status == "requested") {
-                if (!requestProductLineMap.containsKey(data.name)) {
-                  requestProductLineMap[data.name] = [];
-                }
-                requestProductLineMap[data.name]!.add(element);
-                if (requestedMap.containsKey(element.warehouseList[0])) {
-                  requestedMap[element.warehouseList[0]].addAll({
-                    "warehouse_name": element.warehouseList[1],
+                // if (!requestProductLineMap.containsKey(data.name)) {
+                //   requestProductLineMap[data.name] = [];
+                // }
+                // requestProductLineMap[data.name]!.add(element);
+                // if (requestedMap.containsKey(element.warehouseList[0])) {
+                //   requestedMap[element.warehouseList[0]].addAll({
+                //     "warehouse_name": element.warehouseList[1],
+                //     "name": data.userId[1],
+                //     "date": data.createDate,
+                //     "product_line": requestProductLineMap
+                //   });
+                // } else {
+                //   requestedMap[element.warehouseList[0]] = {
+                //     "warehouse_name": element.warehouseList[1],
+                //     "name": data.userId[1],
+                //     "date": data.createDate,
+                //     "product_line": requestProductLineMap
+                //   };
+                // }
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
+                String productLineKey = data.name;
+
+                if (!requestedMap.containsKey(warehouseId)) {
+                  requestedMap[warehouseId] = {
+                    "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "product_line": requestProductLineMap
-                  });
-                } else {
-                  requestedMap[element.warehouseList[0]] = {
-                    "warehouse_name": element.warehouseList[1],
-                    "name": data.userId[1],
-                    "date": data.createDate,
-                    "product_line": requestProductLineMap
+                    "product_line": {}
                   };
                 }
+
+                // Ensure each product line is unique per warehouse
+                if (!requestedMap[warehouseId]['product_line']
+                    .containsKey(productLineKey)) {
+                  requestedMap[warehouseId]['product_line']
+                      [productLineKey] = [];
+                }
+
+                requestedMap[warehouseId]['product_line'][productLineKey]
+                    .add(element);
               }
-              requestedMapList.add(requestedMap);
             }
+          }
+          if (requestedMap.isNotEmpty) {
+            requestedMapList.add(requestedMap);
           }
           acceptLoading = false;
         });
@@ -168,7 +193,8 @@ class _OtherRequestsDetailScreenState
     //     });
     //   }
     // });
-
+    superPrint(requestedMap);
+    superPrint(requestedMapList);
     return myrequestDetailWidget();
   }
 
@@ -178,15 +204,20 @@ class _OtherRequestsDetailScreenState
         acceptRequestWidget(),
         const SizedBox(height: 15),
         warehouseWidget(),
-        const SizedBox(height: 15),
-        Expanded(
-          child: requestedMap[selectedWarehouseID] != null ||
-                  selectedWarehouseID == -1
-              ? acceptedProductLineWidget(requestedMap)
-              : Center(
+        requestedMapList.isNotEmpty
+            ? Expanded(
+                child: requestedMap[selectedWarehouseID] != null ||
+                        selectedWarehouseID == -1
+                    ? acceptedProductLineWidget(requestedMapList)
+                    : Center(
+                        child: textWidget("No Data !"),
+                      ),
+              )
+            : Expanded(
+                child: Center(
                   child: textWidget("No Data !"),
                 ),
-        ),
+              ),
         if (xLoading) loadMoreWidget(),
         Platform.isIOS && xLoading
             ? SizedBox(height: 3.h)
@@ -196,51 +227,96 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget acceptedProductLineWidget(
-    Map<int, dynamic> requestedMap,
+    List<Map<int, dynamic>> requestedMapList,
   ) {
     return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (context, mainIndex) {
-          int key = requestedMap.keys.elementAt(mainIndex);
-          Map<String, dynamic> warehouseData = requestedMap[key]!;
-          Map<String, dynamic> productLineMap = warehouseData['product_line'];
-
-          return ListView.separated(
+      shrinkWrap: true,
+      padding: const EdgeInsets.only(bottom: 20),
+      physics: const ClampingScrollPhysics(),
+      itemCount: requestedMapList.length,
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 20);
+      },
+      itemBuilder: (context, index) {
+        Map<int, dynamic> warehouseMap = requestedMapList[index];
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: warehouseMap.entries.map((entry) {
+            int warehouseId = entry.key;
+            Map<dynamic, dynamic> warehouseData = entry.value;
+            Map<dynamic, dynamic> productLineMap =
+                warehouseData['product_line'];
+            return ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
+              itemCount: productLineMap.keys.length,
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 20);
               },
-              itemCount: productLineMap.keys.length,
-              itemBuilder: (context, index) {
-                String productLineKey = productLineMap.keys.elementAt(index);
-                List<ProductLineId> productList =
-                    productLineMap[productLineKey];
-
+              itemBuilder: (context, productIndex) {
+                String productLineKey =
+                    productLineMap.keys.elementAt(productIndex);
+                List<dynamic> productList =
+                    productLineMap[productLineKey] ?? [];
                 return ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, subIndex) {
-                    return const SizedBox(height: 10);
-                  },
                   itemCount: productList.length,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 20);
+                  },
                   itemBuilder: (context, subIndex) {
                     return eachAcceptedDataWiget(
-                        productLineKey,
-                        warehouseData['name'],
-                        warehouseData['date'],
-                        productList[subIndex],
-                        ref,
-                        isAcceptLoading: acceptLoading,
-                        acceptProductID: acceptProductID);
+                      productLineKey,
+                      warehouseData['name'],
+                      warehouseData['date'],
+                      productList[subIndex],
+                      ref,
+                      isAcceptLoading: acceptLoading,
+                      acceptProductID: acceptProductID,
+                    );
                   },
                 );
-              });
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 20);
-        },
-        itemCount: requestedMap.length);
+              },
+            );
+          }).toList(),
+        );
+      },
+    );
+
+    // return ListView.separated(
+    //   shrinkWrap: true,
+    //   physics: const ClampingScrollPhysics(),
+    //   separatorBuilder: (context, index) {
+    //     return const SizedBox(height: 20);
+    //   },
+    //   itemCount: productLineMap.keys.length,
+    //   itemBuilder: (context, index) {
+    //     String productLineKey = productLineMap.keys.elementAt(index);
+    //     List<ProductLineId> productList = productLineMap[productLineKey];
+    //     superPrint(productLineKey);
+    //     superPrint(productList);
+    //     return ListView.separated(
+    //       shrinkWrap: true,
+    //       physics: const NeverScrollableScrollPhysics(),
+    //       separatorBuilder: (context, subIndex) {
+    //         return const SizedBox(height: 10);
+    //       },
+    //       itemCount: productList.length,
+    //       itemBuilder: (context, subIndex) {
+    //         return eachAcceptedDataWiget(
+    //           productLineKey,
+    //           value['name'],
+    //           value['date'],
+    //           productList[subIndex],
+    //           ref,
+    //           isAcceptLoading: acceptLoading,
+    //           acceptProductID: acceptProductID,
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
   }
 
   Widget warehouseWidget() {
@@ -257,25 +333,32 @@ class _OtherRequestsDetailScreenState
               setState(() {
                 selectedWarehouseID = -1;
                 if (requestedMap[selectedWarehouseID] == -1) {
-                  Map<String, dynamic> value =
-                      requestedMap[selectedWarehouseID];
-                  requestedMap.clear();
-                  if (requestedMap.containsKey(selectedWarehouseID)) {
-                    // If the warehouseId exists, append the product line to the existing list
-                    requestedMap[selectedWarehouseID].addAll({
-                      "warehouse_name": value['warehouse_name'],
-                      "name": value['name'],
-                      "date": value['date'],
-                      "product_line": value['product_line'],
-                    });
-                  } else {
-                    requestedMap[selectedWarehouseID] = {
-                      "warehouse_name": value['warehouse_name'],
-                      "name": value['name'],
-                      "date": value['date'],
-                      "product_line": value['product_line'],
-                    };
+                  if (requestedMap[selectedWarehouseID] != null) {
+                    Map<String, dynamic> value =
+                        requestedMap[selectedWarehouseID];
+                    requestedMapList.clear();
+                    if (requestedMap.containsKey(selectedWarehouseID)) {
+                      // If the warehouseId exists, append the product line to the existing list
+                      requestedMap[selectedWarehouseID].addAll({
+                        "warehouse_name": value['warehouse_name'],
+                        "name": value['name'],
+                        "date": value['date'],
+                        "product_line": value['product_line'],
+                      });
+                    } else {
+                      requestedMap[selectedWarehouseID] = {
+                        "warehouse_name": value['warehouse_name'],
+                        "name": value['name'],
+                        "date": value['date'],
+                        "product_line": value['product_line'],
+                      };
+                    }
                   }
+                  requestedMapList.add(requestedMap);
+                } else {
+                  setState(() {
+                    requestedMap.remove(selectedWarehouseID);
+                  });
                 }
               });
             },
@@ -310,31 +393,35 @@ class _OtherRequestsDetailScreenState
                   onTap: () {
                     setState(() {
                       selectedWarehouseID = warehouseList[index].id;
-                      superPrint(selectedWarehouseID);
-                      Map<String, dynamic> value =
-                          requestedMap[selectedWarehouseID];
-                      requestedMap.clear();
-                      if (requestedMap.containsKey(selectedWarehouseID)) {
-                        // If the warehouseId exists, append the product line to the existing list
-                        requestedMap[selectedWarehouseID].addAll({
-                          "warehouse_name": value['warehouse_name'],
-                          "name": value['name'],
-                          "date": value['date'],
-                          "product_line": value['product_line'],
-                        });
+                      superPrint(requestedMap[selectedWarehouseID]);
+                      if (requestedMap[selectedWarehouseID] != null) {
+                        Map<String, dynamic> value =
+                            requestedMap[selectedWarehouseID] ?? {};
+                        superPrint(selectedWarehouseID);
+                        requestedMapList.clear();
+
+                        if (requestedMap.containsKey(selectedWarehouseID)) {
+                          // If the warehouseId exists, append the product line to the existing list
+                          requestedMap[selectedWarehouseID].addAll({
+                            "warehouse_name": value['warehouse_name'],
+                            "name": value['name'],
+                            "date": value['date'],
+                            "product_line": value['product_line'],
+                          });
+                        } else {
+                          requestedMap[selectedWarehouseID] = {
+                            "warehouse_name": value['warehouse_name'],
+                            "name": value['name'],
+                            "date": value['date'],
+                            "product_line": value['product_line'],
+                          };
+                        }
+                        requestedMapList.add(requestedMap);
                       } else {
-                        requestedMap[selectedWarehouseID] = {
-                          "warehouse_name": value['warehouse_name'],
-                          "name": value['name'],
-                          "date": value['date'],
-                          "product_line": value['product_line'],
-                        };
+                        setState(() {
+                          requestedMap.remove(selectedWarehouseID);
+                        });
                       }
-                      // } else {
-                      //   setState(() {
-                      //     requestedMap.remove(selectedWarehouseID);
-                      //   });
-                      // }
                     });
                   },
                   child: Container(

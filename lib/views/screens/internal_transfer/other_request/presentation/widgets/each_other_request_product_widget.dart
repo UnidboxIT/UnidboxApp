@@ -15,7 +15,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
+    padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
