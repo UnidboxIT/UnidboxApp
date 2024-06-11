@@ -6,7 +6,6 @@ import 'package:unidbox_app/views/screens/profile/domain/profile.dart';
 import 'package:unidbox_app/views/screens/profile/domain/religion.dart';
 import 'package:unidbox_app/views/screens/profile/repository/provider/profile_state_notifier_provider.dart';
 import 'package:unidbox_app/views/screens/profile/repository/state/religion_state.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../../utils/constant/app_color.dart';
 
 class ReligionDropDownWidget extends ConsumerStatefulWidget {
@@ -32,14 +31,15 @@ class _ReligionDropDownWidgetState
 
   loadReligion() {
     setState(() {
-      selectedReligion = Religion(
-          id: widget.profile.religion[0], name: widget.profile.religion[1]);
-      superPrint(selectedReligion.name);
-      Future.delayed(const Duration(milliseconds: 10), () {
-        ref
-            .read(religionStateNotifierProvider.notifier)
-            .eachSelectedReligion(selectedReligion);
-      });
+      if (widget.profile.religion.isNotEmpty) {
+        selectedReligion = Religion(
+            id: widget.profile.religion[0], name: widget.profile.religion[1]);
+        Future.delayed(const Duration(milliseconds: 10), () {
+          ref
+              .read(religionStateNotifierProvider.notifier)
+              .eachSelectedReligion(selectedReligion);
+        });
+      }
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
@@ -98,7 +98,7 @@ class _ReligionDropDownWidgetState
                   ),
                 ))
             .toList(),
-        value: selectedReligion.name,
+        value: selectedReligion.name == "" ? null : selectedReligion.name,
         onChanged: (value) {
           updateSelectedReligionData(value);
         },
@@ -139,7 +139,7 @@ class _ReligionDropDownWidgetState
             height: 50,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             child: TextFormField(
-              autofocus: true,
+              autofocus: false,
               expands: true,
               maxLines: null,
               controller: txtSearch,

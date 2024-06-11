@@ -13,7 +13,7 @@ class CountryStateNotifier extends StateNotifier<CountryState> {
   final ProfileRepository _profileRepository;
 
   List<Country> countryList = [];
-  Future<void> getCountry(String selectedName) async {
+  Future<void> getCountry({String selectedName = ""}) async {
     try {
       state = const CountryState.loading();
       Response response = await _profileRepository.country();
@@ -25,17 +25,19 @@ class CountryStateNotifier extends StateNotifier<CountryState> {
           for (var element in dataList) {
             countryList.add(Country.fromJson(element));
           }
+          if (selectedName != "") {
+            countryList.sort((a, b) {
+              if (a.name == selectedName) {
+                return -1;
+              } else if (b.name == selectedName) {
+                return 1;
+              } else {
+                return a.name
+                    .compareTo(b.name); // Sort other elements alphabetically
+              }
+            });
+          }
 
-          countryList.sort((a, b) {
-            if (a.name == selectedName) {
-              return -1;
-            } else if (b.name == selectedName) {
-              return 1;
-            } else {
-              return a.name
-                  .compareTo(b.name); // Sort other elements alphabetically
-            }
-          });
           state = CountryState.loadCountry(countryList);
         } else {
           state = CountryState.error(error: result['result']);

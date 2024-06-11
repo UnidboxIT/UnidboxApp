@@ -30,13 +30,15 @@ class _RaceDropdownWidgetState extends ConsumerState<RaceDropdownWidget> {
 
   loadRace() {
     setState(() {
-      selectedRace =
-          Race(id: widget.profile.race[0], name: widget.profile.race[1]);
-      Future.delayed(const Duration(milliseconds: 10), () {
-        ref
-            .read(raceStateNotifierProvider.notifier)
-            .eachSelectedCountry(selectedRace);
-      });
+      if (widget.profile.race.isNotEmpty) {
+        selectedRace =
+            Race(id: widget.profile.race[0], name: widget.profile.race[1]);
+        Future.delayed(const Duration(milliseconds: 10), () {
+          ref
+              .read(raceStateNotifierProvider.notifier)
+              .eachSelectedCountry(selectedRace);
+        });
+      }
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(raceStateNotifierProvider.notifier).getRace(selectedRace.name);
@@ -90,7 +92,7 @@ class _RaceDropdownWidgetState extends ConsumerState<RaceDropdownWidget> {
                   ),
                 ))
             .toList(),
-        value: selectedRace.name,
+        value: selectedRace.name == "" ? null : selectedRace.name,
         onChanged: (value) {
           updateSelectedRaceData(value);
         },
@@ -131,7 +133,7 @@ class _RaceDropdownWidgetState extends ConsumerState<RaceDropdownWidget> {
             height: 50,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             child: TextFormField(
-              autofocus: true,
+              autofocus: false,
               expands: true,
               maxLines: null,
               controller: txtSearch,

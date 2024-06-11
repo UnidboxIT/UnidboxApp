@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/profile/domain/country.dart';
 import 'package:unidbox_app/views/screens/profile/domain/profile.dart';
 import 'package:unidbox_app/views/screens/profile/repository/provider/profile_state_notifier_provider.dart';
@@ -30,19 +31,22 @@ class _CountryDropdownWidgetState extends ConsumerState<CountryDropdownWidget> {
 
   loadCountry() {
     setState(() {
-      selectedCountry = Country(
-          id: widget.profile.countryList[0],
-          name: widget.profile.countryList[1]);
-      Future.delayed(const Duration(milliseconds: 10), () {
-        ref
-            .read(countryStateNotifierProvider.notifier)
-            .eachSelectedCountry(selectedCountry);
-      });
+      if (widget.profile.countryList.isNotEmpty) {
+        selectedCountry = Country(
+            id: widget.profile.countryList[0],
+            name: widget.profile.countryList[1]);
+        Future.delayed(const Duration(milliseconds: 10), () {
+          ref
+              .read(countryStateNotifierProvider.notifier)
+              .eachSelectedCountry(selectedCountry);
+        });
+      }
     });
+    superPrint(selectedCountry.name);
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(countryStateNotifierProvider.notifier)
-          .getCountry(selectedCountry.name);
+          .getCountry(selectedName: selectedCountry.name);
     });
   }
 
@@ -97,7 +101,7 @@ class _CountryDropdownWidgetState extends ConsumerState<CountryDropdownWidget> {
                   ),
                 ))
             .toList(),
-        value: selectedCountry.name,
+        value: selectedCountry.name == "" ? null : selectedCountry.name,
         onChanged: (value) {
           updateSelectedCountryData(value);
         },
@@ -138,7 +142,7 @@ class _CountryDropdownWidgetState extends ConsumerState<CountryDropdownWidget> {
             height: 50,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             child: TextFormField(
-              autofocus: true,
+              autofocus: false,
               expands: true,
               maxLines: null,
               controller: txtSearch,
