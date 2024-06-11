@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -19,6 +20,7 @@ class PendingRequestListScreen extends StatefulWidget {
 class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
   @override
   Widget build(BuildContext context) {
+    superPrint(widget.pendingRequestList);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -58,34 +60,33 @@ class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
         children: [
           const SearchPendingRequestWidget(),
           Expanded(
-            child: ListView.separated(
+            child: ListView.builder(
                 padding: const EdgeInsets.only(bottom: 20),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   String requestCode = widget.pendingRequestList[index].name;
                   String name = widget.pendingRequestList[index].userId[1];
+                  List<ProductLineId> productList = widget
+                      .pendingRequestList[index].productLineList
+                      .where((productLine) {
+                    return productLine.status == 'requested';
+                  }).toList();
+                  String currentDate =
+                      widget.pendingRequestList[index].createDate;
                   String requestWarehouse =
                       widget.pendingRequestList[index].requestToWh.isEmpty
                           ? ""
                           : widget.pendingRequestList[index].requestToWh[1];
-                  //String status = widget.pendingRequestList[index].intStatus;
-                  List<ProductLineId> productList = [];
-                  for (var element
-                      in widget.pendingRequestList[index].productLineList) {
-                    if (element.status == 'action') {
-                      productList.add(element);
-                    }
+                  if (productList.isEmpty) {
+                    return const SizedBox.shrink();
                   }
-
-                  widget.pendingRequestList[index].productLineList;
-                  String currentDate =
-                      widget.pendingRequestList[index].createDate;
-                  return eachProductLineWidget(requestCode, name, currentDate,
-                      requestWarehouse, productList,
-                      isPending: true);
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 20);
+                  return Column(
+                    children: [
+                      eachProductLineWidget(requestCode, name, currentDate,
+                          requestWarehouse, productList),
+                      const SizedBox(height: 20)
+                    ],
+                  );
                 },
                 itemCount: widget.pendingRequestList.length),
           ),

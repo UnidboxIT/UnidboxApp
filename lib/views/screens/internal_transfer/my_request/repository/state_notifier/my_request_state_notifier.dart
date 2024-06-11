@@ -15,22 +15,18 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
   final MyRequestRepository _myRequestRepository;
   List<MyRequest> myRequestList = [];
 
-  Future<void> getAllMyRequest(int offset) async {
+  Future<void> getAllMyRequest() async {
     try {
-      if (myRequestList.isEmpty) {
-        state = const MyRequestState.loading();
-      }
-
-      Response response = await _myRequestRepository.myrequest(offset);
+      state = const MyRequestState.loading();
+      Response response = await _myRequestRepository.myrequest();
       var result = jsonDecode(response.body);
+      myRequestList.clear();
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         myRequestList.add(MyRequest.fromJson(element));
       }
+
       state = MyRequestState.loadMyRequestData(myRequestList);
-      if (dataList.isEmpty) {
-        state = const MyRequestState.isDataExist(false);
-      }
     } catch (e) {
       superPrint(e.toString());
     }

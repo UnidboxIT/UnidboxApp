@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
 import '../../../../widgets/load_more_widget.dart';
@@ -34,34 +33,15 @@ class _MyRequestsDetailScreenState
   @override
   void initState() {
     super.initState();
-    ref.read(myRequestStateNotifierProvider.notifier).clearMyRequestValue();
-    scrollController.addListener(_scrollListener);
+    // ref.read(myRequestStateNotifierProvider.notifier).clearMyRequestValue();
+    // scrollController.addListener(_scrollListener);
     _loadProducts(0);
   }
 
   void _loadProducts(int offset) {
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest(offset);
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
     });
-  }
-
-  void _scrollListener() async {
-    if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent &&
-        !xLoading) {
-      if (isDataExist) {
-        setState(() {
-          xLoading = true;
-        });
-        offset += 10;
-        superPrint("HERE $offset");
-        _loadProducts(offset);
-        await Future.delayed(const Duration(seconds: 1));
-        setState(() {
-          xLoading = false;
-        });
-      }
-    }
   }
 
   @override
@@ -71,7 +51,6 @@ class _MyRequestsDetailScreenState
         setState(() {
           pendingRequestList.clear();
           requestLoading = true;
-
           myRequestList = [];
         });
       }
@@ -122,26 +101,33 @@ class _MyRequestsDetailScreenState
         pendingRequestWidget(),
         const SizedBox(height: 20),
         Expanded(
-          child: ListView.separated(
-              controller: scrollController,
+          child: ListView.builder(
               padding: const EdgeInsets.only(bottom: 20),
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
                 String name = myRequestList[index].userId[1];
-                //String status = myRequestList[index].intStatus;
-                List<ProductLineId> productList =
-                    myRequestList[index].productLineList;
+                List<ProductLineId> productList = myRequestList[index]
+                    .productLineList
+                    .where((productLine) =>
+                        productLine.status != 'done' &&
+                        productLine.status != 'requested')
+                    .toList();
                 String currentDate = myRequestList[index].createDate;
                 String requestWarehouse =
                     myRequestList[index].requestToWh.isEmpty
                         ? ""
                         : myRequestList[index].requestToWh[1];
-                return eachProductLineWidget(requestCode, name, currentDate,
-                    requestWarehouse, productList);
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 20);
+                if (productList.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+                return Column(
+                  children: [
+                    eachProductLineWidget(requestCode, name, currentDate,
+                        requestWarehouse, productList),
+                    const SizedBox(height: 20)
+                  ],
+                );
               },
               itemCount: myRequestList.length),
         ),

@@ -6,7 +6,6 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
-import '../repository/provider/my_request_provider.dart';
 import 'my_requests_detail_screen.dart';
 
 class MyRequestScreen extends ConsumerStatefulWidget {
@@ -69,22 +68,14 @@ class _MyRequestScreenState extends ConsumerState<MyRequestScreen> {
   }
 
   Widget orderReceivingBodyWidget() {
-    return RefreshIndicator(
-      color: AppColor.primary,
-      onRefresh: () async {
-        Future.delayed(const Duration(milliseconds: 10), () {
-          ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest(0);
-        });
-      },
-      child: Container(
-        width: 100.w,
-        height: 81.h,
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: const MyRequestsDetailScreen(),
+    return Container(
+      width: 100.w,
+      height: 81.h,
+      decoration: BoxDecoration(
+        color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(25),
       ),
+      child: const MyRequestsDetailScreen(),
     );
   }
 }

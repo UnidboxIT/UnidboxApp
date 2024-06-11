@@ -15,12 +15,6 @@ Widget eachProductLineWidget(
     String requestWarehouse,
     List<ProductLineId> productList,
     {bool isPending = false}) {
-  List<ProductLineId> myRequestProdutList = [];
-  for (var data in productList) {
-    if (data.status != 'requested' && data.status != "done") {
-      myRequestProdutList.add(data);
-    }
-  }
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -76,12 +70,10 @@ Widget eachProductLineWidget(
                         ],
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image:
-                                myRequestProdutList[index].imageUrl != "false"
-                                    ? NetworkImage(
-                                        myRequestProdutList[index].imageUrl)
-                                    : const AssetImage(
-                                        'assets/images/app_icon.jpeg'),
+                            image: productList[index].imageUrl != "false"
+                                ? NetworkImage(productList[index].imageUrl)
+                                : const AssetImage(
+                                    'assets/images/app_icon.jpeg'),
                             fit: BoxFit.cover),
                       ),
                       height: 12.h,
@@ -92,20 +84,19 @@ Widget eachProductLineWidget(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          textWidget(
-                              myRequestProdutList[index].productIdList[1],
+                          textWidget(productList[index].productIdList[1],
                               size: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               maxLine: 2,
                               textOverflow: TextOverflow.fade,
                               textAlign: TextAlign.left),
-                          textWidget(myRequestProdutList[index].code,
+                          textWidget(productList[index].code,
                               size: 12,
                               color: Colors.black.withOpacity(0.6),
                               fontWeight: FontWeight.w500),
                           textWidget(
-                            myRequestProdutList[index].model,
+                            productList[index].model,
                             fontWeight: FontWeight.w500,
                             size: 13,
                           ),
@@ -118,8 +109,7 @@ Widget eachProductLineWidget(
                                 CupertinoIcons.minus_circle_fill,
                               ),
                               const SizedBox(width: 10),
-                              textWidget(
-                                  myRequestProdutList[index].qty.toString(),
+                              textWidget(productList[index].qty.toString(),
                                   color: AppColor.primary,
                                   fontWeight: FontWeight.bold,
                                   size: 13),
@@ -162,7 +152,7 @@ Widget eachProductLineWidget(
                     ),
                     SizedBox(width: 10.w),
                     Visibility(
-                      visible: myRequestProdutList[index].status != 'action',
+                      visible: productList[index].status != 'action',
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -172,8 +162,7 @@ Widget eachProductLineWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            capitalizeFirstLetter(
-                                myRequestProdutList[index].status),
+                            capitalizeFirstLetter(productList[index].status),
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
@@ -184,10 +173,10 @@ Widget eachProductLineWidget(
                   ],
                 ),
                 Visibility(
-                    visible: myRequestProdutList[index].status == 'receiving',
+                    visible: productList[index].status == 'receiving',
                     child: const SizedBox(height: 10)),
                 Visibility(
-                  visible: myRequestProdutList[index].status == 'receiving',
+                  visible: productList[index].status == 'receiving',
                   child: SizedBox(
                     width: 80.w,
                     child: buttonWidget(
@@ -210,7 +199,7 @@ Widget eachProductLineWidget(
       separatorBuilder: (context, index) {
         return const SizedBox(height: 20);
       },
-      itemCount: myRequestProdutList.length);
+      itemCount: productList.length);
 }
 
 String capitalizeFirstLetter(String word) {
