@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
@@ -32,14 +33,16 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
-  Future<void> doneMyRequest(int productID) async {
+  Future<void> doneMyRequest(
+      int productID, int qty, BuildContext context) async {
     try {
       state = const MyRequestState.loading();
-      Response response = await _myRequestRepository.done(productID);
+      Response response = await _myRequestRepository.done(productID, qty);
       superPrint(response);
       var result = jsonDecode(response.body);
       superPrint(result);
       getAllMyRequest();
+      Navigator.of(context).pop();
     } catch (e) {
       superPrint(e.toString());
     }

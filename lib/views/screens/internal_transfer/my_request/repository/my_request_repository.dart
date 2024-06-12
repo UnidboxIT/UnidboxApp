@@ -14,8 +14,8 @@ class MyRequestRepository {
     return response;
   }
 
-  Future<Response> done(int productID) async {
-    Map<String, dynamic> formData = {"state": "done"};
+  Future<Response> done(int productID, int qty) async {
+    Map<String, dynamic> formData = {"state": "done", "received_qty": qty};
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/$productID',

@@ -5,14 +5,15 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
 class ReceiveScanScreen extends ConsumerStatefulWidget {
   final int productID;
-  const ReceiveScanScreen({super.key, required this.productID});
+  final int qty;
+  const ReceiveScanScreen(
+      {super.key, required this.productID, required this.qty});
 
   @override
   _BarcodeScannerWithOverlayState createState() =>
@@ -84,9 +85,10 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
                 child: GestureDetector(
                   onTap: () {
                     superPrint("hay hay");
-                    // ref
-                    //     .read(myRequestStateNotifierProvider.notifier)
-                    //     .doneMyRequest(widget.productID);
+
+                    ref
+                        .read(myRequestStateNotifierProvider.notifier)
+                        .doneMyRequest(widget.productID, widget.qty, context);
                   },
                   child: Container(
                     height: 40,
@@ -126,15 +128,15 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
               scanWindow: scanWindow,
               onDetect: (capture) {
                 mobileScanner.start();
-                ref
-                    .read(scanProductStateNotifierProvier.notifier)
-                    .clearScanProduct();
-                for (var barcode in capture.barcodes) {
-                  ref
-                      .read(scanProductStateNotifierProvier.notifier)
-                      .scanProductByBarCode(
-                          barcode.rawValue.toString(), context, 0);
-                }
+                // ref
+                //     .read(scanProductStateNotifierProvier.notifier)
+                //     .clearScanProduct();
+                // for (var barcode in capture.barcodes) {
+                //   ref
+                //       .read(scanProductStateNotifierProvier.notifier)
+                //       .scanProductByBarCode(
+                //           barcode.rawValue.toString(), context, 0);
+                // }
                 mobileScanner.stop();
               },
             ),

@@ -185,6 +185,7 @@ Widget eachProductLineWidget(
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ReceiveScanScreen(
                                   productID: productList[index].id,
+                                  qty: productList[index].qty.toInt(),
                                 )));
                       },
                       elevation: 0,
