@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/other_request_repository.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
 
 import '../../../../../../utils/commons/super_print.dart';
+import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 
 class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   OtherRequestStateNotifier(this._otherRequestRepository)
@@ -26,6 +29,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       for (var element in dataList) {
         otherRequestList.add(OtherRequest.fromJson(element));
       }
+
       state = OtherRequestState.loadOtherRequestData(otherRequestList);
       if (dataList.isEmpty) {
         state = const OtherRequestState.isDataExist(false);
@@ -53,14 +57,14 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  Future<void> packOtherRequest(int productID, int offset) async {
+  Future<void> packOtherRequest(int productID, int qty) async {
     try {
       state = const OtherRequestState.acceptLoading();
-      Response response = await _otherRequestRepository.packed(productID);
+      Response response = await _otherRequestRepository.packed(productID, qty);
       var result = jsonDecode(response.body);
       superPrint(result);
       clearMyRequestValue();
-      getAllOtherRequest(offset);
+      getAllOtherRequest(0);
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
@@ -68,15 +72,25 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   }
 
   Future<void> deliveryOtherRequest(
-      int otherRequestID, List<int> productID, int offset) async {
+      List<int> mainID, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
-      Response response =
-          await _otherRequestRepository.delivery(otherRequestID, productID);
+      Response response = await _otherRequestRepository.delivery(mainID);
       var result = jsonDecode(response.body);
       superPrint(result);
-      clearMyRequestValue();
-      getAllOtherRequest(offset);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          successfullyBottomSheet(
+              "Issued", "All Item had been handed over for delivery", () {
+            clearMyRequestValue();
+            getAllOtherRequest(0);
+            Navigator.of(context).pop();
+          }, context);
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+      }
       // state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());

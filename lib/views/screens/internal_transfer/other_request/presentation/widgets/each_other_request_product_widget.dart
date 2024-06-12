@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -15,7 +14,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
   return Padding(
-    padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+    padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -91,7 +90,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                         color: Colors.black.withOpacity(0.6),
                         fontWeight: FontWeight.w500),
                     textWidget(
-                      productLine.model,
+                      productLine.model == "false" ? "" : productLine.model,
                       fontWeight: FontWeight.w500,
                       size: 12,
                     ),
@@ -155,7 +154,8 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                   child: buttonWidget("Pack", () {
                     ref
                         .read(otherRequestStateNotifierProvider.notifier)
-                        .packOtherRequest(productLine.id, 0);
+                        .packOtherRequest(
+                            productLine.id, productLine.qty.toInt());
                   },
                       isBool:
                           isAcceptLoading && acceptProductID == productLine.id),

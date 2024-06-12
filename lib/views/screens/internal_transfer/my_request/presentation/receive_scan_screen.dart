@@ -4,13 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
 class ReceiveScanScreen extends ConsumerStatefulWidget {
-  const ReceiveScanScreen({super.key});
+  final int productID;
+  const ReceiveScanScreen({super.key, required this.productID});
 
   @override
   _BarcodeScannerWithOverlayState createState() =>
@@ -82,6 +84,9 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
                 child: GestureDetector(
                   onTap: () {
                     superPrint("hay hay");
+                    // ref
+                    //     .read(myRequestStateNotifierProvider.notifier)
+                    //     .doneMyRequest(widget.productID);
                   },
                   child: Container(
                     height: 40,

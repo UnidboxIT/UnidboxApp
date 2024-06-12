@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/other_request_screen.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
@@ -12,6 +11,7 @@ import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../other_request/domain/other_request.dart';
+import '../../other_request/presentation/other_request_detail_screen.dart';
 import '../../other_request/repository/provider/other_request_provider.dart';
 import '../../other_request/repository/state/other_request_state.dart';
 
@@ -119,7 +119,8 @@ class _InternalTransferScreenState
                         builder: (context) => const MyRequestsDetailScreen()));
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const OtherRequestScreen()));
+                        builder: (context) =>
+                            const OtherRequestDetailScreen()));
                   }
                 },
                 child: eachInternalTransferWidget(

@@ -32,7 +32,16 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
-  clearMyRequestValue() {
-    myRequestList.clear();
+  Future<void> doneMyRequest(int productID) async {
+    try {
+      state = const MyRequestState.loading();
+      Response response = await _myRequestRepository.done(productID);
+      superPrint(response);
+      var result = jsonDecode(response.body);
+      superPrint(result);
+      getAllMyRequest();
+    } catch (e) {
+      superPrint(e.toString());
+    }
   }
 }

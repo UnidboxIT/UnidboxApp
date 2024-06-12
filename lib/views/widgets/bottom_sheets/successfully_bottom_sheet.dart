@@ -23,7 +23,7 @@ Widget successfulWidget(String title, String bodyText, VoidCallback onPressed,
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
         ),
-        color: const Color(0xffD8EDE5),
+        color: AppColor.bottomSheetBgColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),

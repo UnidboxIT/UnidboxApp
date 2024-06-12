@@ -2,19 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
-import '../../domain/my_request.dart';
+import '../../../my_request/domain/my_request.dart';
 
-Widget eachProductLineWidget(
-    String requestCode,
-    String name,
-    String currentDate,
-    String requestWarehouse,
-    List<ProductLineId> productList,
-    {bool isPending = false}) {
+Widget eachHistoryWidget(
+  String requestCode,
+  String name,
+  String currentDate,
+  List<ProductLineId> productList,
+) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -137,7 +134,7 @@ Widget eachProductLineWidget(
                           size: 12.5,
                         ),
                         textWidget(
-                          requestWarehouse,
+                          productList[index].warehouseList[1],
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           size: 14,
@@ -172,27 +169,6 @@ Widget eachProductLineWidget(
                     )
                   ],
                 ),
-                Visibility(
-                    visible: productList[index].status == 'receiving',
-                    child: const SizedBox(height: 10)),
-                Visibility(
-                  visible: productList[index].status == 'receiving',
-                  child: SizedBox(
-                    width: 80.w,
-                    child: buttonWidget(
-                      "Received",
-                      () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ReceiveScanScreen(
-                                  productID: productList[index].id,
-                                )));
-                      },
-                      elevation: 0,
-                      bgColor: AppColor.pinkColor,
-                      fontColor: Colors.white,
-                    ),
-                  ),
-                )
               ],
             ),
           ),

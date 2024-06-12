@@ -14,6 +14,7 @@ globalBottomSheet(Widget dynamicWidget, BuildContext context) {
     context: context,
     elevation: 0,
     useSafeArea: true,
+    isDismissible: false,
     builder: (context) {
       return Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),

@@ -38,8 +38,8 @@ class OtherRequestRepository {
     return response;
   }
 
-  Future<Response> packed(int productID) async {
-    Map<String, dynamic> formData = {"state": "packed"};
+  Future<Response> packed(int productID, int qty) async {
+    Map<String, dynamic> formData = {"state": "packed", "issued_qty": qty};
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/$productID',
@@ -50,12 +50,8 @@ class OtherRequestRepository {
     return response;
   }
 
-  Future<Response> delivery(int otherRequestID, List<int> productID) async {
-    Map<String, dynamic> formData = {
-      "id": otherRequestID,
-      "move_line_ids": productID,
-      "state": "delivery"
-    };
+  Future<Response> delivery(List<int> productID) async {
+    Map<String, dynamic> formData = {"ids": productID, "state": "delivery"};
     superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
