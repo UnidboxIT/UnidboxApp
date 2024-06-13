@@ -76,8 +76,8 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     try {
       state = const OtherRequestState.acceptLoading();
       Response response = await _otherRequestRepository.delivery(mainID);
+      superPrint(response);
       var result = jsonDecode(response.body);
-      superPrint(result);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           successfullyBottomSheet(

@@ -5,6 +5,7 @@ part 'my_request_state.freezed.dart';
 
 extension Getters on MyRequestState {
   bool get isLoading => this is MyRequestLoading;
+  bool get isAcceptLoading => this is ReceiveLoading;
 }
 
 @freezed
@@ -19,4 +20,7 @@ class MyRequestState with _$MyRequestState {
   const factory MyRequestState.initial() = Initial;
   const factory MyRequestState.loading() = MyRequestLoading;
   const factory MyRequestState.error({String? error}) = Error;
+  const factory MyRequestState.receivedProductID(int productID) =
+      ReceivedProductID;
+  const factory MyRequestState.receiveLoading() = ReceiveLoading;
 }

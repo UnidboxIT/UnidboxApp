@@ -25,6 +25,8 @@ mixin _$MyRequestState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,8 @@ mixin _$MyRequestState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +51,8 @@ mixin _$MyRequestState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +65,8 @@ mixin _$MyRequestState {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +78,8 @@ mixin _$MyRequestState {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +91,8 @@ mixin _$MyRequestState {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -183,6 +195,8 @@ class _$MyRequestListImpl implements MyRequestList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return loadMyRequestData(myRequestList);
   }
@@ -197,6 +211,8 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return loadMyRequestData?.call(myRequestList);
   }
@@ -211,6 +227,8 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (loadMyRequestData != null) {
@@ -229,6 +247,8 @@ class _$MyRequestListImpl implements MyRequestList {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return loadMyRequestData(this);
   }
@@ -243,6 +263,8 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return loadMyRequestData?.call(this);
   }
@@ -257,6 +279,8 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (loadMyRequestData != null) {
@@ -355,6 +379,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return incrementQty(index, qty);
   }
@@ -369,6 +395,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return incrementQty?.call(index, qty);
   }
@@ -383,6 +411,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (incrementQty != null) {
@@ -401,6 +431,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return incrementQty(this);
   }
@@ -415,6 +447,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return incrementQty?.call(this);
   }
@@ -429,6 +463,8 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (incrementQty != null) {
@@ -528,6 +564,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return decrementQty(index, qty);
   }
@@ -542,6 +580,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return decrementQty?.call(index, qty);
   }
@@ -556,6 +596,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (decrementQty != null) {
@@ -574,6 +616,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return decrementQty(this);
   }
@@ -588,6 +632,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return decrementQty?.call(this);
   }
@@ -602,6 +648,8 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (decrementQty != null) {
@@ -693,6 +741,8 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return isDataExist(isExit);
   }
@@ -707,6 +757,8 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return isDataExist?.call(isExit);
   }
@@ -721,6 +773,8 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (isDataExist != null) {
@@ -739,6 +793,8 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return isDataExist(this);
   }
@@ -753,6 +809,8 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return isDataExist?.call(this);
   }
@@ -767,6 +825,8 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (isDataExist != null) {
@@ -830,6 +890,8 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return initial();
   }
@@ -844,6 +906,8 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return initial?.call();
   }
@@ -858,6 +922,8 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -876,6 +942,8 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return initial(this);
   }
@@ -890,6 +958,8 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return initial?.call(this);
   }
@@ -904,6 +974,8 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -962,6 +1034,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return loading();
   }
@@ -976,6 +1050,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return loading?.call();
   }
@@ -990,6 +1066,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1008,6 +1086,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return loading(this);
   }
@@ -1022,6 +1102,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return loading?.call(this);
   }
@@ -1036,6 +1118,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1120,6 +1204,8 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
   }) {
     return error(this.error);
   }
@@ -1134,6 +1220,8 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
   }) {
     return error?.call(this.error);
   }
@@ -1148,6 +1236,8 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1166,6 +1256,8 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
   }) {
     return error(this);
   }
@@ -1180,6 +1272,8 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
   }) {
     return error?.call(this);
   }
@@ -1194,6 +1288,8 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1210,4 +1306,326 @@ abstract class Error implements MyRequestState {
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReceivedProductIDImplCopyWith<$Res> {
+  factory _$$ReceivedProductIDImplCopyWith(_$ReceivedProductIDImpl value,
+          $Res Function(_$ReceivedProductIDImpl) then) =
+      __$$ReceivedProductIDImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int productID});
+}
+
+/// @nodoc
+class __$$ReceivedProductIDImplCopyWithImpl<$Res>
+    extends _$MyRequestStateCopyWithImpl<$Res, _$ReceivedProductIDImpl>
+    implements _$$ReceivedProductIDImplCopyWith<$Res> {
+  __$$ReceivedProductIDImplCopyWithImpl(_$ReceivedProductIDImpl _value,
+      $Res Function(_$ReceivedProductIDImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+  }) {
+    return _then(_$ReceivedProductIDImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReceivedProductIDImpl implements ReceivedProductID {
+  const _$ReceivedProductIDImpl(this.productID);
+
+  @override
+  final int productID;
+
+  @override
+  String toString() {
+    return 'MyRequestState.receivedProductID(productID: $productID)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReceivedProductIDImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReceivedProductIDImplCopyWith<_$ReceivedProductIDImpl> get copyWith =>
+      __$$ReceivedProductIDImplCopyWithImpl<_$ReceivedProductIDImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
+  }) {
+    return receivedProductID(productID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
+  }) {
+    return receivedProductID?.call(productID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
+    required TResult orElse(),
+  }) {
+    if (receivedProductID != null) {
+      return receivedProductID(productID);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyRequestLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
+  }) {
+    return receivedProductID(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyRequestLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
+  }) {
+    return receivedProductID?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyRequestLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
+    required TResult orElse(),
+  }) {
+    if (receivedProductID != null) {
+      return receivedProductID(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReceivedProductID implements MyRequestState {
+  const factory ReceivedProductID(final int productID) =
+      _$ReceivedProductIDImpl;
+
+  int get productID;
+  @JsonKey(ignore: true)
+  _$$ReceivedProductIDImplCopyWith<_$ReceivedProductIDImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReceiveLoadingImplCopyWith<$Res> {
+  factory _$$ReceiveLoadingImplCopyWith(_$ReceiveLoadingImpl value,
+          $Res Function(_$ReceiveLoadingImpl) then) =
+      __$$ReceiveLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReceiveLoadingImplCopyWithImpl<$Res>
+    extends _$MyRequestStateCopyWithImpl<$Res, _$ReceiveLoadingImpl>
+    implements _$$ReceiveLoadingImplCopyWith<$Res> {
+  __$$ReceiveLoadingImplCopyWithImpl(
+      _$ReceiveLoadingImpl _value, $Res Function(_$ReceiveLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ReceiveLoadingImpl implements ReceiveLoading {
+  const _$ReceiveLoadingImpl();
+
+  @override
+  String toString() {
+    return 'MyRequestState.receiveLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReceiveLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(int productID) receivedProductID,
+    required TResult Function() receiveLoading,
+  }) {
+    return receiveLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(int productID)? receivedProductID,
+    TResult? Function()? receiveLoading,
+  }) {
+    return receiveLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(int productID)? receivedProductID,
+    TResult Function()? receiveLoading,
+    required TResult orElse(),
+  }) {
+    if (receiveLoading != null) {
+      return receiveLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyRequestLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(ReceivedProductID value) receivedProductID,
+    required TResult Function(ReceiveLoading value) receiveLoading,
+  }) {
+    return receiveLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyRequestLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(ReceivedProductID value)? receivedProductID,
+    TResult? Function(ReceiveLoading value)? receiveLoading,
+  }) {
+    return receiveLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyRequestLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(ReceivedProductID value)? receivedProductID,
+    TResult Function(ReceiveLoading value)? receiveLoading,
+    required TResult orElse(),
+  }) {
+    if (receiveLoading != null) {
+      return receiveLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReceiveLoading implements MyRequestState {
+  const factory ReceiveLoading() = _$ReceiveLoadingImpl;
 }

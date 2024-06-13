@@ -27,8 +27,9 @@ class _MyRequestsDetailScreenState
     extends ConsumerState<MyRequestsDetailScreen> {
   List<MyRequest> myRequestList = [];
   List<ProductLineId> pendingRequestList = [];
-
-  bool requestLoading = false;
+  int acceptProductID = -1;
+  bool receivedLoading = false;
+  // bool requestLoading = false;
   @override
   void initState() {
     super.initState();
@@ -44,15 +45,16 @@ class _MyRequestsDetailScreenState
   @override
   Widget build(BuildContext context) {
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
-      if (next is MyRequestLoading) {
-        setState(() {
-          pendingRequestList.clear();
-          requestLoading = true;
-          myRequestList = [];
-        });
-      }
+      // if (next is MyRequestLoading) {
+      //   setState(() {
+      //     pendingRequestList.clear();
+      //     requestLoading = true;
+      //   });
+      // }
       if (next is MyRequestList) {
         setState(() {
+          myRequestList = [];
+          pendingRequestList.clear();
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
             for (var element in data.productLineList) {
@@ -61,7 +63,18 @@ class _MyRequestsDetailScreenState
               }
             }
           }
-          requestLoading = false;
+          //requestLoading = false;
+        });
+      }
+
+      if (next is ReceiveLoading) {
+        setState(() {
+          receivedLoading = true;
+        });
+      }
+      if (next is ReceivedProductID) {
+        setState(() {
+          acceptProductID = next.productID;
         });
       }
     });
@@ -136,18 +149,18 @@ class _MyRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    if (requestLoading) {
-      return Center(
-        child: CupertinoActivityIndicator(
-          color: AppColor.pinkColor,
-        ),
-      );
-    }
-    if (myRequestList.isEmpty) {
-      return Center(
-        child: textWidget("No Data !"),
-      );
-    }
+    // if (requestLoading) {
+    //   return Center(
+    //     child: CupertinoActivityIndicator(
+    //       color: AppColor.pinkColor,
+    //     ),
+    //   );
+    // }
+    // if (myRequestList.isEmpty) {
+    //   return Center(
+    //     child: textWidget("No Data !"),
+    //   );
+    // }
     return Column(
       children: [
         pendingRequestWidget(),
@@ -176,7 +189,9 @@ class _MyRequestsDetailScreenState
                 return Column(
                   children: [
                     eachProductLineWidget(requestCode, name, currentDate,
-                        requestWarehouse, productList),
+                        requestWarehouse, productList,
+                        isPending: receivedLoading,
+                        acceptProductID: acceptProductID),
                     const SizedBox(height: 20)
                   ],
                 );

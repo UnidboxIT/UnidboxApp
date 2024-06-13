@@ -18,7 +18,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
 
   Future<void> getAllMyRequest() async {
     try {
-      state = const MyRequestState.loading();
+      // state = const MyRequestState.loading();
       Response response = await _myRequestRepository.myrequest();
       var result = jsonDecode(response.body);
       myRequestList.clear();
@@ -42,7 +42,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       var result = jsonDecode(response.body);
       superPrint(result);
       getAllMyRequest();
-      Navigator.of(context).pop();
+      state = MyRequestState.receivedProductID(productID);
     } catch (e) {
       superPrint(e.toString());
     }
@@ -54,7 +54,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
   }
 
   decrementTotalQty(int productID, double qty) {
-    if (qty > 1) {
+    if (qty >= 1) {
       qty--;
       state = MyRequestState.decrementQty(productID, qty);
     }

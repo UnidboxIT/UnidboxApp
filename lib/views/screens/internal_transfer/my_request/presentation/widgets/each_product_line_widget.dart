@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
@@ -17,7 +17,8 @@ Widget eachProductLineWidget(
     String currentDate,
     String requestWarehouse,
     List<ProductLineId> productList,
-    {bool isPending = false}) {
+    {bool isPending = false,
+    int acceptProductID = -1}) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -28,7 +29,7 @@ Widget eachProductLineWidget(
           if (state is IncrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.qty = state.qty;
+              product.issueQty = state.qty;
             } else {
               product = productList[index];
             }
@@ -36,7 +37,7 @@ Widget eachProductLineWidget(
           if (state is DecrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.qty = state.qty;
+              product.issueQty = state.qty;
             } else {
               product = productList[index];
             }
@@ -56,7 +57,7 @@ Widget eachProductLineWidget(
                   )
                 ],
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -128,6 +129,11 @@ Widget eachProductLineWidget(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                textWidget(
+                                  "Requested Qty: ${product.receivedQty.toString()}",
+                                  size: 12,
+                                ),
+                                const SizedBox(width: 5),
                                 addMinusIconButtonWidget(() {
                                   if (productList[index].status ==
                                       'receiving') {
@@ -135,27 +141,30 @@ Widget eachProductLineWidget(
                                         .read(myRequestStateNotifierProvider
                                             .notifier)
                                         .decrementTotalQty(
-                                            productList[index].id, product.qty);
+                                            productList[index].id,
+                                            product.issueQty);
                                   }
                                 },
                                     CupertinoIcons.minus_circle_fill,
                                     productList[index].status == 'receiving'
                                         ? AppColor.primary
                                         : AppColor.pinkColor),
-                                const SizedBox(width: 10),
-                                textWidget(product.qty.toString(),
+                                const SizedBox(width: 5),
+                                textWidget(product.issueQty.toString(),
                                     color: AppColor.primary,
                                     fontWeight: FontWeight.bold,
                                     size: 13),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 5),
                                 addMinusIconButtonWidget(() {
                                   if (productList[index].status ==
-                                      'receiving') {
+                                          'receiving' &&
+                                      product.issueQty < product.receivedQty) {
                                     ref
                                         .read(myRequestStateNotifierProvider
                                             .notifier)
                                         .incrementTotalQty(
-                                            productList[index].id, product.qty);
+                                            productList[index].id,
+                                            product.issueQty);
                                   }
                                 },
                                     CupertinoIcons.add_circled_solid,
@@ -224,19 +233,30 @@ Widget eachProductLineWidget(
                     visible: productList[index].status == 'receiving',
                     child: SizedBox(
                       width: 80.w,
-                      child: buttonWidget(
-                        "Received",
-                        () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReceiveScanScreen(
-                                    productID: productList[index].id,
-                                    qty: productList[index].qty.toInt(),
-                                  )));
-                        },
-                        elevation: 0,
-                        bgColor: AppColor.pinkColor,
-                        fontColor: Colors.white,
-                      ),
+                      child: product.issueQty != product.receivedQty
+                          ? buttonWidget(
+                              "Received",
+                              () {},
+                              isBool:
+                                  isPending && product.id == acceptProductID,
+                              elevation: 0,
+                              bgColor: AppColor.pinkColor,
+                              fontColor: Colors.white,
+                            )
+                          : buttonWidget(
+                              "Received",
+                              () {
+                                ref
+                                    .read(
+                                        myRequestStateNotifierProvider.notifier)
+                                    .doneMyRequest(product.id,
+                                        product.receivedQty.toInt(), context);
+                              },
+                              isBool: product.id == acceptProductID,
+                              elevation: 0,
+                              bgColor: AppColor.pinkColor,
+                              fontColor: Colors.white,
+                            ),
                     ),
                   )
                 ],

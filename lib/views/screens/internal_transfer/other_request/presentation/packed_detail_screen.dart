@@ -214,11 +214,12 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       List<int> idList = [];
                       for (var warehouseProduct in finalDeveilerMapList) {
-                        superPrint(warehouseProduct);
                         warehouseProduct.forEach((key, value) {
                           idList.add(value['id']);
                         });
                       }
+                      superPrint(idList);
+                      Future.delayed(const Duration(milliseconds: 100));
                       if (idList.isNotEmpty) {
                         if (acceptedProductList.isEmpty) {
                           ref
