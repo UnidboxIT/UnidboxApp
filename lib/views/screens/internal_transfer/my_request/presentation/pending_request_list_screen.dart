@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -8,16 +9,17 @@ import '../domain/my_request.dart';
 import 'widgets/each_product_line_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
-class PendingRequestListScreen extends StatefulWidget {
+class PendingRequestListScreen extends ConsumerStatefulWidget {
   final List<MyRequest> pendingRequestList;
   const PendingRequestListScreen({super.key, required this.pendingRequestList});
 
   @override
-  State<PendingRequestListScreen> createState() =>
+  ConsumerState<PendingRequestListScreen> createState() =>
       _PendingRequestListScreenState();
 }
 
-class _PendingRequestListScreenState extends State<PendingRequestListScreen> {
+class _PendingRequestListScreenState
+    extends ConsumerState<PendingRequestListScreen> {
   @override
   Widget build(BuildContext context) {
     superPrint(widget.pendingRequestList);

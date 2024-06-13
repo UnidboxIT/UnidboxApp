@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../domain/my_request.dart';
+import '../../repository/state/my_request_state.dart';
 
 Widget eachProductLineWidget(
     String requestCode,
@@ -19,185 +22,228 @@ Widget eachProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: AppColor.bgColor,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.dropshadowColor,
-                  blurRadius: 2,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 2),
-                )
-              ],
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    textWidget(
-                      requestCode,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    textWidget(
-                        DateFormat('dd MMM yyyy').format(
-                          DateTime.parse(currentDate),
-                        ),
+        return Consumer(builder: (context, ref, child) {
+          final state = ref.watch(myRequestStateNotifierProvider);
+          ProductLineId product = productList[index];
+          if (state is IncrementQty) {
+            int stateIndex = state.index;
+            if (product.id == stateIndex) {
+              product.qty = state.qty;
+            } else {
+              product = productList[index];
+            }
+          }
+          if (state is DecrementQty) {
+            int stateIndex = state.index;
+            if (product.id == stateIndex) {
+              product.qty = state.qty;
+            } else {
+              product = productList[index];
+            }
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: AppColor.bgColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.dropshadowColor,
+                    blurRadius: 2,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 2),
+                  )
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      textWidget(
+                        requestCode,
+                        fontWeight: FontWeight.w800,
                         color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        size: 17)
-                  ],
-                ),
-                const SizedBox(height: 13),
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 3,
-                            spreadRadius: 3,
-                            offset: const Offset(0, 3),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: productList[index].imageUrl != "false"
-                                ? NetworkImage(productList[index].imageUrl)
-                                : const AssetImage(
-                                    'assets/images/app_icon.jpeg'),
-                            fit: BoxFit.cover),
+                        size: 20,
                       ),
-                      height: 12.h,
-                      width: 22.w,
-                    ),
-                    const SizedBox(width: 15),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(productList[index].productIdList[1],
-                              size: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              maxLine: 2,
-                              textOverflow: TextOverflow.fade,
-                              textAlign: TextAlign.left),
-                          textWidget(productList[index].code,
-                              size: 12,
-                              color: Colors.black.withOpacity(0.6),
-                              fontWeight: FontWeight.w500),
-                          textWidget(
-                            productList[index].model,
-                            fontWeight: FontWeight.w500,
-                            size: 13,
+                      textWidget(
+                          DateFormat('dd MMM yyyy').format(
+                            DateTime.parse(currentDate),
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              addMinusIconButtonWidget(
-                                CupertinoIcons.minus_circle_fill,
-                              ),
-                              const SizedBox(width: 10),
-                              textWidget(productList[index].qty.toString(),
-                                  color: AppColor.primary,
-                                  fontWeight: FontWeight.bold,
-                                  size: 13),
-                              const SizedBox(width: 10),
-                              addMinusIconButtonWidget(
-                                CupertinoIcons.add_circled_solid,
-                              )
-                            ],
-                          )
-                        ],
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          size: 17)
+                    ],
+                  ),
+                  const SizedBox(height: 13),
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 3,
+                              spreadRadius: 3,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: productList[index].imageUrl != "false"
+                                  ? NetworkImage(productList[index].imageUrl)
+                                  : const AssetImage(
+                                      'assets/images/app_icon.jpeg'),
+                              fit: BoxFit.cover),
+                        ),
+                        height: 12.h,
+                        width: 22.w,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textWidget(
-                          "Request from",
-                          color: AppColor.orangeColor,
-                          size: 12.5,
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget(productList[index].productIdList[1],
+                                size: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                maxLine: 2,
+                                textOverflow: TextOverflow.fade,
+                                textAlign: TextAlign.left),
+                            textWidget(productList[index].code,
+                                size: 12,
+                                color: Colors.black.withOpacity(0.6),
+                                fontWeight: FontWeight.w500),
+                            textWidget(
+                              productList[index].model,
+                              fontWeight: FontWeight.w500,
+                              size: 13,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                addMinusIconButtonWidget(() {
+                                  if (productList[index].status ==
+                                      'receiving') {
+                                    ref
+                                        .read(myRequestStateNotifierProvider
+                                            .notifier)
+                                        .decrementTotalQty(
+                                            productList[index].id, product.qty);
+                                  }
+                                },
+                                    CupertinoIcons.minus_circle_fill,
+                                    productList[index].status == 'receiving'
+                                        ? AppColor.primary
+                                        : AppColor.pinkColor),
+                                const SizedBox(width: 10),
+                                textWidget(product.qty.toString(),
+                                    color: AppColor.primary,
+                                    fontWeight: FontWeight.bold,
+                                    size: 13),
+                                const SizedBox(width: 10),
+                                addMinusIconButtonWidget(() {
+                                  if (productList[index].status ==
+                                      'receiving') {
+                                    ref
+                                        .read(myRequestStateNotifierProvider
+                                            .notifier)
+                                        .incrementTotalQty(
+                                            productList[index].id, product.qty);
+                                  }
+                                },
+                                    CupertinoIcons.add_circled_solid,
+                                    productList[index].status == 'receiving'
+                                        ? AppColor.primary
+                                        : AppColor.pinkColor)
+                              ],
+                            )
+                          ],
                         ),
-                        textWidget(
-                          requestWarehouse,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
-                        ),
-                        textWidget(
-                          name,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
-                        )
-                      ],
-                    ),
-                    SizedBox(width: 10.w),
-                    Visibility(
-                      visible: productList[index].status != 'action',
-                      child: Column(
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidget(
-                            "Status",
+                            "Request from",
                             color: AppColor.orangeColor,
                             size: 12.5,
                           ),
                           textWidget(
-                            capitalizeFirstLetter(productList[index].status),
+                            requestWarehouse,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
                           ),
+                          textWidget(
+                            name,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            size: 14,
+                          )
                         ],
                       ),
-                    )
-                  ],
-                ),
-                Visibility(
-                    visible: productList[index].status == 'receiving',
-                    child: const SizedBox(height: 10)),
-                Visibility(
-                  visible: productList[index].status == 'receiving',
-                  child: SizedBox(
-                    width: 80.w,
-                    child: buttonWidget(
-                      "Received",
-                      () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ReceiveScanScreen(
-                                  productID: productList[index].id,
-                                  qty: productList[index].qty.toInt(),
-                                )));
-                      },
-                      elevation: 0,
-                      bgColor: AppColor.pinkColor,
-                      fontColor: Colors.white,
-                    ),
+                      SizedBox(width: 10.w),
+                      Visibility(
+                        //visible: productList[index].status != 'receiving',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget(
+                              "Status",
+                              color: AppColor.orangeColor,
+                              size: 12.5,
+                            ),
+                            textWidget(
+                              capitalizeFirstLetter(productList[index].status),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
+                  Visibility(
+                      visible: productList[index].status == 'receiving',
+                      child: const SizedBox(height: 10)),
+                  Visibility(
+                    visible: productList[index].status == 'receiving',
+                    child: SizedBox(
+                      width: 80.w,
+                      child: buttonWidget(
+                        "Received",
+                        () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReceiveScanScreen(
+                                    productID: productList[index].id,
+                                    qty: productList[index].qty.toInt(),
+                                  )));
+                        },
+                        elevation: 0,
+                        bgColor: AppColor.pinkColor,
+                        fontColor: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 20);
@@ -212,10 +258,20 @@ String capitalizeFirstLetter(String word) {
   return word[0].toUpperCase() + word.substring(1);
 }
 
-Widget addMinusIconButtonWidget(IconData iconData) {
-  return Icon(
-    iconData,
-    color: AppColor.pinkColor,
-    size: 18,
+Widget addMinusIconButtonWidget(
+    VoidCallback onPressed, IconData iconData, Color iconColor) {
+  return GestureDetector(
+    onTap: onPressed,
+    child: Container(
+      alignment: Alignment.center,
+      width: 10.w,
+      height: 40,
+      color: Colors.transparent,
+      child: Icon(
+        iconData,
+        color: iconColor,
+        size: 30,
+      ),
+    ),
   );
 }

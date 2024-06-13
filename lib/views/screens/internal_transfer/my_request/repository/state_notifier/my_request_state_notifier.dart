@@ -47,4 +47,16 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       superPrint(e.toString());
     }
   }
+
+  incrementTotalQty(int productID, double qty) {
+    qty = qty + 1;
+    state = MyRequestState.incrementQty(productID, qty);
+  }
+
+  decrementTotalQty(int productID, double qty) {
+    if (qty > 1) {
+      qty--;
+      state = MyRequestState.decrementQty(productID, qty);
+    }
+  }
 }

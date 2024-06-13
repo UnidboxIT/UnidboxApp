@@ -11,6 +11,10 @@ extension Getters on OtherRequestState {
 class OtherRequestState with _$OtherRequestState {
   const factory OtherRequestState.loadOtherRequestData(
       List<OtherRequest> otherRequestList) = OtherRequestList;
+  const factory OtherRequestState.incrementQty(int index, double qty) =
+      IncrementQty;
+  const factory OtherRequestState.decrementQty(int index, double qty) =
+      DecrementQty;
   const factory OtherRequestState.isDataExist(bool isExit) = IsDataExit;
   const factory OtherRequestState.initial() = Initial;
   const factory OtherRequestState.loading() = OtherRequestLoading;

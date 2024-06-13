@@ -19,6 +19,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -28,6 +30,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -37,6 +41,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -47,6 +53,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -56,6 +64,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -65,6 +75,8 @@ mixin _$MyRequestState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
@@ -165,6 +177,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -177,6 +191,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -189,6 +205,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -205,6 +223,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -217,6 +237,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -229,6 +251,8 @@ class _$MyRequestListImpl implements MyRequestList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
@@ -249,6 +273,352 @@ abstract class MyRequestList implements MyRequestState {
   List<MyRequest> get myRequestList;
   @JsonKey(ignore: true)
   _$$MyRequestListImplCopyWith<_$MyRequestListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$IncrementQtyImplCopyWith<$Res> {
+  factory _$$IncrementQtyImplCopyWith(
+          _$IncrementQtyImpl value, $Res Function(_$IncrementQtyImpl) then) =
+      __$$IncrementQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, double qty});
+}
+
+/// @nodoc
+class __$$IncrementQtyImplCopyWithImpl<$Res>
+    extends _$MyRequestStateCopyWithImpl<$Res, _$IncrementQtyImpl>
+    implements _$$IncrementQtyImplCopyWith<$Res> {
+  __$$IncrementQtyImplCopyWithImpl(
+      _$IncrementQtyImpl _value, $Res Function(_$IncrementQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? qty = null,
+  }) {
+    return _then(_$IncrementQtyImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == qty
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IncrementQtyImpl implements IncrementQty {
+  const _$IncrementQtyImpl(this.index, this.qty);
+
+  @override
+  final int index;
+  @override
+  final double qty;
+
+  @override
+  String toString() {
+    return 'MyRequestState.incrementQty(index: $index, qty: $qty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IncrementQtyImpl &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.qty, qty) || other.qty == qty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index, qty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IncrementQtyImplCopyWith<_$IncrementQtyImpl> get copyWith =>
+      __$$IncrementQtyImplCopyWithImpl<_$IncrementQtyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return incrementQty(index, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return incrementQty?.call(index, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (incrementQty != null) {
+      return incrementQty(index, qty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyRequestLoading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return incrementQty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyRequestLoading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return incrementQty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyRequestLoading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (incrementQty != null) {
+      return incrementQty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IncrementQty implements MyRequestState {
+  const factory IncrementQty(final int index, final double qty) =
+      _$IncrementQtyImpl;
+
+  int get index;
+  double get qty;
+  @JsonKey(ignore: true)
+  _$$IncrementQtyImplCopyWith<_$IncrementQtyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DecrementQtyImplCopyWith<$Res> {
+  factory _$$DecrementQtyImplCopyWith(
+          _$DecrementQtyImpl value, $Res Function(_$DecrementQtyImpl) then) =
+      __$$DecrementQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, double qty});
+}
+
+/// @nodoc
+class __$$DecrementQtyImplCopyWithImpl<$Res>
+    extends _$MyRequestStateCopyWithImpl<$Res, _$DecrementQtyImpl>
+    implements _$$DecrementQtyImplCopyWith<$Res> {
+  __$$DecrementQtyImplCopyWithImpl(
+      _$DecrementQtyImpl _value, $Res Function(_$DecrementQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? qty = null,
+  }) {
+    return _then(_$DecrementQtyImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == qty
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DecrementQtyImpl implements DecrementQty {
+  const _$DecrementQtyImpl(this.index, this.qty);
+
+  @override
+  final int index;
+  @override
+  final double qty;
+
+  @override
+  String toString() {
+    return 'MyRequestState.decrementQty(index: $index, qty: $qty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DecrementQtyImpl &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.qty, qty) || other.qty == qty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index, qty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DecrementQtyImplCopyWith<_$DecrementQtyImpl> get copyWith =>
+      __$$DecrementQtyImplCopyWithImpl<_$DecrementQtyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
+    required TResult Function(bool isExit) isDataExist,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return decrementQty(index, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
+    TResult? Function(bool isExit)? isDataExist,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return decrementQty?.call(index, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
+    TResult Function(bool isExit)? isDataExist,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (decrementQty != null) {
+      return decrementQty(index, qty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(IsDataExit value) isDataExist,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyRequestLoading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return decrementQty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(IsDataExit value)? isDataExist,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyRequestLoading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return decrementQty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(IsDataExit value)? isDataExist,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyRequestLoading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (decrementQty != null) {
+      return decrementQty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DecrementQty implements MyRequestState {
+  const factory DecrementQty(final int index, final double qty) =
+      _$DecrementQtyImpl;
+
+  int get index;
+  double get qty;
+  @JsonKey(ignore: true)
+  _$$DecrementQtyImplCopyWith<_$DecrementQtyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -317,6 +687,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -329,6 +701,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -341,6 +715,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -357,6 +733,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -369,6 +747,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -381,6 +761,8 @@ class _$IsDataExitImpl implements IsDataExit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
@@ -442,6 +824,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -454,6 +838,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -466,6 +852,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -482,6 +870,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -494,6 +884,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -506,6 +898,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
@@ -562,6 +956,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -574,6 +970,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -586,6 +984,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -602,6 +1002,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -614,6 +1016,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -626,6 +1030,8 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
@@ -708,6 +1114,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myRequestList) loadMyRequestData,
+    required TResult Function(int index, double qty) incrementQty,
+    required TResult Function(int index, double qty) decrementQty,
     required TResult Function(bool isExit) isDataExist,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -720,6 +1128,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult? Function(int index, double qty)? incrementQty,
+    TResult? Function(int index, double qty)? decrementQty,
     TResult? Function(bool isExit)? isDataExist,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -732,6 +1142,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myRequestList)? loadMyRequestData,
+    TResult Function(int index, double qty)? incrementQty,
+    TResult Function(int index, double qty)? decrementQty,
     TResult Function(bool isExit)? isDataExist,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -748,6 +1160,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyRequestList value) loadMyRequestData,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
@@ -760,6 +1174,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyRequestList value)? loadMyRequestData,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
@@ -772,6 +1188,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyRequestList value)? loadMyRequestData,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,

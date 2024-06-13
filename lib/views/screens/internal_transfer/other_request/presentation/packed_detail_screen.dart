@@ -219,15 +219,21 @@ class _OtherRequestsDetailScreenState
                           idList.add(value['id']);
                         });
                       }
-                      if (acceptedProductList.isEmpty) {
-                        ref
-                            .read(otherRequestStateNotifierProvider.notifier)
-                            .deliveryOtherRequest(idList, context);
+                      if (idList.isNotEmpty) {
+                        if (acceptedProductList.isEmpty) {
+                          ref
+                              .read(otherRequestStateNotifierProvider.notifier)
+                              .deliveryOtherRequest(idList, context);
+                        } else {
+                          isSwipeLoading = false;
+                          CommonMethods.customizedAlertDialog(
+                              "Please packed all your requested product",
+                              context);
+                        }
                       } else {
                         isSwipeLoading = false;
                         CommonMethods.customizedAlertDialog(
-                            "Please packed all your requested product",
-                            context);
+                            "You don't any packed product!", context);
                       }
                     });
                   },

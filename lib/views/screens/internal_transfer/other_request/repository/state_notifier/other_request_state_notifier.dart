@@ -57,7 +57,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  Future<void> packOtherRequest(int productID, int qty) async {
+  Future<void> packOtherRequest(int productID, double qty) async {
     try {
       state = const OtherRequestState.acceptLoading();
       Response response = await _otherRequestRepository.packed(productID, qty);
@@ -94,6 +94,18 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       // state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
+    }
+  }
+
+  incrementTotalQty(int productID, double qty) {
+    qty = qty + 1;
+    state = OtherRequestState.incrementQty(productID, qty);
+  }
+
+  decrementTotalQty(int productID, double qty) {
+    if (qty > 1) {
+      qty--;
+      state = OtherRequestState.decrementQty(productID, qty);
     }
   }
 }
