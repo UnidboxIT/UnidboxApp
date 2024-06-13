@@ -45,6 +45,7 @@ class ProductLineId {
   String code;
   String model;
   double qty;
+  double issueQty;
   String imageUrl;
   double price;
   String status;
@@ -57,6 +58,7 @@ class ProductLineId {
       this.code = "",
       this.model = "",
       this.qty = 0.0,
+      this.issueQty = 0.0,
       this.imageUrl = "",
       this.price = 0.0,
       this.status = "",
@@ -70,6 +72,7 @@ class ProductLineId {
         code: json['code'].toString(),
         model: json['model'].toString(),
         qty: json['quantity'] ?? 0.0,
+        issueQty: json['issued_qty'] ?? 0.0,
         imageUrl: json['image_url'].toString(),
         price: json['price'] ?? 0.0,
         status: json['status'].toString(),

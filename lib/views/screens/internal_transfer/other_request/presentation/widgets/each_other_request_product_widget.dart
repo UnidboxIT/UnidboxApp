@@ -214,17 +214,6 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                             acceptProductID == productLine.id),
                   ),
                 ),
-                Visibility(
-                  visible: productLine.status == 'packed',
-                  child: SizedBox(
-                    height: 35,
-                    width: 30.w,
-                    child: buttonWidget(
-                      "Packed",
-                      () {},
-                    ),
-                  ),
-                ),
               ],
             ),
           ],

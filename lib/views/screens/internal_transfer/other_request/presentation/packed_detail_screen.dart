@@ -11,7 +11,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../repository/state/other_request_state.dart';
-import 'widgets/each_other_request_product_widget.dart';
+import 'widgets/packed_other_request_widget.dart';
 
 class PackedDetailScreen extends ConsumerStatefulWidget {
   final List<OtherRequest> otherRequestList;
@@ -233,7 +233,7 @@ class _OtherRequestsDetailScreenState
                       } else {
                         isSwipeLoading = false;
                         CommonMethods.customizedAlertDialog(
-                            "You don't any packed product!", context);
+                            "Please check picking first", context);
                       }
                     });
                   },
@@ -286,7 +286,7 @@ class _OtherRequestsDetailScreenState
                     return const SizedBox(height: 0);
                   },
                   itemBuilder: (context, subIndex) {
-                    return eachAcceptedDataWiget(
+                    return eachPackedDataWiget(
                       productLineKey,
                       warehouseData['name'],
                       warehouseData['date'],
