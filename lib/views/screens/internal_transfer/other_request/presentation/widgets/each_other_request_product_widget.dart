@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
@@ -18,7 +17,6 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(otherRequestStateNotifierProvider);
     ProductLineId product = productLine;
-    superPrint(product.qty);
     if (state is IncrementQty) {
       int stateIndex = state.index;
       if (product.id == stateIndex) {
