@@ -199,10 +199,6 @@ class _PendingRequestListScreenState
                                   } else {
                                     loadSetVisiblity(productLineKey);
                                   }
-
-                                  // setState(() {
-                                  //   isVisiblity = !isVisiblity;
-                                  // });
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.only(
