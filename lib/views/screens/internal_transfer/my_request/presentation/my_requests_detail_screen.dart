@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/request_history_screen.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
-import '../../../../../utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../repository/state/my_request_state.dart';
 import 'pending_request_list_screen.dart';
+import 'request_history_screen.dart';
 import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
 
@@ -103,7 +101,6 @@ class _MyRequestsDetailScreenState
                         builder: (context) => RequestHistoryScreen(
                               pendingRequestList: myRequestList,
                             )));
-                    superPrint("My Request History");
                   },
                   child: Container(
                       padding:

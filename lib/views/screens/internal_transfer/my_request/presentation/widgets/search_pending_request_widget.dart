@@ -15,7 +15,7 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 20),
       child: Container(
         width: 100.w,
         height: 45,
