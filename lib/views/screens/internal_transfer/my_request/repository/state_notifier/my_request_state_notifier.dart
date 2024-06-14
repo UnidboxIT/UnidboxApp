@@ -7,6 +7,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/my_request_repository.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
 
+import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 
 class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
@@ -43,6 +44,29 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       superPrint(result);
       getAllMyRequest();
       state = MyRequestState.receivedProductID(productID);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  Future<void> receivedByImageMyRequest(int productID, int qty,
+      BuildContext context, String image, String productName) async {
+    try {
+      state = const MyRequestState.loading();
+      Response response = await _myRequestRepository.receivedByImage(
+          productID, qty, image, productName);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllMyRequest();
+          Navigator.of(context).pop();
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+      }
+      superPrint(response.body);
     } catch (e) {
       superPrint(e.toString());
     }

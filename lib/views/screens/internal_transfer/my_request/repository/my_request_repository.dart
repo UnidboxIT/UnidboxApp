@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../services/api_service.dart';
 import '../../../../../utils/commons/common_method.dart';
 
@@ -21,6 +22,26 @@ class MyRequestRepository {
       "img_name": false,
       "datas": false
     };
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
+  Future<Response> receivedByImage(
+      int productID, int qty, String image, String produtcName) async {
+    Map<String, dynamic> formData = {
+      "state": "done",
+      "received_qty": qty,
+      "img_name": "picking_$productID.png",
+      "datas": image,
+    };
+    superPrint(productID);
+    superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/$productID',

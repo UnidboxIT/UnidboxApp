@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
@@ -236,7 +236,17 @@ Widget eachProductLineWidget(
                       child: product.issueQty != product.receivedQty
                           ? buttonWidget(
                               "Received",
-                              () {},
+                              () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ReceiveScanScreen(
+                                      productID: product.id,
+                                      qty: product.issueQty.toInt(),
+                                      productName: product.productIdList[1],
+                                    ),
+                                  ),
+                                );
+                              },
                               isBool:
                                   isPending && product.id == acceptProductID,
                               elevation: 0,

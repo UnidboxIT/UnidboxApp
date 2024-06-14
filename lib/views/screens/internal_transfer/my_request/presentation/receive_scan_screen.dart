@@ -1,60 +1,77 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
+import '../repository/state/my_request_state.dart';
+
 class ReceiveScanScreen extends ConsumerStatefulWidget {
   final int productID;
   final int qty;
+  final String productName;
   const ReceiveScanScreen(
-      {super.key, required this.productID, required this.qty});
+      {super.key,
+      required this.productID,
+      required this.qty,
+      required this.productName});
 
   @override
   _BarcodeScannerWithOverlayState createState() =>
       _BarcodeScannerWithOverlayState();
 }
 
-class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
-    with SingleTickerProviderStateMixin {
-  late MobileScannerController mobileScanner;
-  late AnimationController animationController;
-
+class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
+  File imageFile = File("");
+  final picker = ImagePicker();
+  String base64Image = "";
+  bool requestLoading = false;
   @override
   void initState() {
     super.initState();
-    mobileScanner = MobileScannerController(
-      detectionSpeed: DetectionSpeed.normal,
-    );
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1300))
-      ..repeat(reverse: true);
+    getImageFromCamera();
   }
 
-  @override
-  void dispose() {
-    mobileScanner.dispose();
-    animationController.dispose();
-    super.dispose();
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      String image64 = await imageToBase64(imageFile);
+      setState(() {
+        base64Image = image64;
+      });
+    }
   }
 
-  @override
-  void reassemble() {
-    super.reassemble();
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
   }
 
   @override
   Widget build(BuildContext context) {
-    final scanWindow = Rect.fromCenter(
-      center: MediaQuery.sizeOf(context).center(Offset.zero),
-      width: 68.w,
-      height: 50.h,
-    );
+    ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestLoading) {
+        setState(() {
+          requestLoading = true;
+        });
+      }
+
+      if (next is MyRequestList) {
+        setState(() {
+          requestLoading = false;
+        });
+      }
+    });
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -73,22 +90,49 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
                 },
               ),
               Transform.translate(
-                offset: Offset(0, 14.h),
-                child: ClipRRect(
+                  offset: Offset(0, 15.h),
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
-                    child: barcodeScannerWidget(scanWindow)),
-              ),
+                    child: Container(
+                      width: 100.w,
+                      height: 60.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Colors.white),
+                      child: Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: imageFile.path.isEmpty
+                            ? Image.asset(
+                                "assets/images/app_icon.jpeg",
+                                fit: BoxFit.contain,
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    image: DecorationImage(
+                                      image: FileImage(
+                                        imageFile,
+                                      ),
+                                      fit: BoxFit.contain,
+                                    )),
+                              ),
+                      ),
+                    ),
+                  )),
               Positioned(
-                bottom: 6.h,
+                bottom: 10.h,
                 left: 8.w,
                 right: 8.w,
                 child: GestureDetector(
                   onTap: () {
-                    superPrint("hay hay");
-
                     ref
                         .read(myRequestStateNotifierProvider.notifier)
-                        .doneMyRequest(widget.productID, widget.qty, context);
+                        .receivedByImageMyRequest(widget.productID, widget.qty,
+                            context, base64Image, widget.productName);
                   },
                   child: Container(
                     height: 40,
@@ -97,144 +141,25 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen>
                     decoration: BoxDecoration(
                         color: AppColor.primary,
                         borderRadius: BorderRadius.circular(10)),
-                    child: const Text(
-                      "Items Received",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    child: requestLoading
+                        ? const Center(
+                            child: CupertinoActivityIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            "Items Received",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget barcodeScannerWidget(scanWindow) {
-    return SizedBox(
-        height: 60.h,
-        child: Stack(
-          alignment: Alignment.center,
-          clipBehavior: Clip.none,
-          children: [
-            MobileScanner(
-              fit: BoxFit.contain,
-              controller: mobileScanner,
-              scanWindow: scanWindow,
-              onDetect: (capture) {
-                mobileScanner.start();
-                // ref
-                //     .read(scanProductStateNotifierProvier.notifier)
-                //     .clearScanProduct();
-                // for (var barcode in capture.barcodes) {
-                //   ref
-                //       .read(scanProductStateNotifierProvier.notifier)
-                //       .scanProductByBarCode(
-                //           barcode.rawValue.toString(), context, 0);
-                // }
-                mobileScanner.stop();
-              },
-            ),
-            scannerOverlayWidget(),
-            scannerBorderWidget(),
-          ],
-        ));
-  }
-
-  Widget scannerOverlayWidget() {
-    return Container(
-      width: double.maxFinite,
-      height: double.maxFinite,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-      child: ClipRRect(
-        child: ColorFiltered(
-          colorFilter: const ColorFilter.mode(
-            Colors.white,
-            BlendMode.srcOut,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.black,
-                      backgroundBlendMode: BlendMode.dstOut)),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.65,
-                height: MediaQuery.of(context).size.width * 0.65,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(13),
-                  color: Colors.white,
-                ),
-                child: const AspectRatio(aspectRatio: 1),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget scannerBorderWidget() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.65,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.topCenter,
-          children: [
-            AnimatedBuilder(
-              animation: animationController,
-              builder: (context, child) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(
-                    top: animationController.value *
-                        MediaQuery.of(context).size.width *
-                        0.65,
-                  ),
-                  child: Container(
-                    width: double.maxFinite,
-                    height: 1.5,
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
-                    decoration: BoxDecoration(color: AppColor.primary),
-                  ),
-                );
-              },
-            ),
-            Positioned(
-                top: 0,
-                left: 0,
-                child: SvgPicture.asset('assets/icons/scanner_border.svg',
-                    color: AppColor.pinkColor)),
-            Positioned(
-                top: 0,
-                right: 0,
-                child: RotatedBox(
-                    quarterTurns: 1,
-                    child: SvgPicture.asset('assets/icons/scanner_border.svg',
-                        color: AppColor.pinkColor))),
-            Positioned(
-                bottom: 0,
-                left: 0,
-                child: RotatedBox(
-                    quarterTurns: 3,
-                    child: SvgPicture.asset('assets/icons/scanner_border.svg',
-                        color: AppColor.pinkColor))),
-            Positioned(
-                bottom: 0,
-                right: 0,
-                child: RotatedBox(
-                    quarterTurns: 2,
-                    child: SvgPicture.asset('assets/icons/scanner_border.svg',
-                        color: AppColor.pinkColor))),
-          ],
         ),
       ),
     );
