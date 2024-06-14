@@ -131,8 +131,8 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
                   onTap: () {
                     ref
                         .read(myRequestStateNotifierProvider.notifier)
-                        .receivedByImageMyRequest(widget.productID, widget.qty,
-                            context, base64Image, widget.productName);
+                        .receivedByImageMyRequest(
+                            widget.productID, widget.qty, context, base64Image);
                   },
                   child: Container(
                     height: 40,

@@ -49,12 +49,12 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
-  Future<void> receivedByImageMyRequest(int productID, int qty,
-      BuildContext context, String image, String productName) async {
+  Future<void> receivedByImageMyRequest(
+      int productID, int qty, BuildContext context, String image) async {
     try {
       state = const MyRequestState.loading();
-      Response response = await _myRequestRepository.receivedByImage(
-          productID, qty, image, productName);
+      Response response =
+          await _myRequestRepository.receivedByImage(productID, qty, image);
       superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {

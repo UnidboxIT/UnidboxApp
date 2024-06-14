@@ -32,8 +32,7 @@ class MyRequestRepository {
     return response;
   }
 
-  Future<Response> receivedByImage(
-      int productID, int qty, String image, String produtcName) async {
+  Future<Response> receivedByImage(int productID, int qty, String image) async {
     Map<String, dynamic> formData = {
       "state": "done",
       "received_qty": qty,
