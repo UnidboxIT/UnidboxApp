@@ -10,10 +10,11 @@ import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
 import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
-import '../../other_request/domain/other_request.dart';
-import '../../other_request/presentation/other_request_detail_screen.dart';
-import '../../other_request/repository/provider/other_request_provider.dart';
-import '../../other_request/repository/state/other_request_state.dart';
+import '../../outlet_request/domain/other_request.dart';
+import '../../outlet_request/presentation/other_request_detail_screen.dart';
+import '../../outlet_request/repository/provider/other_request_provider.dart';
+import '../../outlet_request/repository/state/other_request_state.dart';
+import '../../outlet_return/presentation/outlet_return_screen.dart';
 
 class InternalTransferScreen extends ConsumerStatefulWidget {
   final List<MyTask> internalTransferList;
@@ -117,10 +118,13 @@ class _InternalTransferScreenState
                   if (index == 0) {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const MyRequestsDetailScreen()));
-                  } else {
+                  } else if (index == 1) {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             const OtherRequestDetailScreen()));
+                  } else {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const OutletReturnScreen()));
                   }
                 },
                 child: eachInternalTransferWidget(
@@ -131,7 +135,7 @@ class _InternalTransferScreenState
               );
             },
             separatorBuilder: (context, index) {
-              return const SizedBox(height: 30);
+              return const SizedBox(height: 20);
             },
             itemCount: widget.internalTransferList.length));
   }
@@ -142,7 +146,7 @@ class _InternalTransferScreenState
       alignment: Alignment.topRight,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5.h),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/other_request_repository.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/other_request_repository.dart';
 
 import '../../../../../../utils/commons/super_print.dart';
 import '../../domain/warehouse.dart';

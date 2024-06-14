@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../../../../../utils/constant/app_color.dart';

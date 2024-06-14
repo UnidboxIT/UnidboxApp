@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../repository/provider/other_request_provider.dart';
 import '../repository/state/other_request_state.dart';

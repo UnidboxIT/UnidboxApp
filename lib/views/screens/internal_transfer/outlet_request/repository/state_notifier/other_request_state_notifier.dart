@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/other_request_repository.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/other_request_repository.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/other_request_state.dart';
 
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';

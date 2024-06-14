@@ -5,12 +5,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/warehouse.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/domain/other_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/accepted_list_screen.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/provider/other_request_provider.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/other_request_state.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/accepted_list_screen.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
@@ -185,7 +185,7 @@ class _OtherRequestsDetailScreenState
           child: Stack(
             children: [
               globalAppBarWidget(
-                "Requests",
+                "Outlet Requests",
                 () {
                   ref
                       .read(otherRequestStateNotifierProvider.notifier)

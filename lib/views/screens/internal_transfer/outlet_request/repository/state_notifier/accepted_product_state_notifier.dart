@@ -1,7 +1,7 @@
 import 'package:state_notifier/state_notifier.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/repository/state/accepted_product_state.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/accepted_product_state.dart';
 
 class AcceptedProductStateNotifier extends StateNotifier<AcceptedProductState> {
   AcceptedProductStateNotifier() : super(const AcceptedProductState.initial());

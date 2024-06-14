@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../other_request/domain/warehouse.dart';
+import '../../../outlet_request/domain/warehouse.dart';
 part 'warehouse_state.freezed.dart';
 
 extension Getters on WarehouseState {

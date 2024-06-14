@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/other_request/presentation/packed_detail_screen.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/packed_detail_screen.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
