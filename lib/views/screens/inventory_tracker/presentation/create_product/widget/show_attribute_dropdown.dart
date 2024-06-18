@@ -36,10 +36,7 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
   }
 
   updateSelectedUom(String attributeId, String attributeValues) {
-    superPrint(widget.attributeListByID);
     for (var data in widget.attributeListByID) {
-      superPrint(data[1]);
-      superPrint(attributeValues);
       if (data[1] == attributeValues) {
         setState(() {
           selectedAttribute = Attribute(id: data[0], name: data[1]);
@@ -176,7 +173,7 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
                   horizontal: 10,
                   vertical: 8,
                 ),
-                hintText: 'Search nationality',
+                hintText: 'Search attribute',
                 hintStyle: const TextStyle(fontSize: 12),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),

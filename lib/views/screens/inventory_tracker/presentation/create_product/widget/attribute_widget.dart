@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/attribute_state.dart';
@@ -97,28 +98,33 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
                 width: 42.w,
                 child: attributeMap[attributeIdList[index].id.toString()] !=
                         null
-                    ? Container(
-                        height: 40,
-                        width: 40.w,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.dropshadowColor,
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: textWidget(
-                          attributeMap[attributeIdList[index].id.toString()]
-                              .name,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
+                    ? GestureDetector(
+                        onTap: () {
+                          superPrint("HERE");
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 40.w,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.dropshadowColor,
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: textWidget(
+                            attributeMap[attributeIdList[index].id.toString()]
+                                .name,
+                            fontWeight: FontWeight.bold,
+                            size: 14,
+                          ),
                         ),
                       )
                     : ShowAttributeDropdown(
@@ -149,11 +155,11 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
+                selectedAttribute = Attribute(id: 0, name: '');
                 if (!attributeIdList.contains(attributeList[index])) {
                   if (attributeIdList.isEmpty) {
                     setState(() {
                       attributeIdList.add(attributeList[index]);
-                      selectedAttribute = Attribute(id: 0, name: '');
                       // ref
                       //     .read(attributeStateNotifierProvider.notifier)
                       //     .getAttributeByID(attributeList[index].id.toString());
@@ -162,19 +168,28 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
                     if (selectedAttribute.name.isNotEmpty) {
                       setState(() {
                         attributeIdList.add(attributeList[index]);
-                        selectedAttribute = Attribute(id: 0, name: '');
+                        //selectedAttribute = Attribute(id: 0, name: '');
                         // ref
                         //     .read(attributeStateNotifierProvider.notifier)
                         //     .getAttributeByID(
                         //         attributeList[index].id.toString());
                       });
                     } else {
-                      CommonMethods.customizedAlertDialog(
-                          "Please Select Attribute", context);
+                      setState(() {
+                        attributeIdList.add(attributeList[index]);
+                      });
+                      // CommonMethods.customizedAlertDialog(
+                      //     "Please Select Attribute", context);
                     }
                   }
                 } else {
                   setState(() {
+                    superPrint(attributeList[index]);
+                    for (var eachValue in attributeIdList) {
+                      if (eachValue == attributeList[index]) {
+                        attributeMap.remove(eachValue.id.toString());
+                      }
+                    }
                     attributeIdList.remove(attributeList[index]);
                   });
                 }
