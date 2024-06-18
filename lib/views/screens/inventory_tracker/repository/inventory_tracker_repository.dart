@@ -225,7 +225,8 @@ class InventoryTrackerRepository {
   Future<Response> attribute() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/product-attributes/?fields=id,name',
+      endpoint:
+          'joborder/product-attributes/?fields=id,name,attribute_value_ids',
       headers: CommonMethods.setHeaders(),
     );
 

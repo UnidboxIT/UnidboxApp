@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/attribute.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/create_product_state/attribute_state.dart';
-
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../repository/provider/create_product_provider.dart';
 
@@ -16,8 +14,12 @@ Map<String, dynamic> attributeMap = {};
 class ShowAttributeDropdown extends ConsumerStatefulWidget {
   final String id;
   final String name;
+  final List attributeListByID;
   const ShowAttributeDropdown(
-      {super.key, required this.id, required this.name});
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.attributeListByID});
 
   @override
   ConsumerState<ShowAttributeDropdown> createState() =>
@@ -26,7 +28,7 @@ class ShowAttributeDropdown extends ConsumerStatefulWidget {
 
 class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
   TextEditingController txtSearch = TextEditingController();
-  List<Attribute> attributeListByID = [];
+  //List<Attribute> attributeListByID = [];
 
   @override
   void initState() {
@@ -34,10 +36,13 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
   }
 
   updateSelectedUom(String attributeId, String attributeValues) {
-    for (var data in attributeListByID) {
-      if (data.name.contains(attributeValues)) {
+    superPrint(widget.attributeListByID);
+    for (var data in widget.attributeListByID) {
+      superPrint(data[1]);
+      superPrint(attributeValues);
+      if (data[1] == attributeValues) {
         setState(() {
-          selectedAttribute = Attribute(id: data.id, name: data.name);
+          selectedAttribute = Attribute(id: data[0], name: data[1]);
           ref
               .read(attributeStateNotifierProvider.notifier)
               .eachSelectedUom(selectedAttribute);
@@ -76,18 +81,18 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(attributeStateNotifierProvider, (pre, next) {
-      if (next is Loading) {
-        setState(() {
-          attributeListByID = [];
-        });
-      }
-      if (next is AttributeListByID) {
-        setState(() {
-          attributeListByID = next.attributeListByID;
-        });
-      }
-    });
+    // ref.listen(attributeStateNotifierProvider, (pre, next) {
+    //   if (next is Loading) {
+    //     setState(() {
+    //       attributeListByID = [];
+    //     });
+    //   }
+    //   if (next is AttributeListByID) {
+    //     setState(() {
+    //       attributeListByID = next.attributeListByID;
+    //     });
+    //   }
+    // });
 
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
@@ -101,11 +106,11 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
               color: AppColor.fontColor.withOpacity(0.6),
               fontWeight: FontWeight.w500),
         ),
-        items: attributeListByID
+        items: widget.attributeListByID
             .map((item) => DropdownMenuItem<String>(
-                  value: item.name,
+                  value: item[1],
                   child: Text(
-                    item.name,
+                    item[1],
                     style: const TextStyle(
                       fontSize: 13,
                     ),
@@ -114,6 +119,7 @@ class _ShowAttributeDropdownState extends ConsumerState<ShowAttributeDropdown> {
             .toList(),
         value: selectedAttribute.name.isEmpty ? null : selectedAttribute.name,
         onChanged: (value) {
+          superPrint(value);
           updateSelectedUom(widget.id, value!);
         },
         buttonStyleData: ButtonStyleData(

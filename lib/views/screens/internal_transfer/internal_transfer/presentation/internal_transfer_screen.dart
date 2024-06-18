@@ -135,7 +135,7 @@ class _InternalTransferScreenState
               );
             },
             separatorBuilder: (context, index) {
-              return const SizedBox(height: 20);
+              return SizedBox(height: 2.5.h);
             },
             itemCount: widget.internalTransferList.length));
   }
@@ -146,7 +146,8 @@ class _InternalTransferScreenState
       alignment: Alignment.topRight,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          height: 20.h,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,

@@ -95,36 +95,37 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 42.w,
-                child:
-                    attributeMap[attributeIdList[index].id.toString()] != null
-                        ? Container(
-                            height: 40,
-                            width: 40.w,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColor.dropshadowColor,
-                                  spreadRadius: 3,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                child: attributeMap[attributeIdList[index].id.toString()] !=
+                        null
+                    ? Container(
+                        height: 40,
+                        width: 40.w,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.centerLeft,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              spreadRadius: 3,
+                              blurRadius: 7,
+                              offset: const Offset(0, 3),
                             ),
-                            child: textWidget(
-                              attributeMap[attributeIdList[index].id.toString()]
-                                  .name,
-                              fontWeight: FontWeight.bold,
-                              size: 14,
-                            ),
-                          )
-                        : ShowAttributeDropdown(
-                            id: attributeIdList[index].id.toString(),
-                            name: attributeIdList[index].name,
-                          ),
+                          ],
+                        ),
+                        child: textWidget(
+                          attributeMap[attributeIdList[index].id.toString()]
+                              .name,
+                          fontWeight: FontWeight.bold,
+                          size: 14,
+                        ),
+                      )
+                    : ShowAttributeDropdown(
+                        id: attributeIdList[index].id.toString(),
+                        name: attributeIdList[index].name,
+                        attributeListByID: attributeIdList[index].attributeList,
+                      ),
               );
             },
           ),
@@ -153,19 +154,19 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
                     setState(() {
                       attributeIdList.add(attributeList[index]);
                       selectedAttribute = Attribute(id: 0, name: '');
-                      ref
-                          .read(attributeStateNotifierProvider.notifier)
-                          .getAttributeByID(attributeList[index].id.toString());
+                      // ref
+                      //     .read(attributeStateNotifierProvider.notifier)
+                      //     .getAttributeByID(attributeList[index].id.toString());
                     });
                   } else {
                     if (selectedAttribute.name.isNotEmpty) {
                       setState(() {
                         attributeIdList.add(attributeList[index]);
                         selectedAttribute = Attribute(id: 0, name: '');
-                        ref
-                            .read(attributeStateNotifierProvider.notifier)
-                            .getAttributeByID(
-                                attributeList[index].id.toString());
+                        // ref
+                        //     .read(attributeStateNotifierProvider.notifier)
+                        //     .getAttributeByID(
+                        //         attributeList[index].id.toString());
                       });
                     } else {
                       CommonMethods.customizedAlertDialog(
