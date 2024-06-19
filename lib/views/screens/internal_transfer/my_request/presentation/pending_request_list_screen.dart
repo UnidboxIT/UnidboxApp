@@ -6,7 +6,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/my_request.dart';
-import 'widgets/each_product_line_widget.dart';
+import 'widgets/each_pending_request_list_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
 class PendingRequestListScreen extends ConsumerStatefulWidget {
@@ -84,8 +84,8 @@ class _PendingRequestListScreenState
                   }
                   return Column(
                     children: [
-                      eachProductLineWidget(requestCode, name, currentDate,
-                          requestWarehouse, productList),
+                      eachPendingRequestListWidget(requestCode, name,
+                          currentDate, requestWarehouse, productList),
                       const SizedBox(height: 20)
                     ],
                   );
