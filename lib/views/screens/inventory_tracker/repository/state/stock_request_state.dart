@@ -10,5 +10,6 @@ class StockRequestState with _$StockRequestState {
   const factory StockRequestState.success(String success) = Successful;
   const factory StockRequestState.initial() = Initial;
   const factory StockRequestState.loading() = StockRequestLoading;
+  const factory StockRequestState.sendRequestSuccess() = StockRequestSuccess;
   const factory StockRequestState.error({String? error}) = Error;
 }

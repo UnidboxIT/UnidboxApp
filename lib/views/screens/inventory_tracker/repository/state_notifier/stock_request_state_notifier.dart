@@ -55,6 +55,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
         }, isFail: true, context);
         superPrint("Here");
       }
+      state = const StockRequestState.sendRequestSuccess();
     } catch (e) {
       state = StockRequestState.error(error: e.toString());
       superPrint(e);

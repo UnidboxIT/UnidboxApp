@@ -21,6 +21,7 @@ mixin _$StockRequestState {
     required TResult Function(String success) success,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
     required TResult Function(String? error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$StockRequestState {
     TResult? Function(String success)? success,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
     TResult? Function(String? error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$StockRequestState {
     TResult Function(String success)? success,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$StockRequestState {
     required TResult Function(Successful value) success,
     required TResult Function(Initial value) initial,
     required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$StockRequestState {
     TResult? Function(Successful value)? success,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$StockRequestState {
     TResult Function(Successful value)? success,
     TResult Function(Initial value)? initial,
     TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -153,6 +159,7 @@ class _$SuccessfulImpl implements Successful {
     required TResult Function(String success) success,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
     required TResult Function(String? error) error,
   }) {
     return success(this.success);
@@ -164,6 +171,7 @@ class _$SuccessfulImpl implements Successful {
     TResult? Function(String success)? success,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
     TResult? Function(String? error)? error,
   }) {
     return success?.call(this.success);
@@ -175,6 +183,7 @@ class _$SuccessfulImpl implements Successful {
     TResult Function(String success)? success,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -190,6 +199,7 @@ class _$SuccessfulImpl implements Successful {
     required TResult Function(Successful value) success,
     required TResult Function(Initial value) initial,
     required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
     required TResult Function(Error value) error,
   }) {
     return success(this);
@@ -201,6 +211,7 @@ class _$SuccessfulImpl implements Successful {
     TResult? Function(Successful value)? success,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult? Function(Error value)? error,
   }) {
     return success?.call(this);
@@ -212,6 +223,7 @@ class _$SuccessfulImpl implements Successful {
     TResult Function(Successful value)? success,
     TResult Function(Initial value)? initial,
     TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -272,6 +284,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(String success) success,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
     required TResult Function(String? error) error,
   }) {
     return initial();
@@ -283,6 +296,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(String success)? success,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
     TResult? Function(String? error)? error,
   }) {
     return initial?.call();
@@ -294,6 +308,7 @@ class _$InitialImpl implements Initial {
     TResult Function(String success)? success,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -309,6 +324,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Successful value) success,
     required TResult Function(Initial value) initial,
     required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -320,6 +336,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Successful value)? success,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -331,6 +348,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Successful value)? success,
     TResult Function(Initial value)? initial,
     TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -387,6 +405,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     required TResult Function(String success) success,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
     required TResult Function(String? error) error,
   }) {
     return loading();
@@ -398,6 +417,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     TResult? Function(String success)? success,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
     TResult? Function(String? error)? error,
   }) {
     return loading?.call();
@@ -409,6 +429,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     TResult Function(String success)? success,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -424,6 +445,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     required TResult Function(Successful value) success,
     required TResult Function(Initial value) initial,
     required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -435,6 +457,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     TResult? Function(Successful value)? success,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -446,6 +469,7 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
     TResult Function(Successful value)? success,
     TResult Function(Initial value)? initial,
     TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -458,6 +482,127 @@ class _$StockRequestLoadingImpl implements StockRequestLoading {
 
 abstract class StockRequestLoading implements StockRequestState {
   const factory StockRequestLoading() = _$StockRequestLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$StockRequestSuccessImplCopyWith<$Res> {
+  factory _$$StockRequestSuccessImplCopyWith(_$StockRequestSuccessImpl value,
+          $Res Function(_$StockRequestSuccessImpl) then) =
+      __$$StockRequestSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$StockRequestSuccessImplCopyWithImpl<$Res>
+    extends _$StockRequestStateCopyWithImpl<$Res, _$StockRequestSuccessImpl>
+    implements _$$StockRequestSuccessImplCopyWith<$Res> {
+  __$$StockRequestSuccessImplCopyWithImpl(_$StockRequestSuccessImpl _value,
+      $Res Function(_$StockRequestSuccessImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$StockRequestSuccessImpl implements StockRequestSuccess {
+  const _$StockRequestSuccessImpl();
+
+  @override
+  String toString() {
+    return 'StockRequestState.sendRequestSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StockRequestSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String success) success,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
+    required TResult Function(String? error) error,
+  }) {
+    return sendRequestSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String success)? success,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
+    TResult? Function(String? error)? error,
+  }) {
+    return sendRequestSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String success)? success,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (sendRequestSuccess != null) {
+      return sendRequestSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Successful value) success,
+    required TResult Function(Initial value) initial,
+    required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
+    required TResult Function(Error value) error,
+  }) {
+    return sendRequestSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Successful value)? success,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
+    TResult? Function(Error value)? error,
+  }) {
+    return sendRequestSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Successful value)? success,
+    TResult Function(Initial value)? initial,
+    TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (sendRequestSuccess != null) {
+      return sendRequestSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StockRequestSuccess implements StockRequestState {
+  const factory StockRequestSuccess() = _$StockRequestSuccessImpl;
 }
 
 /// @nodoc
@@ -527,6 +672,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(String success) success,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() sendRequestSuccess,
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
@@ -538,6 +684,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(String success)? success,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? sendRequestSuccess,
     TResult? Function(String? error)? error,
   }) {
     return error?.call(this.error);
@@ -549,6 +696,7 @@ class _$ErrorImpl implements Error {
     TResult Function(String success)? success,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? sendRequestSuccess,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
@@ -564,6 +712,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(Successful value) success,
     required TResult Function(Initial value) initial,
     required TResult Function(StockRequestLoading value) loading,
+    required TResult Function(StockRequestSuccess value) sendRequestSuccess,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -575,6 +724,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(Successful value)? success,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockRequestLoading value)? loading,
+    TResult? Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -586,6 +736,7 @@ class _$ErrorImpl implements Error {
     TResult Function(Successful value)? success,
     TResult Function(Initial value)? initial,
     TResult Function(StockRequestLoading value)? loading,
+    TResult Function(StockRequestSuccess value)? sendRequestSuccess,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

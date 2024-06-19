@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/create_product_provider.dart';
@@ -100,7 +99,14 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
                         null
                     ? GestureDetector(
                         onTap: () {
-                          superPrint("HERE");
+                          // superPrint("HERE");
+                          // for (var eachValue in attributeIdList) {
+                          //   if (eachValue ==
+                          //       attributeMap[
+                          //           attributeIdList[index].id.toString()]) {
+                          //     attributeMap.remove(eachValue.id.toString());
+                          //   }
+                          // }
                         },
                         child: Container(
                           height: 40,
@@ -157,31 +163,9 @@ class _AttributeWidgetState extends ConsumerState<AttributeWidget> {
               onTap: () {
                 selectedAttribute = Attribute(id: 0, name: '');
                 if (!attributeIdList.contains(attributeList[index])) {
-                  if (attributeIdList.isEmpty) {
-                    setState(() {
-                      attributeIdList.add(attributeList[index]);
-                      // ref
-                      //     .read(attributeStateNotifierProvider.notifier)
-                      //     .getAttributeByID(attributeList[index].id.toString());
-                    });
-                  } else {
-                    if (selectedAttribute.name.isNotEmpty) {
-                      setState(() {
-                        attributeIdList.add(attributeList[index]);
-                        //selectedAttribute = Attribute(id: 0, name: '');
-                        // ref
-                        //     .read(attributeStateNotifierProvider.notifier)
-                        //     .getAttributeByID(
-                        //         attributeList[index].id.toString());
-                      });
-                    } else {
-                      setState(() {
-                        attributeIdList.add(attributeList[index]);
-                      });
-                      // CommonMethods.customizedAlertDialog(
-                      //     "Please Select Attribute", context);
-                    }
-                  }
+                  setState(() {
+                    attributeIdList.add(attributeList[index]);
+                  });
                 } else {
                   setState(() {
                     superPrint(attributeList[index]);

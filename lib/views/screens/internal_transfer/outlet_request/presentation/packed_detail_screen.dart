@@ -35,7 +35,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> packedProductList = [];
   List<ProductLineId> acceptedProductList = [];
   bool isSwipeLoading = false;
-
+  List<int> idList = [];
   List<Map<int, dynamic>> requestedMapList = [];
   List<Map<int, dynamic>> finalDeveilerMapList = [];
   @override
@@ -90,6 +90,14 @@ class _OtherRequestsDetailScreenState
       requestedMapList
           .add({selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
       finalDeveilerMapList.add(packedWarehouseMap);
+
+      superPrint(finalDeveilerMapList);
+      for (var warehouseProduct in finalDeveilerMapList) {
+        warehouseProduct.forEach((key, value) {
+          idList.add(value['id']);
+        });
+      }
+      superPrint(idList);
     }
     superPrint(selectedWarehouseID);
   }
@@ -212,13 +220,6 @@ class _OtherRequestsDetailScreenState
                       isSwipeLoading = true;
                     });
                     setState(() {
-                      List<int> idList = [];
-                      for (var warehouseProduct in finalDeveilerMapList) {
-                        warehouseProduct.forEach((key, value) {
-                          idList.add(value['id']);
-                        });
-                      }
-                      superPrint(idList);
                       Future.delayed(const Duration(milliseconds: 100));
                       if (idList.isNotEmpty) {
                         if (acceptedProductList.isEmpty) {

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +8,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inh
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/inhouse_stock.dart';
@@ -29,6 +29,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
   int selectedBox = 0;
   int totalQty = 1;
   bool isUrgent = false;
+  bool isSendRequestLoading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -210,143 +211,158 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   Widget requestStockWidget(
       BuildContext context, String location, int requestWarehouseID) {
-    return Container(
-      width: 100.w,
-      height: 50.h,
-      decoration: BoxDecoration(
-        color: AppColor.bottomSheetBgColor,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              textWidget(
-                "Request Quantity",
-                color: AppColor.orangeColor,
-                size: 17,
-                fontWeight: FontWeight.bold,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Container(
-                  width: 28.w,
-                  color: Colors.transparent,
-                  height: 40,
-                  alignment: Alignment.centerRight,
-                  child: Icon(
-                    CupertinoIcons.clear_circled_solid,
-                    color: AppColor.primary,
-                  ),
+    return Consumer(builder: (context, ref, child) {
+      final next = ref.watch(stockRequesstStateNotifierProvider);
+      if (next is StockRequestLoading) {
+        isSendRequestLoading = true;
+      }
+      if (next is StockRequestSuccess) {
+        isSendRequestLoading = false;
+      }
+      return Container(
+        width: 100.w,
+        height: 50.h,
+        decoration: BoxDecoration(
+          color: AppColor.bottomSheetBgColor,
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                textWidget(
+                  "Request Quantity",
+                  color: AppColor.orangeColor,
+                  size: 17,
+                  fontWeight: FontWeight.bold,
                 ),
-              )
-            ],
-          ),
-          textWidget("Request from $location Outlet",
-              color: Colors.black, size: 14),
-          SizedBox(height: 6.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              addMinusIconButtonWidget(
-                () {
-                  ref
-                      .read(inhouseStockStateNotifierProvider.notifier)
-                      .decrementTotalQty(totalQty);
-                },
-                CupertinoIcons.minus_circle_fill,
-              ),
-              const SizedBox(width: 10),
-              textWidget(
-                totalQty.toString(),
-                size: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(width: 10),
-              addMinusIconButtonWidget(
-                () {
-                  ref
-                      .read(inhouseStockStateNotifierProvider.notifier)
-                      .incrementTotalQty(totalQty);
-                },
-                CupertinoIcons.add_circled_solid,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      ref
-                          .read(inhouseStockStateNotifierProvider.notifier)
-                          .selectedRequestBox(widget.productDetail.uomList[0]);
-                    },
-                    child: boxPieceWidget(widget.productDetail.uomList[1],
-                        widget.productDetail.uomList[0]),
-                  ),
-                  const SizedBox(width: 10),
-                  SizedBox(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: 28.w,
+                    color: Colors.transparent,
                     height: 40,
-                    child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                              onTap: () {
-                                ref
-                                    .read(inhouseStockStateNotifierProvider
-                                        .notifier)
-                                    .selectedRequestBox(widget
-                                        .productDetail.multiUomList[index][0]);
-                              },
-                              child: boxPieceWidget(
-                                  widget.productDetail.multiUomList[index][1],
-                                  widget.productDetail.multiUomList[index][0]));
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 10);
-                        },
-                        itemCount: widget.productDetail.multiUomList.length),
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      CupertinoIcons.clear_circled_solid,
+                      color: AppColor.primary,
+                    ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 15),
-              urgentWidget(),
-            ],
-          ),
-          const SizedBox(height: 20),
-          buttonWidget("Send Request", () {
-            superPrint(
-              admin.companyId,
-            );
-            ref
-                .read(stockRequesstStateNotifierProvider.notifier)
-                .requestInHouseStock(
-                  admin.warehouseMap[0],
-                  requestWarehouseID,
+                )
+              ],
+            ),
+            textWidget("Request from $location Outlet",
+                color: Colors.black, size: 14),
+            SizedBox(height: 6.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                addMinusIconButtonWidget(
+                  () {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .decrementTotalQty(totalQty);
+                  },
+                  CupertinoIcons.minus_circle_fill,
+                ),
+                const SizedBox(width: 10),
+                textWidget(
+                  totalQty.toString(),
+                  size: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(width: 10),
+                addMinusIconButtonWidget(
+                  () {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .incrementTotalQty(totalQty);
+                  },
+                  CupertinoIcons.add_circled_solid,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(inhouseStockStateNotifierProvider.notifier)
+                            .selectedRequestBox(
+                                widget.productDetail.uomList[0]);
+                      },
+                      child: boxPieceWidget(widget.productDetail.uomList[1],
+                          widget.productDetail.uomList[0]),
+                    ),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      height: 40,
+                      child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  ref
+                                      .read(inhouseStockStateNotifierProvider
+                                          .notifier)
+                                      .selectedRequestBox(widget.productDetail
+                                          .multiUomList[index][0]);
+                                },
+                                child: boxPieceWidget(
+                                    widget.productDetail.multiUomList[index][1],
+                                    widget.productDetail.multiUomList[index]
+                                        [0]));
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 10);
+                          },
+                          itemCount: widget.productDetail.multiUomList.length),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                urgentWidget(),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 50.w,
+              child: buttonWidget("Send Request", () {
+                superPrint(
                   admin.companyId,
-                  widget.productDetail.id,
-                  widget.productDetail.name,
-                  totalQty,
-                  widget.productDetail.price,
-                  selectedBox,
-                  context,
                 );
-          })
-        ],
-      ),
-    );
+                ref
+                    .read(stockRequesstStateNotifierProvider.notifier)
+                    .requestInHouseStock(
+                      admin.warehouseMap[0],
+                      requestWarehouseID,
+                      admin.companyId,
+                      widget.productDetail.id,
+                      widget.productDetail.name,
+                      totalQty,
+                      widget.productDetail.price,
+                      selectedBox,
+                      context,
+                    );
+              }, isBool: isSendRequestLoading),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   Widget addMinusIconButtonWidget(VoidCallback onPressed, IconData iconData) {
