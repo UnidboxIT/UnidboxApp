@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../domain/my_request.dart';
 
-class MyRequestSearchWidget extends StatefulWidget {
+TextEditingController txtSearchMyRequest = TextEditingController();
+
+class MyRequestSearchWidget extends ConsumerStatefulWidget {
   final List<MyRequest> myRequestList;
   const MyRequestSearchWidget({super.key, required this.myRequestList});
 
   @override
-  State<MyRequestSearchWidget> createState() => _SearchOrderReceivingState();
+  ConsumerState<MyRequestSearchWidget> createState() =>
+      _SearchOrderReceivingState();
 }
 
-class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
-  TextEditingController txtSearchMyRequest = TextEditingController();
+class _SearchOrderReceivingState extends ConsumerState<MyRequestSearchWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,16 +42,23 @@ class _SearchOrderReceivingState extends State<MyRequestSearchWidget> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           textInputAction: TextInputAction.done,
           onChanged: (query) async {
+            txtSearchMyRequest.text = query;
             setState(() {
-              List<MyRequest> searchRequest =
-                  widget.myRequestList.where((request) {
-                return request.name
-                        .toLowerCase()
-                        .contains(query.toLowerCase()) ||
-                    request.userId[1].contains(query);
-              }).toList();
-              superPrint(searchRequest);
+              ref
+                  .read(myRequestStateNotifierProvider.notifier)
+                  .searchMyRequestData(query);
             });
+
+            // setState(() {
+            // List<MyRequest> searchRequest =
+            //     widget.myRequestList.where((request) {
+            //   return request.name
+            //           .toLowerCase()
+            //           .contains(query.toLowerCase()) ||
+            //       request.userId[1].contains(query);
+            // }).toList();
+            // superPrint(searchRequest);
+            //});
           },
           decoration: InputDecoration(
             hintText: "Search",

@@ -75,6 +75,13 @@ class _MyRequestsDetailScreenState
           acceptProductID = next.productID;
         });
       }
+      if (next is SearchMyRequestList) {
+        setState(() {
+          myRequestList = [];
+          pendingRequestList.clear();
+          myRequestList = next.searchMyRequestList;
+        });
+      }
     });
 
     return SuperScaffold(

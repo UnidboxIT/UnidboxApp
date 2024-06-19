@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/my_request_repository.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
+import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 
 class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
@@ -54,15 +55,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           await _myRequestRepository.receivedByImage(productID, qty, image);
       superPrint(response.body);
       var result = jsonDecode(response.body);
-      //if (result.containsKey('result')) {
-      if (result['result']['code'] == 200) {
-        getAllMyRequest();
-        Navigator.of(context).pop();
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllMyRequest();
+          Navigator.of(context).pop();
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
       }
-      // } else if (result.containsKey('error')) {
-      //   CommonMethods.customizedAlertDialog(
-      //       result['error']['message'], context);
-      // }
       superPrint(response.body);
     } catch (e) {
       superPrint(e.toString());
@@ -81,11 +82,29 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
+  bool productIdContainsQuery = false;
   searchMyRequestData(String query) {
     if (query.isNotEmpty) {
       List<MyRequest> searchRequest = myRequestList.where((request) {
-        return request.name.toLowerCase().contains(query.toLowerCase()) ||
-            request.userId[1].contains(query);
+        final nameContainsQuery =
+            request.name.toLowerCase().contains(query.toLowerCase());
+        final userIdContainsQuery = request.userId[1]
+            .toString()
+            .toLowerCase()
+            .contains(query.toLowerCase());
+
+        for (var data in request.productLineList) {
+          productIdContainsQuery = data.productIdList[1]
+              .toString()
+              .trim()
+              .toLowerCase()
+              .contains(query.toLowerCase());
+          superPrint(data.productIdList[1]);
+        }
+
+        return nameContainsQuery ||
+            userIdContainsQuery ||
+            productIdContainsQuery;
       }).toList();
       state = MyRequestState.searchMyRequestValue(searchRequest);
     } else {
