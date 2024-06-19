@@ -17,13 +17,13 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   final OtherRequestRepository _otherRequestRepository;
   List<OtherRequest> otherRequestList = [];
 
-  Future<void> getAllOtherRequest(int offset) async {
+  Future<void> getAllOtherRequest() async {
     try {
       if (otherRequestList.isEmpty) {
         state = const OtherRequestState.loading();
       }
 
-      Response response = await _otherRequestRepository.otherRequest(offset);
+      Response response = await _otherRequestRepository.otherRequest();
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
@@ -50,7 +50,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       var result = jsonDecode(response.body);
       superPrint(result);
       clearMyRequestValue();
-      getAllOtherRequest(offset);
+      getAllOtherRequest();
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
@@ -64,7 +64,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       var result = jsonDecode(response.body);
       superPrint(result);
       clearMyRequestValue();
-      getAllOtherRequest(0);
+      getAllOtherRequest();
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
@@ -75,7 +75,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       List<int> mainID, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
-      Response response = await _otherRequestRepository.delivery(mainID);
+      Response response = await _otherRequestRepository.issued(mainID);
       superPrint(response);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
@@ -83,7 +83,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
           successfullyBottomSheet(
               "Issued", "All Item had been handed over for delivery", () {
             clearMyRequestValue();
-            getAllOtherRequest(0);
+            getAllOtherRequest();
             Navigator.of(context).pop();
           }, context);
         }

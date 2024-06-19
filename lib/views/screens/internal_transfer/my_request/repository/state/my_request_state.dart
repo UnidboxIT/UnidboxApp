@@ -23,4 +23,6 @@ class MyRequestState with _$MyRequestState {
   const factory MyRequestState.receivedProductID(int productID) =
       ReceivedProductID;
   const factory MyRequestState.receiveLoading() = ReceiveLoading;
+  const factory MyRequestState.searchMyRequestValue(
+      List<MyRequest> searchMyRequestList) = SearchMyRequestList;
 }

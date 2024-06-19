@@ -5,7 +5,7 @@ import '../../../../../services/api_service.dart';
 import '../../../../../utils/commons/common_method.dart';
 
 class OtherRequestRepository {
-  Future<Response> otherRequest(int offset) async {
+  Future<Response> otherRequest() async {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
@@ -27,10 +27,13 @@ class OtherRequestRepository {
   }
 
   Future<Response> accepted(int productID) async {
-    Map<String, dynamic> formData = {"state": "accepted"};
+    Map<String, dynamic> formData = {
+      "state": "accepted",
+      "ids": [productID]
+    };
     Response response = await ApiService().post(
       url: baseUrl,
-      endpoint: 'joborder/stock-request/update/$productID',
+      endpoint: 'joborder/stock-request/update/',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
@@ -39,11 +42,15 @@ class OtherRequestRepository {
   }
 
   Future<Response> packed(int productID, double qty) async {
-    Map<String, dynamic> formData = {"state": "packed", "issued_qty": qty};
+    Map<String, dynamic> formData = {
+      "state": "packed",
+      "qty": qty,
+      "ids": [productID]
+    };
     superPrint(formData, title: "Packed Product");
     Response response = await ApiService().post(
       url: baseUrl,
-      endpoint: 'joborder/stock-request/update/$productID',
+      endpoint: 'joborder/stock-request/update/',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
@@ -51,8 +58,11 @@ class OtherRequestRepository {
     return response;
   }
 
-  Future<Response> delivery(List<int> productID) async {
-    Map<String, dynamic> formData = {"ids": productID, "state": "delivery"};
+  Future<Response> issued(List<int> productID) async {
+    Map<String, dynamic> formData = {
+      "state": "issued",
+      "ids": productID,
+    };
     superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,

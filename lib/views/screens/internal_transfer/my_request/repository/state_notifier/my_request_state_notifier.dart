@@ -6,8 +6,6 @@ import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/my_request_repository.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
-
-import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 
 class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
@@ -27,7 +25,6 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       for (var element in dataList) {
         myRequestList.add(MyRequest.fromJson(element));
       }
-
       state = MyRequestState.loadMyRequestData(myRequestList);
     } catch (e) {
       superPrint(e.toString());
@@ -57,15 +54,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           await _myRequestRepository.receivedByImage(productID, qty, image);
       superPrint(response.body);
       var result = jsonDecode(response.body);
-      if (result.containsKey('result')) {
-        if (result['result']['code'] == 200) {
-          getAllMyRequest();
-          Navigator.of(context).pop();
-        }
-      } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
+      //if (result.containsKey('result')) {
+      if (result['result']['code'] == 200) {
+        getAllMyRequest();
+        Navigator.of(context).pop();
       }
+      // } else if (result.containsKey('error')) {
+      //   CommonMethods.customizedAlertDialog(
+      //       result['error']['message'], context);
+      // }
       superPrint(response.body);
     } catch (e) {
       superPrint(e.toString());
@@ -81,6 +78,18 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     if (qty >= 1) {
       qty--;
       state = MyRequestState.decrementQty(productID, qty);
+    }
+  }
+
+  searchMyRequestData(String query) {
+    if (query.isNotEmpty) {
+      List<MyRequest> searchRequest = myRequestList.where((request) {
+        return request.name.toLowerCase().contains(query.toLowerCase()) ||
+            request.userId[1].contains(query);
+      }).toList();
+      state = MyRequestState.searchMyRequestValue(searchRequest);
+    } else {
+      getAllMyRequest();
     }
   }
 }

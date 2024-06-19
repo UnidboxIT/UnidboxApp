@@ -17,14 +17,19 @@ class MyRequestRepository {
 
   Future<Response> done(int productID, int qty) async {
     Map<String, dynamic> formData = {
-      "state": "done",
-      "received_qty": qty,
-      "img_name": false,
-      "datas": false
+      "state": "received",
+      "qty": qty,
+      "ids": [productID],
+      // "state": "done",
+      // "received_qty": qty,
+      // "qty_done": qty,
+      // "img_name": false,
+      // "datas": false
     };
+    superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
-      endpoint: 'joborder/stock-request/update/$productID',
+      endpoint: 'joborder/stock-request/update/',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
@@ -34,8 +39,12 @@ class MyRequestRepository {
 
   Future<Response> receivedByImage(int productID, int qty, String image) async {
     Map<String, dynamic> formData = {
-      "state": "done",
-      "received_qty": qty,
+      "state": "received",
+      "qty": qty,
+      "ids": [productID],
+      // "state": "done",
+      // "received_qty": qty,
+      // "qty_done": qty,
       "img_name": "picking_$productID.png",
       "datas": image,
     };
@@ -43,7 +52,7 @@ class MyRequestRepository {
     superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
-      endpoint: 'joborder/stock-request/update/$productID',
+      endpoint: 'joborder/stock-request/update/',
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );

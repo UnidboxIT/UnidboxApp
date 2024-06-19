@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
 import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
+import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/presentation/other_request_detail_screen.dart';
@@ -28,7 +28,9 @@ class InternalTransferScreen extends ConsumerStatefulWidget {
 class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
   List<OtherRequest> otherRequestList = [];
+  List<OtherRequest> myRequestList = [];
   List<ProductLineId> requestProductList = [];
+  List<ProductLineId> outletReturnProductList = [];
   bool isLoading = false;
 
   @override
@@ -37,9 +39,7 @@ class _InternalTransferScreenState
     super.initState();
     ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(otherRequestStateNotifierProvider.notifier)
-          .getAllOtherRequest(0);
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
   }
 
@@ -61,12 +61,16 @@ class _InternalTransferScreenState
               if (element.status == "requested") {
                 requestProductList.add(element);
               }
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
+              }
             }
           }
           isLoading = false;
         });
       }
     });
+
     final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
     final bottomNavNotifier =
         ref.watch(bottomNavNotifierControllerProvider.notifier);
@@ -176,7 +180,7 @@ class _InternalTransferScreenState
         isLoading
             ? Container()
             : Visibility(
-                visible: count != 0 && requestProductList.isNotEmpty,
+                visible: count == 1 && requestProductList.isNotEmpty,
                 child: Positioned(
                   top: -10,
                   right: -5,
@@ -185,6 +189,25 @@ class _InternalTransferScreenState
                     radius: 19,
                     child: textWidget(
                       requestProductList.length.toString(),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      size: 13,
+                    ),
+                  ),
+                ),
+              ),
+        isLoading
+            ? Container()
+            : Visibility(
+                visible: count == 2 && outletReturnProductList.isNotEmpty,
+                child: Positioned(
+                  top: -10,
+                  right: -5,
+                  child: CircleAvatar(
+                    backgroundColor: AppColor.pinkColor,
+                    radius: 19,
+                    child: textWidget(
+                      outletReturnProductList.length.toString(),
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       size: 13,

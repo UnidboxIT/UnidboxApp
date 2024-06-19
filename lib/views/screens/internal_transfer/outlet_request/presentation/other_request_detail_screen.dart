@@ -63,9 +63,7 @@ class _OtherRequestsDetailScreenState
 
   void _loadProducts(int offset) {
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(otherRequestStateNotifierProvider.notifier)
-          .getAllOtherRequest(offset);
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
   }
 

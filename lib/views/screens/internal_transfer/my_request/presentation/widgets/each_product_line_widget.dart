@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
@@ -29,7 +30,7 @@ Widget eachProductLineWidget(
           if (state is IncrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.issueQty = state.qty;
+              product.receivedQty = state.qty;
             } else {
               product = productList[index];
             }
@@ -37,7 +38,7 @@ Widget eachProductLineWidget(
           if (state is DecrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.issueQty = state.qty;
+              product.receivedQty = state.qty;
             } else {
               product = productList[index];
             }
@@ -130,7 +131,7 @@ Widget eachProductLineWidget(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 textWidget(
-                                  "Requested Qty: ${product.receivedQty.toString()}",
+                                  "Received Qty: ${product.issueQty.toString()}",
                                   size: 12,
                                 ),
                                 const SizedBox(width: 5),
@@ -142,7 +143,7 @@ Widget eachProductLineWidget(
                                             .notifier)
                                         .decrementTotalQty(
                                             productList[index].id,
-                                            product.issueQty);
+                                            product.receivedQty);
                                   }
                                 },
                                     CupertinoIcons.minus_circle_fill,
@@ -150,21 +151,22 @@ Widget eachProductLineWidget(
                                         ? AppColor.primary
                                         : AppColor.pinkColor),
                                 const SizedBox(width: 5),
-                                textWidget(product.issueQty.toString(),
+                                textWidget(product.receivedQty.toString(),
                                     color: AppColor.primary,
                                     fontWeight: FontWeight.bold,
                                     size: 13),
                                 const SizedBox(width: 5),
                                 addMinusIconButtonWidget(() {
+                                  superPrint(product.issueQty);
                                   if (productList[index].status ==
                                           'receiving' &&
-                                      product.issueQty < product.receivedQty) {
+                                      product.issueQty > product.receivedQty) {
                                     ref
                                         .read(myRequestStateNotifierProvider
                                             .notifier)
                                         .incrementTotalQty(
                                             productList[index].id,
-                                            product.issueQty);
+                                            product.receivedQty);
                                   }
                                 },
                                     CupertinoIcons.add_circled_solid,
@@ -237,11 +239,12 @@ Widget eachProductLineWidget(
                           ? buttonWidget(
                               "Received",
                               () {
+                                superPrint(product.issueQty);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => ReceiveScanScreen(
                                       productID: product.id,
-                                      qty: product.issueQty.toInt(),
+                                      qty: product.receivedQty.toInt(),
                                       productName: product.productIdList[1],
                                     ),
                                   ),

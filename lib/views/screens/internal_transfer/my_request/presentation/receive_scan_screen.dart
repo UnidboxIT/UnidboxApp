@@ -59,6 +59,7 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // superPrint(widget.qty);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestLoading) {
         setState(() {

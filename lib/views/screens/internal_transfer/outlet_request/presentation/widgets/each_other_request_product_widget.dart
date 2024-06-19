@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
@@ -17,10 +18,11 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(otherRequestStateNotifierProvider);
     ProductLineId product = productLine;
+    double issuedQty = product.qty;
     if (state is IncrementQty) {
       int stateIndex = state.index;
       if (product.id == stateIndex) {
-        product.qty = state.qty;
+        issuedQty = state.qty;
       } else {
         product = productLine;
       }
@@ -28,7 +30,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
     if (state is DecrementQty) {
       int stateIndex = state.index;
       if (product.id == stateIndex) {
-        product.qty = state.qty;
+        issuedQty = state.qty;
       } else {
         product = productLine;
       }
@@ -124,8 +126,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                               ref
                                   .read(otherRequestStateNotifierProvider
                                       .notifier)
-                                  .decrementTotalQty(
-                                      productLine.id, product.qty);
+                                  .decrementTotalQty(productLine.id, issuedQty);
                             }
                           },
                               CupertinoIcons.minus_circle_fill,
@@ -133,18 +134,18 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                                   ? AppColor.primary
                                   : AppColor.pinkColor),
                           const SizedBox(width: 10),
-                          textWidget(product.qty.toString(),
+                          textWidget(issuedQty.toString(),
                               color: AppColor.primary,
                               fontWeight: FontWeight.bold,
                               size: 13),
                           const SizedBox(width: 10),
                           addMinusIconButtonWidget(() {
-                            if (productLine.status == 'accepted') {
+                            if (productLine.status == 'accepted' &&
+                                issuedQty < product.qty) {
                               ref
                                   .read(otherRequestStateNotifierProvider
                                       .notifier)
-                                  .incrementTotalQty(
-                                      productLine.id, product.qty);
+                                  .incrementTotalQty(productLine.id, issuedQty);
                             }
                           },
                               CupertinoIcons.add_circled_solid,
@@ -192,9 +193,11 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     height: 35,
                     width: 30.w,
                     child: buttonWidget("Pack", () {
+                      superPrint(issuedQty);
+                      superPrint(product.qty);
                       ref
                           .read(otherRequestStateNotifierProvider.notifier)
-                          .packOtherRequest(productLine.id, product.qty);
+                          .packOtherRequest(productLine.id, issuedQty);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),
