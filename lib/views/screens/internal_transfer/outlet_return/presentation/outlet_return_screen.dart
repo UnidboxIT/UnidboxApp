@@ -14,6 +14,7 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/outlet_return_provider.dart';
 import '../repository/state/outlet_return_state.dart';
+import 'outlet_return_history/outlet_return_history_screen.dart';
 import 'widgets/each_outlet_return_receive_widget.dart';
 
 class OutletReturnScreen extends ConsumerStatefulWidget {
@@ -138,7 +139,12 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
               Transform.translate(
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OutletReturnHistoryScreen(
+                              otherRequestList: otherRequestList,
+                            )));
+                  },
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
