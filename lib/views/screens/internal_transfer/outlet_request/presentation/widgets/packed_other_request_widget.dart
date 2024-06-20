@@ -119,7 +119,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textWidget(
-                    "Request from",
+                    "Request From",
                     color: AppColor.orangeColor,
                     size: 12.5,
                   ),
@@ -128,6 +128,11 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,
+                  ),
+                  textWidget(
+                    "Request To",
+                    color: AppColor.orangeColor,
+                    size: 12.5,
                   ),
                   textWidget(
                     name,
