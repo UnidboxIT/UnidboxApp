@@ -47,13 +47,28 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
+  Future<void> pendingRequestUpdate(
+      int productID, int qty, BuildContext context) async {
+    try {
+      state = const MyRequestState.loading();
+      Response response =
+          await _myRequestRepository.requestUpdate(productID, qty);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      superPrint(result);
+      getAllMyRequest();
+      state = MyRequestState.receivedProductID(productID);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
   Future<void> receivedByImageMyRequest(
       int productID, int qty, BuildContext context, String image) async {
     try {
       state = const MyRequestState.loading();
       Response response =
           await _myRequestRepository.receivedByImage(productID, qty, image);
-      superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {

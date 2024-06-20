@@ -32,6 +32,23 @@ class MyRequestRepository {
     return response;
   }
 
+  Future<Response> requestUpdate(int productID, int qty) async {
+    Map<String, dynamic> formData = {
+      "state": "updated",
+      "qty": qty,
+      "ids": [productID],
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
   Future<Response> receivedByImage(int productID, int qty, String image) async {
     Map<String, dynamic> formData = {
       "state": "received",
@@ -40,8 +57,6 @@ class MyRequestRepository {
       "img_name": "picking_$productID.png",
       "datas": image,
     };
-    superPrint(productID);
-    superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/',

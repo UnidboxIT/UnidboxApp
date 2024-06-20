@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/my_request.dart';
+import '../repository/provider/my_request_provider.dart';
+import '../repository/state/my_request_state.dart';
 import 'widgets/each_pending_request_list_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
 class PendingRequestListScreen extends ConsumerStatefulWidget {
-  final List<MyRequest> pendingRequestList;
-  const PendingRequestListScreen({super.key, required this.pendingRequestList});
+  const PendingRequestListScreen({
+    super.key,
+  });
 
   @override
   ConsumerState<PendingRequestListScreen> createState() =>
@@ -20,9 +22,33 @@ class PendingRequestListScreen extends ConsumerStatefulWidget {
 
 class _PendingRequestListScreenState
     extends ConsumerState<PendingRequestListScreen> {
+  List<MyRequest> pendingRequestList = [];
+  int acceptProductID = -1;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    superPrint(widget.pendingRequestList);
+    ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestList) {
+        pendingRequestList = [];
+        setState(() {
+          pendingRequestList = next.myRequestList;
+        });
+      }
+      if (next is ReceivedProductID) {
+        setState(() {
+          acceptProductID = next.productID;
+        });
+      }
+    });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -36,6 +62,9 @@ class _PendingRequestListScreenState
               globalAppBarWidget(
                 "Pending Requests",
                 () {
+                  ref
+                      .read(requestPendingStateNotifierProvider.notifier)
+                      .myRequestPending(false);
                   Navigator.of(context).pop();
                 },
               ),
@@ -66,31 +95,31 @@ class _PendingRequestListScreenState
                 padding: const EdgeInsets.only(bottom: 20),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  String requestCode = widget.pendingRequestList[index].name;
-                  String name = widget.pendingRequestList[index].userId[1];
-                  List<ProductLineId> productList = widget
-                      .pendingRequestList[index].productLineList
+                  String requestCode = pendingRequestList[index].name;
+                  String name = pendingRequestList[index].userId[1];
+                  List<ProductLineId> productList = pendingRequestList[index]
+                      .productLineList
                       .where((productLine) {
                     return productLine.status == 'requested';
                   }).toList();
-                  String currentDate =
-                      widget.pendingRequestList[index].createDate;
+                  String currentDate = pendingRequestList[index].createDate;
                   String requestWarehouse =
-                      widget.pendingRequestList[index].requestToWh.isEmpty
+                      pendingRequestList[index].requestToWh.isEmpty
                           ? ""
-                          : widget.pendingRequestList[index].requestToWh[1];
+                          : pendingRequestList[index].requestToWh[1];
                   if (productList.isEmpty) {
                     return const SizedBox.shrink();
                   }
                   return Column(
                     children: [
                       eachPendingRequestListWidget(requestCode, name,
-                          currentDate, requestWarehouse, productList),
+                          currentDate, requestWarehouse, productList,
+                          acceptProductID: acceptProductID),
                       const SizedBox(height: 20)
                     ],
                   );
                 },
-                itemCount: widget.pendingRequestList.length),
+                itemCount: pendingRequestList.length),
           ),
         ],
       ),

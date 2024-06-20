@@ -210,9 +210,7 @@ class _MyRequestsDetailScreenState
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => PendingRequestListScreen(
-                  pendingRequestList: myRequestList,
-                )));
+            builder: (context) => const PendingRequestListScreen()));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
