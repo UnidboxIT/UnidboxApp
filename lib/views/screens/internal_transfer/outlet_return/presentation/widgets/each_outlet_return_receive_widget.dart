@@ -9,6 +9,7 @@ import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/each_product_line_widget.dart';
+import '../../repository/provider/outlet_return_provider.dart';
 
 Widget eachOutletReturnWidget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
@@ -133,7 +134,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textWidget(
-                    "Request from",
+                    "Request to",
                     color: AppColor.orangeColor,
                     size: 12.5,
                   ),
@@ -156,9 +157,9 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                 height: 35,
                 width: 30.w,
                 child: buttonWidget("Receive", () {
-                  // ref
-                  //     .read(otherRequestStateNotifierProvider.notifier)
-                  //     .acceptOtherRequest(productLine.id, 0);
+                  ref
+                      .read(outletReturnStateNotifier.notifier)
+                      .outletReturnReceived(productLine.id);
                 },
                     isBool:
                         isAcceptLoading && acceptProductID == productLine.id),

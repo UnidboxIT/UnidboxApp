@@ -20,11 +20,6 @@ class MyRequestRepository {
       "state": "received",
       "qty": qty,
       "ids": [productID],
-      // "state": "done",
-      // "received_qty": qty,
-      // "qty_done": qty,
-      // "img_name": false,
-      // "datas": false
     };
     superPrint(formData);
     Response response = await ApiService().post(
@@ -42,9 +37,6 @@ class MyRequestRepository {
       "state": "received",
       "qty": qty,
       "ids": [productID],
-      // "state": "done",
-      // "received_qty": qty,
-      // "qty_done": qty,
       "img_name": "picking_$productID.png",
       "datas": image,
     };

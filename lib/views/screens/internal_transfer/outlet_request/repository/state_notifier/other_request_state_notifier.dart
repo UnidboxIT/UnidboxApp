@@ -19,29 +19,23 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
 
   Future<void> getAllOtherRequest() async {
     try {
-      if (otherRequestList.isEmpty) {
-        state = const OtherRequestState.loading();
-      }
-
+      state = const OtherRequestState.loading();
+      otherRequestList.clear();
       Response response = await _otherRequestRepository.otherRequest();
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         otherRequestList.add(OtherRequest.fromJson(element));
       }
-
       state = OtherRequestState.loadOtherRequestData(otherRequestList);
-      if (dataList.isEmpty) {
-        state = const OtherRequestState.isDataExist(false);
-      }
     } catch (e) {
       superPrint(e.toString());
     }
   }
 
-  clearMyRequestValue() {
-    otherRequestList.clear();
-  }
+  // clearMyRequestValue() {
+  //   otherRequestList.clear();
+  // }
 
   Future<void> acceptOtherRequest(int productID, int offset) async {
     try {
@@ -49,7 +43,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       Response response = await _otherRequestRepository.accepted(productID);
       var result = jsonDecode(response.body);
       superPrint(result);
-      clearMyRequestValue();
+      // clearMyRequestValue();
       getAllOtherRequest();
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
@@ -63,7 +57,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       Response response = await _otherRequestRepository.packed(productID, qty);
       var result = jsonDecode(response.body);
       superPrint(result);
-      clearMyRequestValue();
+      // clearMyRequestValue();
       getAllOtherRequest();
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
@@ -82,7 +76,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
         if (result['result']['code'] == 200) {
           successfullyBottomSheet(
               "Issued", "All Item had been handed over for delivery", () {
-            clearMyRequestValue();
+            // clearMyRequestValue();
             getAllOtherRequest();
             Navigator.of(context).pop();
           }, context);

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../../utils/constant/app_constant.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../my_request/domain/my_request.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
+import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/domain/warehouse.dart';
 import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
+import '../repository/provider/outlet_return_provider.dart';
+import '../repository/state/outlet_return_state.dart';
 import 'widgets/each_outlet_return_receive_widget.dart';
 
 class OutletReturnScreen extends ConsumerStatefulWidget {
@@ -29,14 +30,17 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
   Map<int, dynamic> requestedMap = {};
   bool requestLoading = false;
   List<OtherRequest> otherRequestList = [];
-  Map<String, List<ProductLineId>> requestProductLineMap = {};
+  int acceptProductID = -1;
+  bool acceptLoading = false;
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
-      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
   }
 
@@ -59,17 +63,16 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         });
       }
     });
-    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
-      if (next is OtherRequestLoading) {
+    ref.listen(outletReturnStateNotifier, (pre, next) {
+      if (next is OutletReturnLoading) {
         setState(() {
           requestLoading = true;
           otherRequestList = [];
         });
       }
-      if (next is OtherRequestList) {
+      if (next is OutletReturnList) {
         setState(() {
-          otherRequestList = next.otherRequestList;
-          requestProductLineMap.clear();
+          otherRequestList = next.outletReturnList;
           requestedMap.clear();
           requestedMapList.clear();
           for (var data in otherRequestList) {
@@ -96,22 +99,26 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
               }
             }
           }
+          acceptLoading = false;
+          requestLoading = false;
           if (requestedMap.isNotEmpty) {
             requestedMapList.add(requestedMap);
           }
         });
       }
-      // if (next is AcceptLoading) {
-      //   setState(() {
-      //     acceptLoading = true;
-      //   });
-      // }
-      // if (next is AcceptProductID) {
-      //   setState(() {
-      //     acceptProductID = next.productID;
-      //   });
-      // }
+      if (next is ReceiveLoading) {
+        setState(() {
+          acceptLoading = true;
+        });
+      }
+      if (next is ReturnReceivedProductID) {
+        setState(() {
+          acceptProductID = next.productID;
+        });
+      }
     });
+    superPrint(requestedMapList);
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -245,8 +252,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                             warehouseData['date'],
                             productList[subIndex],
                             ref,
-                            // isAcceptLoading: acceptLoading,
-                            // acceptProductID: acceptProductID,
+                            isAcceptLoading: acceptLoading,
+                            acceptProductID: acceptProductID,
                           );
                         },
                       );

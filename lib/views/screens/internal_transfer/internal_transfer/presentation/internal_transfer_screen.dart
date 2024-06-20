@@ -37,7 +37,7 @@ class _InternalTransferScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
+    // ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
@@ -51,6 +51,7 @@ class _InternalTransferScreenState
           isLoading = true;
           otherRequestList = [];
           requestProductList.clear();
+          outletReturnProductList.clear();
         });
       }
       if (next is OtherRequestList) {

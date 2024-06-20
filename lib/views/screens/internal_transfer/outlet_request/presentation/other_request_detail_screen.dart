@@ -41,23 +41,21 @@ class _OtherRequestsDetailScreenState
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
   int selectedWarehouseID = -1;
-  Map<int, Map<String, dynamic>> acceptedProductLineByMap = {};
   Map<int, dynamic> requestedMap = {};
   List<Map<int, dynamic>> requestedMapList = [];
-  Map<String, List<ProductLineId>> requestProductLineMap = {};
+  // Map<String, List<ProductLineId>> requestProductLineMap = {};
   int acceptProductID = -1;
   bool acceptLoading = false;
 
   @override
   void initState() {
     super.initState();
-    acceptedProductLineByMap = {};
     ref.read(acceptedStateNotifierProvider.notifier).clearOtherRequestMap();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
     });
-    ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
-    scrollController.addListener(_scrollListener);
+    //ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
+    //scrollController.addListener(_scrollListener);
     _loadProducts(0);
   }
 
@@ -67,24 +65,24 @@ class _OtherRequestsDetailScreenState
     });
   }
 
-  void _scrollListener() async {
-    if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent &&
-        !xLoading) {
-      if (isDataExist) {
-        setState(() {
-          xLoading = true;
-        });
-        offset += 10;
-        superPrint("HERE $offset");
-        _loadProducts(offset);
-        await Future.delayed(const Duration(seconds: 1));
-        setState(() {
-          xLoading = false;
-        });
-      }
-    }
-  }
+  // void _scrollListener() async {
+  //   if (scrollController.position.pixels >=
+  //           scrollController.position.maxScrollExtent &&
+  //       !xLoading) {
+  //     if (isDataExist) {
+  //       setState(() {
+  //         xLoading = true;
+  //       });
+  //       offset += 10;
+  //       superPrint("HERE $offset");
+  //       _loadProducts(offset);
+  //       await Future.delayed(const Duration(seconds: 1));
+  //       setState(() {
+  //         xLoading = false;
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +116,6 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
-          requestProductLineMap.clear();
           requestedMap.clear();
           requestedMapList.clear();
           for (var data in otherRequestList) {
@@ -185,9 +182,9 @@ class _OtherRequestsDetailScreenState
               globalAppBarWidget(
                 "Outlet Requests",
                 () {
-                  ref
-                      .read(otherRequestStateNotifierProvider.notifier)
-                      .clearMyRequestValue();
+                  // ref
+                  //     .read(otherRequestStateNotifierProvider.notifier)
+                  //     .clearMyRequestValue();
                   Navigator.of(context).pop();
                 },
               ),

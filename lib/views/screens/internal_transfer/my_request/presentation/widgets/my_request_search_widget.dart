@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../domain/my_request.dart';
 
-TextEditingController txtSearchMyRequest = TextEditingController();
-
 class MyRequestSearchWidget extends ConsumerStatefulWidget {
   final List<MyRequest> myRequestList;
   const MyRequestSearchWidget({super.key, required this.myRequestList});
@@ -16,6 +14,7 @@ class MyRequestSearchWidget extends ConsumerStatefulWidget {
 }
 
 class _SearchOrderReceivingState extends ConsumerState<MyRequestSearchWidget> {
+  TextEditingController txtSearchMyRequest = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,17 +47,6 @@ class _SearchOrderReceivingState extends ConsumerState<MyRequestSearchWidget> {
                   .read(myRequestStateNotifierProvider.notifier)
                   .searchMyRequestData(query);
             });
-
-            // setState(() {
-            // List<MyRequest> searchRequest =
-            //     widget.myRequestList.where((request) {
-            //   return request.name
-            //           .toLowerCase()
-            //           .contains(query.toLowerCase()) ||
-            //       request.userId[1].contains(query);
-            // }).toList();
-            // superPrint(searchRequest);
-            //});
           },
           decoration: InputDecoration(
             hintText: "Search",

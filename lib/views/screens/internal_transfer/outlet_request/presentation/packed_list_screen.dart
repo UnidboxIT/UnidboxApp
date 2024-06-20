@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -54,7 +56,7 @@ class _PackedListScreenState extends ConsumerState<PackedListScreen> {
   Widget eachAcceptedListWidget() {
     return Container(
       width: 100.w,
-      height: 83.h,
+      height: Platform.isIOS ? 80.h : 83.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

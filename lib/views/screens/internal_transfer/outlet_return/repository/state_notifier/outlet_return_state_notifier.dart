@@ -16,14 +16,29 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
   Future<void> getAlloutletReturn() async {
     try {
       state = const OutletReturnState.loading();
-
+      outletReturnList.clear();
       Response response = await _outletReturnRepository.outletReturn();
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         outletReturnList.add(OtherRequest.fromJson(element));
       }
+
       state = OutletReturnState.loadOtherRequestData(outletReturnList);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  Future<void> outletReturnReceived(int productID) async {
+    try {
+      state = const OutletReturnState.acceptLoading();
+      Response response =
+          await _outletReturnRepository.returnReceived(productID);
+      superPrint(response.body);
+      // var result = jsonDecode(response.body);
+      state = OutletReturnState.returnReceivedProductID(productID);
+      getAlloutletReturn();
     } catch (e) {
       superPrint(e.toString());
     }

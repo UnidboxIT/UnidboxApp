@@ -32,12 +32,16 @@ class _OtherRequestsDetailScreenState
   Map<String, List<ProductLineId>> packedProductMap = {};
   int selectedWarehouseID = -1;
   Map<int, dynamic> packedWarehouseMap = {};
+  Map<int, dynamic> acceptedWarehouseMap = {};
   List<ProductLineId> packedProductList = [];
   List<ProductLineId> acceptedProductList = [];
   bool isSwipeLoading = false;
   List<int> idList = [];
   List<Map<int, dynamic>> requestedMapList = [];
   List<Map<int, dynamic>> finalDeveilerMapList = [];
+  List<Map<int, dynamic>> acceptedMapList = [];
+  bool isPackedProductEqual = false;
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +61,29 @@ class _OtherRequestsDetailScreenState
       for (var element in data.productLineList) {
         if (element.status.contains("requested")) {
           acceptedProductList.add(element);
+          setState(() {
+            acceptedProductList.add(element);
+            int warehouseId = element.warehouseList[0];
+            String warehouseName = element.warehouseList[1];
+            String productLineKey = data.name;
+            if (!acceptedWarehouseMap.containsKey(warehouseId)) {
+              acceptedWarehouseMap[warehouseId] = {
+                "id": data.id,
+                "warehouse_name": warehouseName,
+                "name": data.userId[1],
+                "date": data.createDate,
+                "product_line": {}
+              };
+            }
+            // Ensure each product line is unique per warehouse
+            if (!acceptedWarehouseMap[warehouseId]['product_line']
+                .containsKey(productLineKey)) {
+              acceptedWarehouseMap[warehouseId]['product_line']
+                  [productLineKey] = [];
+            }
+            acceptedWarehouseMap[warehouseId]['product_line'][productLineKey]
+                .add(element);
+          });
         }
         if (element.status.contains("packed")) {
           setState(() {
@@ -91,15 +118,45 @@ class _OtherRequestsDetailScreenState
           .add({selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
       finalDeveilerMapList.add(packedWarehouseMap);
 
-      superPrint(finalDeveilerMapList);
       for (var warehouseProduct in finalDeveilerMapList) {
         warehouseProduct.forEach((key, value) {
           idList.add(value['id']);
         });
       }
+      if (acceptedWarehouseMap.isNotEmpty) {
+        acceptedMapList.add(acceptedWarehouseMap);
+      }
       superPrint(idList);
+      superPrint(finalDeveilerMapList);
+      superPrint(acceptedMapList);
     }
-    superPrint(selectedWarehouseID);
+    for (var map1 in finalDeveilerMapList) {
+      for (var map2 in acceptedMapList) {
+        for (var key1 in map1.keys) {
+          if (map2.containsKey(key1)) {
+            String productLineKey1 = map1[key1]['product_line'].keys.first;
+            String productLineKey2 = map2[key1]['product_line'].keys.first;
+            if (productLineKey1 == productLineKey2) {
+              setState(() {
+                isPackedProductEqual = true;
+              });
+              superPrint(
+                  'The product lines are equal: $productLineKey1 && $isPackedProductEqual');
+            } else {
+              setState(() {
+                isPackedProductEqual = false;
+              });
+              superPrint(
+                  'The product lines are not equal: $productLineKey1 != $productLineKey2 && $isPackedProductEqual');
+            }
+          } else {
+            setState(() {
+              isPackedProductEqual = false;
+            });
+          }
+        }
+      }
+    }
   }
 
   @override
@@ -222,7 +279,7 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       Future.delayed(const Duration(milliseconds: 100));
                       if (idList.isNotEmpty) {
-                        if (acceptedProductList.isEmpty) {
+                        if (!isPackedProductEqual) {
                           ref
                               .read(otherRequestStateNotifierProvider.notifier)
                               .deliveryOtherRequest(idList, context);
