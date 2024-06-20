@@ -74,6 +74,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
             ),
             const SizedBox(height: 13),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   decoration: BoxDecoration(
@@ -92,7 +93,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                             : const AssetImage('assets/images/app_icon.jpeg'),
                         fit: BoxFit.cover),
                   ),
-                  height: 12.h,
+                  height: 13.h,
                   width: 22.w,
                 ),
                 const SizedBox(width: 15),
@@ -116,44 +117,62 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                         fontWeight: FontWeight.w500,
                         size: 12,
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          addMinusIconButtonWidget(() {
-                            if (productLine.status == 'accepted') {
-                              ref
-                                  .read(otherRequestStateNotifierProvider
-                                      .notifier)
-                                  .decrementTotalQty(productLine.id, issuedQty);
-                            }
-                          },
-                              CupertinoIcons.minus_circle_fill,
-                              productLine.status == 'accepted'
-                                  ? AppColor.primary
-                                  : AppColor.pinkColor),
-                          const SizedBox(width: 10),
-                          textWidget(issuedQty.toString(),
-                              color: AppColor.primary,
-                              fontWeight: FontWeight.bold,
-                              size: 13),
-                          const SizedBox(width: 10),
-                          addMinusIconButtonWidget(() {
-                            if (productLine.status == 'accepted' &&
-                                issuedQty < product.qty) {
-                              ref
-                                  .read(otherRequestStateNotifierProvider
-                                      .notifier)
-                                  .incrementTotalQty(productLine.id, issuedQty);
-                            }
-                          },
-                              CupertinoIcons.add_circled_solid,
-                              productLine.status == 'accepted'
-                                  ? AppColor.primary
-                                  : AppColor.pinkColor)
-                        ],
-                      )
+                      productLine.status != 'requested'
+                          ? const SizedBox.shrink()
+                          : const SizedBox(height: 10),
+                      productLine.status != 'requested'
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textWidget(
+                                  "Requested Qty : ${product.qty.toInt()} pc",
+                                  size: 13,
+                                ),
+                                textWidget(
+                                  "Accepted Qty : ${product.issueQty.toInt()} pc",
+                                  size: 13,
+                                )
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                addMinusIconButtonWidget(() {
+                                  if (productLine.status == 'requested') {
+                                    ref
+                                        .read(otherRequestStateNotifierProvider
+                                            .notifier)
+                                        .decrementTotalQty(
+                                            productLine.id, issuedQty);
+                                  }
+                                },
+                                    CupertinoIcons.minus_circle_fill,
+                                    productLine.status == 'requested'
+                                        ? AppColor.primary
+                                        : AppColor.pinkColor),
+                                const SizedBox(width: 10),
+                                textWidget(issuedQty.toString(),
+                                    color: AppColor.primary,
+                                    fontWeight: FontWeight.bold,
+                                    size: 13),
+                                const SizedBox(width: 10),
+                                addMinusIconButtonWidget(() {
+                                  if (productLine.status == 'requested' &&
+                                      issuedQty < product.qty) {
+                                    ref
+                                        .read(otherRequestStateNotifierProvider
+                                            .notifier)
+                                        .incrementTotalQty(
+                                            productLine.id, issuedQty);
+                                  }
+                                },
+                                    CupertinoIcons.add_circled_solid,
+                                    productLine.status == 'requested'
+                                        ? AppColor.primary
+                                        : AppColor.pinkColor)
+                              ],
+                            )
                     ],
                   ),
                 ),
@@ -168,7 +187,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     textWidget(
-                      "Request from",
+                      "Request From",
                       color: AppColor.orangeColor,
                       size: 12.5,
                     ),
@@ -177,6 +196,11 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       size: 14,
+                    ),
+                    textWidget(
+                      "Request By",
+                      color: AppColor.orangeColor,
+                      size: 12.5,
                     ),
                     textWidget(
                       name,
@@ -193,11 +217,10 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     height: 35,
                     width: 30.w,
                     child: buttonWidget("Pack", () {
-                      superPrint(issuedQty);
-                      superPrint(product.qty);
+                      superPrint(product.issueQty);
                       ref
                           .read(otherRequestStateNotifierProvider.notifier)
-                          .packOtherRequest(productLine.id, issuedQty);
+                          .packOtherRequest(productLine.id, product.issueQty);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),
@@ -209,9 +232,11 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     height: 35,
                     width: 30.w,
                     child: buttonWidget("Accept", () {
+                      superPrint(issuedQty);
+                      superPrint(product.qty);
                       ref
                           .read(otherRequestStateNotifierProvider.notifier)
-                          .acceptOtherRequest(productLine.id, 0);
+                          .acceptOtherRequest(productLine.id, issuedQty);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),

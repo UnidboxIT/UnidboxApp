@@ -26,11 +26,13 @@ class OtherRequestRepository {
     return response;
   }
 
-  Future<Response> accepted(int productID) async {
+  Future<Response> accepted(int productID, double qty) async {
     Map<String, dynamic> formData = {
       "state": "accepted",
+      "qty": qty,
       "ids": [productID]
     };
+    superPrint(formData, title: "Accped Product");
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/',

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +6,6 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../my_request/domain/my_request.dart';
-import '../../../my_request/presentation/widgets/each_product_line_widget.dart';
 
 Widget eachPackedDataWiget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
@@ -51,6 +49,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
           ),
           const SizedBox(height: 13),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -69,7 +68,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                           : const AssetImage('assets/images/app_icon.jpeg'),
                       fit: BoxFit.cover),
                 ),
-                height: 12.h,
+                height: 13.h,
                 width: 22.w,
               ),
               const SizedBox(width: 15),
@@ -93,29 +92,17 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                       fontWeight: FontWeight.w500,
                       size: 12,
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        addMinusIconButtonWidget(
-                            () {},
-                            CupertinoIcons.minus_circle_fill,
-                            productLine.status == 'accepted'
-                                ? AppColor.primary
-                                : AppColor.pinkColor),
-                        const SizedBox(width: 10),
-                        textWidget(productLine.issueQty.toString(),
-                            color: AppColor.primary,
-                            fontWeight: FontWeight.bold,
-                            size: 13),
-                        const SizedBox(width: 10),
-                        addMinusIconButtonWidget(
-                            () {},
-                            CupertinoIcons.add_circled_solid,
-                            productLine.status == 'accepted'
-                                ? AppColor.primary
-                                : AppColor.pinkColor)
+                        textWidget(
+                          "Requested Qty : ${productLine.qty.toInt()} pc",
+                          size: 13,
+                        ),
+                        textWidget(
+                          "Accepted Qty : ${productLine.issueQty.toInt()} pc",
+                          size: 13,
+                        )
                       ],
                     )
                   ],

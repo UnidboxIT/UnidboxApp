@@ -143,18 +143,18 @@ class ProductController extends GetxController {
     isCreateProductLoading = true;
     update();
     try {
-      http.Response response = await ProductService.createProduct(
-        base64Image,
-        txtName.text,
-        txtModel.text,
-        txtVendor.text,
-        txtBrand.text,
-        txtBarcode.text,
-        txtSalePrice.text,
-        txtCost.text,
-        varietyValueMap.values.toList(),
-      );
-      var result = jsonDecode(response.body);
+      // http.Response response = await ProductService.createProduct(
+      //   base64Image,
+      //   txtName.text,
+      //   txtModel.text,
+      //   txtVendor.text,
+      //   txtBrand.text,
+      //   txtBarcode.text,
+      //   txtSalePrice.text,
+      //   txtCost.text,
+      //   varietyValueMap.values.toList(),
+      // );
+      //var result = jsonDecode(response.body);
       // CommonMethods.customizedAlertDialog(result['result']['message'],
       //     isPop: false);
       clearProductVariety();
