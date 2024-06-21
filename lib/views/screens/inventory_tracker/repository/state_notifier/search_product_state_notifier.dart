@@ -24,21 +24,19 @@ class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
       if (searchProductList.isEmpty) {
         state = const SearchProductState.loading();
       }
-
       Response response =
           await _inventoryTrackerRepository.searchProduct(name, pageNumber);
       var result = jsonDecode(response.body);
-      if (result['result']['code'] == 200) {
-        Iterable dataList = result['result']['records'];
-        for (var element in dataList) {
-          searchProductList.add(Products.fromJson(element));
-        }
-        state = SearchProductState.loadSearchProduct(searchProductList);
-        if (dataList.isEmpty) {
-          state = const SearchProductState.isSearchDataExist(false);
-        }
-        superPrint(searchProductList.length, title: "Search Product Length");
+      Iterable dataList = result['result']['records'];
+      for (var element in dataList) {
+        searchProductList.add(Products.fromJson(element));
       }
+      state = SearchProductState.loadSearchProduct(searchProductList);
+      if (dataList.isEmpty) {
+        state = const SearchProductState.isSearchDataExist(false);
+      }
+      superPrint(searchProductList.first.name);
+      superPrint(searchProductList.length, title: "Search Product Length");
     } catch (e) {
       superPrint(e.toString());
     }

@@ -35,6 +35,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   bool xLoading = false;
   bool isDataExist = true;
   bool isSearching = false;
+  bool isClickSearchButton = false;
   ScrollController scrollController = ScrollController();
 
   @override
@@ -49,6 +50,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   }
 
   void _loadProducts(pageNumber) {
+    superPrint("HERE");
     if (txtSearchProduct.text.isNotEmpty) {
       Future.delayed(const Duration(milliseconds: 10), () {
         superPrint(txtSearchProduct.text);
@@ -114,6 +116,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
           onPopInvoked: (_) async {
             txtSearchProduct.clear();
             FocusManager.instance.primaryFocus!.unfocus();
+            Future.delayed(const Duration(milliseconds: 100));
             return;
           },
           child: SizedBox(
@@ -126,6 +129,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                   () {
                     txtSearchProduct.clear();
                     FocusManager.instance.primaryFocus!.unfocus();
+                    Future.delayed(const Duration(milliseconds: 100));
                     Navigator.of(context).pop();
                   },
                   () {
@@ -184,12 +188,13 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                 onChanged: (value) async {
                   setState(() {
                     txtSearchProduct.text = value;
-                    superPrint(txtSearchProduct.text);
                   });
-                  if (!isSearching) {
+
+                  if (value.isEmpty) {
                     setState(() {
-                      isSearching = true;
+                      isClickSearchButton = false;
                     });
+
                     pageNumber = 0;
                     isLoading = false;
                     xLoading = false;
@@ -197,53 +202,70 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                     ref
                         .read(searchProductStateNotifierProvier.notifier)
                         .clearSearchProductValue();
-                    ref
-                        .read(searchProductStateNotifierProvier.notifier)
-                        .searchProduct(value, context, 0);
-                    await Future.delayed(const Duration(seconds: 1));
-                    setState(() {
-                      isSearching = false;
+                    Future.delayed(const Duration(milliseconds: 10), () {
+                      ref
+                          .read(searchProductStateNotifierProvier.notifier)
+                          .searchProduct("", context, pageNumber);
                     });
                   }
                 },
                 onEditingComplete: () async {
-                  superPrint(txtSearchProduct.text);
-                  if (!isSearching) {
-                    setState(() {
-                      isSearching = true;
-                    });
-                    pageNumber = 0;
-                    isLoading = false;
-                    xLoading = false;
-                    isDataExist = true;
-                    ref
-                        .read(searchProductStateNotifierProvier.notifier)
-                        .clearSearchProductValue();
-                    ref
-                        .read(searchProductStateNotifierProvier.notifier)
-                        .searchProduct(txtSearchProduct.text, context, 0);
-                    await Future.delayed(const Duration(seconds: 1));
-                    setState(() {
-                      isSearching = false;
-                    });
-                  }
+                  setState(() {
+                    isClickSearchButton = true;
+                  });
+                  pageNumber = 0;
+                  isLoading = false;
+                  xLoading = false;
+                  isDataExist = true;
+                  ref
+                      .read(searchProductStateNotifierProvier.notifier)
+                      .clearSearchProductValue();
+                  ref
+                      .read(searchProductStateNotifierProvier.notifier)
+                      .searchProduct(txtSearchProduct.text, context, 0);
                 },
                 decoration: InputDecoration(
                   hintText: "Search",
                   hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  suffixIcon: IconButton(
-                    icon: const Icon(
-                      CupertinoIcons.qrcode_viewfinder,
-                      size: 18,
-                    ),
-                    onPressed: () {
-                      txtSearchProduct.clear();
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const BarCodeScannerScreen()));
-                    },
-                  ),
+                  suffixIcon: txtSearchProduct.text.isNotEmpty
+                      ? TextButton(
+                          onPressed: () async {
+                            setState(() {
+                              isClickSearchButton = true;
+                            });
+                            pageNumber = 0;
+                            isLoading = false;
+                            xLoading = false;
+                            isDataExist = true;
+                            ref
+                                .read(
+                                    searchProductStateNotifierProvier.notifier)
+                                .clearSearchProductValue();
+                            ref
+                                .read(
+                                    searchProductStateNotifierProvier.notifier)
+                                .searchProduct(
+                                    txtSearchProduct.text, context, 0);
+                          },
+                          child: textWidget(
+                            "Search",
+                            color: AppColor.primary,
+                            fontWeight: FontWeight.bold,
+                            size: 15,
+                          ))
+                      : IconButton(
+                          icon: const Icon(
+                            CupertinoIcons.qrcode_viewfinder,
+                            size: 18,
+                          ),
+                          onPressed: () {
+                            txtSearchProduct.clear();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => const BarCodeScannerScreen()));
+                          },
+                        ),
                   prefixIcon: const Icon(
                     CupertinoIcons.search,
                     size: 18,
@@ -260,7 +282,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
               ),
             ),
           ),
-          isLoading || isSearching
+          isLoading
               ? Container(
                   height: 50.h,
                   alignment: Alignment.center,
@@ -268,7 +290,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                     color: AppColor.pinkColor,
                   ),
                 )
-              : productList.isEmpty
+              : txtSearchProduct.text.isEmpty || !isClickSearchButton
                   ? Container(
                       height: 50.h,
                       alignment: Alignment.center,
@@ -277,139 +299,165 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                         color: AppColor.fontColor,
                       ),
                     )
-                  : Expanded(
-                      child: GridView.builder(
-                          controller: scrollController,
-                          shrinkWrap: true,
-                          itemCount: productList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 20,
-                            crossAxisSpacing: 0,
-                            childAspectRatio: 0.9,
+                  : isClickSearchButton && productList.isEmpty
+                      ? Container(
+                          height: 50.h,
+                          alignment: Alignment.center,
+                          child: textWidget(
+                            "No Product Found!",
+                            color: AppColor.fontColor,
                           ),
-                          itemBuilder: (context, index) {
-                            String productId = productList[index].id.toString();
-                            String image = productList[index].imageUrl;
-                            String name = productList[index].name;
-                            double qty = productList[index].quantity;
-                            double price = productList[index].price;
-                            double qtyOutStock = productList[index].qtyOutStock;
-                            return GestureDetector(
-                              onTap: () {
-                                FocusManager.instance.primaryFocus!.unfocus();
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ProductDetailScreen(
-                                          productID: productId,
-                                          productName: name,
-                                        )));
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: AppColor.dropshadowColor,
-                                            blurRadius: 3,
-                                            spreadRadius: 3),
-                                      ]),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
+                        )
+                      : Expanded(
+                          child: GridView.builder(
+                              controller: scrollController,
+                              shrinkWrap: true,
+                              itemCount: productList.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 20,
+                                crossAxisSpacing: 0,
+                                childAspectRatio: 0.9,
+                              ),
+                              itemBuilder: (context, index) {
+                                String productId =
+                                    productList[index].id.toString();
+                                String image = productList[index].imageUrl;
+                                String name = productList[index].name;
+                                double qty = productList[index].quantity;
+                                double price = productList[index].price;
+                                double qtyOutStock =
+                                    productList[index].qtyOutStock;
+                                return GestureDetector(
+                                  onTap: () {
+                                    FocusManager.instance.primaryFocus!
+                                        .unfocus();
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetailScreen(
+                                                  productID: productId,
+                                                  productName: name,
+                                                )));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColor.dropshadowColor,
+                                                blurRadius: 3,
+                                                spreadRadius: 3),
+                                          ]),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 8),
+                                                child: Container(
+                                                  height: 14.h,
+                                                  width: 100.w,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey.shade200,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                        image: image != "false"
+                                                            ? NetworkImage(
+                                                                image)
+                                                            : const AssetImage(
+                                                                "assets/images/app_icon.jpeg",
+                                                              )),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 3.h,
+                                                width: 100.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                  color: qty > qtyOutStock
+                                                      ? AppColor.orangeColor
+                                                      : Colors.red,
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: textWidget(
+                                                    qty > qtyOutStock
+                                                        ? "Sufficient Stock"
+                                                        : "Insufficient Stock",
+                                                    color: Colors.white,
+                                                    size: 12.5,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 8),
-                                            child: Container(
-                                              height: 14.h,
-                                              width: 100.w,
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey.shade200,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                    image: image != "false"
-                                                        ? NetworkImage(image)
-                                                        : const AssetImage(
-                                                            "assets/images/app_icon.jpeg",
-                                                          )),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 3.h,
-                                            width: 100.w,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                              color: qty > qtyOutStock
-                                                  ? AppColor.orangeColor
-                                                  : Colors.red,
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: textWidget(
-                                                qty > qtyOutStock
-                                                    ? "Sufficient Stock"
-                                                    : "Insufficient Stock",
-                                                color: Colors.white,
-                                                size: 12.5,
+                                                horizontal: 8),
+                                            child: textWidget(name,
+                                                maxLine: 2,
+                                                textOverflow:
+                                                    TextOverflow.ellipsis,
+                                                textAlign: TextAlign.left,
+                                                size: 13,
                                                 fontWeight: FontWeight.bold),
                                           ),
+                                          const Spacer(),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                textWidget("Qty : $qty",
+                                                    textOverflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    size: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                                textWidget(
+                                                    "\$ ${CommonMethods.twoDecimalPrice(price)}",
+                                                    textOverflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    size: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10)
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: textWidget(name,
-                                            maxLine: 2,
-                                            textOverflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            size: 13,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            textWidget("Qty : $qty",
-                                                textOverflow:
-                                                    TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                size: 12,
-                                                fontWeight: FontWeight.w500),
-                                            textWidget(
-                                                "\$ ${CommonMethods.twoDecimalPrice(price)}",
-                                                textOverflow:
-                                                    TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                size: 12,
-                                                fontWeight: FontWeight.w500),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10)
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
+                                );
+                              }),
+                        ),
           if (xLoading)
             SizedBox(
               height: 30,
