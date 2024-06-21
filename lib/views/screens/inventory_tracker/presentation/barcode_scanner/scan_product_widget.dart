@@ -203,6 +203,8 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
           double qty = productList[index].quantity;
           double price = productList[index].price;
           double qtyOutStock = productList[index].qtyOutStock;
+          superPrint(qty);
+          superPrint(qtyOutStock);
           return GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -255,13 +257,13 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                               topLeft: Radius.circular(15),
                               topRight: Radius.circular(15),
                             ),
-                            color: qtyOutStock > 10
+                            color: qty > qtyOutStock
                                 ? AppColor.orangeColor
                                 : Colors.red,
                           ),
                           alignment: Alignment.center,
                           child: textWidget(
-                              qtyOutStock > 10
+                              qty > qtyOutStock
                                   ? "Sufficient Stock"
                                   : "Insufficient Stock",
                               color: Colors.white,

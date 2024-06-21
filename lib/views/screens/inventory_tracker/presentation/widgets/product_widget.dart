@@ -195,13 +195,13 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                     topLeft: Radius.circular(15),
                                     topRight: Radius.circular(15),
                                   ),
-                                  color: qtyOutStock > 10
+                                  color: qty > qtyOutStock
                                       ? AppColor.orangeColor
                                       : Colors.red,
                                 ),
                                 alignment: Alignment.center,
                                 child: textWidget(
-                                    qtyOutStock > 10
+                                    qty > qtyOutStock
                                         ? "Sufficient Stock"
                                         : "Insufficient Stock",
                                     color: Colors.white,
