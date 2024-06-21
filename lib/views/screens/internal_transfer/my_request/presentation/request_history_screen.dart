@@ -35,7 +35,7 @@ class _PendingRequestListScreenState
     requestedHistoryList.clear();
     for (var data in widget.pendingRequestList) {
       for (var element in data.productLineList) {
-        if (element.status.contains("done") && !element.isReturn) {
+        if (element.status.contains("done")) {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.requestToWh[1];
