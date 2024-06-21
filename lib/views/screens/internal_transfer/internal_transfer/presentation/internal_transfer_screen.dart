@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import '../../../../user_warehouse_service/domain/user_warehouse.dart';
+import '../../../../user_warehouse_service/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse_service/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
@@ -32,6 +35,8 @@ class _InternalTransferScreenState
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
   bool isLoading = false;
+  bool isWarehouseLoading = false;
+  UserWarehouse userWarehouse = UserWarehouse();
 
   @override
   void initState() {
@@ -41,10 +46,26 @@ class _InternalTransferScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
+        });
+      }
+    });
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
@@ -125,11 +146,14 @@ class _InternalTransferScreenState
                         builder: (context) => const MyRequestsDetailScreen()));
                   } else if (index == 1) {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OtherRequestDetailScreen()));
+                        builder: (context) => OtherRequestDetailScreen(
+                              userWarehouse: userWarehouse,
+                            )));
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const OutletReturnScreen()));
+                        builder: (context) => OutletReturnScreen(
+                              userWarehouse: userWarehouse,
+                            )));
                   }
                 },
                 child: eachInternalTransferWidget(

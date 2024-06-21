@@ -25,6 +25,7 @@ class _InventoryTrackerScreenState
     extends ConsumerState<InventoryTrackerScreen> {
   List<InventoryTracker> inventoryTrackerList = [];
   Map<int, List<InventoryTracker>> inventoryTrackerDetailMap = {};
+
   @override
   void initState() {
     // TODO: implement initState
@@ -32,6 +33,9 @@ class _InventoryTrackerScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(inventroyTrackerStateNotifier.notifier).getAllInventoryTracker();
     });
+    // Future.delayed(const Duration(milliseconds: 10), () {
+    //   ref.read(userWarehouseStateNotifierProvider.notifier).getWarehouse();
+    // });
   }
 
   @override

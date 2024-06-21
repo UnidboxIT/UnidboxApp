@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
-import '../../../../../utils/constant/app_constant.dart';
+import '../../../../user_warehouse_service/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
@@ -18,7 +18,8 @@ import 'outlet_return_history/outlet_return_history_screen.dart';
 import 'widgets/each_outlet_return_receive_widget.dart';
 
 class OutletReturnScreen extends ConsumerStatefulWidget {
-  const OutletReturnScreen({super.key});
+  final UserWarehouse userWarehouse;
+  const OutletReturnScreen({super.key, required this.userWarehouse});
 
   @override
   ConsumerState<OutletReturnScreen> createState() => _OutletReturnScreenState();
@@ -57,7 +58,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            if (data.id != admin.warehouseMap[0]) {
+            if (data.id != widget.userWarehouse.warehouseList[0]) {
               warehouseList.add(data);
             }
           }

@@ -9,6 +9,7 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
+import 'package:unidbox_app/views/user_warehouse_service/domain/user_warehouse.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/inhouse_stock.dart';
@@ -17,8 +18,12 @@ import '../../domain/product.dart';
 class InhouseStockWidget extends ConsumerStatefulWidget {
   final List<InhouseStock> inHouseStockList;
   final Products productDetail;
+  final UserWarehouse userWarehouse;
   const InhouseStockWidget(
-      {super.key, required this.inHouseStockList, required this.productDetail});
+      {super.key,
+      required this.inHouseStockList,
+      required this.productDetail,
+      required this.userWarehouse});
 
   @override
   ConsumerState<InhouseStockWidget> createState() => _InhouseStockWidgetState();
@@ -30,6 +35,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
   int totalQty = 1;
   bool isUrgent = false;
   bool isSendRequestLoading = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -78,13 +84,13 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
           const SizedBox(height: 10),
           widget.inHouseStockList.isNotEmpty &&
                   widget.inHouseStockList[0].warehouseList[0] !=
-                      admin.warehouseMap[0]
+                      widget.userWarehouse.warehouseList[0]
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       flex: 4,
-                      child: textWidget(admin.warehouseMap[1],
+                      child: textWidget(widget.userWarehouse.warehouseList[1],
                           color: Colors.black,
                           size: 14,
                           textAlign: TextAlign.left),
@@ -102,7 +108,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               : const SizedBox(),
           widget.inHouseStockList.isNotEmpty &&
                   widget.inHouseStockList[0].warehouseList[0] !=
-                      admin.warehouseMap[0]
+                      widget.userWarehouse.warehouseList[0]
               ? const SizedBox(height: 10)
               : const SizedBox.shrink(),
           ListView.separated(
@@ -116,7 +122,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                         widget.inHouseStockList[index].qty.toString());
                 int id = widget.inHouseStockList[index].warehouseList[0];
                 if (widget.inHouseStockList[0].warehouseList[0] !=
-                    admin.warehouseMap[0]) {
+                    widget.userWarehouse.warehouseList[0]) {
                   return eachInhouseStockNotContainWidget(
                       location, qty.toString(), id, context);
                 }
@@ -347,7 +353,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                 ref
                     .read(stockRequesstStateNotifierProvider.notifier)
                     .requestInHouseStock(
-                      admin.warehouseMap[0],
+                      widget.userWarehouse.warehouseList[0],
                       requestWarehouseID,
                       admin.companyId,
                       widget.productDetail.id,

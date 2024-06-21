@@ -18,6 +18,9 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../user_warehouse_service/domain/user_warehouse.dart';
+import '../../../../user_warehouse_service/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse_service/state/user_warehouse_state.dart';
 import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
@@ -46,6 +49,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Map<int, int> totalQty = {};
   List<Map<String, dynamic>> orderLineList = [];
   Map<String, Map<String, dynamic>> checkOutDataMap = {};
+  bool isWarehouseLoading = false;
+  UserWarehouse userWarehouse = UserWarehouse();
 
   @override
   void initState() {
@@ -54,6 +59,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   }
 
   void loadData() {
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(productDetailStateNotifierProvider.notifier)
@@ -75,6 +83,19 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
+        });
+      }
+    });
     ref.listen(productDetailStateNotifierProvider, (prev, next) {
       if (next is ProductDetailLoading) {
         productDetail = Products();
@@ -282,7 +303,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 stockName == "In-house Stock"
                     ? InhouseStockWidget(
                         inHouseStockList: inHouseStockList,
-                        productDetail: productDetail)
+                        productDetail: productDetail,
+                        userWarehouse: userWarehouse,
+                      )
                     : StockOrderingWidget(
                         stockOrderList: stockOrderList,
                         productDetail: productDetail)

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
@@ -14,6 +13,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repos
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
+import '../../../../user_warehouse_service/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../my_request/domain/my_request.dart';
 import 'other_request_history/other_request_history_screen.dart';
@@ -21,7 +21,8 @@ import 'widgets/each_other_request_product_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
 class OtherRequestDetailScreen extends ConsumerStatefulWidget {
-  const OtherRequestDetailScreen({super.key});
+  final UserWarehouse userWarehouse;
+  const OtherRequestDetailScreen({super.key, required this.userWarehouse});
 
   @override
   ConsumerState<OtherRequestDetailScreen> createState() =>
@@ -43,7 +44,6 @@ class _OtherRequestsDetailScreenState
   int selectedWarehouseID = -1;
   Map<int, dynamic> requestedMap = {};
   List<Map<int, dynamic>> requestedMapList = [];
-  // Map<String, List<ProductLineId>> requestProductLineMap = {};
   int acceptProductID = -1;
   bool acceptLoading = false;
 
@@ -54,8 +54,6 @@ class _OtherRequestsDetailScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
     });
-    //ref.read(otherRequestStateNotifierProvider.notifier).clearMyRequestValue();
-    //scrollController.addListener(_scrollListener);
     _loadProducts(0);
   }
 
@@ -64,25 +62,6 @@ class _OtherRequestsDetailScreenState
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
   }
-
-  // void _scrollListener() async {
-  //   if (scrollController.position.pixels >=
-  //           scrollController.position.maxScrollExtent &&
-  //       !xLoading) {
-  //     if (isDataExist) {
-  //       setState(() {
-  //         xLoading = true;
-  //       });
-  //       offset += 10;
-  //       superPrint("HERE $offset");
-  //       _loadProducts(offset);
-  //       await Future.delayed(const Duration(seconds: 1));
-  //       setState(() {
-  //         xLoading = false;
-  //       });
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +75,7 @@ class _OtherRequestsDetailScreenState
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            if (data.id != admin.warehouseMap[0]) {
+            if (data.id != widget.userWarehouse.warehouseList[0]) {
               warehouseList.add(data);
             }
           }
