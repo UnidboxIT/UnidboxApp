@@ -53,6 +53,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
           ),
           const SizedBox(height: 13),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -71,7 +72,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                           : const AssetImage('assets/images/app_icon.jpeg'),
                       fit: BoxFit.cover),
                 ),
-                height: 12.h,
+                height: 13.h,
                 width: 22.w,
               ),
               const SizedBox(width: 15),
@@ -134,7 +135,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textWidget(
-                    "Request to",
+                    "Request From",
                     color: AppColor.orangeColor,
                     size: 12.5,
                   ),
@@ -143,6 +144,11 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,
+                  ),
+                  textWidget(
+                    "Request By",
+                    color: AppColor.orangeColor,
+                    size: 12.5,
                   ),
                   textWidget(
                     name,

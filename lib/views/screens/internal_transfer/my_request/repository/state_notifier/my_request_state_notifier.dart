@@ -39,9 +39,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       Response response = await _myRequestRepository.done(productID, qty);
       superPrint(response);
       var result = jsonDecode(response.body);
-      superPrint(result);
-      getAllMyRequest();
-      state = MyRequestState.receivedProductID(productID);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllMyRequest();
+          state = MyRequestState.receivedProductID(productID);
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+      }
     } catch (e) {
       superPrint(e.toString());
     }
@@ -55,9 +61,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           await _myRequestRepository.requestUpdate(productID, qty);
       superPrint(response.body);
       var result = jsonDecode(response.body);
-      superPrint(result);
-      getAllMyRequest();
-      state = MyRequestState.receivedProductID(productID);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllMyRequest();
+          state = MyRequestState.receivedProductID(productID);
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+      }
     } catch (e) {
       superPrint(e.toString());
     }

@@ -187,7 +187,7 @@ Widget eachPendingRequestListWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidget(
-                            "Request to",
+                            "Request To",
                             color: AppColor.orangeColor,
                             size: 12.5,
                           ),

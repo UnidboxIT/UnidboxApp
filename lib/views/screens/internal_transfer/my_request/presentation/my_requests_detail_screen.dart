@@ -180,6 +180,7 @@ class _MyRequestsDetailScreenState
                     .productLineList
                     .where((productLine) =>
                         productLine.status != 'done' &&
+                        productLine.status != 'returned' &&
                         productLine.status != 'requested')
                     .toList();
                 String currentDate = myRequestList[index].createDate;

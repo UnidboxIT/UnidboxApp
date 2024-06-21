@@ -82,6 +82,7 @@ Widget eachProductLineWidget(
                   ),
                   const SizedBox(height: 13),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         decoration: BoxDecoration(
@@ -101,7 +102,7 @@ Widget eachProductLineWidget(
                                       'assets/images/app_icon.jpeg'),
                               fit: BoxFit.cover),
                         ),
-                        height: 12.h,
+                        height: 13.h,
                         width: 22.w,
                       ),
                       const SizedBox(width: 15),
@@ -126,55 +127,66 @@ Widget eachProductLineWidget(
                               size: 13,
                             ),
                             const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                textWidget(
-                                  "Received Qty: ${product.issueQty.toString()}",
-                                  size: 12,
-                                ),
-                                const SizedBox(width: 5),
-                                addMinusIconButtonWidget(() {
-                                  if (productList[index].status ==
-                                      'receiving') {
-                                    ref
-                                        .read(myRequestStateNotifierProvider
-                                            .notifier)
-                                        .decrementTotalQty(
-                                            productList[index].id,
-                                            product.receivedQty);
-                                  }
-                                },
-                                    CupertinoIcons.minus_circle_fill,
-                                    productList[index].status == 'receiving'
-                                        ? AppColor.primary
-                                        : AppColor.pinkColor),
-                                const SizedBox(width: 5),
-                                textWidget(product.receivedQty.toString(),
-                                    color: AppColor.primary,
-                                    fontWeight: FontWeight.bold,
-                                    size: 13),
-                                const SizedBox(width: 5),
-                                addMinusIconButtonWidget(() {
-                                  superPrint(product.issueQty);
-                                  if (productList[index].status ==
-                                          'receiving' &&
-                                      product.issueQty > product.receivedQty) {
-                                    ref
-                                        .read(myRequestStateNotifierProvider
-                                            .notifier)
-                                        .incrementTotalQty(
-                                            productList[index].id,
-                                            product.receivedQty);
-                                  }
-                                },
-                                    CupertinoIcons.add_circled_solid,
-                                    productList[index].status == 'receiving'
-                                        ? AppColor.primary
-                                        : AppColor.pinkColor)
-                              ],
-                            )
+                            productList[index].status != 'receiving'
+                                ? textWidget(
+                                    "Received Qty: ${product.issueQty.toString()}",
+                                    size: 12,
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      textWidget(
+                                        "Received Qty: ${product.issueQty.toString()}",
+                                        size: 12,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      addMinusIconButtonWidget(() {
+                                        if (productList[index].status ==
+                                            'receiving') {
+                                          ref
+                                              .read(
+                                                  myRequestStateNotifierProvider
+                                                      .notifier)
+                                              .decrementTotalQty(
+                                                  productList[index].id,
+                                                  product.receivedQty);
+                                        }
+                                      },
+                                          CupertinoIcons.minus_circle_fill,
+                                          productList[index].status ==
+                                                  'receiving'
+                                              ? AppColor.primary
+                                              : AppColor.pinkColor),
+                                      const SizedBox(width: 5),
+                                      textWidget(product.receivedQty.toString(),
+                                          color: AppColor.primary,
+                                          fontWeight: FontWeight.bold,
+                                          size: 13),
+                                      const SizedBox(width: 5),
+                                      addMinusIconButtonWidget(() {
+                                        superPrint(product.issueQty);
+                                        if (productList[index].status ==
+                                                'receiving' &&
+                                            product.issueQty >
+                                                product.receivedQty) {
+                                          ref
+                                              .read(
+                                                  myRequestStateNotifierProvider
+                                                      .notifier)
+                                              .incrementTotalQty(
+                                                  productList[index].id,
+                                                  product.receivedQty);
+                                        }
+                                      },
+                                          CupertinoIcons.add_circled_solid,
+                                          productList[index].status ==
+                                                  'receiving'
+                                              ? AppColor.primary
+                                              : AppColor.pinkColor)
+                                    ],
+                                  )
                           ],
                         ),
                       ),
@@ -188,7 +200,7 @@ Widget eachProductLineWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidget(
-                            "Request from",
+                            "Request To",
                             color: AppColor.orangeColor,
                             size: 12.5,
                           ),
@@ -197,6 +209,11 @@ Widget eachProductLineWidget(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
+                          ),
+                          textWidget(
+                            "Request By",
+                            color: AppColor.orangeColor,
+                            size: 12.5,
                           ),
                           textWidget(
                             name,
