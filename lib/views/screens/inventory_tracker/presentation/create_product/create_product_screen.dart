@@ -205,6 +205,7 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
           child: buttonWidget(
             "Submit",
             () {
+              superPrint(isCreateProductLoading);
               ref
                   .read(productVariteyStateNotifierProvider.notifier)
                   .addProductVariety(
@@ -252,8 +253,8 @@ class _CreateProductScreenState extends ConsumerState<CreateProductScreen> {
                                                           txtVendor.text,
                                                           txtBrand.text,
                                                           txtBarcode.text,
-                                                          int.parse(txtSalePrice.text),
-                                                          int.parse(txtRetailPrice.text),
+                                                          txtSalePrice.text,
+                                                          txtRetailPrice.text,
                                                           selectedUomMainProduct.id,
                                                           attributeMapList,
                                                           varietyValueMap.values.toList(),

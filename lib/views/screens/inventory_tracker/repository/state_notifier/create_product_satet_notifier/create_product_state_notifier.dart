@@ -19,13 +19,12 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
       String vendor,
       String brand,
       String barcode,
-      int salePrice,
-      int costPrice,
+      String salePrice,
+      String costPrice,
       int uomName,
       List attributeList,
       List productVarietyList,
       BuildContext context) async {
-    state = const CreateProductState.loading();
     try {
       superPrint(name);
       superPrint(model);
@@ -37,6 +36,7 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
       superPrint(costPrice);
       superPrint(attributeList);
       superPrint(productVarietyList);
+      state = const CreateProductState.loading();
       Response response = await _inventoryTrackerRepository.createProduct(
           base64Image,
           name,
@@ -49,7 +49,6 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
           uomName,
           attributeList,
           productVarietyList);
-
       var result = jsonDecode(response.body);
       superPrint(result);
       if (response.statusCode == 200) {
