@@ -7,22 +7,26 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
 import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
+import '../../../internal_transfer/my_request/domain/my_request.dart';
+import '../../../internal_transfer/outlet_request/domain/other_request.dart';
+import '../../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
+import '../../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import '../../../order_receiving/presentation/order_receiving_screen.dart';
-import '../home_screen.dart';
 
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
   final String name;
   final String parentID;
   final List<MyTask> myTaskDetail;
+  final Map<int, List<MyTask>> myTaskDetailMap;
   const MyTaskDetailScreen({
     super.key,
     required this.parentID,
     required this.name,
     required this.myTaskDetail,
+    required this.myTaskDetailMap,
   });
 
   @override
@@ -30,11 +34,56 @@ class MyTaskDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
+  List<OtherRequest> otherRequestList = [];
+  List<OtherRequest> myRequestList = [];
+  List<ProductLineId> requestProductList = [];
+  List<ProductLineId> outletReturnProductList = [];
+  bool isLoading = false;
+  int totalInternalTransferLength = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
     final bottomNavNotifier =
         ref.watch(bottomNavNotifierControllerProvider.notifier);
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        setState(() {
+          isLoading = true;
+          otherRequestList = [];
+          requestProductList.clear();
+          outletReturnProductList.clear();
+        });
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          for (var data in otherRequestList) {
+            for (var element in data.productLineList) {
+              if (element.status == "requested") {
+                requestProductList.add(element);
+              }
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
+              }
+            }
+          }
+          totalInternalTransferLength =
+              requestProductList.length + outletReturnProductList.length;
+          isLoading = false;
+        });
+      }
+    });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -94,8 +143,11 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                 case "Internal Transfer":
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => InternalTransferScreen(
-                          internalTransferList:
-                              myTaskDetailMap[task.id] ?? [])));
+                            internalTransferList:
+                                widget.myTaskDetailMap[task.id] ?? [],
+                            requestProductList: requestProductList,
+                            outletReturnProductList: outletReturnProductList,
+                          )));
                   break;
                 case "Order Receiving":
                   Navigator.of(context).push(MaterialPageRoute(
@@ -106,7 +158,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
             child: eachMyTaskDetailWidget(
               task.imageUrl,
               task.name,
-              "3",
+              index,
             ),
           );
         },
@@ -115,7 +167,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
         });
   }
 
-  Widget eachMyTaskDetailWidget(String image, String name, String count) {
+  Widget eachMyTaskDetailWidget(String image, String name, int count) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.topRight,
@@ -147,20 +199,22 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
             ],
           ),
         ),
-        Positioned(
-          top: -10,
-          right: -5,
-          child: CircleAvatar(
-            backgroundColor: AppColor.pinkColor,
-            radius: 19,
-            child: textWidget(
-              count,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              size: 13,
-            ),
-          ),
-        ),
+        totalInternalTransferLength == 0 || count == 0 || count == 1
+            ? const SizedBox.shrink()
+            : Positioned(
+                top: -10,
+                right: -5,
+                child: CircleAvatar(
+                  backgroundColor: AppColor.pinkColor,
+                  radius: 19,
+                  child: textWidget(
+                    count == 2 ? totalInternalTransferLength.toString() : '0',
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    size: 13,
+                  ),
+                ),
+              ),
       ],
     );
   }

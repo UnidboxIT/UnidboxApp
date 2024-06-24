@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/views/screens/home/repository/provider/home_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'views/screens/bottom_nav/presentation/bottom_nav_bar.dart';
 import 'views/screens/bottom_nav/repository/bottom_nav_state_notifier.dart';
@@ -20,7 +19,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(homeStateNotifierProvider);
     final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
     final bottomNavNotifier =
         ref.watch(bottomNavNotifierControllerProvider.notifier);

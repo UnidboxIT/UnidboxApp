@@ -16,9 +16,9 @@ class OngoingJobScreen extends ConsumerStatefulWidget {
 class _OngoingJobScreenState extends ConsumerState<OngoingJobScreen> {
   List<OngoingJob> ongoingJobList = [];
   List<SelectionField> selectionList = [];
+  bool isLoading = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(ongoingJobStateNotifier.notifier).getAllOngoingJob(context, ref);
@@ -29,16 +29,21 @@ class _OngoingJobScreenState extends ConsumerState<OngoingJobScreen> {
   Widget build(BuildContext context) {
     ref.listen(ongoingJobStateNotifier, (prev, next) {
       if (next is Loading) {
-        ongoingJobList = [];
+        setState(() {
+          ongoingJobList = [];
+          isLoading = true;
+        });
       }
       if (next is OngoingJobList) {
         setState(() {
           ongoingJobList = next.ongoingJob;
+          isLoading = false;
         });
       }
       if (next is SelectionFieldList) {
         setState(() {
           selectionList = next.seclectionField;
+          isLoading = false;
         });
       }
     });
@@ -59,33 +64,35 @@ class _OngoingJobScreenState extends ConsumerState<OngoingJobScreen> {
           //     child: Text("No Data"),
           //   );
           // }
-          GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              // if (controller.isOngoingJobLoading) {
-              //   return shimmerOngoingJobWidget();
-              // }
-              String jobType = "";
-              for (var data in selectionList) {
-                if (data.value == ongoingJobList[index].jobType) {
-                  jobType = data.name;
-                }
-              }
+          isLoading
+              ? const SizedBox.shrink()
+              : GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    // if (controller.isOngoingJobLoading) {
+                    //   return shimmerOngoingJobWidget();
+                    // }
+                    String jobType = "";
+                    for (var data in selectionList) {
+                      if (data.value == ongoingJobList[index].jobType) {
+                        jobType = data.name;
+                      }
+                    }
 
-              return eachOngoingJobWidget(
-                ongoingJobList[index],
-                jobType,
-              );
-            },
-            shrinkWrap: true,
-            itemCount: ongoingJobList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-            ),
-          ),
+                    return eachOngoingJobWidget(
+                      ongoingJobList[index],
+                      jobType,
+                    );
+                  },
+                  shrinkWrap: true,
+                  itemCount: ongoingJobList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                  ),
+                ),
         ],
       ),
     );

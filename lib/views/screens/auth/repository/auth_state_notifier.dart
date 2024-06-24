@@ -93,6 +93,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
         sharedPreferences.getBool("isRemember") ?? false);
     sharedPreferences.remove(AppKeys.apiToken);
     sharedPreferences.remove(AppKeys.userInfo);
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

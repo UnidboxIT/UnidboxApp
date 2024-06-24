@@ -9,8 +9,13 @@ import '../widgets/each_my_task_widget.dart';
 class MyTaskScreen extends ConsumerWidget {
   final List<MyTask> myTaskList;
   final Map<int, List<MyTask>> myTaskDetailMap;
-  const MyTaskScreen(
-      {super.key, required this.myTaskList, required this.myTaskDetailMap});
+  final int totalInternalTransferLength;
+  const MyTaskScreen({
+    super.key,
+    required this.myTaskList,
+    required this.myTaskDetailMap,
+    required this.totalInternalTransferLength,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,11 +45,15 @@ class MyTaskScreen extends ConsumerWidget {
                               parentID: myTaskList[index].id.toString(),
                               name: myTaskList[index].name.toString(),
                               myTaskDetail:
-                                  myTaskDetailMap[myTaskList[index].id] ?? []),
+                                  myTaskDetailMap[myTaskList[index].id] ?? [],
+                              myTaskDetailMap: myTaskDetailMap),
                         ),
                       );
                     },
-                    child: eachMyTaskWidget(myTaskList[index]));
+                    child: eachMyTaskWidget(
+                      myTaskList[index],
+                      totalInternalTransferLength,
+                    ));
               },
               itemCount: myTaskList.length,
               separatorBuilder: (context, index) {

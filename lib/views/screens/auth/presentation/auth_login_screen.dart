@@ -37,6 +37,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
       txtPassword.text = state.getString(AppKeys.password) ?? "";
       isCheck = state.getBool("isRemember") ?? false;
     });
+
     superPrint(isCheck);
   }
 

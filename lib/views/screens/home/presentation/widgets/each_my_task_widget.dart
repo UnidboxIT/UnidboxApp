@@ -5,7 +5,7 @@ import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget eachMyTaskWidget(MyTask myTask) {
+Widget eachMyTaskWidget(MyTask myTask, int totalInternalTransferLength) {
   return Container(
     width: 45.w,
     padding: const EdgeInsets.symmetric(vertical: 0),
@@ -25,14 +25,17 @@ Widget eachMyTaskWidget(MyTask myTask) {
       alignment: Alignment.center,
       clipBehavior: Clip.none,
       children: [
-        Positioned(
-          top: -2.h,
-          left: 37.w,
-          child: CircleAvatar(
-            backgroundColor: AppColor.pinkColor,
-            child: textWidget("18", color: Colors.white, size: 14),
-          ),
-        ),
+        myTask.id != 1 || totalInternalTransferLength == 0
+            ? const SizedBox.shrink()
+            : Positioned(
+                top: -2.h,
+                left: 37.w,
+                child: CircleAvatar(
+                  backgroundColor: AppColor.pinkColor,
+                  child: textWidget(totalInternalTransferLength.toString(),
+                      color: Colors.white, size: 14),
+                ),
+              ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

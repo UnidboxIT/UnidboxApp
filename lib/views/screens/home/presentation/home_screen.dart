@@ -7,12 +7,13 @@ import 'package:unidbox_app/views/screens/home/presentation/ongoing_job/ongoing_
 import 'package:unidbox_app/views/screens/home/presentation/widgets/home_app_bar_widget.dart';
 import 'package:unidbox_app/views/screens/home/repository/state/home_state.dart';
 import '../../../../utils/commons/super_scaffold.dart';
+import '../../internal_transfer/my_request/domain/my_request.dart';
+import '../../internal_transfer/outlet_request/domain/other_request.dart';
+import '../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
+import '../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import '../domain/noti.dart';
 import '../repository/provider/home_provider.dart';
 import 'widgets/important_reminder_widget.dart';
-
-List<MyTask> myTaskList = [];
-Map<int, List<MyTask>> myTaskDetailMap = {};
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -24,17 +25,32 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Noti> notiList = [];
   bool isNotiLoading = false;
+  List<OtherRequest> otherRequestList = [];
+  List<OtherRequest> myRequestList = [];
+  List<ProductLineId> requestProductList = [];
+  List<ProductLineId> outletReturnProductList = [];
+  bool isLoading = false;
+  int totalInternalTransferLength = 0;
+  List<MyTask> myTaskList = [];
+  Map<int, List<MyTask>> myTaskDetailMap = {};
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(homeStateNotifierProvider.notifier).notiReminder();
-      final state = ref.read(homeStateNotifierProvider);
-      if (state is Initial) {
-        ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
-      }
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      await ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+      await ref.read(homeStateNotifierProvider.notifier).notiReminder();
+      await ref
+          .read(otherRequestStateNotifierProvider.notifier)
+          .getAllOtherRequest();
     });
+
+    // Future.delayed(const Duration(milliseconds: 10), () {
+    //   // final state = ref.read(homeStateNotifierProvider);
+    //   // if (state is Initial) {
+    //   ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+    //   //}
+    // });
   }
 
   @override
@@ -52,9 +68,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           isNotiLoading = false;
         });
       }
-    });
-
-    ref.listen(homeStateNotifierProvider, (prev, next) {
       if (next is MyTaskList) {
         setState(() {
           myTaskList = next.myTaskList;
@@ -63,6 +76,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (next is MyTaskDetailMap) {
         setState(() {
           myTaskDetailMap = next.myTaskDetailMap;
+        });
+      }
+    });
+
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        setState(() {
+          totalInternalTransferLength = 0;
+          otherRequestList = [];
+          requestProductList = [];
+          outletReturnProductList = [];
+          isLoading = true;
+        });
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          for (var data in otherRequestList) {
+            for (var element in data.productLineList) {
+              if (element.status == "requested") {
+                requestProductList.add(element);
+              }
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
+              }
+            }
+          }
+          totalInternalTransferLength =
+              requestProductList.length + outletReturnProductList.length;
+          isLoading = false;
         });
       }
     });
@@ -88,6 +131,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     MyTaskScreen(
                       myTaskList: myTaskList,
                       myTaskDetailMap: myTaskDetailMap,
+                      totalInternalTransferLength: totalInternalTransferLength,
                     ),
                     const OngoingJobScreen(),
                   ],
