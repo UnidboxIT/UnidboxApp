@@ -99,7 +99,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   }
 
   decrementTotalQty(int productID, double qty) {
-    if (qty > 1) {
+    if (qty > 0) {
       qty--;
       state = OtherRequestState.decrementQty(productID, qty);
     }

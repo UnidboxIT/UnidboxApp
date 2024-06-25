@@ -254,7 +254,7 @@ Widget eachProductLineWidget(
                       width: 80.w,
                       child: product.issueQty != product.receivedQty
                           ? buttonWidget(
-                              "Received",
+                              "Receive",
                               () {
                                 superPrint(product.issueQty);
                                 Navigator.of(context).push(
@@ -274,7 +274,7 @@ Widget eachProductLineWidget(
                               fontColor: Colors.white,
                             )
                           : buttonWidget(
-                              "Received",
+                              "Receive",
                               () {
                                 ref
                                     .read(

@@ -174,7 +174,6 @@ class _OtherRequestsDetailScreenState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             const OtherRequestHistoryScreen()));
-
                     superPrint("Other request History");
                   },
                   child: Container(
