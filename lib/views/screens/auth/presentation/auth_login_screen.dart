@@ -29,7 +29,6 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
   bool isCheck = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     final state = ref.read(sharedPreferencesProvider);
     setState(() {
@@ -37,7 +36,6 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
       txtPassword.text = state.getString(AppKeys.password) ?? "";
       isCheck = state.getBool("isRemember") ?? false;
     });
-
     superPrint(isCheck);
   }
 

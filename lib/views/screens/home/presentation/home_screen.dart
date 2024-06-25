@@ -39,12 +39,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(homeStateNotifierProvider.notifier).notiReminder();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref
           .read(otherRequestStateNotifierProvider.notifier)
           .getAllOtherRequest();
     });
-
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   // final state = ref.read(homeStateNotifierProvider);
     //   // if (state is Initial) {

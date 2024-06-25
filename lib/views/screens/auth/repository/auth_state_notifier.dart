@@ -7,7 +7,6 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
-import '../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../domain/admin.dart';
 import '../../../../utils/commons/common_method.dart';
 import '../../../../utils/constant/app_constant.dart';
@@ -44,13 +43,13 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       BuildContext context, isCheck) async {
     try {
       state = const AuthState.loading();
+
       http.Response response = await _authRepository.login(username, password);
       Map<String, dynamic> result = jsonDecode(response.body);
       if (result['result']['code'] == 200) {
         Admin adminData = Admin.fromJson(result['result']);
         saveLogin(adminData.sessionId, result['result']);
         if (context.mounted) {
-          ref.read(bottomNavNotifierControllerProvider.notifier).reset();
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MainScreen()));
         }

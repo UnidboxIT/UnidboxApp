@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/product_state.dart';
 import '../../domain/inhouse_stock.dart';
@@ -25,6 +26,7 @@ class ProductStateNotifier extends StateNotifier<ProductState> {
       }
       Response response =
           await _inventoryTrackerRepository.products(categoryID, pageNumber);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result['result']['code'] == 200) {
         Iterable dataList = result['result']['records'];

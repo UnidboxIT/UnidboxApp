@@ -36,6 +36,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   slider_button: ^2.1.0
   slide_action: ^0.0.2
+  persistent_bottom_nav_bar_v2: ^5.2.3
   
 dev_dependencies:
   flutter_test:

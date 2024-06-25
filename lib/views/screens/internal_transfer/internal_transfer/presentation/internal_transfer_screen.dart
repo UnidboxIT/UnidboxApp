@@ -8,8 +8,6 @@ import '../../../../user_warehouse_service/provider/user_warehouse_provider.dart
 import '../../../../user_warehouse_service/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
-import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
@@ -35,7 +33,6 @@ class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
-  int currentIndex = 0;
 
   @override
   void initState() {
@@ -63,9 +60,6 @@ class _InternalTransferScreenState
       }
     });
 
-    final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
-    final bottomNavNotifier =
-        ref.watch(bottomNavNotifierControllerProvider.notifier);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -89,11 +83,6 @@ class _InternalTransferScreenState
             ],
           ),
         ),
-        floatingActionButton: floatingActionBottomWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: bottomNavBarWidget(
-            currentIndex, bottomNavNotifier, ref, context,
-            needControl: true),
       ),
     );
   }

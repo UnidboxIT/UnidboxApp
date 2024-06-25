@@ -7,8 +7,6 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-import '../../../bottom_nav/presentation/bottom_nav_bar.dart';
-import '../../../bottom_nav/repository/bottom_nav_state_notifier.dart';
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
 import '../../../internal_transfer/my_request/domain/my_request.dart';
 import '../../../internal_transfer/outlet_request/domain/other_request.dart';
@@ -52,9 +50,6 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = ref.watch(bottomNavNotifierControllerProvider);
-    final bottomNavNotifier =
-        ref.watch(bottomNavNotifierControllerProvider.notifier);
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
@@ -77,8 +72,10 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
-          totalInternalTransferLength =
-              requestProductList.length + outletReturnProductList.length;
+          setState(() {
+            totalInternalTransferLength =
+                requestProductList.length + outletReturnProductList.length;
+          });
           isLoading = false;
         });
       }
@@ -104,11 +101,6 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
             ],
           ),
         ),
-        floatingActionButton: floatingActionBottomWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: bottomNavBarWidget(
-            currentIndex, bottomNavNotifier, ref, context,
-            needControl: true),
       ),
     );
   }
