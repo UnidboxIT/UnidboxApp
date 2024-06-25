@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:unidbox_app/views/screens/home/presentation/home_screen.dart';
 
-GlobalKey<NavigatorState> homeNavRouteState = GlobalKey();
-
 class HomeNavigationRoute extends StatefulWidget {
   const HomeNavigationRoute({super.key});
 
   @override
   State<HomeNavigationRoute> createState() => _HomeNavigationRouteState();
 }
+
+GlobalKey<NavigatorState> homeNavRouteState = GlobalKey();
 
 class _HomeNavigationRouteState extends State<HomeNavigationRoute> {
   @override

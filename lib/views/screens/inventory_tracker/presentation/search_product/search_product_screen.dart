@@ -262,8 +262,10 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                           ),
                           onPressed: () {
                             txtSearchProduct.clear();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => const BarCodeScannerScreen()));
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const BarCodeScannerScreen()));
                           },
                         ),
                   prefixIcon: const Icon(
@@ -333,8 +335,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                   onTap: () {
                                     FocusManager.instance.primaryFocus!
                                         .unfocus();
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductDetailScreen(
                                                   productID: productId,

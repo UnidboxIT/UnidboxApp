@@ -135,7 +135,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                 double qtyOutStock = productList[index].qtyOutStock;
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
+                    Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
                             builder: (context) => ProductDetailScreen(
                                   productID: productId,

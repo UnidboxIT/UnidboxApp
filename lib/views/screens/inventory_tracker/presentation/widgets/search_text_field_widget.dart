@@ -88,7 +88,7 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
               ),
               onPressed: () {
                 txtSearchProduct.clear();
-                Navigator.of(context)
+                Navigator.of(context, rootNavigator: true)
                     .push(MaterialPageRoute(
                         builder: (_) => const BarCodeScannerScreen()))
                     .then((_) {

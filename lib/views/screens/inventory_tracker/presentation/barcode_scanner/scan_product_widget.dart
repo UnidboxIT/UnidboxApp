@@ -207,7 +207,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
           superPrint(qtyOutStock);
           return GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                   builder: (context) => ProductDetailScreen(
                         productID: productId,
                         productName: name,
