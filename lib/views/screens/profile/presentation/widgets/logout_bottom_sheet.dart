@@ -60,7 +60,6 @@ Widget logoutBottomSheetWidget(WidgetRef ref, context) {
             ref
                 .read(authStateNotifierControllerProvider.notifier)
                 .logout(context, ref);
-
             // Get.put(LoginController()).logout();
           }),
         )

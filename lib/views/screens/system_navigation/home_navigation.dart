@@ -8,7 +8,7 @@ class HomeNavigationRoute extends StatefulWidget {
   State<HomeNavigationRoute> createState() => _HomeNavigationRouteState();
 }
 
-GlobalKey<NavigatorState> homeNavRouteState = GlobalKey();
+GlobalKey<NavigatorState> homeNavRouteState = GlobalKey<NavigatorState>();
 
 class _HomeNavigationRouteState extends State<HomeNavigationRoute> {
   @override

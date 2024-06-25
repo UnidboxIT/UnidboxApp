@@ -19,6 +19,7 @@ class MainScreen extends ConsumerStatefulWidget {
 
 class _MainScreenState extends ConsumerState<MainScreen> {
   int currentIndex = 0;
+
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     homeNavRouteState,
   ];
@@ -92,6 +93,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                       setState(() {
                         currentIndex = e.id;
                       });
+                      if (currentIndex == 4) {
+                        SystemChrome.setSystemUIOverlayStyle(
+                          SystemUiOverlayStyle(
+                            statusBarColor: AppColor.primary,
+                          ),
+                        );
+                      }
                     }
                   }
                 },
