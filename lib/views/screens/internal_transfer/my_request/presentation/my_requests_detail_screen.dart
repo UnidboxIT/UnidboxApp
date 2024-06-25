@@ -105,9 +105,7 @@ class _MyRequestsDetailScreenState
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RequestHistoryScreen(
-                              pendingRequestList: myRequestList,
-                            )));
+                        builder: (context) => const RequestHistoryScreen()));
                   },
                   child: Container(
                       padding:

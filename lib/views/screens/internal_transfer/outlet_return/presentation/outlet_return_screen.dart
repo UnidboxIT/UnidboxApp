@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../user_warehouse_service/domain/user_warehouse.dart';
@@ -119,7 +118,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         });
       }
     });
-    superPrint(requestedMapList);
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -142,9 +140,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OutletReturnHistoryScreen(
-                              otherRequestList: otherRequestList,
-                            )));
+                        builder: (context) =>
+                            const OutletReturnHistoryScreen()));
                   },
                   child: Container(
                     padding:

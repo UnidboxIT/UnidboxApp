@@ -11,10 +11,11 @@ import '../../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
 import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
+import '../../repository/provider/other_request_provider.dart';
+import '../../repository/state/other_request_state.dart';
 
 class OtherRequestHistoryScreen extends ConsumerStatefulWidget {
-  final List<OtherRequest> otherRequestList;
-  const OtherRequestHistoryScreen({super.key, required this.otherRequestList});
+  const OtherRequestHistoryScreen({super.key});
 
   @override
   ConsumerState<OtherRequestHistoryScreen> createState() =>
@@ -26,16 +27,20 @@ class _PendingRequestListScreenState
   List<Map<String, dynamic>> requestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
+  List<OtherRequest> otherRequestList = [];
+  bool requestLoading = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadRequestHistory();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
   }
 
   loadRequestHistory() {
     requestedHistoryList.clear();
-    for (var data in widget.otherRequestList) {
+    for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("done")) {
           setState(() {
@@ -85,6 +90,21 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        setState(() {
+          requestLoading = true;
+          otherRequestList = [];
+        });
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          loadRequestHistory();
+          requestLoading = false;
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),

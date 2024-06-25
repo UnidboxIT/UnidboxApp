@@ -7,12 +7,13 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/my_request.dart';
+import '../repository/provider/my_request_provider.dart';
+import '../repository/state/my_request_state.dart';
 import 'widgets/filter_by_date_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
 class RequestHistoryScreen extends ConsumerStatefulWidget {
-  final List<MyRequest> pendingRequestList;
-  const RequestHistoryScreen({super.key, required this.pendingRequestList});
+  const RequestHistoryScreen({super.key});
 
   @override
   ConsumerState<RequestHistoryScreen> createState() =>
@@ -24,16 +25,19 @@ class _PendingRequestListScreenState
   List<Map<String, dynamic>> requestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
+  List<MyRequest> pendingRequestList = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadRequestHistory();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+    });
   }
 
   loadRequestHistory() {
     requestedHistoryList.clear();
-    for (var data in widget.pendingRequestList) {
+    for (var data in pendingRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("done")) {
           setState(() {
@@ -83,6 +87,15 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestList) {
+        setState(() {
+          pendingRequestList = [];
+          pendingRequestList = next.myRequestList;
+          loadRequestHistory();
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),

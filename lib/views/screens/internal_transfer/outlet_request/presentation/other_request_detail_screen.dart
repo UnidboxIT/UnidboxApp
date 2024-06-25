@@ -172,9 +172,8 @@ class _OtherRequestsDetailScreenState
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OtherRequestHistoryScreen(
-                              otherRequestList: otherRequestList,
-                            )));
+                        builder: (context) =>
+                            const OtherRequestHistoryScreen()));
 
                     superPrint("Other request History");
                   },
