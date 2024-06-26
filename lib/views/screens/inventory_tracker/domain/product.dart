@@ -15,6 +15,7 @@ class Products {
   List uomList;
   List<List<dynamic>> multiUomList;
   List rackIdList;
+  String fullName;
 
   Products({
     this.id = 0,
@@ -33,6 +34,7 @@ class Products {
     this.uomList = const [],
     this.multiUomList = const [],
     this.rackIdList = const [],
+    this.fullName = "",
   });
 
   factory Products.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class Products {
       imageUrl: json['image_url'].toString(),
       qtyOutStock: json['qty_warning_out_stock'] ?? 0.0,
       name: json['display_name'].toString(),
+      fullName: json['full_name'].toString(),
       categoryIdList: List.from(json['categ_id']),
       costPrice: json['cost_price'] ?? 0.0,
       price: json['sale_price'] ?? 0.0,

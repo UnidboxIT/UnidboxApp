@@ -200,6 +200,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
           String productId = productList[index].id.toString();
           String image = productList[index].imageUrl;
           String name = productList[index].name;
+          String fullName = productList[index].fullName;
           double qty = productList[index].quantity;
           double price = productList[index].price;
           double qtyOutStock = productList[index].qtyOutStock;
@@ -210,7 +211,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
               Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                   builder: (context) => ProductDetailScreen(
                         productID: productId,
-                        productName: name,
+                        productName: fullName,
                       )));
             },
             child: Padding(

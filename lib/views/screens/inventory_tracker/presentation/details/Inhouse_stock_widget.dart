@@ -113,6 +113,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               : const SizedBox.shrink(),
           ListView.separated(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 String location =
                     widget.inHouseStockList[index].warehouseList[1];
@@ -132,7 +133,11 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               separatorBuilder: (context, index) {
                 return const SizedBox.shrink();
               },
-              itemCount: widget.inHouseStockList.length)
+              itemCount: widget.inHouseStockList.length),
+          Container(
+            height: 20,
+            color: Colors.transparent,
+          )
         ],
       ),
     );
