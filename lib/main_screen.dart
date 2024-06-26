@@ -56,7 +56,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           backgroundColor: const Color(0xffF6F6F6),
           // body: indexWidgets[indexBottomNavbar],
           extendBody: true,
-          floatingActionButton: floatingActionBottomWidget(),
+          floatingActionButton: Visibility(
+            visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+            child: floatingActionBottomWidget(),
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: bottomNavBar(),

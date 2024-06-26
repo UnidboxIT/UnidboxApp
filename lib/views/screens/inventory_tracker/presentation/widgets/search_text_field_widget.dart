@@ -41,11 +41,12 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
         child: TextField(
           autofocus: false,
           textAlign: TextAlign.left,
-          controller: txtSearchProduct,
+          // controller: txtSearchProduct,
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           onTap: () {
-            Navigator.of(context)
+            FocusManager.instance.primaryFocus!.unfocus();
+            Navigator.of(context, rootNavigator: true)
                 .push(
               MaterialPageRoute(
                 builder: (context) => SearchProductScreen(

@@ -31,7 +31,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product/$productID?fields=id,display_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id,rack_ids',
+          'joborder/product/$productID?fields=id,display_name,full_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id,rack_ids',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -53,7 +53,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
+          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -65,7 +65,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids',
+          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,full_name',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -98,7 +98,6 @@ class InventoryTrackerRepository {
       headers: CommonMethods.setHeaders(),
       formData: formData,
     );
-
     return response;
   }
 
