@@ -101,18 +101,22 @@ class _InternalTransferScreenState
               return GestureDetector(
                 onTap: () {
                   if (index == 0) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyRequestsDetailScreen()));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const MyRequestsDetailScreen()));
                   } else if (index == 1) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OtherRequestDetailScreen(
-                              userWarehouse: userWarehouse,
-                            )));
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (context) => OtherRequestDetailScreen(
+                                  userWarehouse: userWarehouse,
+                                )));
                   } else {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OutletReturnScreen(
-                              userWarehouse: userWarehouse,
-                            )));
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (context) => OutletReturnScreen(
+                                  userWarehouse: userWarehouse,
+                                )));
                   }
                 },
                 child: eachInternalTransferWidget(

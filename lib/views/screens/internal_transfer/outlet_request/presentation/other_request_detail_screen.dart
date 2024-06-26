@@ -41,7 +41,7 @@ class _OtherRequestsDetailScreenState
   bool xLoading = false;
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
-  int selectedWarehouseID = -1;
+  int selectedWarehouseID = 0;
   Map<int, dynamic> requestedMap = {};
   List<Map<int, dynamic>> requestedMapList = [];
   int acceptProductID = -1;
@@ -126,6 +126,7 @@ class _OtherRequestsDetailScreenState
             }
           }
           if (requestedMap.isNotEmpty) {
+            selectedWarehouseID = requestedMap.keys.first;
             requestedMapList.add(requestedMap);
           }
           acceptLoading = false;
@@ -315,38 +316,6 @@ class _OtherRequestsDetailScreenState
         shrinkWrap: true,
         padding: const EdgeInsets.only(bottom: 5),
         children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedWarehouseID = -1;
-                requestedMapList.clear();
-                if (requestedMap.isNotEmpty) {
-                  requestedMapList.add(requestedMap);
-                }
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: selectedWarehouseID == -1
-                      ? AppColor.orangeColor
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.dropshadowColor,
-                      blurRadius: 1,
-                      spreadRadius: 1,
-                      offset: const Offset(-2, 2),
-                    )
-                  ]),
-              child: textWidget("All",
-                  color:
-                      selectedWarehouseID == -1 ? Colors.white : Colors.black),
-            ),
-          ),
-          const SizedBox(width: 10),
           ListView.separated(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
@@ -405,6 +374,41 @@ class _OtherRequestsDetailScreenState
                 return const SizedBox(width: 10);
               },
               itemCount: warehouseList.length),
+          const SizedBox(width: 10),
+          warehouseList.isEmpty
+              ? const SizedBox.shrink()
+              : GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedWarehouseID = -1;
+                      requestedMapList.clear();
+                      if (requestedMap.isNotEmpty) {
+                        requestedMapList.add(requestedMap);
+                      }
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: selectedWarehouseID == -1
+                            ? AppColor.orangeColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColor.dropshadowColor,
+                            blurRadius: 1,
+                            spreadRadius: 1,
+                            offset: const Offset(-2, 2),
+                          )
+                        ]),
+                    child: textWidget("All",
+                        color: selectedWarehouseID == -1
+                            ? Colors.white
+                            : Colors.black),
+                  ),
+                ),
         ],
       ),
     );
