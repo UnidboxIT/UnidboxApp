@@ -33,16 +33,34 @@ Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: textWidget(
-                  name,
-                  fontWeight: FontWeight.w900,
-                  size: 23,
-                  color: Colors.white,
-                  textAlign: TextAlign.left,
-                  maxLine: 1,
-                  textOverflow: TextOverflow.ellipsis,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 60,
+                    color: Colors.transparent,
+                    child: textWidget(
+                      name,
+                      fontWeight: FontWeight.w900,
+                      size: 23,
+                      color: Colors.white,
+                      textAlign: TextAlign.left,
+                      maxLine: 1,
+                    ),
+                  ),
                 ),
               ),
+              // Flexible(
+              //   child: textWidget(
+              //     name,
+              //     fontWeight: FontWeight.w900,
+              //     size: 23,
+              //     color: Colors.white,
+              //     textAlign: TextAlign.left,
+              //     maxLine: 1,
+              //     textOverflow: TextOverflow.ellipsis,
+              //   ),
+              // ),
               IconButton(
                 onPressed: iconOnPressed,
                 icon: Icon(

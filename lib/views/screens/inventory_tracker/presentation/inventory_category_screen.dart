@@ -109,6 +109,9 @@ class _InventoryCategoryScreenState
                     itemCount: widget.inventoryTrackerList.length,
                   ),
                 ),
+          SizedBox(
+            height: 8.h,
+          )
         ],
       ),
     );

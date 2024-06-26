@@ -137,6 +137,9 @@ class _InventoryTrackerScreenState
                 },
                 itemCount: inventoryTrackerList.length),
           ),
+          SizedBox(
+            height: 8.h,
+          )
         ],
       ),
     );
