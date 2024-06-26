@@ -129,7 +129,7 @@ Widget eachProductLineWidget(
                             const SizedBox(height: 10),
                             productList[index].status != 'receiving'
                                 ? textWidget(
-                                    "Received Qty: ${product.issueQty.toString()}",
+                                    "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
                                     size: 12,
                                   )
                                 : Row(
@@ -138,7 +138,7 @@ Widget eachProductLineWidget(
                                         CrossAxisAlignment.center,
                                     children: [
                                       textWidget(
-                                        "Received Qty: ${product.issueQty.toString()}",
+                                        "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
                                         size: 12,
                                       ),
                                       const SizedBox(width: 5),

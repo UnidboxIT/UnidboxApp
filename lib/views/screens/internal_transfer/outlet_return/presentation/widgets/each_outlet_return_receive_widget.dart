@@ -14,6 +14,7 @@ import '../../repository/provider/outlet_return_provider.dart';
 Widget eachOutletReturnWidget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
+  double returnQty = productLine.issueQty - productLine.receivedQty;
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
     child: Container(
@@ -108,7 +109,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                                 ? AppColor.primary
                                 : AppColor.pinkColor),
                         const SizedBox(width: 10),
-                        textWidget("1",
+                        textWidget(returnQty.toString(),
                             color: AppColor.primary,
                             fontWeight: FontWeight.bold,
                             size: 13),
@@ -118,7 +119,8 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                             CupertinoIcons.add_circled_solid,
                             productLine.status == 'accepted'
                                 ? AppColor.primary
-                                : AppColor.pinkColor)
+                                : AppColor.pinkColor),
+                        textWidget(productLine.productUomList[1], size: 13),
                       ],
                     )
                   ],

@@ -125,11 +125,11 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 textWidget(
-                                  "Requested Qty : ${product.qty.toInt()} pc",
+                                  "Requested Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
                                   size: 13,
                                 ),
                                 textWidget(
-                                  "Accepted Qty : ${product.issueQty.toInt()} pc",
+                                  "Accepted Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
                                   size: 13,
                                 )
                               ],
@@ -170,7 +170,8 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                                     CupertinoIcons.add_circled_solid,
                                     productLine.status == 'requested'
                                         ? AppColor.primary
-                                        : AppColor.pinkColor)
+                                        : AppColor.pinkColor),
+                                textWidget(product.productUomList[1], size: 13),
                               ],
                             )
                     ],
@@ -220,10 +221,9 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       superPrint(product.issueQty);
                       ref
                           .read(otherRequestStateNotifierProvider.notifier)
-                          .packOtherRequest(productLine.id, product.issueQty);
-                    },
-                        isBool: isAcceptLoading &&
-                            acceptProductID == productLine.id),
+                          .packOtherRequest(
+                              productLine.id, product.issueQty, context);
+                    }, isBool: acceptProductID == productLine.id),
                   ),
                 ),
                 Visibility(

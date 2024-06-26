@@ -96,11 +96,11 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         textWidget(
-                          "Requested Qty : ${productLine.qty.toInt()} pc",
+                          "Requested Qty : ${productLine.qty.toInt()} ${productLine.productUomList[1]}",
                           size: 13,
                         ),
                         textWidget(
-                          "Accepted Qty : ${productLine.issueQty.toInt()} pc",
+                          "Accepted Qty : ${productLine.issueQty.toInt()} ${productLine.productUomList[1]}",
                           size: 13,
                         )
                       ],

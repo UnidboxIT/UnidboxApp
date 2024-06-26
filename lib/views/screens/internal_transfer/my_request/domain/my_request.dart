@@ -53,6 +53,7 @@ class ProductLineId {
   List warehouseList;
   List requestWarehouse;
   bool isReturn;
+  List productUomList;
 
   ProductLineId(
       {this.id = 0,
@@ -67,7 +68,8 @@ class ProductLineId {
       this.status = "",
       this.warehouseList = const [],
       this.requestWarehouse = const [],
-      this.isReturn = false});
+      this.isReturn = false,
+      this.productUomList = const []});
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
@@ -86,6 +88,9 @@ class ProductLineId {
       requestWarehouse:
           json['wh_from_id'] == false ? [] : List.from(json['wh_from_id']),
       isReturn: json['is_return'],
+      productUomList: json['product_uom_id'] == false
+          ? []
+          : List.from(json['product_uom_id']),
     );
   }
 }

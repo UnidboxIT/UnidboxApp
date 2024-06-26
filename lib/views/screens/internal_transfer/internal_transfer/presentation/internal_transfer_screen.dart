@@ -11,18 +11,18 @@ import '../../../../widgets/text_widget.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
+import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/presentation/other_request_detail_screen.dart';
+import '../../outlet_request/repository/provider/other_request_provider.dart';
+import '../../outlet_request/repository/state/other_request_state.dart';
 import '../../outlet_return/presentation/outlet_return_screen.dart';
 
 class InternalTransferScreen extends ConsumerStatefulWidget {
   final List<MyTask> internalTransferList;
-  final List<ProductLineId> requestProductList;
-  final List<ProductLineId> outletReturnProductList;
-  const InternalTransferScreen(
-      {super.key,
-      required this.internalTransferList,
-      required this.requestProductList,
-      required this.outletReturnProductList});
+  const InternalTransferScreen({
+    super.key,
+    required this.internalTransferList,
+  });
 
   @override
   ConsumerState<InternalTransferScreen> createState() =>
@@ -33,7 +33,10 @@ class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
-
+  List<OtherRequest> otherRequestList = [];
+  List<ProductLineId> requestProductList = [];
+  List<ProductLineId> outletReturnProductList = [];
+  bool isLoading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,6 +44,9 @@ class _InternalTransferScreenState
 
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
   }
 
@@ -56,6 +62,34 @@ class _InternalTransferScreenState
         setState(() {
           userWarehouse = next.warehouse;
           isWarehouseLoading = false;
+        });
+      }
+    });
+
+    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
+      if (next is OtherRequestLoading) {
+        setState(() {
+          isLoading = true;
+          otherRequestList = [];
+          requestProductList.clear();
+          outletReturnProductList.clear();
+        });
+      }
+      if (next is OtherRequestList) {
+        setState(() {
+          otherRequestList = next.otherRequestList;
+          for (var data in otherRequestList) {
+            for (var element in data.productLineList) {
+              if (element.status == "requested") {
+                requestProductList.add(element);
+              }
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
+              }
+            }
+          }
+
+          isLoading = false;
         });
       }
     });
@@ -116,7 +150,8 @@ class _InternalTransferScreenState
                         .push(MaterialPageRoute(
                             builder: (context) => OutletReturnScreen(
                                   userWarehouse: userWarehouse,
-                                )));
+                                )))
+                        .then((_) {});
                   }
                 },
                 child: eachInternalTransferWidget(
@@ -166,7 +201,7 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 1 && widget.requestProductList.isNotEmpty,
+          visible: count == 1 && requestProductList.isNotEmpty,
           child: Positioned(
             top: -10,
             right: -5,
@@ -174,7 +209,7 @@ class _InternalTransferScreenState
               backgroundColor: AppColor.pinkColor,
               radius: 19,
               child: textWidget(
-                widget.requestProductList.length.toString(),
+                requestProductList.length.toString(),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 size: 13,
@@ -183,7 +218,7 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 2 && widget.outletReturnProductList.isNotEmpty,
+          visible: count == 2 && outletReturnProductList.isNotEmpty,
           child: Positioned(
             top: -10,
             right: -5,
@@ -191,7 +226,7 @@ class _InternalTransferScreenState
               backgroundColor: AppColor.pinkColor,
               radius: 19,
               child: textWidget(
-                widget.outletReturnProductList.length.toString(),
+                outletReturnProductList.length.toString(),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 size: 13,

@@ -53,14 +53,24 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  Future<void> packOtherRequest(int productID, double qty) async {
+  Future<void> packOtherRequest(
+      int productID, double qty, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
       Response response = await _otherRequestRepository.packed(productID, qty);
       var result = jsonDecode(response.body);
-      superPrint(result);
-      // clearMyRequestValue();
-      getAllOtherRequest();
+      superPrint(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllOtherRequest();
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['message'], context);
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+      }
       state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());

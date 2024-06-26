@@ -39,16 +39,20 @@ class _OtherRequestsDetailScreenState
   @override
   void initState() {
     super.initState();
+    acceptedWarehouseMap.clear();
     setState(() {
       otherRequestList = widget.otherRequestList;
     });
-    loadWarehouseData();
+
+    loadWarehouseData(true);
   }
 
-  loadWarehouseData() {
+  Future<void> loadWarehouseData(bool isRecallWarehouse) async {
     packedProductList.clear();
     acceptProductMap.clear();
-    acceptedWarehouseMap.clear();
+    acceptedWarehouseMap.forEach((key, value) {
+      value['product_line'] = {};
+    });
     requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
@@ -83,7 +87,9 @@ class _OtherRequestsDetailScreenState
       }
     }
     if (acceptedWarehouseMap.isNotEmpty) {
-      selectedWarehouseID = acceptedWarehouseMap.keys.first;
+      if (isRecallWarehouse) {
+        selectedWarehouseID = acceptedWarehouseMap.keys.first;
+      }
       requestedMapList.add(
           {selectedWarehouseID: acceptedWarehouseMap[selectedWarehouseID]});
       // requestedMapList.add(acceptedWarehouseMap);
@@ -105,7 +111,7 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
-          loadWarehouseData();
+          loadWarehouseData(false);
           acceptLoading = false;
         });
       }
@@ -165,39 +171,47 @@ class _OtherRequestsDetailScreenState
             Map<dynamic, dynamic> warehouseData = entry.value;
             Map<dynamic, dynamic> productLineMap =
                 warehouseData['product_line'];
-            return ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: productLineMap.keys.length,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 0);
-              },
-              itemBuilder: (context, productIndex) {
-                String productLineKey =
-                    productLineMap.keys.elementAt(productIndex);
-                List<dynamic> productList =
-                    productLineMap[productLineKey] ?? [];
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: productList.length,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 0);
-                  },
-                  itemBuilder: (context, subIndex) {
-                    return eachAcceptedDataWiget(
-                      productLineKey,
-                      warehouseData['name'],
-                      warehouseData['date'],
-                      productList[subIndex],
-                      ref,
-                      isAcceptLoading: acceptLoading,
-                      acceptProductID: acceptProductID,
-                    );
-                  },
-                );
-              },
-            );
+            return productLineMap.isEmpty
+                ? Container(
+                    alignment: Alignment.center,
+                    width: 100.w,
+                    height: 50.h,
+                    child: textWidget("No Data !"),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: productLineMap.keys.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 0);
+                    },
+                    itemBuilder: (context, productIndex) {
+                      String productLineKey =
+                          productLineMap.keys.elementAt(productIndex);
+                      List<dynamic> productList =
+                          productLineMap[productLineKey] ?? [];
+
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: productList.length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 0);
+                        },
+                        itemBuilder: (context, subIndex) {
+                          return eachAcceptedDataWiget(
+                            productLineKey,
+                            warehouseData['name'],
+                            warehouseData['date'],
+                            productList[subIndex],
+                            ref,
+                            isAcceptLoading: acceptLoading,
+                            acceptProductID: acceptProductID,
+                          );
+                        },
+                      );
+                    },
+                  );
           }).toList(),
         );
       },

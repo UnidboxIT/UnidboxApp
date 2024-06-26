@@ -137,8 +137,6 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                       builder: (context) => InternalTransferScreen(
                             internalTransferList:
                                 widget.myTaskDetailMap[task.id] ?? [],
-                            requestProductList: requestProductList,
-                            outletReturnProductList: outletReturnProductList,
                           )));
                   break;
                 case "Order Receiving":
