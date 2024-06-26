@@ -331,44 +331,47 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 25.h,
-                      width: 38.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 3,
-                            spreadRadius: 3,
-                            offset: const Offset(0, 3),
-                          )
-                        ],
-                        image: DecorationImage(
-                          image: image != "false"
-                              ? NetworkImage(image)
-                              : const AssetImage(
-                                  "assets/images/app_icon.jpeg",
-                                ),
-                          fit: BoxFit.contain,
+                SizedBox(
+                  width: 100.w,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 25.h,
+                        width: 38.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 3,
+                              spreadRadius: 3,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                          image: DecorationImage(
+                            image: image != "false"
+                                ? NetworkImage(image)
+                                : const AssetImage(
+                                    "assets/images/app_icon.jpeg",
+                                  ),
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: eachProductWidget(
-                        brand,
-                        sku,
-                        model,
-                        attribueList,
-                        barcode,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: eachProductWidget(
+                          brand,
+                          sku,
+                          model,
+                          attribueList,
+                          barcode,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 15),
                 Padding(
@@ -412,7 +415,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               ),
             ),
             SizedBox(
-              width: 28.w,
+              width: 25.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -420,7 +423,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       fontWeight: FontWeight.bold,
                       size: 13,
                       color: AppColor.pinkColor),
-                  textWidget(modelValue == "false" ? "" : modelValue, size: 13),
+                  textWidget(modelValue == "false" ? "" : "modelValue",
+                      size: 13),
                   const SizedBox(height: 8),
                   textWidget("Barcode",
                       fontWeight: FontWeight.bold,

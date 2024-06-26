@@ -72,6 +72,10 @@ class ProductScreen extends ConsumerWidget {
             id: parentID,
             name: name,
           ),
+          Container(
+            height: 8.h,
+            color: Colors.white,
+          )
         ],
       ),
     );
