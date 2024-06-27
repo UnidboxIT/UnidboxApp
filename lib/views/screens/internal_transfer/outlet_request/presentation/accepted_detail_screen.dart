@@ -44,10 +44,10 @@ class _OtherRequestsDetailScreenState
       otherRequestList = widget.otherRequestList;
     });
 
-    loadWarehouseData(true);
+    loadWarehouseData();
   }
 
-  Future<void> loadWarehouseData(bool isRecallWarehouse) async {
+  Future<void> loadWarehouseData() async {
     packedProductList.clear();
     acceptProductMap.clear();
     acceptedWarehouseMap.forEach((key, value) {
@@ -87,7 +87,9 @@ class _OtherRequestsDetailScreenState
       }
     }
     if (acceptedWarehouseMap.isNotEmpty) {
-      if (isRecallWarehouse) {
+      if (acceptedWarehouseMap.keys.contains(selectedWarehouseID)) {
+        selectedWarehouseID = selectedWarehouseID;
+      } else {
         selectedWarehouseID = acceptedWarehouseMap.keys.first;
       }
       requestedMapList.add(
@@ -111,7 +113,7 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
-          loadWarehouseData(false);
+          loadWarehouseData();
           acceptLoading = false;
         });
       }
@@ -123,6 +125,11 @@ class _OtherRequestsDetailScreenState
       if (next is AcceptProductID) {
         setState(() {
           acceptProductID = next.productID;
+        });
+      }
+      if (next is Error) {
+        setState(() {
+          acceptLoading = false;
         });
       }
     });

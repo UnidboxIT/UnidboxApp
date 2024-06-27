@@ -223,7 +223,9 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                           .read(otherRequestStateNotifierProvider.notifier)
                           .packOtherRequest(
                               productLine.id, product.issueQty, context);
-                    }, isBool: acceptProductID == productLine.id),
+                    },
+                        isBool: isAcceptLoading &&
+                            acceptProductID == productLine.id),
                   ),
                 ),
                 Visibility(

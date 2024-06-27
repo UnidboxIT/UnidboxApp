@@ -22,7 +22,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       state = const OtherRequestState.loading();
       otherRequestList.clear();
       Response response = await _otherRequestRepository.otherRequest();
-      //superPrint(response.body);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
@@ -63,15 +63,17 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllOtherRequest();
+          state = OtherRequestState.acceptProductID(productID);
         } else {
           CommonMethods.customizedAlertDialog(
               result['result']['message'], context);
+          state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
         CommonMethods.customizedAlertDialog(
             result['error']['message'], context);
+        state = const OtherRequestState.error();
       }
-      state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
     }

@@ -160,7 +160,10 @@ Widget eachProductLineWidget(
                                               ? AppColor.primary
                                               : AppColor.pinkColor),
                                       const SizedBox(width: 5),
-                                      textWidget(product.receivedQty.toString(),
+                                      textWidget(
+                                          product.receivedQty
+                                              .toInt()
+                                              .toString(),
                                           color: AppColor.primary,
                                           fontWeight: FontWeight.bold,
                                           size: 13),
