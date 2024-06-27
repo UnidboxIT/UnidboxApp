@@ -367,7 +367,12 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                       widget.productDetail.price,
                       selectedBox,
                       context,
-                    );
+                    )
+                    .then((_) {
+                  ref
+                      .read(inhouseStockStateNotifierProvider.notifier)
+                      .getInHouseStock(widget.productDetail.id);
+                });
               }, isBool: isSendRequestLoading),
             )
           ],

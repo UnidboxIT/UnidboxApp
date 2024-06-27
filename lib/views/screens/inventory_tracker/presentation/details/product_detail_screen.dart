@@ -70,12 +70,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       ref
           .read(productDetailStateNotifierProvider.notifier)
           .productByID(widget.productID);
-      ref
-          .read(inhouseStockStateNotifierProvider.notifier)
-          .getInHouseStock(int.parse(widget.productID));
-      ref
-          .read(stockOrderStateNotifierProvider.notifier)
-          .getStockOrder(int.parse(widget.productID));
+      if (!widget.isInternalTransfer) {
+        ref
+            .read(inhouseStockStateNotifierProvider.notifier)
+            .getInHouseStock(int.parse(widget.productID));
+        ref
+            .read(stockOrderStateNotifierProvider.notifier)
+            .getStockOrder(int.parse(widget.productID));
+      }
     });
   }
 
