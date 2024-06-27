@@ -103,8 +103,14 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           acceptLoading = false;
           requestLoading = false;
           if (requestedMap.isNotEmpty) {
-            selectedWarehouseID = requestedMap.keys.first;
-            requestedMapList.add(requestedMap);
+            if (requestedMap.keys.contains(selectedWarehouseID)) {
+              selectedWarehouseID = selectedWarehouseID;
+            } else {
+              selectedWarehouseID = requestedMap.keys.first;
+            }
+            requestedMapList
+                .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
+            //requestedMapList.add(requestedMap);
           }
         });
       }
@@ -231,39 +237,47 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                   Map<dynamic, dynamic> warehouseData = entry.value;
                   Map<dynamic, dynamic> productLineMap =
                       warehouseData['product_line'];
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: productLineMap.keys.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 0);
-                    },
-                    itemBuilder: (context, productIndex) {
-                      String productLineKey =
-                          productLineMap.keys.elementAt(productIndex);
-                      List<dynamic> productList =
-                          productLineMap[productLineKey] ?? [];
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: productList.length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 0);
-                        },
-                        itemBuilder: (context, subIndex) {
-                          return eachOutletReturnWidget(
-                            productLineKey,
-                            warehouseData['name'],
-                            warehouseData['date'],
-                            productList[subIndex],
-                            ref,
-                            isAcceptLoading: acceptLoading,
-                            acceptProductID: acceptProductID,
-                          );
-                        },
-                      );
-                    },
-                  );
+                  return productLineMap.isEmpty
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 100.w,
+                          height: 50.h,
+                          child: textWidget("No Data !"),
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: productLineMap.keys.length,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 0);
+                          },
+                          itemBuilder: (context, productIndex) {
+                            String productLineKey =
+                                productLineMap.keys.elementAt(productIndex);
+                            List<dynamic> productList =
+                                productLineMap[productLineKey] ?? [];
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: productList.length,
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(height: 0);
+                              },
+                              itemBuilder: (context, subIndex) {
+                                return eachOutletReturnWidget(
+                                  productLineKey,
+                                  warehouseData['name'],
+                                  warehouseData['date'],
+                                  productList[subIndex],
+                                  ref,
+                                  context,
+                                  isAcceptLoading: acceptLoading,
+                                  acceptProductID: acceptProductID,
+                                );
+                              },
+                            );
+                          },
+                        );
                 }).toList(),
               );
             },

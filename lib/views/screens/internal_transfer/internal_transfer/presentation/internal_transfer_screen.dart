@@ -151,7 +151,13 @@ class _InternalTransferScreenState
                             builder: (context) => OutletReturnScreen(
                                   userWarehouse: userWarehouse,
                                 )))
-                        .then((_) {});
+                        .then((_) {
+                      Future.delayed(const Duration(milliseconds: 10), () {
+                        ref
+                            .read(otherRequestStateNotifierProvider.notifier)
+                            .getAllOtherRequest();
+                      });
+                    });
                   }
                 },
                 child: eachInternalTransferWidget(

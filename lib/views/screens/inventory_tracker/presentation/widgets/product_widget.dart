@@ -141,6 +141,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                             builder: (context) => ProductDetailScreen(
                                   productID: productId,
                                   productName: fullName,
+                                  isInternalTransfer: false,
                                 )))
                         .then((_) {
                       setState(() {

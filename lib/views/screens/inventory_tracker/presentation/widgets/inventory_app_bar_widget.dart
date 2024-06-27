@@ -4,7 +4,8 @@ import '../../../../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 
 Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
-    VoidCallback iconOnPressed, IconData iconData) {
+    VoidCallback iconOnPressed, IconData iconData,
+    {bool isInternalTransfer = true}) {
   return Container(
     height: 20.h,
     width: 100.w,
@@ -61,12 +62,15 @@ Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
               //     textOverflow: TextOverflow.ellipsis,
               //   ),
               // ),
-              IconButton(
-                onPressed: iconOnPressed,
-                icon: Icon(
-                  iconData,
-                  color: Colors.white,
-                  size: 30,
+              Visibility(
+                visible: isInternalTransfer,
+                child: IconButton(
+                  onPressed: iconOnPressed,
+                  icon: Icon(
+                    iconData,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 ),
               ),
             ],

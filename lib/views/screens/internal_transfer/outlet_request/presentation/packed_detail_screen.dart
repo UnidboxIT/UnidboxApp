@@ -364,12 +364,12 @@ class _OtherRequestsDetailScreenState
                         },
                         itemBuilder: (context, subIndex) {
                           return eachPackedDataWiget(
-                            productLineKey,
-                            warehouseData['name'],
-                            warehouseData['date'],
-                            productList[subIndex],
-                            ref,
-                          );
+                              productLineKey,
+                              warehouseData['name'],
+                              warehouseData['date'],
+                              productList[subIndex],
+                              ref,
+                              context);
                         },
                       );
                     },

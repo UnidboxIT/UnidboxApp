@@ -212,6 +212,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                   builder: (context) => ProductDetailScreen(
                         productID: productId,
                         productName: fullName,
+                        isInternalTransfer: false,
                       )));
             },
             child: Padding(

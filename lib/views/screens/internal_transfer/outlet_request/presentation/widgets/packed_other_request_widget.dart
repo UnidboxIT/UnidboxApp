@@ -5,10 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
+import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
 import '../../../my_request/domain/my_request.dart';
 
 Widget eachPackedDataWiget(String code, String name, String currentDate,
-    ProductLineId productLine, WidgetRef ref,
+    ProductLineId productLine, WidgetRef ref, BuildContext context,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -76,13 +77,27 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    textWidget(productLine.productIdList[1],
-                        size: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        maxLine: 2,
-                        textOverflow: TextOverflow.fade,
-                        textAlign: TextAlign.left),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                              productID:
+                                  productLine.productIdList[0].toString(),
+                              productName: productLine.productIdList[1],
+                              isInternalTransfer: true,
+                            ),
+                          ),
+                        );
+                      },
+                      child: textWidget(productLine.productIdList[1],
+                          size: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          maxLine: 2,
+                          textOverflow: TextOverflow.fade,
+                          textAlign: TextAlign.left),
+                    ),
                     textWidget(productLine.code,
                         size: 12,
                         color: Colors.black.withOpacity(0.6),

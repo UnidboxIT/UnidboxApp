@@ -342,6 +342,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                 ProductDetailScreen(
                                                   productID: productId,
                                                   productName: fullName,
+                                                  isInternalTransfer: false,
                                                 )));
                                   },
                                   child: Padding(

@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
+import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
 import '../../domain/my_request.dart';
 import '../../repository/provider/my_request_provider.dart';
 import '../../repository/state/my_request_state.dart';
@@ -119,13 +120,30 @@ Widget eachPendingRequestListWidget(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            textWidget(productList[index].productIdList[1],
-                                size: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                maxLine: 2,
-                                textOverflow: TextOverflow.fade,
-                                textAlign: TextAlign.left),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDetailScreen(
+                                      productID: productList[index]
+                                          .productIdList[0]
+                                          .toString(),
+                                      productName:
+                                          productList[index].productIdList[1],
+                                      isInternalTransfer: true,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: textWidget(
+                                  productList[index].productIdList[1],
+                                  size: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  maxLine: 2,
+                                  textOverflow: TextOverflow.fade,
+                                  textAlign: TextAlign.left),
+                            ),
                             textWidget(productList[index].code,
                                 size: 12,
                                 color: Colors.black.withOpacity(0.6),

@@ -31,8 +31,12 @@ import 'check_out_order_detail_screen.dart';
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
   final String productName;
+  final bool isInternalTransfer;
   const ProductDetailScreen(
-      {super.key, required this.productID, required this.productName});
+      {super.key,
+      required this.productID,
+      required this.productName,
+      required this.isInternalTransfer});
 
   @override
   ConsumerState<ProductDetailScreen> createState() =>
@@ -172,38 +176,34 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           height: 100.h,
           child: Stack(
             children: [
-              inventoryAppBarWidget(
-                widget.productName,
-                () {
-                  Navigator.of(context).pop();
-                },
-                () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) => ProductDetailUpdateScreen(
-                                productID: widget.productID,
-                                rackIdList: productDetail.rackIdList,
-                                retailPrice: CommonMethods.twoDecimalPrice(
-                                    productDetail.price),
-                                costPrice: CommonMethods.threeDecimalPrice(
-                                    productDetail.costPrice),
-                              )))
-                      .then((_) {
-                    ref
-                        .read(productDetailStateNotifierProvider.notifier)
-                        .productByID(widget.productID);
-                    final state = ref.read(productDetailStateNotifierProvider);
-                    if (state is ProductDetail) {
-                      setState(() {
-                        productDetail = state.products;
-                      });
-                    }
-                    superPrint("Here");
-                    superPrint(productDetail.rackIdList);
-                  });
-                },
-                Icons.edit_document,
-              ),
+              inventoryAppBarWidget(widget.productName, () {
+                Navigator.of(context).pop();
+              }, () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(
+                        builder: (context) => ProductDetailUpdateScreen(
+                              productID: widget.productID,
+                              rackIdList: productDetail.rackIdList,
+                              retailPrice: CommonMethods.twoDecimalPrice(
+                                  productDetail.price),
+                              costPrice: CommonMethods.threeDecimalPrice(
+                                  productDetail.costPrice),
+                            )))
+                    .then((_) {
+                  ref
+                      .read(productDetailStateNotifierProvider.notifier)
+                      .productByID(widget.productID);
+                  final state = ref.read(productDetailStateNotifierProvider);
+                  if (state is ProductDetail) {
+                    setState(() {
+                      productDetail = state.products;
+                    });
+                  }
+                  superPrint("Here");
+                  superPrint(productDetail.rackIdList);
+                });
+              }, Icons.edit_document,
+                  isInternalTransfer: !widget.isInternalTransfer),
               Transform.translate(
                 offset: Offset(0, 14.h),
                 child: productDetailBodyWidget(),
@@ -278,37 +278,43 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           : ListView(
               children: [
                 productDetailWidget(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      stockButtonWidget(
-                        () {
-                          toggleInHouseStockButton("In-house Stock");
-                        },
-                        "In-house Stock",
-                        stockName,
-                      ),
-                      stockButtonWidget(
-                        () {
-                          toggleInHouseStockButton("Stock Ordering");
-                        },
-                        "Stock Ordering",
-                        stockName,
-                      ),
-                    ],
+                Visibility(
+                  visible: !widget.isInternalTransfer,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        stockButtonWidget(
+                          () {
+                            toggleInHouseStockButton("In-house Stock");
+                          },
+                          "In-house Stock",
+                          stockName,
+                        ),
+                        stockButtonWidget(
+                          () {
+                            toggleInHouseStockButton("Stock Ordering");
+                          },
+                          "Stock Ordering",
+                          stockName,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                stockName == "In-house Stock"
-                    ? InhouseStockWidget(
-                        inHouseStockList: inHouseStockList,
-                        productDetail: productDetail,
-                        userWarehouse: userWarehouse,
-                      )
-                    : StockOrderingWidget(
-                        stockOrderList: stockOrderList,
-                        productDetail: productDetail)
+                Visibility(
+                  visible: !widget.isInternalTransfer,
+                  child: stockName == "In-house Stock"
+                      ? InhouseStockWidget(
+                          inHouseStockList: inHouseStockList,
+                          productDetail: productDetail,
+                          userWarehouse: userWarehouse,
+                        )
+                      : StockOrderingWidget(
+                          stockOrderList: stockOrderList,
+                          productDetail: productDetail),
+                )
               ],
             ),
     );
