@@ -161,6 +161,11 @@ class _OtherRequestsDetailScreenState
           acceptProductID = next.productID;
         });
       }
+      if (next is Error) {
+        setState(() {
+          acceptLoading = false;
+        });
+      }
     });
 
     return SuperScaffold(

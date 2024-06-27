@@ -124,6 +124,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           acceptProductID = next.productID;
         });
       }
+      if (next is OutletReturnError) {
+        acceptLoading = false;
+      }
     });
 
     return SuperScaffold(

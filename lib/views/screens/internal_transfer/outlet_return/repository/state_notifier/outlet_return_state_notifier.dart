@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../outlet_request/domain/other_request.dart';
 import '../outlet_return_repository.dart';
@@ -30,15 +32,28 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
     }
   }
 
-  Future<void> outletReturnReceived(int productID) async {
+  Future<void> outletReturnReceived(int productID, BuildContext context) async {
     try {
       state = const OutletReturnState.acceptLoading();
       Response response =
           await _outletReturnRepository.returnReceived(productID);
       superPrint(response.body);
-      // var result = jsonDecode(response.body);
-      state = OutletReturnState.returnReceivedProductID(productID);
-      getAlloutletReturn();
+      var result = jsonDecode(response.body);
+
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          state = OutletReturnState.returnReceivedProductID(productID);
+          getAlloutletReturn();
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['message'], context);
+          state = const OutletReturnState.outletReturnError();
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
+        state = const OutletReturnState.outletReturnError();
+      }
     } catch (e) {
       superPrint(e.toString());
     }

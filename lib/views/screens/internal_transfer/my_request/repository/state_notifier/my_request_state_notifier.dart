@@ -43,10 +43,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
           state = MyRequestState.receivedProductID(productID);
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['message'], context);
+          state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
         CommonMethods.customizedAlertDialog(
             result['error']['message'], context);
+        state = const MyRequestState.error();
       }
     } catch (e) {
       superPrint(e.toString());
@@ -65,10 +70,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
           state = MyRequestState.receivedProductID(productID);
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['message'], context);
+          state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
         CommonMethods.customizedAlertDialog(
             result['error']['message'], context);
+        state = const MyRequestState.error();
       }
     } catch (e) {
       superPrint(e.toString());

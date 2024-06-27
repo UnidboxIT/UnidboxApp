@@ -253,7 +253,8 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       superPrint(product.qty);
                       ref
                           .read(otherRequestStateNotifierProvider.notifier)
-                          .acceptOtherRequest(productLine.id, issuedQty);
+                          .acceptOtherRequest(
+                              productLine.id, issuedQty, context);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),

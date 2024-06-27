@@ -12,5 +12,5 @@ class WarehouseState with _$WarehouseState {
       List<Warehouse> warehouseList) = WarehouseList;
   const factory WarehouseState.initial() = Initial;
   const factory WarehouseState.loading() = WarehouseLoading;
-  const factory WarehouseState.error({String? error}) = Error;
+  const factory WarehouseState.warehouseError({String? error}) = WarehouseError;
 }

@@ -182,7 +182,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                 child: buttonWidget("Receive", () {
                   ref
                       .read(outletReturnStateNotifier.notifier)
-                      .outletReturnReceived(productLine.id);
+                      .outletReturnReceived(productLine.id, context);
                 },
                     isBool:
                         isAcceptLoading && acceptProductID == productLine.id),

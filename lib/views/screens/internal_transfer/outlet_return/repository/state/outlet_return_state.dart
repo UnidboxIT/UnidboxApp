@@ -14,7 +14,8 @@ class OutletReturnState with _$OutletReturnState {
   const factory OutletReturnState.initial() = Initial;
   const factory OutletReturnState.loading() = OutletReturnLoading;
   const factory OutletReturnState.acceptLoading() = ReceiveLoading;
-  const factory OutletReturnState.error({String? error}) = Error;
+  const factory OutletReturnState.outletReturnError({String? error}) =
+      OutletReturnError;
   const factory OutletReturnState.returnReceivedProductID(int productID) =
       ReturnReceivedProductID;
 }

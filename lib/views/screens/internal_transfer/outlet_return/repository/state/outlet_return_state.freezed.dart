@@ -23,7 +23,7 @@ mixin _$OutletReturnState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ mixin _$OutletReturnState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) =>
       throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ mixin _$OutletReturnState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) =>
@@ -55,7 +55,7 @@ mixin _$OutletReturnState {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) =>
@@ -66,7 +66,7 @@ mixin _$OutletReturnState {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) =>
       throw _privateConstructorUsedError;
@@ -76,7 +76,7 @@ mixin _$OutletReturnState {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) =>
@@ -180,7 +180,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
     return loadOtherRequestData(outletReturnList);
@@ -194,7 +194,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
     return loadOtherRequestData?.call(outletReturnList);
@@ -207,7 +207,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -224,7 +224,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
@@ -238,7 +238,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
     return loadOtherRequestData?.call(this);
@@ -251,7 +251,7 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -315,7 +315,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
     return initial();
@@ -329,7 +329,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
     return initial?.call();
@@ -342,7 +342,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -359,7 +359,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
@@ -373,7 +373,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
     return initial?.call(this);
@@ -386,7 +386,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -445,7 +445,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
     return loading();
@@ -459,7 +459,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
     return loading?.call();
@@ -472,7 +472,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -489,7 +489,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
@@ -503,7 +503,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
     return loading?.call(this);
@@ -516,7 +516,7 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -574,7 +574,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
     return acceptLoading();
@@ -588,7 +588,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
     return acceptLoading?.call();
@@ -601,7 +601,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -618,7 +618,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
@@ -632,7 +632,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
     return acceptLoading?.call(this);
@@ -645,7 +645,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -661,20 +661,20 @@ abstract class ReceiveLoading implements OutletReturnState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$OutletReturnErrorImplCopyWith<$Res> {
+  factory _$$OutletReturnErrorImplCopyWith(_$OutletReturnErrorImpl value,
+          $Res Function(_$OutletReturnErrorImpl) then) =
+      __$$OutletReturnErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$OutletReturnStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$OutletReturnErrorImplCopyWithImpl<$Res>
+    extends _$OutletReturnStateCopyWithImpl<$Res, _$OutletReturnErrorImpl>
+    implements _$$OutletReturnErrorImplCopyWith<$Res> {
+  __$$OutletReturnErrorImplCopyWithImpl(_$OutletReturnErrorImpl _value,
+      $Res Function(_$OutletReturnErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -682,7 +682,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$OutletReturnErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -693,22 +693,22 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$OutletReturnErrorImpl implements OutletReturnError {
+  const _$OutletReturnErrorImpl({this.error});
 
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'OutletReturnState.error(error: $error)';
+    return 'OutletReturnState.outletReturnError(error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$OutletReturnErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -718,8 +718,9 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$OutletReturnErrorImplCopyWith<_$OutletReturnErrorImpl> get copyWith =>
+      __$$OutletReturnErrorImplCopyWithImpl<_$OutletReturnErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -729,10 +730,10 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
-    return error(this.error);
+    return outletReturnError(error);
   }
 
   @override
@@ -743,10 +744,10 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
-    return error?.call(this.error);
+    return outletReturnError?.call(error);
   }
 
   @override
@@ -756,12 +757,12 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(this.error);
+    if (outletReturnError != null) {
+      return outletReturnError(error);
     }
     return orElse();
   }
@@ -773,11 +774,11 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
-    return error(this);
+    return outletReturnError(this);
   }
 
   @override
@@ -787,10 +788,10 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
-    return error?.call(this);
+    return outletReturnError?.call(this);
   }
 
   @override
@@ -800,23 +801,24 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(this);
+    if (outletReturnError != null) {
+      return outletReturnError(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements OutletReturnState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class OutletReturnError implements OutletReturnState {
+  const factory OutletReturnError({final String? error}) =
+      _$OutletReturnErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$OutletReturnErrorImplCopyWith<_$OutletReturnErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -893,7 +895,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(String? error) error,
+    required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
   }) {
     return returnReceivedProductID(productID);
@@ -907,7 +909,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(String? error)? error,
+    TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
   }) {
     return returnReceivedProductID?.call(productID);
@@ -920,7 +922,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(String? error)? error,
+    TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
     required TResult orElse(),
   }) {
@@ -937,7 +939,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     required TResult Function(Initial value) initial,
     required TResult Function(OutletReturnLoading value) loading,
     required TResult Function(ReceiveLoading value) acceptLoading,
-    required TResult Function(Error value) error,
+    required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
   }) {
@@ -951,7 +953,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult? Function(Initial value)? initial,
     TResult? Function(OutletReturnLoading value)? loading,
     TResult? Function(ReceiveLoading value)? acceptLoading,
-    TResult? Function(Error value)? error,
+    TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
   }) {
     return returnReceivedProductID?.call(this);
@@ -964,7 +966,7 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult Function(Initial value)? initial,
     TResult Function(OutletReturnLoading value)? loading,
     TResult Function(ReceiveLoading value)? acceptLoading,
-    TResult Function(Error value)? error,
+    TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
     required TResult orElse(),
   }) {
