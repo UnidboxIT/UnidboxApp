@@ -86,10 +86,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
           Navigator.of(context).pop();
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['message'], context);
+          state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
         CommonMethods.customizedAlertDialog(
             result['error']['message'], context);
+        state = const MyRequestState.error();
       }
       superPrint(response.body);
     } catch (e) {

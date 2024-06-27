@@ -285,17 +285,15 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       isSwipeLoading = true;
                     });
-
+                    superPrint(idList);
                     setState(() {
                       Future.delayed(const Duration(milliseconds: 100));
                       if (idList.isNotEmpty) {
                         if (!isPackedProductEqual) {
                           ref
                               .read(otherRequestStateNotifierProvider.notifier)
-                              .deliveryOtherRequest(idList, context)
-                              .then((_) {
-                            isSwipeLoading = false;
-                          });
+                              .deliveryOtherRequest(idList, context);
+                          isSwipeLoading = false;
                         } else {
                           isSwipeLoading = false;
                           CommonMethods.customizedAlertDialog(

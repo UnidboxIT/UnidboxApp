@@ -72,6 +72,11 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
           requestLoading = false;
         });
       }
+      if (next is Error) {
+        setState(() {
+          requestLoading = false;
+        });
+      }
     });
 
     return SuperScaffold(
