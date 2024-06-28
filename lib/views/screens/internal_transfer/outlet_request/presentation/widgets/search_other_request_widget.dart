@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 
 class SearchOtherRequestWidget extends ConsumerStatefulWidget {
   const SearchOtherRequestWidget({super.key});
@@ -38,7 +39,14 @@ class _SearchOrderReceivingState
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           textInputAction: TextInputAction.done,
-          onChanged: (value) async {},
+          onChanged: (query) async {
+            // txtSearchMyRequest.text = query;
+            // setState(() {
+            //   ref
+            //       .read(otherRequestStateNotifierProvider.notifier)
+            //       .searchOtherRequestData(query);
+            // });
+          },
           decoration: InputDecoration(
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),

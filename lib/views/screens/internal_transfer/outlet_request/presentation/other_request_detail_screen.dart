@@ -145,7 +145,7 @@ class _OtherRequestsDetailScreenState
           acceptLoading = false;
         });
       }
-      superPrint(requestedMapList);
+
       if (next is IsDataExit) {
         setState(() {
           isDataExist = next.isExit;
@@ -166,6 +166,15 @@ class _OtherRequestsDetailScreenState
           acceptLoading = false;
         });
       }
+
+      // if (next is SearchOtherRequestList) {
+      //   setState(() {
+      //     otherRequestList = [];
+      //     acceptProductList.clear();
+      //     otherRequestList = next.searchOtherRequestList;
+      //   });
+      //   superPrint(otherRequestList);
+      // }
     });
 
     return SuperScaffold(

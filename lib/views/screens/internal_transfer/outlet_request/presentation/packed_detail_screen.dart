@@ -190,7 +190,6 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    superPrint(packedWarehouseMap[selectedWarehouseID]);
     return Column(
       children: [
         packedRequestWidget(),

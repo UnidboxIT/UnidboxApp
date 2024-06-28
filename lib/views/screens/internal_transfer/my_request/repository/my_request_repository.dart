@@ -57,6 +57,7 @@ class MyRequestRepository {
       "img_name": "picking_$productID.png",
       "datas": image,
     };
+    superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,
       endpoint: 'joborder/stock-request/update/',

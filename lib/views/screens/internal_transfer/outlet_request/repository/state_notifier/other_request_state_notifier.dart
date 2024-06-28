@@ -128,4 +128,34 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       state = OtherRequestState.decrementQty(productID, qty);
     }
   }
+
+  bool productIdContainsQuery = false;
+  searchOtherRequestData(String query) {
+    if (query.isNotEmpty) {
+      List<OtherRequest> searchRequest = otherRequestList.where((request) {
+        final nameContainsQuery =
+            request.name.toLowerCase().contains(query.toLowerCase());
+        final userIdContainsQuery = request.userId[1]
+            .toString()
+            .toLowerCase()
+            .contains(query.toLowerCase());
+
+        for (var data in request.productLineList) {
+          productIdContainsQuery = data.productIdList[1]
+              .toString()
+              .trim()
+              .toLowerCase()
+              .contains(query.toLowerCase());
+          superPrint(data.productIdList[1]);
+        }
+
+        return nameContainsQuery ||
+            userIdContainsQuery ||
+            productIdContainsQuery;
+      }).toList();
+      state = OtherRequestState.searchOtherRequestValue(searchRequest);
+    } else {
+      getAllOtherRequest();
+    }
+  }
 }

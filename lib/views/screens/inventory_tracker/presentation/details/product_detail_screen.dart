@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -483,7 +486,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: AppColor.dropshadowColor,
                 blurRadius: 3,
                 spreadRadius: 3,
                 offset: const Offset(0, 3))
@@ -495,10 +498,51 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               "Retail Price",
               CommonMethods.twoDecimalPrice(double.parse(salePrice)),
               DateTime.now().toString()),
-          eachPriceWidget(
-              "Cost Price",
-              CommonMethods.threeDecimalPrice(double.parse(costPrice)),
-              DateTime.now().toString())
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.centerRight,
+            children: [
+              eachPriceWidget(
+                "Cost Price",
+                CommonMethods.threeDecimalPrice(double.parse(costPrice)),
+                DateTime.now().toString(),
+              ),
+              Positioned(
+                right: -15,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                    child: Container(
+                      width: 45.w,
+                      height: 10.h,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 3,
+                              spreadRadius: 3,
+                              offset: const Offset(0, 3)),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.visibility_off_outlined,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

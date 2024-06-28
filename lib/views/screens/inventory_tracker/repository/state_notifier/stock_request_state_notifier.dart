@@ -41,13 +41,17 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          state =
-              StockRequestState.success(result['result']['message'].toString());
+          state = StockRequestState.success(
+            result['result']['message'].toString(),
+          );
           successfullyBottomSheet(
-                  "Request Sent!", "Check status under pending requests", () {
-            Navigator.of(context).pop();
-          }, context)
-              .then((_) {
+            "Request Sent!",
+            "Check status under pending requests",
+            () {
+              Navigator.of(context).pop();
+            },
+            context,
+          ).then((_) {
             Navigator.of(context).pop();
           });
         } else {
@@ -58,8 +62,14 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           superPrint("Here");
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+        }
       }
       state = const StockRequestState.sendRequestSuccess();
     } catch (e) {
