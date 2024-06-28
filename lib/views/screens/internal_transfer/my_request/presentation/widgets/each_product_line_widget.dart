@@ -25,6 +25,7 @@ Widget eachProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        superPrint(productList[index].model);
         return Consumer(builder: (context, ref, child) {
           final state = ref.watch(myRequestStateNotifierProvider);
           ProductLineId product = productList[index];
@@ -139,10 +140,15 @@ Widget eachProductLineWidget(
                                 size: 12,
                                 color: Colors.black.withOpacity(0.6),
                                 fontWeight: FontWeight.w500),
-                            textWidget(
-                              productList[index].model,
-                              fontWeight: FontWeight.w500,
-                              size: 13,
+                            Visibility(
+                              visible: productList[index].model != "false",
+                              child: productList[index].model.isEmpty
+                                  ? const SizedBox.shrink()
+                                  : textWidget(
+                                      productList[index].model,
+                                      fontWeight: FontWeight.w500,
+                                      size: 13,
+                                    ),
                             ),
                             const SizedBox(height: 10),
                             productList[index].status != 'receiving'
@@ -150,62 +156,68 @@ Widget eachProductLineWidget(
                                     "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
                                     size: 12,
                                   )
-                                : Row(
+                                : Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       textWidget(
                                         "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
                                         size: 12,
                                       ),
-                                      const SizedBox(width: 5),
-                                      addMinusIconButtonWidget(() {
-                                        if (productList[index].status ==
-                                            'receiving') {
-                                          ref
-                                              .read(
-                                                  myRequestStateNotifierProvider
-                                                      .notifier)
-                                              .decrementTotalQty(
-                                                  productList[index].id,
-                                                  product.receivedQty);
-                                        }
-                                      },
-                                          CupertinoIcons.minus_circle_fill,
-                                          productList[index].status ==
-                                                  'receiving'
-                                              ? AppColor.primary
-                                              : AppColor.pinkColor),
-                                      const SizedBox(width: 5),
-                                      textWidget(
-                                          product.receivedQty
-                                              .toInt()
-                                              .toString(),
-                                          color: AppColor.primary,
-                                          fontWeight: FontWeight.bold,
-                                          size: 13),
-                                      const SizedBox(width: 5),
-                                      addMinusIconButtonWidget(() {
-                                        superPrint(product.issueQty);
-                                        if (productList[index].status ==
-                                                'receiving' &&
-                                            product.issueQty >
-                                                product.receivedQty) {
-                                          ref
-                                              .read(
-                                                  myRequestStateNotifierProvider
-                                                      .notifier)
-                                              .incrementTotalQty(
-                                                  productList[index].id,
-                                                  product.receivedQty);
-                                        }
-                                      },
-                                          CupertinoIcons.add_circled_solid,
-                                          productList[index].status ==
-                                                  'receiving'
-                                              ? AppColor.primary
-                                              : AppColor.pinkColor)
+                                      const SizedBox(height: 5),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          addMinusIconButtonWidget(() {
+                                            if (productList[index].status ==
+                                                'receiving') {
+                                              ref
+                                                  .read(
+                                                      myRequestStateNotifierProvider
+                                                          .notifier)
+                                                  .decrementTotalQty(
+                                                      productList[index].id,
+                                                      product.receivedQty);
+                                            }
+                                          },
+                                              CupertinoIcons.minus_circle_fill,
+                                              productList[index].status ==
+                                                      'receiving'
+                                                  ? AppColor.primary
+                                                  : AppColor.pinkColor),
+                                          const SizedBox(width: 15),
+                                          textWidget(
+                                              product.receivedQty
+                                                  .toInt()
+                                                  .toString(),
+                                              color: AppColor.primary,
+                                              fontWeight: FontWeight.bold,
+                                              size: 13),
+                                          const SizedBox(width: 15),
+                                          addMinusIconButtonWidget(() {
+                                            superPrint(product.issueQty);
+                                            if (productList[index].status ==
+                                                    'receiving' &&
+                                                product.issueQty >
+                                                    product.receivedQty) {
+                                              ref
+                                                  .read(
+                                                      myRequestStateNotifierProvider
+                                                          .notifier)
+                                                  .incrementTotalQty(
+                                                      productList[index].id,
+                                                      product.receivedQty);
+                                            }
+                                          },
+                                              CupertinoIcons.add_circled_solid,
+                                              productList[index].status ==
+                                                      'receiving'
+                                                  ? AppColor.primary
+                                                  : AppColor.pinkColor)
+                                        ],
+                                      )
                                     ],
                                   )
                           ],
