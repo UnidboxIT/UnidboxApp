@@ -48,6 +48,10 @@ Widget eachMyTaskWidget(MyTask myTask, int totalInternalTransferLength) {
                 myTask.imageUrl,
                 fit: BoxFit.contain,
                 filterQuality: FilterQuality.high,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Icon(Icons.error, color: Colors.red, size: 64.0);
+                },
               ),
             ),
             const SizedBox(height: 8),

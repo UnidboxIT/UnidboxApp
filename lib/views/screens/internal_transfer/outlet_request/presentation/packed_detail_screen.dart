@@ -10,6 +10,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../repository/state/other_request_state.dart';
 import 'widgets/packed_other_request_widget.dart';
 
@@ -29,7 +30,7 @@ class PackedDetailScreen extends ConsumerStatefulWidget {
 class _OtherRequestsDetailScreenState
     extends ConsumerState<PackedDetailScreen> {
   List<OtherRequest> otherRequestList = [];
-  Map<String, List<ProductLineId>> packedProductMap = {};
+  // Map<String, List<ProductLineId>> packedProductMap = {};
   int selectedWarehouseID = -1;
   Map<int, dynamic> packedWarehouseMap = {};
   Map<int, dynamic> acceptedWarehouseMap = {};
@@ -53,13 +54,13 @@ class _OtherRequestsDetailScreenState
 
   loadWarehouseData() {
     // packedWarehouseMap.clear();
-    packedProductMap.clear();
-    requestedMapList.clear();
-    acceptedProductList.clear();
-    finalDeveilerMapList.clear();
+    // packedProductMap.clear();
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
+    acceptedProductList.clear();
+    finalDeveilerMapList.clear();
+    requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("requested")) {
@@ -90,7 +91,7 @@ class _OtherRequestsDetailScreenState
         }
         if (element.status.contains("packed")) {
           setState(() {
-            packedProductList.add(element);
+            // packedProductList.add(element);
             int warehouseId = element.warehouseList[0];
             String warehouseName = element.warehouseList[1];
             String productLineKey = data.name;
@@ -120,15 +121,15 @@ class _OtherRequestsDetailScreenState
         selectedWarehouseID = selectedWarehouseID;
       } else {
         selectedWarehouseID = packedWarehouseMap.keys.first;
-        requestedMapList.add(
-            {selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
-        finalDeveilerMapList.add(packedWarehouseMap);
+      }
+      requestedMapList
+          .add({selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
+      finalDeveilerMapList.add(packedWarehouseMap);
 
-        for (var warehouseProduct in requestedMapList) {
-          warehouseProduct.forEach((key, value) {
-            idList.add(value['id']);
-          });
-        }
+      for (var warehouseProduct in requestedMapList) {
+        warehouseProduct.forEach((key, value) {
+          idList.add(value['id']);
+        });
       }
 
       if (acceptedWarehouseMap.isNotEmpty) {
@@ -189,6 +190,7 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
+    superPrint(packedWarehouseMap[selectedWarehouseID]);
     return Column(
       children: [
         packedRequestWidget(),
@@ -206,7 +208,7 @@ class _OtherRequestsDetailScreenState
                 ),
               ),
         Container(
-          height: 10.h,
+          height: 12.h,
           width: 100.w,
           decoration: BoxDecoration(
             color: AppColor.primary,
@@ -337,12 +339,9 @@ class _OtherRequestsDetailScreenState
             Map<dynamic, dynamic> productLineMap =
                 warehouseData['product_line'];
             return productLineMap.isEmpty
-                ? Container(
-                    alignment: Alignment.center,
-                    width: 100.w,
-                    height: 50.h,
-                    child: textWidget("No Data !"),
-                  )
+                ? noAcceptPackedProductWidget(
+                    warehouseData['warehouse_name'] + " Outlet",
+                    "All Product Issued")
                 : ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

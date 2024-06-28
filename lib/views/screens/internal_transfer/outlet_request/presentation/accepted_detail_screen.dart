@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../repository/provider/other_request_provider.dart';
 import '../repository/state/other_request_state.dart';
 import 'packed_list_screen.dart';
@@ -28,7 +28,7 @@ class AcceptedDetailScreen extends ConsumerStatefulWidget {
 class _OtherRequestsDetailScreenState
     extends ConsumerState<AcceptedDetailScreen> {
   List<OtherRequest> otherRequestList = [];
-  Map<String, List<ProductLineId>> acceptProductMap = {};
+  //Map<String, List<ProductLineId>> acceptProductMap = {};
 
   int selectedWarehouseID = -1;
   Map<int, dynamic> acceptedWarehouseMap = {};
@@ -49,7 +49,7 @@ class _OtherRequestsDetailScreenState
 
   Future<void> loadWarehouseData() async {
     packedProductList.clear();
-    acceptProductMap.clear();
+    //acceptProductMap.clear();
     acceptedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
@@ -96,9 +96,9 @@ class _OtherRequestsDetailScreenState
           {selectedWarehouseID: acceptedWarehouseMap[selectedWarehouseID]});
       // requestedMapList.add(acceptedWarehouseMap);
     }
-    superPrint(selectedWarehouseID);
-    superPrint(requestedMapList);
-    superPrint(acceptedWarehouseMap);
+    // superPrint(selectedWarehouseID);
+    // superPrint(requestedMapList);
+    // superPrint(acceptedWarehouseMap);
   }
 
   @override
@@ -179,12 +179,9 @@ class _OtherRequestsDetailScreenState
             Map<dynamic, dynamic> productLineMap =
                 warehouseData['product_line'];
             return productLineMap.isEmpty
-                ? Container(
-                    alignment: Alignment.center,
-                    width: 100.w,
-                    height: 50.h,
-                    child: textWidget("No Data !"),
-                  )
+                ? noAcceptPackedProductWidget(
+                    warehouseData['warehouse_name'] + " Outlet",
+                    "No More Items to Pack")
                 : ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

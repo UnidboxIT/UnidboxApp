@@ -37,9 +37,8 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
       state = const OutletReturnState.acceptLoading();
       Response response =
           await _outletReturnRepository.returnReceived(productID);
-      superPrint(response.body);
+      // superPrint(response.body);
       var result = jsonDecode(response.body);
-
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           state = OutletReturnState.returnReceivedProductID(productID);

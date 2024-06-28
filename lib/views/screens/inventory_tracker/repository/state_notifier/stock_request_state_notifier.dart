@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
+import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 
@@ -36,23 +37,29 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           totalQty,
           price,
           uomID);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
-      if (result['result']['code'] == 200) {
-        state =
-            StockRequestState.success(result['result']['message'].toString());
-        successfullyBottomSheet(
-                "Request Sent!", "Check status under pending requests", () {
-          Navigator.of(context).pop();
-        }, context)
-            .then((_) {
-          Navigator.of(context).pop();
-        });
-      } else {
-        successfullyBottomSheet("Request Sent Fail!", result['result']['error'],
-            () {
-          Navigator.of(context).pop();
-        }, isFail: true, context);
-        superPrint("Here");
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          state =
+              StockRequestState.success(result['result']['message'].toString());
+          successfullyBottomSheet(
+                  "Request Sent!", "Check status under pending requests", () {
+            Navigator.of(context).pop();
+          }, context)
+              .then((_) {
+            Navigator.of(context).pop();
+          });
+        } else {
+          successfullyBottomSheet(
+              "Request Sent Fail!", result['result']['error'], () {
+            Navigator.of(context).pop();
+          }, isFail: true, context);
+          superPrint("Here");
+        }
+      } else if (result.containsKey('error')) {
+        CommonMethods.customizedAlertDialog(
+            result['error']['message'], context);
       }
       state = const StockRequestState.sendRequestSuccess();
     } catch (e) {

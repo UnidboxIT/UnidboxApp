@@ -1,13 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:unidbox_app/views/screens/internet_connection/internet_connection_screen.dart';
+import '../../views/screens/internet_connection/state/connectivity_state_notifier.dart';
 
 /*
   Customize status bar color and nav bar color for global 
 */
 
-class SuperScaffold extends StatelessWidget {
+class SuperScaffold extends ConsumerWidget {
   final Widget child;
   final Color topColor;
   final Color botColor;
@@ -20,7 +23,7 @@ class SuperScaffold extends StatelessWidget {
       this.xBotSafe = true});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FocusDetector(
       onFocusGained: () {
         setBarColor(topColor, botColor);
@@ -52,11 +55,13 @@ class SuperScaffold extends StatelessWidget {
             right: false,
             bottom: xBotSafe,
             child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              child: child,
-            ),
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
+                child: ref.watch(connectivityStatusProviders) ==
+                        ConnectivityStatus.isConnected
+                    ? child
+                    : const InternetConnectionScreen()),
           ),
         ),
       ),
