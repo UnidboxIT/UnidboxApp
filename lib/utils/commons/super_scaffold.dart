@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
-import 'package:unidbox_app/views/screens/internet_connection/internet_connection_screen.dart';
-import '../../views/screens/internet_connection/state/connectivity_state_notifier.dart';
+import '../../views/screens/internet_connection/internet_connection_screen.dart';
+import '../../views/screens/internet_connection/provider/internet_provider.dart';
+import '../../views/screens/internet_connection/state/connection_status.dart';
 
 /*
   Customize status bar color and nav bar color for global 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -193,8 +194,8 @@ class _InternalTransferScreenState
               ]),
           child: Row(
             children: [
-              Image.network(
-                image,
+              CachedNetworkImage(
+                imageUrl: image,
                 width: 50.w,
                 height: 16.h,
               ),

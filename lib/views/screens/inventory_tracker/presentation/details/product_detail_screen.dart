@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -334,7 +332,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     String retailPrice = productDetail.price.toString();
     String costPrice = productDetail.costPrice.toString();
     List attribueList = productDetail.attributeList;
-
     //controller.addRetailPriceCostPrice(retailPrice, costPrice);
     return isLoading
         ? const SizedBox.shrink()
