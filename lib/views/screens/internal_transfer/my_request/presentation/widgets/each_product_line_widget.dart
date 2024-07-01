@@ -25,7 +25,6 @@ Widget eachProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        superPrint(productList[index].model);
         return Consumer(builder: (context, ref, child) {
           final state = ref.watch(myRequestStateNotifierProvider);
           ProductLineId product = productList[index];

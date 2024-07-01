@@ -149,7 +149,9 @@ Widget eachPendingRequestListWidget(
                                 color: Colors.black.withOpacity(0.6),
                                 fontWeight: FontWeight.w500),
                             textWidget(
-                              productList[index].model,
+                              productList[index].model == "false"
+                                  ? ""
+                                  : productList[index].model,
                               fontWeight: FontWeight.w500,
                               size: 13,
                             ),

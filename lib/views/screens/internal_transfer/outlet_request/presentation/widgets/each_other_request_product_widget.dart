@@ -167,7 +167,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                                         ? AppColor.primary
                                         : AppColor.pinkColor),
                                 const SizedBox(width: 10),
-                                textWidget(issuedQty.toString(),
+                                textWidget(issuedQty.toInt().toString(),
                                     color: AppColor.primary,
                                     fontWeight: FontWeight.bold,
                                     size: 13),
