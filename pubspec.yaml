@@ -38,7 +38,7 @@ dependencies:
   slide_action: ^0.0.2
   connectivity_plus: ^6.0.3
   pushy_flutter: ^2.0.20
-  
+  awesome_notifications: ^0.9.3+1
   
 dev_dependencies:
   flutter_test:

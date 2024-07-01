@@ -1,0 +1,40 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+
+class NotificationController {
+  static ReceivedAction? initialAction;
+  static Future<void> initializeLocalNotifications() async {
+    await AwesomeNotifications().initialize(
+        'resource://drawable/app_icon',
+        [
+          NotificationChannel(
+            channelKey: 'alerts',
+            channelName: 'Notification Alerts',
+            channelDescription: 'Notification alerts',
+            playSound: true,
+            onlyAlertOnce: true,
+            groupAlertBehavior: GroupAlertBehavior.Children,
+            importance: NotificationImportance.High,
+            defaultPrivacy: NotificationPrivacy.Private,
+          )
+        ],
+        debug: true);
+
+    // Get initial notification action is optional
+    initialAction = await AwesomeNotifications()
+        .getInitialNotificationAction(removeFromActionEvents: false);
+  }
+
+  static Future<bool> displayNotificationRationale(noti) async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: -1,
+        channelKey: 'alerts',
+        title: noti.title,
+        body: noti.body,
+        notificationLayout: NotificationLayout.BigPicture,
+        // payload: {'notificationId': '1234567890'},
+      ),
+    );
+    return await AwesomeNotifications().requestPermissionToSendNotifications();
+  }
+}
