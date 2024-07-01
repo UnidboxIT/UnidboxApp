@@ -11,6 +11,7 @@ import '../../../../inventory_tracker/presentation/details/product_detail_screen
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/each_product_line_widget.dart';
 import '../../repository/provider/outlet_return_provider.dart';
+import 'show_attachment_image_dialog.dart';
 
 Widget eachOutletReturnWidget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref, BuildContext context,
@@ -112,7 +113,17 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                       fontWeight: FontWeight.w500,
                       size: 12,
                     ),
+                    textWidget(
+                      "Returned Qty : ${returnQty.toInt()}",
+                      size: 13,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
                     const SizedBox(height: 10),
+                    textWidget(
+                      "Receive Qty :",
+                      size: 13,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,7 +135,7 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
                                 ? AppColor.primary
                                 : AppColor.pinkColor),
                         const SizedBox(width: 10),
-                        textWidget(returnQty.toString(),
+                        textWidget(returnQty.toInt().toString(),
                             color: AppColor.primary,
                             fontWeight: FontWeight.bold,
                             size: 13),
@@ -144,49 +155,73 @@ Widget eachOutletReturnWidget(String code, String name, String currentDate,
             ],
           ),
           const SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textWidget(
+                "Request From",
+                color: AppColor.orangeColor,
+                size: 12.5,
+              ),
+              textWidget(
+                productLine.warehouseList[1],
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                size: 14,
+              ),
+              textWidget(
+                "Request By",
+                color: AppColor.orangeColor,
+                size: 12.5,
+              ),
+              textWidget(
+                name,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                size: 14,
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  textWidget(
-                    "Request From",
-                    color: AppColor.orangeColor,
-                    size: 12.5,
-                  ),
-                  textWidget(
-                    productLine.warehouseList[1],
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    size: 14,
-                  ),
-                  textWidget(
-                    "Request By",
-                    color: AppColor.orangeColor,
-                    size: 12.5,
-                  ),
-                  textWidget(
-                    name,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    size: 14,
-                  )
-                ],
-              ),
-              const Spacer(),
               SizedBox(
                 height: 35,
-                width: 30.w,
-                child: buttonWidget("Receive", () {
-                  ref
-                      .read(outletReturnStateNotifier.notifier)
-                      .outletReturnReceived(productLine.id, context);
-                },
-                    isBool:
-                        isAcceptLoading && acceptProductID == productLine.id),
+                width: 67.w,
+                child: buttonWidget(
+                  "Receive",
+                  () {
+                    ref
+                        .read(outletReturnStateNotifier.notifier)
+                        .outletReturnReceived(productLine.id, context);
+                  },
+                  isBool: isAcceptLoading && acceptProductID == productLine.id,
+                  bgColor: AppColor.pinkColor,
+                  fontColor: Colors.white,
+                  elevation: 0,
+                ),
               ),
+              GestureDetector(
+                onTap: () {
+                  showAttachmentImageDialog(
+                      context, productLine.attachmentFile);
+                },
+                child: Container(
+                  width: 10.w,
+                  height: 35,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: AppColor.pinkColor,
+                  ),
+                  child: const Icon(
+                    Icons.file_present_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              )
             ],
           ),
         ],

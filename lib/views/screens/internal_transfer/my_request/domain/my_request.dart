@@ -41,6 +41,7 @@ class MyRequest {
 
 class ProductLineId {
   int id;
+  String attachmentFile;
   List productIdList;
   String code;
   String model;
@@ -57,6 +58,7 @@ class ProductLineId {
 
   ProductLineId(
       {this.id = 0,
+      this.attachmentFile = "",
       this.productIdList = const [],
       this.code = "",
       this.model = "",
@@ -74,6 +76,7 @@ class ProductLineId {
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
       id: json['id'],
+      attachmentFile: json['attachment_url'].toString(),
       productIdList: List.from(json['product_id']),
       code: json['code'].toString(),
       model: json['model'].toString(),

@@ -5,7 +5,6 @@ import 'package:unidbox_app/main.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/main_screen.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
-
 import 'views/screens/internet_connection/provider/internet_provider.dart';
 import 'views/screens/internet_connection/state/connection_status.dart';
 import 'views/screens/notification_service/pushy_noti_service.dart';
@@ -28,7 +27,7 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
   Widget build(BuildContext context) {
     if (ref.watch(connectivityStatusProviders) ==
         ConnectivityStatus.isConnected) {
-      pushyRegister(backgroundNotificationListener);
+      //pushyRegister(backgroundNotificationListener);
     }
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MediaQuery(
