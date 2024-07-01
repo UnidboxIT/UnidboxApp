@@ -15,6 +15,7 @@ class InhouseStockState with _$InhouseStockState {
   const factory InhouseStockState.incrementQty(int qty) = IncrementQty;
   const factory InhouseStockState.decrementQty(int qty) = DecrementQty;
   const factory InhouseStockState.urgent(bool selectedUrgent) = Urgent;
+  const factory InhouseStockState.isOverQuantity(bool isOver) = OverQty;
   const factory InhouseStockState.initial() = Initial;
   const factory InhouseStockState.loading() = InHouseLoading;
   const factory InhouseStockState.error({String? error}) = Error;

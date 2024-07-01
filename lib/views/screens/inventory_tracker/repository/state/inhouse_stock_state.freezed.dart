@@ -23,6 +23,7 @@ mixin _$InhouseStockState {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -35,6 +36,7 @@ mixin _$InhouseStockState {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -47,6 +49,7 @@ mixin _$InhouseStockState {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -60,6 +63,7 @@ mixin _$InhouseStockState {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -72,6 +76,7 @@ mixin _$InhouseStockState {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -84,6 +89,7 @@ mixin _$InhouseStockState {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -188,6 +194,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -203,6 +210,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -218,6 +226,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -237,6 +246,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -252,6 +262,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -267,6 +278,7 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -360,6 +372,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -375,6 +388,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -390,6 +404,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -409,6 +424,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -424,6 +440,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -439,6 +456,7 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -529,6 +547,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -544,6 +563,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -559,6 +579,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -578,6 +599,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -593,6 +615,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -608,6 +631,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -698,6 +722,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -713,6 +738,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -728,6 +754,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -747,6 +774,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -762,6 +790,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -777,6 +806,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -868,6 +898,7 @@ class _$UrgentImpl implements Urgent {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -883,6 +914,7 @@ class _$UrgentImpl implements Urgent {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -898,6 +930,7 @@ class _$UrgentImpl implements Urgent {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -917,6 +950,7 @@ class _$UrgentImpl implements Urgent {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -932,6 +966,7 @@ class _$UrgentImpl implements Urgent {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -947,6 +982,7 @@ class _$UrgentImpl implements Urgent {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -965,6 +1001,181 @@ abstract class Urgent implements InhouseStockState {
   bool get selectedUrgent;
   @JsonKey(ignore: true)
   _$$UrgentImplCopyWith<_$UrgentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OverQtyImplCopyWith<$Res> {
+  factory _$$OverQtyImplCopyWith(
+          _$OverQtyImpl value, $Res Function(_$OverQtyImpl) then) =
+      __$$OverQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isOver});
+}
+
+/// @nodoc
+class __$$OverQtyImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res, _$OverQtyImpl>
+    implements _$$OverQtyImplCopyWith<$Res> {
+  __$$OverQtyImplCopyWithImpl(
+      _$OverQtyImpl _value, $Res Function(_$OverQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isOver = null,
+  }) {
+    return _then(_$OverQtyImpl(
+      null == isOver
+          ? _value.isOver
+          : isOver // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OverQtyImpl implements OverQty {
+  const _$OverQtyImpl(this.isOver);
+
+  @override
+  final bool isOver;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.isOverQuantity(isOver: $isOver)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OverQtyImpl &&
+            (identical(other.isOver, isOver) || other.isOver == isOver));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isOver);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OverQtyImplCopyWith<_$OverQtyImpl> get copyWith =>
+      __$$OverQtyImplCopyWithImpl<_$OverQtyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return isOverQuantity(isOver);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return isOverQuantity?.call(isOver);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (isOverQuantity != null) {
+      return isOverQuantity(isOver);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+  }) {
+    return isOverQuantity(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+  }) {
+    return isOverQuantity?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (isOverQuantity != null) {
+      return isOverQuantity(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OverQty implements InhouseStockState {
+  const factory OverQty(final bool isOver) = _$OverQtyImpl;
+
+  bool get isOver;
+  @JsonKey(ignore: true)
+  _$$OverQtyImplCopyWith<_$OverQtyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1011,6 +1222,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -1026,6 +1238,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -1041,6 +1254,7 @@ class _$InitialImpl implements Initial {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -1060,6 +1274,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -1075,6 +1290,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -1090,6 +1306,7 @@ class _$InitialImpl implements Initial {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -1149,6 +1366,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -1164,6 +1382,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -1179,6 +1398,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -1198,6 +1418,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -1213,6 +1434,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -1228,6 +1450,7 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
@@ -1313,6 +1536,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(int qty) incrementQty,
     required TResult Function(int qty) decrementQty,
     required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -1328,6 +1552,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(int qty)? incrementQty,
     TResult? Function(int qty)? decrementQty,
     TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -1343,6 +1568,7 @@ class _$ErrorImpl implements Error {
     TResult Function(int qty)? incrementQty,
     TResult Function(int qty)? decrementQty,
     TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -1362,6 +1588,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(IncrementQty value) incrementQty,
     required TResult Function(DecrementQty value) decrementQty,
     required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
@@ -1377,6 +1604,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(IncrementQty value)? incrementQty,
     TResult? Function(DecrementQty value)? decrementQty,
     TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
@@ -1392,6 +1620,7 @@ class _$ErrorImpl implements Error {
     TResult Function(IncrementQty value)? incrementQty,
     TResult Function(DecrementQty value)? decrementQty,
     TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,

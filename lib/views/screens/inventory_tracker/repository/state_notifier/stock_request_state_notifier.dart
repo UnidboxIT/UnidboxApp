@@ -24,6 +24,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       int totalQty,
       double price,
       int uomID,
+      bool isUrgent,
       BuildContext context) async {
     try {
       state = const StockRequestState.loading();
@@ -36,7 +37,8 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           totalQty,
           price,
-          uomID);
+          uomID,
+          isUrgent);
       superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {

@@ -1,17 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/inhouse_stock_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inhouse_stock_state.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
 import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../../utils/constant/app_constant.dart';
 import '../../domain/inhouse_stock.dart';
 import '../../domain/product.dart';
 
@@ -32,14 +33,17 @@ class InhouseStockWidget extends ConsumerStatefulWidget {
 class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
   // List<String> requestType = ["Box", "Piece"];
   int selectedBox = 0;
-  int totalQty = 1;
+  // int totalQty = 1;
+  TextEditingController txtTotalQty = TextEditingController();
   bool isUrgent = false;
   bool isSendRequestLoading = false;
+  bool isOverQty = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    txtTotalQty.text = "1";
   }
 
   @override
@@ -174,7 +178,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                   : SizedBox(
                       height: 40,
                       child: buttonWidget("Request", () {
-                        showBottomSheet(location, id);
+                        showBottomSheet(location, id, qty);
                       })),
             )
           ],
@@ -210,7 +214,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               child: SizedBox(
                   height: 40,
                   child: buttonWidget("Request", () {
-                    showBottomSheet(location, id);
+                    showBottomSheet(location, id, qty);
                   })),
             )
           ],
@@ -220,8 +224,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     );
   }
 
-  Widget requestStockWidget(
-      BuildContext context, String location, int requestWarehouseID) {
+  Widget requestStockWidget(BuildContext context, String location,
+      int requestWarehouseID, String qty) {
     return Consumer(builder: (context, ref, child) {
       final next = ref.watch(stockRequesstStateNotifierProvider);
       if (next is StockRequestLoading) {
@@ -276,25 +280,135 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               children: [
                 addMinusIconButtonWidget(
                   () {
+                    if (txtTotalQty.text.isEmpty) {
+                      txtTotalQty.text = "0";
+                    }
+                    superPrint(double.parse(qty).toInt());
+                    superPrint(int.parse(txtTotalQty.text).toInt());
+                    if (double.parse(txtTotalQty.text).toInt() > 1) {
+                      if (double.parse(qty).toInt() != 0) {
+                        if (double.parse(qty).toInt() + 1 <
+                            int.parse(txtTotalQty.text).toInt()) {
+                          setState(() {
+                            isOverQty = true;
+                          });
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .overQuantity(isOverQty);
+                        } else {
+                          setState(() {
+                            isOverQty = false;
+                          });
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .overQuantity(isOverQty);
+                        }
+                      } else {
+                        setState(() {
+                          isOverQty = true;
+                        });
+                        ref
+                            .read(inhouseStockStateNotifierProvider.notifier)
+                            .overQuantity(isOverQty);
+                      }
+                    }
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
-                        .decrementTotalQty(totalQty);
+                        .decrementTotalQty(int.parse(txtTotalQty.text));
                   },
                   CupertinoIcons.minus_circle_fill,
                 ),
-                const SizedBox(width: 10),
-                textWidget(
-                  totalQty.toString(),
-                  size: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 45,
+                  width: 28.w,
+                  child: TextFormField(
+                    controller: txtTotalQty,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    cursorColor: AppColor.primary,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 10),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        if (value == "0") {
+                          setState(() {
+                            txtTotalQty.text = "1";
+                          });
+                        } else {
+                          setState(() {
+                            if (double.parse(qty).toInt() <
+                                int.parse(value).toInt()) {
+                              isOverQty = true;
+                              ref
+                                  .read(inhouseStockStateNotifierProvider
+                                      .notifier)
+                                  .overQuantity(isOverQty);
+                            } else {
+                              isOverQty = false;
+                              ref
+                                  .read(inhouseStockStateNotifierProvider
+                                      .notifier)
+                                  .overQuantity(isOverQty);
+                            }
+                          });
+                        }
+
+                        superPrint(isOverQty);
+                      }
+                    },
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
-                const SizedBox(width: 10),
+                // textWidget(
+                //   totalQty.toString(),
+                //   size: 18,
+                //   color: Colors.black,
+                //   fontWeight: FontWeight.bold,
+                // ),
                 addMinusIconButtonWidget(
                   () {
+                    if (txtTotalQty.text.isEmpty) {
+                      txtTotalQty.text = "0";
+                    }
+                    if (double.parse(qty).toInt() <=
+                        int.parse(txtTotalQty.text).toInt()) {
+                      setState(() {
+                        isOverQty = true;
+                      });
+                      ref
+                          .read(inhouseStockStateNotifierProvider.notifier)
+                          .overQuantity(isOverQty);
+                    } else {
+                      setState(() {
+                        isOverQty = false;
+                      });
+                      ref
+                          .read(inhouseStockStateNotifierProvider.notifier)
+                          .overQuantity(isOverQty);
+                    }
+
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
-                        .incrementTotalQty(totalQty);
+                        .incrementTotalQty(int.parse(txtTotalQty.text));
                   },
                   CupertinoIcons.add_circled_solid,
                 ),
@@ -346,33 +460,44 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                 ),
                 const SizedBox(height: 15),
                 urgentWidget(),
+                Visibility(
+                    visible: isOverQty,
+                    child: textWidget(
+                      "Your request have exceed the \namount available at the outlet",
+                      size: 13,
+                      color: AppColor.primary,
+                      fontWeight: FontWeight.w600,
+                    )),
               ],
             ),
             const SizedBox(height: 20),
             SizedBox(
               width: 50.w,
               child: buttonWidget("Send Request", () {
-                superPrint(
-                  admin.companyId,
-                );
-                ref
-                    .read(stockRequesstStateNotifierProvider.notifier)
-                    .requestInHouseStock(
-                      widget.userWarehouse.warehouseList[0],
-                      requestWarehouseID,
-                      admin.companyId,
-                      widget.productDetail.id,
-                      widget.productDetail.name,
-                      totalQty,
-                      widget.productDetail.price,
-                      selectedBox,
-                      context,
-                    )
-                    .then((_) {
+                superPrint(isUrgent, title: "Is Urgent");
+                superPrint(isOverQty);
+                superPrint(int.parse(txtTotalQty.text));
+                if (!isOverQty) {
                   ref
-                      .read(inhouseStockStateNotifierProvider.notifier)
-                      .getInHouseStock(widget.productDetail.id);
-                });
+                      .read(stockRequesstStateNotifierProvider.notifier)
+                      .requestInHouseStock(
+                        widget.userWarehouse.warehouseList[0],
+                        requestWarehouseID,
+                        admin.companyId,
+                        widget.productDetail.id,
+                        widget.productDetail.name,
+                        int.parse(txtTotalQty.text),
+                        widget.productDetail.price,
+                        selectedBox,
+                        isUrgent,
+                        context,
+                      )
+                      .then((_) {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .getInHouseStock(widget.productDetail.id);
+                  });
+                }
               }, isBool: isSendRequestLoading),
             )
           ],
@@ -385,7 +510,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 30.w,
+        width: 20.w,
         height: 50,
         color: Colors.transparent,
         child: Icon(
@@ -438,13 +563,24 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     );
   }
 
-  Future<void> showBottomSheet(location, int requestWarehouseID) {
-    totalQty = 1;
+  Future<void> showBottomSheet(location, int requestWarehouseID, String qty) {
+    txtTotalQty.text = "1";
+    if (double.parse(qty).toInt() < 1) {
+      setState(() {
+        isOverQty = true;
+      });
+    } else {
+      setState(() {
+        isOverQty = false;
+      });
+    }
+
     isUrgent = false;
     ref
         .read(inhouseStockStateNotifierProvider.notifier)
         .selectedRequestBox(widget.productDetail.uomList[0] ?? 0);
     return showModalBottomSheet(
+      isScrollControlled: true,
       backgroundColor: Colors.black.withOpacity(0.1),
       barrierColor: Colors.black.withOpacity(0.3),
       shape: const RoundedRectangleBorder(
@@ -457,30 +593,41 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
       elevation: 0,
       useSafeArea: true,
       builder: (context) {
-        return Consumer(builder: (context, ref, child) {
-          final state = ref.watch(inhouseStockStateNotifierProvider);
-          if (state is SelectedBoxType) {
-            selectedBox = state.uomIndex;
-          }
-          if (state is IncrementQty) {
-            totalQty = state.qty;
-          }
-          if (state is DecrementQty) {
-            totalQty = state.qty;
-          }
-          if (state is Urgent) {
-            isUrgent = state.selectedUrgent;
-          }
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context)
+                .viewInsets
+                .bottom, // To ensure the sheet is above the keyboard
+          ),
+          child: Consumer(builder: (context, ref, child) {
+            final state = ref.watch(inhouseStockStateNotifierProvider);
+            if (state is SelectedBoxType) {
+              selectedBox = state.uomIndex;
+            }
+            if (state is IncrementQty) {
+              txtTotalQty.text = state.qty.toString();
+            }
+            if (state is DecrementQty) {
+              txtTotalQty.text = state.qty.toString();
+            }
+            if (state is Urgent) {
+              isUrgent = state.selectedUrgent;
+            }
+            if (state is OverQty) {
+              isOverQty = state.isOver;
+            }
 
-          return Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                  sigmaX: 3, sigmaY: 3, tileMode: TileMode.mirror),
-              child: requestStockWidget(context, location, requestWarehouseID),
-            ),
-          );
-        });
+            return Padding(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: 3, sigmaY: 3, tileMode: TileMode.mirror),
+                child: requestStockWidget(
+                    context, location, requestWarehouseID, qty),
+              ),
+            );
+          }),
+        );
       },
     );
   }

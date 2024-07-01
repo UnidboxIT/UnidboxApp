@@ -56,4 +56,8 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
     isUrgent = !isUrgent;
     state = InhouseStockState.urgent(isUrgent);
   }
+
+  overQuantity(bool isOver) {
+    state = InhouseStockState.isOverQuantity(isOver);
+  }
 }

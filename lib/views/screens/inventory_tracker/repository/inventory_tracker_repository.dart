@@ -82,6 +82,7 @@ class InventoryTrackerRepository {
     int totalQty,
     double price,
     int uomID,
+    bool isUrgent,
   ) async {
     Map<String, dynamic> formData = {
       "request_to_wh": requestWarehouseID,
@@ -89,7 +90,8 @@ class InventoryTrackerRepository {
       "product_id": productID,
       "date": dateTime,
       "quantity": totalQty,
-      "uom_id": uomID
+      "uom_id": uomID,
+      "is_urgent": isUrgent,
     };
     superPrint(formData);
     http.Response response = await ApiService().post(
