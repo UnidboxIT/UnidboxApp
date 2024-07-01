@@ -41,17 +41,12 @@ class _InventoryCategoryScreenState
           color: AppColor.bgColor,
           child: Stack(
             children: [
-              inventoryAppBarWidget(
-                widget.name,
-                () {
-                  Navigator.of(context).pop();
-                },
-                () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const CreateProductScreen()));
-                },
-                Icons.add,
-              ),
+              inventoryAppBarWidget(widget.name, () {
+                Navigator.of(context).pop();
+              }, () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CreateProductScreen()));
+              }, Icons.add, isInternalTransfer: false),
               Transform.translate(
                 offset: Offset(0, 14.h),
                 child: subCategoryBodyWidget(context),

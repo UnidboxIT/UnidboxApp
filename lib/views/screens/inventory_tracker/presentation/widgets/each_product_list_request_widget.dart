@@ -1,0 +1,336 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
+import '../../../../../utils/commons/common_method.dart';
+import '../../../../../utils/constant/app_color.dart';
+import '../../../../widgets/button/button_widget.dart';
+import '../../../../widgets/text_widget.dart';
+import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
+import '../../domain/product.dart';
+import '../../repository/provider/inhouse_stock_provider.dart';
+import '../../repository/state/inhouse_stock_state.dart';
+
+class EachProductListRequestWidget extends ConsumerStatefulWidget {
+  final Products product;
+  final List<String> productIdList;
+  const EachProductListRequestWidget(
+      {super.key, required this.product, required this.productIdList});
+
+  @override
+  ConsumerState<EachProductListRequestWidget> createState() =>
+      _EachProductListRequestWidgetState();
+}
+
+class _EachProductListRequestWidgetState
+    extends ConsumerState<EachProductListRequestWidget> {
+  TextEditingController txtTotalQty = TextEditingController();
+  bool isUrgent = false;
+  bool isSendRequestLoading = false;
+  int selectedBox = 0;
+  Map<String, dynamic> qtyByMap = {};
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for (var data in widget.productIdList) {
+      qtyByMap.addAll({data: "1"});
+    }
+    superPrint(qtyByMap);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String productId = widget.product.id.toString();
+    String fullName = widget.product.fullName;
+    double qty = widget.product.quantity;
+    double price = widget.product.price;
+    double qtyOutStock = widget.product.qtyOutStock;
+    selectedBox =
+        widget.product.uomList.isNotEmpty ? widget.product.uomList[0] : 0;
+    ref.listen(inhouseStockStateNotifierProvider, (pre, state) {
+      if (state is SelectedBoxType) {
+        setState(() {
+          selectedBox = state.uomIndex;
+        });
+      }
+      if (state is IncrementQty) {
+        setState(() {
+          txtTotalQty.text = state.qty.toString();
+          qtyByMap[productId] = txtTotalQty.text;
+        });
+      }
+      if (state is DecrementQty) {
+        setState(() {
+          txtTotalQty.text = state.qty.toString();
+          qtyByMap[productId] = txtTotalQty.text;
+        });
+      }
+      if (state is Urgent) {
+        setState(() {
+          isUrgent = state.selectedUrgent;
+        });
+      }
+    });
+    superPrint(qtyByMap);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: AppColor.dropshadowColor,
+                  blurRadius: 3,
+                  spreadRadius: 3),
+            ]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 3.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+                color: qty > qtyOutStock ? AppColor.orangeColor : Colors.red,
+              ),
+              alignment: Alignment.center,
+              child: textWidget(
+                  qty > qtyOutStock ? "Sufficient Stock" : "Insufficient Stock",
+                  color: Colors.white,
+                  size: 12.5,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: textWidget(fullName,
+                  maxLine: 2,
+                  textOverflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  size: 13,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textWidget("Qty : $qty",
+                      textOverflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      size: 12,
+                      fontWeight: FontWeight.w500),
+                  textWidget("\$ ${CommonMethods.twoDecimalPrice(price)}",
+                      textOverflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      size: 12,
+                      fontWeight: FontWeight.w500),
+                ],
+              ),
+            ),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                addMinusIconButtonWidget(
+                  () {
+                    if (txtTotalQty.text.isEmpty) {
+                      txtTotalQty.text = "0";
+                    }
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .decrementTotalQty(int.parse(txtTotalQty.text));
+                  },
+                  CupertinoIcons.minus_circle_fill,
+                  AppColor.primary,
+                ),
+                Container(
+                  height: 38,
+                  width: 20.w,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppColor.dropshadowColor,
+                            blurRadius: 3,
+                            spreadRadius: 3),
+                      ]),
+                  child: qtyByMap[productId] == 1
+                      ? textWidget(qtyByMap[productId])
+                      : TextFormField(
+                          controller: txtTotalQty,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          cursorColor: AppColor.primary,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 10),
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              if (value == "0") {
+                                setState(() {
+                                  txtTotalQty.text = "1";
+                                });
+                              }
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                ),
+                addMinusIconButtonWidget(
+                  () {
+                    if (txtTotalQty.text.isEmpty) {
+                      txtTotalQty.text = "0";
+                    }
+
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .incrementTotalQty(int.parse(txtTotalQty.text));
+                  },
+                  CupertinoIcons.add_circled_solid,
+                  AppColor.primary,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(inhouseStockStateNotifierProvider.notifier)
+                          .selectedRequestBox(widget.product.uomList[0]);
+                    },
+                    child: boxPieceWidget(
+                        widget.product.uomList[1], widget.product.uomList[0]),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 10,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              onTap: () {
+                                ref
+                                    .read(inhouseStockStateNotifierProvider
+                                        .notifier)
+                                    .selectedRequestBox(
+                                        widget.product.multiUomList[index][0]);
+                              },
+                              child: boxPieceWidget(
+                                  widget.product.multiUomList[index][1],
+                                  widget.product.multiUomList[index][0]));
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 10);
+                        },
+                        itemCount: widget.product.multiUomList.length),
+                  ),
+                ],
+              ),
+            ]),
+            const SizedBox(height: 5),
+            urgentWidget(),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                requestButtonWidgetInProductList("Cancel", () {
+                  if (widget.productIdList.contains(productId)) {
+                    setState(() {
+                      widget.productIdList.remove(productId);
+                    });
+                  }
+                },
+                    elevation: 0.2,
+                    fontSize: 15,
+                    bgColor: Colors.grey.shade100,
+                    fontColor: AppColor.primary),
+                requestButtonWidgetInProductList("Send", () {},
+                    fontSize: 15,
+                    elevation: 0.2,
+                    bgColor: Colors.grey.shade100,
+                    fontColor: AppColor.primary),
+              ],
+            ),
+            const SizedBox(height: 5),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget boxPieceWidget(String name, int index) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        color: index == selectedBox ? AppColor.pinkColor : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: textWidget(
+        name,
+        fontWeight: FontWeight.bold,
+        color: index == selectedBox ? Colors.white : Colors.black,
+        size: 15,
+      ),
+    );
+  }
+
+  Widget urgentWidget() {
+    return GestureDetector(
+      onTap: () {
+        ref.read(inhouseStockStateNotifierProvider.notifier).selectedUrgent();
+      },
+      child: Container(
+        width: 30.w,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        color: Colors.transparent,
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            Icon(
+              isUrgent
+                  ? Icons.check_box_rounded
+                  : Icons.check_box_outline_blank_outlined,
+              size: 18,
+            ),
+            const SizedBox(width: 10),
+            textWidget("Urgent", size: 12, fontWeight: FontWeight.bold)
+          ],
+        ),
+      ),
+    );
+  }
+}

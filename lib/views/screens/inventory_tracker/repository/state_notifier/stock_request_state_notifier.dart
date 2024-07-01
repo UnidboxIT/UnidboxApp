@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +7,10 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
+import '../../../../widgets/bottom_sheets/stock_request_bottom_sheet.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
+import '../../../internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
+import '../../../internal_transfer/my_request/presentation/pending_request_list_screen.dart';
 
 class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
   StockRequestStateNotifier(this._inventoryTrackerRepository)
@@ -46,16 +49,39 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           state = StockRequestState.success(
             result['result']['message'].toString(),
           );
-          successfullyBottomSheet(
+          stockRequestSuccessBottomSheet(
             "Request Sent!",
             "Check status under pending requests",
             () {
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+            () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(
+                      builder: (context) => const PendingRequestListScreen()))
+                  .then((_) {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const MyRequestsDetailScreen(
+                              isStockRequest: true,
+                            )),
+                    (route) => route.isFirst);
+              });
             },
             context,
-          ).then((_) {
-            Navigator.of(context).pop();
-          });
+          );
+          // successfullyBottomSheet(
+          //   "Request Sent!",
+          //   "Check status under pending requests",
+          //   () {
+          //     Navigator.of(context).pop();
+          //   },
+          //   context,
+          // ).then((_) {
+          //   Navigator.of(context).pop();
+          // });
         } else {
           successfullyBottomSheet(
               "Request Sent Fail!", result['result']['error'], () {

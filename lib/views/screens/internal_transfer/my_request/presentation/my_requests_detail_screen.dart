@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/my_request.dart';
@@ -14,7 +15,8 @@ import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
 
 class MyRequestsDetailScreen extends ConsumerStatefulWidget {
-  const MyRequestsDetailScreen({super.key});
+  final bool isStockRequest;
+  const MyRequestsDetailScreen({super.key, required this.isStockRequest});
 
   @override
   ConsumerState<MyRequestsDetailScreen> createState() =>
@@ -97,6 +99,7 @@ class _MyRequestsDetailScreenState
               globalAppBarWidget(
                 "My Requests",
                 () {
+                  superPrint(widget.isStockRequest);
                   Navigator.of(context).pop();
                 },
               ),

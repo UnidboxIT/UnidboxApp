@@ -474,9 +474,6 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             SizedBox(
               width: 50.w,
               child: buttonWidget("Send Request", () {
-                superPrint(isUrgent, title: "Is Urgent");
-                superPrint(isOverQty);
-                superPrint(int.parse(txtTotalQty.text));
                 if (!isOverQty) {
                   ref
                       .read(stockRequesstStateNotifierProvider.notifier)

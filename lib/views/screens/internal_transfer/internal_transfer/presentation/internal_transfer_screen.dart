@@ -136,10 +136,11 @@ class _InternalTransferScreenState
               return GestureDetector(
                 onTap: () {
                   if (index == 0) {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const MyRequestsDetailScreen()));
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                            builder: (context) => const MyRequestsDetailScreen(
+                                  isStockRequest: false,
+                                )));
                   } else if (index == 1) {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
