@@ -9,7 +9,7 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_request_state.dart';
-import 'package:unidbox_app/views/user_warehouse_service/domain/user_warehouse.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/inhouse_stock.dart';

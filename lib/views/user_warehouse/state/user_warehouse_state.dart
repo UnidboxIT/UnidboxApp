@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:unidbox_app/views/user_warehouse_service/domain/user_warehouse.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 part 'user_warehouse_state.freezed.dart';
 
 extension Getters on UserWarehouseState {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:unidbox_app/views/user_warehouse_service/domain/user_warehouse.dart';
-import 'package:unidbox_app/views/user_warehouse_service/user_warehouse_repository.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
+import 'package:unidbox_app/views/user_warehouse/user_warehouse_repository.dart';
 import '../../../utils/commons/super_print.dart';
 import '../state/user_warehouse_state.dart';
 

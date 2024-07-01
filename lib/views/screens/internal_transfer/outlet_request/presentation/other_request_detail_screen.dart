@@ -13,7 +13,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repos
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
-import '../../../../user_warehouse_service/domain/user_warehouse.dart';
+import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../my_request/domain/my_request.dart';
 import 'other_request_history/other_request_history_screen.dart';
