@@ -22,12 +22,8 @@ import 'each_product_list_request_widget.dart';
 
 TextEditingController txtTotalQty = TextEditingController();
 int requestWarehouseQty = 0;
-Future<void> showInsuffiecientBottomSheet(
-  String productId,
-  BuildContext context,
-  Products product,
-  UserWarehouse userWarehouse,
-) {
+Future<void> showInsuffiecientBottomSheet(String productId,
+    BuildContext context, Products product, UserWarehouse userWarehouse) {
   int requestWarehouseID = -1;
   List<InhouseStock> inHouseStockList = [];
   List<InhouseStock> filterWareHouseList = [];
@@ -95,14 +91,8 @@ Future<void> showInsuffiecientBottomSheet(
             child: BackdropFilter(
               filter: ImageFilter.blur(
                   sigmaX: 3, sigmaY: 3, tileMode: TileMode.mirror),
-              child: requestStockWidget(
-                context,
-                productId,
-                product,
-                filterWareHouseList,
-                userWarehouse,
-                requestWarehouseID,
-              ),
+              child: requestStockWidget(context, productId, product,
+                  filterWareHouseList, userWarehouse, requestWarehouseID),
             ),
           );
         }),
@@ -112,12 +102,13 @@ Future<void> showInsuffiecientBottomSheet(
 }
 
 Widget requestStockWidget(
-    BuildContext context,
-    String productId,
-    Products product,
-    List<InhouseStock> inHouseStockList,
-    UserWarehouse userWarehouse,
-    int requestWarehouseID) {
+  BuildContext context,
+  String productId,
+  Products product,
+  List<InhouseStock> inHouseStockList,
+  UserWarehouse userWarehouse,
+  int requestWarehouseID,
+) {
   superPrint(inHouseStockList);
   superPrint(requestWarehouseID);
   superPrint(qtyByMap[productId]);
@@ -303,7 +294,7 @@ Widget requestStockWidget(
                   ),
                   const SizedBox(width: 10),
                   SizedBox(
-                    height: 40,
+                    height: 30,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -347,7 +338,7 @@ Widget requestStockWidget(
               "Send Request",
               () {
                 if (requestWarehouseID != -1 &&
-                    requestWarehouseQty > qtyByMap[productId]!) {
+                    requestWarehouseQty >= qtyByMap[productId]!) {
                   superPrint(qtyByMap[product.id.toString()]!);
                   ref
                       .read(stockRequesstStateNotifierProvider.notifier)

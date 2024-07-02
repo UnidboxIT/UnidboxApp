@@ -600,12 +600,13 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                           .then((_) {});
 
                                                       showInsuffiecientBottomSheet(
-                                                          productList[index]
-                                                              .id
-                                                              .toString(),
-                                                          context,
-                                                          productList[index],
-                                                          userWarehouse);
+                                                        productList[index]
+                                                            .id
+                                                            .toString(),
+                                                        context,
+                                                        productList[index],
+                                                        userWarehouse,
+                                                      );
                                                     } else {
                                                       ref
                                                           .read(

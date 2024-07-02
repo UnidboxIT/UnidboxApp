@@ -140,16 +140,14 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
           child: Stack(
             children: [
               inventoryAppBarWidget(
-                productList.isEmpty ? "" : productList.first.categoryIdList[1],
-                () {
-                  Navigator.of(context).pop();
-                },
-                () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const CreateProductScreen()));
-                },
-                Icons.add,
-              ),
+                  productList.isEmpty
+                      ? ""
+                      : productList.first.categoryIdList[1], () {
+                Navigator.of(context).pop();
+              }, () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CreateProductScreen()));
+              }, Icons.add, isInternalTransfer: false),
               Transform.translate(
                   offset: Offset(0, 14.h), child: scanBodyWidget()),
             ],

@@ -53,7 +53,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             "Request Sent!",
             "Check status under pending requests",
             () {
-              // Navigator.of(context).pop();
+              Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
