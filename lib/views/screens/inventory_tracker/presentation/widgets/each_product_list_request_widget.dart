@@ -31,7 +31,6 @@ class EachProductListRequestWidget extends ConsumerStatefulWidget {
 class _EachProductListRequestWidgetState
     extends ConsumerState<EachProductListRequestWidget> {
   TextEditingController txtTotalQty = TextEditingController();
-
   int totalQty = 1;
   bool isShowTextField = false;
 
@@ -39,10 +38,11 @@ class _EachProductListRequestWidgetState
   void initState() {
     // TODO: implement initState
     super.initState();
-
     for (var data in widget.productIdList) {
       qtyByMap.update(data, (value) => value, ifAbsent: () => 1);
     }
+    selectedBox =
+        widget.product.uomList.isNotEmpty ? widget.product.uomList[0] : 0;
     superPrint(qtyByMap);
   }
 
@@ -53,8 +53,7 @@ class _EachProductListRequestWidgetState
     double qty = widget.product.quantity;
     double price = widget.product.price;
     double qtyOutStock = widget.product.qtyOutStock;
-    selectedBox =
-        widget.product.uomList.isNotEmpty ? widget.product.uomList[0] : 0;
+
     ref.listen(inhouseStockStateNotifierProvider, (pre, state) {
       if (state is SelectedBoxType) {
         setState(() {
@@ -275,9 +274,12 @@ class _EachProductListRequestWidgetState
                     widget.product.uomList[1], widget.product.uomList[0]),
               ),
               const SizedBox(width: 10),
-              SizedBox(
-                height: 10,
+              Container(
+                color: Colors.transparent,
+                height: 30,
+                alignment: Alignment.center,
                 child: ListView.separated(
+                    padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -311,9 +313,14 @@ class _EachProductListRequestWidgetState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
-        color: index == selectedBox ? AppColor.pinkColor : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
+          color: index == selectedBox ? AppColor.pinkColor : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                color: AppColor.dropshadowColor,
+                blurRadius: 3,
+                spreadRadius: 3),
+          ]),
       child: textWidget(
         name,
         fontWeight: FontWeight.bold,

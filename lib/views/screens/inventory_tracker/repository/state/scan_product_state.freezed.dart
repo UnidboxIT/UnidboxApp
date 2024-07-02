@@ -49,7 +49,7 @@ mixin _$ScanProductState {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ mixin _$ScanProductState {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ mixin _$ScanProductState {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -208,7 +208,7 @@ class _$ScanProductListImpl implements ScanProductList {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loadScanProduct(this);
@@ -220,7 +220,7 @@ class _$ScanProductListImpl implements ScanProductList {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loadScanProduct?.call(this);
@@ -232,7 +232,7 @@ class _$ScanProductListImpl implements ScanProductList {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -361,7 +361,7 @@ class _$IsScanDataExitImpl implements IsScanDataExit {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return isSearchDataExist(this);
@@ -373,7 +373,7 @@ class _$IsScanDataExitImpl implements IsScanDataExit {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return isSearchDataExist?.call(this);
@@ -385,7 +385,7 @@ class _$IsScanDataExitImpl implements IsScanDataExit {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -486,7 +486,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -498,7 +498,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -510,7 +510,7 @@ class _$InitialImpl implements Initial {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -526,25 +526,25 @@ abstract class Initial implements ScanProductState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$ScanProductLoadingImplCopyWith<$Res> {
+  factory _$$ScanProductLoadingImplCopyWith(_$ScanProductLoadingImpl value,
+          $Res Function(_$ScanProductLoadingImpl) then) =
+      __$$ScanProductLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ScanProductStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$ScanProductLoadingImplCopyWithImpl<$Res>
+    extends _$ScanProductStateCopyWithImpl<$Res, _$ScanProductLoadingImpl>
+    implements _$$ScanProductLoadingImplCopyWith<$Res> {
+  __$$ScanProductLoadingImplCopyWithImpl(_$ScanProductLoadingImpl _value,
+      $Res Function(_$ScanProductLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$ScanProductLoadingImpl implements ScanProductLoading {
+  const _$ScanProductLoadingImpl();
 
   @override
   String toString() {
@@ -554,7 +554,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$ScanProductLoadingImpl);
   }
 
   @override
@@ -606,7 +606,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -618,7 +618,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -630,7 +630,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -641,8 +641,8 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements ScanProductState {
-  const factory Loading() = _$LoadingImpl;
+abstract class ScanProductLoading implements ScanProductState {
+  const factory ScanProductLoading() = _$ScanProductLoadingImpl;
 }
 
 /// @nodoc
@@ -752,7 +752,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(ScanProductList value) loadScanProduct,
     required TResult Function(IsScanDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ScanProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -764,7 +764,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(ScanProductList value)? loadScanProduct,
     TResult? Function(IsScanDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ScanProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -776,7 +776,7 @@ class _$ErrorImpl implements Error {
     TResult Function(ScanProductList value)? loadScanProduct,
     TResult Function(IsScanDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ScanProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
