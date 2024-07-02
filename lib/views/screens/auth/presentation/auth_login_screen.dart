@@ -8,8 +8,12 @@ import 'package:unidbox_app/views/screens/auth/presentation/widgets/each_text_fi
 import 'package:unidbox_app/views/screens/auth/presentation/widgets/login_image_widget.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/widgets/remember_me_widget.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import '../../../../main.dart';
 import '../../../../utils/constant/app_color.dart';
 import '../../../widgets/text_widget.dart';
+import '../../internet_connection/provider/internet_provider.dart';
+import '../../internet_connection/state/connection_status.dart';
+import '../../notification_service/pushy_noti_service.dart';
 import '../repository/auth_state_notifier.dart';
 import '../repository/state/auth_state.dart';
 
@@ -42,6 +46,10 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (ref.watch(connectivityStatusProviders) ==
+        ConnectivityStatus.isConnected) {
+      pushyRegister(backgroundNotificationListener);
+    }
     ref.watch(authStateNotifierControllerProvider);
     ref.listen(authStateNotifierControllerProvider, (prev, next) {
       if (next is Loading) {

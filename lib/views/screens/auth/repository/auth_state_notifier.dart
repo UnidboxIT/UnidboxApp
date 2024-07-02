@@ -101,7 +101,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       ),
       (Route<dynamic> route) => false,
     );
-    pushyRegister(backgroundNotificationListener);
+
     // Navigator.pushReplacement(
     //   context,
     //   MaterialPageRoute(
