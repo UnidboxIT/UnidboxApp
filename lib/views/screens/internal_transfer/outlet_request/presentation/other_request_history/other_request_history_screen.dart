@@ -190,7 +190,7 @@ class _PendingRequestListScreenState
                           size: 14,
                           color: Colors.black.withOpacity(0.7),
                         ),
-                        textWidget("From"),
+                        textWidget("Request From"),
                       ],
                     ),
                   ),
@@ -263,10 +263,7 @@ class _PendingRequestListScreenState
                                   visible: visibleCode.contains(productLineKey),
                                   child: const SizedBox(height: 10)),
                               Container(
-                                padding: !visibleCode.contains(productLineKey)
-                                    ? EdgeInsets.zero
-                                    : const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 0),
+                                padding: EdgeInsets.zero,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(15),
@@ -282,8 +279,49 @@ class _PendingRequestListScreenState
                                     return Visibility(
                                       visible:
                                           visibleCode.contains(productLineKey),
-                                      child: eachHistoryWidget(
-                                          productList[subIndex]),
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Positioned(
+                                            left: -2.w,
+                                            child: Container(
+                                              height: 13.h,
+                                              width: 5.w,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: productList[subIndex]
+                                                            .status ==
+                                                        "done"
+                                                    ? AppColor.orangeColor
+                                                    : Colors.grey.shade300,
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(8),
+                                                  topLeft: Radius.circular(8),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: -10.w,
+                                            child: Transform.rotate(
+                                              angle: 80.1,
+                                              child: textWidget("TRANSFERRED",
+                                                  size: 12,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 0),
+                                            child: eachHistoryWidget(
+                                                productList[subIndex]),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 ),
@@ -312,34 +350,56 @@ class _PendingRequestListScreenState
         const SizedBox(height: 10),
         Container(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textWidget(product.code, size: 14, color: Colors.black),
-              const SizedBox(width: 10),
-              SizedBox(
-                  width: 58.w,
-                  child: textWidget(product.productIdList[1],
-                      size: 14, textAlign: TextAlign.left)),
-            ],
-          ),
+          child: SizedBox(
+              width: 100.w,
+              child: textWidget(
+                product.productIdList[1],
+                size: 14,
+                textAlign: TextAlign.left,
+                fontWeight: FontWeight.w700,
+              )),
         ),
+        Row(
+          children: [
+            textWidget(
+              "SKU ",
+              fontWeight: FontWeight.w700,
+              color: AppColor.pinkColor,
+            ),
+            textWidget(product.code, size: 14, color: Colors.black),
+          ],
+        ),
+        const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              textWidget(
-                "Request Qty : ${product.qty.toInt()} pc",
-                color: AppColor.pinkColor,
-                fontWeight: FontWeight.w700,
-                size: 17,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColor.pinkColor.withOpacity(0.2)),
+                child: textWidget(
+                  "Request Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
+                  color: Colors.black.withOpacity(0.7),
+                  fontWeight: FontWeight.w700,
+                  size: 14,
+                ),
               ),
-              textWidget(
-                "Issued Qty : ${product.issueQty.toInt()} pc",
-                color: AppColor.pinkColor,
-                fontWeight: FontWeight.w700,
-                size: 17,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColor.pinkColor.withOpacity(0.2)),
+                child: textWidget(
+                  "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
+                  color: Colors.black.withOpacity(0.7),
+                  fontWeight: FontWeight.w700,
+                  size: 14,
+                ),
               ),
             ],
           ),
