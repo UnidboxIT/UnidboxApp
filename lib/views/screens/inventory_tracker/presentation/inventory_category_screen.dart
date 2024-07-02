@@ -86,6 +86,7 @@ class _InventoryCategoryScreenState
               ? ProductWidget(
                   id: widget.parentID,
                   name: widget.name,
+                  isBackRequest: true,
                 )
               : Expanded(
                   child: ListView.separated(

@@ -28,7 +28,8 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       double price,
       int uomID,
       bool isUrgent,
-      BuildContext context) async {
+      BuildContext context,
+      {bool isBackReques = false}) async {
     state = const StockRequestState.loading();
     try {
       Response response = await _inventoryTrackerRepository.stockRequest(
@@ -53,9 +54,14 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             "Request Sent!",
             "Check status under pending requests",
             () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
+              if (isBackReques) {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              }
             },
             () {
               Navigator.of(context)

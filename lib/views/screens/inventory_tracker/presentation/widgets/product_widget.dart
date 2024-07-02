@@ -24,12 +24,13 @@ import 'insufficient_request_bottom_sheet.dart';
 class ProductWidget extends ConsumerStatefulWidget {
   final String id;
   final String name;
+  final bool isBackRequest;
 
-  const ProductWidget({
-    super.key,
-    required this.id,
-    required this.name,
-  });
+  const ProductWidget(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.isBackRequest});
 
   @override
   ConsumerState<ProductWidget> createState() => _ProductWidgetState();
@@ -339,10 +340,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                               productList[index].id)
                                           .then((_) {});
                                       showInsuffiecientBottomSheet(
-                                          productList[index].id.toString(),
-                                          context,
-                                          productList[index],
-                                          userWarehouse);
+                                        productList[index].id.toString(),
+                                        context,
+                                        productList[index],
+                                        userWarehouse,
+                                        isBackRequest: widget.isBackRequest,
+                                      );
                                     } else {
                                       isSendRequestLoading
                                           ? () {}
@@ -367,6 +370,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                                         .toString()] ??
                                                     false,
                                                 context,
+                                                isBackReques:
+                                                    widget.isBackRequest,
                                               )
                                               .then((_) {
                                               ref

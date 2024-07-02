@@ -53,7 +53,7 @@ class ProductScreen extends ConsumerWidget {
   Widget productBodyWidget() {
     return Container(
       width: 100.w,
-      height: 81.h,
+      height: 87.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(
@@ -66,6 +66,7 @@ class ProductScreen extends ConsumerWidget {
           ProductWidget(
             id: parentID,
             name: name,
+            isBackRequest: false,
           ),
           Container(
             height: 8.h,

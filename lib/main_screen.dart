@@ -75,11 +75,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Widget bottomNavBar() {
     return BottomAppBar(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      height: 55,
+      height: 60,
       color: Colors.white,
       surfaceTintColor: Colors.white,
       shape: const CircularNotchedRectangle(),
       notchMargin: 10,
+      shadowColor: Colors.white,
+      elevation: 20.h,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,8 +109,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   }
                 },
                 child: Container(
-                  width: 12.w,
-                  height: e.id != 2 ? 50 : 0,
+                  width: 17.w,
+                  height: e.id != 2 ? 60 : 0,
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   child: Column(
@@ -120,7 +122,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                           ? textWidget(
                               e.name,
                               fontWeight: FontWeight.w600,
-                              size: 9,
+                              size: 15,
                               color: AppColor.primary,
                             )
                           : const SizedBox(

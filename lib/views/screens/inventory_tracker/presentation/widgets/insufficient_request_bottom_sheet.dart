@@ -23,7 +23,8 @@ import 'each_product_list_request_widget.dart';
 TextEditingController txtTotalQty = TextEditingController();
 int requestWarehouseQty = 0;
 Future<void> showInsuffiecientBottomSheet(String productId,
-    BuildContext context, Products product, UserWarehouse userWarehouse) {
+    BuildContext context, Products product, UserWarehouse userWarehouse,
+    {bool isBackRequest = false}) {
   int requestWarehouseID = -1;
   List<InhouseStock> inHouseStockList = [];
   List<InhouseStock> filterWareHouseList = [];
@@ -91,8 +92,14 @@ Future<void> showInsuffiecientBottomSheet(String productId,
             child: BackdropFilter(
               filter: ImageFilter.blur(
                   sigmaX: 3, sigmaY: 3, tileMode: TileMode.mirror),
-              child: requestStockWidget(context, productId, product,
-                  filterWareHouseList, userWarehouse, requestWarehouseID),
+              child: requestStockWidget(
+                  context,
+                  productId,
+                  product,
+                  filterWareHouseList,
+                  userWarehouse,
+                  requestWarehouseID,
+                  isBackRequest),
             ),
           );
         }),
@@ -102,13 +109,13 @@ Future<void> showInsuffiecientBottomSheet(String productId,
 }
 
 Widget requestStockWidget(
-  BuildContext context,
-  String productId,
-  Products product,
-  List<InhouseStock> inHouseStockList,
-  UserWarehouse userWarehouse,
-  int requestWarehouseID,
-) {
+    BuildContext context,
+    String productId,
+    Products product,
+    List<InhouseStock> inHouseStockList,
+    UserWarehouse userWarehouse,
+    int requestWarehouseID,
+    bool isBackRequest) {
   superPrint(inHouseStockList);
   superPrint(requestWarehouseID);
   superPrint(qtyByMap[productId]);
@@ -151,6 +158,15 @@ Widget requestStockWidget(
               ),
             ),
           ),
+          // Visibility(
+          //   visible: requestWarehouseQty <= qtyByMap[productId]!,
+          //   child: textWidget(
+          //     "Request from other outlet?",
+          //     color: AppColor.primary,
+          //     size: 17,
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // ),
           textWidget(
             "Request from other outlet?",
             color: AppColor.primary,
@@ -345,17 +361,17 @@ Widget requestStockWidget(
                       : ref
                           .read(stockRequesstStateNotifierProvider.notifier)
                           .requestInHouseStock(
-                            userWarehouse.warehouseList[0],
-                            requestWarehouseID,
-                            admin.companyId,
-                            product.id,
-                            product.name,
-                            qtyByMap[product.id.toString()]!,
-                            product.price,
-                            selectedBox,
-                            isUrgentMap[product.id.toString()] ?? false,
-                            context,
-                          )
+                              userWarehouse.warehouseList[0],
+                              requestWarehouseID,
+                              admin.companyId,
+                              product.id,
+                              product.name,
+                              qtyByMap[product.id.toString()]!,
+                              product.price,
+                              selectedBox,
+                              isUrgentMap[product.id.toString()] ?? false,
+                              context,
+                              isBackReques: isBackRequest)
                           .then((_) {
                           ref
                               .read(inhouseStockStateNotifierProvider.notifier)
