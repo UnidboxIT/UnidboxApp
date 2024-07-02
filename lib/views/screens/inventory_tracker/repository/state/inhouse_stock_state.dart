@@ -19,4 +19,17 @@ class InhouseStockState with _$InhouseStockState {
   const factory InhouseStockState.initial() = Initial;
   const factory InhouseStockState.loading() = InHouseLoading;
   const factory InhouseStockState.error({String? error}) = Error;
+
+  const factory InhouseStockState.defaultWarehouseQtyIncrement(
+      String productID, int qty) = DefaultWarehouseIncrementQty;
+  const factory InhouseStockState.defaultWarehouseQtyDecrement(
+      String productID, int qty) = DefaultWarehouseDecrementQty;
+
+  const factory InhouseStockState.selectedWarehouseUrgent(
+      String productID, bool selectedUrgent) = SelectedWarehouseUrgent;
+  const factory InhouseStockState.unselectedWarehouseUrgent(
+      String productID, bool selectedUrgent) = UnselectedWarehouseUrgent;
+
+  const factory InhouseStockState.selectedWarehouse(int warehouseID) =
+      SelectedWarehouseID;
 }

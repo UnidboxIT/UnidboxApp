@@ -16,6 +16,7 @@ class Products {
   List<List<dynamic>> multiUomList;
   List rackIdList;
   String fullName;
+  List defaultWarehouseList;
 
   Products({
     this.id = 0,
@@ -35,29 +36,32 @@ class Products {
     this.multiUomList = const [],
     this.rackIdList = const [],
     this.fullName = "",
+    this.defaultWarehouseList = const [],
   });
 
   factory Products.fromJson(Map<String, dynamic> json) {
     return Products(
-      id: json['id'] ?? 0,
-      brand: json['brand'].toString(),
-      defaultCode: json['default_code'].toString(),
-      barcode: json['barcode'].toString(),
-      model: json['model'].toString(),
-      quantity: json['quantity'] ?? 0.0,
-      imageUrl: json['image_url'].toString(),
-      qtyOutStock: json['qty_warning_out_stock'] ?? 0.0,
-      name: json['display_name'].toString(),
-      fullName: json['full_name'].toString(),
-      categoryIdList: List.from(json['categ_id']),
-      costPrice: json['cost_price'] ?? 0.0,
-      price: json['sale_price'] ?? 0.0,
-      attributeList: List.from(json['attributes']),
-      uomList: List.from(json['uom_id'] ?? []),
-      multiUomList: (json['multi_uom_ids'] as List)
-          .map((e) => List<dynamic>.from(e))
-          .toList(),
-      rackIdList: List.from(json['rack_ids'] ?? []),
-    );
+        id: json['id'] ?? 0,
+        brand: json['brand'].toString(),
+        defaultCode: json['default_code'].toString(),
+        barcode: json['barcode'].toString(),
+        model: json['model'].toString(),
+        quantity: json['quantity'] ?? 0.0,
+        imageUrl: json['image_url'].toString(),
+        qtyOutStock: json['qty_warning_out_stock'] ?? 0.0,
+        name: json['display_name'].toString(),
+        fullName: json['full_name'].toString(),
+        categoryIdList: List.from(json['categ_id']),
+        costPrice: json['cost_price'] ?? 0.0,
+        price: json['sale_price'] ?? 0.0,
+        attributeList: List.from(json['attributes']),
+        uomList: List.from(json['uom_id'] ?? []),
+        multiUomList: (json['multi_uom_ids'] as List)
+            .map((e) => List<dynamic>.from(e))
+            .toList(),
+        rackIdList: List.from(json['rack_ids'] ?? []),
+        defaultWarehouseList: json['warehouse_id'] == false
+            ? []
+            : List.from(json['warehouse_id']));
   }
 }

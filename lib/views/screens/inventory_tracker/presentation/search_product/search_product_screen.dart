@@ -10,11 +10,18 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
+import '../../../../../utils/constant/app_constant.dart';
+import '../../../../user_warehouse/domain/user_warehouse.dart';
+import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse/state/user_warehouse_state.dart';
+import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../domain/product.dart';
+import '../../repository/provider/inhouse_stock_provider.dart';
 import '../barcode_scanner/barcode_scanner_screen.dart';
 import '../create_product/create_product_screen.dart';
 import '../details/product_detail_screen.dart';
+import '../widgets/each_product_list_request_widget.dart';
 import '../widgets/inventory_app_bar_widget.dart';
 
 TextEditingController txtSearchProduct = TextEditingController();
@@ -37,6 +44,9 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   bool isSearching = false;
   bool isClickSearchButton = false;
   ScrollController scrollController = ScrollController();
+  List<String> productIdList = [];
+  UserWarehouse userWarehouse = UserWarehouse();
+  bool isWarehouseLoading = false;
 
   @override
   void initState() {
@@ -47,6 +57,9 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
         .clearSearchProductValue();
     scrollController.addListener(_scrollListener);
     _loadProducts(0);
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
   }
 
   void _loadProducts(pageNumber) {
@@ -82,8 +95,21 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(searchProductStateNotifierProvier, (prev, next) {
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
+        });
+      }
+    });
+    ref.listen(searchProductStateNotifierProvier, (prev, next) {
+      if (next is SearchProductLoading) {
         setState(() {
           productList = [];
           isLoading = true;
@@ -320,7 +346,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 20,
                                 crossAxisSpacing: 0,
-                                childAspectRatio: 0.9,
+                                childAspectRatio: 0.67,
                               ),
                               itemBuilder: (context, index) {
                                 String productId =
@@ -332,134 +358,427 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                 double price = productList[index].price;
                                 double qtyOutStock =
                                     productList[index].qtyOutStock;
-                                return GestureDetector(
-                                  onTap: () {
-                                    FocusManager.instance.primaryFocus!
-                                        .unfocus();
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailScreen(
-                                                  productID: productId,
-                                                  productName: fullName,
-                                                  isInternalTransfer: false,
-                                                )));
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColor.dropshadowColor,
-                                                blurRadius: 3,
-                                                spreadRadius: 3),
-                                          ]),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8,
-                                                        vertical: 8),
-                                                child: Container(
-                                                  height: 14.h,
-                                                  width: 100.w,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey.shade200,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                        image: image != "false"
-                                                            ? NetworkImage(
-                                                                image)
-                                                            : const AssetImage(
-                                                                "assets/images/app_icon.jpeg",
-                                                              )),
-                                                  ),
+                                superPrint(productList[index].uomList);
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColor.dropshadowColor,
+                                              blurRadius: 3,
+                                              spreadRadius: 3),
+                                        ]),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        productIdList.contains(productId)
+                                            ? EachProductListRequestWidget(
+                                                product: productList[index],
+                                                productIdList: productIdList,
+                                              )
+                                            : SizedBox(
+                                                height: 28.h,
+                                                child: Column(
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        FocusManager.instance
+                                                            .primaryFocus!
+                                                            .unfocus();
+                                                        Navigator.of(context,
+                                                                rootNavigator:
+                                                                    true)
+                                                            .push(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ProductDetailScreen(
+                                                                              productID: productId,
+                                                                              productName: fullName,
+                                                                              isInternalTransfer: false,
+                                                                            )));
+                                                      },
+                                                      child: Stack(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        8,
+                                                                    vertical:
+                                                                        8),
+                                                            child: Container(
+                                                              height: 14.h,
+                                                              width: 100.w,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade200,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                image: DecorationImage(
+                                                                    image: image != "false"
+                                                                        ? NetworkImage(image)
+                                                                        : const AssetImage(
+                                                                            "assets/images/app_icon.jpeg",
+                                                                          )),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            height: 3.h,
+                                                            width: 100.w,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        15),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        15),
+                                                              ),
+                                                              color: qty >
+                                                                      qtyOutStock
+                                                                  ? AppColor
+                                                                      .orangeColor
+                                                                  : Colors.red,
+                                                            ),
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: textWidget(
+                                                                qty > qtyOutStock
+                                                                    ? "Sufficient Stock"
+                                                                    : "Insufficient Stock",
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 12.5,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.of(context,
+                                                                rootNavigator:
+                                                                    true)
+                                                            .push(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ProductDetailScreen(
+                                                                              productID: productId,
+                                                                              productName: fullName,
+                                                                              isInternalTransfer: false,
+                                                                            )));
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 8),
+                                                        child: textWidget(name,
+                                                            maxLine: 3,
+                                                            textOverflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            size: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 8),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          textWidget(
+                                                              "Qty : $qty",
+                                                              textOverflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                              size: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                          textWidget(
+                                                              "\$ ${CommonMethods.twoDecimalPrice(price)}",
+                                                              textOverflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                              size: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 5),
+                                                  ],
                                                 ),
                                               ),
-                                              Container(
-                                                height: 3.h,
-                                                width: 100.w,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(15),
-                                                    topRight:
-                                                        Radius.circular(15),
-                                                  ),
-                                                  color: qty > qtyOutStock
-                                                      ? AppColor.orangeColor
-                                                      : Colors.red,
-                                                ),
-                                                alignment: Alignment.center,
-                                                child: textWidget(
-                                                    qty > qtyOutStock
-                                                        ? "Sufficient Stock"
-                                                        : "Insufficient Stock",
-                                                    color: Colors.white,
-                                                    size: 12.5,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                        const SizedBox(height: 5),
+                                        productIdList.contains(productId)
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  requestButtonWidgetInProductList(
+                                                      "Cancel", () {
+                                                    superPrint(productIdList);
+                                                    if (productIdList
+                                                        .contains(productId)) {
+                                                      setState(() {
+                                                        productIdList
+                                                            .remove(productId);
+                                                      });
+                                                    }
+                                                  },
+                                                      elevation: 0.2,
+                                                      fontSize: 15,
+                                                      bgColor:
+                                                          Colors.grey.shade100,
+                                                      fontColor:
+                                                          AppColor.primary),
+                                                  requestButtonWidgetInProductList(
+                                                      "Send", () {
+                                                    superPrint(
+                                                      userWarehouse
+                                                          .warehouseList[1],
+                                                    );
+                                                    superPrint(productId);
+                                                    ref
+                                                        .read(
+                                                            stockRequesstStateNotifierProvider
+                                                                .notifier)
+                                                        .requestInHouseStock(
+                                                          userWarehouse
+                                                              .warehouseList[0],
+                                                          productList[index]
+                                                              .defaultWarehouseList[0],
+                                                          admin.companyId,
+                                                          productList[index].id,
+                                                          productList[index]
+                                                              .name,
+                                                          qtyByMap[
+                                                              productList[index]
+                                                                  .id
+                                                                  .toString()]!,
+                                                          productList[index]
+                                                              .price,
+                                                          selectedBox,
+                                                          isUrgentMap[
+                                                              productList[index]
+                                                                  .id
+                                                                  .toString()]!,
+                                                          context,
+                                                        )
+                                                        .then((_) {
+                                                      ref
+                                                          .read(
+                                                              inhouseStockStateNotifierProvider
+                                                                  .notifier)
+                                                          .getInHouseStock(
+                                                              productList[index]
+                                                                  .id);
+                                                    });
+                                                  },
+                                                      fontSize: 15,
+                                                      elevation: 0.2,
+                                                      bgColor:
+                                                          Colors.grey.shade100,
+                                                      fontColor:
+                                                          AppColor.primary),
+                                                ],
+                                              )
+                                            : Center(
+                                                child: SizedBox(
+                                                    width: 40.w,
+                                                    height: 35,
+                                                    child: buttonWidget(
+                                                      "Request",
+                                                      () {
+                                                        if (!productIdList
+                                                            .contains(
+                                                                productId)) {
+                                                          setState(() {
+                                                            productIdList
+                                                                .add(productId);
+                                                          });
+                                                        }
+
+                                                        superPrint(
+                                                            productIdList);
+                                                      },
+                                                      elevation: 0.2,
+                                                      bgColor:
+                                                          Colors.grey.shade100,
+                                                    )),
                                               ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: textWidget(name,
-                                                maxLine: 2,
-                                                textOverflow:
-                                                    TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                size: 13,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const Spacer(),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                textWidget("Qty : $qty",
-                                                    textOverflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    size: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                                textWidget(
-                                                    "\$ ${CommonMethods.twoDecimalPrice(price)}",
-                                                    textOverflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    size: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10)
-                                        ],
-                                      ),
+                                        const SizedBox(height: 5),
+                                      ],
                                     ),
                                   ),
                                 );
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     FocusManager.instance.primaryFocus!
+                                //         .unfocus();
+                                //     Navigator.of(context, rootNavigator: true)
+                                //         .push(MaterialPageRoute(
+                                //             builder: (context) =>
+                                //                 ProductDetailScreen(
+                                //                   productID: productId,
+                                //                   productName: fullName,
+                                //                   isInternalTransfer: false,
+                                //                 )));
+                                //   },
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 10),
+                                //     child: Container(
+                                //       decoration: BoxDecoration(
+                                //           borderRadius:
+                                //               BorderRadius.circular(15),
+                                //           color: Colors.white,
+                                //           boxShadow: [
+                                //             BoxShadow(
+                                //                 color: AppColor.dropshadowColor,
+                                //                 blurRadius: 3,
+                                //                 spreadRadius: 3),
+                                //           ]),
+                                //       child: Column(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           Stack(
+                                //             children: [
+                                //               Padding(
+                                //                 padding:
+                                //                     const EdgeInsets.symmetric(
+                                //                         horizontal: 8,
+                                //                         vertical: 8),
+                                //                 child: Container(
+                                //                   height: 14.h,
+                                //                   width: 100.w,
+                                //                   decoration: BoxDecoration(
+                                //                     color: Colors.grey.shade200,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             10),
+                                //                     image: DecorationImage(
+                                //                         image: image != "false"
+                                //                             ? NetworkImage(
+                                //                                 image)
+                                //                             : const AssetImage(
+                                //                                 "assets/images/app_icon.jpeg",
+                                //                               )),
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //               Container(
+                                //                 height: 3.h,
+                                //                 width: 100.w,
+                                //                 decoration: BoxDecoration(
+                                //                   borderRadius:
+                                //                       const BorderRadius.only(
+                                //                     topLeft:
+                                //                         Radius.circular(15),
+                                //                     topRight:
+                                //                         Radius.circular(15),
+                                //                   ),
+                                //                   color: qty > qtyOutStock
+                                //                       ? AppColor.orangeColor
+                                //                       : Colors.red,
+                                //                 ),
+                                //                 alignment: Alignment.center,
+                                //                 child: textWidget(
+                                //                     qty > qtyOutStock
+                                //                         ? "Sufficient Stock"
+                                //                         : "Insufficient Stock",
+                                //                     color: Colors.white,
+                                //                     size: 12.5,
+                                //                     fontWeight:
+                                //                         FontWeight.bold),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //           const SizedBox(height: 10),
+                                //           Padding(
+                                //             padding: const EdgeInsets.symmetric(
+                                //                 horizontal: 8),
+                                //             child: textWidget(name,
+                                //                 maxLine: 2,
+                                //                 textOverflow:
+                                //                     TextOverflow.ellipsis,
+                                //                 textAlign: TextAlign.left,
+                                //                 size: 13,
+                                //                 fontWeight: FontWeight.bold),
+                                //           ),
+                                //           const Spacer(),
+                                //           Padding(
+                                //             padding: const EdgeInsets.symmetric(
+                                //                 horizontal: 8),
+                                //             child: Row(
+                                //               mainAxisAlignment:
+                                //                   MainAxisAlignment
+                                //                       .spaceBetween,
+                                //               children: [
+                                //                 textWidget("Qty : $qty",
+                                //                     textOverflow:
+                                //                         TextOverflow.ellipsis,
+                                //                     textAlign: TextAlign.left,
+                                //                     size: 12,
+                                //                     fontWeight:
+                                //                         FontWeight.w500),
+                                //                 textWidget(
+                                //                     "\$ ${CommonMethods.twoDecimalPrice(price)}",
+                                //                     textOverflow:
+                                //                         TextOverflow.ellipsis,
+                                //                     textAlign: TextAlign.left,
+                                //                     size: 12,
+                                //                     fontWeight:
+                                //                         FontWeight.w500),
+                                //               ],
+                                //             ),
+                                //           ),
+                                //           const SizedBox(height: 10)
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
                               }),
                         ),
           if (xLoading)

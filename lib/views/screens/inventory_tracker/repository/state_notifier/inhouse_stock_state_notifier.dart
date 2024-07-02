@@ -51,13 +51,37 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
     }
   }
 
+  defaultWarehouseIncrementQty(String productID, int qty) {
+    qty++;
+    state = InhouseStockState.defaultWarehouseQtyIncrement(productID, qty);
+  }
+
+  defaultWarehouseDecrementQty(String productID, int qty) {
+    if (qty > 1) {
+      qty--;
+      state = InhouseStockState.defaultWarehouseQtyDecrement(productID, qty);
+    }
+  }
+
   bool isUrgent = false;
   selectedUrgent() {
     isUrgent = !isUrgent;
     state = InhouseStockState.urgent(isUrgent);
   }
 
+  selectedWarehouseUrgent(String productID, bool isUrgent) {
+    state = InhouseStockState.selectedWarehouseUrgent(productID, isUrgent);
+  }
+
+  unselectedWarehouseUrgent(String productID, bool isUrgent) {
+    state = InhouseStockState.unselectedWarehouseUrgent(productID, isUrgent);
+  }
+
   overQuantity(bool isOver) {
     state = InhouseStockState.isOverQuantity(isOver);
+  }
+
+  selectedWarehouseID(int warehouseID) {
+    state = InhouseStockState.selectedWarehouse(warehouseID);
   }
 }

@@ -3,7 +3,7 @@ import '../../domain/product.dart';
 part 'product_state.freezed.dart';
 
 extension Getters on ProductState {
-  bool get isLoading => this is Loading;
+  bool get isLoading => this is ProductLoading;
 }
 
 @freezed
@@ -14,6 +14,6 @@ class ProductState with _$ProductState {
   //     ProductDetail;
   const factory ProductState.isDataExist(bool isExit) = IsDataExit;
   const factory ProductState.initial() = Initial;
-  const factory ProductState.loading() = Loading;
+  const factory ProductState.loading() = ProductLoading;
   const factory ProductState.error({String? error}) = Error;
 }

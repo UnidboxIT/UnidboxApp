@@ -16,6 +16,8 @@ import '../../../../../utils/constant/app_constant.dart';
 import '../../domain/inhouse_stock.dart';
 import '../../domain/product.dart';
 
+bool isSendRequestLoading = false;
+
 class InhouseStockWidget extends ConsumerStatefulWidget {
   final List<InhouseStock> inHouseStockList;
   final Products productDetail;
@@ -36,7 +38,6 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
   // int totalQty = 1;
   TextEditingController txtTotalQty = TextEditingController();
   bool isUrgent = false;
-  bool isSendRequestLoading = false;
   bool isOverQty = false;
 
   @override

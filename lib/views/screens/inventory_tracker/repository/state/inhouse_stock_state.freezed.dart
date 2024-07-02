@@ -27,6 +27,15 @@ mixin _$InhouseStockState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,6 +49,13 @@ mixin _$InhouseStockState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +69,13 @@ mixin _$InhouseStockState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,6 +90,15 @@ mixin _$InhouseStockState {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,6 +112,14 @@ mixin _$InhouseStockState {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,6 +133,14 @@ mixin _$InhouseStockState {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -198,6 +246,15 @@ class _$InhouseStockListImpl implements InhouseStockList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return loadInHouseStock(inhouseStock);
   }
@@ -214,6 +271,13 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return loadInHouseStock?.call(inhouseStock);
   }
@@ -230,6 +294,13 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (loadInHouseStock != null) {
@@ -250,6 +321,15 @@ class _$InhouseStockListImpl implements InhouseStockList {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return loadInHouseStock(this);
   }
@@ -266,6 +346,14 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return loadInHouseStock?.call(this);
   }
@@ -282,6 +370,14 @@ class _$InhouseStockListImpl implements InhouseStockList {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (loadInHouseStock != null) {
@@ -376,6 +472,15 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return selectedBox(uomIndex);
   }
@@ -392,6 +497,13 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return selectedBox?.call(uomIndex);
   }
@@ -408,6 +520,13 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (selectedBox != null) {
@@ -428,6 +547,15 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return selectedBox(this);
   }
@@ -444,6 +572,14 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return selectedBox?.call(this);
   }
@@ -460,6 +596,14 @@ class _$SelectedBoxTypeImpl implements SelectedBoxType {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (selectedBox != null) {
@@ -551,6 +695,15 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return incrementQty(qty);
   }
@@ -567,6 +720,13 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return incrementQty?.call(qty);
   }
@@ -583,6 +743,13 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (incrementQty != null) {
@@ -603,6 +770,15 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return incrementQty(this);
   }
@@ -619,6 +795,14 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return incrementQty?.call(this);
   }
@@ -635,6 +819,14 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (incrementQty != null) {
@@ -726,6 +918,15 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return decrementQty(qty);
   }
@@ -742,6 +943,13 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return decrementQty?.call(qty);
   }
@@ -758,6 +966,13 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (decrementQty != null) {
@@ -778,6 +993,15 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return decrementQty(this);
   }
@@ -794,6 +1018,14 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return decrementQty?.call(this);
   }
@@ -810,6 +1042,14 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (decrementQty != null) {
@@ -902,6 +1142,15 @@ class _$UrgentImpl implements Urgent {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return urgent(selectedUrgent);
   }
@@ -918,6 +1167,13 @@ class _$UrgentImpl implements Urgent {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return urgent?.call(selectedUrgent);
   }
@@ -934,6 +1190,13 @@ class _$UrgentImpl implements Urgent {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (urgent != null) {
@@ -954,6 +1217,15 @@ class _$UrgentImpl implements Urgent {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return urgent(this);
   }
@@ -970,6 +1242,14 @@ class _$UrgentImpl implements Urgent {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return urgent?.call(this);
   }
@@ -986,6 +1266,14 @@ class _$UrgentImpl implements Urgent {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (urgent != null) {
@@ -1077,6 +1365,15 @@ class _$OverQtyImpl implements OverQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return isOverQuantity(isOver);
   }
@@ -1093,6 +1390,13 @@ class _$OverQtyImpl implements OverQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return isOverQuantity?.call(isOver);
   }
@@ -1109,6 +1413,13 @@ class _$OverQtyImpl implements OverQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (isOverQuantity != null) {
@@ -1129,6 +1440,15 @@ class _$OverQtyImpl implements OverQty {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return isOverQuantity(this);
   }
@@ -1145,6 +1465,14 @@ class _$OverQtyImpl implements OverQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return isOverQuantity?.call(this);
   }
@@ -1161,6 +1489,14 @@ class _$OverQtyImpl implements OverQty {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (isOverQuantity != null) {
@@ -1226,6 +1562,15 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return initial();
   }
@@ -1242,6 +1587,13 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return initial?.call();
   }
@@ -1258,6 +1610,13 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1278,6 +1637,15 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return initial(this);
   }
@@ -1294,6 +1662,14 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return initial?.call(this);
   }
@@ -1310,6 +1686,14 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1370,6 +1754,15 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return loading();
   }
@@ -1386,6 +1779,13 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return loading?.call();
   }
@@ -1402,6 +1802,13 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1422,6 +1829,15 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return loading(this);
   }
@@ -1438,6 +1854,14 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return loading?.call(this);
   }
@@ -1454,6 +1878,14 @@ class _$InHouseLoadingImpl implements InHouseLoading {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1540,6 +1972,15 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
   }) {
     return error(this.error);
   }
@@ -1556,6 +1997,13 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
   }) {
     return error?.call(this.error);
   }
@@ -1572,6 +2020,13 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1592,6 +2047,15 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(InHouseLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
   }) {
     return error(this);
   }
@@ -1608,6 +2072,14 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(InHouseLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
   }) {
     return error?.call(this);
   }
@@ -1624,6 +2096,14 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(InHouseLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1639,5 +2119,1194 @@ abstract class Error implements InhouseStockState {
   String? get error;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DefaultWarehouseIncrementQtyImplCopyWith<$Res> {
+  factory _$$DefaultWarehouseIncrementQtyImplCopyWith(
+          _$DefaultWarehouseIncrementQtyImpl value,
+          $Res Function(_$DefaultWarehouseIncrementQtyImpl) then) =
+      __$$DefaultWarehouseIncrementQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productID, int qty});
+}
+
+/// @nodoc
+class __$$DefaultWarehouseIncrementQtyImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res,
+        _$DefaultWarehouseIncrementQtyImpl>
+    implements _$$DefaultWarehouseIncrementQtyImplCopyWith<$Res> {
+  __$$DefaultWarehouseIncrementQtyImplCopyWithImpl(
+      _$DefaultWarehouseIncrementQtyImpl _value,
+      $Res Function(_$DefaultWarehouseIncrementQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+    Object? qty = null,
+  }) {
+    return _then(_$DefaultWarehouseIncrementQtyImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == qty
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DefaultWarehouseIncrementQtyImpl
+    implements DefaultWarehouseIncrementQty {
+  const _$DefaultWarehouseIncrementQtyImpl(this.productID, this.qty);
+
+  @override
+  final String productID;
+  @override
+  final int qty;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.defaultWarehouseQtyIncrement(productID: $productID, qty: $qty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DefaultWarehouseIncrementQtyImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID) &&
+            (identical(other.qty, qty) || other.qty == qty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID, qty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DefaultWarehouseIncrementQtyImplCopyWith<
+          _$DefaultWarehouseIncrementQtyImpl>
+      get copyWith => __$$DefaultWarehouseIncrementQtyImplCopyWithImpl<
+          _$DefaultWarehouseIncrementQtyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyIncrement(productID, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyIncrement?.call(productID, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (defaultWarehouseQtyIncrement != null) {
+      return defaultWarehouseQtyIncrement(productID, qty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyIncrement(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyIncrement?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (defaultWarehouseQtyIncrement != null) {
+      return defaultWarehouseQtyIncrement(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DefaultWarehouseIncrementQty implements InhouseStockState {
+  const factory DefaultWarehouseIncrementQty(
+          final String productID, final int qty) =
+      _$DefaultWarehouseIncrementQtyImpl;
+
+  String get productID;
+  int get qty;
+  @JsonKey(ignore: true)
+  _$$DefaultWarehouseIncrementQtyImplCopyWith<
+          _$DefaultWarehouseIncrementQtyImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DefaultWarehouseDecrementQtyImplCopyWith<$Res> {
+  factory _$$DefaultWarehouseDecrementQtyImplCopyWith(
+          _$DefaultWarehouseDecrementQtyImpl value,
+          $Res Function(_$DefaultWarehouseDecrementQtyImpl) then) =
+      __$$DefaultWarehouseDecrementQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productID, int qty});
+}
+
+/// @nodoc
+class __$$DefaultWarehouseDecrementQtyImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res,
+        _$DefaultWarehouseDecrementQtyImpl>
+    implements _$$DefaultWarehouseDecrementQtyImplCopyWith<$Res> {
+  __$$DefaultWarehouseDecrementQtyImplCopyWithImpl(
+      _$DefaultWarehouseDecrementQtyImpl _value,
+      $Res Function(_$DefaultWarehouseDecrementQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+    Object? qty = null,
+  }) {
+    return _then(_$DefaultWarehouseDecrementQtyImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == qty
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DefaultWarehouseDecrementQtyImpl
+    implements DefaultWarehouseDecrementQty {
+  const _$DefaultWarehouseDecrementQtyImpl(this.productID, this.qty);
+
+  @override
+  final String productID;
+  @override
+  final int qty;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.defaultWarehouseQtyDecrement(productID: $productID, qty: $qty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DefaultWarehouseDecrementQtyImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID) &&
+            (identical(other.qty, qty) || other.qty == qty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID, qty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DefaultWarehouseDecrementQtyImplCopyWith<
+          _$DefaultWarehouseDecrementQtyImpl>
+      get copyWith => __$$DefaultWarehouseDecrementQtyImplCopyWithImpl<
+          _$DefaultWarehouseDecrementQtyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyDecrement(productID, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyDecrement?.call(productID, qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (defaultWarehouseQtyDecrement != null) {
+      return defaultWarehouseQtyDecrement(productID, qty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyDecrement(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
+  }) {
+    return defaultWarehouseQtyDecrement?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (defaultWarehouseQtyDecrement != null) {
+      return defaultWarehouseQtyDecrement(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DefaultWarehouseDecrementQty implements InhouseStockState {
+  const factory DefaultWarehouseDecrementQty(
+          final String productID, final int qty) =
+      _$DefaultWarehouseDecrementQtyImpl;
+
+  String get productID;
+  int get qty;
+  @JsonKey(ignore: true)
+  _$$DefaultWarehouseDecrementQtyImplCopyWith<
+          _$DefaultWarehouseDecrementQtyImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectedWarehouseUrgentImplCopyWith<$Res> {
+  factory _$$SelectedWarehouseUrgentImplCopyWith(
+          _$SelectedWarehouseUrgentImpl value,
+          $Res Function(_$SelectedWarehouseUrgentImpl) then) =
+      __$$SelectedWarehouseUrgentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productID, bool selectedUrgent});
+}
+
+/// @nodoc
+class __$$SelectedWarehouseUrgentImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res, _$SelectedWarehouseUrgentImpl>
+    implements _$$SelectedWarehouseUrgentImplCopyWith<$Res> {
+  __$$SelectedWarehouseUrgentImplCopyWithImpl(
+      _$SelectedWarehouseUrgentImpl _value,
+      $Res Function(_$SelectedWarehouseUrgentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+    Object? selectedUrgent = null,
+  }) {
+    return _then(_$SelectedWarehouseUrgentImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == selectedUrgent
+          ? _value.selectedUrgent
+          : selectedUrgent // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectedWarehouseUrgentImpl implements SelectedWarehouseUrgent {
+  const _$SelectedWarehouseUrgentImpl(this.productID, this.selectedUrgent);
+
+  @override
+  final String productID;
+  @override
+  final bool selectedUrgent;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.selectedWarehouseUrgent(productID: $productID, selectedUrgent: $selectedUrgent)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedWarehouseUrgentImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID) &&
+            (identical(other.selectedUrgent, selectedUrgent) ||
+                other.selectedUrgent == selectedUrgent));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID, selectedUrgent);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedWarehouseUrgentImplCopyWith<_$SelectedWarehouseUrgentImpl>
+      get copyWith => __$$SelectedWarehouseUrgentImplCopyWithImpl<
+          _$SelectedWarehouseUrgentImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
+  }) {
+    return selectedWarehouseUrgent(productID, selectedUrgent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
+  }) {
+    return selectedWarehouseUrgent?.call(productID, selectedUrgent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (selectedWarehouseUrgent != null) {
+      return selectedWarehouseUrgent(productID, selectedUrgent);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
+  }) {
+    return selectedWarehouseUrgent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
+  }) {
+    return selectedWarehouseUrgent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (selectedWarehouseUrgent != null) {
+      return selectedWarehouseUrgent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelectedWarehouseUrgent implements InhouseStockState {
+  const factory SelectedWarehouseUrgent(
+          final String productID, final bool selectedUrgent) =
+      _$SelectedWarehouseUrgentImpl;
+
+  String get productID;
+  bool get selectedUrgent;
+  @JsonKey(ignore: true)
+  _$$SelectedWarehouseUrgentImplCopyWith<_$SelectedWarehouseUrgentImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnselectedWarehouseUrgentImplCopyWith<$Res> {
+  factory _$$UnselectedWarehouseUrgentImplCopyWith(
+          _$UnselectedWarehouseUrgentImpl value,
+          $Res Function(_$UnselectedWarehouseUrgentImpl) then) =
+      __$$UnselectedWarehouseUrgentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productID, bool selectedUrgent});
+}
+
+/// @nodoc
+class __$$UnselectedWarehouseUrgentImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res,
+        _$UnselectedWarehouseUrgentImpl>
+    implements _$$UnselectedWarehouseUrgentImplCopyWith<$Res> {
+  __$$UnselectedWarehouseUrgentImplCopyWithImpl(
+      _$UnselectedWarehouseUrgentImpl _value,
+      $Res Function(_$UnselectedWarehouseUrgentImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productID = null,
+    Object? selectedUrgent = null,
+  }) {
+    return _then(_$UnselectedWarehouseUrgentImpl(
+      null == productID
+          ? _value.productID
+          : productID // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == selectedUrgent
+          ? _value.selectedUrgent
+          : selectedUrgent // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnselectedWarehouseUrgentImpl implements UnselectedWarehouseUrgent {
+  const _$UnselectedWarehouseUrgentImpl(this.productID, this.selectedUrgent);
+
+  @override
+  final String productID;
+  @override
+  final bool selectedUrgent;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.unselectedWarehouseUrgent(productID: $productID, selectedUrgent: $selectedUrgent)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnselectedWarehouseUrgentImpl &&
+            (identical(other.productID, productID) ||
+                other.productID == productID) &&
+            (identical(other.selectedUrgent, selectedUrgent) ||
+                other.selectedUrgent == selectedUrgent));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productID, selectedUrgent);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnselectedWarehouseUrgentImplCopyWith<_$UnselectedWarehouseUrgentImpl>
+      get copyWith => __$$UnselectedWarehouseUrgentImplCopyWithImpl<
+          _$UnselectedWarehouseUrgentImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
+  }) {
+    return unselectedWarehouseUrgent(productID, selectedUrgent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
+  }) {
+    return unselectedWarehouseUrgent?.call(productID, selectedUrgent);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (unselectedWarehouseUrgent != null) {
+      return unselectedWarehouseUrgent(productID, selectedUrgent);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
+  }) {
+    return unselectedWarehouseUrgent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
+  }) {
+    return unselectedWarehouseUrgent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (unselectedWarehouseUrgent != null) {
+      return unselectedWarehouseUrgent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnselectedWarehouseUrgent implements InhouseStockState {
+  const factory UnselectedWarehouseUrgent(
+          final String productID, final bool selectedUrgent) =
+      _$UnselectedWarehouseUrgentImpl;
+
+  String get productID;
+  bool get selectedUrgent;
+  @JsonKey(ignore: true)
+  _$$UnselectedWarehouseUrgentImplCopyWith<_$UnselectedWarehouseUrgentImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectedWarehouseIDImplCopyWith<$Res> {
+  factory _$$SelectedWarehouseIDImplCopyWith(_$SelectedWarehouseIDImpl value,
+          $Res Function(_$SelectedWarehouseIDImpl) then) =
+      __$$SelectedWarehouseIDImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int warehouseID});
+}
+
+/// @nodoc
+class __$$SelectedWarehouseIDImplCopyWithImpl<$Res>
+    extends _$InhouseStockStateCopyWithImpl<$Res, _$SelectedWarehouseIDImpl>
+    implements _$$SelectedWarehouseIDImplCopyWith<$Res> {
+  __$$SelectedWarehouseIDImplCopyWithImpl(_$SelectedWarehouseIDImpl _value,
+      $Res Function(_$SelectedWarehouseIDImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? warehouseID = null,
+  }) {
+    return _then(_$SelectedWarehouseIDImpl(
+      null == warehouseID
+          ? _value.warehouseID
+          : warehouseID // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectedWarehouseIDImpl implements SelectedWarehouseID {
+  const _$SelectedWarehouseIDImpl(this.warehouseID);
+
+  @override
+  final int warehouseID;
+
+  @override
+  String toString() {
+    return 'InhouseStockState.selectedWarehouse(warehouseID: $warehouseID)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedWarehouseIDImpl &&
+            (identical(other.warehouseID, warehouseID) ||
+                other.warehouseID == warehouseID));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, warehouseID);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedWarehouseIDImplCopyWith<_$SelectedWarehouseIDImpl> get copyWith =>
+      __$$SelectedWarehouseIDImplCopyWithImpl<_$SelectedWarehouseIDImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<InhouseStock> inhouseStock) loadInHouseStock,
+    required TResult Function(int uomIndex) selectedBox,
+    required TResult Function(int qty) incrementQty,
+    required TResult Function(int qty) decrementQty,
+    required TResult Function(bool selectedUrgent) urgent,
+    required TResult Function(bool isOver) isOverQuantity,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(String productID, int qty)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(String productID, bool selectedUrgent)
+        selectedWarehouseUrgent,
+    required TResult Function(String productID, bool selectedUrgent)
+        unselectedWarehouseUrgent,
+    required TResult Function(int warehouseID) selectedWarehouse,
+  }) {
+    return selectedWarehouse(warehouseID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult? Function(int uomIndex)? selectedBox,
+    TResult? Function(int qty)? incrementQty,
+    TResult? Function(int qty)? decrementQty,
+    TResult? Function(bool selectedUrgent)? urgent,
+    TResult? Function(bool isOver)? isOverQuantity,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult? Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult? Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult? Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult? Function(int warehouseID)? selectedWarehouse,
+  }) {
+    return selectedWarehouse?.call(warehouseID);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<InhouseStock> inhouseStock)? loadInHouseStock,
+    TResult Function(int uomIndex)? selectedBox,
+    TResult Function(int qty)? incrementQty,
+    TResult Function(int qty)? decrementQty,
+    TResult Function(bool selectedUrgent)? urgent,
+    TResult Function(bool isOver)? isOverQuantity,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyIncrement,
+    TResult Function(String productID, int qty)? defaultWarehouseQtyDecrement,
+    TResult Function(String productID, bool selectedUrgent)?
+        selectedWarehouseUrgent,
+    TResult Function(String productID, bool selectedUrgent)?
+        unselectedWarehouseUrgent,
+    TResult Function(int warehouseID)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (selectedWarehouse != null) {
+      return selectedWarehouse(warehouseID);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InhouseStockList value) loadInHouseStock,
+    required TResult Function(SelectedBoxType value) selectedBox,
+    required TResult Function(IncrementQty value) incrementQty,
+    required TResult Function(DecrementQty value) decrementQty,
+    required TResult Function(Urgent value) urgent,
+    required TResult Function(OverQty value) isOverQuantity,
+    required TResult Function(Initial value) initial,
+    required TResult Function(InHouseLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(DefaultWarehouseIncrementQty value)
+        defaultWarehouseQtyIncrement,
+    required TResult Function(DefaultWarehouseDecrementQty value)
+        defaultWarehouseQtyDecrement,
+    required TResult Function(SelectedWarehouseUrgent value)
+        selectedWarehouseUrgent,
+    required TResult Function(UnselectedWarehouseUrgent value)
+        unselectedWarehouseUrgent,
+    required TResult Function(SelectedWarehouseID value) selectedWarehouse,
+  }) {
+    return selectedWarehouse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InhouseStockList value)? loadInHouseStock,
+    TResult? Function(SelectedBoxType value)? selectedBox,
+    TResult? Function(IncrementQty value)? incrementQty,
+    TResult? Function(DecrementQty value)? decrementQty,
+    TResult? Function(Urgent value)? urgent,
+    TResult? Function(OverQty value)? isOverQuantity,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(InHouseLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult? Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult? Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult? Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult? Function(SelectedWarehouseID value)? selectedWarehouse,
+  }) {
+    return selectedWarehouse?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InhouseStockList value)? loadInHouseStock,
+    TResult Function(SelectedBoxType value)? selectedBox,
+    TResult Function(IncrementQty value)? incrementQty,
+    TResult Function(DecrementQty value)? decrementQty,
+    TResult Function(Urgent value)? urgent,
+    TResult Function(OverQty value)? isOverQuantity,
+    TResult Function(Initial value)? initial,
+    TResult Function(InHouseLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(DefaultWarehouseIncrementQty value)?
+        defaultWarehouseQtyIncrement,
+    TResult Function(DefaultWarehouseDecrementQty value)?
+        defaultWarehouseQtyDecrement,
+    TResult Function(SelectedWarehouseUrgent value)? selectedWarehouseUrgent,
+    TResult Function(UnselectedWarehouseUrgent value)?
+        unselectedWarehouseUrgent,
+    TResult Function(SelectedWarehouseID value)? selectedWarehouse,
+    required TResult orElse(),
+  }) {
+    if (selectedWarehouse != null) {
+      return selectedWarehouse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SelectedWarehouseID implements InhouseStockState {
+  const factory SelectedWarehouseID(final int warehouseID) =
+      _$SelectedWarehouseIDImpl;
+
+  int get warehouseID;
+  @JsonKey(ignore: true)
+  _$$SelectedWarehouseIDImplCopyWith<_$SelectedWarehouseIDImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

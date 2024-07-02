@@ -49,7 +49,7 @@ mixin _$ProductState {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ mixin _$ProductState {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ mixin _$ProductState {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -207,7 +207,7 @@ class _$ProductsListImpl implements ProductsList {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loadProduct(this);
@@ -219,7 +219,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loadProduct?.call(this);
@@ -231,7 +231,7 @@ class _$ProductsListImpl implements ProductsList {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -359,7 +359,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return isDataExist(this);
@@ -371,7 +371,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return isDataExist?.call(this);
@@ -383,7 +383,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -484,7 +484,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -496,7 +496,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -508,7 +508,7 @@ class _$InitialImpl implements Initial {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -524,25 +524,25 @@ abstract class Initial implements ProductState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$ProductLoadingImplCopyWith<$Res> {
+  factory _$$ProductLoadingImplCopyWith(_$ProductLoadingImpl value,
+          $Res Function(_$ProductLoadingImpl) then) =
+      __$$ProductLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ProductStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$ProductLoadingImplCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$ProductLoadingImpl>
+    implements _$$ProductLoadingImplCopyWith<$Res> {
+  __$$ProductLoadingImplCopyWithImpl(
+      _$ProductLoadingImpl _value, $Res Function(_$ProductLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$ProductLoadingImpl implements ProductLoading {
+  const _$ProductLoadingImpl();
 
   @override
   String toString() {
@@ -552,7 +552,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$ProductLoadingImpl);
   }
 
   @override
@@ -604,7 +604,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -616,7 +616,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -628,7 +628,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -639,8 +639,8 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements ProductState {
-  const factory Loading() = _$LoadingImpl;
+abstract class ProductLoading implements ProductState {
+  const factory ProductLoading() = _$ProductLoadingImpl;
 }
 
 /// @nodoc
@@ -750,7 +750,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(ProductsList value) loadProduct,
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(ProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -762,7 +762,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(ProductsList value)? loadProduct,
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(ProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -774,7 +774,7 @@ class _$ErrorImpl implements Error {
     TResult Function(ProductsList value)? loadProduct,
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(ProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

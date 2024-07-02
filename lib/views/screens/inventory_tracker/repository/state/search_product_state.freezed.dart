@@ -50,7 +50,7 @@ mixin _$SearchProductState {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -59,7 +59,7 @@ mixin _$SearchProductState {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -68,7 +68,7 @@ mixin _$SearchProductState {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -211,7 +211,7 @@ class _$SearchProductListImpl implements SearchProductList {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loadSearchProduct(this);
@@ -223,7 +223,7 @@ class _$SearchProductListImpl implements SearchProductList {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loadSearchProduct?.call(this);
@@ -235,7 +235,7 @@ class _$SearchProductListImpl implements SearchProductList {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -365,7 +365,7 @@ class _$IsSearchDataExitImpl implements IsSearchDataExit {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return isSearchDataExist(this);
@@ -377,7 +377,7 @@ class _$IsSearchDataExitImpl implements IsSearchDataExit {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return isSearchDataExist?.call(this);
@@ -389,7 +389,7 @@ class _$IsSearchDataExitImpl implements IsSearchDataExit {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -491,7 +491,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -503,7 +503,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -515,7 +515,7 @@ class _$InitialImpl implements Initial {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -531,25 +531,25 @@ abstract class Initial implements SearchProductState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$SearchProductLoadingImplCopyWith<$Res> {
+  factory _$$SearchProductLoadingImplCopyWith(_$SearchProductLoadingImpl value,
+          $Res Function(_$SearchProductLoadingImpl) then) =
+      __$$SearchProductLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$SearchProductStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$SearchProductLoadingImplCopyWithImpl<$Res>
+    extends _$SearchProductStateCopyWithImpl<$Res, _$SearchProductLoadingImpl>
+    implements _$$SearchProductLoadingImplCopyWith<$Res> {
+  __$$SearchProductLoadingImplCopyWithImpl(_$SearchProductLoadingImpl _value,
+      $Res Function(_$SearchProductLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$SearchProductLoadingImpl implements SearchProductLoading {
+  const _$SearchProductLoadingImpl();
 
   @override
   String toString() {
@@ -559,7 +559,8 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SearchProductLoadingImpl);
   }
 
   @override
@@ -612,7 +613,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -624,7 +625,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -636,7 +637,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -647,8 +648,8 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements SearchProductState {
-  const factory Loading() = _$LoadingImpl;
+abstract class SearchProductLoading implements SearchProductState {
+  const factory SearchProductLoading() = _$SearchProductLoadingImpl;
 }
 
 /// @nodoc
@@ -759,7 +760,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(SearchProductList value) loadSearchProduct,
     required TResult Function(IsSearchDataExit value) isSearchDataExist,
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
+    required TResult Function(SearchProductLoading value) loading,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -771,7 +772,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(SearchProductList value)? loadSearchProduct,
     TResult? Function(IsSearchDataExit value)? isSearchDataExist,
     TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
+    TResult? Function(SearchProductLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -783,7 +784,7 @@ class _$ErrorImpl implements Error {
     TResult Function(SearchProductList value)? loadSearchProduct,
     TResult Function(IsSearchDataExit value)? isSearchDataExist,
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
+    TResult Function(SearchProductLoading value)? loading,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

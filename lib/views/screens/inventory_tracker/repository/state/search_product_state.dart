@@ -3,7 +3,7 @@ import '../../domain/product.dart';
 part 'search_product_state.freezed.dart';
 
 extension Getters on SearchProductState {
-  bool get isLoading => this is Loading;
+  bool get isLoading => this is SearchProductLoading;
 }
 
 @freezed
@@ -14,6 +14,6 @@ class SearchProductState with _$SearchProductState {
   const factory SearchProductState.isSearchDataExist(bool isExit) =
       IsSearchDataExit;
   const factory SearchProductState.initial() = Initial;
-  const factory SearchProductState.loading() = Loading;
+  const factory SearchProductState.loading() = SearchProductLoading;
   const factory SearchProductState.error({String? error}) = Error;
 }
