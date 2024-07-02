@@ -8,6 +8,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
 import 'create_product/create_product_screen.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
+import 'widgets/each_product_list_request_widget.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
@@ -28,6 +29,14 @@ class InventoryTrackerSubCategoryScreen extends ConsumerStatefulWidget {
 
 class _InventoryCategoryScreenState
     extends ConsumerState<InventoryTrackerSubCategoryScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    qtyByMap = {};
+    isUrgentMap = {};
+  }
+
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(
@@ -61,7 +70,7 @@ class _InventoryCategoryScreenState
   Widget subCategoryBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
-      height: 80.h,
+      height: widget.inventoryTrackerList.isEmpty ? 86.h : 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

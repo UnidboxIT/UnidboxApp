@@ -24,12 +24,14 @@ class InhouseStockState with _$InhouseStockState {
       String productID, int qty) = DefaultWarehouseIncrementQty;
   const factory InhouseStockState.defaultWarehouseQtyDecrement(
       String productID, int qty) = DefaultWarehouseDecrementQty;
+  const factory InhouseStockState.defaultWarehouseTextFieldValue(
+      String productID, int qty) = DefaultWarehouseTextFieldValue;
 
   const factory InhouseStockState.selectedWarehouseUrgent(
       String productID, bool selectedUrgent) = SelectedWarehouseUrgent;
   const factory InhouseStockState.unselectedWarehouseUrgent(
       String productID, bool selectedUrgent) = UnselectedWarehouseUrgent;
 
-  const factory InhouseStockState.selectedWarehouse(int warehouseID) =
+  const factory InhouseStockState.selectedWarehouse(int warehouseID, int qty) =
       SelectedWarehouseID;
 }

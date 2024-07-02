@@ -7,8 +7,6 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
-import '../../../../main.dart';
-import '../../notification_service/pushy_noti_service.dart';
 import '../domain/admin.dart';
 import '../../../../utils/commons/common_method.dart';
 import '../../../../utils/constant/app_constant.dart';
@@ -48,18 +46,31 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
 
       http.Response response = await _authRepository.login(username, password);
       Map<String, dynamic> result = jsonDecode(response.body);
-      if (result['result']['code'] == 200) {
-        Admin adminData = Admin.fromJson(result['result']);
-        saveLogin(adminData.sessionId, result['result']);
-        if (context.mounted) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const MainScreen()));
+      superPrint(result);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          Admin adminData = Admin.fromJson(result['result']);
+          saveLogin(adminData.sessionId, result['result']);
+          if (context.mounted) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MainScreen()));
+          }
+          state = const AuthState.success();
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['error'].toString(), context);
+          state = AuthState.error(result['result']['error'].toString());
         }
-        state = const AuthState.success();
-      } else {
-        CommonMethods.customizedAlertDialog(
-            result['result']['error'].toString(), context);
-        state = AuthState.error(result['result']['error'].toString());
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = AuthState.error(result['result']['error'].toString());
+        }
       }
     } catch (e) {
       state = const AuthState.error('Could not place order');

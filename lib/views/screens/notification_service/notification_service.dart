@@ -24,13 +24,14 @@ class NotificationController {
         .getInitialNotificationAction(removeFromActionEvents: false);
   }
 
-  static Future<bool> displayNotificationRationale(noti) async {
+  static Future<bool> displayNotificationRationale(
+      String message, String user) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: -1,
         channelKey: 'alerts',
-        title: noti.title,
-        body: noti.body,
+        title: message,
+        body: user,
         notificationLayout: NotificationLayout.BigPicture,
         // payload: {'notificationId': '1234567890'},
       ),

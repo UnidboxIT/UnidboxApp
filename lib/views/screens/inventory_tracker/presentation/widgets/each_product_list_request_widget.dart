@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -29,10 +30,10 @@ class EachProductListRequestWidget extends ConsumerStatefulWidget {
 
 class _EachProductListRequestWidgetState
     extends ConsumerState<EachProductListRequestWidget> {
-  // TextEditingController txtTotalQty = TextEditingController();
+  TextEditingController txtTotalQty = TextEditingController();
 
-  bool isSendRequestLoading = false;
   int totalQty = 1;
+  bool isShowTextField = false;
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _EachProductListRequestWidgetState
         setState(() {
           totalQty = state.qty;
           qtyByMap.addAll({productId: totalQty});
+          txtTotalQty.text = qtyByMap[productId]!.toString();
         });
       }
       if (state is DefaultWarehouseDecrementQty &&
@@ -72,7 +74,15 @@ class _EachProductListRequestWidgetState
         setState(() {
           totalQty = state.qty;
           qtyByMap.addAll({productId: totalQty});
+          txtTotalQty.text = qtyByMap[productId]!.toString();
         });
+      }
+
+      if (state is DefaultWarehouseTextFieldValue &&
+          state.productID == productId) {
+        totalQty = state.qty;
+        qtyByMap.addAll({productId: totalQty});
+        txtTotalQty.text = qtyByMap[productId]!.toString();
       }
       if (state is SelectedWarehouseUrgent && state.productID == productId) {
         setState(() {
@@ -156,59 +166,89 @@ class _EachProductListRequestWidgetState
               CupertinoIcons.minus_circle_fill,
               AppColor.primary,
             ),
-
-            Container(
-              height: 38,
-              width: 20.w,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColor.dropshadowColor,
-                        blurRadius: 3,
-                        spreadRadius: 3),
-                  ]),
-              alignment: Alignment.center,
-              child: textWidget(qtyByMap[productId].toString()),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isShowTextField = !isShowTextField;
+                  if (isShowTextField) {
+                    txtTotalQty.text = qtyByMap[productId].toString();
+                  }
+                });
+              },
+              child: isShowTextField
+                  ? Container(
+                      height: 38,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColor.dropshadowColor,
+                                blurRadius: 3,
+                                spreadRadius: 3),
+                          ]),
+                      child: TextFormField(
+                        controller: txtTotalQty,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        cursorColor: AppColor.primary,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        autofocus: true,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            txtTotalQty.text = value;
+                            ref
+                                .read(
+                                    inhouseStockStateNotifierProvider.notifier)
+                                .defaultWarehouseTextFieldValue(
+                                    productId, int.parse(txtTotalQty.text));
+                          }
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                    )
+                  : Container(
+                      height: 38,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColor.dropshadowColor,
+                                blurRadius: 3,
+                                spreadRadius: 3),
+                          ]),
+                      alignment: Alignment.center,
+                      child: textWidget(
+                        qtyByMap[productId].toString(),
+                        size: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
-            //  TextFormField(
-            //           controller: txtTotalQty,
-            //           textAlign: TextAlign.center,
-            //           style: const TextStyle(
-            //             fontSize: 18,
-            //             color: Colors.black,
-            //             fontWeight: FontWeight.bold,
-            //           ),
-            //           cursorColor: AppColor.primary,
-            //           inputFormatters: [
-            //             FilteringTextInputFormatter.digitsOnly,
-            //           ],
-            //           decoration: InputDecoration(
-            //             contentPadding:
-            //                 const EdgeInsets.symmetric(horizontal: 10),
-            //             fillColor: Colors.white,
-            //             filled: true,
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               borderSide: BorderSide.none,
-            //             ),
-            //             focusedBorder: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(10),
-            //               borderSide: BorderSide.none,
-            //             ),
-            //           ),
-            //           onChanged: (value) {
-            //             if (value.isNotEmpty) {
-            //               if (value == "0") {
-            //                 setState(() {
-            //                   txtTotalQty.text = "1";
-            //                 });
-            //               }
-            //             }
-            //           },
-            //           keyboardType: TextInputType.number,
-            //         ),
             addMinusIconButtonWidget(
               () {
                 ref

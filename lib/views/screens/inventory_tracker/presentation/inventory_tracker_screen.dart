@@ -120,7 +120,8 @@ class _InventoryTrackerScreenState
                     image,
                     name,
                     () {
-                      Navigator.of(context).push(MaterialPageRoute(
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(
                         builder: (context) => InventoryTrackerSubCategoryScreen(
                           parentID: id,
                           name: name,

@@ -20,7 +20,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id,rack_ids,full_name,warehouse_id&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
+          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id,rack_ids,full_name,warehouse_id,default_wh_qty&offset=$pageNumber&sort=id&categ_id=$categoryID&limit=20',
       headers: CommonMethods.setHeaders(),
     );
     superPrint(pageNumber, title: "Page Number");
@@ -31,7 +31,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product/$productID?fields=id,display_name,full_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id,rack_ids,warehouse_id',
+          'joborder/product/$productID?fields=id,display_name,full_name,categ_id,quantity,brand,default_code,image_url,barcode,qty_warning_out_stock,sale_price,cost_price,model,attributes,barcode_ids,uom_id,rack_ids,warehouse_id,default_wh_qty',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -53,7 +53,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,warehouse_id,uom_id&barcode=$barcode',
+          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,warehouse_id,uom_id,default_wh_qty&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -65,7 +65,7 @@ class InventoryTrackerRepository {
     http.Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,full_name,warehouse_id,uom_id',
+          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,full_name,warehouse_id,uom_id,default_wh_qty',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -91,7 +91,7 @@ class InventoryTrackerRepository {
       "date": dateTime,
       "quantity": totalQty,
       "uom_id": uomID,
-      // "is_urgent": isUrgent,
+      "is_urgent": isUrgent,
     };
     superPrint(formData);
     http.Response response = await ApiService().post(

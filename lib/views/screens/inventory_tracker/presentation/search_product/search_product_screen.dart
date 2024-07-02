@@ -575,9 +575,21 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                           AppColor.primary),
                                                   requestButtonWidgetInProductList(
                                                       "Send", () {
+                                                    FocusManager
+                                                        .instance.primaryFocus!
+                                                        .unfocus();
+                                                    superPrint(productList[
+                                                            index]
+                                                        .defaultWarehouseQty);
                                                     if (productList[index]
-                                                        .defaultWarehouseList
-                                                        .isEmpty) {
+                                                            .defaultWarehouseList
+                                                            .isEmpty ||
+                                                        productList[index]
+                                                                .defaultWarehouseQty <
+                                                            qtyByMap[productList[
+                                                                    index]
+                                                                .id
+                                                                .toString()]!) {
                                                       ref
                                                           .read(
                                                               inhouseStockStateNotifierProvider
@@ -586,6 +598,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                               productList[index]
                                                                   .id)
                                                           .then((_) {});
+
                                                       showInsuffiecientBottomSheet(
                                                           productList[index]
                                                               .id
@@ -673,134 +686,6 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                     ),
                                   ),
                                 );
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     FocusManager.instance.primaryFocus!
-                                //         .unfocus();
-                                //     Navigator.of(context, rootNavigator: true)
-                                //         .push(MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 ProductDetailScreen(
-                                //                   productID: productId,
-                                //                   productName: fullName,
-                                //                   isInternalTransfer: false,
-                                //                 )));
-                                //   },
-                                //   child: Padding(
-                                //     padding: const EdgeInsets.symmetric(
-                                //         horizontal: 10),
-                                //     child: Container(
-                                //       decoration: BoxDecoration(
-                                //           borderRadius:
-                                //               BorderRadius.circular(15),
-                                //           color: Colors.white,
-                                //           boxShadow: [
-                                //             BoxShadow(
-                                //                 color: AppColor.dropshadowColor,
-                                //                 blurRadius: 3,
-                                //                 spreadRadius: 3),
-                                //           ]),
-                                //       child: Column(
-                                //         crossAxisAlignment:
-                                //             CrossAxisAlignment.start,
-                                //         children: [
-                                //           Stack(
-                                //             children: [
-                                //               Padding(
-                                //                 padding:
-                                //                     const EdgeInsets.symmetric(
-                                //                         horizontal: 8,
-                                //                         vertical: 8),
-                                //                 child: Container(
-                                //                   height: 14.h,
-                                //                   width: 100.w,
-                                //                   decoration: BoxDecoration(
-                                //                     color: Colors.grey.shade200,
-                                //                     borderRadius:
-                                //                         BorderRadius.circular(
-                                //                             10),
-                                //                     image: DecorationImage(
-                                //                         image: image != "false"
-                                //                             ? NetworkImage(
-                                //                                 image)
-                                //                             : const AssetImage(
-                                //                                 "assets/images/app_icon.jpeg",
-                                //                               )),
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //               Container(
-                                //                 height: 3.h,
-                                //                 width: 100.w,
-                                //                 decoration: BoxDecoration(
-                                //                   borderRadius:
-                                //                       const BorderRadius.only(
-                                //                     topLeft:
-                                //                         Radius.circular(15),
-                                //                     topRight:
-                                //                         Radius.circular(15),
-                                //                   ),
-                                //                   color: qty > qtyOutStock
-                                //                       ? AppColor.orangeColor
-                                //                       : Colors.red,
-                                //                 ),
-                                //                 alignment: Alignment.center,
-                                //                 child: textWidget(
-                                //                     qty > qtyOutStock
-                                //                         ? "Sufficient Stock"
-                                //                         : "Insufficient Stock",
-                                //                     color: Colors.white,
-                                //                     size: 12.5,
-                                //                     fontWeight:
-                                //                         FontWeight.bold),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //           const SizedBox(height: 10),
-                                //           Padding(
-                                //             padding: const EdgeInsets.symmetric(
-                                //                 horizontal: 8),
-                                //             child: textWidget(name,
-                                //                 maxLine: 2,
-                                //                 textOverflow:
-                                //                     TextOverflow.ellipsis,
-                                //                 textAlign: TextAlign.left,
-                                //                 size: 13,
-                                //                 fontWeight: FontWeight.bold),
-                                //           ),
-                                //           const Spacer(),
-                                //           Padding(
-                                //             padding: const EdgeInsets.symmetric(
-                                //                 horizontal: 8),
-                                //             child: Row(
-                                //               mainAxisAlignment:
-                                //                   MainAxisAlignment
-                                //                       .spaceBetween,
-                                //               children: [
-                                //                 textWidget("Qty : $qty",
-                                //                     textOverflow:
-                                //                         TextOverflow.ellipsis,
-                                //                     textAlign: TextAlign.left,
-                                //                     size: 12,
-                                //                     fontWeight:
-                                //                         FontWeight.w500),
-                                //                 textWidget(
-                                //                     "\$ ${CommonMethods.twoDecimalPrice(price)}",
-                                //                     textOverflow:
-                                //                         TextOverflow.ellipsis,
-                                //                     textAlign: TextAlign.left,
-                                //                     size: 12,
-                                //                     fontWeight:
-                                //                         FontWeight.w500),
-                                //               ],
-                                //             ),
-                                //           ),
-                                //           const SizedBox(height: 10)
-                                //         ],
-                                //       ),
-                                //     ),
-                                //   ),
-                                // );
                               }),
                         ),
           if (xLoading)

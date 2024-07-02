@@ -63,6 +63,10 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
     }
   }
 
+  defaultWarehouseTextFieldValue(String productID, int qty) {
+    state = InhouseStockState.defaultWarehouseTextFieldValue(productID, qty);
+  }
+
   bool isUrgent = false;
   selectedUrgent() {
     isUrgent = !isUrgent;
@@ -81,7 +85,7 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
     state = InhouseStockState.isOverQuantity(isOver);
   }
 
-  selectedWarehouseID(int warehouseID) {
-    state = InhouseStockState.selectedWarehouse(warehouseID);
+  selectedWarehouseID(int warehouseID, int qty) {
+    state = InhouseStockState.selectedWarehouse(warehouseID, qty);
   }
 }

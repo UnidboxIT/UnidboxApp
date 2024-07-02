@@ -325,8 +325,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                       fontColor: AppColor.primary),
                                   requestButtonWidgetInProductList("Send", () {
                                     if (productList[index]
-                                        .defaultWarehouseList
-                                        .isEmpty) {
+                                            .defaultWarehouseList
+                                            .isEmpty ||
+                                        productList[index].defaultWarehouseQty <
+                                            qtyByMap[productList[index]
+                                                .id
+                                                .toString()]!) {
                                       ref
                                           .read(
                                               inhouseStockStateNotifierProvider

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -19,17 +20,19 @@ import '../../repository/state/stock_request_state.dart';
 import '../details/Inhouse_stock_widget.dart';
 import 'each_product_list_request_widget.dart';
 
+TextEditingController txtTotalQty = TextEditingController();
+int requestWarehouseQty = 0;
 Future<void> showInsuffiecientBottomSheet(
   String productId,
   BuildContext context,
   Products product,
   UserWarehouse userWarehouse,
 ) {
+  int requestWarehouseID = -1;
   List<InhouseStock> inHouseStockList = [];
   List<InhouseStock> filterWareHouseList = [];
-  int requestWarehouseID = -1;
   selectedBox = product.uomList.isNotEmpty ? product.uomList[0] : 0;
-
+  txtTotalQty.text = qtyByMap[productId]!.toString();
   return showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.black.withOpacity(0.1),
@@ -56,23 +59,34 @@ Future<void> showInsuffiecientBottomSheet(
           if (state is DefaultWarehouseIncrementQty &&
               state.productID == productId) {
             qtyByMap.addAll({productId: state.qty});
+            txtTotalQty.text = qtyByMap[productId]!.toString();
           }
           if (state is DefaultWarehouseDecrementQty &&
               state.productID == productId) {
             qtyByMap.addAll({productId: state.qty});
+            txtTotalQty.text = qtyByMap[productId]!.toString();
+          }
+
+          if (state is DefaultWarehouseTextFieldValue &&
+              state.productID == productId) {
+            qtyByMap.addAll({productId: state.qty});
+            txtTotalQty.text = qtyByMap[productId]!.toString();
           }
           if (state is SelectedWarehouseID) {
             requestWarehouseID = state.warehouseID;
+            requestWarehouseQty = state.qty;
           }
           if (state is InhouseStockList) {
             inHouseStockList = state.inhouseStock;
             filterWareHouseList = inHouseStockList
                 .where((stock) =>
                     userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
-                    double.parse(stock.qty) > 0)
+                    double.parse(stock.qty) >= 0)
                 .toList();
             if (filterWareHouseList.isNotEmpty) {
               requestWarehouseID = filterWareHouseList.first.warehouseList[0];
+              requestWarehouseQty =
+                  double.parse(filterWareHouseList.first.qty).toInt();
             }
           }
 
@@ -98,14 +112,15 @@ Future<void> showInsuffiecientBottomSheet(
 }
 
 Widget requestStockWidget(
-  BuildContext context,
-  String productId,
-  Products product,
-  List<InhouseStock> inHouseStockList,
-  UserWarehouse userWarehouse,
-  int requestWarehouseID,
-) {
+    BuildContext context,
+    String productId,
+    Products product,
+    List<InhouseStock> inHouseStockList,
+    UserWarehouse userWarehouse,
+    int requestWarehouseID) {
   superPrint(inHouseStockList);
+  superPrint(requestWarehouseID);
+  superPrint(qtyByMap[productId]);
   return Consumer(builder: (context, ref, child) {
     final next = ref.watch(stockRequesstStateNotifierProvider);
     if (next is StockRequestLoading) {
@@ -117,7 +132,7 @@ Widget requestStockWidget(
 
     return Container(
       width: 100.w,
-      height: inHouseStockList.length > 3 ? 60.h : 50.h,
+      height: inHouseStockList.length > 3 ? 60.h : 55.h,
       decoration: BoxDecoration(
         color: AppColor.bottomSheetBgColor,
         borderRadius: const BorderRadius.only(
@@ -130,6 +145,7 @@ Widget requestStockWidget(
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: () {
+                FocusManager.instance.primaryFocus!.unfocus();
                 Navigator.of(context).pop();
               },
               child: Container(
@@ -175,7 +191,9 @@ Widget requestStockWidget(
                         ref
                             .read(inhouseStockStateNotifierProvider.notifier)
                             .selectedWarehouseID(
-                                inHouseStockList[index].warehouseList[0]);
+                                inHouseStockList[index].warehouseList[0],
+                                double.parse(inHouseStockList[index].qty)
+                                    .toInt());
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -215,30 +233,55 @@ Widget requestStockWidget(
                 ref
                     .read(inhouseStockStateNotifierProvider.notifier)
                     .defaultWarehouseDecrementQty(
-                        productId, qtyByMap[productId]!);
+                        productId, int.parse(txtTotalQty.text));
               }, CupertinoIcons.minus_circle_fill, AppColor.primary),
               const SizedBox(width: 10),
-              Container(
-                height: 38,
-                width: 30.w,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: AppColor.dropshadowColor,
-                          blurRadius: 3,
-                          spreadRadius: 3),
-                    ]),
-                alignment: Alignment.center,
-                child: textWidget(qtyByMap[productId]!.toString()),
+              SizedBox(
+                height: 45,
+                width: 28.w,
+                child: TextFormField(
+                  controller: txtTotalQty,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  cursorColor: AppColor.primary,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  onChanged: (value) {
+                    if (value.isNotEmpty) {
+                      txtTotalQty.text = value;
+                      ref
+                          .read(inhouseStockStateNotifierProvider.notifier)
+                          .defaultWarehouseTextFieldValue(
+                              productId, int.parse(txtTotalQty.text));
+                    }
+                  },
+                  keyboardType: TextInputType.number,
+                ),
               ),
               const SizedBox(width: 10),
               addMinusIconButtonWidget(() {
                 ref
                     .read(inhouseStockStateNotifierProvider.notifier)
                     .defaultWarehouseIncrementQty(
-                        productId, qtyByMap[productId]!);
+                        productId, int.parse(txtTotalQty.text));
               }, CupertinoIcons.add_circled_solid, AppColor.primary),
             ],
           ),
@@ -286,6 +329,15 @@ Widget requestStockWidget(
               ),
               const SizedBox(height: 8),
               urgentWidget(ref, product.id.toString()),
+              Visibility(
+                visible: requestWarehouseQty < qtyByMap[productId]!,
+                child: textWidget(
+                  "Your request have exceed the \namount available at the outlet",
+                  size: 13,
+                  color: AppColor.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -294,7 +346,9 @@ Widget requestStockWidget(
             child: buttonWidget(
               "Send Request",
               () {
-                if (requestWarehouseID != -1) {
+                if (requestWarehouseID != -1 &&
+                    requestWarehouseQty > qtyByMap[productId]!) {
+                  superPrint(qtyByMap[product.id.toString()]!);
                   ref
                       .read(stockRequesstStateNotifierProvider.notifier)
                       .requestInHouseStock(
