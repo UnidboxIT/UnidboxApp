@@ -7,6 +7,7 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../../utils/constant/app_constant.dart';
+import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
@@ -26,17 +27,8 @@ Future<void> showInsuffiecientBottomSheet(
 ) {
   List<InhouseStock> inHouseStockList = [];
   List<InhouseStock> filterWareHouseList = [];
-
-  // if (double.parse(qty).toInt() < 1) {
-  //   setState(() {
-  //     isOverQty = true;
-  //   });
-  // } else {
-  //   setState(() {
-  //     isOverQty = false;
-  //   });
-  // }
-  // isUrgent = false;
+  int requestWarehouseID = -1;
+  selectedBox = product.uomList.isNotEmpty ? product.uomList[0] : 0;
 
   return showModalBottomSheet(
     isScrollControlled: true,
@@ -59,6 +51,7 @@ Future<void> showInsuffiecientBottomSheet(
               .bottom, // To ensure the sheet is above the keyboard
         ),
         child: Consumer(builder: (context, ref, child) {
+          superPrint(userWarehouse.warehouseList[0]);
           final state = ref.watch(inhouseStockStateNotifierProvider);
           if (state is DefaultWarehouseIncrementQty &&
               state.productID == productId) {
@@ -68,13 +61,19 @@ Future<void> showInsuffiecientBottomSheet(
               state.productID == productId) {
             qtyByMap.addAll({productId: state.qty});
           }
+          if (state is SelectedWarehouseID) {
+            requestWarehouseID = state.warehouseID;
+          }
           if (state is InhouseStockList) {
             inHouseStockList = state.inhouseStock;
             filterWareHouseList = inHouseStockList
                 .where((stock) =>
-                    double.tryParse(stock.qty) != null &&
+                    userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
                     double.parse(stock.qty) > 0)
                 .toList();
+            if (filterWareHouseList.isNotEmpty) {
+              requestWarehouseID = filterWareHouseList.first.warehouseList[0];
+            }
           }
 
           return Padding(
@@ -82,8 +81,14 @@ Future<void> showInsuffiecientBottomSheet(
             child: BackdropFilter(
               filter: ImageFilter.blur(
                   sigmaX: 3, sigmaY: 3, tileMode: TileMode.mirror),
-              child: requestStockWidget(context, productId, product,
-                  filterWareHouseList, userWarehouse),
+              child: requestStockWidget(
+                context,
+                productId,
+                product,
+                filterWareHouseList,
+                userWarehouse,
+                requestWarehouseID,
+              ),
             ),
           );
         }),
@@ -93,14 +98,15 @@ Future<void> showInsuffiecientBottomSheet(
 }
 
 Widget requestStockWidget(
-    BuildContext context,
-    String productId,
-    Products product,
-    List<InhouseStock> inHouseStockList,
-    UserWarehouse userWarehouse) {
+  BuildContext context,
+  String productId,
+  Products product,
+  List<InhouseStock> inHouseStockList,
+  UserWarehouse userWarehouse,
+  int requestWarehouseID,
+) {
   superPrint(inHouseStockList);
   return Consumer(builder: (context, ref, child) {
-    int requestWarehouseID = -1;
     final next = ref.watch(stockRequesstStateNotifierProvider);
     if (next is StockRequestLoading) {
       isSendRequestLoading = true;
@@ -108,10 +114,7 @@ Widget requestStockWidget(
     if (next is StockRequestSuccess) {
       isSendRequestLoading = false;
     }
-    final state = ref.watch(inhouseStockStateNotifierProvider);
-    if (state is SelectedWarehouseID) {
-      requestWarehouseID = state.warehouseID;
-    }
+
     return Container(
       width: 100.w,
       height: inHouseStockList.length > 3 ? 60.h : 50.h,
@@ -288,27 +291,41 @@ Widget requestStockWidget(
           const SizedBox(height: 8),
           SizedBox(
             width: 50.w,
-            child: buttonWidget("Send Request", () {
-              ref
-                  .read(stockRequesstStateNotifierProvider.notifier)
-                  .requestInHouseStock(
-                    userWarehouse.warehouseList[0],
-                    requestWarehouseID,
-                    admin.companyId,
-                    product.id,
-                    product.name,
-                    qtyByMap[product.id.toString()]!,
-                    product.price,
-                    selectedBox,
-                    isUrgentMap[product.id.toString()]!,
-                    context,
-                  )
-                  .then((_) {
-                ref
-                    .read(inhouseStockStateNotifierProvider.notifier)
-                    .getInHouseStock(product.id);
-              });
-            }, isBool: isSendRequestLoading),
+            child: buttonWidget(
+              "Send Request",
+              () {
+                if (requestWarehouseID != -1) {
+                  ref
+                      .read(stockRequesstStateNotifierProvider.notifier)
+                      .requestInHouseStock(
+                        userWarehouse.warehouseList[0],
+                        requestWarehouseID,
+                        admin.companyId,
+                        product.id,
+                        product.name,
+                        qtyByMap[product.id.toString()]!,
+                        product.price,
+                        selectedBox,
+                        isUrgentMap[product.id.toString()] ?? false,
+                        context,
+                      )
+                      .then((_) {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .getInHouseStock(product.id);
+                    qtyByMap[product.id.toString()] = 1;
+                  });
+                } else {
+                  successfullyBottomSheet(
+                      "Request Sent Fail!", "Please select your request outlet",
+                      () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  }, isFail: true, context);
+                }
+              },
+              isBool: isSendRequestLoading,
+            ),
           )
         ],
       ),

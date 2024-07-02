@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/Inhouse_stock_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/product_detail_screen.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/each_product_list_request_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
@@ -356,8 +357,9 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                             productList[index].price,
                                             selectedBox,
                                             isUrgentMap[productList[index]
-                                                .id
-                                                .toString()]!,
+                                                    .id
+                                                    .toString()] ??
+                                                false,
                                             context,
                                           )
                                           .then((_) {
@@ -370,6 +372,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                       });
                                     }
                                   },
+                                      isBool: isSendRequestLoading,
                                       fontSize: 15,
                                       elevation: 0.2,
                                       bgColor: Colors.grey.shade100,

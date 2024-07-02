@@ -7,6 +7,8 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
+import '../../../../main.dart';
+import '../../notification_service/pushy_noti_service.dart';
 import '../domain/admin.dart';
 import '../../../../utils/commons/common_method.dart';
 import '../../../../utils/constant/app_constant.dart';
@@ -99,6 +101,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       ),
       (Route<dynamic> route) => false,
     );
+    pushyRegister(backgroundNotificationListener);
     // Navigator.pushReplacement(
     //   context,
     //   MaterialPageRoute(

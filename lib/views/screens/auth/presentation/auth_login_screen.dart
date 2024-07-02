@@ -123,8 +123,13 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
                         FocusManager.instance.primaryFocus!.unfocus();
                         ref
                             .read(authStateNotifierControllerProvider.notifier)
-                            .signIn(txtUserID.text.trim(),
-                                txtPassword.text.trim(), ref, context, isCheck);
+                            .signIn(
+                              txtUserID.text.trim(),
+                              txtPassword.text.trim(),
+                              ref,
+                              context,
+                              isCheck,
+                            );
                       },
                       style: ElevatedButton.styleFrom(
                         surfaceTintColor: Colors.white,

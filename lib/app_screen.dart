@@ -27,7 +27,7 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
   Widget build(BuildContext context) {
     if (ref.watch(connectivityStatusProviders) ==
         ConnectivityStatus.isConnected) {
-      //pushyRegister(backgroundNotificationListener);
+      pushyRegister(backgroundNotificationListener);
     }
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MediaQuery(
