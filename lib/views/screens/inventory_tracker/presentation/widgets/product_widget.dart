@@ -344,36 +344,38 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                           productList[index],
                                           userWarehouse);
                                     } else {
-                                      ref
-                                          .read(
-                                              stockRequesstStateNotifierProvider
-                                                  .notifier)
-                                          .requestInHouseStock(
-                                            userWarehouse.warehouseList[0],
-                                            productList[index]
-                                                .defaultWarehouseList[0],
-                                            admin.companyId,
-                                            productList[index].id,
-                                            productList[index].name,
-                                            qtyByMap[productList[index]
-                                                .id
-                                                .toString()]!,
-                                            productList[index].price,
-                                            selectedBox,
-                                            isUrgentMap[productList[index]
+                                      isSendRequestLoading
+                                          ? () {}
+                                          : ref
+                                              .read(
+                                                  stockRequesstStateNotifierProvider
+                                                      .notifier)
+                                              .requestInHouseStock(
+                                                userWarehouse.warehouseList[0],
+                                                productList[index]
+                                                    .defaultWarehouseList[0],
+                                                admin.companyId,
+                                                productList[index].id,
+                                                productList[index].name,
+                                                qtyByMap[productList[index]
                                                     .id
-                                                    .toString()] ??
-                                                false,
-                                            context,
-                                          )
-                                          .then((_) {
-                                        ref
-                                            .read(
-                                                inhouseStockStateNotifierProvider
-                                                    .notifier)
-                                            .getInHouseStock(
-                                                productList[index].id);
-                                      });
+                                                    .toString()]!,
+                                                productList[index].price,
+                                                selectedBox,
+                                                isUrgentMap[productList[index]
+                                                        .id
+                                                        .toString()] ??
+                                                    false,
+                                                context,
+                                              )
+                                              .then((_) {
+                                              ref
+                                                  .read(
+                                                      inhouseStockStateNotifierProvider
+                                                          .notifier)
+                                                  .getInHouseStock(
+                                                      productList[index].id);
+                                            });
                                     }
                                   },
                                       isBool: isSendRequestLoading,

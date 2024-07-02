@@ -234,10 +234,12 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     width: 30.w,
                     child: buttonWidget("Pack", () {
                       superPrint(product.issueQty);
-                      ref
-                          .read(otherRequestStateNotifierProvider.notifier)
-                          .packOtherRequest(
-                              productLine.id, product.issueQty, context);
+                      isAcceptLoading && acceptProductID == productLine.id
+                          ? () {}
+                          : ref
+                              .read(otherRequestStateNotifierProvider.notifier)
+                              .packOtherRequest(
+                                  productLine.id, product.issueQty, context);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),
@@ -251,10 +253,12 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     child: buttonWidget("Accept", () {
                       superPrint(issuedQty);
                       superPrint(product.qty);
-                      ref
-                          .read(otherRequestStateNotifierProvider.notifier)
-                          .acceptOtherRequest(
-                              productLine.id, issuedQty, context);
+                      isAcceptLoading && acceptProductID == productLine.id
+                          ? () {}
+                          : ref
+                              .read(otherRequestStateNotifierProvider.notifier)
+                              .acceptOtherRequest(
+                                  productLine.id, issuedQty, context);
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),

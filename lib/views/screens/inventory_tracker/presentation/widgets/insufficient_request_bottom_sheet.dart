@@ -340,26 +340,28 @@ Widget requestStockWidget(
                 if (requestWarehouseID != -1 &&
                     requestWarehouseQty >= qtyByMap[productId]!) {
                   superPrint(qtyByMap[product.id.toString()]!);
-                  ref
-                      .read(stockRequesstStateNotifierProvider.notifier)
-                      .requestInHouseStock(
-                        userWarehouse.warehouseList[0],
-                        requestWarehouseID,
-                        admin.companyId,
-                        product.id,
-                        product.name,
-                        qtyByMap[product.id.toString()]!,
-                        product.price,
-                        selectedBox,
-                        isUrgentMap[product.id.toString()] ?? false,
-                        context,
-                      )
-                      .then((_) {
-                    ref
-                        .read(inhouseStockStateNotifierProvider.notifier)
-                        .getInHouseStock(product.id);
-                    qtyByMap[product.id.toString()] = 1;
-                  });
+                  isSendRequestLoading
+                      ? () {}
+                      : ref
+                          .read(stockRequesstStateNotifierProvider.notifier)
+                          .requestInHouseStock(
+                            userWarehouse.warehouseList[0],
+                            requestWarehouseID,
+                            admin.companyId,
+                            product.id,
+                            product.name,
+                            qtyByMap[product.id.toString()]!,
+                            product.price,
+                            selectedBox,
+                            isUrgentMap[product.id.toString()] ?? false,
+                            context,
+                          )
+                          .then((_) {
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .getInHouseStock(product.id);
+                          qtyByMap[product.id.toString()] = 1;
+                        });
                 } else {
                   successfullyBottomSheet(
                       "Request Sent Fail!", "Please select your request outlet",

@@ -29,8 +29,8 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       int uomID,
       bool isUrgent,
       BuildContext context) async {
+    state = const StockRequestState.loading();
     try {
-      state = const StockRequestState.loading();
       Response response = await _inventoryTrackerRepository.stockRequest(
           currentWarehouseID,
           requestWarehouseID,

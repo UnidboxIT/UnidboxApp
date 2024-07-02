@@ -289,16 +289,19 @@ Widget eachProductLineWidget(
                           ? buttonWidget(
                               "Receive",
                               () {
-                                superPrint(product.issueQty);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ReceiveScanScreen(
-                                      productID: product.id,
-                                      qty: product.receivedQty.toInt(),
-                                      productName: product.productIdList[1],
-                                    ),
-                                  ),
-                                );
+                                isPending && product.id == acceptProductID
+                                    ? () {}
+                                    : Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ReceiveScanScreen(
+                                            productID: product.id,
+                                            qty: product.receivedQty.toInt(),
+                                            productName:
+                                                product.productIdList[1],
+                                          ),
+                                        ),
+                                      );
                               },
                               isBool:
                                   isPending && product.id == acceptProductID,
@@ -309,11 +312,16 @@ Widget eachProductLineWidget(
                           : buttonWidget(
                               "Receive",
                               () {
-                                ref
-                                    .read(
-                                        myRequestStateNotifierProvider.notifier)
-                                    .doneMyRequest(product.id,
-                                        product.receivedQty.toInt(), context);
+                                myRequestLoading &&
+                                        product.id == acceptProductID
+                                    ? () {}
+                                    : ref
+                                        .read(myRequestStateNotifierProvider
+                                            .notifier)
+                                        .doneMyRequest(
+                                            product.id,
+                                            product.receivedQty.toInt(),
+                                            context);
                               },
                               isBool: myRequestLoading &&
                                   product.id == acceptProductID,

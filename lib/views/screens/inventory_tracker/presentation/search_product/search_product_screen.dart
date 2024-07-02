@@ -608,44 +608,49 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         userWarehouse,
                                                       );
                                                     } else {
-                                                      ref
-                                                          .read(
-                                                              stockRequesstStateNotifierProvider
-                                                                  .notifier)
-                                                          .requestInHouseStock(
-                                                            userWarehouse
-                                                                .warehouseList[0],
-                                                            productList[index]
-                                                                .defaultWarehouseList[0],
-                                                            admin.companyId,
-                                                            productList[index]
-                                                                .id,
-                                                            productList[index]
-                                                                .name,
-                                                            qtyByMap[productList[
-                                                                    index]
-                                                                .id
-                                                                .toString()]!,
-                                                            productList[index]
-                                                                .price,
-                                                            selectedBox,
-                                                            isUrgentMap[productList[
-                                                                        index]
-                                                                    .id
-                                                                    .toString()] ??
-                                                                false,
-                                                            context,
-                                                          )
-                                                          .then((_) {
-                                                        ref
-                                                            .read(
-                                                                inhouseStockStateNotifierProvider
-                                                                    .notifier)
-                                                            .getInHouseStock(
+                                                      isSendRequestLoading
+                                                          ? () {}
+                                                          : ref
+                                                              .read(
+                                                                  stockRequesstStateNotifierProvider
+                                                                      .notifier)
+                                                              .requestInHouseStock(
+                                                                userWarehouse
+                                                                    .warehouseList[0],
                                                                 productList[
                                                                         index]
-                                                                    .id);
-                                                      });
+                                                                    .defaultWarehouseList[0],
+                                                                admin.companyId,
+                                                                productList[
+                                                                        index]
+                                                                    .id,
+                                                                productList[
+                                                                        index]
+                                                                    .name,
+                                                                qtyByMap[productList[
+                                                                        index]
+                                                                    .id
+                                                                    .toString()]!,
+                                                                productList[
+                                                                        index]
+                                                                    .price,
+                                                                selectedBox,
+                                                                isUrgentMap[productList[
+                                                                            index]
+                                                                        .id
+                                                                        .toString()] ??
+                                                                    false,
+                                                                context,
+                                                              )
+                                                              .then((_) {
+                                                              ref
+                                                                  .read(inhouseStockStateNotifierProvider
+                                                                      .notifier)
+                                                                  .getInHouseStock(
+                                                                      productList[
+                                                                              index]
+                                                                          .id);
+                                                            });
                                                     }
                                                   },
                                                       isBool:

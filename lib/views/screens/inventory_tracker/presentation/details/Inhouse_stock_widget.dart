@@ -476,25 +476,27 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               width: 50.w,
               child: buttonWidget("Send Request", () {
                 if (!isOverQty) {
-                  ref
-                      .read(stockRequesstStateNotifierProvider.notifier)
-                      .requestInHouseStock(
-                        widget.userWarehouse.warehouseList[0],
-                        requestWarehouseID,
-                        admin.companyId,
-                        widget.productDetail.id,
-                        widget.productDetail.name,
-                        int.parse(txtTotalQty.text),
-                        widget.productDetail.price,
-                        selectedBox,
-                        isUrgent,
-                        context,
-                      )
-                      .then((_) {
-                    ref
-                        .read(inhouseStockStateNotifierProvider.notifier)
-                        .getInHouseStock(widget.productDetail.id);
-                  });
+                  isSendRequestLoading
+                      ? () {}
+                      : ref
+                          .read(stockRequesstStateNotifierProvider.notifier)
+                          .requestInHouseStock(
+                            widget.userWarehouse.warehouseList[0],
+                            requestWarehouseID,
+                            admin.companyId,
+                            widget.productDetail.id,
+                            widget.productDetail.name,
+                            int.parse(txtTotalQty.text),
+                            widget.productDetail.price,
+                            selectedBox,
+                            isUrgent,
+                            context,
+                          )
+                          .then((_) {
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .getInHouseStock(widget.productDetail.id);
+                        });
                 }
               }, isBool: isSendRequestLoading),
             )
