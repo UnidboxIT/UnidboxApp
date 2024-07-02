@@ -293,8 +293,10 @@ class _OtherRequestsDetailScreenState
                         if (!isPackedProductEqual) {
                           ref
                               .read(otherRequestStateNotifierProvider.notifier)
-                              .deliveryOtherRequest(idList, context);
-                          isSwipeLoading = false;
+                              .deliveryOtherRequest(idList, context)
+                              .then((_) {
+                            isSwipeLoading = false;
+                          });
                         } else {
                           isSwipeLoading = false;
                           CommonMethods.customizedAlertDialog(

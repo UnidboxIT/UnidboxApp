@@ -35,13 +35,13 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
   Future<void> outletReturnReceived(int productID, BuildContext context) async {
     try {
       state = const OutletReturnState.acceptLoading();
+      state = OutletReturnState.returnReceivedProductID(productID);
       Response response =
           await _outletReturnRepository.returnReceived(productID);
       // superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          state = OutletReturnState.returnReceivedProductID(productID);
           getAlloutletReturn();
         } else {
           CommonMethods.customizedAlertDialog(
@@ -55,6 +55,7 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
       }
     } catch (e) {
       superPrint(e.toString());
+      state = const OutletReturnState.outletReturnError();
     }
   }
 }

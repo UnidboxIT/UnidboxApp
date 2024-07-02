@@ -20,6 +20,7 @@ Widget eachProductLineWidget(
     String requestWarehouse,
     List<ProductLineId> productList,
     {bool isPending = false,
+    bool myRequestLoading = false,
     int acceptProductID = -1}) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
@@ -314,7 +315,8 @@ Widget eachProductLineWidget(
                                     .doneMyRequest(product.id,
                                         product.receivedQty.toInt(), context);
                               },
-                              isBool: product.id == acceptProductID,
+                              isBool: myRequestLoading &&
+                                  product.id == acceptProductID,
                               elevation: 0,
                               bgColor: AppColor.pinkColor,
                               fontColor: Colors.white,

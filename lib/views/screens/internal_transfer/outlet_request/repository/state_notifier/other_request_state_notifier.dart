@@ -42,6 +42,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       int productID, double qty, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
+      state = OtherRequestState.acceptProductID(productID);
       Response response =
           await _otherRequestRepository.accepted(productID, qty);
       var result = jsonDecode(response.body);
@@ -49,7 +50,6 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllOtherRequest();
-          state = OtherRequestState.acceptProductID(productID);
         } else {
           CommonMethods.customizedAlertDialog(
               result['result']['message'], context);
@@ -62,6 +62,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       }
     } catch (e) {
       superPrint(e.toString());
+      state = const OtherRequestState.error();
     }
   }
 
@@ -69,13 +70,13 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       int productID, double qty, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
+      state = OtherRequestState.acceptProductID(productID);
       Response response = await _otherRequestRepository.packed(productID, qty);
       var result = jsonDecode(response.body);
       superPrint(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllOtherRequest();
-          state = OtherRequestState.acceptProductID(productID);
         } else {
           CommonMethods.customizedAlertDialog(
               result['result']['message'], context);
@@ -88,6 +89,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       }
     } catch (e) {
       superPrint(e.toString());
+      state = const OtherRequestState.error();
     }
   }
 

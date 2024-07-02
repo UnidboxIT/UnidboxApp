@@ -36,13 +36,14 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       int productID, int qty, BuildContext context) async {
     try {
       state = const MyRequestState.loading();
+      state = MyRequestState.receivedProductID(productID);
+
       Response response = await _myRequestRepository.done(productID, qty);
       superPrint(response);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
-          state = MyRequestState.receivedProductID(productID);
         } else {
           CommonMethods.customizedAlertDialog(
               result['result']['message'], context);
@@ -61,6 +62,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
   Future<void> pendingRequestUpdate(
       int productID, int qty, BuildContext context) async {
     try {
+      state = MyRequestState.receivedProductID(productID);
       state = const MyRequestState.loading();
       Response response =
           await _myRequestRepository.requestUpdate(productID, qty);
@@ -69,7 +71,6 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
-          state = MyRequestState.receivedProductID(productID);
         } else {
           CommonMethods.customizedAlertDialog(
               result['result']['message'], context);
@@ -82,6 +83,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       }
     } catch (e) {
       superPrint(e.toString());
+      state = const MyRequestState.error();
     }
   }
 

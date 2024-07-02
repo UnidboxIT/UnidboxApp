@@ -29,6 +29,7 @@ class _MyRequestsDetailScreenState
   List<ProductLineId> pendingRequestList = [];
   int acceptProductID = -1;
   bool receivedLoading = false;
+  bool myRequestLoading = false;
   // bool requestLoading = false;
   @override
   void initState() {
@@ -72,9 +73,22 @@ class _MyRequestsDetailScreenState
           receivedLoading = true;
         });
       }
+
       if (next is ReceivedProductID) {
         setState(() {
           acceptProductID = next.productID;
+        });
+      }
+      if (next is MyRequestLoading) {
+        setState(() {
+          myRequestLoading = true;
+        });
+      }
+
+      if (next is Error) {
+        setState(() {
+          myRequestLoading = false;
+          receivedLoading = false;
         });
       }
       if (next is SearchMyRequestList) {
@@ -197,6 +211,7 @@ class _MyRequestsDetailScreenState
                     eachProductLineWidget(requestCode, name, currentDate,
                         requestWarehouse, productList,
                         isPending: receivedLoading,
+                        myRequestLoading: myRequestLoading,
                         acceptProductID: acceptProductID),
                     const SizedBox(height: 20)
                   ],
