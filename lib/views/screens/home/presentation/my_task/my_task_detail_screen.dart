@@ -165,7 +165,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
       alignment: Alignment.topRight,
       children: [
         Container(
-          height: 20.h,
+          height: 18.h,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

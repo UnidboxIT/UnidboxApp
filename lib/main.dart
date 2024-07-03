@@ -27,7 +27,7 @@ void main() async {
 @pragma('vm:entry-point')
 void backgroundNotificationListener(Map<String, dynamic> data) {
   // Print notification payload data
-  superPrint('Received notification Ios: ${data['aps']['alert']['body']}');
+
   superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
   if (Platform.isAndroid) {
