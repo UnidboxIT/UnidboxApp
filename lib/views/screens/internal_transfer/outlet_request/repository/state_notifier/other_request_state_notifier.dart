@@ -56,9 +56,15 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
           state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const OtherRequestState.error();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const OtherRequestState.error();
+        }
       }
     } catch (e) {
       superPrint(e.toString());
@@ -83,9 +89,15 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
           state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const OtherRequestState.error();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const OtherRequestState.error();
+        }
       }
     } catch (e) {
       superPrint(e.toString());
@@ -110,9 +122,17 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
           }, context);
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const OtherRequestState.error();
+        }
       }
+
       // state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());

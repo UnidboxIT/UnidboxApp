@@ -7,9 +7,9 @@ String pushyToken = "";
 Future pushyRegister(backgroundNotificationListener) async {
   Pushy.listen();
   Pushy.toggleInAppBanner(true);
+  Pushy.setNotificationIcon('ic_launcher');
   try {
     // Register the user for push notifications
-
     Pushy.setNotificationListener(backgroundNotificationListener);
     pushyToken = await Pushy.register();
     superPrint(pushyToken);

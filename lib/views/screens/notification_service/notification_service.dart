@@ -25,13 +25,13 @@ class NotificationController {
   }
 
   static Future<bool> displayNotificationRationale(
-      String message, String user) async {
+      String title, String body) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: -1,
         channelKey: 'alerts',
-        title: message,
-        body: user,
+        title: title,
+        body: body,
         notificationLayout: NotificationLayout.BigPicture,
         // payload: {'notificationId': '1234567890'},
       ),

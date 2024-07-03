@@ -184,6 +184,11 @@ class _OtherRequestsDetailScreenState
           loadWarehouseData();
         });
       }
+      if (next is Error) {
+        setState(() {
+          isSwipeLoading = false;
+        });
+      }
     });
 
     return myrequestDetailWidget();

@@ -27,14 +27,13 @@ void main() async {
 @pragma('vm:entry-point')
 void backgroundNotificationListener(Map<String, dynamic> data) {
   // Print notification payload data
-
   superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
   if (Platform.isAndroid) {
     Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
     NotificationController.displayNotificationRationale(
+      "Notification",
       jsonMap['message'],
-      jsonMap['user'],
     );
   }
 }
