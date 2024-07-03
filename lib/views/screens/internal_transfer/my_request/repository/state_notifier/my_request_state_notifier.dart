@@ -50,9 +50,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const MyRequestState.error();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const MyRequestState.error();
+        }
       }
     } catch (e) {
       superPrint(e.toString());
@@ -77,9 +83,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const MyRequestState.error();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const MyRequestState.error();
+        }
       }
     } catch (e) {
       superPrint(e.toString());
@@ -104,9 +116,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
           state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const MyRequestState.error();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const MyRequestState.error();
+        }
       }
       superPrint(response.body);
     } catch (e) {
