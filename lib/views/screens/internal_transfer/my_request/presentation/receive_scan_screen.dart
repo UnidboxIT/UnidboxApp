@@ -154,7 +154,7 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
                             ),
                           )
                         : const Text(
-                            "Items Received",
+                            "Receive",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 18,
