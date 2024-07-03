@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,13 +27,14 @@ void main() async {
 @pragma('vm:entry-point')
 void backgroundNotificationListener(Map<String, dynamic> data) {
   // Print notification payload data
-  superPrint('Received notification: ${data['__json']}');
+  superPrint('Received notification Ios: ${data['aps']['alert']['body']}');
+  superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
-  Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
-  NotificationController.displayNotificationRationale(
-    jsonMap['message'],
-    jsonMap['user'],
-  );
-  // ReceivedNotification noti =
-  //     ReceivedNotification.fromJson(jsonDecode(data['message']));
+  if (Platform.isAndroid) {
+    Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
+    NotificationController.displayNotificationRationale(
+      jsonMap['message'],
+      jsonMap['user'],
+    );
+  }
 }

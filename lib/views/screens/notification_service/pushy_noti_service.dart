@@ -5,13 +5,15 @@ import '../../../utils/commons/super_print.dart';
 String pushyToken = "";
 
 Future pushyRegister(backgroundNotificationListener) async {
+  Pushy.listen();
+  Pushy.toggleInAppBanner(true);
   try {
     // Register the user for push notifications
-    Pushy.listen();
+
     Pushy.setNotificationListener(backgroundNotificationListener);
     pushyToken = await Pushy.register();
     superPrint(pushyToken);
-    // Print token to console/logcat
+    Pushy.clearBadge();
   } catch (error) {
     // Display an alert with the error message
     superPrint(error);
