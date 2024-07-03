@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
@@ -84,7 +85,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
 
     return SuperScaffold(
       topColor: AppColor.primary,
-      botColor: AppColor.bgColor,
+      botColor: Colors.white,
       child: Scaffold(
         backgroundColor: AppColor.bgColor,
         body: SizedBox(

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
-import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
@@ -46,27 +45,22 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SuperScaffold(
-      topColor: const Color(0xffF6F6F6),
-      botColor: Colors.white,
-      child: PopScope(
-        canPop: false,
-        onPopInvoked: _systemBackButtonPressed,
-        child: Scaffold(
-          backgroundColor: const Color(0xffF6F6F6),
-          // body: indexWidgets[indexBottomNavbar],
-          extendBody: true,
-          floatingActionButton: Visibility(
-            visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
-            child: floatingActionBottomWidget(),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: bottomNavBar(),
-          body: SafeArea(
-            top: false,
-            child: IndexedStack(index: currentIndex, children: indexWidgets),
-          ),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: _systemBackButtonPressed,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF6F6F6),
+        // body: indexWidgets[indexBottomNavbar],
+        extendBody: true,
+        floatingActionButton: Visibility(
+          visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+          child: floatingActionBottomWidget(),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: bottomNavBar(),
+        body: SafeArea(
+          top: false,
+          child: IndexedStack(index: currentIndex, children: indexWidgets),
         ),
       ),
     );

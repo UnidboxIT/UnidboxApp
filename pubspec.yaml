@@ -1,7 +1,7 @@
 name: unidbox_app
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.2+7
+version: 1.0.3+8
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -39,6 +39,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   pushy_flutter: ^2.0.20
   awesome_notifications: ^0.9.3+1
+  device_info_plus: ^10.1.0
   
 dev_dependencies:
   flutter_test:
