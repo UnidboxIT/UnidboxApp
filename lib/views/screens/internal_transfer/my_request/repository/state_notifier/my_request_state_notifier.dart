@@ -22,12 +22,12 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       Response response = await _myRequestRepository.myrequest();
       var result = jsonDecode(response.body);
       myRequestList.clear();
-      superPrint(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         myRequestList.add(MyRequest.fromJson(element));
       }
       state = MyRequestState.loadMyRequestData(myRequestList);
+      superPrint(response.body);
     } catch (e) {
       superPrint(e.toString());
     }

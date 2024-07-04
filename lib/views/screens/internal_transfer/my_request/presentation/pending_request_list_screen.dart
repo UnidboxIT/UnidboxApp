@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -35,7 +36,8 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(myRequestStateNotifierProvider);
+    superPrint("HERE");
+    // ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestList) {
         pendingRequestList = [];

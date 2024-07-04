@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/main_screen.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
-
 import 'main.dart';
 import 'views/screens/internet_connection/provider/internet_provider.dart';
 import 'views/screens/internet_connection/state/connection_status.dart';
@@ -44,6 +43,7 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
+          // home: const TestingScreen(),
           home: xCheckUserAuthorized(ref)
               ? const MainScreen()
               : const AuthLoginScreen(),
