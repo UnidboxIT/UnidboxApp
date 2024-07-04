@@ -12,7 +12,6 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/reposi
 import 'views/global_provider_observe.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/notification_service/notification_service.dart';
-import 'views/testing/testing_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +21,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   runApp(
     ProviderScope(
+      //that is global provider
       observers: [globalProviderObserver],
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
@@ -38,7 +38,6 @@ void backgroundNotificationListener(Map<String, dynamic> data) {
   //     .read(testingStateNotifierProvider.notifier)
   //     .updateValue("Noti is Coming");
   superPrint("Overrride");
-
   superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
   globalProviderObserver.container!

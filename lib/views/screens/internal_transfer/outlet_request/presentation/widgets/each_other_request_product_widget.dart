@@ -16,10 +16,10 @@ import '../../repository/provider/other_request_provider.dart';
 Widget eachAcceptedDataWiget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
+  ProductLineId product = productLine;
+  double issuedQty = product.qty;
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(otherRequestStateNotifierProvider);
-    ProductLineId product = productLine;
-    double issuedQty = product.qty;
     if (state is IncrementQty) {
       int stateIndex = state.index;
       if (product.id == stateIndex) {
@@ -119,7 +119,6 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                             size: 15,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            maxLine: 2,
                             textOverflow: TextOverflow.fade,
                             textAlign: TextAlign.left),
                       ),
@@ -134,7 +133,19 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       ),
                       productLine.status != 'requested'
                           ? const SizedBox.shrink()
-                          : const SizedBox(height: 10),
+                          : textWidget(
+                              "Requested Qty : ${product.qty.toInt()} ${productLine.productUomList[1]}",
+                              size: 13,
+                            ),
+                      productLine.status != 'requested'
+                          ? const SizedBox.shrink()
+                          : textWidget(
+                              "Accept Qty :",
+                              size: 13,
+                            ),
+                      productLine.status != 'requested'
+                          ? const SizedBox.shrink()
+                          : const SizedBox(height: 0),
                       productLine.status != 'requested'
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
