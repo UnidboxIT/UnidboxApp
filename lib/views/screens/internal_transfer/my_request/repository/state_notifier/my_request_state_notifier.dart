@@ -22,6 +22,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       Response response = await _myRequestRepository.myrequest();
       var result = jsonDecode(response.body);
       myRequestList.clear();
+      superPrint(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
         myRequestList.add(MyRequest.fromJson(element));
@@ -30,6 +31,11 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     } catch (e) {
       superPrint(e.toString());
     }
+  }
+
+  void updateFromNotification() {
+    getAllMyRequest();
+    superPrint("HEREEEEE");
   }
 
   Future<void> doneMyRequest(

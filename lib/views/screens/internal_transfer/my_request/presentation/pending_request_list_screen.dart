@@ -35,6 +35,7 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestList) {
         pendingRequestList = [];
@@ -54,25 +55,32 @@ class _PendingRequestListScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Pending Requests",
-                () {
-                  ref
-                      .read(requestPendingStateNotifierProvider.notifier)
-                      .myRequestPending(false);
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: pendingRequestWidget(),
-              ),
-            ],
+        body: RefreshIndicator(
+          onRefresh: () async {
+            ref
+                .refresh(myRequestStateNotifierProvider.notifier)
+                .getAllMyRequest();
+          },
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Pending Requests",
+                  () {
+                    ref
+                        .read(requestPendingStateNotifierProvider.notifier)
+                        .myRequestPending(false);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: pendingRequestWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -110,6 +118,7 @@ class _PendingRequestListScreenState
                   if (productList.isEmpty) {
                     return const SizedBox.shrink();
                   }
+
                   return Column(
                     children: [
                       eachPendingRequestListWidget(requestCode, name,

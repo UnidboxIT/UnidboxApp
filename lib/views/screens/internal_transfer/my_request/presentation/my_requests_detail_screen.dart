@@ -45,13 +45,8 @@ class _MyRequestsDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
-      // if (next is MyRequestLoading) {
-      //   setState(() {
-      //     pendingRequestList.clear();
-      //     requestLoading = true;
-      //   });
-      // }
       if (next is MyRequestList) {
         setState(() {
           myRequestList = [];
@@ -105,46 +100,53 @@ class _MyRequestsDetailScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "My Requests",
-                () {
-                  superPrint(widget.isStockRequest);
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(65.w, 6.h),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RequestHistoryScreen()));
+        body: RefreshIndicator(
+          onRefresh: () async {
+            ref
+                .refresh(myRequestStateNotifierProvider.notifier)
+                .getAllMyRequest();
+          },
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "My Requests",
+                  () {
+                    superPrint(widget.isStockRequest);
+                    Navigator.of(context).pop();
                   },
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: AppColor.orangeColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                        ),
-                      ),
-                      child: textWidget("Request\nHistory",
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          size: 17)),
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: orderReceivingBodyWidget(),
-              ),
-            ],
+                Transform.translate(
+                  offset: Offset(65.w, 6.h),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RequestHistoryScreen()));
+                    },
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: AppColor.orangeColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                          ),
+                        ),
+                        child: textWidget("Request\nHistory",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            size: 17)),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: orderReceivingBodyWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -8,8 +8,10 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_request/repositor
 final myReqestProvider = Provider((ref) => MyRequestRepository());
 
 final myRequestStateNotifierProvider =
-    StateNotifierProvider<MyRequestStateNotifier, MyRequestState>(
-        (ref) => MyRequestStateNotifier(ref.watch(myReqestProvider)));
+    StateNotifierProvider<MyRequestStateNotifier, MyRequestState>((ref) {
+  return MyRequestStateNotifier(ref.watch(myReqestProvider));
+});
+
 final requestPendingStateNotifierProvider =
     StateNotifierProvider<RequestPendingStateNotifier, RequestPendingState>(
         (ref) => RequestPendingStateNotifier());

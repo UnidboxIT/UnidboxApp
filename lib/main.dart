@@ -11,6 +11,7 @@ import 'views/screens/notification_service/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await NotificationController.initializeLocalNotifications();
   final sharedPreferences = await SharedPreferences.getInstance();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -29,8 +30,10 @@ void backgroundNotificationListener(Map<String, dynamic> data) {
   // Print notification payload data
   superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
+  Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
+  // if (jsonMap['state'] != "requested") {
+  // }
   if (Platform.isAndroid) {
-    Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
     NotificationController.displayNotificationRationale(
       "Notification",
       jsonMap['message'],
