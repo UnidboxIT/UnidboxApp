@@ -9,6 +9,7 @@ import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import '../repository/state/my_request_state.dart';
 import 'widgets/each_pending_request_list_widget.dart';
+import 'widgets/make_new_request_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
 class PendingRequestListScreen extends ConsumerStatefulWidget {
@@ -57,32 +58,25 @@ class _PendingRequestListScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            ref
-                .refresh(myRequestStateNotifierProvider.notifier)
-                .getAllMyRequest();
-          },
-          child: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(
-              children: [
-                globalAppBarWidget(
-                  "Pending Requests",
-                  () {
-                    ref
-                        .read(requestPendingStateNotifierProvider.notifier)
-                        .myRequestPending(false);
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Transform.translate(
-                  offset: Offset(0, 14.h),
-                  child: pendingRequestWidget(),
-                ),
-              ],
-            ),
+        body: SizedBox(
+          width: 100.w,
+          height: 100.h,
+          child: Stack(
+            children: [
+              globalAppBarWidget(
+                "Pending Requests",
+                () {
+                  ref
+                      .read(requestPendingStateNotifierProvider.notifier)
+                      .myRequestPending(false);
+                  Navigator.of(context).pop();
+                },
+              ),
+              Transform.translate(
+                offset: Offset(0, 14.h),
+                child: pendingRequestWidget(),
+              ),
+            ],
           ),
         ),
       ),
@@ -100,6 +94,7 @@ class _PendingRequestListScreenState
       child: Column(
         children: [
           const SearchPendingRequestWidget(),
+          makeNewWidget(context),
           Expanded(
             child: ListView.builder(
                 padding: const EdgeInsets.only(bottom: 20),

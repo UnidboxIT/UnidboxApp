@@ -33,11 +33,6 @@ void main() async {
 
 @pragma('vm:entry-point')
 void backgroundNotificationListener(Map<String, dynamic> data) {
-  superPrint(data);
-  // globalProviderObserver.container!
-  //     .read(testingStateNotifierProvider.notifier)
-  //     .updateValue("Noti is Coming");
-  superPrint("Overrride");
   superPrint('Received notification Android: ${data['__json']}');
   superPrint('Received notification: ${data['message']}');
   globalProviderObserver.container!

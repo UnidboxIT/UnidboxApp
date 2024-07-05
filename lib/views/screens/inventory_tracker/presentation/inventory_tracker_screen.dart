@@ -12,6 +12,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
 import 'create_product/create_product_screen.dart';
+import 'widgets/insufficient_product_widget.dart';
 
 class InventoryTrackerScreen extends ConsumerStatefulWidget {
   const InventoryTrackerScreen({super.key});
@@ -108,6 +109,7 @@ class _InventoryTrackerScreenState
             isAutoFocus: false,
             name: "Inventory Tracker",
           ),
+          insufficientProductWidget(),
           Expanded(
             child: ListView.separated(
                 shrinkWrap: true,

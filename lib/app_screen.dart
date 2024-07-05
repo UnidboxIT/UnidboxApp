@@ -43,7 +43,6 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          // home: const TestingScreen(),
           home: xCheckUserAuthorized(ref)
               ? const MainScreen()
               : const AuthLoginScreen(),
