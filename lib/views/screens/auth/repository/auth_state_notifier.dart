@@ -103,6 +103,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
         sharedPreferences.getString(AppKeys.userName) ?? "",
         sharedPreferences.getString(AppKeys.password) ?? "",
         sharedPreferences.getBool("isRemember") ?? false);
+    deleteDeviceToken(context);
     sharedPreferences.remove(AppKeys.apiToken);
     sharedPreferences.remove(AppKeys.userInfo);
     Navigator.pushAndRemoveUntil(
@@ -112,13 +113,37 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       ),
       (Route<dynamic> route) => false,
     );
+  }
 
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const AuthLoginScreen(),
-    //   ),
-    // );
+  void deleteDeviceToken(BuildContext context) async {
+    try {
+      state = const AuthState.loading();
+
+      http.Response response = await _authRepository.deleteDeviceToken();
+      Map<String, dynamic> result = jsonDecode(response.body);
+      superPrint(response);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          state = const AuthState.success();
+        } else {
+          CommonMethods.customizedAlertDialog(
+              result['result']['error'].toString(), context);
+          state = AuthState.error(result['result']['error'].toString());
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = AuthState.error(result['result']['error'].toString());
+        }
+      }
+    } catch (e) {
+      state = const AuthState.error('Could not place order');
+    }
   }
 
   rememberMe(String name, String password, bool isCheck) {
