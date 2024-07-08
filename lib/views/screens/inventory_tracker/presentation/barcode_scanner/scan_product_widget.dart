@@ -384,22 +384,38 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                               superPrint(
                                   productList[index].defaultWarehouseQty);
                               if (productList[index]
-                                      .defaultWarehouseList
-                                      .isEmpty ||
-                                  productList[index].defaultWarehouseQty <
-                                      qtyByMap[
-                                          productList[index].id.toString()]!) {
+                                  .defaultWarehouseList
+                                  .isEmpty) {
                                 ref
                                     .read(inhouseStockStateNotifierProvider
                                         .notifier)
-                                    .getInHouseStock(productList[index].id)
-                                    .then((_) {});
+                                    .getInHouseStock(
+                                        productList[index].id, context);
 
                                 showInsuffiecientBottomSheet(
-                                    productList[index].id.toString(),
-                                    context,
-                                    productList[index],
-                                    userWarehouse);
+                                  productList[index].id.toString(),
+                                  context,
+                                  productList[index],
+                                  userWarehouse,
+                                  "Default warehouse is not set.",
+                                );
+                              } else if (productList[index]
+                                      .defaultWarehouseQty <
+                                  qtyByMap[productList[index].id.toString()]!) {
+                                ref
+                                    .read(inhouseStockStateNotifierProvider
+                                        .notifier)
+                                    .getInHouseStock(
+                                        productList[index].id, context);
+
+                                showInsuffiecientBottomSheet(
+                                  productList[index].id.toString(),
+                                  context,
+                                  productList[index],
+                                  userWarehouse,
+                                  productList[index].defaultWarehouseList[1] +
+                                      "have insufficient quantity\n for your request.",
+                                );
                               } else {
                                 isSendRequestLoading
                                     ? () {}
@@ -430,7 +446,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                                 inhouseStockStateNotifierProvider
                                                     .notifier)
                                             .getInHouseStock(
-                                                productList[index].id);
+                                                productList[index].id, context);
                                       });
                               }
                             },

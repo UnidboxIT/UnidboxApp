@@ -582,21 +582,16 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                             index]
                                                         .defaultWarehouseQty);
                                                     if (productList[index]
-                                                            .defaultWarehouseList
-                                                            .isEmpty ||
-                                                        productList[index]
-                                                                .defaultWarehouseQty <
-                                                            qtyByMap[productList[
-                                                                    index]
-                                                                .id
-                                                                .toString()]!) {
+                                                        .defaultWarehouseList
+                                                        .isEmpty) {
                                                       ref
                                                           .read(
                                                               inhouseStockStateNotifierProvider
                                                                   .notifier)
                                                           .getInHouseStock(
                                                               productList[index]
-                                                                  .id)
+                                                                  .id,
+                                                              context)
                                                           .then((_) {});
 
                                                       showInsuffiecientBottomSheet(
@@ -606,6 +601,35 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         context,
                                                         productList[index],
                                                         userWarehouse,
+                                                        "Default warehouse is not set.",
+                                                      );
+                                                    } else if (productList[
+                                                                index]
+                                                            .defaultWarehouseQty <
+                                                        qtyByMap[
+                                                            productList[index]
+                                                                .id
+                                                                .toString()]!) {
+                                                      ref
+                                                          .read(
+                                                              inhouseStockStateNotifierProvider
+                                                                  .notifier)
+                                                          .getInHouseStock(
+                                                              productList[index]
+                                                                  .id,
+                                                              context)
+                                                          .then((_) {});
+
+                                                      showInsuffiecientBottomSheet(
+                                                        productList[index]
+                                                            .id
+                                                            .toString(),
+                                                        context,
+                                                        productList[index],
+                                                        userWarehouse,
+                                                        productList[index]
+                                                                .defaultWarehouseList[1] +
+                                                            "have insufficient quantity\n for your request.",
                                                       );
                                                     } else {
                                                       isSendRequestLoading
@@ -649,7 +673,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                   .getInHouseStock(
                                                                       productList[
                                                                               index]
-                                                                          .id);
+                                                                          .id,
+                                                                      context);
                                                             });
                                                     }
                                                   },

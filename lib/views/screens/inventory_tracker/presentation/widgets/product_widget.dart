@@ -282,7 +282,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          textWidget("Qty : $qty",
+                                          textWidget("Qty : ${qty.toInt()}",
                                               textOverflow:
                                                   TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
@@ -310,7 +310,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                 children: [
                                   requestButtonWidgetInProductList("Cancel",
                                       () {
-                                    superPrint(productIdList);
                                     if (productIdList.contains(productId)) {
                                       setState(() {
                                         qtyByMap[productList[index]
@@ -325,25 +324,46 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                       bgColor: Colors.grey.shade100,
                                       fontColor: AppColor.primary),
                                   requestButtonWidgetInProductList("Send", () {
+                                    superPrint(productList[index]
+                                        .defaultWarehouseList);
                                     if (productList[index]
-                                            .defaultWarehouseList
-                                            .isEmpty ||
-                                        productList[index].defaultWarehouseQty <
-                                            qtyByMap[productList[index]
-                                                .id
-                                                .toString()]!) {
+                                        .defaultWarehouseList
+                                        .isEmpty) {
                                       ref
                                           .read(
                                               inhouseStockStateNotifierProvider
                                                   .notifier)
                                           .getInHouseStock(
-                                              productList[index].id)
+                                              productList[index].id, context)
                                           .then((_) {});
                                       showInsuffiecientBottomSheet(
                                         productList[index].id.toString(),
                                         context,
                                         productList[index],
                                         userWarehouse,
+                                        "Default warehouse is not set.",
+                                        isBackRequest: widget.isBackRequest,
+                                      );
+                                    } else if (productList[index]
+                                            .defaultWarehouseQty <
+                                        qtyByMap[productList[index]
+                                            .id
+                                            .toString()]!) {
+                                      ref
+                                          .read(
+                                              inhouseStockStateNotifierProvider
+                                                  .notifier)
+                                          .getInHouseStock(
+                                              productList[index].id, context)
+                                          .then((_) {});
+                                      showInsuffiecientBottomSheet(
+                                        productList[index].id.toString(),
+                                        context,
+                                        productList[index],
+                                        userWarehouse,
+                                        productList[index]
+                                                .defaultWarehouseList[1] +
+                                            "have insufficient quantity\n for your request.",
                                         isBackRequest: widget.isBackRequest,
                                       );
                                     } else {
@@ -379,7 +399,8 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                                       inhouseStockStateNotifierProvider
                                                           .notifier)
                                                   .getInHouseStock(
-                                                      productList[index].id);
+                                                      productList[index].id,
+                                                      context);
                                             });
                                     }
                                   },

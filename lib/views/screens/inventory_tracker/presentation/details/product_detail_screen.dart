@@ -47,6 +47,7 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Products productDetail = Products();
   List<InhouseStock> inHouseStockList = [];
+
   List<StockOrder> stockOrderList = [];
   bool isLoading = false;
   bool isInHouseLoading = false;
@@ -74,7 +75,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       if (!widget.isInternalTransfer) {
         ref
             .read(inhouseStockStateNotifierProvider.notifier)
-            .getInHouseStock(int.parse(widget.productID));
+            .getInHouseStock(int.parse(widget.productID), context);
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .getStockOrder(int.parse(widget.productID));
@@ -103,6 +104,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         });
       }
     });
+
     ref.listen(productDetailStateNotifierProvider, (prev, next) {
       if (next is ProductDetailLoading) {
         productDetail = Products();

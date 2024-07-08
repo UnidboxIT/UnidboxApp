@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inhouse_stock_state.dart';
+import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../domain/inhouse_stock.dart';
 
@@ -14,20 +16,33 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
 
   List<InhouseStock> inHouseStockList = [];
 
-  Future<void> getInHouseStock(int productID) async {
+  Future<void> getInHouseStock(int productID, BuildContext context) async {
     try {
       state = const InhouseStockState.loading();
       Response response =
           await _inventoryTrackerRepository.inhouseStock(productID);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
-      superPrint(result['result']['result'], title: "In House Stock");
-      if (result['result']['code'] == 200) {
-        Iterable dataList = result['result']['result'];
-        inHouseStockList.clear();
-        for (var data in dataList) {
-          inHouseStockList.add(InhouseStock.fromJson(data));
+      if (result.containsKey('result')) {
+        superPrint(result['result']['result'], title: "In House Stock");
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['result'];
+          inHouseStockList.clear();
+          for (var data in dataList) {
+            inHouseStockList.add(InhouseStock.fromJson(data));
+          }
+          state = InhouseStockState.loadInHouseStock(inHouseStockList);
         }
-        state = InhouseStockState.loadInHouseStock(inHouseStockList);
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const InhouseStockState.error();
+        }
       }
     } catch (e) {
       state = InhouseStockState.error(error: e.toString());

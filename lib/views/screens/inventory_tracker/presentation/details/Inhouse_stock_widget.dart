@@ -153,7 +153,12 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     superPrint(qty);
     superPrint(location);
     superPrint("Contain");
-    if (double.parse(qty) < 0) {
+    superPrint(widget.inHouseStockList[0].warehouseList[0] !=
+        widget.userWarehouse.warehouseList[0]);
+
+    if (double.parse(qty) <= 0 &&
+        widget.inHouseStockList[0].warehouseList[0] !=
+            widget.userWarehouse.warehouseList[0]) {
       return const SizedBox.shrink();
     }
 
@@ -169,7 +174,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             ),
             Expanded(
               flex: 3,
-              child: textWidget(qty.toString(),
+              child: textWidget(double.parse(qty).toInt().toString(),
                   color: Colors.black, size: 14, textAlign: TextAlign.center),
             ),
             Expanded(
@@ -191,7 +196,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   Widget eachInhouseStockNotContainWidget(
       String location, String qty, int id, context) {
-    if (double.parse(qty) < 0) {
+    if (double.parse(qty) <= 0) {
       return const SizedBox.shrink();
     }
     superPrint("Not Contain");
@@ -207,7 +212,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             ),
             Expanded(
               flex: 3,
-              child: textWidget(qty.toString(),
+              child: textWidget(double.parse(qty).toInt().toString(),
                   color: Colors.black, size: 14, textAlign: TextAlign.center),
             ),
             Expanded(
@@ -495,7 +500,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                           .then((_) {
                           ref
                               .read(inhouseStockStateNotifierProvider.notifier)
-                              .getInHouseStock(widget.productDetail.id);
+                              .getInHouseStock(
+                                  widget.productDetail.id, context);
                         });
                 }
               }, isBool: isSendRequestLoading),

@@ -22,8 +22,12 @@ import 'each_product_list_request_widget.dart';
 
 TextEditingController txtTotalQty = TextEditingController();
 int requestWarehouseQty = 0;
-Future<void> showInsuffiecientBottomSheet(String productId,
-    BuildContext context, Products product, UserWarehouse userWarehouse,
+Future<void> showInsuffiecientBottomSheet(
+    String productId,
+    BuildContext context,
+    Products product,
+    UserWarehouse userWarehouse,
+    String title,
     {bool isBackRequest = false}) {
   int requestWarehouseID = -1;
   List<InhouseStock> inHouseStockList = [];
@@ -78,7 +82,7 @@ Future<void> showInsuffiecientBottomSheet(String productId,
             filterWareHouseList = inHouseStockList
                 .where((stock) =>
                     userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
-                    double.parse(stock.qty) >= 0)
+                    double.parse(stock.qty) > 0)
                 .toList();
             if (filterWareHouseList.isNotEmpty) {
               requestWarehouseID = filterWareHouseList.first.warehouseList[0];
@@ -99,6 +103,7 @@ Future<void> showInsuffiecientBottomSheet(String productId,
                   filterWareHouseList,
                   userWarehouse,
                   requestWarehouseID,
+                  title,
                   isBackRequest),
             ),
           );
@@ -115,6 +120,7 @@ Widget requestStockWidget(
     List<InhouseStock> inHouseStockList,
     UserWarehouse userWarehouse,
     int requestWarehouseID,
+    String title,
     bool isBackRequest) {
   superPrint(inHouseStockList);
   superPrint(requestWarehouseID);
@@ -139,39 +145,49 @@ Widget requestStockWidget(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                FocusManager.instance.primaryFocus!.unfocus();
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                width: 28.w,
-                color: Colors.transparent,
-                height: 40,
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  CupertinoIcons.clear_circled_solid,
-                  color: AppColor.primary,
+          SizedBox(
+            width: 100.w,
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    textWidget(title,
+                        color: AppColor.primary,
+                        size: 17,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center),
+                    textWidget(
+                      "Request from other outlet?",
+                      color: AppColor.primary,
+                      size: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
                 ),
-              ),
+                Positioned(
+                  top: -2.h,
+                  right: -10.w,
+                  child: GestureDetector(
+                    onTap: () {
+                      FocusManager.instance.primaryFocus!.unfocus();
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: 30.w,
+                      color: Colors.transparent,
+                      height: 55,
+                      child: Icon(
+                        CupertinoIcons.clear_circled_solid,
+                        color: AppColor.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          // Visibility(
-          //   visible: requestWarehouseQty <= qtyByMap[productId]!,
-          //   child: textWidget(
-          //     "Request from other outlet?",
-          //     color: AppColor.primary,
-          //     size: 17,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-          textWidget(
-            "Request from other outlet?",
-            color: AppColor.primary,
-            size: 17,
-            fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -218,7 +234,10 @@ Widget requestStockWidget(
                                   spreadRadius: 3),
                             ]),
                         alignment: Alignment.center,
-                        child: textWidget(inHouseStockList[index].qty,
+                        child: textWidget(
+                            double.parse(inHouseStockList[index].qty)
+                                .toInt()
+                                .toString(),
                             textAlign: TextAlign.center,
                             color: inHouseStockList[index].warehouseList[0] ==
                                     requestWarehouseID
@@ -375,7 +394,7 @@ Widget requestStockWidget(
                           .then((_) {
                           ref
                               .read(inhouseStockStateNotifierProvider.notifier)
-                              .getInHouseStock(product.id);
+                              .getInHouseStock(product.id, context);
                           qtyByMap[product.id.toString()] = 1;
                         });
                 } else {
