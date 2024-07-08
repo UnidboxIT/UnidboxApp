@@ -19,15 +19,15 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   int currentIndex = 0;
 
-  final List<GlobalKey<NavigatorState>> _navigatorKeys = [
+  final List<GlobalKey<NavigatorState>> navigatorKeys = [
     homeNavRouteState,
   ];
   Future<bool> _systemBackButtonPressed(bool didPop) {
-    if (_navigatorKeys[currentIndex].currentState?.canPop() == true) {
+    if (navigatorKeys[currentIndex].currentState?.canPop() == true) {
       superPrint("HERE");
-      _navigatorKeys[currentIndex]
+      navigatorKeys[currentIndex]
           .currentState
-          ?.pop(_navigatorKeys[currentIndex].currentContext);
+          ?.pop(navigatorKeys[currentIndex].currentContext);
     } else {
       superPrint("HI");
       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
@@ -85,7 +85,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 onTap: () {
                   if (e.id != 2) {
                     if (currentIndex == e.id) {
-                      _navigatorKeys[currentIndex]
+                      navigatorKeys[currentIndex]
                           .currentState
                           ?.popUntil((route) => route.isFirst);
                     } else {

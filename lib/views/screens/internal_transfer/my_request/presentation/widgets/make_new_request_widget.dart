@@ -7,10 +7,13 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 Widget makeNewWidget(BuildContext context) {
   return GestureDetector(
     onTap: () {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const InventoryTrackerScreen()),
-          (route) => route.isFirst);
+      Navigator.of(context).pop();
+      Navigator.of(context)
+        ..pop()
+        ..pop()
+        ..push(MaterialPageRoute(
+          builder: (context) => const InventoryTrackerScreen(),
+        ));
     },
     child: Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),

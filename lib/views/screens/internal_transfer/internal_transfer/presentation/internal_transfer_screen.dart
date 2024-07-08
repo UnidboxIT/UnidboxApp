@@ -136,19 +136,19 @@ class _InternalTransferScreenState
               return GestureDetector(
                 onTap: () {
                   if (index == 0) {
-                    Navigator.of(context, rootNavigator: true)
+                    Navigator.of(context, rootNavigator: false)
                         .push(MaterialPageRoute(
                             builder: (context) => const MyRequestsDetailScreen(
                                   isStockRequest: false,
                                 )));
                   } else if (index == 1) {
-                    Navigator.of(context, rootNavigator: true)
+                    Navigator.of(context, rootNavigator: false)
                         .push(MaterialPageRoute(
                             builder: (context) => OtherRequestDetailScreen(
                                   userWarehouse: userWarehouse,
                                 )));
                   } else {
-                    Navigator.of(context, rootNavigator: true)
+                    Navigator.of(context, rootNavigator: false)
                         .push(MaterialPageRoute(
                             builder: (context) => OutletReturnScreen(
                                   userWarehouse: userWarehouse,
