@@ -55,7 +55,7 @@ Future<void> showInsuffiecientBottomSheet(
               .bottom, // To ensure the sheet is above the keyboard
         ),
         child: Consumer(builder: (context, ref, child) {
-          superPrint(userWarehouse.warehouseList[0]);
+          superPrint(userWarehouse.warehouseList[1]);
           final state = ref.watch(inhouseStockStateNotifierProvider);
           if (state is DefaultWarehouseIncrementQty &&
               state.productID == productId) {
@@ -211,39 +211,75 @@ Widget requestStockWidget(
                     GestureDetector(
                       onTap: () {
                         superPrint(inHouseStockList[index].warehouseList);
-                        ref
-                            .read(inhouseStockStateNotifierProvider.notifier)
-                            .selectedWarehouseID(
-                                inHouseStockList[index].warehouseList[0],
-                                double.parse(inHouseStockList[index].qty)
-                                    .toInt());
+                        if (product.defaultWarehouseList.isEmpty) {
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .selectedWarehouseID(
+                                  inHouseStockList[index].warehouseList[0],
+                                  double.parse(inHouseStockList[index].qty)
+                                      .toInt());
+                        } else if (product.defaultWarehouseList.isNotEmpty &&
+                            product.defaultWarehouseList[0] !=
+                                userWarehouse.warehouseList[0]) {
+                          ref
+                              .read(inhouseStockStateNotifierProvider.notifier)
+                              .selectedWarehouseID(
+                                  inHouseStockList[index].warehouseList[0],
+                                  double.parse(inHouseStockList[index].qty)
+                                      .toInt());
+                        }
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: inHouseStockList[index].warehouseList[0] ==
-                                    requestWarehouseID
-                                ? AppColor.orangeColor
-                                : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColor.dropshadowColor,
-                                  blurRadius: 3,
-                                  spreadRadius: 3),
-                            ]),
-                        alignment: Alignment.center,
-                        child: textWidget(
-                            double.parse(inHouseStockList[index].qty)
-                                .toInt()
-                                .toString(),
-                            textAlign: TextAlign.center,
-                            color: inHouseStockList[index].warehouseList[0] ==
-                                    requestWarehouseID
-                                ? Colors.white
-                                : Colors.black),
-                      ),
+                      child: product.defaultWarehouseList.isNotEmpty &&
+                              product.defaultWarehouseList[0] ==
+                                  userWarehouse.warehouseList[0]
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: AppColor.dropshadowColor,
+                                        blurRadius: 3,
+                                        spreadRadius: 3),
+                                  ]),
+                              alignment: Alignment.center,
+                              child: textWidget(
+                                  double.parse(inHouseStockList[index].qty)
+                                      .toInt()
+                                      .toString(),
+                                  textAlign: TextAlign.center,
+                                  color: Colors.black),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: inHouseStockList[index]
+                                              .warehouseList[0] ==
+                                          requestWarehouseID
+                                      ? AppColor.orangeColor
+                                      : Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: AppColor.dropshadowColor,
+                                        blurRadius: 3,
+                                        spreadRadius: 3),
+                                  ]),
+                              alignment: Alignment.center,
+                              child: textWidget(
+                                  double.parse(inHouseStockList[index].qty)
+                                      .toInt()
+                                      .toString(),
+                                  textAlign: TextAlign.center,
+                                  color: inHouseStockList[index]
+                                              .warehouseList[0] ==
+                                          requestWarehouseID
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
                     ),
                   ],
                 );

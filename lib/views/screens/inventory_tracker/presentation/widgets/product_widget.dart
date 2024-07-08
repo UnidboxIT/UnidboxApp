@@ -333,6 +333,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                   requestButtonWidgetInProductList("Send", () {
                                     superPrint(productList[index]
                                         .defaultWarehouseList);
+
                                     if (productList[index]
                                         .defaultWarehouseList
                                         .isEmpty) {
@@ -352,10 +353,13 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                         isBackRequest: widget.isBackRequest,
                                       );
                                     } else if (productList[index]
-                                            .defaultWarehouseQty <
-                                        qtyByMap[productList[index]
-                                            .id
-                                            .toString()]!) {
+                                                .defaultWarehouseQty <
+                                            qtyByMap[productList[index]
+                                                .id
+                                                .toString()]! ||
+                                        productList[index]
+                                                .defaultWarehouseList[0] ==
+                                            userWarehouse.warehouseList[0]) {
                                       ref
                                           .read(
                                               inhouseStockStateNotifierProvider

@@ -381,8 +381,6 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                 fontColor: AppColor.primary),
                             requestButtonWidgetInProductList("Send", () {
                               FocusManager.instance.primaryFocus!.unfocus();
-                              superPrint(
-                                  productList[index].defaultWarehouseQty);
                               if (productList[index]
                                   .defaultWarehouseList
                                   .isEmpty) {
@@ -400,8 +398,11 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   "Default warehouse is not set.",
                                 );
                               } else if (productList[index]
-                                      .defaultWarehouseQty <
-                                  qtyByMap[productList[index].id.toString()]!) {
+                                          .defaultWarehouseQty <
+                                      qtyByMap[
+                                          productList[index].id.toString()]! ||
+                                  productList[index].defaultWarehouseList[0] ==
+                                      userWarehouse.warehouseList[0]) {
                                 ref
                                     .read(inhouseStockStateNotifierProvider
                                         .notifier)

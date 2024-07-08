@@ -582,12 +582,11 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                     FocusManager
                                                         .instance.primaryFocus!
                                                         .unfocus();
-                                                    superPrint(productList[
-                                                            index]
-                                                        .defaultWarehouseQty);
+
                                                     if (productList[index]
                                                         .defaultWarehouseList
                                                         .isEmpty) {
+                                                      superPrint("HERE");
                                                       ref
                                                           .read(
                                                               inhouseStockStateNotifierProvider
@@ -608,12 +607,18 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         "Default warehouse is not set.",
                                                       );
                                                     } else if (productList[
-                                                                index]
-                                                            .defaultWarehouseQty <
-                                                        qtyByMap[
-                                                            productList[index]
+                                                                    index]
+                                                                .defaultWarehouseQty <
+                                                            qtyByMap[productList[
+                                                                    index]
                                                                 .id
-                                                                .toString()]!) {
+                                                                .toString()]! ||
+                                                        productList[index]
+                                                                    .defaultWarehouseList[
+                                                                0] ==
+                                                            userWarehouse
+                                                                    .warehouseList[
+                                                                0]) {
                                                       ref
                                                           .read(
                                                               inhouseStockStateNotifierProvider
