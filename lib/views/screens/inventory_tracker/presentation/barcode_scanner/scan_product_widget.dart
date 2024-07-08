@@ -219,7 +219,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
           crossAxisCount: 2,
           mainAxisSpacing: 20,
           crossAxisSpacing: 0,
-          childAspectRatio: 0.67,
+          childAspectRatio: 0.64,
         ),
         itemBuilder: (context, index) {
           String productId = productList[index].id.toString();
@@ -252,8 +252,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                           product: productList[index],
                           productIdList: productIdList,
                         )
-                      : SizedBox(
-                          height: 28.h,
+                      : Expanded(
                           child: Column(
                             children: [
                               GestureDetector(
@@ -271,15 +270,16 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                 child: Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 8),
+                                      padding: EdgeInsets.only(
+                                          left: 8, right: 8, top: 3.h),
                                       child: Container(
                                         height: 14.h,
                                         width: 100.w,
                                         decoration: BoxDecoration(
                                           color: Colors.grey.shade200,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
                                           image: DecorationImage(
                                               image: image != "false"
                                                   ? NetworkImage(image)
@@ -329,7 +329,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: textWidget(name,
-                                      maxLine: 3,
+                                      maxLine: 4,
                                       textOverflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       size: 13,
@@ -344,7 +344,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    textWidget("Qty : $qty",
+                                    textWidget("Qty : ${qty.toInt()}",
                                         textOverflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         size: 12,

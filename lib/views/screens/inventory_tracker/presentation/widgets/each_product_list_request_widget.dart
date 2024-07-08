@@ -126,7 +126,7 @@ class _EachProductListRequestWidgetState
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: textWidget(fullName,
-              maxLine: 2,
+              maxLine: 3,
               textOverflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
               size: 13,
@@ -138,7 +138,7 @@ class _EachProductListRequestWidgetState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              textWidget("Qty : $qty",
+              textWidget("Qty : ${qty.toInt()}",
                   textOverflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   size: 12,
@@ -259,7 +259,7 @@ class _EachProductListRequestWidgetState
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -303,7 +303,7 @@ class _EachProductListRequestWidgetState
             ],
           ),
         ]),
-        const SizedBox(height: 5),
+        const SizedBox(height: 10),
         urgentWidget(widget.product.id.toString()),
       ],
     );

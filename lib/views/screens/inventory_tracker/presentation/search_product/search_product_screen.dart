@@ -260,6 +260,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                   suffixIcon: txtSearchProduct.text.isNotEmpty
                       ? TextButton(
                           onPressed: () async {
+                            FocusManager.instance.primaryFocus!.unfocus();
                             setState(() {
                               isClickSearchButton = true;
                             });
@@ -348,7 +349,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 20,
                                 crossAxisSpacing: 0,
-                                childAspectRatio: 0.67,
+                                childAspectRatio: 0.64,
                               ),
                               itemBuilder: (context, index) {
                                 String productId =
@@ -384,8 +385,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                 product: productList[index],
                                                 productIdList: productIdList,
                                               )
-                                            : SizedBox(
-                                                height: 28.h,
+                                            : Expanded(
                                                 child: Column(
                                                   children: [
                                                     GestureDetector(
@@ -410,12 +410,10 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        8,
-                                                                    vertical:
-                                                                        8),
+                                                                EdgeInsets.only(
+                                                                    left: 8,
+                                                                    right: 8,
+                                                                    top: 3.h),
                                                             child: Container(
                                                               height: 14.h,
                                                               width: 100.w,
@@ -424,10 +422,14 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                 color: Colors
                                                                     .grey
                                                                     .shade200,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
+                                                                borderRadius: const BorderRadius
+                                                                    .only(
+                                                                    bottomLeft:
+                                                                        Radius.circular(
                                                                             10),
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            10)),
                                                                 image: DecorationImage(
                                                                     image: image != "false"
                                                                         ? NetworkImage(image)
@@ -496,7 +498,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                 .symmetric(
                                                                 horizontal: 8),
                                                         child: textWidget(name,
-                                                            maxLine: 3,
+                                                            maxLine: 4,
                                                             textOverflow:
                                                                 TextOverflow
                                                                     .ellipsis,
@@ -519,7 +521,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                 .spaceBetween,
                                                         children: [
                                                           textWidget(
-                                                              "Qty : $qty",
+                                                              "Qty : ${qty.toInt()}",
                                                               textOverflow:
                                                                   TextOverflow
                                                                       .ellipsis,
@@ -549,7 +551,9 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                   ],
                                                 ),
                                               ),
-                                        const SizedBox(height: 5),
+                                        productIdList.contains(productId)
+                                            ? const Spacer()
+                                            : const SizedBox(height: 5),
                                         productIdList.contains(productId)
                                             ? Row(
                                                 mainAxisAlignment:
