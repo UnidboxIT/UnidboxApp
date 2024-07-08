@@ -68,8 +68,7 @@ class CreateProductStateNotifier extends StateNotifier<CreateProductState> {
           state = const CreateProductState.error();
         }
       } else {
-        successfullyBottomSheet("Temporary Product", result['result']['error'],
-            () {
+        successfullyBottomSheet("Temporary Product", "Something wrong!", () {
           Navigator.of(context).pop();
         }, context, isFail: true);
         state = const CreateProductState.error();

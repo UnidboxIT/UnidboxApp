@@ -89,8 +89,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           //   Navigator.of(context).pop();
           // });
         } else {
-          successfullyBottomSheet(
-              "Request Sent Fail!", result['result']['error'], () {
+          successfullyBottomSheet("Request Sent Fail!", "Something wrong!", () {
             Navigator.of(context).pop();
           }, isFail: true, context);
           superPrint("Here");

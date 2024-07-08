@@ -50,10 +50,6 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllOtherRequest();
-        } else {
-          CommonMethods.customizedAlertDialog(
-              result['result']['message'], context);
-          state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {
@@ -83,10 +79,6 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllOtherRequest();
-        } else {
-          CommonMethods.customizedAlertDialog(
-              result['result']['message'], context);
-          state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

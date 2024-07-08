@@ -43,15 +43,17 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAlloutletReturn();
-        } else {
-          CommonMethods.customizedAlertDialog(
-              result['result']['message'], context);
-          state = const OutletReturnState.outletReturnError();
         }
       } else if (result.containsKey('error')) {
-        CommonMethods.customizedAlertDialog(
-            result['error']['message'], context);
-        state = const OutletReturnState.outletReturnError();
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const OutletReturnState.outletReturnError();
+        }
       }
     } catch (e) {
       superPrint(e.toString());

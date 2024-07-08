@@ -56,10 +56,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
                 MaterialPageRoute(builder: (context) => const MainScreen()));
           }
           state = const AuthState.success();
-        } else {
-          CommonMethods.customizedAlertDialog(
-              result['result']['error'].toString(), context);
-          state = AuthState.error(result['result']['error'].toString());
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {
@@ -125,10 +121,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           state = const AuthState.success();
-        } else {
-          CommonMethods.customizedAlertDialog(
-              result['result']['error'].toString(), context);
-          state = AuthState.error(result['result']['error'].toString());
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

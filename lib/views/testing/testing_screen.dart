@@ -10,7 +10,6 @@ class TestingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     superPrint("HERE");
-    final currentValue = ref.watch(testingStateNotifierProvider);
     ref.listen(testingProvider, (pre, next) {
       CommonMethods.customizedAlertDialog("HAY", context);
     });
