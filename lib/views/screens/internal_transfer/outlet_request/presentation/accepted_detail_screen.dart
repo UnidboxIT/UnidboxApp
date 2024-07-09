@@ -338,7 +338,7 @@ class _OtherRequestsDetailScreenState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textWidget(
-                    "Packed".toUpperCase(),
+                    "Packed List".toUpperCase(),
                     size: 14,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
 
@@ -47,7 +48,11 @@ Widget outletRequestBreadcrumbHeadline(
             flex: 4,
             child: GestureDetector(
               onTap: () {
-                if (accepted.isNotEmpty) {
+                superPrint(accepted);
+                superPrint(packed);
+                if (accepted.isNotEmpty && packed.isNotEmpty) {
+                  Navigator.of(context).pop();
+                } else if (accepted.isNotEmpty && packed.isEmpty) {
                   Navigator.of(context).pop();
                 }
               },

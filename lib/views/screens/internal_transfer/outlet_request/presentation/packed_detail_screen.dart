@@ -63,6 +63,11 @@ class _OtherRequestsDetailScreenState
     requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
+        if (element.status == 'packed') {
+          setState(() {
+            packedProductList.add(element);
+          });
+        }
         if (element.status.contains("requested")) {
           acceptedProductList.add(element);
           setState(() {
@@ -495,7 +500,7 @@ class _OtherRequestsDetailScreenState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 textWidget(
-                  "Packed".toUpperCase(),
+                  "Issuing".toUpperCase(),
                   size: 14,
                   fontWeight: FontWeight.bold,
                 ),

@@ -43,7 +43,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       BuildContext context, isCheck) async {
     try {
       state = const AuthState.loading();
-
       http.Response response = await _authRepository.login(username, password);
       Map<String, dynamic> result = jsonDecode(response.body);
       superPrint(result);
@@ -56,13 +55,9 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
                 MaterialPageRoute(builder: (context) => const MainScreen()));
           }
           state = const AuthState.success();
-        }
-      } else if (result.containsKey('error')) {
-        if (result['error']['data']['message'] == "Session expired") {
-          //Session Expired
         } else {
           CommonMethods.customizedAlertDialog(
-            result['error']['data']['message'],
+            result['result']['error'],
             context,
           );
           state = AuthState.error(result['result']['error'].toString());

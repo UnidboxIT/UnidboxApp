@@ -160,7 +160,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
   Widget scanBodyWidget() {
     return Container(
       width: 100.w,
-      height: 82.h,
+      height: 80.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(

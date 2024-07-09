@@ -181,7 +181,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   Widget searchBodyWidget(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
-      height: 82.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

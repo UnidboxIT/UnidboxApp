@@ -481,7 +481,7 @@ class _OtherRequestsDetailScreenState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textWidget(
-                    "Accepted List",
+                    "Accepted List".toUpperCase(),
                     size: 14,
                     fontWeight: FontWeight.bold,
                   ),
