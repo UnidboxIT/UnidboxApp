@@ -20,7 +20,7 @@ Widget outletRequestBreadcrumbHeadline(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
