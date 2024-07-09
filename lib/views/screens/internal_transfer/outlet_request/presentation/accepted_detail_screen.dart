@@ -312,7 +312,7 @@ class _OtherRequestsDetailScreenState
   Widget packedRequestWidget() {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
             builder: (context) => PackedListScreen(
               otherRequestList: otherRequestList,
