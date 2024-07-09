@@ -9,6 +9,7 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/other_request.dart';
 
+import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
 class PackedListScreen extends ConsumerStatefulWidget {
@@ -64,6 +65,7 @@ class _PackedListScreenState extends ConsumerState<PackedListScreen> {
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
+          outletRequestBreadcrumbHeadline(context, "accepted", "packed"),
           Expanded(
               child: PackedDetailScreen(
             otherRequestList: widget.otherRequestList,

@@ -17,6 +17,7 @@ import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../my_request/domain/my_request.dart';
 import 'other_request_history/other_request_history_screen.dart';
+import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
 import 'widgets/each_other_request_product_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
@@ -242,8 +243,10 @@ class _OtherRequestsDetailScreenState
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SearchOtherRequestWidget(),
+          outletRequestBreadcrumbHeadline(context, "", ""),
           Expanded(child: myrequestDetailWidget())
         ],
       ),

@@ -6,6 +6,7 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/other_request.dart';
 import 'accepted_detail_screen.dart';
+import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
 class AcceptedListScreen extends ConsumerStatefulWidget {
@@ -59,8 +60,10 @@ class _AcceptedListScreenState extends ConsumerState<AcceptedListScreen> {
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SearchOtherRequestWidget(),
+          outletRequestBreadcrumbHeadline(context, "accepted", ""),
           Expanded(
               child: AcceptedDetailScreen(
             otherRequestList: widget.otherRequestList,
