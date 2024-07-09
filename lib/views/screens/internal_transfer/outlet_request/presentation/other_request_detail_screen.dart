@@ -201,9 +201,10 @@ class _OtherRequestsDetailScreenState
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OtherRequestHistoryScreen()));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const OtherRequestHistoryScreen()));
                     superPrint("Other request History");
                   },
                   child: Container(

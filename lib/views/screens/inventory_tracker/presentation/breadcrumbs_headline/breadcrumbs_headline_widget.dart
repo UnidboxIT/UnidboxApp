@@ -21,6 +21,9 @@ Widget breadcrumbHeadline(
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                if (productTitle.isNotEmpty) {
+                  Navigator.of(context).pop();
+                }
               },
               child: Icon(
                 Icons.category_rounded,

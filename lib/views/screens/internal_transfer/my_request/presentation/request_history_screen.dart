@@ -280,7 +280,7 @@ class _PendingRequestListScreenState
                                           Positioned(
                                             left: -2.w,
                                             child: Container(
-                                              height: 13.h,
+                                              height: 17.h,
                                               width: 5.w,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
@@ -299,7 +299,7 @@ class _PendingRequestListScreenState
                                             ),
                                           ),
                                           Positioned(
-                                            left: -7.w,
+                                            left: -9.w,
                                             child: Transform.rotate(
                                               angle: 80.1,
                                               child: textWidget(
@@ -309,6 +309,7 @@ class _PendingRequestListScreenState
                                                     : "REJECTED",
                                                 size: 12,
                                                 fontWeight: FontWeight.w800,
+                                                letterSpacing: 2,
                                               ),
                                             ),
                                           ),
@@ -343,6 +344,24 @@ class _PendingRequestListScreenState
   }
 
   Widget eachHistoryWidget(ProductLineId product) {
+    superPrint(product.productIdList[5]);
+    List<Widget> attributeTexts = [];
+    for (int i = 0; i < product.productIdList[5].length; i++) {
+      attributeTexts.add(Text(product.productIdList[5][i],
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+          )));
+      if (i != product.productIdList[5].length - 1) {
+        attributeTexts.add(const Text(', ',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            )));
+      }
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -352,7 +371,7 @@ class _PendingRequestListScreenState
           child: SizedBox(
               width: 100.w,
               child: textWidget(
-                product.productIdList[1],
+                product.productIdList[4],
                 size: 14,
                 textAlign: TextAlign.left,
                 fontWeight: FontWeight.w700,
@@ -361,11 +380,30 @@ class _PendingRequestListScreenState
         Row(
           children: [
             textWidget(
-              "SKU ",
+              "Model ",
               fontWeight: FontWeight.w700,
               color: AppColor.pinkColor,
             ),
-            textWidget(product.code, size: 14, color: Colors.black),
+            const SizedBox(width: 15),
+            textWidget(
+              product.model == "false" ? "" : product.model,
+              size: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            textWidget(
+              "Attribute ",
+              fontWeight: FontWeight.w700,
+              color: AppColor.pinkColor,
+            ),
+            const SizedBox(width: 5),
+            product.productIdList[5] == []
+                ? textWidget("")
+                : Row(children: attributeTexts)
           ],
         ),
         const SizedBox(height: 20),

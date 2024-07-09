@@ -149,9 +149,10 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OutletReturnHistoryScreen()));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const OutletReturnHistoryScreen()));
                   },
                   child: Container(
                     padding:

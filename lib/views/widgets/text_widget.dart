@@ -6,14 +6,15 @@ Widget textWidget(String text,
     Color color = Colors.black,
     int? maxLine,
     TextOverflow textOverflow = TextOverflow.visible,
-    TextAlign textAlign = TextAlign.justify}) {
+    TextAlign textAlign = TextAlign.justify,
+    double letterSpacing = 0}) {
   return Text(
     text,
     style: TextStyle(
-      fontWeight: fontWeight,
-      fontSize: size,
-      color: color,
-    ),
+        fontWeight: fontWeight,
+        fontSize: size,
+        color: color,
+        letterSpacing: letterSpacing),
     overflow: textOverflow,
     maxLines: maxLine,
     textAlign: textAlign,
