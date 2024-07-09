@@ -54,6 +54,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             "Request Sent!",
             "Check status under pending requests",
             () {
+              FocusManager.instance.primaryFocus!.unfocus();
               if (isBackReques) {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
@@ -64,6 +65,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
               }
             },
             () {
+              FocusManager.instance.primaryFocus!.unfocus();
               Navigator.of(context)
                   .push(MaterialPageRoute(
                       builder: (context) => const PendingRequestListScreen()))

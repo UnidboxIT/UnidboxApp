@@ -6,6 +6,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
+import 'breadcrumbs_headline/breadcrumbs_headline_widget.dart';
 import 'create_product/create_product_screen.dart';
 import 'widgets/each_inventory_tracker_widget.dart';
 import 'widgets/each_product_list_request_widget.dart';
@@ -76,12 +77,14 @@ class _InventoryCategoryScreenState
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SearchTextFieldWidget(
               isInventoryTracker:
                   widget.inventoryTrackerList.isEmpty ? false : true,
               isAutoFocus: false,
               name: widget.name),
+          breadcrumbHeadline(widget.name, context, ""),
           widget.inventoryTrackerList.isEmpty
               ? ProductWidget(
                   id: widget.parentID,
@@ -102,7 +105,8 @@ class _InventoryCategoryScreenState
                                   parentID: widget
                                       .inventoryTrackerList[index].id
                                       .toString(),
-                                  name: name,
+                                  categoryName: widget.name,
+                                  productCategoryName: name,
                                   isScanBarCode: false,
                                   productList: const [])),
                         );

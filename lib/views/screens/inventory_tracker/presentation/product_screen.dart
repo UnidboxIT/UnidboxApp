@@ -5,19 +5,22 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import '../../../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../../../utils/constant/app_color.dart';
 import '../domain/product.dart';
+import 'breadcrumbs_headline/breadcrumbs_headline_widget.dart';
 import 'create_product/create_product_screen.dart';
 import 'widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_text_field_widget.dart';
 
 class ProductScreen extends ConsumerWidget {
   final String parentID;
-  final String name;
+  final String categoryName;
+  final String productCategoryName;
   final bool isScanBarCode;
   final List<Products> productList;
   const ProductScreen({
     super.key,
     required this.parentID,
-    required this.name,
+    required this.categoryName,
+    required this.productCategoryName,
     required this.isScanBarCode,
     required this.productList,
   });
@@ -33,7 +36,7 @@ class ProductScreen extends ConsumerWidget {
           height: 100.h,
           child: Stack(
             children: [
-              inventoryAppBarWidget(name, () {
+              inventoryAppBarWidget(productCategoryName, () {
                 Navigator.of(context).pop();
               }, () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -41,7 +44,7 @@ class ProductScreen extends ConsumerWidget {
               }, Icons.add, isInternalTransfer: false),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: productBodyWidget(),
+                child: productBodyWidget(context),
               ),
             ],
           ),
@@ -50,7 +53,7 @@ class ProductScreen extends ConsumerWidget {
     );
   }
 
-  Widget productBodyWidget() {
+  Widget productBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
       height: 80.h,
@@ -61,11 +64,12 @@ class ProductScreen extends ConsumerWidget {
           SearchTextFieldWidget(
             isAutoFocus: false,
             isInventoryTracker: false,
-            name: name,
+            name: productCategoryName,
           ),
+          breadcrumbHeadline(categoryName, context, productCategoryName),
           ProductWidget(
             id: parentID,
-            name: name,
+            name: productCategoryName,
             isBackRequest: false,
           ),
           Container(

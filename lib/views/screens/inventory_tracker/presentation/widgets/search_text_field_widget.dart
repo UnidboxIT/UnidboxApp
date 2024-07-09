@@ -25,7 +25,7 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Container(
-        height: 40,
+        height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),

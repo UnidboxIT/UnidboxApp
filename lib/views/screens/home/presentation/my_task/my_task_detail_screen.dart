@@ -166,7 +166,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
       children: [
         Container(
           height: 18.h,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          width: 100.w,
+          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -178,15 +179,20 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                     offset: const Offset(-3, 3)),
               ]),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CachedNetworkImage(
                 imageUrl: image,
-                width: 50.w,
+                width: 40.w,
                 height: 14.h,
               ),
               SizedBox(
-                width: 23.w,
-                child: textWidget(name, size: 18, fontWeight: FontWeight.bold),
+                width: 30.w,
+                child: textWidget(name,
+                    size: 18,
+                    maxLine: 2,
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.left),
               ),
             ],
           ),
