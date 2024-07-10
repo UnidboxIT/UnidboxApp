@@ -6,6 +6,7 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/domain/warehouse.dart';
@@ -149,10 +150,11 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const OutletReturnHistoryScreen()));
+                    ref.read(bottomBarVisibilityProvider.notifier).state =
+                        false;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const OutletReturnHistoryScreen()));
                   },
                   child: Container(
                     padding:

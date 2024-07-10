@@ -8,6 +8,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
 import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
@@ -111,22 +112,27 @@ class _PendingRequestListScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Transfered History",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: pendingRequestWidget(),
-              ),
-            ],
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Transfered History",
+                  () {
+                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: pendingRequestWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

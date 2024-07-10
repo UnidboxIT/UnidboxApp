@@ -22,6 +22,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
@@ -176,94 +177,101 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       botColor: Colors.white,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              inventoryAppBarWidget(widget.productName, () {
-                Navigator.of(context).pop();
-              }, () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                        builder: (context) => ProductDetailUpdateScreen(
-                              productID: widget.productID,
-                              rackIdList: productDetail.rackIdList,
-                              retailPrice: CommonMethods.twoDecimalPrice(
-                                  productDetail.price),
-                              costPrice: CommonMethods.threeDecimalPrice(
-                                  productDetail.costPrice),
-                            )))
-                    .then((_) {
-                  ref
-                      .read(productDetailStateNotifierProvider.notifier)
-                      .productByID(widget.productID);
-                  final state = ref.read(productDetailStateNotifierProvider);
-                  if (state is ProductDetail) {
-                    setState(() {
-                      productDetail = state.products;
-                    });
-                  }
-                  superPrint("Here");
-                  superPrint(productDetail.rackIdList);
-                });
-              }, Icons.edit_document,
-                  isInternalTransfer: !widget.isInternalTransfer),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: productDetailBodyWidget(),
-              ),
-              Positioned(
-                bottom: 0,
-                child: stockName == "In-house Stock"
-                    ? const SizedBox.shrink()
-                    : totalQty.isEmpty || totalQty.values.contains(0)
-                        ? const SizedBox.shrink()
-                        : Container(
-                            width: 100.w,
-                            height: 7.h,
-                            decoration: BoxDecoration(
-                              color: AppColor.primary,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                const Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.white,
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                inventoryAppBarWidget(widget.productName, () {
+                  ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                  Navigator.of(context).pop();
+                }, () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => ProductDetailUpdateScreen(
+                                productID: widget.productID,
+                                rackIdList: productDetail.rackIdList,
+                                retailPrice: CommonMethods.twoDecimalPrice(
+                                    productDetail.price),
+                                costPrice: CommonMethods.threeDecimalPrice(
+                                    productDetail.costPrice),
+                              )))
+                      .then((_) {
+                    ref
+                        .read(productDetailStateNotifierProvider.notifier)
+                        .productByID(widget.productID);
+                    final state = ref.read(productDetailStateNotifierProvider);
+                    if (state is ProductDetail) {
+                      setState(() {
+                        productDetail = state.products;
+                      });
+                    }
+                    superPrint("Here");
+                    superPrint(productDetail.rackIdList);
+                  });
+                }, Icons.edit_document,
+                    isInternalTransfer: !widget.isInternalTransfer),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: productDetailBodyWidget(),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: stockName == "In-house Stock"
+                      ? const SizedBox.shrink()
+                      : totalQty.isEmpty || totalQty.values.contains(0)
+                          ? const SizedBox.shrink()
+                          : Container(
+                              width: 100.w,
+                              height: 7.h,
+                              decoration: BoxDecoration(
+                                color: AppColor.primary,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(25),
                                 ),
-                                const SizedBox(width: 10),
-                                for (var data in totalQty.values)
-                                  textWidget(data.toString(),
+                              ),
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  const Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  for (var data in totalQty.values)
+                                    textWidget(data.toString(),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        size: 16),
+                                  const SizedBox(width: 5),
+                                  textWidget("Items",
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       size: 16),
-                                const SizedBox(width: 5),
-                                textWidget("Items",
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    size: 16),
-                                const Spacer(),
-                                buttonWidget("Check Out", () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => CheckOutOrderDetailScreen(
-                                          orderLine: orderLineList,
-                                          checkOutDataMap: checkOutDataMap),
-                                    ),
-                                  );
-                                }),
-                                const SizedBox(width: 10),
-                              ],
+                                  const Spacer(),
+                                  buttonWidget("Check Out", () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            CheckOutOrderDetailScreen(
+                                                orderLine: orderLineList,
+                                                checkOutDataMap:
+                                                    checkOutDataMap),
+                                      ),
+                                    );
+                                  }),
+                                  const SizedBox(width: 10),
+                                ],
+                              ),
                             ),
-                          ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

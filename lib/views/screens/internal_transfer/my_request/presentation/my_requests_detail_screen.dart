@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -116,10 +117,10 @@ class _MyRequestsDetailScreenState
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const RequestHistoryScreen()));
+                    ref.read(bottomBarVisibilityProvider.notifier).state =
+                        false;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const RequestHistoryScreen()));
                   },
                   child: Container(
                       padding:

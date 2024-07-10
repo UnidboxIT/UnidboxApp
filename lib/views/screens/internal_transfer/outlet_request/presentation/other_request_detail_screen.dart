@@ -15,6 +15,7 @@ import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/my_request.dart';
 import 'other_request_history/other_request_history_screen.dart';
 import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
@@ -201,10 +202,11 @@ class _OtherRequestsDetailScreenState
                 offset: Offset(65.w, 6.h),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const OtherRequestHistoryScreen()));
+                    ref.read(bottomBarVisibilityProvider.notifier).state =
+                        false;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const OtherRequestHistoryScreen()));
                     superPrint("Other request History");
                   },
                   child: Container(

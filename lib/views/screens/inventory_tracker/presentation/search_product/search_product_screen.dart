@@ -148,30 +148,36 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
             Future.delayed(const Duration(milliseconds: 100));
             return;
           },
-          child: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(
-              children: [
-                inventoryAppBarWidget(
-                  widget.name,
-                  () {
-                    txtSearchProduct.clear();
-                    FocusManager.instance.primaryFocus!.unfocus();
-                    Future.delayed(const Duration(milliseconds: 100));
-                    Navigator.of(context).pop();
-                  },
-                  () {
-                    FocusManager.instance.primaryFocus!.unfocus();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CreateProductScreen()));
-                  },
-                  Icons.add,
-                ),
-                Transform.translate(
-                    offset: Offset(0, 14.h),
-                    child: searchBodyWidget(context, ref)),
-              ],
+          child: PopScope(
+            onPopInvoked: (didPop) =>
+                ref.read(bottomBarVisibilityProvider.notifier).state = true,
+            child: SizedBox(
+              width: 100.w,
+              height: 100.h,
+              child: Stack(
+                children: [
+                  inventoryAppBarWidget(
+                    widget.name,
+                    () {
+                      ref.read(bottomBarVisibilityProvider.notifier).state =
+                          true;
+                      txtSearchProduct.clear();
+                      FocusManager.instance.primaryFocus!.unfocus();
+                      Future.delayed(const Duration(milliseconds: 100));
+                      Navigator.of(context).pop();
+                    },
+                    () {
+                      FocusManager.instance.primaryFocus!.unfocus();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CreateProductScreen()));
+                    },
+                    Icons.add,
+                  ),
+                  Transform.translate(
+                      offset: Offset(0, 14.h),
+                      child: searchBodyWidget(context, ref)),
+                ],
+              ),
             ),
           ),
         ),
@@ -182,7 +188,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   Widget searchBodyWidget(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
-      height: 80.h,
+      height: 72.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -292,10 +298,11 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                           ),
                           onPressed: () {
                             txtSearchProduct.clear();
-                            Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        const BarCodeScannerScreen()));
+                            ref
+                                .read(bottomBarVisibilityProvider.notifier)
+                                .state = false;
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => const BarCodeScannerScreen()));
                           },
                         ),
                   prefixIcon: const Icon(
@@ -391,12 +398,17 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
+                                                        ref
+                                                            .read(
+                                                                bottomBarVisibilityProvider
+                                                                    .notifier)
+                                                            .state = false;
                                                         FocusManager.instance
                                                             .primaryFocus!
                                                             .unfocus();
                                                         Navigator.of(context,
                                                                 rootNavigator:
-                                                                    true)
+                                                                    false)
                                                             .push(
                                                                 MaterialPageRoute(
                                                                     builder:
@@ -480,9 +492,14 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                     const SizedBox(height: 10),
                                                     GestureDetector(
                                                       onTap: () {
+                                                        ref
+                                                            .read(
+                                                                bottomBarVisibilityProvider
+                                                                    .notifier)
+                                                            .state = false;
                                                         Navigator.of(context,
                                                                 rootNavigator:
-                                                                    true)
+                                                                    false)
                                                             .push(
                                                                 MaterialPageRoute(
                                                                     builder:

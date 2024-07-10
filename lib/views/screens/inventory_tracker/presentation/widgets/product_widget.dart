@@ -195,15 +195,19 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProductDetailScreen(
-                                                      productID: productId,
-                                                      productName: fullName,
-                                                      isInternalTransfer: false,
-                                                    )));
+                                        ref
+                                            .read(bottomBarVisibilityProvider
+                                                .notifier)
+                                            .state = false;
+                                        Navigator.of(
+                                          context,
+                                        ).push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetailScreen(
+                                                  productID: productId,
+                                                  productName: fullName,
+                                                  isInternalTransfer: false,
+                                                )));
                                       },
                                       child: Stack(
                                         children: [
@@ -259,9 +263,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                     const SizedBox(height: 10),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
+                                        ref
+                                            .read(bottomBarVisibilityProvider
+                                                .notifier)
+                                            .state = false;
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
                                                 builder: (context) =>
                                                     ProductDetailScreen(
                                                       productID: productId,

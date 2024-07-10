@@ -7,6 +7,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import '../repository/state/my_request_state.dart';
@@ -104,22 +105,27 @@ class _PendingRequestListScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Request History",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: pendingRequestWidget(),
-              ),
-            ],
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Request History",
+                  () {
+                    Navigator.of(context).pop();
+                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                  },
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: pendingRequestWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

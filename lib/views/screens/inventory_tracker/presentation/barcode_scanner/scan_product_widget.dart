@@ -259,14 +259,16 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                               GestureDetector(
                                 onTap: () {
                                   FocusManager.instance.primaryFocus!.unfocus();
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailScreen(
-                                                productID: productId,
-                                                productName: fullName,
-                                                isInternalTransfer: false,
-                                              )));
+                                  ref
+                                      .read(
+                                          bottomBarVisibilityProvider.notifier)
+                                      .state = false;
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ProductDetailScreen(
+                                            productID: productId,
+                                            productName: fullName,
+                                            isInternalTransfer: false,
+                                          )));
                                 },
                                 child: Stack(
                                   children: [
@@ -317,14 +319,16 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                               const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailScreen(
-                                                productID: productId,
-                                                productName: fullName,
-                                                isInternalTransfer: false,
-                                              )));
+                                  ref
+                                      .read(
+                                          bottomBarVisibilityProvider.notifier)
+                                      .state = false;
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ProductDetailScreen(
+                                            productID: productId,
+                                            productName: fullName,
+                                            isInternalTransfer: false,
+                                          )));
                                 },
                                 child: Padding(
                                   padding:

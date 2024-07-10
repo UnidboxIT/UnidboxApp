@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../barcode_scanner/barcode_scanner_screen.dart';
 import '../search_product/search_product_screen.dart';
 
@@ -46,7 +47,8 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           onTap: () {
             FocusManager.instance.primaryFocus!.unfocus();
-            Navigator.of(context, rootNavigator: true)
+            ref.read(bottomBarVisibilityProvider.notifier).state = true;
+            Navigator.of(context)
                 .push(
               MaterialPageRoute(
                 builder: (context) => SearchProductScreen(
@@ -89,7 +91,8 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
               ),
               onPressed: () {
                 txtSearchProduct.clear();
-                Navigator.of(context, rootNavigator: true)
+                ref.read(bottomBarVisibilityProvider.notifier).state = false;
+                Navigator.of(context)
                     .push(MaterialPageRoute(
                         builder: (_) => const BarCodeScannerScreen()))
                     .then((_) {

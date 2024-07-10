@@ -8,6 +8,8 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+
 class BarCodeScannerScreen extends ConsumerStatefulWidget {
   const BarCodeScannerScreen({super.key});
 
@@ -58,24 +60,29 @@ class _BarcodeScannerWithOverlayState
       botColor: Colors.white,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Inventory Tracker",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: barcodeScannerWidget(scanWindow)),
-              ),
-            ],
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Inventory Tracker",
+                  () {
+                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: barcodeScannerWidget(scanWindow)),
+                ),
+              ],
+            ),
           ),
         ),
       ),
