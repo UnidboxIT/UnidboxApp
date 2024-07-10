@@ -458,6 +458,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                                   .toString()] ??
                                               false,
                                           context,
+                                          ref,
                                         )
                                         .then((_) {
                                         ref

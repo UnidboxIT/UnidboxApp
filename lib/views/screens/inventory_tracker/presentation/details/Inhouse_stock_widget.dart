@@ -496,6 +496,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                             selectedBox,
                             isUrgent,
                             context,
+                            ref,
                           )
                           .then((_) {
                           ref

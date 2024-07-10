@@ -683,33 +683,37 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                   stockRequesstStateNotifierProvider
                                                                       .notifier)
                                                               .requestInHouseStock(
-                                                                userWarehouse
-                                                                    .warehouseList[0],
-                                                                productList[
-                                                                        index]
-                                                                    .defaultWarehouseList[0],
-                                                                admin.companyId,
-                                                                productList[
-                                                                        index]
-                                                                    .id,
-                                                                productList[
-                                                                        index]
-                                                                    .name,
-                                                                qtyByMap[productList[
-                                                                        index]
-                                                                    .id
-                                                                    .toString()]!,
-                                                                productList[
-                                                                        index]
-                                                                    .price,
-                                                                selectedBox,
-                                                                isUrgentMap[productList[
-                                                                            index]
-                                                                        .id
-                                                                        .toString()] ??
-                                                                    false,
-                                                                context,
-                                                              )
+                                                                  userWarehouse
+                                                                          .warehouseList[
+                                                                      0],
+                                                                  productList[
+                                                                              index]
+                                                                          .defaultWarehouseList[
+                                                                      0],
+                                                                  admin
+                                                                      .companyId,
+                                                                  productList[
+                                                                          index]
+                                                                      .id,
+                                                                  productList[
+                                                                          index]
+                                                                      .name,
+                                                                  qtyByMap[
+                                                                      productList[
+                                                                              index]
+                                                                          .id
+                                                                          .toString()]!,
+                                                                  productList[
+                                                                          index]
+                                                                      .price,
+                                                                  selectedBox,
+                                                                  isUrgentMap[productList[
+                                                                              index]
+                                                                          .id
+                                                                          .toString()] ??
+                                                                      false,
+                                                                  context,
+                                                                  ref)
                                                               .then((_) {
                                                               ref
                                                                   .read(inhouseStockStateNotifierProvider

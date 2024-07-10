@@ -429,6 +429,7 @@ Widget requestStockWidget(
                               selectedBox,
                               isUrgentMap[product.id.toString()] ?? false,
                               context,
+                              ref,
                               isBackReques: isBackRequest)
                           .then((_) {
                           ref

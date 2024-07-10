@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -56,7 +58,7 @@ class ProductScreen extends ConsumerWidget {
   Widget productBodyWidget(BuildContext context) {
     return Container(
       width: 100.w,
-      height: 80.h,
+      height: Platform.isIOS ? 75.h : 80.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25), color: Colors.white),
       child: Column(

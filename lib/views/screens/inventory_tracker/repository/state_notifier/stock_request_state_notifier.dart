@@ -11,6 +11,7 @@ import '../../../../widgets/bottom_sheets/stock_request_bottom_sheet.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
 import '../../../internal_transfer/my_request/presentation/pending_request_list_screen.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
   StockRequestStateNotifier(this._inventoryTrackerRepository)
@@ -29,6 +30,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       int uomID,
       bool isUrgent,
       BuildContext context,
+      WidgetRef ref,
       {bool isBackReques = false}) async {
     state = const StockRequestState.loading();
     try {
@@ -55,6 +57,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             "Check status under pending requests",
             () {
               FocusManager.instance.primaryFocus!.unfocus();
+              ref.read(bottomBarVisibilityProvider.notifier).state = true;
               if (isBackReques) {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
@@ -66,6 +69,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             },
             () {
               FocusManager.instance.primaryFocus!.unfocus();
+              ref.read(bottomBarVisibilityProvider.notifier).state = true;
               Navigator.of(context)
                   .push(MaterialPageRoute(
                       builder: (context) => const PendingRequestListScreen()))
