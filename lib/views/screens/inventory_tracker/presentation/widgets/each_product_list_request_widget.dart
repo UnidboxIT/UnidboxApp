@@ -283,6 +283,9 @@ class _EachProductListRequestWidgetState
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      if (widget.product.multiUomList[index][0] == false) {
+                        return const SizedBox.shrink();
+                      }
                       return GestureDetector(
                           onTap: () {
                             ref
@@ -311,7 +314,7 @@ class _EachProductListRequestWidgetState
 
   Widget boxPieceWidget(String name, int index) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           color: index == selectedBox ? AppColor.pinkColor : Colors.white,
           borderRadius: BorderRadius.circular(20),

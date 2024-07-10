@@ -157,7 +157,7 @@ Widget eachPendingRequestListWidget(
                             ),
                             const SizedBox(height: 10),
                             !isEdit
-                                ? textWidget("${product.qty} pc",
+                                ? textWidget("${product.qty.toInt()} pc",
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     size: 13)
@@ -176,7 +176,7 @@ Widget eachPendingRequestListWidget(
                                       }, CupertinoIcons.minus_circle_fill,
                                           AppColor.primary),
                                       const SizedBox(width: 5),
-                                      textWidget(product.qty.toString(),
+                                      textWidget(product.qty.toInt().toString(),
                                           color: AppColor.primary,
                                           fontWeight: FontWeight.bold,
                                           size: 13),

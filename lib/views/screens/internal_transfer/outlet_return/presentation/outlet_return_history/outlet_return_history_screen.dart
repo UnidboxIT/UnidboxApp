@@ -465,7 +465,7 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Received Qty : ${product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  "Received Qty : ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 14,

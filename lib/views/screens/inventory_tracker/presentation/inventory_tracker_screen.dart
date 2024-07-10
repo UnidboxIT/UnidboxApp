@@ -7,7 +7,6 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/search_text_field_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/inventory_tracker_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inventory_tacker_state.dart';
-import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
@@ -55,9 +54,9 @@ class _InventoryTrackerScreenState
           inventoryTrackerDetailMap = next.categoryMap;
         });
       }
-      if (next is Error) {
-        CommonMethods.customizedAlertDialog(next.error.toString(), context);
-      }
+      // if (next is Error) {
+      //   CommonMethods.customizedAlertDialog(next.error.toString(), context);
+      // }
     });
 
     return SuperScaffold(

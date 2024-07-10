@@ -470,6 +470,10 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
+                            if (widget.productDetail.multiUomList[index][0] ==
+                                false) {
+                              return const SizedBox.shrink();
+                            }
                             return GestureDetector(
                                 onTap: () {
                                   ref
