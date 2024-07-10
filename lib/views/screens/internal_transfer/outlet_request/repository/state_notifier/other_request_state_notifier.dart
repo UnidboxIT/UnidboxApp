@@ -49,7 +49,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       superPrint(result);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          // getAllOtherRequest();
+          getAllOtherRequest();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {
@@ -78,7 +78,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       superPrint(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          // getAllOtherRequest();
+          getAllOtherRequest();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

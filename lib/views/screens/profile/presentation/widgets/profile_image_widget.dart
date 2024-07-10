@@ -12,6 +12,9 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'dart:math' as math;
 
 import '../../../../../utils/commons/super_print.dart';
+import '../../../../user_warehouse/domain/user_warehouse.dart';
+import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 
 class ProfileImageWidget extends ConsumerStatefulWidget {
@@ -24,12 +27,36 @@ class ProfileImageWidget extends ConsumerStatefulWidget {
 }
 
 class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
+  bool isWarehouseLoading = false;
   bool isUpdateLoading = false;
   File imageFile = File("");
   final ImagePicker picker = ImagePicker();
   String base64Image = "";
+  UserWarehouse userWarehouse = UserWarehouse();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
+        });
+      }
+    });
     ref.listen(profileStateNotifierProvider, (pre, next) {
       if (next is ProfileLoading) {
         setState(() {
@@ -84,6 +111,13 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
           const SizedBox(height: 10),
           textWidget(
             widget.profileData.name,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            size: 18,
+          ),
+          const SizedBox(height: 8),
+          textWidget(
+            userWarehouse.warehouseList[1],
             color: Colors.black,
             fontWeight: FontWeight.bold,
             size: 18,

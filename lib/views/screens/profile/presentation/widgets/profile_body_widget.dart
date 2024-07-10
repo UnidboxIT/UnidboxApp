@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/profile/domain/profile.dart';
 import 'package:unidbox_app/views/screens/profile/presentation/change_password/change_password_screen.dart';
 import 'package:unidbox_app/views/screens/profile/presentation/personal_info_update/personal_info_update_screen.dart';
@@ -45,6 +46,7 @@ class _ProfileBodyWidgetState extends ConsumerState<ProfileBodyWidget> {
       if (next is ProfileData) {
         setState(() {
           profile = next.profile;
+          superPrint(profile);
         });
       }
     });
