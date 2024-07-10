@@ -30,23 +30,16 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
       pushyRegister(backgroundNotificationListener);
     }
     return ResponsiveSizer(builder: (context, orientation, screenType) {
-      return MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: MediaQuery.of(context)
-              .textScaler
-              .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.0),
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'UnidboxApp',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
         ),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'UnidboxApp',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: xCheckUserAuthorized(ref)
-              ? const MainScreen()
-              : const AuthLoginScreen(),
-        ),
+        home: xCheckUserAuthorized(ref)
+            ? const MainScreen()
+            : const AuthLoginScreen(),
       );
     });
   }

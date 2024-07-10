@@ -19,8 +19,17 @@ class _HomeNavigationRouteState extends State<HomeNavigationRoute> {
         return MaterialPageRoute(
             settings: setting,
             builder: (BuildContext context) {
-              if (setting.name == "/") {}
-              return const HomeScreen();
+              switch (setting.name) {
+                case "/issue":
+                case "/":
+                default:
+                  return const HomeScreen();
+              }
+              // if (setting.name == "/issue") {
+              //   return const PackedListScreen(otherRequestList: []);
+              // }
+              // if (setting.name == "/") {}
+              // return const HomeScreen();
             });
       },
     );

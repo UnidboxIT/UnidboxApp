@@ -7,6 +7,7 @@ import 'utils/constant/app_color.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
 import 'views/screens/system_navigation/home_navigation.dart';
+import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import 'views/widgets/text_widget.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
@@ -18,7 +19,6 @@ class MainScreen extends ConsumerStatefulWidget {
 
 class _MainScreenState extends ConsumerState<MainScreen> {
   int currentIndex = 0;
-
   final List<GlobalKey<NavigatorState>> navigatorKeys = [
     homeNavRouteState,
   ];
@@ -42,9 +42,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     Container(),
     const ProfileScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
+    ref.watch(bottomBarVisibilityProvider);
+    final isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
     return PopScope(
       canPop: false,
       onPopInvoked: _systemBackButtonPressed,
@@ -57,7 +58,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           child: floatingActionBottomWidget(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: bottomNavBar(),
+        bottomNavigationBar:
+            !isVisible ? const SizedBox.shrink() : bottomNavBar(),
         body: SafeArea(
           top: false,
           child: IndexedStack(index: currentIndex, children: indexWidgets),

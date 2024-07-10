@@ -7,6 +7,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/prese
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/other_request.dart';
 
 import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
@@ -26,28 +27,40 @@ class PackedListScreen extends ConsumerStatefulWidget {
 
 class _PackedListScreenState extends ConsumerState<PackedListScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(bottomBarVisibilityProvider.notifier).state = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.primary,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Packed List",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: eachAcceptedListWidget(),
-              ),
-            ],
+        body: PopScope(
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Packed List",
+                  () {
+                    Navigator.of(context).pop();
+                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                  },
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: eachAcceptedListWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -67,9 +80,10 @@ class _PackedListScreenState extends ConsumerState<PackedListScreen> {
           const SearchOtherRequestWidget(),
           outletRequestBreadcrumbHeadline(context, "accepted", "packed"),
           Expanded(
-              child: PackedDetailScreen(
-            otherRequestList: widget.otherRequestList,
-          )),
+            child: PackedDetailScreen(
+              otherRequestList: widget.otherRequestList,
+            ),
+          ),
         ],
       ),
     );
