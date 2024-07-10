@@ -46,7 +46,7 @@ Widget breadcrumbHeadline(
               child: textWidget("Product\nCategories",
                   color: AppColor.pinkColor,
                   fontWeight: FontWeight.bold,
-                  size: 14,
+                  size: 13,
                   textAlign: TextAlign.center),
             ),
           ),
@@ -56,7 +56,7 @@ Widget breadcrumbHeadline(
             size: 18,
           ),
           Expanded(
-            flex: 5,
+            flex: 6,
             child: GestureDetector(
               onTap: () {
                 if (productTitle.isNotEmpty) {
@@ -68,7 +68,7 @@ Widget breadcrumbHeadline(
                       ? AppColor.primary
                       : AppColor.pinkColor,
                   fontWeight: FontWeight.w800,
-                  size: 14,
+                  size: 13,
                   textAlign: TextAlign.center),
             ),
           ),
@@ -87,7 +87,7 @@ Widget breadcrumbHeadline(
                   child: textWidget(productTitle,
                       color: AppColor.primary,
                       fontWeight: FontWeight.w800,
-                      size: 14,
+                      size: 13,
                       textAlign: TextAlign.center),
                 ),
           const SizedBox(width: 10),

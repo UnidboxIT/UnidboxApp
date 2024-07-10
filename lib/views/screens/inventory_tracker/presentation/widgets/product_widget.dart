@@ -16,6 +16,7 @@ import '../../../../../utils/constant/app_constant.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/state/product_state.dart';
@@ -331,8 +332,10 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                       bgColor: Colors.grey.shade100,
                                       fontColor: AppColor.primary),
                                   requestButtonWidgetInProductList("Send", () {
-                                    superPrint(productList[index]
-                                        .defaultWarehouseList);
+                                    ref
+                                        .read(bottomBarVisibilityProvider
+                                            .notifier)
+                                        .state = false;
 
                                     if (productList[index]
                                         .defaultWarehouseList
@@ -351,7 +354,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                         userWarehouse,
                                         "Default warehouse is not set.",
                                         isBackRequest: widget.isBackRequest,
-                                      );
+                                      ).then((_) {
+                                        ref
+                                            .read(bottomBarVisibilityProvider
+                                                .notifier)
+                                            .state = true;
+                                      });
                                     } else if (productList[index]
                                                 .defaultWarehouseQty <
                                             qtyByMap[productList[index]
@@ -376,7 +384,12 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                                 .defaultWarehouseList[1] +
                                             "have insufficient quantity\n for your request.",
                                         isBackRequest: widget.isBackRequest,
-                                      );
+                                      ).then((_) {
+                                        ref
+                                            .read(bottomBarVisibilityProvider
+                                                .notifier)
+                                            .state = true;
+                                      });
                                     } else {
                                       isSendRequestLoading
                                           ? () {}
@@ -412,6 +425,11 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                                   .getInHouseStock(
                                                       productList[index].id,
                                                       context);
+                                              ref
+                                                  .read(
+                                                      bottomBarVisibilityProvider
+                                                          .notifier)
+                                                  .state = true;
                                             });
                                     }
                                   },

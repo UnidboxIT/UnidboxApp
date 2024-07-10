@@ -16,6 +16,7 @@ import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../barcode_scanner/barcode_scanner_screen.dart';
@@ -579,6 +580,11 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                           AppColor.primary),
                                                   requestButtonWidgetInProductList(
                                                       "Send", () {
+                                                    ref
+                                                        .read(
+                                                            bottomBarVisibilityProvider
+                                                                .notifier)
+                                                        .state = false;
                                                     FocusManager
                                                         .instance.primaryFocus!
                                                         .unfocus();
@@ -605,7 +611,13 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         productList[index],
                                                         userWarehouse,
                                                         "Default warehouse is not set.",
-                                                      );
+                                                      ).then((_) {
+                                                        ref
+                                                            .read(
+                                                                bottomBarVisibilityProvider
+                                                                    .notifier)
+                                                            .state = true;
+                                                      });
                                                     } else if (productList[
                                                                     index]
                                                                 .defaultWarehouseQty <
@@ -639,7 +651,13 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                         productList[index]
                                                                 .defaultWarehouseList[1] +
                                                             "have insufficient quantity\n for your request.",
-                                                      );
+                                                      ).then((_) {
+                                                        ref
+                                                            .read(
+                                                                bottomBarVisibilityProvider
+                                                                    .notifier)
+                                                            .state = true;
+                                                      });
                                                     } else {
                                                       isSendRequestLoading
                                                           ? () {}
@@ -684,6 +702,10 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                               index]
                                                                           .id,
                                                                       context);
+                                                              ref
+                                                                  .read(bottomBarVisibilityProvider
+                                                                      .notifier)
+                                                                  .state = true;
                                                             });
                                                     }
                                                   },

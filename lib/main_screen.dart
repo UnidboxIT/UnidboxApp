@@ -55,7 +55,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         extendBody: true,
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
-          child: floatingActionBottomWidget(),
+          child: !isVisible
+              ? const SizedBox.shrink()
+              : floatingActionBottomWidget(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar:

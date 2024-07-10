@@ -16,6 +16,7 @@ import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/button/button_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../create_product/create_product_screen.dart';
@@ -380,6 +381,9 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                 bgColor: Colors.grey.shade100,
                                 fontColor: AppColor.primary),
                             requestButtonWidgetInProductList("Send", () {
+                              ref
+                                  .read(bottomBarVisibilityProvider.notifier)
+                                  .state = false;
                               FocusManager.instance.primaryFocus!.unfocus();
                               if (productList[index]
                                   .defaultWarehouseList
@@ -396,7 +400,12 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   productList[index],
                                   userWarehouse,
                                   "Default warehouse is not set.",
-                                );
+                                ).then((_) {
+                                  ref
+                                      .read(
+                                          bottomBarVisibilityProvider.notifier)
+                                      .state = true;
+                                });
                               } else if (productList[index]
                                           .defaultWarehouseQty <
                                       qtyByMap[
@@ -416,7 +425,12 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   userWarehouse,
                                   productList[index].defaultWarehouseList[1] +
                                       "have insufficient quantity\n for your request.",
-                                );
+                                ).then((_) {
+                                  ref
+                                      .read(
+                                          bottomBarVisibilityProvider.notifier)
+                                      .state = true;
+                                });
                               } else {
                                 isSendRequestLoading
                                     ? () {}
@@ -448,6 +462,10 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                                     .notifier)
                                             .getInHouseStock(
                                                 productList[index].id, context);
+                                        ref
+                                            .read(bottomBarVisibilityProvider
+                                                .notifier)
+                                            .state = true;
                                       });
                               }
                             },

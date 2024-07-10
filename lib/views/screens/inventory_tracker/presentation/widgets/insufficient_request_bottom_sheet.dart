@@ -12,6 +12,7 @@ import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/inhouse_stock.dart';
 import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
@@ -173,6 +174,8 @@ Widget requestStockWidget(
                   child: GestureDetector(
                     onTap: () {
                       FocusManager.instance.primaryFocus!.unfocus();
+                      ref.read(bottomBarVisibilityProvider.notifier).state =
+                          true;
                       Navigator.of(context).pop();
                     },
                     child: Container(
