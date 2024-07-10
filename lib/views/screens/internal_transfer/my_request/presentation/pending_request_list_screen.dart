@@ -51,6 +51,11 @@ class _PendingRequestListScreenState
           acceptProductID = next.productID;
         });
       }
+      if (next is Error) {
+        setState(() {
+          acceptProductID = -1;
+        });
+      }
     });
 
     return SuperScaffold(
