@@ -422,8 +422,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                                     false,
                                                 context,
                                                 ref,
-                                                isBackReques:
-                                                    widget.isBackRequest,
                                               )
                                               .then((_) {
                                               ref

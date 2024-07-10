@@ -497,6 +497,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                             isUrgent,
                             context,
                             ref,
+                            isProductDetail: true,
                           )
                           .then((_) {
                           ref

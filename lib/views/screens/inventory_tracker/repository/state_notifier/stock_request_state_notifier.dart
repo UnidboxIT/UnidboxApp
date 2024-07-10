@@ -31,7 +31,7 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
       bool isUrgent,
       BuildContext context,
       WidgetRef ref,
-      {bool isBackReques = false}) async {
+      {bool isProductDetail = false}) async {
     state = const StockRequestState.loading();
     try {
       Response response = await _inventoryTrackerRepository.stockRequest(
@@ -58,11 +58,11 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
             () {
               FocusManager.instance.primaryFocus!.unfocus();
               ref.read(bottomBarVisibilityProvider.notifier).state = true;
-              if (isBackReques) {
+              if (isProductDetail) {
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               } else {
-                Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               }

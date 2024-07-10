@@ -188,7 +188,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   Widget searchBodyWidget(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
-      height: 72.h,
+      height: Platform.isIOS ? 70.h : 72.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -683,37 +683,34 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                   stockRequesstStateNotifierProvider
                                                                       .notifier)
                                                               .requestInHouseStock(
-                                                                  userWarehouse
-                                                                          .warehouseList[
-                                                                      0],
-                                                                  productList[
-                                                                              index]
-                                                                          .defaultWarehouseList[
-                                                                      0],
-                                                                  admin
-                                                                      .companyId,
-                                                                  productList[
-                                                                          index]
-                                                                      .id,
-                                                                  productList[
-                                                                          index]
-                                                                      .name,
-                                                                  qtyByMap[
-                                                                      productList[
-                                                                              index]
-                                                                          .id
-                                                                          .toString()]!,
-                                                                  productList[
-                                                                          index]
-                                                                      .price,
-                                                                  selectedBox,
-                                                                  isUrgentMap[productList[
-                                                                              index]
-                                                                          .id
-                                                                          .toString()] ??
-                                                                      false,
-                                                                  context,
-                                                                  ref)
+                                                                userWarehouse
+                                                                    .warehouseList[0],
+                                                                productList[
+                                                                        index]
+                                                                    .defaultWarehouseList[0],
+                                                                admin.companyId,
+                                                                productList[
+                                                                        index]
+                                                                    .id,
+                                                                productList[
+                                                                        index]
+                                                                    .name,
+                                                                qtyByMap[productList[
+                                                                        index]
+                                                                    .id
+                                                                    .toString()]!,
+                                                                productList[
+                                                                        index]
+                                                                    .price,
+                                                                selectedBox,
+                                                                isUrgentMap[productList[
+                                                                            index]
+                                                                        .id
+                                                                        .toString()] ??
+                                                                    false,
+                                                                context,
+                                                                ref,
+                                                              )
                                                               .then((_) {
                                                               ref
                                                                   .read(inhouseStockStateNotifierProvider
