@@ -155,10 +155,36 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     superPrint("Contain");
     superPrint(widget.inHouseStockList[0].warehouseList[0] !=
         widget.userWarehouse.warehouseList[0]);
-
+    superPrint(double.parse(qty));
     if (double.parse(qty) <= 0 &&
         widget.inHouseStockList[0].warehouseList[0] !=
             widget.userWarehouse.warehouseList[0]) {
+      return const SizedBox.shrink();
+    } else if (double.parse(qty) <= 0 &&
+        widget.inHouseStockList[0].warehouseList[0] ==
+            widget.userWarehouse.warehouseList[0]) {
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 4,
+                child: textWidget(widget.inHouseStockList[0].warehouseList[1],
+                    color: Colors.black, size: 14, textAlign: TextAlign.left),
+              ),
+              Expanded(
+                flex: 3,
+                child: textWidget("0",
+                    color: Colors.black, size: 14, textAlign: TextAlign.center),
+              ),
+              const Expanded(flex: 4, child: SizedBox())
+            ],
+          ),
+          const SizedBox(height: 10)
+        ],
+      );
+    } else if (double.parse(qty) <= 0) {
       return const SizedBox.shrink();
     }
 

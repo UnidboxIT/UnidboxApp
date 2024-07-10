@@ -9,7 +9,6 @@ import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../../../widgets/bottom_sheets/stock_request_bottom_sheet.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
-import '../../../internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
 import '../../../internal_transfer/my_request/presentation/pending_request_list_screen.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
@@ -74,12 +73,15 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
                   .push(MaterialPageRoute(
                       builder: (context) => const PendingRequestListScreen()))
                   .then((_) {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const MyRequestsDetailScreen(
-                              isStockRequest: true,
-                            )),
-                    (route) => route.isFirst);
+                Navigator.of(context)
+                  ..pop()
+                  ..pop();
+                //   Navigator.of(context).pushAndRemoveUntil(
+                //       MaterialPageRoute(
+                //           builder: (context) => const MyRequestsDetailScreen(
+                //                 isStockRequest: true,
+                //               )),
+                //       (route) => route.isFirst);
               });
             },
             context,
