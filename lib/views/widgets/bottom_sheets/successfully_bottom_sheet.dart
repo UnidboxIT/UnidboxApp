@@ -16,8 +16,9 @@ Future<void> successfullyBottomSheet(
 Widget successfulWidget(String title, String bodyText, VoidCallback onPressed,
     {bool isFail = false}) {
   return Container(
-    height: 50.h,
+    height: 60.h,
     width: 100.w,
+    padding: EdgeInsets.only(bottom: 5.h),
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(25),

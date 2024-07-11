@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -250,7 +249,7 @@ class _OtherRequestsDetailScreenState
         children: [
           const SearchOtherRequestWidget(),
           outletRequestBreadcrumbHeadline(context, "", ""),
-          Expanded(child: myrequestDetailWidget())
+          Expanded(child: myrequestDetailWidget()),
         ],
       ),
     );
@@ -271,9 +270,9 @@ class _OtherRequestsDetailScreenState
                 ),
         ),
         if (xLoading) loadMoreWidget(),
-        Platform.isIOS && xLoading
-            ? SizedBox(height: 3.h)
-            : const SizedBox.shrink()
+        SizedBox(
+          height: 4.h,
+        )
       ],
     );
   }

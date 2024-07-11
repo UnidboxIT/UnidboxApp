@@ -217,6 +217,9 @@ class _MyRequestsDetailScreenState
               },
               itemCount: myRequestList.length),
         ),
+        SizedBox(
+          height: 4.h,
+        )
       ],
     );
   }
