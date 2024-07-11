@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/inventory_tracker_provider.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/insufficient_stock_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/product_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/scan_product_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/search_product_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_notifier/insufficient_stock_state_notifier.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state_notifier/product_state_notifier.dart';
 
 import '../state_notifier/scan_product_state_notifier.dart';
@@ -21,4 +23,9 @@ final searchProductStateNotifierProvier =
 final scanProductStateNotifierProvier =
     StateNotifierProvider<ScanProductStateNotifier, ScanProductState>(
   (ref) => ScanProductStateNotifier(ref.watch(inventoryTrackerProvider)),
+);
+
+final insufficientStockStateNotifier = StateNotifierProvider<
+    InsufficientStockStateNotifier, InsufficientStockState>(
+  (ref) => InsufficientStockStateNotifier(ref.watch(inventoryTrackerProvider)),
 );

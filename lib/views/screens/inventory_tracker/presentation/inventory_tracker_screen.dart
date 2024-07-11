@@ -10,6 +10,9 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inv
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../domain/inventory_tracker.dart';
+import '../domain/product.dart';
+import '../repository/provider/product_provider.dart';
+import '../repository/state/insufficient_stock_state.dart';
 import 'create_product/create_product_screen.dart';
 import 'widgets/insufficient_product_widget.dart';
 
@@ -25,13 +28,20 @@ class _InventoryTrackerScreenState
     extends ConsumerState<InventoryTrackerScreen> {
   List<InventoryTracker> inventoryTrackerList = [];
   Map<int, List<InventoryTracker>> inventoryTrackerDetailMap = {};
-
+  List<Products> insufficientProductList = [];
+  bool isLoading = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(inventroyTrackerStateNotifier.notifier).getAllInventoryTracker();
+    });
+    ref.read(insufficientStockStateNotifier.notifier).clearProductValue();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref
+          .read(insufficientStockStateNotifier.notifier)
+          .insufficientStackProduct(0);
     });
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   ref.read(userWarehouseStateNotifierProvider.notifier).getWarehouse();
@@ -54,9 +64,21 @@ class _InventoryTrackerScreenState
           inventoryTrackerDetailMap = next.categoryMap;
         });
       }
-      // if (next is Error) {
-      //   CommonMethods.customizedAlertDialog(next.error.toString(), context);
-      // }
+    });
+
+    ref.listen(insufficientStockStateNotifier, (prev, next) {
+      if (next is InsuffcientLoading) {
+        setState(() {
+          insufficientProductList = [];
+          isLoading = true;
+        });
+      }
+      if (next is ProductList) {
+        setState(() {
+          insufficientProductList = next.productList;
+          isLoading = false;
+        });
+      }
     });
 
     return SuperScaffold(
@@ -108,7 +130,7 @@ class _InventoryTrackerScreenState
             isAutoFocus: false,
             name: "Inventory Tracker",
           ),
-          insufficientProductWidget(),
+          insufficientProductWidget(context, insufficientProductList),
           Expanded(
             child: ListView.separated(
                 shrinkWrap: true,

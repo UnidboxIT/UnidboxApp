@@ -243,4 +243,15 @@ class InventoryTrackerRepository {
 
     return response;
   }
+
+  Future<Response> insufficientProduct(int pageNumber) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/product?fields=id,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,uom_id,rack_ids,full_name,warehouse_id,default_wh_qty&offset=$pageNumber&sort=id&qty_warning_out_stock=0&limit=50',
+      headers: CommonMethods.setHeaders(),
+    );
+    superPrint(pageNumber, title: "Page Number");
+    return response;
+  }
 }
