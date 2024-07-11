@@ -76,12 +76,6 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
                 Navigator.of(context)
                   ..pop()
                   ..pop();
-                //   Navigator.of(context).pushAndRemoveUntil(
-                //       MaterialPageRoute(
-                //           builder: (context) => const MyRequestsDetailScreen(
-                //                 isStockRequest: true,
-                //               )),
-                //       (route) => route.isFirst);
               });
             },
             context,
