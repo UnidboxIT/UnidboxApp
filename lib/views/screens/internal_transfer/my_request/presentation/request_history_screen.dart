@@ -355,14 +355,14 @@ class _PendingRequestListScreenState
     for (int i = 0; i < product.productIdList[5].length; i++) {
       attributeTexts.add(Text(product.productIdList[5][i],
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 13,
             color: Colors.black,
             fontWeight: FontWeight.w500,
           )));
       if (i != product.productIdList[5].length - 1) {
         attributeTexts.add(const Text(', ',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 13,
               color: Colors.black,
               fontWeight: FontWeight.w500,
             )));
@@ -428,7 +428,7 @@ class _PendingRequestListScreenState
                   "Request Qty : ${product.qty.toInt()}  ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
-                  size: 14,
+                  size: 13.5,
                 ),
               ),
               Container(
@@ -441,7 +441,7 @@ class _PendingRequestListScreenState
                   "Received Qty : ${product.receivedQty.toInt()}  ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
-                  size: 14,
+                  size: 13.5,
                 ),
               ),
             ],
