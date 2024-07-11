@@ -26,7 +26,7 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Container(
-        height: 50,
+        // height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -83,7 +83,7 @@ class _SearchTextFieldWidgetState extends ConsumerState<SearchTextFieldWidget> {
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
             suffixIcon: IconButton(
               icon: const Icon(
                 CupertinoIcons.qrcode_viewfinder,

@@ -188,7 +188,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   Widget searchBodyWidget(BuildContext context, WidgetRef ref) {
     return Container(
       width: 100.w,
-      height: Platform.isIOS ? 70.h : 72.h,
+      height: Platform.isIOS ? 70.h : 71.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -199,7 +199,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Container(
-              height: 50,
+              // height: 10.h,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -245,6 +245,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                   }
                 },
                 onEditingComplete: () async {
+                  FocusManager.instance.primaryFocus!.unfocus();
                   setState(() {
                     isClickSearchButton = true;
                   });
@@ -263,7 +264,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                   hintText: "Search",
                   hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                   suffixIcon: txtSearchProduct.text.isNotEmpty
                       ? TextButton(
                           onPressed: () async {

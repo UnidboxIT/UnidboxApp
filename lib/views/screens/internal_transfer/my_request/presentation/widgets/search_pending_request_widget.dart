@@ -18,7 +18,6 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 20),
       child: Container(
         width: 100.w,
-        height: 45,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -32,8 +31,14 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
           ],
         ),
         child: TextField(
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+            fontSize: 14,
+          ),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             hintText: "Search ...",
             hintStyle: TextStyle(
               color: Colors.black.withOpacity(0.4),
@@ -43,13 +48,6 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
               onPressed: () {},
               icon: const Icon(
                 CupertinoIcons.search,
-                color: Colors.black,
-              ),
-            ),
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.filter_alt_outlined,
                 color: Colors.black,
               ),
             ),

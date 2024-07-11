@@ -20,7 +20,6 @@ class _SearchOrderReceivingState extends ConsumerState<MyRequestSearchWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Container(
-        height: 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -52,7 +51,7 @@ class _SearchOrderReceivingState extends ConsumerState<MyRequestSearchWidget> {
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
             prefixIcon: const Icon(
               CupertinoIcons.search,
               size: 18,
