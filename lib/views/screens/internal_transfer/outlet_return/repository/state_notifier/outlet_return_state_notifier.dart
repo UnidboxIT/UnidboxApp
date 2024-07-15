@@ -20,6 +20,7 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
       state = const OutletReturnState.loading();
       outletReturnList.clear();
       Response response = await _outletReturnRepository.outletReturn();
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {

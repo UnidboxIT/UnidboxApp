@@ -140,7 +140,6 @@ Widget eachPendingRequestListWidget(
                                   size: 15,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  maxLine: 2,
                                   textOverflow: TextOverflow.fade,
                                   textAlign: TextAlign.left),
                             ),

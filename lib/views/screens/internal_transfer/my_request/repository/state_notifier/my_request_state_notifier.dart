@@ -33,11 +33,6 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
-  void updateFromNotification() {
-    getAllMyRequest();
-    superPrint("HEREEEEE");
-  }
-
   Future<void> doneMyRequest(
       int productID, int qty, BuildContext context) async {
     try {
@@ -45,7 +40,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       state = MyRequestState.receivedProductID(productID);
 
       Response response = await _myRequestRepository.done(productID, qty);
-      superPrint(response);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {

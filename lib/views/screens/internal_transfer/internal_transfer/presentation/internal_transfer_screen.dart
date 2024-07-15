@@ -130,25 +130,23 @@ class _InternalTransferScreenState
           color: AppColor.bgColor,
           borderRadius: BorderRadius.circular(25),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4.h),
+        padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
         child: ListView.separated(
+            padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
                   if (index == 0) {
-                    Navigator.of(context, rootNavigator: false)
-                        .push(MaterialPageRoute(
-                            builder: (context) => const MyRequestsDetailScreen(
-                                  isStockRequest: false,
-                                )));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MyRequestsDetailScreen(
+                              isStockRequest: false,
+                            )));
                   } else if (index == 1) {
-                    Navigator.of(context, rootNavigator: false)
-                        .push(MaterialPageRoute(
-                            builder: (context) => OtherRequestDetailScreen(
-                                  userWarehouse: userWarehouse,
-                                )));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const OtherRequestDetailScreen()));
                   } else {
-                    Navigator.of(context, rootNavigator: false)
+                    Navigator.of(context)
                         .push(MaterialPageRoute(
                             builder: (context) => OutletReturnScreen(
                                   userWarehouse: userWarehouse,
@@ -162,15 +160,18 @@ class _InternalTransferScreenState
                     });
                   }
                 },
-                child: eachInternalTransferWidget(
-                  widget.internalTransferList[index].imageUrl,
-                  widget.internalTransferList[index].name,
-                  index,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: eachInternalTransferWidget(
+                    widget.internalTransferList[index].imageUrl,
+                    widget.internalTransferList[index].name,
+                    index,
+                  ),
                 ),
               );
             },
             separatorBuilder: (context, index) {
-              return SizedBox(height: 2.5.h);
+              return SizedBox(height: 2.h);
             },
             itemCount: widget.internalTransferList.length));
   }

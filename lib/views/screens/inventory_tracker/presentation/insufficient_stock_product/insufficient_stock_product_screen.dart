@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -159,7 +158,7 @@ class _InsufficientStockProductScreenState
                     childAspectRatio: 0.7,
                   ),
                   itemBuilder: (context, index) {
-                    String name = insufficientProductList[index].fullName;
+                    String name = insufficientProductList[index].name;
                     String image = insufficientProductList[index].imageUrl;
                     int qty = insufficientProductList[index].quantity.toInt();
                     double price = insufficientProductList[index].price;

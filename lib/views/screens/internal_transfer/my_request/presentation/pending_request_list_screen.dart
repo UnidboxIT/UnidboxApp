@@ -44,6 +44,7 @@ class _PendingRequestListScreenState
         pendingRequestList = [];
         setState(() {
           pendingRequestList = next.myRequestList;
+          acceptProductID = -1;
         });
       }
       if (next is ReceivedProductID) {

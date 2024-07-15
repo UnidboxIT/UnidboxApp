@@ -46,7 +46,7 @@ mixin _$UserWarehouseState {
     required TResult Function(UserWarehouseData value) loadWarehouseData,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(UserWarehouseError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +54,7 @@ mixin _$UserWarehouseState {
     TResult? Function(UserWarehouseData value)? loadWarehouseData,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(UserWarehouseError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,7 +62,7 @@ mixin _$UserWarehouseState {
     TResult Function(UserWarehouseData value)? loadWarehouseData,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(UserWarehouseError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -192,7 +192,7 @@ class _$UserWarehouseDataImpl implements UserWarehouseData {
     required TResult Function(UserWarehouseData value) loadWarehouseData,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(UserWarehouseError value) error,
   }) {
     return loadWarehouseData(this);
   }
@@ -203,7 +203,7 @@ class _$UserWarehouseDataImpl implements UserWarehouseData {
     TResult? Function(UserWarehouseData value)? loadWarehouseData,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(UserWarehouseError value)? error,
   }) {
     return loadWarehouseData?.call(this);
   }
@@ -214,7 +214,7 @@ class _$UserWarehouseDataImpl implements UserWarehouseData {
     TResult Function(UserWarehouseData value)? loadWarehouseData,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(UserWarehouseError value)? error,
     required TResult orElse(),
   }) {
     if (loadWarehouseData != null) {
@@ -312,7 +312,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(UserWarehouseData value) loadWarehouseData,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(UserWarehouseError value) error,
   }) {
     return initial(this);
   }
@@ -323,7 +323,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(UserWarehouseData value)? loadWarehouseData,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(UserWarehouseError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -334,7 +334,7 @@ class _$InitialImpl implements Initial {
     TResult Function(UserWarehouseData value)? loadWarehouseData,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(UserWarehouseError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -426,7 +426,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function(UserWarehouseData value) loadWarehouseData,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(UserWarehouseError value) error,
   }) {
     return loading(this);
   }
@@ -437,7 +437,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function(UserWarehouseData value)? loadWarehouseData,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(UserWarehouseError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -448,7 +448,7 @@ class _$LoadingImpl implements Loading {
     TResult Function(UserWarehouseData value)? loadWarehouseData,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(UserWarehouseError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -463,20 +463,20 @@ abstract class Loading implements UserWarehouseState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$UserWarehouseErrorImplCopyWith<$Res> {
+  factory _$$UserWarehouseErrorImplCopyWith(_$UserWarehouseErrorImpl value,
+          $Res Function(_$UserWarehouseErrorImpl) then) =
+      __$$UserWarehouseErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UserWarehouseStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$UserWarehouseErrorImplCopyWithImpl<$Res>
+    extends _$UserWarehouseStateCopyWithImpl<$Res, _$UserWarehouseErrorImpl>
+    implements _$$UserWarehouseErrorImplCopyWith<$Res> {
+  __$$UserWarehouseErrorImplCopyWithImpl(_$UserWarehouseErrorImpl _value,
+      $Res Function(_$UserWarehouseErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -484,7 +484,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$UserWarehouseErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -495,8 +495,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$UserWarehouseErrorImpl implements UserWarehouseError {
+  const _$UserWarehouseErrorImpl({this.error});
 
   @override
   final String? error;
@@ -510,7 +510,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$UserWarehouseErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -520,8 +520,9 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$UserWarehouseErrorImplCopyWith<_$UserWarehouseErrorImpl> get copyWith =>
+      __$$UserWarehouseErrorImplCopyWithImpl<_$UserWarehouseErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -566,7 +567,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(UserWarehouseData value) loadWarehouseData,
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(UserWarehouseError value) error,
   }) {
     return error(this);
   }
@@ -577,7 +578,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(UserWarehouseData value)? loadWarehouseData,
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(UserWarehouseError value)? error,
   }) {
     return error?.call(this);
   }
@@ -588,7 +589,7 @@ class _$ErrorImpl implements Error {
     TResult Function(UserWarehouseData value)? loadWarehouseData,
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(UserWarehouseError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -598,11 +599,12 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements UserWarehouseState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class UserWarehouseError implements UserWarehouseState {
+  const factory UserWarehouseError({final String? error}) =
+      _$UserWarehouseErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$UserWarehouseErrorImplCopyWith<_$UserWarehouseErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

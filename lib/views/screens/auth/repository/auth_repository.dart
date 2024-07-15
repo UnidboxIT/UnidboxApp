@@ -12,6 +12,7 @@ class AuthRepository {
       "password": password,
       "device_token": pushyToken,
     };
+
     superPrint(formData);
     http.Response response = await ApiService().post(
       url: baseUrl,

@@ -13,6 +13,8 @@ import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
+import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/my_request.dart';
@@ -22,8 +24,7 @@ import 'widgets/each_other_request_product_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
 class OtherRequestDetailScreen extends ConsumerStatefulWidget {
-  final UserWarehouse userWarehouse;
-  const OtherRequestDetailScreen({super.key, required this.userWarehouse});
+  const OtherRequestDetailScreen({super.key});
 
   @override
   ConsumerState<OtherRequestDetailScreen> createState() =>
@@ -47,11 +48,16 @@ class _OtherRequestsDetailScreenState
   List<Map<int, dynamic>> requestedMapList = [];
   int acceptProductID = -1;
   bool acceptLoading = false;
+  bool isWarehouseLoading = false;
+  UserWarehouse userWarehouse = UserWarehouse();
 
   @override
   void initState() {
     super.initState();
     ref.read(acceptedStateNotifierProvider.notifier).clearOtherRequestMap();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
     });
@@ -66,6 +72,19 @@ class _OtherRequestsDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
+        });
+      }
+    });
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
@@ -74,9 +93,8 @@ class _OtherRequestsDetailScreenState
       }
       if (next is WarehouseList) {
         setState(() {
-          List<Warehouse> whList = next.warehouseList;
-          for (var data in whList) {
-            if (data.id != widget.userWarehouse.warehouseList[0]) {
+          for (var data in next.warehouseList) {
+            if (data.id != userWarehouse.warehouseList[0]) {
               warehouseList.add(data);
             }
           }
@@ -256,6 +274,7 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
+    superPrint(isWarehouseLoading);
     return Column(
       children: [
         acceptRequestWidget(),

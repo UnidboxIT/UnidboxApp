@@ -20,6 +20,7 @@ class WarehouseStateNotifier extends StateNotifier<WarehouseState> {
       state = const WarehouseState.loading();
       warehouseList.clear();
       Response response = await _otherRequestRepository.warehouse();
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {

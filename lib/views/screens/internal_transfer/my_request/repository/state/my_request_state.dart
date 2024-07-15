@@ -25,4 +25,5 @@ class MyRequestState with _$MyRequestState {
   const factory MyRequestState.receiveLoading() = ReceiveLoading;
   const factory MyRequestState.searchMyRequestValue(
       List<MyRequest> searchMyRequestList) = SearchMyRequestList;
+  const factory MyRequestState.receiveMyRequestState() = ReceiveMyRequestState;
 }

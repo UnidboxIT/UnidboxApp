@@ -43,11 +43,13 @@ class SuperScaffold extends ConsumerWidget {
         }
       },
       child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: MediaQuery.of(context)
-              .textScaler
-              .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.0),
-        ),
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1.0)),
+        // data: MediaQuery.of(context).copyWith(
+        //   textScaler: MediaQuery.of(context)
+        //       .textScaler
+        //       .clamp(minScaleFactor: 0.8, maxScaleFactor: 1.0),
+        // ),
         child: Container(
           color: topColor,
           child: SafeArea(

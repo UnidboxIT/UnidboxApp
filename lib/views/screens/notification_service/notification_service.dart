@@ -2,7 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 
 class NotificationController {
   static ReceivedAction? initialAction;
-  static Future<void> initializeLocalNotifications() async {
+  static Future<void> initializeLocalNotifications(
+      onActionReceivedMethod) async {
     await AwesomeNotifications().initialize(
         'resource://drawable/app_icon',
         [
@@ -22,6 +23,15 @@ class NotificationController {
     // Get initial notification action is optional
     initialAction = await AwesomeNotifications()
         .getInitialNotificationAction(removeFromActionEvents: false);
+
+    await AwesomeNotifications().setListeners(
+      onActionReceivedMethod: (ReceivedAction receivedAction) async {
+        print("Notification Action Received 111 : ${receivedAction.body}");
+        print(
+            "Notification Action Received  222: ${receivedAction.channelKey}");
+        onActionReceivedMethod(receivedAction);
+      },
+    );
   }
 
   static Future<bool> displayNotificationRationale(

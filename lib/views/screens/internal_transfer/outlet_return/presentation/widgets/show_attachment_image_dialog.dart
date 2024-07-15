@@ -12,26 +12,33 @@ showAttachmentImageDialog(BuildContext context, String image) {
           backgroundColor: Colors.white,
           insetPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: 50.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(image),
+          child: SizedBox(
+            height: 50.h,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                const Spacer(),
+                Container(
+                  height: 40.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(image),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 50.w,
-                child: buttonWidget("Close", () {
-                  Navigator.of(context).pop();
-                }, bgColor: AppColor.pinkColor, fontColor: Colors.white),
-              ),
-              const SizedBox(height: 15),
-            ],
+                const Spacer(),
+                SizedBox(
+                  width: 50.w,
+                  child: buttonWidget("Close", () {
+                    Navigator.of(context).pop();
+                  }, bgColor: AppColor.pinkColor, fontColor: Colors.white),
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
         );
       });

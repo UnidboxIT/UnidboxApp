@@ -12,5 +12,5 @@ class UserWarehouseState with _$UserWarehouseState {
       UserWarehouseData;
   const factory UserWarehouseState.initial() = Initial;
   const factory UserWarehouseState.loading() = Loading;
-  const factory UserWarehouseState.error({String? error}) = Error;
+  const factory UserWarehouseState.error({String? error}) = UserWarehouseError;
 }
