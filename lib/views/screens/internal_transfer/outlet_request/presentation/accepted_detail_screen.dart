@@ -153,7 +153,7 @@ class _OtherRequestsDetailScreenState
                   child: textWidget("No Data !"),
                 ),
               ),
-        SizedBox(height: 30.h),
+        const SizedBox(height: 20),
       ],
     );
   }

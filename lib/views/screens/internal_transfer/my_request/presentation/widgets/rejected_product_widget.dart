@@ -8,7 +8,7 @@ Widget rejectedProductWidget() {
   return GestureDetector(
     onTap: () {},
     child: Container(
-      width: 46.w,
+      width: 47.w,
       padding: const EdgeInsets.only(left: 20),
       child: Stack(
         alignment: Alignment.topRight,

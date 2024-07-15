@@ -5,6 +5,7 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../domain/filter_product_status.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -35,6 +36,14 @@ class _MyRequestsDetailScreenState
   bool myRequestLoading = false;
   // bool requestLoading = false;
   List<String> visibleCode = [];
+  List<FilterProductStatus> filterProductStatusList = [
+    FilterProductStatus(id: 1, name: "Accepted"),
+    FilterProductStatus(id: 2, name: "Packed"),
+    FilterProductStatus(id: 3, name: "On-Delivery"),
+    FilterProductStatus(id: 4, name: "Receiving"),
+  ];
+  int selectedFilterIndex = 4;
+
   @override
   void initState() {
     super.initState();
@@ -128,29 +137,60 @@ class _MyRequestsDetailScreenState
                   Navigator.of(context).pop();
                 },
               ),
-              Transform.translate(
-                offset: Offset(65.w, 6.h),
-                child: GestureDetector(
-                  onTap: () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state =
-                        false;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RequestHistoryScreen()));
-                  },
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: AppColor.orangeColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
+              Positioned(
+                right: 5.w,
+                top: 6.5.h,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        superPrint("HERE");
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 20),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 28,
                         ),
                       ),
-                      child: textWidget("Request\nHistory",
-                          fontWeight: FontWeight.bold,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        ref.read(bottomBarVisibilityProvider.notifier).state =
+                            false;
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const RequestHistoryScreen()));
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 20),
+                        child: const Icon(
+                          Icons.history,
                           color: Colors.white,
-                          size: 17)),
+                          size: 28,
+                        ),
+                      ),
+                      // child: Container(
+                      //     padding:
+                      //         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                      //     decoration: BoxDecoration(
+                      //       color: AppColor.orangeColor,
+                      //       borderRadius: const BorderRadius.only(
+                      //         topLeft: Radius.circular(20),
+                      //         bottomLeft: Radius.circular(20),
+                      //       ),
+                      //     ),
+                      //     child: textWidget("Request\nHistory",
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.white,
+                      //         size: 17)),
+                    ),
+                  ],
                 ),
               ),
               Transform.translate(
@@ -166,18 +206,21 @@ class _MyRequestsDetailScreenState
 
   Widget orderReceivingBodyWidget() {
     return Container(
-        width: 100.w,
-        height: 75.h,
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Column(
-          children: [
-            MyRequestSearchWidget(myRequestList: myRequestList),
-            Expanded(child: myrequestDetailWidget()),
-          ],
-        ));
+      width: 100.w,
+      height: 75.h,
+      decoration: BoxDecoration(
+        color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        children: [
+          MyRequestSearchWidget(myRequestList: myRequestList),
+          Expanded(
+            child: myrequestDetailWidget(),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget myrequestDetailWidget() {
@@ -202,7 +245,9 @@ class _MyRequestsDetailScreenState
             pendingRequestWidget(),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
+        filterProductByStatusWidget(),
+        const SizedBox(height: 10),
         Expanded(
           child: ListView.builder(
               padding: const EdgeInsets.only(bottom: 20),
@@ -211,13 +256,31 @@ class _MyRequestsDetailScreenState
                 String requestCode = myRequestList[index].name;
                 superPrint(requestCode);
                 String name = myRequestList[index].userId[1];
-                List<ProductLineId> productList = myRequestList[index]
-                    .productLineList
-                    .where((productLine) =>
-                        productLine.status != 'done' &&
-                        productLine.status != 'returned' &&
-                        productLine.status != 'requested')
-                    .toList();
+                List<ProductLineId> productList = selectedFilterIndex == 4 ||
+                        selectedFilterIndex == 3
+                    ? myRequestList[index]
+                        .productLineList
+                        .where(
+                            (productLine) => productLine.status == "receiving")
+                        .toList()
+                    : selectedFilterIndex == 2
+                        ? myRequestList[index]
+                            .productLineList
+                            .where(
+                                (productLine) => productLine.status == "packed")
+                            .toList()
+                        : myRequestList[index]
+                            .productLineList
+                            .where((productLine) =>
+                                productLine.status == "accepted")
+                            .toList();
+                // myRequestList[index]
+                //     .productLineList
+                //     .where((productLine) =>
+                //         productLine.status != 'done' &&
+                //         productLine.status != 'returned' &&
+                //         productLine.status != 'requested')
+                //     .toList();
                 String currentDate = myRequestList[index].createDate;
                 String requestWarehouse =
                     myRequestList[index].requestToWh.isEmpty
@@ -311,11 +374,14 @@ class _MyRequestsDetailScreenState
   Widget pendingRequestWidget() {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const PendingRequestListScreen()));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const PendingRequestListScreen(),
+          ),
+        );
       },
       child: Container(
-        width: 46.w,
+        width: 47.w,
         padding: const EdgeInsets.only(right: 20),
         child: Stack(
           alignment: Alignment.topRight,
@@ -364,6 +430,49 @@ class _MyRequestsDetailScreenState
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget filterProductByStatusWidget() {
+    return Container(
+      height: 5.h,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemCount: filterProductStatusList.length,
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (context, index) {
+          return const SizedBox(width: 5);
+        },
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedFilterIndex = filterProductStatusList[index].id;
+              });
+            },
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: filterProductStatusList[index].id == selectedFilterIndex
+                    ? AppColor.primary
+                    : AppColor.pinkColor.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 10,
+              ),
+              child: textWidget(
+                filterProductStatusList[index].name,
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                size: 13,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
