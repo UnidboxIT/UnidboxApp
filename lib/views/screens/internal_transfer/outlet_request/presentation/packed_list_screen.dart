@@ -43,6 +43,8 @@ class _PackedListScreenState extends ConsumerState<PackedListScreen> {
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
         body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
           child: SizedBox(
             width: 100.w,
             height: 100.h,

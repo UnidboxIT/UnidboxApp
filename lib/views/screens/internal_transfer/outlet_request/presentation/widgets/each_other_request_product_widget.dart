@@ -37,7 +37,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
       }
     }
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

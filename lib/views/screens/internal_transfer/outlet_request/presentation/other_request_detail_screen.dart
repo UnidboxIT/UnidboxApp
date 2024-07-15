@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -55,11 +56,13 @@ class _OtherRequestsDetailScreenState
   void initState() {
     super.initState();
     ref.read(acceptedStateNotifierProvider.notifier).clearOtherRequestMap();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
-    });
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      await ref
+          .read(userWarehouseStateNotifierProvider.notifier)
+          .getUserWarehouse()
+          .then((_) {
+        ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
+      });
     });
     _loadProducts(0);
   }
@@ -72,6 +75,10 @@ class _OtherRequestsDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ref.read(currentRouteProvider.notifier).state = '/outletRequest';
+    });
+
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
@@ -201,53 +208,55 @@ class _OtherRequestsDetailScreenState
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Outlet Requests",
-                () {
-                  // ref
-                  //     .read(otherRequestStateNotifierProvider.notifier)
-                  //     .clearMyRequestValue();
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(65.w, 6.h),
-                child: GestureDetector(
-                  onTap: () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state =
-                        false;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OtherRequestHistoryScreen()));
-                    superPrint("Other request History");
+        body: PopScope(
+          onPopInvoked: (_) =>
+              ref.read(currentRouteProvider.notifier).state = '/',
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Outlet Requests",
+                  () {
+                    ref.read(currentRouteProvider.notifier).state = '/';
+                    Navigator.of(context).pop();
                   },
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: AppColor.orangeColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                        ),
-                      ),
-                      child: textWidget("Transfered\nHistory",
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          size: 17,
-                          textAlign: TextAlign.center)),
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: otherRequestWidget(),
-              ),
-            ],
+                Transform.translate(
+                  offset: Offset(65.w, 6.h),
+                  child: GestureDetector(
+                    onTap: () {
+                      ref.read(bottomBarVisibilityProvider.notifier).state =
+                          false;
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              const OtherRequestHistoryScreen()));
+                      superPrint("Other request History");
+                    },
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: AppColor.orangeColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                          ),
+                        ),
+                        child: textWidget("Transfered\nHistory",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            size: 17,
+                            textAlign: TextAlign.center)),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: otherRequestWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -274,20 +283,21 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    superPrint(isWarehouseLoading);
     return Column(
       children: [
         acceptRequestWidget(),
         const SizedBox(height: 15),
         warehouseWidget(),
-        Expanded(
-          child: requestedMap[selectedWarehouseID] != null ||
-                  selectedWarehouseID == -1
-              ? acceptedProductLineWidget(requestedMapList)
-              : Center(
-                  child: textWidget("No Data !"),
-                ),
-        ),
+        isWarehouseLoading
+            ? const SizedBox.shrink()
+            : Expanded(
+                child: requestedMap[selectedWarehouseID] != null ||
+                        selectedWarehouseID == -1
+                    ? acceptedProductLineWidget(requestedMapList)
+                    : Center(
+                        child: textWidget("No Data !"),
+                      ),
+              ),
         if (xLoading) loadMoreWidget(),
         SizedBox(
           height: 4.h,

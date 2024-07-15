@@ -73,14 +73,14 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
   final currentRoute = globalProviderObserver.container!
       .read(currentRouteProvider.notifier)
       .state;
+  superPrint(currentRoute != '/outletRequest');
   if (currentRoute != '/outletRequest') {
-    if (receivedAction.body!.contains("updated") ||
-        receivedAction.body!.contains("request")) {
-      Navigator.push(
-        homeNavRouteState.currentState!.context,
-        MaterialPageRoute(
-            builder: (builder) => const OtherRequestDetailScreen()),
-      );
-    }
+    // if (receivedAction.body!.contains("updated") ||
+    //     receivedAction.body!.contains("request")) {
+    Navigator.push(
+      homeNavRouteState.currentState!.context,
+      MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
+    );
+    // }
   }
 }
