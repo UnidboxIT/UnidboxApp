@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
@@ -26,6 +25,7 @@ Widget eachProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        superPrint(productList);
         return Consumer(builder: (context, ref, child) {
           final state = ref.watch(myRequestStateNotifierProvider);
           ProductLineId product = productList[index];
@@ -45,293 +45,291 @@ Widget eachProductLineWidget(
               product = productList[index];
             }
           }
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColor.bgColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColor.dropshadowColor,
-                    blurRadius: 2,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 2),
-                  )
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      textWidget(
-                        requestCode,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      textWidget(
-                          DateFormat('dd MMM yyyy').format(
-                            DateTime.parse(currentDate),
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: AppColor.bgColor,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.dropshadowColor,
+                  blurRadius: 2,
+                  spreadRadius: 2,
+                  offset: const Offset(0, 2),
+                )
+              ],
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.dropshadowColor,
+                                blurRadius: 3,
+                                spreadRadius: 3,
+                                offset: const Offset(0, 3),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: productList[index].imageUrl != "false"
+                                    ? NetworkImage(productList[index].imageUrl)
+                                    : const AssetImage(
+                                        'assets/images/app_icon.jpeg'),
+                                fit: BoxFit.cover),
                           ),
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          size: 17)
-                    ],
-                  ),
-                  const SizedBox(height: 13),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.dropshadowColor,
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: const Offset(0, 3),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: productList[index].imageUrl != "false"
-                                  ? NetworkImage(productList[index].imageUrl)
-                                  : const AssetImage(
-                                      'assets/images/app_icon.jpeg'),
-                              fit: BoxFit.cover),
+                          height: 14.5.h,
+                          width: 25.w,
                         ),
-                        height: 13.h,
-                        width: 22.w,
-                      ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDetailScreen(
-                                      productID: productList[index]
-                                          .productIdList[0]
-                                          .toString(),
-                                      productName:
-                                          productList[index].productIdList[1],
-                                      isInternalTransfer: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: textWidget(
-                                  productList[index].productIdList[1],
-                                  size: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  textOverflow: TextOverflow.fade,
-                                  textAlign: TextAlign.left),
-                            ),
-                            textWidget(productList[index].code,
-                                size: 12,
-                                color: Colors.black.withOpacity(0.6),
-                                fontWeight: FontWeight.w500),
-                            Visibility(
-                              visible: productList[index].model != "false",
-                              child: productList[index].model.isEmpty
-                                  ? const SizedBox.shrink()
-                                  : textWidget(
-                                      productList[index].model,
-                                      fontWeight: FontWeight.w500,
-                                      size: 13,
-                                    ),
-                            ),
-                            const SizedBox(height: 10),
-                            productList[index].status != 'receiving'
-                                ? textWidget(
-                                    "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
-                                    size: 12,
-                                  )
-                                : Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      textWidget(
-                                        "Received Qty: ${product.issueQty.toString()} ${product.productUomList[1]}",
-                                        size: 12,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          addMinusIconButtonWidget(() {
-                                            if (productList[index].status ==
-                                                'receiving') {
-                                              ref
-                                                  .read(
-                                                      myRequestStateNotifierProvider
-                                                          .notifier)
-                                                  .decrementTotalQty(
-                                                      productList[index].id,
-                                                      product.receivedQty);
-                                            }
-                                          },
-                                              CupertinoIcons.minus_circle_fill,
-                                              productList[index].status ==
-                                                      'receiving'
-                                                  ? AppColor.primary
-                                                  : AppColor.pinkColor),
-                                          const SizedBox(width: 15),
-                                          textWidget(
-                                              product.receivedQty
-                                                  .toInt()
-                                                  .toString(),
-                                              color: AppColor.primary,
-                                              fontWeight: FontWeight.bold,
-                                              size: 13),
-                                          const SizedBox(width: 15),
-                                          addMinusIconButtonWidget(() {
-                                            superPrint(product.issueQty);
-                                            if (productList[index].status ==
-                                                    'receiving' &&
-                                                product.issueQty >
-                                                    product.receivedQty) {
-                                              ref
-                                                  .read(
-                                                      myRequestStateNotifierProvider
-                                                          .notifier)
-                                                  .incrementTotalQty(
-                                                      productList[index].id,
-                                                      product.receivedQty);
-                                            }
-                                          },
-                                              CupertinoIcons.add_circled_solid,
-                                              productList[index].status ==
-                                                      'receiving'
-                                                  ? AppColor.primary
-                                                  : AppColor.pinkColor)
-                                        ],
-                                      )
-                                    ],
-                                  )
-                          ],
+                        const SizedBox(height: 15),
+                        textWidget(
+                          "Request To",
+                          color: AppColor.orangeColor,
+                          size: 12.5,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(
-                            "Request To",
-                            color: AppColor.orangeColor,
-                            size: 12.5,
-                          ),
-                          textWidget(
-                            requestWarehouse,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            size: 14,
-                          ),
-                          textWidget(
-                            "Request By",
-                            color: AppColor.orangeColor,
-                            size: 12.5,
-                          ),
-                          textWidget(
-                            name,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            size: 14,
-                          )
-                        ],
-                      ),
-                      SizedBox(width: 10.w),
-                      Visibility(
-                        //visible: productList[index].status != 'receiving',
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textWidget(
-                              "Status",
-                              color: AppColor.orangeColor,
-                              size: 12.5,
-                            ),
-                            textWidget(
-                              capitalizeFirstLetter(productList[index].status),
+                        SizedBox(
+                          width: 25.w,
+                          child: textWidget(requestWarehouse,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               size: 14,
-                            ),
-                          ],
+                              textAlign: TextAlign.left),
                         ),
-                      )
-                    ],
-                  ),
-                  Visibility(
-                      visible: productList[index].status == 'receiving',
-                      child: const SizedBox(height: 10)),
-                  Visibility(
-                    visible: productList[index].status == 'receiving',
-                    child: SizedBox(
-                      width: 80.w,
-                      child: product.issueQty != product.receivedQty
-                          ? buttonWidget(
-                              "Receive",
-                              () {
-                                isPending && product.id == acceptProductID
-                                    ? () {}
-                                    : Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ReceiveScanScreen(
-                                            productID: product.id,
-                                            qty: product.receivedQty.toInt(),
-                                            productName:
-                                                product.productIdList[1],
-                                          ),
-                                        ),
-                                      );
-                              },
-                              isBool:
-                                  isPending && product.id == acceptProductID,
-                              elevation: 0,
-                              bgColor: AppColor.pinkColor,
-                              fontColor: Colors.white,
-                            )
-                          : buttonWidget(
-                              "Receive",
-                              () {
-                                myRequestLoading &&
-                                        product.id == acceptProductID
-                                    ? () {}
-                                    : ref
-                                        .read(myRequestStateNotifierProvider
-                                            .notifier)
-                                        .doneMyRequest(
-                                            product.id,
-                                            product.receivedQty.toInt(),
-                                            context);
-                              },
-                              isBool: myRequestLoading &&
-                                  product.id == acceptProductID,
-                              elevation: 0,
-                              bgColor: AppColor.pinkColor,
-                              fontColor: Colors.white,
-                            ),
+                      ],
                     ),
-                  )
-                ],
-              ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                    productID: productList[index]
+                                        .productIdList[0]
+                                        .toString(),
+                                    productName:
+                                        productList[index].productIdList[1],
+                                    isInternalTransfer: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: textWidget(
+                                productList[index].productIdList[1],
+                                size: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                textOverflow: TextOverflow.fade,
+                                textAlign: TextAlign.left),
+                          ),
+                          textWidget(productList[index].code,
+                              size: 12,
+                              color: Colors.black.withOpacity(0.6),
+                              fontWeight: FontWeight.w500),
+                          Visibility(
+                            visible: productList[index].model != "false",
+                            child: productList[index].model.isEmpty
+                                ? const SizedBox.shrink()
+                                : textWidget(
+                                    productList[index].model,
+                                    fontWeight: FontWeight.w500,
+                                    size: 13,
+                                  ),
+                          ),
+                          const SizedBox(height: 10),
+                          productList[index].status != 'receiving'
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    textWidget(
+                                      "Requested Qty: ${product.qty.toString()} ${product.productUomList[1]}",
+                                      size: 12,
+                                    ),
+                                    textWidget(
+                                      "Issued Qty : ${product.issueQty.toString()} ${product.productUomList[1]}",
+                                      size: 12,
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    textWidget(
+                                      "Requested Qty : ${product.qty.toString()} ${product.productUomList[1]}",
+                                      size: 12,
+                                    ),
+                                    textWidget(
+                                      "Issued Qty : ${product.issueQty.toString()} ${product.productUomList[1]}",
+                                      size: 12,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    textWidget(
+                                      "Receive Qty :",
+                                      size: 12,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        addMinusIconButtonWidget(() {
+                                          if (productList[index].status ==
+                                              'receiving') {
+                                            ref
+                                                .read(
+                                                    myRequestStateNotifierProvider
+                                                        .notifier)
+                                                .decrementTotalQty(
+                                                    productList[index].id,
+                                                    product.receivedQty);
+                                          }
+                                        },
+                                            CupertinoIcons.minus_circle_fill,
+                                            productList[index].status ==
+                                                    'receiving'
+                                                ? AppColor.primary
+                                                : AppColor.pinkColor),
+                                        const SizedBox(width: 15),
+                                        textWidget(
+                                            product.receivedQty
+                                                .toInt()
+                                                .toString(),
+                                            color: AppColor.primary,
+                                            fontWeight: FontWeight.bold,
+                                            size: 13),
+                                        const SizedBox(width: 15),
+                                        addMinusIconButtonWidget(() {
+                                          superPrint(product.issueQty);
+                                          if (productList[index].status ==
+                                                  'receiving' &&
+                                              product.issueQty >
+                                                  product.receivedQty) {
+                                            ref
+                                                .read(
+                                                    myRequestStateNotifierProvider
+                                                        .notifier)
+                                                .incrementTotalQty(
+                                                    productList[index].id,
+                                                    product.receivedQty);
+                                          }
+                                        },
+                                            CupertinoIcons.add_circled_solid,
+                                            productList[index].status ==
+                                                    'receiving'
+                                                ? AppColor.primary
+                                                : AppColor.pinkColor),
+                                        textWidget(
+                                          product.productUomList[1],
+                                          size: 12,
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textWidget(
+                          "Request By",
+                          color: AppColor.orangeColor,
+                          size: 12.5,
+                        ),
+                        textWidget(
+                          name,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          size: 14,
+                        )
+                      ],
+                    ),
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textWidget(
+                          "Status",
+                          color: AppColor.orangeColor,
+                          size: 12.5,
+                        ),
+                        textWidget(
+                          capitalizeFirstLetter(productList[index].status),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          size: 14,
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 10.w)
+                  ],
+                ),
+                Visibility(
+                    visible: productList[index].status == 'receiving',
+                    child: const SizedBox(height: 10)),
+                Visibility(
+                  visible: productList[index].status == 'receiving',
+                  child: SizedBox(
+                    width: 80.w,
+                    child: product.issueQty != product.receivedQty
+                        ? buttonWidget(
+                            "Receive",
+                            () {
+                              isPending && product.id == acceptProductID
+                                  ? () {}
+                                  : Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => ReceiveScanScreen(
+                                          productID: product.id,
+                                          qty: product.receivedQty.toInt(),
+                                          productName: product.productIdList[1],
+                                        ),
+                                      ),
+                                    );
+                            },
+                            isBool: isPending && product.id == acceptProductID,
+                            elevation: 0,
+                            bgColor: AppColor.pinkColor,
+                            fontColor: Colors.white,
+                          )
+                        : buttonWidget(
+                            "Receive",
+                            () {
+                              myRequestLoading && product.id == acceptProductID
+                                  ? () {}
+                                  : ref
+                                      .read(myRequestStateNotifierProvider
+                                          .notifier)
+                                      .doneMyRequest(product.id,
+                                          product.receivedQty.toInt(), context);
+                            },
+                            isBool: myRequestLoading &&
+                                product.id == acceptProductID,
+                            elevation: 0,
+                            bgColor: AppColor.pinkColor,
+                            fontColor: Colors.white,
+                          ),
+                  ),
+                )
+              ],
             ),
           );
         });

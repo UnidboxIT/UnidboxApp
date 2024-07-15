@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -14,6 +15,7 @@ import 'pending_request_list_screen.dart';
 import 'request_history_screen.dart';
 import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
+import 'widgets/rejected_product_widget.dart';
 
 class MyRequestsDetailScreen extends ConsumerStatefulWidget {
   final bool isStockRequest;
@@ -32,6 +34,7 @@ class _MyRequestsDetailScreenState
   bool receivedLoading = false;
   bool myRequestLoading = false;
   // bool requestLoading = false;
+  List<String> visibleCode = [];
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,18 @@ class _MyRequestsDetailScreenState
   void _loadProducts() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+    });
+  }
+
+  loadSetVisiblity(String code) {
+    setState(() {
+      visibleCode.add(code);
+    });
+  }
+
+  removeVisiblity(String code) {
+    setState(() {
+      visibleCode.remove(code);
     });
   }
 
@@ -180,7 +195,13 @@ class _MyRequestsDetailScreenState
     // }
     return Column(
       children: [
-        pendingRequestWidget(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            rejectedProductWidget(),
+            pendingRequestWidget(),
+          ],
+        ),
         const SizedBox(height: 20),
         Expanded(
           child: ListView.builder(
@@ -188,6 +209,7 @@ class _MyRequestsDetailScreenState
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
+                superPrint(requestCode);
                 String name = myRequestList[index].userId[1];
                 List<ProductLineId> productList = myRequestList[index]
                     .productLineList
@@ -206,11 +228,73 @@ class _MyRequestsDetailScreenState
                 }
                 return Column(
                   children: [
-                    eachProductLineWidget(requestCode, name, currentDate,
-                        requestWarehouse, productList,
-                        isPending: receivedLoading,
-                        myRequestLoading: myRequestLoading,
-                        acceptProductID: acceptProductID),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColor.dropshadowColor.withOpacity(0.02),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                if (visibleCode.contains(requestCode)) {
+                                  removeVisiblity(requestCode);
+                                } else {
+                                  loadSetVisiblity(requestCode);
+                                }
+                              },
+                              child: Container(
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                    color: AppColor.bottomSheetBgColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.03),
+                                          offset: const Offset(0, 3),
+                                          blurRadius: 3)
+                                    ]),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textWidget(
+                                      requestCode,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black,
+                                      size: 20,
+                                    ),
+                                    textWidget(
+                                        DateFormat('dd MMM yyyy').format(
+                                          DateTime.parse(currentDate),
+                                        ),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        size: 17)
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: visibleCode.contains(requestCode),
+                              child: const SizedBox(height: 13),
+                            ),
+                            Visibility(
+                              visible: visibleCode.contains(requestCode),
+                              child: eachProductLineWidget(requestCode, name,
+                                  currentDate, requestWarehouse, productList,
+                                  isPending: receivedLoading,
+                                  myRequestLoading: myRequestLoading,
+                                  acceptProductID: acceptProductID),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 20)
                   ],
                 );
@@ -230,26 +314,30 @@ class _MyRequestsDetailScreenState
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const PendingRequestListScreen()));
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      child: Container(
+        width: 46.w,
+        padding: const EdgeInsets.only(right: 20),
         child: Stack(
           alignment: Alignment.topRight,
           clipBehavior: Clip.none,
           children: [
             Container(
               width: 100.w,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              height: 8.h,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
               decoration: BoxDecoration(
                 color: AppColor.bottomSheetBgColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  textWidget(
-                    "Pending Request",
-                    size: 14,
-                    fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: 20.w,
+                    child: textWidget("Pending Request",
+                        size: 14,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center),
                   ),
                   const Icon(
                     Icons.arrow_forward_ios_outlined,
