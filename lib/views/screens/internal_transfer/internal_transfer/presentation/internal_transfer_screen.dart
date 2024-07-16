@@ -12,6 +12,7 @@ import '../../../../widgets/text_widget.dart';
 import '../../../home/domain/my_task.dart';
 import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
+import '../../my_request/presentation/widgets/drawer_widget.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/presentation/other_request_detail_screen.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
@@ -32,6 +33,8 @@ class InternalTransferScreen extends ConsumerStatefulWidget {
 
 class _InternalTransferScreenState
     extends ConsumerState<InternalTransferScreen> {
+  GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>(debugLabel: UniqueKey().toString());
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
   List<OtherRequest> otherRequestList = [];
@@ -100,6 +103,9 @@ class _InternalTransferScreenState
       botColor: Colors.white,
       child: Scaffold(
         backgroundColor: Colors.white,
+        key: scaffoldKey,
+        endDrawer: draweWidget(context, scaffoldKey, isInternalTransfer: true),
+        drawerScrimColor: Colors.transparent,
         body: SizedBox(
           width: 100.w,
           height: 100.h,
@@ -110,6 +116,29 @@ class _InternalTransferScreenState
                 () {
                   Navigator.of(context).pop();
                 },
+              ),
+              Positioned(
+                right: 5.w,
+                top: 6.5.h,
+                child: GestureDetector(
+                  onTap: () {
+                    if (scaffoldKey.currentState!.isDrawerOpen) {
+                      scaffoldKey.currentState!.closeEndDrawer();
+                    } else {
+                      scaffoldKey.currentState!.openEndDrawer();
+                    }
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 20),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                ),
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),

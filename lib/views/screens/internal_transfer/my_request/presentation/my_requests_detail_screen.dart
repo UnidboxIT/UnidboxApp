@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/drawer_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
@@ -29,6 +30,8 @@ class MyRequestsDetailScreen extends ConsumerStatefulWidget {
 
 class _MyRequestsDetailScreenState
     extends ConsumerState<MyRequestsDetailScreen> {
+  GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>(debugLabel: UniqueKey().toString());
   List<MyRequest> myRequestList = [];
   List<ProductLineId> pendingRequestList = [];
   int acceptProductID = -1;
@@ -124,7 +127,10 @@ class _MyRequestsDetailScreenState
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
+        key: scaffoldKey,
         backgroundColor: const Color(0xffF6F6F6),
+        endDrawer: draweWidget(context, scaffoldKey),
+        drawerScrimColor: Colors.transparent,
         body: SizedBox(
           width: 100.w,
           height: 100.h,
@@ -144,6 +150,11 @@ class _MyRequestsDetailScreenState
                   children: [
                     GestureDetector(
                       onTap: () {
+                        if (scaffoldKey.currentState!.isDrawerOpen) {
+                          scaffoldKey.currentState!.closeEndDrawer();
+                        } else {
+                          scaffoldKey.currentState!.openEndDrawer();
+                        }
                         superPrint("HERE");
                       },
                       child: Container(
@@ -175,20 +186,6 @@ class _MyRequestsDetailScreenState
                           size: 28,
                         ),
                       ),
-                      // child: Container(
-                      //     padding:
-                      //         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                      //     decoration: BoxDecoration(
-                      //       color: AppColor.orangeColor,
-                      //       borderRadius: const BorderRadius.only(
-                      //         topLeft: Radius.circular(20),
-                      //         bottomLeft: Radius.circular(20),
-                      //       ),
-                      //     ),
-                      //     child: textWidget("Request\nHistory",
-                      //         fontWeight: FontWeight.bold,
-                      //         color: Colors.white,
-                      //         size: 17)),
                     ),
                   ],
                 ),
