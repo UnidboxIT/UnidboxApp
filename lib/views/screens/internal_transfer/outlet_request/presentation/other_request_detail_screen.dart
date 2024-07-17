@@ -63,9 +63,6 @@ class _OtherRequestsDetailScreenState
           .then((_) {
         ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
       });
-      ref
-          .read(outletRejectReasonStateNotifierProvider.notifier)
-          .getOutletRejectReason();
     });
     _loadProducts(0);
   }

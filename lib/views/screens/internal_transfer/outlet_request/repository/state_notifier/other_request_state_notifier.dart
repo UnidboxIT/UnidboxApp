@@ -34,17 +34,13 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  // clearMyRequestValue() {
-  //   otherRequestList.clear();
-  // }
-
-  Future<void> acceptOtherRequest(
-      int productID, double qty, BuildContext context) async {
+  Future<void> acceptOtherRequest(int productID, double qty, int reasonId,
+      String otherCommet, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();
       state = OtherRequestState.acceptProductID(productID);
-      Response response =
-          await _otherRequestRepository.accepted(productID, qty);
+      Response response = await _otherRequestRepository.accepted(
+          productID, qty, reasonId, otherCommet);
       var result = jsonDecode(response.body);
       superPrint(result);
       if (result.containsKey('result')) {

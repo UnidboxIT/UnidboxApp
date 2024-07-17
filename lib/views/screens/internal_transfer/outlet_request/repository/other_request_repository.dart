@@ -26,12 +26,36 @@ class OtherRequestRepository {
     return response;
   }
 
-  Future<Response> accepted(int productID, double qty) async {
-    Map<String, dynamic> formData = {
-      "state": "accepted",
-      "qty": qty,
-      "ids": [productID]
-    };
+  Future<Response> accepted(
+    int productID,
+    double qty,
+    int reasonId,
+    String otherComment,
+  ) async {
+    Map<String, dynamic> formData = {};
+    if (reasonId == -1 && otherComment.isEmpty) {
+      formData = {
+        "state": "accepted",
+        "qty": qty,
+        "ids": [productID]
+      };
+    } else if (otherComment.isEmpty) {
+      formData = {
+        "state": "accepted",
+        "qty": qty,
+        "ids": [productID],
+        "reason_id": reasonId,
+      };
+    } else {
+      formData = {
+        "state": "accepted",
+        "qty": qty,
+        "ids": [productID],
+        "reason_id": reasonId,
+        "comment": otherComment
+      };
+    }
+
     superPrint(formData, title: "Accped Product");
     Response response = await ApiService().post(
       url: baseUrl,

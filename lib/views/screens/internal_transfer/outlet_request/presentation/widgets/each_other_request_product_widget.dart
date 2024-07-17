@@ -269,7 +269,9 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       if (issuedQty != product.qty) {
                         ref.read(bottomBarVisibilityProvider.notifier).state =
                             false;
-                        outletRejectBottomSheet(context).then((_) {
+                        outletRejectBottomSheet(
+                                productLine.id, issuedQty, context)
+                            .then((_) {
                           ref.read(bottomBarVisibilityProvider.notifier).state =
                               true;
                         });
@@ -280,7 +282,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                                 .read(
                                     otherRequestStateNotifierProvider.notifier)
                                 .acceptOtherRequest(
-                                    productLine.id, issuedQty, context);
+                                    productLine.id, issuedQty, -1, "", context);
                       }
                     },
                         isBool: isAcceptLoading &&
