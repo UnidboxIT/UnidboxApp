@@ -10,8 +10,6 @@ extension Getters on OutletRejectReasonState {
 class OutletRejectReasonState with _$OutletRejectReasonState {
   const factory OutletRejectReasonState.loadOutletRejectReason(
       List<OutletRejectReason> outletRejectReasonList) = OutletRejectReasonList;
-  const factory OutletRejectReasonState.selectedOutletReject(
-      OutletRejectReason outletRejectReason) = SelectedOutletRejectReason;
   const factory OutletRejectReasonState.initial() = Initial;
   const factory OutletRejectReasonState.loading() = RejectLoading;
   const factory OutletRejectReasonState.error({String? error}) = RejectError;

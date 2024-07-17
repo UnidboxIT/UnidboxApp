@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -67,10 +65,6 @@ class _OutletRejectWidgetState extends State<OutletRejectWidget> {
       if (state is OutletRejectReasonList) {
         outletRejectList = state.outletRejectReasonList;
         superPrint(outletRejectList);
-      }
-      if (state is SelectedOutletRejectReason) {
-        selectedRejectReason = state.outletRejectReason;
-        superPrint(selectedRejectReason.reason);
       }
 
       return Padding(

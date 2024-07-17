@@ -67,4 +67,14 @@ class MyRequestRepository {
 
     return response;
   }
+
+  Future<Response> returnRequestReason() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/reason?fields=id,name,type&type=receive',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

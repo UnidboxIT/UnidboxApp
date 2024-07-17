@@ -20,8 +20,6 @@ mixin _$OutletRejectReasonState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<OutletRejectReason> outletRejectReasonList)
         loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -31,8 +29,6 @@ mixin _$OutletRejectReasonState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -42,8 +38,6 @@ mixin _$OutletRejectReasonState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -54,8 +48,6 @@ mixin _$OutletRejectReasonState {
   TResult map<TResult extends Object?>({
     required TResult Function(OutletRejectReasonList value)
         loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
     required TResult Function(Initial value) initial,
     required TResult Function(RejectLoading value) loading,
     required TResult Function(RejectError value) error,
@@ -64,7 +56,6 @@ mixin _$OutletRejectReasonState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult? Function(Initial value)? initial,
     TResult? Function(RejectLoading value)? loading,
     TResult? Function(RejectError value)? error,
@@ -73,7 +64,6 @@ mixin _$OutletRejectReasonState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult Function(Initial value)? initial,
     TResult Function(RejectLoading value)? loading,
     TResult Function(RejectError value)? error,
@@ -181,8 +171,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   TResult when<TResult extends Object?>({
     required TResult Function(List<OutletRejectReason> outletRejectReasonList)
         loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -195,8 +183,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -209,8 +195,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -227,8 +211,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   TResult map<TResult extends Object?>({
     required TResult Function(OutletRejectReasonList value)
         loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
     required TResult Function(Initial value) initial,
     required TResult Function(RejectLoading value) loading,
     required TResult Function(RejectError value) error,
@@ -240,7 +222,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult? Function(Initial value)? initial,
     TResult? Function(RejectLoading value)? loading,
     TResult? Function(RejectError value)? error,
@@ -252,7 +233,6 @@ class _$OutletRejectReasonListImpl implements OutletRejectReasonList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult Function(Initial value)? initial,
     TResult Function(RejectLoading value)? loading,
     TResult Function(RejectError value)? error,
@@ -273,172 +253,6 @@ abstract class OutletRejectReasonList implements OutletRejectReasonState {
   List<OutletRejectReason> get outletRejectReasonList;
   @JsonKey(ignore: true)
   _$$OutletRejectReasonListImplCopyWith<_$OutletRejectReasonListImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SelectedOutletRejectReasonImplCopyWith<$Res> {
-  factory _$$SelectedOutletRejectReasonImplCopyWith(
-          _$SelectedOutletRejectReasonImpl value,
-          $Res Function(_$SelectedOutletRejectReasonImpl) then) =
-      __$$SelectedOutletRejectReasonImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({OutletRejectReason outletRejectReason});
-}
-
-/// @nodoc
-class __$$SelectedOutletRejectReasonImplCopyWithImpl<$Res>
-    extends _$OutletRejectReasonStateCopyWithImpl<$Res,
-        _$SelectedOutletRejectReasonImpl>
-    implements _$$SelectedOutletRejectReasonImplCopyWith<$Res> {
-  __$$SelectedOutletRejectReasonImplCopyWithImpl(
-      _$SelectedOutletRejectReasonImpl _value,
-      $Res Function(_$SelectedOutletRejectReasonImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? outletRejectReason = null,
-  }) {
-    return _then(_$SelectedOutletRejectReasonImpl(
-      null == outletRejectReason
-          ? _value.outletRejectReason
-          : outletRejectReason // ignore: cast_nullable_to_non_nullable
-              as OutletRejectReason,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SelectedOutletRejectReasonImpl implements SelectedOutletRejectReason {
-  const _$SelectedOutletRejectReasonImpl(this.outletRejectReason);
-
-  @override
-  final OutletRejectReason outletRejectReason;
-
-  @override
-  String toString() {
-    return 'OutletRejectReasonState.selectedOutletReject(outletRejectReason: $outletRejectReason)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SelectedOutletRejectReasonImpl &&
-            (identical(other.outletRejectReason, outletRejectReason) ||
-                other.outletRejectReason == outletRejectReason));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, outletRejectReason);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SelectedOutletRejectReasonImplCopyWith<_$SelectedOutletRejectReasonImpl>
-      get copyWith => __$$SelectedOutletRejectReasonImplCopyWithImpl<
-          _$SelectedOutletRejectReasonImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(List<OutletRejectReason> outletRejectReasonList)
-        loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? error) error,
-  }) {
-    return selectedOutletReject(outletRejectReason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
-        loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(String? error)? error,
-  }) {
-    return selectedOutletReject?.call(outletRejectReason);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<OutletRejectReason> outletRejectReasonList)?
-        loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? error)? error,
-    required TResult orElse(),
-  }) {
-    if (selectedOutletReject != null) {
-      return selectedOutletReject(outletRejectReason);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(OutletRejectReasonList value)
-        loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
-    required TResult Function(Initial value) initial,
-    required TResult Function(RejectLoading value) loading,
-    required TResult Function(RejectError value) error,
-  }) {
-    return selectedOutletReject(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
-    TResult? Function(Initial value)? initial,
-    TResult? Function(RejectLoading value)? loading,
-    TResult? Function(RejectError value)? error,
-  }) {
-    return selectedOutletReject?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
-    TResult Function(Initial value)? initial,
-    TResult Function(RejectLoading value)? loading,
-    TResult Function(RejectError value)? error,
-    required TResult orElse(),
-  }) {
-    if (selectedOutletReject != null) {
-      return selectedOutletReject(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SelectedOutletRejectReason implements OutletRejectReasonState {
-  const factory SelectedOutletRejectReason(
-          final OutletRejectReason outletRejectReason) =
-      _$SelectedOutletRejectReasonImpl;
-
-  OutletRejectReason get outletRejectReason;
-  @JsonKey(ignore: true)
-  _$$SelectedOutletRejectReasonImplCopyWith<_$SelectedOutletRejectReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -482,8 +296,6 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(List<OutletRejectReason> outletRejectReasonList)
         loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -496,8 +308,6 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -510,8 +320,6 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -528,8 +336,6 @@ class _$InitialImpl implements Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(OutletRejectReasonList value)
         loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
     required TResult Function(Initial value) initial,
     required TResult Function(RejectLoading value) loading,
     required TResult Function(RejectError value) error,
@@ -541,7 +347,6 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult? Function(Initial value)? initial,
     TResult? Function(RejectLoading value)? loading,
     TResult? Function(RejectError value)? error,
@@ -553,7 +358,6 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult Function(Initial value)? initial,
     TResult Function(RejectLoading value)? loading,
     TResult Function(RejectError value)? error,
@@ -610,8 +414,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(List<OutletRejectReason> outletRejectReasonList)
         loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -624,8 +426,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -638,8 +438,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -656,8 +454,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(OutletRejectReasonList value)
         loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
     required TResult Function(Initial value) initial,
     required TResult Function(RejectLoading value) loading,
     required TResult Function(RejectError value) error,
@@ -669,7 +465,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult? Function(Initial value)? initial,
     TResult? Function(RejectLoading value)? loading,
     TResult? Function(RejectError value)? error,
@@ -681,7 +476,6 @@ class _$RejectLoadingImpl implements RejectLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult Function(Initial value)? initial,
     TResult Function(RejectLoading value)? loading,
     TResult Function(RejectError value)? error,
@@ -764,8 +558,6 @@ class _$RejectErrorImpl implements RejectError {
   TResult when<TResult extends Object?>({
     required TResult Function(List<OutletRejectReason> outletRejectReasonList)
         loadOutletRejectReason,
-    required TResult Function(OutletRejectReason outletRejectReason)
-        selectedOutletReject,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -778,8 +570,6 @@ class _$RejectErrorImpl implements RejectError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult? Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -792,8 +582,6 @@ class _$RejectErrorImpl implements RejectError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<OutletRejectReason> outletRejectReasonList)?
         loadOutletRejectReason,
-    TResult Function(OutletRejectReason outletRejectReason)?
-        selectedOutletReject,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -810,8 +598,6 @@ class _$RejectErrorImpl implements RejectError {
   TResult map<TResult extends Object?>({
     required TResult Function(OutletRejectReasonList value)
         loadOutletRejectReason,
-    required TResult Function(SelectedOutletRejectReason value)
-        selectedOutletReject,
     required TResult Function(Initial value) initial,
     required TResult Function(RejectLoading value) loading,
     required TResult Function(RejectError value) error,
@@ -823,7 +609,6 @@ class _$RejectErrorImpl implements RejectError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult? Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult? Function(Initial value)? initial,
     TResult? Function(RejectLoading value)? loading,
     TResult? Function(RejectError value)? error,
@@ -835,7 +620,6 @@ class _$RejectErrorImpl implements RejectError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OutletRejectReasonList value)? loadOutletRejectReason,
-    TResult Function(SelectedOutletRejectReason value)? selectedOutletReject,
     TResult Function(Initial value)? initial,
     TResult Function(RejectLoading value)? loading,
     TResult Function(RejectError value)? error,

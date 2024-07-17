@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/receive_scan_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/my_request.dart';
 import '../../repository/state/my_request_state.dart';
+import '../return_request_screen.dart';
 
 Widget eachProductLineWidget(
     String requestCode,
@@ -293,16 +294,28 @@ Widget eachProductLineWidget(
                         ? buttonWidget(
                             "Receive",
                             () {
+                              ref
+                                  .read(bottomBarVisibilityProvider.notifier)
+                                  .state = false;
                               isPending && product.id == acceptProductID
                                   ? () {}
                                   : Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => ReceiveScanScreen(
-                                          productID: product.id,
-                                          qty: product.receivedQty.toInt(),
-                                          productName: product.productIdList[1],
-                                        ),
-                                      ),
+                                          builder: (context) =>
+                                              ReturnRequestScreen(
+                                                productCode: requestCode,
+                                                currentDate: currentDate,
+                                                requestWarehouse:
+                                                    requestWarehouse,
+                                                productLine: product,
+                                                currentWarehouse: name,
+                                              )
+                                          // ReceiveScanScreen(
+                                          //   productID: product.id,
+                                          //   qty: product.receivedQty.toInt(),
+                                          //   productName: product.productIdList[1],
+                                          // ),
+                                          ),
                                     );
                             },
                             isBool: isPending && product.id == acceptProductID,
