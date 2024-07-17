@@ -43,9 +43,7 @@ class _InternalTransferScreenState
   bool isLoading = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
     });

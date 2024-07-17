@@ -9,9 +9,11 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/each_product_line_widget.dart';
 import '../../repository/provider/other_request_provider.dart';
+import '../outlet_reject_bottom_sheet.dart/outlet_reject_bottom_sheet.dart';
 
 Widget eachAcceptedDataWiget(String code, String name, String currentDate,
     ProductLineId productLine, WidgetRef ref,
@@ -264,12 +266,22 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                     child: buttonWidget("Accept", () {
                       superPrint(issuedQty);
                       superPrint(product.qty);
-                      isAcceptLoading && acceptProductID == productLine.id
-                          ? () {}
-                          : ref
-                              .read(otherRequestStateNotifierProvider.notifier)
-                              .acceptOtherRequest(
-                                  productLine.id, issuedQty, context);
+                      if (issuedQty != product.qty) {
+                        ref.read(bottomBarVisibilityProvider.notifier).state =
+                            false;
+                        outletRejectBottomSheet(context).then((_) {
+                          ref.read(bottomBarVisibilityProvider.notifier).state =
+                              true;
+                        });
+                      } else {
+                        isAcceptLoading && acceptProductID == productLine.id
+                            ? () {}
+                            : ref
+                                .read(
+                                    otherRequestStateNotifierProvider.notifier)
+                                .acceptOtherRequest(
+                                    productLine.id, issuedQty, context);
+                      }
                     },
                         isBool: isAcceptLoading &&
                             acceptProductID == productLine.id),

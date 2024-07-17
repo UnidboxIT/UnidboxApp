@@ -75,4 +75,14 @@ class OtherRequestRepository {
 
     return response;
   }
+
+  Future<Response> outletRejectReason() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/reason?fields=id,name,type&type=reject',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }
