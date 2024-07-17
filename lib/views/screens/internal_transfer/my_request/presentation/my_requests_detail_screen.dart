@@ -34,6 +34,7 @@ class _MyRequestsDetailScreenState
       GlobalKey<ScaffoldState>(debugLabel: UniqueKey().toString());
   List<MyRequest> myRequestList = [];
   List<ProductLineId> pendingRequestList = [];
+  List<ProductLineId> rejectedList = [];
   int acceptProductID = -1;
   bool receivedLoading = false;
   bool myRequestLoading = false;
@@ -84,6 +85,9 @@ class _MyRequestsDetailScreenState
             for (var element in data.productLineList) {
               if (element.status == 'requested') {
                 pendingRequestList.add(element);
+              }
+              if (element.removeReject) {
+                rejectedList.add(element);
               }
             }
           }
@@ -238,7 +242,7 @@ class _MyRequestsDetailScreenState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            rejectedProductWidget(),
+            rejectedProductWidget(rejectedList, context),
             pendingRequestWidget(),
           ],
         ),

@@ -51,6 +51,7 @@ class ProductLineId {
   String imageUrl;
   double price;
   String status;
+  bool removeReject;
   List warehouseList;
   List requestWarehouse;
   bool isReturn;
@@ -68,6 +69,7 @@ class ProductLineId {
       this.imageUrl = "",
       this.price = 0.0,
       this.status = "",
+      this.removeReject = false,
       this.warehouseList = const [],
       this.requestWarehouse = const [],
       this.isReturn = false,
@@ -86,6 +88,7 @@ class ProductLineId {
       imageUrl: json['image_url'].toString(),
       price: json['price'] ?? 0.0,
       status: json['status'].toString(),
+      removeReject: json['remove_reject'] ?? false,
       warehouseList:
           json['warehouse_id'] == false ? [] : List.from(json['warehouse_id']),
       requestWarehouse:

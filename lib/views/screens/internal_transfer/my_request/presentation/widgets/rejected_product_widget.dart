@@ -3,10 +3,16 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
 import '../../../../../widgets/text_widget.dart';
+import '../../domain/my_request.dart';
+import '../reject_request_screen.dart';
 
-Widget rejectedProductWidget() {
+Widget rejectedProductWidget(
+    List<ProductLineId> rejectedList, BuildContext context) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const RejectRequestScreen()));
+    },
     child: Container(
       width: 47.w,
       padding: const EdgeInsets.only(left: 20),
@@ -39,6 +45,7 @@ Widget rejectedProductWidget() {
             ),
           ),
           Visibility(
+            visible: rejectedList.isNotEmpty,
             child: Positioned(
               top: -15,
               right: -10,
@@ -46,7 +53,7 @@ Widget rejectedProductWidget() {
                 radius: 18,
                 backgroundColor: AppColor.pinkColor,
                 child: textWidget(
-                  "1",
+                  "${rejectedList.length}",
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
