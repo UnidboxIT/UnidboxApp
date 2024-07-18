@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../domain/my_request.dart';
@@ -89,7 +90,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
       child: Column(
         children: [
           filterByDateWidget(),
-          const SearchRejectRequestWidget(),
+          const SearchPendingRequestWidget(),
           rejectedRequestListWidget(),
         ],
       ),
@@ -97,7 +98,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   }
 
   Widget rejectedRequestListWidget() {
-    return ListView.separated(
+    return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (context, index) {
         // String requestCode = rejectRequestList[index].name;
@@ -119,11 +120,6 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
             eachProductLineWidget(requestWarehouse, productList),
             const SizedBox(height: 20)
           ],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(
-          height: 10,
         );
       },
       itemCount: rejectRequestList.length,
@@ -157,16 +153,12 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                         )
                       ]),
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Column(
-                    children: [
-                      textWidget(
-                          "$requestWh unable to fulfilled all your request",
-                          color: AppColor.primary,
-                          size: 11.5,
-                          fontWeight: FontWeight.bold),
-                    ],
-                  ),
+                  padding: EdgeInsets.only(top: 0.8.h, bottom: 4.h),
+                  child: textWidget(
+                      "$requestWh unable to fulfilled all your request",
+                      color: AppColor.primary,
+                      size: 11.5,
+                      fontWeight: FontWeight.bold),
                 ),
                 Transform.translate(
                   offset: Offset(0, 3.h),
@@ -187,21 +179,13 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.dropshadowColor,
-                                blurRadius: 3,
-                                spreadRadius: 3,
-                                offset: const Offset(0, 3),
-                              )
-                            ],
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: productList[index].imageUrl != "false"
                                     ? NetworkImage(productList[index].imageUrl)
                                     : const AssetImage(
                                         'assets/images/app_icon.jpeg'),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.contain),
                           ),
                           height: 13.h,
                           width: 22.w,
@@ -221,14 +205,69 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                                   size: 12,
                                   color: Colors.black.withOpacity(0.6),
                                   fontWeight: FontWeight.w500),
-                              textWidget(
-                                productList[index].model == "false"
-                                    ? ""
-                                    : productList[index].model,
-                                fontWeight: FontWeight.w500,
-                                size: 13,
+                              productList[index].model == "false"
+                                  ? const SizedBox.shrink()
+                                  : textWidget(
+                                      productList[index].model,
+                                      fontWeight: FontWeight.w500,
+                                      size: 13,
+                                    ),
+                              const SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  textWidget(
+                                    "Request Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}",
+                                    size: 11,
+                                  ),
+                                  textWidget(
+                                    "Accepted Qty : ${productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
+                                    size: 11,
+                                  )
+                                ],
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 4),
+                              textWidget(
+                                "Request the remaining quantity from other outlet?",
+                                color: AppColor.primary,
+                                size: 11,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textWidget(
+                                "Remaining Qty : ${productList[index].qty.toInt() - productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
+                                size: 11,
+                                color: AppColor.primary,
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 27.w,
+                                    height: 30,
+                                    child: buttonWidget(
+                                      "Remove",
+                                      () {},
+                                      elevation: 0.5,
+                                      fontSize: 13,
+                                      fontColor: AppColor.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    width: 27.w,
+                                    height: 30,
+                                    child: buttonWidget(
+                                      "Request",
+                                      () {},
+                                      elevation: 0.5,
+                                      fontSize: 13,
+                                      fontColor: AppColor.primary,
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

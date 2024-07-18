@@ -156,10 +156,11 @@ Widget eachPendingRequestListWidget(
                             ),
                             const SizedBox(height: 10),
                             !isEdit
-                                ? textWidget("${product.qty.toInt()} pc",
+                                ? textWidget(
+                                    "${product.qty.toInt()} ${productList[index].productUomList[1]}",
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    size: 13)
+                                    size: 12)
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -189,7 +190,9 @@ Widget eachPendingRequestListWidget(
                                                 product.qty);
                                       }, CupertinoIcons.add_circled_solid,
                                           AppColor.primary),
-                                      textWidget("pc")
+                                      textWidget(
+                                          "${productList[index].productUomList[1]}",
+                                          size: 12)
                                     ],
                                   )
                           ],
