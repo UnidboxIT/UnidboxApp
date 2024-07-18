@@ -7,18 +7,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/each_pending_request_list_widget.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/return_request_reason_state.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/return_request_state.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/each_product_list_request_widget.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../domain/my_request.dart';
 import '../domain/return_request_reason.dart';
+import '../repository/provider/my_request_provider.dart';
+import '../repository/state/return_request_reason_state.dart';
+import '../repository/state/return_request_state.dart';
+import 'widgets/each_product_line_widget.dart';
 
 Map<int, int> reasonQtyMap = {};
 
@@ -276,7 +275,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
     return Expanded(
       flex: 10,
       child: ListView.separated(
-          // shrinkWrap: true,
+          shrinkWrap: true,
           itemBuilder: (context, index) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,10 +285,12 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                     setState(() {
                       if (!reasonIndex
                           .contains(returnRequestReasonList[index].id)) {
-                        reasonIndex.add(returnRequestReasonList[index].id);
+                        if (widget.receiveQty > reasonIndex.length) {
+                          reasonIndex.add(returnRequestReasonList[index].id);
+                        }
                       } else {
-                        reasonQtyMap
-                            .addAll({returnRequestReasonList[index].id: 0});
+                        reasonQtyMap.remove(returnRequestReasonList[index].id);
+
                         reasonIndex.remove(returnRequestReasonList[index].id);
                       }
                     });
@@ -319,10 +320,10 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   visible:
                       reasonIndex.contains(returnRequestReasonList[index].id),
                   child: EachReturnReasonWidget(
-                    reasonIndex: returnRequestReasonList[index].id,
-                    reasonIndexList: reasonIndex,
-                  ),
-                )
+                      reasonIndex: returnRequestReasonList[index].id,
+                      reasonIndexList: reasonIndex,
+                      returnRequestReasonList: returnRequestReasonList),
+                ),
               ],
             );
           },
@@ -337,8 +338,12 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 class EachReturnReasonWidget extends ConsumerStatefulWidget {
   final int reasonIndex;
   final List<int> reasonIndexList;
+  final List<ReturnRequestReason> returnRequestReasonList;
   const EachReturnReasonWidget(
-      {super.key, required this.reasonIndex, required this.reasonIndexList});
+      {super.key,
+      required this.reasonIndex,
+      required this.reasonIndexList,
+      required this.returnRequestReasonList});
 
   @override
   ConsumerState<EachReturnReasonWidget> createState() =>
@@ -350,6 +355,7 @@ class _EachReturnReasonWidgetState
   TextEditingController txtQty = TextEditingController();
   bool isShowTextField = false;
   int totalQty = 1;
+  TextEditingController txtOtherComment = TextEditingController();
 
   @override
   void initState() {
@@ -432,7 +438,7 @@ class _EachReturnReasonWidgetState
                           controller: txtQty,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 15,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
@@ -495,7 +501,47 @@ class _EachReturnReasonWidgetState
                     .incrementTotalQty(widget.reasonIndex, totalQty);
               }, CupertinoIcons.add_circled_solid, AppColor.primary)
             ],
-          )
+          ),
+          Visibility(
+              visible:
+                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
+              child: const SizedBox(height: 10)),
+          Visibility(
+            visible:
+                widget.reasonIndex == widget.returnRequestReasonList.last.id,
+            child: Container(
+              width: 80.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                      color: AppColor.dropshadowColor,
+                      blurRadius: 3,
+                      spreadRadius: 3),
+                ],
+              ),
+              child: TextField(
+                controller: txtOtherComment,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+                maxLines: 3,
+                decoration: InputDecoration(
+                  hintText: "Comments ....",
+                  fillColor: Colors.white,
+                  filled: true,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
