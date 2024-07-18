@@ -114,52 +114,76 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(inhouseStockStateNotifierProvider);
-    if (state is DefaultWarehouseIncrementQty &&
-        state.productID == widget.productId) {
-      txtTotalQty.text = state.qty.toString();
-    }
-    if (state is DefaultWarehouseDecrementQty &&
-        state.productID == widget.productId) {
-      txtTotalQty.text = state.qty.toString();
-    }
-
-    if (state is DefaultWarehouseTextFieldValue &&
-        state.productID == widget.productId) {
-      txtTotalQty.text = state.qty.toString();
-    }
-    if (state is SelectedWarehouseID) {
-      requestWarehouseID = state.warehouseID;
-      superPrint(requestWarehouseID);
-      requestWarehouseQty = state.qty;
-    }
-    if (state is InhouseStockList) {
-      inHouseStockList = state.inhouseStock;
-      filterWareHouseList = inHouseStockList
-          .where((stock) =>
-              widget.userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
-              double.parse(stock.qty) > 0)
-          .toList();
-      if (filterWareHouseList.isNotEmpty) {
-        requestWarehouseQty =
-            double.parse(filterWareHouseList.first.qty).toInt();
+    superPrint(widget.userWarehouse.warehouseList);
+    ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
+      if (next is DefaultWarehouseIncrementQty &&
+          next.productID == widget.productId) {
+        setState(() {
+          txtTotalQty.text = next.qty.toString();
+        });
       }
-    }
-    final productDetailState = ref.watch(productDetailStateNotifierProvider);
-    if (productDetailState is ProductDetail) {
-      productDetail = productDetailState.products;
-    }
-    final next = ref.watch(stockRequesstStateNotifierProvider);
-    if (next is StockRequestLoading) {
-      isSendRequestLoading = true;
-    }
-    if (next is StockRequestSuccess) {
-      isSendRequestLoading = false;
-    }
+      if (next is DefaultWarehouseDecrementQty &&
+          next.productID == widget.productId) {
+        setState(() {
+          txtTotalQty.text = next.qty.toString();
+        });
+      }
+
+      if (next is DefaultWarehouseTextFieldValue &&
+          next.productID == widget.productId) {
+        setState(() {
+          txtTotalQty.text = next.qty.toString();
+        });
+      }
+      if (next is SelectedWarehouseID) {
+        setState(() {
+          requestWarehouseID = next.warehouseID;
+          requestWarehouseQty = next.qty;
+        });
+      }
+      if (next is InhouseStockList) {
+        setState(() {
+          inHouseStockList = next.inhouseStock;
+          filterWareHouseList = inHouseStockList.where((stock) {
+            superPrint(widget.userWarehouse.warehouseList[0]);
+            superPrint(widget.userWarehouse.warehouseList[0] !=
+                stock.warehouseList[0]);
+            return (widget.userWarehouse.warehouseList[0] !=
+                    stock.warehouseList[0] &&
+                double.parse(stock.qty) > 0);
+          }).toList();
+          if (filterWareHouseList.isNotEmpty) {
+            requestWarehouseQty =
+                double.parse(filterWareHouseList.first.qty).toInt();
+          }
+        });
+      }
+    });
+
+    ref.listen(productDetailStateNotifierProvider, (pre, next) {
+      if (next is ProductDetail) {
+        setState(() {
+          productDetail = next.products;
+        });
+      }
+    });
+
+    ref.listen(stockRequesstStateNotifierProvider, (pre, next) {
+      if (next is StockRequestLoading) {
+        setState(() {
+          isSendRequestLoading = true;
+        });
+      }
+      if (next is StockRequestSuccess) {
+        setState(() {
+          isSendRequestLoading = false;
+        });
+      }
+    });
 
     return Container(
       width: 100.w,
-      height: inHouseStockList.length > 3 ? 60.h : 55.h,
+      height: filterWareHouseList.length > 3 ? 60.h : 55.h,
       decoration: BoxDecoration(
         color: AppColor.bottomSheetBgColor,
         borderRadius: const BorderRadius.only(
@@ -217,7 +241,7 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            height: inHouseStockList.length > 3 ? 17.h : 12.h,
+            height: filterWareHouseList.length > 3 ? 17.h : 12.h,
             child: GridView.builder(
               shrinkWrap: true,
               padding: EdgeInsets.zero,
@@ -230,21 +254,21 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
                 return Column(
                   children: [
                     textWidget(
-                      inHouseStockList[index].warehouseList[1],
+                      filterWareHouseList[index].warehouseList[1],
                       color: AppColor.orangeColor,
                       fontWeight: FontWeight.w600,
                     ),
                     GestureDetector(
                       onTap: () {
                         if (widget.requestWhID !=
-                            inHouseStockList[index].warehouseList[0]) {
+                            filterWareHouseList[index].warehouseList[0]) {
                           if (productDetail.defaultWarehouseList.isEmpty) {
                             ref
                                 .read(
                                     inhouseStockStateNotifierProvider.notifier)
                                 .selectedWarehouseID(
-                                    inHouseStockList[index].warehouseList[0],
-                                    double.parse(inHouseStockList[index].qty)
+                                    filterWareHouseList[index].warehouseList[0],
+                                    double.parse(filterWareHouseList[index].qty)
                                         .toInt());
                           } else if (productDetail
                                   .defaultWarehouseList.isNotEmpty &&
@@ -254,8 +278,8 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
                                 .read(
                                     inhouseStockStateNotifierProvider.notifier)
                                 .selectedWarehouseID(
-                                    inHouseStockList[index].warehouseList[0],
-                                    double.parse(inHouseStockList[index].qty)
+                                    filterWareHouseList[index].warehouseList[0],
+                                    double.parse(filterWareHouseList[index].qty)
                                         .toInt());
                           }
                         }
@@ -265,13 +289,15 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
                             horizontal: 5, vertical: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: inHouseStockList[index].warehouseList[0] ==
-                                    requestWarehouseID
-                                ? AppColor.orangeColor
-                                : widget.requestWhID ==
-                                        inHouseStockList[index].warehouseList[0]
-                                    ? Colors.grey.shade400
-                                    : Colors.white,
+                            color:
+                                filterWareHouseList[index].warehouseList[0] ==
+                                        requestWarehouseID
+                                    ? AppColor.orangeColor
+                                    : widget.requestWhID ==
+                                            filterWareHouseList[index]
+                                                .warehouseList[0]
+                                        ? Colors.grey.shade400
+                                        : Colors.white,
                             boxShadow: [
                               BoxShadow(
                                   color: AppColor.dropshadowColor,
@@ -280,32 +306,32 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
                             ]),
                         alignment: Alignment.center,
                         child: widget.requestWhID ==
-                                inHouseStockList[index].warehouseList[0]
+                                filterWareHouseList[index].warehouseList[0]
                             ? textWidget(
-                                "Qty - ${double.parse(inHouseStockList[index].qty).toInt()}",
+                                "Qty - ${double.parse(filterWareHouseList[index].qty).toInt()}",
                                 textAlign: TextAlign.center,
                                 size: 14,
                                 color: Colors.white)
                             : textWidget(
-                                double.parse(inHouseStockList[index].qty)
+                                double.parse(filterWareHouseList[index].qty)
                                     .toInt()
                                     .toString(),
                                 textAlign: TextAlign.center,
-                                color:
-                                    inHouseStockList[index].warehouseList[0] ==
-                                            requestWarehouseID
-                                        ? Colors.white
-                                        : Colors.black,
+                                color: filterWareHouseList[index]
+                                            .warehouseList[0] ==
+                                        requestWarehouseID
+                                    ? Colors.white
+                                    : Colors.black,
                                 size: 14),
                       ),
                     ),
                   ],
                 );
               },
-              itemCount: inHouseStockList.length,
+              itemCount: filterWareHouseList.length,
             ),
           ),
-          SizedBox(height: inHouseStockList.length > 3 ? 15 : 5),
+          SizedBox(height: filterWareHouseList.length > 3 ? 15 : 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
