@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
@@ -290,7 +294,6 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                         }
                       } else {
                         reasonQtyMap.remove(returnRequestReasonList[index].id);
-
                         reasonIndex.remove(returnRequestReasonList[index].id);
                       }
                     });
@@ -356,6 +359,10 @@ class _EachReturnReasonWidgetState
   bool isShowTextField = false;
   int totalQty = 1;
   TextEditingController txtOtherComment = TextEditingController();
+  File imageFile = File("");
+  final picker = ImagePicker();
+  String base64Image = "";
+  bool requestLoading = false;
 
   @override
   void initState() {
@@ -365,6 +372,25 @@ class _EachReturnReasonWidgetState
       reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
     }
     superPrint(reasonQtyMap);
+  }
+
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      String image64 = await imageToBase64(imageFile);
+      setState(() {
+        base64Image = image64;
+      });
+    }
+  }
+
+  Future<String> imageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
   }
 
   @override
@@ -499,7 +525,75 @@ class _EachReturnReasonWidgetState
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
                     .incrementTotalQty(widget.reasonIndex, totalQty);
-              }, CupertinoIcons.add_circled_solid, AppColor.primary)
+              }, CupertinoIcons.add_circled_solid, AppColor.primary),
+              const SizedBox(width: 5),
+              //camera
+              GestureDetector(
+                onTap: () {
+                  getImageFromCamera();
+                },
+                child: Container(
+                  width: 10.w,
+                  height: 35,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: AppColor.pinkColor,
+                  ),
+                  child: const Icon(
+                    Icons.file_present_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: 25.w,
+                height: 8.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: AppColor.dropshadowColor,
+                          blurRadius: 3,
+                          spreadRadius: 3),
+                    ]),
+                child: Container(
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppColor.dropshadowColor,
+                            blurRadius: 3,
+                            spreadRadius: 3),
+                      ]),
+                  child: imageFile.path.isEmpty
+                      ? const Icon(
+                          Icons.camera_alt_rounded,
+                          color: Colors.grey,
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: AppColor.dropshadowColor,
+                                    blurRadius: 3,
+                                    spreadRadius: 3),
+                              ],
+                              image: DecorationImage(
+                                image: FileImage(
+                                  imageFile,
+                                ),
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                ),
+              )
             ],
           ),
           Visibility(
