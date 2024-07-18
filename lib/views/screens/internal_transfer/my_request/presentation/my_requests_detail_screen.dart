@@ -80,6 +80,7 @@ class _MyRequestsDetailScreenState
         setState(() {
           myRequestList = [];
           pendingRequestList.clear();
+          rejectedList.clear();
           myRequestList = next.myRequestList;
           for (var data in myRequestList) {
             for (var element in data.productLineList) {
@@ -122,6 +123,7 @@ class _MyRequestsDetailScreenState
         setState(() {
           myRequestList = [];
           pendingRequestList.clear();
+
           myRequestList = next.searchMyRequestList;
         });
       }

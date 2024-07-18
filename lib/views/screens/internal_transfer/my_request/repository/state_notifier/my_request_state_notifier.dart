@@ -20,6 +20,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     try {
       // state = const MyRequestState.loading();
       Response response = await _myRequestRepository.myrequest();
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       myRequestList.clear();
       Iterable dataList = result['result']['records'];

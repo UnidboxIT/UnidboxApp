@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../user_warehouse/domain/user_warehouse.dart';
+import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
+import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
+import '../../../inventory_tracker/domain/product.dart';
+import '../../../inventory_tracker/repository/provider/inhouse_stock_provider.dart';
+import '../../../inventory_tracker/repository/state/product_detail_state.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
 import '../repository/state/my_request_state.dart';
+import 'insufficient_rejected_request_bottomsheet/insufficient_rejected_request_bottomsheet.dart';
 import 'widgets/filter_by_date_widget.dart';
 import 'widgets/search_pending_request_widget.dart';
 
@@ -22,12 +31,17 @@ class RejectRequestScreen extends ConsumerStatefulWidget {
 class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   List<MyRequest> rejectRequestList = [];
   int acceptProductID = -1;
+  UserWarehouse userWarehouse = UserWarehouse();
+  bool isWarehouseLoading = false;
+  Products product = Products();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
     });
   }
 
@@ -49,6 +63,19 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
       if (next is Error) {
         setState(() {
           acceptProductID = -1;
+        });
+      }
+    });
+    ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
+      if (next is Loading) {
+        setState(() {
+          isWarehouseLoading = true;
+        });
+      }
+      if (next is UserWarehouseData) {
+        setState(() {
+          userWarehouse = next.warehouse;
+          isWarehouseLoading = false;
         });
       }
     });
@@ -91,7 +118,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
         children: [
           filterByDateWidget(),
           const SearchPendingRequestWidget(),
-          rejectedRequestListWidget(),
+          Expanded(child: rejectedRequestListWidget()),
         ],
       ),
     );
@@ -99,11 +126,9 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
 
   Widget rejectedRequestListWidget() {
     return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 20),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        // String requestCode = rejectRequestList[index].name;
-        // String name = rejectRequestList[index].userId[1];
-        // String currentDate = rejectRequestList[index].createDate;
         List<ProductLineId> productList =
             rejectRequestList[index].productLineList.where((productLine) {
           return productLine.removeReject;
@@ -112,12 +137,16 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
         String requestWarehouse = rejectRequestList[index].requestToWh.isEmpty
             ? ""
             : rejectRequestList[index].requestToWh[1];
+        int requestWarehouseID = rejectRequestList[index].requestToWh.isEmpty
+            ? 0
+            : rejectRequestList[index].requestToWh[0];
         if (productList.isEmpty) {
           return const SizedBox.shrink();
         }
         return Column(
           children: [
-            eachProductLineWidget(requestWarehouse, productList),
+            eachProductLineWidget(
+                requestWarehouse, productList, requestWarehouseID),
             const SizedBox(height: 20)
           ],
         );
@@ -126,19 +155,20 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
     );
   }
 
-  Widget eachProductLineWidget(
-      String requestWh, List<ProductLineId> productList) {
+  Widget eachProductLineWidget(String requestWh,
+      List<ProductLineId> productList, int requestWarehouseID) {
     return ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: productList.length,
         separatorBuilder: (context, index) {
-          return SizedBox(height: 5.h);
+          return SizedBox(height: 2.h);
         },
         itemBuilder: (context, index) {
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            color: Colors.transparent,
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Stack(
-              alignment: Alignment.topCenter,
               clipBehavior: Clip.none,
               children: [
                 Container(
@@ -160,118 +190,160 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                       size: 11.5,
                       fontWeight: FontWeight.bold),
                 ),
-                Transform.translate(
-                  offset: Offset(0, 3.h),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              spreadRadius: 1,
-                              offset: const Offset(0, 0))
-                        ]),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: productList[index].imageUrl != "false"
-                                    ? NetworkImage(productList[index].imageUrl)
-                                    : const AssetImage(
-                                        'assets/images/app_icon.jpeg'),
-                                fit: BoxFit.contain),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 2.h),
+                  color: Colors.transparent,
+                  child: Transform.translate(
+                    offset: Offset(0, 1.h),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                spreadRadius: 1,
+                                offset: const Offset(0, 0))
+                          ]),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: productList[index].imageUrl != "false"
+                                      ? NetworkImage(
+                                          productList[index].imageUrl)
+                                      : const AssetImage(
+                                          'assets/images/app_icon.jpeg'),
+                                  fit: BoxFit.contain),
+                            ),
+                            height: 13.h,
+                            width: 22.w,
                           ),
-                          height: 13.h,
-                          width: 22.w,
-                        ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              textWidget(productList[index].productIdList[1],
-                                  size: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  textOverflow: TextOverflow.fade,
-                                  textAlign: TextAlign.left),
-                              textWidget(productList[index].code,
-                                  size: 12,
-                                  color: Colors.black.withOpacity(0.6),
-                                  fontWeight: FontWeight.w500),
-                              productList[index].model == "false"
-                                  ? const SizedBox.shrink()
-                                  : textWidget(
-                                      productList[index].model,
-                                      fontWeight: FontWeight.w500,
-                                      size: 13,
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textWidget(productList[index].productIdList[1],
+                                    size: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    textOverflow: TextOverflow.fade,
+                                    textAlign: TextAlign.left),
+                                textWidget(productList[index].code,
+                                    size: 12,
+                                    color: Colors.black.withOpacity(0.6),
+                                    fontWeight: FontWeight.w500),
+                                productList[index].model == "false"
+                                    ? const SizedBox.shrink()
+                                    : textWidget(
+                                        productList[index].model,
+                                        fontWeight: FontWeight.w500,
+                                        size: 12,
+                                      ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    textWidget(
+                                      "Request Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}",
+                                      size: 11,
                                     ),
-                              const SizedBox(height: 4),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  textWidget(
-                                    "Request Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}",
-                                    size: 11,
-                                  ),
-                                  textWidget(
-                                    "Accepted Qty : ${productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
-                                    size: 11,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              textWidget(
-                                "Request the remaining quantity from other outlet?",
-                                color: AppColor.primary,
-                                size: 11,
-                                fontWeight: FontWeight.w700,
-                              ),
-                              textWidget(
-                                "Remaining Qty : ${productList[index].qty.toInt() - productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
-                                size: 11,
-                                color: AppColor.primary,
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 27.w,
-                                    height: 30,
-                                    child: buttonWidget(
-                                      "Remove",
-                                      () {},
-                                      elevation: 0.5,
-                                      fontSize: 13,
-                                      fontColor: AppColor.primary,
+                                    textWidget(
+                                      "Accepted Qty : ${productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
+                                      size: 11,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                textWidget(
+                                  "Request the remaining quantity from other outlet?",
+                                  color: AppColor.primary,
+                                  size: 11,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                textWidget(
+                                  "Remaining Qty : ${productList[index].qty.toInt() - productList[index].issueQty.toInt()} ${productList[index].productUomList[1]}",
+                                  size: 11,
+                                  color: AppColor.primary,
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 27.w,
+                                      height: 30,
+                                      child: buttonWidget(
+                                        "Remove",
+                                        () {
+                                          superPrint("Remove >>>>");
+                                        },
+                                        elevation: 0.5,
+                                        fontSize: 13,
+                                        fontColor: AppColor.primary,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  SizedBox(
-                                    width: 27.w,
-                                    height: 30,
-                                    child: buttonWidget(
-                                      "Request",
-                                      () {},
-                                      elevation: 0.5,
-                                      fontSize: 13,
-                                      fontColor: AppColor.primary,
+                                    const SizedBox(width: 10),
+                                    SizedBox(
+                                      width: 27.w,
+                                      height: 30,
+                                      child: buttonWidget(
+                                        "Request",
+                                        () {
+                                          ref
+                                              .read(bottomBarVisibilityProvider
+                                                  .notifier)
+                                              .state = false;
+                                          ref
+                                              .read(
+                                                  inhouseStockStateNotifierProvider
+                                                      .notifier)
+                                              .getInHouseStock(
+                                                productList[index]
+                                                    .productIdList[0],
+                                                context,
+                                              );
+                                          showInsufficientRejectedRequestBottomsheet(
+                                                  productList[index]
+                                                      .productIdList[0]
+                                                      .toString(),
+                                                  context,
+                                                  productList[index],
+                                                  userWarehouse,
+                                                  requestWh,
+                                                  requestWarehouseID)
+                                              .then((_) {
+                                            ref
+                                                .read(
+                                                    myRequestStateNotifierProvider
+                                                        .notifier)
+                                                .getAllMyRequest();
+                                            ref
+                                                .read(
+                                                    bottomBarVisibilityProvider
+                                                        .notifier)
+                                                .state = true;
+                                          });
+                                        },
+                                        elevation: 0.5,
+                                        fontSize: 13,
+                                        fontColor: AppColor.primary,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 )

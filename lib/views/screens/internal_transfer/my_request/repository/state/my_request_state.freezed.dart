@@ -72,7 +72,7 @@ mixin _$MyRequestState {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -88,7 +88,7 @@ mixin _$MyRequestState {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -103,7 +103,7 @@ mixin _$MyRequestState {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -269,7 +269,7 @@ class _$MyRequestListImpl implements MyRequestList {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -288,7 +288,7 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -306,7 +306,7 @@ class _$MyRequestListImpl implements MyRequestList {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -468,7 +468,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -487,7 +487,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -505,7 +505,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -668,7 +668,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -687,7 +687,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -705,7 +705,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -860,7 +860,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -879,7 +879,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -897,7 +897,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1024,7 +1024,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1043,7 +1043,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1061,7 +1061,7 @@ class _$InitialImpl implements Initial {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1183,7 +1183,7 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1202,7 +1202,7 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1220,7 +1220,7 @@ class _$MyRequestLoadingImpl implements MyRequestLoading {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1239,20 +1239,20 @@ abstract class MyRequestLoading implements MyRequestState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$MyRequestErrorImplCopyWith<$Res> {
+  factory _$$MyRequestErrorImplCopyWith(_$MyRequestErrorImpl value,
+          $Res Function(_$MyRequestErrorImpl) then) =
+      __$$MyRequestErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$MyRequestStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$MyRequestErrorImplCopyWithImpl<$Res>
+    extends _$MyRequestStateCopyWithImpl<$Res, _$MyRequestErrorImpl>
+    implements _$$MyRequestErrorImplCopyWith<$Res> {
+  __$$MyRequestErrorImplCopyWithImpl(
+      _$MyRequestErrorImpl _value, $Res Function(_$MyRequestErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1260,7 +1260,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$MyRequestErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1271,8 +1271,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$MyRequestErrorImpl implements MyRequestError {
+  const _$MyRequestErrorImpl({this.error});
 
   @override
   final String? error;
@@ -1286,7 +1286,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$MyRequestErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1296,8 +1296,9 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$MyRequestErrorImplCopyWith<_$MyRequestErrorImpl> get copyWith =>
+      __$$MyRequestErrorImplCopyWithImpl<_$MyRequestErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1368,7 +1369,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1387,7 +1388,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1405,7 +1406,7 @@ class _$ErrorImpl implements Error {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1419,12 +1420,12 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements MyRequestState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class MyRequestError implements MyRequestState {
+  const factory MyRequestError({final String? error}) = _$MyRequestErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$MyRequestErrorImplCopyWith<_$MyRequestErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1560,7 +1561,7 @@ class _$ReceivedProductIDImpl implements ReceivedProductID {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1579,7 +1580,7 @@ class _$ReceivedProductIDImpl implements ReceivedProductID {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1597,7 +1598,7 @@ class _$ReceivedProductIDImpl implements ReceivedProductID {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1725,7 +1726,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1744,7 +1745,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1762,7 +1763,7 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1920,7 +1921,7 @@ class _$SearchMyRequestListImpl implements SearchMyRequestList {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -1939,7 +1940,7 @@ class _$SearchMyRequestListImpl implements SearchMyRequestList {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -1957,7 +1958,7 @@ class _$SearchMyRequestListImpl implements SearchMyRequestList {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -2087,7 +2088,7 @@ class _$ReceiveMyRequestStateImpl implements ReceiveMyRequestState {
     required TResult Function(IsDataExit value) isDataExist,
     required TResult Function(Initial value) initial,
     required TResult Function(MyRequestLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(MyRequestError value) error,
     required TResult Function(ReceivedProductID value) receivedProductID,
     required TResult Function(ReceiveLoading value) receiveLoading,
     required TResult Function(SearchMyRequestList value) searchMyRequestValue,
@@ -2106,7 +2107,7 @@ class _$ReceiveMyRequestStateImpl implements ReceiveMyRequestState {
     TResult? Function(IsDataExit value)? isDataExist,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyRequestLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(MyRequestError value)? error,
     TResult? Function(ReceivedProductID value)? receivedProductID,
     TResult? Function(ReceiveLoading value)? receiveLoading,
     TResult? Function(SearchMyRequestList value)? searchMyRequestValue,
@@ -2124,7 +2125,7 @@ class _$ReceiveMyRequestStateImpl implements ReceiveMyRequestState {
     TResult Function(IsDataExit value)? isDataExist,
     TResult Function(Initial value)? initial,
     TResult Function(MyRequestLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(MyRequestError value)? error,
     TResult Function(ReceivedProductID value)? receivedProductID,
     TResult Function(ReceiveLoading value)? receiveLoading,
     TResult Function(SearchMyRequestList value)? searchMyRequestValue,

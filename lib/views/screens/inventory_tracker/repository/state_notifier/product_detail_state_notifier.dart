@@ -17,6 +17,7 @@ class ProductDetailStateNotifier extends StateNotifier<ProductDetailState> {
       state = const ProductDetailState.loading();
       Response response =
           await _inventoryTrackerRepository.productByID(productID);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result['result']['code'] == 200) {
         productsDetail = Products.fromJson(result['result']['records'][0]);
