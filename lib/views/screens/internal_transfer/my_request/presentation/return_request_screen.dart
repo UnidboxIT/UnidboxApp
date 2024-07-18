@@ -1,12 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/each_pending_request_list_widget.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/return_request_reason_state.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/return_request_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/each_product_list_request_widget.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
@@ -14,19 +20,25 @@ import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/return_request_reason.dart';
 
+Map<int, int> reasonQtyMap = {};
+
 class ReturnRequestScreen extends ConsumerStatefulWidget {
   final String productCode;
   final String currentDate;
   final String requestWarehouse;
   final ProductLineId productLine;
   final String currentWarehouse;
-  const ReturnRequestScreen(
-      {super.key,
-      required this.productCode,
-      required this.currentDate,
-      required this.requestWarehouse,
-      required this.productLine,
-      required this.currentWarehouse});
+  final double receiveQty;
+
+  const ReturnRequestScreen({
+    super.key,
+    required this.productCode,
+    required this.currentDate,
+    required this.requestWarehouse,
+    required this.productLine,
+    required this.currentWarehouse,
+    required this.receiveQty,
+  });
 
   @override
   ConsumerState<ReturnRequestScreen> createState() =>
@@ -35,7 +47,7 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
 
 class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
   List<ReturnRequestReason> returnRequestReasonList = [];
-
+  List<int> reasonIndex = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -45,10 +57,12 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
           .read(returnRequestReasonStateNotifierProvider.notifier)
           .getOutletRejectReason();
     });
+    reasonQtyMap.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    //superPrint(widget.receiveQty);
     ref.listen(returnRequestReasonStateNotifierProvider, (pre, next) {
       if (next is ReturnReceiveLoading) {
         setState(() {
@@ -61,6 +75,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
         });
       }
     });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.bgColor,
@@ -107,11 +122,11 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
         width: 100.w,
         height: 50.h,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColor.bgColor,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 10,
               )
             ]),
@@ -156,10 +171,11 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                     ],
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: widget.productLine.imageUrl != "false"
-                            ? NetworkImage(widget.productLine.imageUrl)
-                            : const AssetImage('assets/images/app_icon.jpeg'),
-                        fit: BoxFit.cover),
+                      image: widget.productLine.imageUrl != "false"
+                          ? NetworkImage(widget.productLine.imageUrl)
+                          : const AssetImage('assets/images/app_icon.jpeg'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   height: 14.5.h,
                   width: 25.w,
@@ -233,7 +249,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
               color: AppColor.orangeColor,
               fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             returnReasonWidget(),
             const Spacer(),
             Padding(
@@ -249,7 +265,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 5.h),
           ],
         ),
       ),
@@ -257,29 +273,231 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
   }
 
   Widget returnReasonWidget() {
-    return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
-            child: Row(
+    return Expanded(
+      flex: 10,
+      child: ListView.separated(
+          // shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.check_box_outline_blank,
-                  size: 18,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (!reasonIndex
+                          .contains(returnRequestReasonList[index].id)) {
+                        reasonIndex.add(returnRequestReasonList[index].id);
+                      } else {
+                        reasonQtyMap
+                            .addAll({returnRequestReasonList[index].id: 0});
+                        reasonIndex.remove(returnRequestReasonList[index].id);
+                      }
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Row(
+                      children: [
+                        Icon(
+                          reasonIndex
+                                  .contains(returnRequestReasonList[index].id)
+                              ? Icons.check_box_outlined
+                              : Icons.check_box_outline_blank,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 8),
+                        textWidget(
+                          returnRequestReasonList[index].reason,
+                          fontWeight: FontWeight.w700,
+                          size: 14,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 8),
-                textWidget(
-                  returnRequestReasonList[index].reason,
-                  fontWeight: FontWeight.w700,
-                  size: 14,
-                ),
+                Visibility(
+                  visible:
+                      reasonIndex.contains(returnRequestReasonList[index].id),
+                  child: EachReturnReasonWidget(
+                    reasonIndex: returnRequestReasonList[index].id,
+                    reasonIndexList: reasonIndex,
+                  ),
+                )
               ],
-            ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 10);
-        },
-        itemCount: returnRequestReasonList.length);
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 10);
+          },
+          itemCount: returnRequestReasonList.length),
+    );
+  }
+}
+
+class EachReturnReasonWidget extends ConsumerStatefulWidget {
+  final int reasonIndex;
+  final List<int> reasonIndexList;
+  const EachReturnReasonWidget(
+      {super.key, required this.reasonIndex, required this.reasonIndexList});
+
+  @override
+  ConsumerState<EachReturnReasonWidget> createState() =>
+      _EachReturnReasonWidgetState();
+}
+
+class _EachReturnReasonWidgetState
+    extends ConsumerState<EachReturnReasonWidget> {
+  TextEditingController txtQty = TextEditingController();
+  bool isShowTextField = false;
+  int totalQty = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var data in widget.reasonIndexList) {
+      reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
+    }
+    superPrint(reasonQtyMap);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(returnRequestStateNotifierProvider, (pre, next) {
+      if (next is IncrementReturnQty && widget.reasonIndex == next.index) {
+        setState(() {
+          totalQty = next.qty;
+          reasonQtyMap.addAll({widget.reasonIndex: totalQty});
+          txtQty.text = reasonQtyMap[next.index].toString();
+        });
+      }
+      if (next is DecrementReturnQty && widget.reasonIndex == next.index) {
+        setState(() {
+          totalQty = next.qty;
+          reasonQtyMap.addAll({widget.reasonIndex: totalQty});
+          txtQty.text = reasonQtyMap[next.index].toString();
+        });
+      }
+
+      if (next is AddQtyTextFieldValue && widget.reasonIndex == next.index) {
+        setState(() {
+          totalQty = next.qty;
+          reasonQtyMap.addAll({widget.reasonIndex: totalQty});
+          txtQty.text = reasonQtyMap[next.index].toString();
+        });
+      }
+    });
+
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          textWidget(
+            "How many items is missing",
+            size: 11,
+          ),
+          Row(
+            children: [
+              addMinusIconButtonWidget(() {
+                ref
+                    .read(returnRequestStateNotifierProvider.notifier)
+                    .decrementTotalQty(widget.reasonIndex, totalQty);
+              }, CupertinoIcons.minus_circle_fill, AppColor.primary),
+              const SizedBox(width: 5),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isShowTextField = !isShowTextField;
+                    if (isShowTextField) {
+                      txtQty.text = reasonQtyMap[widget.reasonIndex].toString();
+                    }
+                  });
+                },
+                child: isShowTextField
+                    ? Container(
+                        height: 40,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                            )
+                          ],
+                        ),
+                        child: TextFormField(
+                          controller: txtQty,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          cursorColor: AppColor.primary,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 10),
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              txtQty.text = value;
+                              ref
+                                  .read(returnRequestStateNotifierProvider
+                                      .notifier)
+                                  .addQtyTextFieldValue(widget.reasonIndex,
+                                      double.parse(txtQty.text).toInt());
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                      )
+                    : Container(
+                        height: 38,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 3,
+                                  spreadRadius: 3),
+                            ]),
+                        alignment: Alignment.center,
+                        child: textWidget(
+                          reasonQtyMap[widget.reasonIndex].toString(),
+                          size: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+              ),
+              const SizedBox(width: 5),
+              addMinusIconButtonWidget(() {
+                ref
+                    .read(returnRequestStateNotifierProvider.notifier)
+                    .incrementTotalQty(widget.reasonIndex, totalQty);
+              }, CupertinoIcons.add_circled_solid, AppColor.primary)
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
