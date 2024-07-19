@@ -77,4 +77,20 @@ class MyRequestRepository {
 
     return response;
   }
+
+  Future<Response> remove(int productID) async {
+    Map<String, dynamic> formData = {
+      "ids": [productID],
+      "remove_reject": true,
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }

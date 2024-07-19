@@ -10,9 +10,7 @@ import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
-import '../../../inventory_tracker/domain/product.dart';
 import '../../../inventory_tracker/repository/provider/inhouse_stock_provider.dart';
-import '../../../inventory_tracker/repository/state/product_detail_state.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
@@ -33,7 +31,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   int acceptProductID = -1;
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
-  Products product = Products();
+  bool myRequestLoading = false;
   @override
   void initState() {
     super.initState();
@@ -48,21 +46,29 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestLoading) {
+        setState(() {
+          myRequestLoading = true;
+        });
+      }
       if (next is MyRequestList) {
         rejectRequestList = [];
         setState(() {
           rejectRequestList = next.myRequestList;
           acceptProductID = -1;
+          myRequestLoading = false;
         });
       }
       if (next is ReceivedProductID) {
         setState(() {
           acceptProductID = next.productID;
+          superPrint(acceptProductID);
         });
       }
-      if (next is Error) {
+      if (next is MyRequestError) {
         setState(() {
           acceptProductID = -1;
+          myRequestLoading = false;
         });
       }
     });
@@ -131,9 +137,11 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
       itemBuilder: (context, index) {
         List<ProductLineId> productList =
             rejectRequestList[index].productLineList.where((productLine) {
-          return productLine.removeReject;
+          return productLine.status == "rejected" &&
+              productLine.qty > productLine.issueQty &&
+              productLine.status == "accepted" &&
+              !productLine.removeReject;
         }).toList();
-
         String requestWarehouse = rejectRequestList[index].requestToWh.isEmpty
             ? ""
             : rejectRequestList[index].requestToWh[1];
@@ -283,8 +291,21 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                                       child: buttonWidget(
                                         "Remove",
                                         () {
-                                          superPrint("Remove >>>>");
+                                          myRequestLoading &&
+                                                  productList[index].id ==
+                                                      acceptProductID
+                                              ? () {}
+                                              : ref
+                                                  .read(
+                                                      myRequestStateNotifierProvider
+                                                          .notifier)
+                                                  .removeRejectProduct(
+                                                      productList[index].id,
+                                                      context);
                                         },
+                                        isBool: myRequestLoading &&
+                                            acceptProductID ==
+                                                productList[index].id,
                                         elevation: 0.5,
                                         fontSize: 13,
                                         fontColor: AppColor.primary,

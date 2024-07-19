@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../my_request/domain/my_request.dart';
-import '../../my_request/presentation/widgets/search_pending_request_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/warehouse.dart';
+import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
 import 'widgets/accepted_my_return_widget.dart';
 
-class MyReturnDetailScreen extends ConsumerStatefulWidget {
-  const MyReturnDetailScreen({super.key});
+class MyReturnScreen extends ConsumerStatefulWidget {
+  const MyReturnScreen({super.key});
 
   @override
-  ConsumerState<MyReturnDetailScreen> createState() => _MyReturnScreenState();
+  ConsumerState<MyReturnScreen> createState() => _OutletReturnScreenState();
 }
 
-class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
-  UserWarehouse userWarehouse = UserWarehouse();
-  bool isWarehouseLoading = false;
+class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
   List<Warehouse> warehouseList = [];
   int selectedWarehouseID = 0;
   List<Map<int, dynamic>> requestedMapList = [];
   Map<int, dynamic> requestedMap = {};
   bool requestLoading = false;
-  List<MyRequest> myReturnDataList = [];
+  List<MyRequest> myReturnList = [];
+  List<ProductLineId> acceptedReturnList = [];
+  int acceptProductID = -1;
+  bool acceptLoading = false;
+  UserWarehouse userWarehouse = UserWarehouse();
+  bool isWarehouseLoading = false;
+  List<String> visibleCode = [];
+
   @override
   void initState() {
     super.initState();
@@ -50,8 +58,23 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
     });
   }
 
+  loadSetVisiblity(String code) {
+    setState(() {
+      visibleCode.add(code);
+    });
+  }
+
+  removeVisiblity(String code) {
+    setState(() {
+      visibleCode.remove(code);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ref.read(currentRouteProvider.notifier).state = '/myreturn';
+    });
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
@@ -86,20 +109,23 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
       if (next is MyReturnLoading) {
         setState(() {
           requestLoading = true;
-          myReturnDataList = [];
+          myReturnList = [];
+          acceptedReturnList.clear();
         });
       }
       if (next is MyReturnDataList) {
         setState(() {
-          myReturnDataList = next.myReturnDataList;
+          myReturnList = next.myReturnDataList;
           requestedMap.clear();
           requestedMapList.clear();
-          for (var data in myReturnDataList) {
+          for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              superPrint(element.isReturn);
-              if (element.isReturn) {
-                int warehouseId = element.warehouseList[0];
-                String warehouseName = element.warehouseList[1];
+              if (element.status == 'accepted' && element.isReturn) {
+                acceptedReturnList.add(element);
+              }
+              if (element.status == "returned" && element.isReturn) {
+                int warehouseId = element.requestWarehouse[0];
+                String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -119,6 +145,7 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
               }
             }
           }
+          acceptLoading = false;
           requestLoading = false;
           if (requestedMap.isNotEmpty) {
             if (requestedMap.keys.contains(selectedWarehouseID)) {
@@ -128,6 +155,7 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
             }
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
+            //requestedMapList.add(requestedMap);
           }
         });
       }
@@ -136,7 +164,7 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
 
     return SuperScaffold(
       topColor: AppColor.primary,
-      botColor: AppColor.bgColor,
+      botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
         body: SizedBox(
@@ -169,13 +197,7 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        // ref.read(bottomBarVisibilityProvider.notifier).state =
-                        //     false;
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) =>
-                        //         const RequestHistoryScreen()));
-                      },
+                      onTap: () {},
                       child: Container(
                         color: Colors.transparent,
                         padding: const EdgeInsets.symmetric(
@@ -192,7 +214,7 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: myreturnWidget(),
+                child: myReturnWidget(),
               ),
             ],
           ),
@@ -201,7 +223,8 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
     );
   }
 
-  Widget myreturnWidget() {
+  Widget myReturnWidget() {
+    superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
       height: 75.h,
@@ -211,32 +234,186 @@ class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
       ),
       child: Column(
         children: [
-          const SearchPendingRequestWidget(),
-          warehouseWidget(),
-          const SizedBox(height: 10),
-          acceptedMyReturnWidget([]),
+          const SearchOtherRequestWidget(),
           Expanded(
-            child: requestedMap[selectedWarehouseID] != null ||
-                    selectedWarehouseID == -1
-                ? myreturnDetailWidget(requestedMapList)
-                : Center(
-                    child: textWidget("No Data !"),
-                  ),
-          ),
+            child: Column(
+              children: [
+                warehouseWidget(),
+                const SizedBox(height: 15),
+                acceptedMyReturnWidget(acceptedReturnList),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: requestedMap[selectedWarehouseID] != null ||
+                          selectedWarehouseID == -1
+                      ? outletReturnReceiveWidget(requestedMapList)
+                      : Center(
+                          child: textWidget("No Data !"),
+                        ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget myreturnDetailWidget(
+  Widget outletReturnReceiveWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return Container();
-      },
-    );
+    return requestedMapList.isEmpty
+        ? Center(
+            child: textWidget("No Data !"),
+          )
+        : ListView.separated(
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(bottom: 20),
+            physics: const ClampingScrollPhysics(),
+            itemCount: requestedMapList.length,
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 0);
+            },
+            itemBuilder: (context, index) {
+              Map<int, dynamic> warehouseMap = requestedMapList[index];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: warehouseMap.entries.map((entry) {
+                  // int warehouseId = entry.key;
+                  Map<dynamic, dynamic> warehouseData = entry.value;
+                  Map<dynamic, dynamic> productLineMap =
+                      warehouseData['product_line'];
+                  return productLineMap.isEmpty
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 100.w,
+                          height: 50.h,
+                          child: textWidget("No Data !"),
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: productLineMap.keys.length,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 0);
+                          },
+                          itemBuilder: (context, productIndex) {
+                            String productLineKey =
+                                productLineMap.keys.elementAt(productIndex);
+                            superPrint(productLineKey);
+                            List<dynamic> productList =
+                                productLineMap[productLineKey] ?? [];
+                            superPrint(productList);
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: productList.length,
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(height: 0);
+                              },
+                              itemBuilder: (context, subIndex) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColor.dropshadowColor
+                                              .withOpacity(0.02),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (visibleCode
+                                                    .contains(productLineKey)) {
+                                                  removeVisiblity(
+                                                      productLineKey);
+                                                } else {
+                                                  loadSetVisiblity(
+                                                      productLineKey);
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 100.w,
+                                                decoration: BoxDecoration(
+                                                    color: AppColor
+                                                        .bottomSheetBgColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(
+                                                                  0.03),
+                                                          offset: const Offset(
+                                                              0, 3),
+                                                          blurRadius: 3)
+                                                    ]),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                        vertical: 15),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    textWidget(
+                                                      productLineKey,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black,
+                                                      size: 20,
+                                                    ),
+                                                    textWidget(
+                                                        DateFormat(
+                                                                'dd MMM yyyy')
+                                                            .format(
+                                                          DateTime.parse(
+                                                              warehouseData[
+                                                                  'date']),
+                                                        ),
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        size: 17)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: visibleCode
+                                                  .contains(productLineKey),
+                                              child: const SizedBox(height: 13),
+                                            ),
+                                            Visibility(
+                                              visible: visibleCode
+                                                  .contains(productLineKey),
+                                              child: Container(
+                                                height: 30.h,
+                                                color: Colors.red,
+                                                width: 100.w,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20)
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        );
+                }).toList(),
+              );
+            },
+          );
   }
 
   Widget warehouseWidget() {

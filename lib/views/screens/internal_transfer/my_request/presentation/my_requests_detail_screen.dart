@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/drawer_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -87,7 +86,10 @@ class _MyRequestsDetailScreenState
               if (element.status == 'requested') {
                 pendingRequestList.add(element);
               }
-              if (element.removeReject) {
+              if (element.status == "rejected" &&
+                  element.qty > element.issueQty &&
+                  element.status == "accepted" &&
+                  !element.removeReject) {
                 rejectedList.add(element);
               }
             }
@@ -145,7 +147,6 @@ class _MyRequestsDetailScreenState
               globalAppBarWidget(
                 "My Requests",
                 () {
-                  superPrint(widget.isStockRequest);
                   Navigator.of(context).pop();
                 },
               ),
@@ -161,7 +162,6 @@ class _MyRequestsDetailScreenState
                         } else {
                           scaffoldKey.currentState!.openEndDrawer();
                         }
-                        superPrint("HERE");
                       },
                       child: Container(
                         color: Colors.transparent,
@@ -257,7 +257,7 @@ class _MyRequestsDetailScreenState
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
-                superPrint(requestCode);
+                // superPrint(requestCode);
                 String name = myRequestList[index].userId[1];
                 List<ProductLineId> productList = selectedFilterIndex == 4 ||
                         selectedFilterIndex == 3

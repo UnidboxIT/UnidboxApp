@@ -3,7 +3,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
-Widget acceptedMyReturnWidget(acceptedReturnList) {
+import '../../../my_request/domain/my_request.dart';
+
+Widget acceptedMyReturnWidget(List<ProductLineId> acceptedReturnList) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Stack(
@@ -36,7 +38,7 @@ Widget acceptedMyReturnWidget(acceptedReturnList) {
           ),
         ),
         Visibility(
-          //visible: acceptedReturnList.isNotEmpty,
+          visible: acceptedReturnList.isNotEmpty,
           child: Positioned(
             top: -15,
             right: -10,

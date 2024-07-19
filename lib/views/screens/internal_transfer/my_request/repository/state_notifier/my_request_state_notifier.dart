@@ -34,6 +34,33 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
+  Future<void> removeRejectProduct(int productID, BuildContext context) async {
+    try {
+      state = const MyRequestState.loading();
+      state = MyRequestState.receivedProductID(productID);
+      Response response = await _myRequestRepository.remove(productID);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllMyRequest();
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const MyRequestState.error();
+        }
+      }
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
   Future<void> doneMyRequest(
       int productID, int qty, BuildContext context) async {
     try {

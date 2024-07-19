@@ -92,7 +92,6 @@ class _InternalTransferScreenState
               }
             }
           }
-
           isLoading = false;
         });
       }
@@ -177,7 +176,7 @@ class _InternalTransferScreenState
                   } else if (index == 2) {
                     superPrint("MY RETURN >>>>>");
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyReturnDetailScreen()));
+                        builder: (context) => const MyReturnScreen()));
                   } else {
                     Navigator.of(context)
                         .push(MaterialPageRoute(
