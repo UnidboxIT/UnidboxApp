@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
@@ -13,6 +14,7 @@ import '../../../home/domain/my_task.dart';
 import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../my_request/presentation/widgets/drawer_widget.dart';
+import '../../my_return/presentation/my_return_screen.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/presentation/other_request_detail_screen.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
@@ -172,12 +174,14 @@ class _InternalTransferScreenState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             const OtherRequestDetailScreen()));
+                  } else if (index == 2) {
+                    superPrint("MY RETURN >>>>>");
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MyReturnDetailScreen()));
                   } else {
                     Navigator.of(context)
                         .push(MaterialPageRoute(
-                            builder: (context) => OutletReturnScreen(
-                                  userWarehouse: userWarehouse,
-                                )))
+                            builder: (context) => const OutletReturnScreen()))
                         .then((_) {
                       Future.delayed(const Duration(milliseconds: 10), () {
                         ref
@@ -254,7 +258,7 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 2 && outletReturnProductList.isNotEmpty,
+          visible: count == 3 && outletReturnProductList.isNotEmpty,
           child: Positioned(
             top: -10,
             right: -5,

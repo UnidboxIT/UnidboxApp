@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
@@ -9,36 +9,31 @@ import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../my_request/domain/my_request.dart';
+import '../../my_request/presentation/widgets/search_pending_request_widget.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
-import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/domain/warehouse.dart';
-import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
-import '../repository/provider/outlet_return_provider.dart';
-import '../repository/state/outlet_return_state.dart';
-import 'outlet_return_history/outlet_return_history_screen.dart';
-import 'widgets/each_outlet_return_receive_widget.dart';
+import '../repository/provider/my_return_provider.dart';
+import '../repository/state/my_return_state.dart';
+import 'widgets/accepted_my_return_widget.dart';
 
-class OutletReturnScreen extends ConsumerStatefulWidget {
-  const OutletReturnScreen({super.key});
+class MyReturnDetailScreen extends ConsumerStatefulWidget {
+  const MyReturnDetailScreen({super.key});
 
   @override
-  ConsumerState<OutletReturnScreen> createState() => _OutletReturnScreenState();
+  ConsumerState<MyReturnDetailScreen> createState() => _MyReturnScreenState();
 }
 
-class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
+class _MyReturnScreenState extends ConsumerState<MyReturnDetailScreen> {
+  UserWarehouse userWarehouse = UserWarehouse();
+  bool isWarehouseLoading = false;
   List<Warehouse> warehouseList = [];
   int selectedWarehouseID = 0;
   List<Map<int, dynamic>> requestedMapList = [];
   Map<int, dynamic> requestedMap = {};
   bool requestLoading = false;
-  List<OtherRequest> otherRequestList = [];
-  int acceptProductID = -1;
-  bool acceptLoading = false;
-  UserWarehouse userWarehouse = UserWarehouse();
-  bool isWarehouseLoading = false;
-
+  List<MyRequest> myReturnDataList = [];
   @override
   void initState() {
     super.initState();
@@ -51,15 +46,12 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       });
     });
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      ref.read(currentRouteProvider.notifier).state = '/outletreturn';
-    });
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
@@ -90,21 +82,22 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         });
       }
     });
-    ref.listen(outletReturnStateNotifier, (pre, next) {
-      if (next is OutletReturnLoading) {
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
         setState(() {
           requestLoading = true;
-          otherRequestList = [];
+          myReturnDataList = [];
         });
       }
-      if (next is OutletReturnList) {
+      if (next is MyReturnDataList) {
         setState(() {
-          otherRequestList = next.outletReturnList;
+          myReturnDataList = next.myReturnDataList;
           requestedMap.clear();
           requestedMapList.clear();
-          for (var data in otherRequestList) {
+          for (var data in myReturnDataList) {
             for (var element in data.productLineList) {
-              if (element.status == "returned") {
+              superPrint(element.isReturn);
+              if (element.isReturn) {
                 int warehouseId = element.warehouseList[0];
                 String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
@@ -126,7 +119,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
               }
             }
           }
-          acceptLoading = false;
           requestLoading = false;
           if (requestedMap.isNotEmpty) {
             if (requestedMap.keys.contains(selectedWarehouseID)) {
@@ -136,28 +128,15 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
             }
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
-            //requestedMapList.add(requestedMap);
           }
         });
       }
-      if (next is ReceiveLoading) {
-        setState(() {
-          acceptLoading = true;
-        });
-      }
-      if (next is ReturnReceivedProductID) {
-        setState(() {
-          acceptProductID = next.productID;
-        });
-      }
-      if (next is OutletReturnError) {
-        acceptLoading = false;
-      }
     });
+    superPrint(requestedMapList);
 
     return SuperScaffold(
       topColor: AppColor.primary,
-      botColor: const Color(0xffF6F6F6),
+      botColor: AppColor.bgColor,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
         body: SizedBox(
@@ -166,44 +145,54 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           child: Stack(
             children: [
               globalAppBarWidget(
-                "Outlet Return",
+                "My Return",
                 () {
                   Navigator.of(context).pop();
                 },
               ),
-              Transform.translate(
-                offset: Offset(65.w, 6.h),
-                child: GestureDetector(
-                  onTap: () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state =
-                        false;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OutletReturnHistoryScreen()));
-                  },
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: AppColor.orangeColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
+              Positioned(
+                right: 5.w,
+                top: 6.5.h,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 20),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 28,
+                        ),
                       ),
                     ),
-                    child: textWidget(
-                      "Returned\nHistory",
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      size: 17,
-                      textAlign: TextAlign.center,
+                    GestureDetector(
+                      onTap: () {
+                        // ref.read(bottomBarVisibilityProvider.notifier).state =
+                        //     false;
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) =>
+                        //         const RequestHistoryScreen()));
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 20),
+                        child: const Icon(
+                          Icons.history,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
               Transform.translate(
                 offset: Offset(0, 14.h),
-                child: outletReturnWidget(),
+                child: myreturnWidget(),
               ),
             ],
           ),
@@ -212,7 +201,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
     );
   }
 
-  Widget outletReturnWidget() {
+  Widget myreturnWidget() {
     return Container(
       width: 100.w,
       height: 75.h,
@@ -222,97 +211,32 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       ),
       child: Column(
         children: [
-          const SearchOtherRequestWidget(),
+          const SearchPendingRequestWidget(),
+          warehouseWidget(),
+          const SizedBox(height: 10),
+          acceptedMyReturnWidget([]),
           Expanded(
-            child: Column(
-              children: [
-                warehouseWidget(),
-                const SizedBox(height: 15),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? outletReturnReceiveWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
-                ),
-              ],
-            ),
-          )
+            child: requestedMap[selectedWarehouseID] != null ||
+                    selectedWarehouseID == -1
+                ? myreturnDetailWidget(requestedMapList)
+                : Center(
+                    child: textWidget("No Data !"),
+                  ),
+          ),
         ],
       ),
     );
   }
 
-  Widget outletReturnReceiveWidget(
+  Widget myreturnDetailWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
-    return requestedMapList.isEmpty
-        ? Center(
-            child: textWidget("No Data !"),
-          )
-        : ListView.separated(
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(bottom: 20),
-            physics: const ClampingScrollPhysics(),
-            itemCount: requestedMapList.length,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 0);
-            },
-            itemBuilder: (context, index) {
-              Map<int, dynamic> warehouseMap = requestedMapList[index];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: warehouseMap.entries.map((entry) {
-                  // int warehouseId = entry.key;
-                  Map<dynamic, dynamic> warehouseData = entry.value;
-                  Map<dynamic, dynamic> productLineMap =
-                      warehouseData['product_line'];
-                  return productLineMap.isEmpty
-                      ? Container(
-                          alignment: Alignment.center,
-                          width: 100.w,
-                          height: 50.h,
-                          child: textWidget("No Data !"),
-                        )
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: productLineMap.keys.length,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: 0);
-                          },
-                          itemBuilder: (context, productIndex) {
-                            String productLineKey =
-                                productLineMap.keys.elementAt(productIndex);
-                            List<dynamic> productList =
-                                productLineMap[productLineKey] ?? [];
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: productList.length,
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 0);
-                              },
-                              itemBuilder: (context, subIndex) {
-                                return eachOutletReturnWidget(
-                                  productLineKey,
-                                  warehouseData['name'],
-                                  warehouseData['date'],
-                                  productList[subIndex],
-                                  ref,
-                                  context,
-                                  isAcceptLoading: acceptLoading,
-                                  acceptProductID: acceptProductID,
-                                );
-                              },
-                            );
-                          },
-                        );
-                }).toList(),
-              );
-            },
-          );
+    return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container();
+      },
+    );
   }
 
   Widget warehouseWidget() {

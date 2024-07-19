@@ -1,0 +1,18 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../my_request/domain/my_request.dart';
+part 'my_return_state.freezed.dart';
+
+extension Getters on MyReturnState {
+  bool get isLoading => this is MyReturnLoading;
+}
+
+@freezed
+class MyReturnState with _$MyReturnState {
+  const factory MyReturnState.loadMyReturnData(
+      List<MyRequest> myReturnDataList) = MyReturnDataList;
+  const factory MyReturnState.initial() = Initial;
+  const factory MyReturnState.loading() = MyReturnLoading;
+  const factory MyReturnState.outletReturnError({String? error}) =
+      MyReturnError;
+}

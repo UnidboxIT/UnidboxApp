@@ -26,4 +26,4 @@ final returnRequestReasonStateNotifierProvider = StateNotifierProvider<
 
 final returnRequestStateNotifierProvider =
     StateNotifierProvider<ReturnRequestStateNotifier, ReturnRequestState>(
-        (ref) => ReturnRequestStateNotifier(ref.watch(myReqestProvider)));
+        (ref) => ReturnRequestStateNotifier());

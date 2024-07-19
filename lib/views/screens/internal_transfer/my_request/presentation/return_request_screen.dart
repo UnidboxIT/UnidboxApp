@@ -325,7 +325,8 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   child: EachReturnReasonWidget(
                       reasonIndex: returnRequestReasonList[index].id,
                       reasonIndexList: reasonIndex,
-                      returnRequestReasonList: returnRequestReasonList),
+                      returnRequestReasonList: returnRequestReasonList,
+                      receiveQty: widget.receiveQty),
                 ),
               ],
             );
@@ -342,11 +343,13 @@ class EachReturnReasonWidget extends ConsumerStatefulWidget {
   final int reasonIndex;
   final List<int> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
+  final double receiveQty;
   const EachReturnReasonWidget(
       {super.key,
       required this.reasonIndex,
       required this.reasonIndexList,
-      required this.returnRequestReasonList});
+      required this.returnRequestReasonList,
+      required this.receiveQty});
 
   @override
   ConsumerState<EachReturnReasonWidget> createState() =>
@@ -363,6 +366,7 @@ class _EachReturnReasonWidgetState
   final picker = ImagePicker();
   String base64Image = "";
   bool requestLoading = false;
+  int sumRecevieQty = 0;
 
   @override
   void initState() {
@@ -370,7 +374,10 @@ class _EachReturnReasonWidgetState
     super.initState();
     for (var data in widget.reasonIndexList) {
       reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
+      sumRecevieQty = reasonQtyMap.values
+          .fold(0, (previousValue, element) => previousValue + element);
     }
+    superPrint(sumRecevieQty);
     superPrint(reasonQtyMap);
   }
 
@@ -525,6 +532,13 @@ class _EachReturnReasonWidgetState
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
                     .incrementTotalQty(widget.reasonIndex, totalQty);
+                setState(() {
+                  sumRecevieQty = reasonQtyMap.values.fold(
+                      0, (previousValue, element) => previousValue + element);
+                  superPrint(sumRecevieQty);
+                });
+
+                superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),
               const SizedBox(width: 5),
               //camera
