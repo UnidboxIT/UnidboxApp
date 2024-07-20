@@ -49,14 +49,29 @@ class MyRequestRepository {
     return response;
   }
 
-  Future<Response> receivedByImage(int productID, int qty, String image) async {
-    Map<String, dynamic> formData = {
-      "state": "received",
-      "qty": qty,
-      "ids": [productID],
-      "img_name": "picking_$productID.png",
-      "datas": image,
-    };
+  Future<Response> receivedByImage(int productID, int qty,
+      List<int> reasonIdList, String otherComment, List imageList) async {
+    Map<String, dynamic> formData = {};
+    if (otherComment.isNotEmpty) {
+      formData = {
+        "state": "received",
+        "qty": qty,
+        "ids": [productID],
+        "reason_ids": reasonIdList,
+        "comment": otherComment,
+        "img_name": "picking_$productID.png",
+        "images": imageList,
+      };
+    } else {
+      formData = {
+        "state": "received",
+        "qty": qty,
+        "ids": [productID],
+        "reason_ids": reasonIdList,
+        "images": imageList,
+      };
+    }
+
     superPrint(formData);
     Response response = await ApiService().post(
       url: baseUrl,

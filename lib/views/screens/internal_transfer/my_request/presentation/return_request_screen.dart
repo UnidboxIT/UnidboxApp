@@ -10,18 +10,20 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../my_return/presentation/widgets/each_my_return_reason_widget.dart';
 import '../domain/my_request.dart';
 import '../domain/return_request_reason.dart';
 import '../repository/provider/my_request_provider.dart';
+import '../repository/state/my_request_state.dart';
 import '../repository/state/return_request_reason_state.dart';
 import '../repository/state/return_request_state.dart';
 import 'widgets/each_product_line_widget.dart';
 
 Map<int, int> reasonQtyMap = {};
+List returnRequestImageList = [];
 
 class ReturnRequestScreen extends ConsumerStatefulWidget {
   final String productCode;
@@ -49,6 +51,7 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
 class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
   List<ReturnRequestReason> returnRequestReasonList = [];
   List<int> reasonIndex = [];
+  bool requestLoading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -59,6 +62,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
           .getOutletRejectReason();
     });
     reasonQtyMap.clear();
+    returnRequestImageList.clear();
   }
 
   @override
@@ -73,6 +77,24 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
       if (next is ReturnRequestReasonList) {
         setState(() {
           returnRequestReasonList = next.returnRequestReasonList;
+        });
+      }
+    });
+
+    ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestLoading) {
+        setState(() {
+          requestLoading = true;
+        });
+      }
+      if (next is MyRequestList) {
+        setState(() {
+          requestLoading = false;
+        });
+      }
+      if (next is MyRequestError) {
+        setState(() {
+          requestLoading = false;
         });
       }
     });
@@ -255,16 +277,65 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: SizedBox(
-                width: 80.w,
-                height: 43,
-                child: buttonWidget(
-                  "Submit Return",
-                  () {},
-                  bgColor: AppColor.primary,
-                  fontColor: Colors.white,
+              child: GestureDetector(
+                onTap: () {
+                  ref
+                      .read(myRequestStateNotifierProvider.notifier)
+                      .receivedByImageMyRequest(
+                        widget.productLine.id,
+                        widget.receiveQty.toInt(),
+                        context,
+                        reasonIndex,
+                        txtOtherComment.text,
+                        returnRequestImageList,
+                      );
+                },
+                child: Container(
+                  height: 40,
+                  width: 80.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: AppColor.primary,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: requestLoading
+                      ? const Center(
+                          child: CupertinoActivityIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text(
+                          "Submit Return",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                 ),
               ),
+              //  SizedBox(
+              //   width: 80.w,
+              //   height: 43,
+              //   child: buttonWidget(
+              //     "Submit Return",
+              //     () {
+              //       //base64Image
+              //       ref
+              //           .read(myRequestStateNotifierProvider.notifier)
+              //           .receivedByImageMyRequest(
+              //             widget.productLine.id,
+              //             widget.receiveQty.toInt(),
+              //             context,
+              //             reasonIndex,
+              //             txtOtherComment.text,
+              //             returnRequestImageList,
+              //           );
+              //     },
+              //     isBool: requestLoading,
+              //     bgColor: AppColor.primary,
+              //     fontColor: Colors.white,
+              //   ),
+              // ),
             ),
             SizedBox(height: 5.h),
           ],
@@ -285,9 +356,12 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
+                      int sumRecevieQty = reasonQtyMap.values.fold(0,
+                          (previousValue, element) => previousValue + element);
+                      superPrint(sumRecevieQty);
                       if (!reasonIndex
                           .contains(returnRequestReasonList[index].id)) {
-                        if (widget.receiveQty > reasonIndex.length) {
+                        if (widget.receiveQty > sumRecevieQty) {
                           reasonIndex.add(returnRequestReasonList[index].id);
                         }
                       } else {
@@ -321,7 +395,9 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   visible:
                       reasonIndex.contains(returnRequestReasonList[index].id),
                   child: EachReturnReasonWidget(
+                      productID: widget.productLine.id,
                       reasonIndex: returnRequestReasonList[index].id,
+                      reasonName: returnRequestReasonList[index].reason,
                       reasonIndexList: reasonIndex,
                       returnRequestReasonList: returnRequestReasonList,
                       receiveQty: widget.receiveQty),
@@ -338,13 +414,17 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 }
 
 class EachReturnReasonWidget extends ConsumerStatefulWidget {
+  final int productID;
   final int reasonIndex;
+  final String reasonName;
   final List<int> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
   final double receiveQty;
   const EachReturnReasonWidget(
       {super.key,
+      required this.productID,
       required this.reasonIndex,
+      required this.reasonName,
       required this.reasonIndexList,
       required this.returnRequestReasonList,
       required this.receiveQty});
@@ -368,7 +448,6 @@ class _EachReturnReasonWidgetState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (var data in widget.reasonIndexList) {
       reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
@@ -389,6 +468,16 @@ class _EachReturnReasonWidgetState
       setState(() {
         base64Image = image64;
       });
+      returnRequestImageList.add(
+        {
+          "img_name":
+              "picking_${widget.productID}_${widget.reasonIndex}_${widget.reasonName}.png",
+          "datas": base64Image
+        },
+      );
+      superPrint(returnRequestImageList.length);
+      superPrint(returnRequestImageList.first);
+      superPrint(returnRequestImageList.last);
     }
   }
 
@@ -527,15 +616,15 @@ class _EachReturnReasonWidgetState
               ),
               const SizedBox(width: 5),
               addMinusIconButtonWidget(() {
-                ref
-                    .read(returnRequestStateNotifierProvider.notifier)
-                    .incrementTotalQty(widget.reasonIndex, totalQty,
-                        widget.receiveQty.toInt());
                 setState(() {
                   sumRecevieQty = reasonQtyMap.values.fold(
                       0, (previousValue, element) => previousValue + element);
                   superPrint(sumRecevieQty);
                 });
+                ref
+                    .read(returnRequestStateNotifierProvider.notifier)
+                    .incrementTotalQty(widget.reasonIndex, totalQty,
+                        widget.receiveQty.toInt(), sumRecevieQty);
 
                 superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),
@@ -561,35 +650,32 @@ class _EachReturnReasonWidgetState
                 ),
               ),
               const SizedBox(width: 10),
-              Container(
-                width: 25.w,
-                height: 8.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: AppColor.dropshadowColor,
-                          blurRadius: 3,
-                          spreadRadius: 3),
-                    ]),
-                child: Container(
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 3,
-                            spreadRadius: 3),
-                      ]),
-                  child: imageFile.path.isEmpty
-                      ? const Icon(
-                          Icons.camera_alt_rounded,
-                          color: Colors.grey,
-                        )
-                      : Container(
+              imageFile.path.isEmpty
+                  ? const SizedBox.shrink()
+                  : Container(
+                      width: 25.w,
+                      height: 8.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColor.dropshadowColor,
+                                blurRadius: 3,
+                                spreadRadius: 3),
+                          ]),
+                      child: Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 3,
+                                  spreadRadius: 3),
+                            ]),
+                        child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
@@ -605,8 +691,8 @@ class _EachReturnReasonWidgetState
                                 fit: BoxFit.fill,
                               )),
                         ),
-                ),
-              )
+                      ),
+                    )
             ],
           ),
           Visibility(

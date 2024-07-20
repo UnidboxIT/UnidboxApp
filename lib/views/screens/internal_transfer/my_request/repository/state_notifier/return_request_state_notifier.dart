@@ -8,8 +8,8 @@ class ReturnRequestStateNotifier extends StateNotifier<ReturnRequestState> {
     state = ReturnRequestState.addQtyTextFieldValue(productID, qty);
   }
 
-  incrementTotalQty(int productID, int qty, int receiveQty) {
-    if (receiveQty > qty) {
+  incrementTotalQty(int productID, int qty, int receiveQty, int totalQty) {
+    if (receiveQty > totalQty) {
       qty = qty + 1;
       state = ReturnRequestState.incrementQty(productID, qty);
     }

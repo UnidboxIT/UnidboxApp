@@ -135,10 +135,10 @@ class _BarcodeScannerWithOverlayState extends ConsumerState<ReceiveScanScreen> {
                 right: 8.w,
                 child: GestureDetector(
                   onTap: () {
-                    ref
-                        .read(myRequestStateNotifierProvider.notifier)
-                        .receivedByImageMyRequest(
-                            widget.productID, widget.qty, context, base64Image);
+                    // ref
+                    //     .read(myRequestStateNotifierProvider.notifier)
+                    //     .receivedByImageMyRequest(
+                    //         widget.productID, widget.qty, context, base64Image);
                   },
                   child: Container(
                     height: 40,

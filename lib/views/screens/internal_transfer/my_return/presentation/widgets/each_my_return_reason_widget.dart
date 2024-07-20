@@ -182,15 +182,15 @@ class _EachReturnReasonWidgetState
               ),
               const SizedBox(width: 5),
               addMinusIconButtonWidget(() {
-                ref
-                    .read(returnRequestStateNotifierProvider.notifier)
-                    .incrementTotalQty(widget.reasonIndex, totalQty,
-                        widget.receiveQty.toInt());
                 setState(() {
                   sumRecevieQty = reasonQtyMap.values.fold(
                       0, (previousValue, element) => previousValue + element);
                   superPrint(sumRecevieQty);
                 });
+                ref
+                    .read(returnRequestStateNotifierProvider.notifier)
+                    .incrementTotalQty(widget.reasonIndex, totalQty,
+                        widget.receiveQty.toInt(), sumRecevieQty);
 
                 superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),

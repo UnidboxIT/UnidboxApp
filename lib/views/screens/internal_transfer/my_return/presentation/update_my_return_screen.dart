@@ -374,8 +374,10 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
               GestureDetector(
                 onTap: () {
                   setState(() {
+                    int sumRecevieQty = reasonQtyMap.values.fold(
+                        0, (previousValue, element) => previousValue + element);
                     if (!reasonIndex.contains(myReturnReason[index].id)) {
-                      if (widget.receiveQty > reasonIndex.length) {
+                      if (widget.receiveQty > sumRecevieQty) {
                         reasonIndex.add(myReturnReason[index].id);
                       }
                     } else {

@@ -121,11 +121,21 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
   }
 
   Future<void> receivedByImageMyRequest(
-      int productID, int qty, BuildContext context, String image) async {
+      int productID,
+      int qty,
+      BuildContext context,
+      List<int> reasonIdList,
+      String otherComment,
+      List imageList) async {
     try {
       state = const MyRequestState.loading();
-      Response response =
-          await _myRequestRepository.receivedByImage(productID, qty, image);
+      Response response = await _myRequestRepository.receivedByImage(
+        productID,
+        qty,
+        reasonIdList,
+        otherComment,
+        imageList,
+      );
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
@@ -140,11 +150,12 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
             result['error']['data']['message'],
             context,
           );
-          state = const MyRequestState.error();
         }
+        state = const MyRequestState.error();
       }
       superPrint(response.body);
     } catch (e) {
+      state = const MyRequestState.error();
       superPrint(e.toString());
     }
   }
