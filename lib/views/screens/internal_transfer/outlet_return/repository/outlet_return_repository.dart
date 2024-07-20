@@ -31,4 +31,20 @@ class OutletReturnRepository {
 
     return response;
   }
+
+  Future<Response> returnAccepted(int productID) async {
+    Map<String, dynamic> formData = {
+      "state": "return_accepted",
+      "ids": [productID],
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update/',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
 }

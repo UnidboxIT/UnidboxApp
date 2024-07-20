@@ -20,17 +20,18 @@ import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/outlet_return_provider.dart';
 import '../repository/state/outlet_return_state.dart';
 import 'outlet_return_history/outlet_return_history_screen.dart';
-import 'widgets/accepted_outlet_return_widget.dart';
 import 'widgets/each_outlet_return_receive_widget.dart';
 
-class OutletReturnScreen extends ConsumerStatefulWidget {
-  const OutletReturnScreen({super.key});
+class AcceptedOutletReturnScreen extends ConsumerStatefulWidget {
+  const AcceptedOutletReturnScreen({super.key});
 
   @override
-  ConsumerState<OutletReturnScreen> createState() => _OutletReturnScreenState();
+  ConsumerState<AcceptedOutletReturnScreen> createState() =>
+      _AcceptedOutletReturnScreenState();
 }
 
-class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
+class _AcceptedOutletReturnScreenState
+    extends ConsumerState<AcceptedOutletReturnScreen> {
   List<Warehouse> warehouseList = [];
   int selectedWarehouseID = 0;
   List<Map<int, dynamic>> requestedMapList = [];
@@ -123,9 +124,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
               if (element.status == "accepted") {
-                acceptedOutletReturnList.add(element);
-              }
-              if (element.status == "returned") {
                 int warehouseId = element.warehouseList[0];
                 String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
@@ -187,7 +185,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           child: Stack(
             children: [
               globalAppBarWidget(
-                "Outlet Return",
+                "Accepted List",
                 () {
                   Navigator.of(context).pop();
                 },
@@ -243,8 +241,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
             child: Column(
               children: [
                 warehouseWidget(),
-                const SizedBox(height: 15),
-                acceptedOutletReturnWidget(acceptedOutletReturnList, context),
                 const SizedBox(height: 15),
                 Expanded(
                   child: requestedMap[selectedWarehouseID] != null ||
@@ -387,6 +383,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               productList,
                                               ref,
                                               context,
+                                              isAcceptLoading: acceptLoading,
                                               acceptProductID: acceptProductID),
                                         )
                                       ],

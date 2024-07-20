@@ -33,6 +33,37 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
     }
   }
 
+  //return_accepted
+
+  Future<void> outletReturnAccepted(int productID, BuildContext context) async {
+    try {
+      state = const OutletReturnState.acceptLoading();
+      state = OutletReturnState.returnReceivedProductID(productID);
+      Response response =
+          await _outletReturnRepository.returnAccepted(productID);
+      // superPrint(response.body);
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAlloutletReturn();
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const OutletReturnState.outletReturnError();
+        }
+      }
+    } catch (e) {
+      superPrint(e.toString());
+      state = const OutletReturnState.outletReturnError();
+    }
+  }
+
   Future<void> outletReturnReceived(int productID, BuildContext context) async {
     try {
       state = const OutletReturnState.acceptLoading();
