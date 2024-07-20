@@ -72,4 +72,16 @@ class MyReturnRepository {
     );
     return response;
   }
+
+  Future<Response> scanProduct(String barcode, int pageNumber) async {
+    superPrint(pageNumber, title: "Scan Product Page Number");
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,warehouse_id,uom_id,default_wh_qty&barcode=$barcode',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

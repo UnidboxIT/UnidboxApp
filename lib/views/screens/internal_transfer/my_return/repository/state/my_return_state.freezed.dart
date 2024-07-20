@@ -20,6 +20,7 @@ mixin _$MyReturnState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -30,6 +31,7 @@ mixin _$MyReturnState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -40,6 +42,7 @@ mixin _$MyReturnState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -51,6 +54,7 @@ mixin _$MyReturnState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -61,6 +65,7 @@ mixin _$MyReturnState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -71,6 +76,7 @@ mixin _$MyReturnState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -175,6 +181,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -188,6 +195,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -201,6 +209,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -218,6 +227,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -231,6 +241,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -244,6 +255,7 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -266,6 +278,182 @@ abstract class MyReturnDataList implements MyReturnState {
   @JsonKey(ignore: true)
   _$$MyReturnDataListImplCopyWith<_$MyReturnDataListImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MyReturnScanProductListImplCopyWith<$Res> {
+  factory _$$MyReturnScanProductListImplCopyWith(
+          _$MyReturnScanProductListImpl value,
+          $Res Function(_$MyReturnScanProductListImpl) then) =
+      __$$MyReturnScanProductListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Products> scanProductList});
+}
+
+/// @nodoc
+class __$$MyReturnScanProductListImplCopyWithImpl<$Res>
+    extends _$MyReturnStateCopyWithImpl<$Res, _$MyReturnScanProductListImpl>
+    implements _$$MyReturnScanProductListImplCopyWith<$Res> {
+  __$$MyReturnScanProductListImplCopyWithImpl(
+      _$MyReturnScanProductListImpl _value,
+      $Res Function(_$MyReturnScanProductListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? scanProductList = null,
+  }) {
+    return _then(_$MyReturnScanProductListImpl(
+      null == scanProductList
+          ? _value._scanProductList
+          : scanProductList // ignore: cast_nullable_to_non_nullable
+              as List<Products>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
+  const _$MyReturnScanProductListImpl(final List<Products> scanProductList)
+      : _scanProductList = scanProductList;
+
+  final List<Products> _scanProductList;
+  @override
+  List<Products> get scanProductList {
+    if (_scanProductList is EqualUnmodifiableListView) return _scanProductList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scanProductList);
+  }
+
+  @override
+  String toString() {
+    return 'MyReturnState.loadScanProduct(scanProductList: $scanProductList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MyReturnScanProductListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._scanProductList, _scanProductList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_scanProductList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MyReturnScanProductListImplCopyWith<_$MyReturnScanProductListImpl>
+      get copyWith => __$$MyReturnScanProductListImplCopyWithImpl<
+          _$MyReturnScanProductListImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myReturnDataList)
+        loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
+  }) {
+    return loadScanProduct(scanProductList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
+  }) {
+    return loadScanProduct?.call(scanProductList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (loadScanProduct != null) {
+      return loadScanProduct(scanProductList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyReturnLoading value) loading,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
+  }) {
+    return loadScanProduct(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyReturnLoading value)? loading,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
+  }) {
+    return loadScanProduct?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyReturnLoading value)? loading,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (loadScanProduct != null) {
+      return loadScanProduct(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MyReturnScanProductList implements MyReturnState {
+  const factory MyReturnScanProductList(final List<Products> scanProductList) =
+      _$MyReturnScanProductListImpl;
+
+  List<Products> get scanProductList;
+  @JsonKey(ignore: true)
+  _$$MyReturnScanProductListImplCopyWith<_$MyReturnScanProductListImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -308,6 +496,7 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -321,6 +510,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -334,6 +524,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -351,6 +542,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -364,6 +556,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -377,6 +570,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -435,6 +629,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -448,6 +643,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -461,6 +657,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -478,6 +675,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -491,6 +689,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -504,6 +703,7 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -564,6 +764,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -577,6 +778,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -590,6 +792,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -607,6 +810,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -620,6 +824,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -633,6 +838,7 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -693,6 +899,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -706,6 +913,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -719,6 +927,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -736,6 +945,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -749,6 +959,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -762,6 +973,7 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
@@ -846,6 +1058,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   TResult when<TResult extends Object?>({
     required TResult Function(List<MyRequest> myReturnDataList)
         loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() updateLoading,
@@ -859,6 +1072,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? updateLoading,
@@ -872,6 +1086,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? updateLoading,
@@ -889,6 +1104,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
@@ -902,6 +1118,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
@@ -915,6 +1132,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
