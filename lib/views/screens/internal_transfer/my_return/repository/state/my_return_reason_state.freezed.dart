@@ -60,8 +60,8 @@ mixin _$MyReturnReasonState {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,8 +71,8 @@ mixin _$MyReturnReasonState {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,8 +82,8 @@ mixin _$MyReturnReasonState {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -236,8 +236,8 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return loadReturnRequestReason(this);
   }
@@ -250,8 +250,8 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return loadReturnRequestReason?.call(this);
   }
@@ -264,8 +264,8 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (loadReturnRequestReason != null) {
@@ -413,8 +413,8 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return incrementQty(this);
   }
@@ -427,8 +427,8 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return incrementQty?.call(this);
   }
@@ -441,8 +441,8 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (incrementQty != null) {
@@ -590,8 +590,8 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return decrementQty(this);
   }
@@ -604,8 +604,8 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return decrementQty?.call(this);
   }
@@ -618,8 +618,8 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (decrementQty != null) {
@@ -768,8 +768,8 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return addQtyTextFieldValue(this);
   }
@@ -782,8 +782,8 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return addQtyTextFieldValue?.call(this);
   }
@@ -796,8 +796,8 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (addQtyTextFieldValue != null) {
@@ -910,8 +910,8 @@ class _$InitialImpl implements Initial {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return initial(this);
   }
@@ -924,8 +924,8 @@ class _$InitialImpl implements Initial {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -938,8 +938,8 @@ class _$InitialImpl implements Initial {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -954,25 +954,26 @@ abstract class Initial implements MyReturnReasonState {
 }
 
 /// @nodoc
-abstract class _$$MyReturnLoadingImplCopyWith<$Res> {
-  factory _$$MyReturnLoadingImplCopyWith(_$MyReturnLoadingImpl value,
-          $Res Function(_$MyReturnLoadingImpl) then) =
-      __$$MyReturnLoadingImplCopyWithImpl<$Res>;
+abstract class _$$MyReturnReasonLoadingImplCopyWith<$Res> {
+  factory _$$MyReturnReasonLoadingImplCopyWith(
+          _$MyReturnReasonLoadingImpl value,
+          $Res Function(_$MyReturnReasonLoadingImpl) then) =
+      __$$MyReturnReasonLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MyReturnLoadingImplCopyWithImpl<$Res>
-    extends _$MyReturnReasonStateCopyWithImpl<$Res, _$MyReturnLoadingImpl>
-    implements _$$MyReturnLoadingImplCopyWith<$Res> {
-  __$$MyReturnLoadingImplCopyWithImpl(
-      _$MyReturnLoadingImpl _value, $Res Function(_$MyReturnLoadingImpl) _then)
+class __$$MyReturnReasonLoadingImplCopyWithImpl<$Res>
+    extends _$MyReturnReasonStateCopyWithImpl<$Res, _$MyReturnReasonLoadingImpl>
+    implements _$$MyReturnReasonLoadingImplCopyWith<$Res> {
+  __$$MyReturnReasonLoadingImplCopyWithImpl(_$MyReturnReasonLoadingImpl _value,
+      $Res Function(_$MyReturnReasonLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MyReturnLoadingImpl implements MyReturnLoading {
-  const _$MyReturnLoadingImpl();
+class _$MyReturnReasonLoadingImpl implements MyReturnReasonLoading {
+  const _$MyReturnReasonLoadingImpl();
 
   @override
   String toString() {
@@ -982,7 +983,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MyReturnLoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$MyReturnReasonLoadingImpl);
   }
 
   @override
@@ -1045,8 +1047,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return loading(this);
   }
@@ -1059,8 +1061,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -1073,8 +1075,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1084,25 +1086,25 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
   }
 }
 
-abstract class MyReturnLoading implements MyReturnReasonState {
-  const factory MyReturnLoading() = _$MyReturnLoadingImpl;
+abstract class MyReturnReasonLoading implements MyReturnReasonState {
+  const factory MyReturnReasonLoading() = _$MyReturnReasonLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$MyReturnErrorImplCopyWith<$Res> {
-  factory _$$MyReturnErrorImplCopyWith(
-          _$MyReturnErrorImpl value, $Res Function(_$MyReturnErrorImpl) then) =
-      __$$MyReturnErrorImplCopyWithImpl<$Res>;
+abstract class _$$MyReturnReasonErrorImplCopyWith<$Res> {
+  factory _$$MyReturnReasonErrorImplCopyWith(_$MyReturnReasonErrorImpl value,
+          $Res Function(_$MyReturnReasonErrorImpl) then) =
+      __$$MyReturnReasonErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$MyReturnErrorImplCopyWithImpl<$Res>
-    extends _$MyReturnReasonStateCopyWithImpl<$Res, _$MyReturnErrorImpl>
-    implements _$$MyReturnErrorImplCopyWith<$Res> {
-  __$$MyReturnErrorImplCopyWithImpl(
-      _$MyReturnErrorImpl _value, $Res Function(_$MyReturnErrorImpl) _then)
+class __$$MyReturnReasonErrorImplCopyWithImpl<$Res>
+    extends _$MyReturnReasonStateCopyWithImpl<$Res, _$MyReturnReasonErrorImpl>
+    implements _$$MyReturnReasonErrorImplCopyWith<$Res> {
+  __$$MyReturnReasonErrorImplCopyWithImpl(_$MyReturnReasonErrorImpl _value,
+      $Res Function(_$MyReturnReasonErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1110,7 +1112,7 @@ class __$$MyReturnErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$MyReturnErrorImpl(
+    return _then(_$MyReturnReasonErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1121,8 +1123,8 @@ class __$$MyReturnErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MyReturnErrorImpl implements MyReturnError {
-  const _$MyReturnErrorImpl({this.error});
+class _$MyReturnReasonErrorImpl implements MyReturnReasonError {
+  const _$MyReturnReasonErrorImpl({this.error});
 
   @override
   final String? error;
@@ -1136,7 +1138,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MyReturnErrorImpl &&
+            other is _$MyReturnReasonErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1146,8 +1148,9 @@ class _$MyReturnErrorImpl implements MyReturnError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MyReturnErrorImplCopyWith<_$MyReturnErrorImpl> get copyWith =>
-      __$$MyReturnErrorImplCopyWithImpl<_$MyReturnErrorImpl>(this, _$identity);
+  _$$MyReturnReasonErrorImplCopyWith<_$MyReturnReasonErrorImpl> get copyWith =>
+      __$$MyReturnReasonErrorImplCopyWithImpl<_$MyReturnReasonErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1206,8 +1209,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     required TResult Function(DecrementReturnQty value) decrementQty,
     required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
     required TResult Function(Initial value) initial,
-    required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) error,
+    required TResult Function(MyReturnReasonLoading value) loading,
+    required TResult Function(MyReturnReasonError value) error,
   }) {
     return error(this);
   }
@@ -1220,8 +1223,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult? Function(DecrementReturnQty value)? decrementQty,
     TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
-    TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? error,
+    TResult? Function(MyReturnReasonLoading value)? loading,
+    TResult? Function(MyReturnReasonError value)? error,
   }) {
     return error?.call(this);
   }
@@ -1234,8 +1237,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult Function(DecrementReturnQty value)? decrementQty,
     TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
     TResult Function(Initial value)? initial,
-    TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? error,
+    TResult Function(MyReturnReasonLoading value)? loading,
+    TResult Function(MyReturnReasonError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1245,11 +1248,12 @@ class _$MyReturnErrorImpl implements MyReturnError {
   }
 }
 
-abstract class MyReturnError implements MyReturnReasonState {
-  const factory MyReturnError({final String? error}) = _$MyReturnErrorImpl;
+abstract class MyReturnReasonError implements MyReturnReasonState {
+  const factory MyReturnReasonError({final String? error}) =
+      _$MyReturnReasonErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$MyReturnErrorImplCopyWith<_$MyReturnErrorImpl> get copyWith =>
+  _$$MyReturnReasonErrorImplCopyWith<_$MyReturnReasonErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

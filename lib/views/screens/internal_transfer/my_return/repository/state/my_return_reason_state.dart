@@ -4,7 +4,7 @@ import '../../../my_request/domain/return_request_reason.dart';
 part 'my_return_reason_state.freezed.dart';
 
 extension Getters on MyReturnReasonState {
-  bool get isLoading => this is MyReturnLoading;
+  bool get isLoading => this is MyReturnReasonLoading;
 }
 
 @freezed
@@ -18,6 +18,7 @@ class MyReturnReasonState with _$MyReturnReasonState {
   const factory MyReturnReasonState.addQtyTextFieldValue(int index, int qty) =
       AddQtyTextFieldValue;
   const factory MyReturnReasonState.initial() = Initial;
-  const factory MyReturnReasonState.loading() = MyReturnLoading;
-  const factory MyReturnReasonState.error({String? error}) = MyReturnError;
+  const factory MyReturnReasonState.loading() = MyReturnReasonLoading;
+  const factory MyReturnReasonState.error({String? error}) =
+      MyReturnReasonError;
 }

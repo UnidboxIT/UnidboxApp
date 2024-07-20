@@ -14,6 +14,7 @@ import '../../my_request/domain/return_request_reason.dart';
 import '../../my_request/presentation/return_request_screen.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
+import '../repository/state/my_return_state.dart';
 import 'widgets/each_my_return_reason_widget.dart';
 import 'widgets/scan_search_bar_widget.dart';
 
@@ -43,7 +44,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
     with WidgetsBindingObserver {
   List<ReturnRequestReason> myReturnReason = [];
   List<int> reasonIndex = [];
-  bool isKeyboardOpen = false;
+  bool isMyReturnUpdate = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -66,7 +67,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
   @override
   Widget build(BuildContext context) {
     ref.listen(myReturnReasonStateNotifierProvider, (pre, next) {
-      if (next is MyReturnLoading) {
+      if (next is MyReturnReasonLoading) {
         setState(() {
           myReturnReason = [];
         });
@@ -74,10 +75,27 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
       if (next is MyReturnReasonList) {
         setState(() {
           myReturnReason = next.myReturnReasonList;
+          isMyReturnUpdate = false;
         });
       }
     });
-
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnUpdateLoading) {
+        setState(() {
+          isMyReturnUpdate = true;
+        });
+      }
+      if (next is MyReturnError) {
+        setState(() {
+          isMyReturnUpdate = false;
+        });
+      }
+      if (next is MyReturnUpdateSuccess) {
+        setState(() {
+          isMyReturnUpdate = false;
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -161,6 +179,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
               ),
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
@@ -308,7 +327,22 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                             () {
                               superPrint(reasonIndex);
                               superPrint(txtOtherComment.text);
+                              ref
+                                  .read(myReturnStateNotifierProvider.notifier)
+                                  .updateMyReturn(
+                                      widget.productLine.warehouseList[0],
+                                      widget.productLine.requestWarehouse[0],
+                                      widget.productLine.productIdList[0],
+                                      widget.productLine.productIdList[1],
+                                      widget.receiveQty.toInt(),
+                                      widget.productLine.price,
+                                      widget.productLine.productUomList[0],
+                                      reasonIndex,
+                                      txtOtherComment.text,
+                                      context,
+                                      ref);
                             },
+                            isBool: isMyReturnUpdate,
                           ),
                         ),
                       ],

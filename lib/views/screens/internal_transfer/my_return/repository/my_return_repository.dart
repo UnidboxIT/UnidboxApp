@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
-
 import '../../../../../services/api_service.dart';
 import '../../../../../utils/commons/common_method.dart';
+import '../../../../../utils/commons/super_print.dart';
 
 class MyReturnRepository {
   Future<Response> myReturn() async {
@@ -22,6 +22,54 @@ class MyReturnRepository {
       headers: CommonMethods.setHeaders(),
     );
 
+    return response;
+  }
+
+  Future<Response> myReturnStockRequest(
+    int currentWarehouseID,
+    int requestWarehouseID,
+    int productID,
+    String productName,
+    String dateTime,
+    int totalQty,
+    double price,
+    int uomID,
+    List<int> reasonID,
+    String comment,
+  ) async {
+    Map<String, dynamic> formData = {};
+    if (comment.isNotEmpty) {
+      formData = {
+        "request_to_wh": requestWarehouseID,
+        "requested_wh": currentWarehouseID,
+        "product_id": productID,
+        "date": dateTime,
+        "quantity": totalQty,
+        "uom_id": uomID,
+        "is_return": true,
+        "reason_ids": reasonID,
+        "comment": comment
+      };
+    } else {
+      formData = {
+        "request_to_wh": requestWarehouseID,
+        "requested_wh": currentWarehouseID,
+        "product_id": productID,
+        "date": dateTime,
+        "quantity": totalQty,
+        "uom_id": uomID,
+        "is_return": true,
+        "reason_ids": reasonID,
+      };
+    }
+
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock/request',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
     return response;
   }
 }

@@ -22,7 +22,9 @@ mixin _$MyReturnState {
         loadMyReturnData,
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? error) outletReturnError,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,7 +32,9 @@ mixin _$MyReturnState {
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? error)? outletReturnError,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,7 +42,9 @@ mixin _$MyReturnState {
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? error)? outletReturnError,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,7 +53,9 @@ mixin _$MyReturnState {
     required TResult Function(MyReturnDataList value) loadMyReturnData,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) outletReturnError,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,7 +63,9 @@ mixin _$MyReturnState {
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? outletReturnError,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,7 +73,9 @@ mixin _$MyReturnState {
     TResult Function(MyReturnDataList value)? loadMyReturnData,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? outletReturnError,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,7 +177,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
         loadMyReturnData,
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? error) outletReturnError,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
   }) {
     return loadMyReturnData(myReturnDataList);
   }
@@ -176,7 +190,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? error)? outletReturnError,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
   }) {
     return loadMyReturnData?.call(myReturnDataList);
   }
@@ -187,7 +203,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? error)? outletReturnError,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
     required TResult orElse(),
   }) {
     if (loadMyReturnData != null) {
@@ -202,7 +220,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     required TResult Function(MyReturnDataList value) loadMyReturnData,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) outletReturnError,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
   }) {
     return loadMyReturnData(this);
   }
@@ -213,7 +233,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? outletReturnError,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
   }) {
     return loadMyReturnData?.call(this);
   }
@@ -224,7 +246,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult Function(MyReturnDataList value)? loadMyReturnData,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? outletReturnError,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
     required TResult orElse(),
   }) {
     if (loadMyReturnData != null) {
@@ -286,7 +310,9 @@ class _$InitialImpl implements Initial {
         loadMyReturnData,
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? error) outletReturnError,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
   }) {
     return initial();
   }
@@ -297,7 +323,9 @@ class _$InitialImpl implements Initial {
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? error)? outletReturnError,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
   }) {
     return initial?.call();
   }
@@ -308,7 +336,9 @@ class _$InitialImpl implements Initial {
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? error)? outletReturnError,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -323,7 +353,9 @@ class _$InitialImpl implements Initial {
     required TResult Function(MyReturnDataList value) loadMyReturnData,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) outletReturnError,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
   }) {
     return initial(this);
   }
@@ -334,7 +366,9 @@ class _$InitialImpl implements Initial {
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? outletReturnError,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
   }) {
     return initial?.call(this);
   }
@@ -345,7 +379,9 @@ class _$InitialImpl implements Initial {
     TResult Function(MyReturnDataList value)? loadMyReturnData,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? outletReturnError,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -401,7 +437,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
         loadMyReturnData,
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? error) outletReturnError,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
   }) {
     return loading();
   }
@@ -412,7 +450,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? error)? outletReturnError,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
   }) {
     return loading?.call();
   }
@@ -423,7 +463,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? error)? outletReturnError,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -438,7 +480,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     required TResult Function(MyReturnDataList value) loadMyReturnData,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) outletReturnError,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
   }) {
     return loading(this);
   }
@@ -449,7 +493,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? outletReturnError,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
   }) {
     return loading?.call(this);
   }
@@ -460,7 +506,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult Function(MyReturnDataList value)? loadMyReturnData,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? outletReturnError,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -472,6 +520,264 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
 
 abstract class MyReturnLoading implements MyReturnState {
   const factory MyReturnLoading() = _$MyReturnLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$MyReturnUpdateLoadingImplCopyWith<$Res> {
+  factory _$$MyReturnUpdateLoadingImplCopyWith(
+          _$MyReturnUpdateLoadingImpl value,
+          $Res Function(_$MyReturnUpdateLoadingImpl) then) =
+      __$$MyReturnUpdateLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MyReturnUpdateLoadingImplCopyWithImpl<$Res>
+    extends _$MyReturnStateCopyWithImpl<$Res, _$MyReturnUpdateLoadingImpl>
+    implements _$$MyReturnUpdateLoadingImplCopyWith<$Res> {
+  __$$MyReturnUpdateLoadingImplCopyWithImpl(_$MyReturnUpdateLoadingImpl _value,
+      $Res Function(_$MyReturnUpdateLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
+  const _$MyReturnUpdateLoadingImpl();
+
+  @override
+  String toString() {
+    return 'MyReturnState.updateLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MyReturnUpdateLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myReturnDataList)
+        loadMyReturnData,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
+  }) {
+    return updateLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
+  }) {
+    return updateLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (updateLoading != null) {
+      return updateLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyReturnLoading value) loading,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
+  }) {
+    return updateLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyReturnLoading value)? loading,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
+  }) {
+    return updateLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyReturnLoading value)? loading,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (updateLoading != null) {
+      return updateLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MyReturnUpdateLoading implements MyReturnState {
+  const factory MyReturnUpdateLoading() = _$MyReturnUpdateLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$MyReturnUpdateSuccessImplCopyWith<$Res> {
+  factory _$$MyReturnUpdateSuccessImplCopyWith(
+          _$MyReturnUpdateSuccessImpl value,
+          $Res Function(_$MyReturnUpdateSuccessImpl) then) =
+      __$$MyReturnUpdateSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MyReturnUpdateSuccessImplCopyWithImpl<$Res>
+    extends _$MyReturnStateCopyWithImpl<$Res, _$MyReturnUpdateSuccessImpl>
+    implements _$$MyReturnUpdateSuccessImplCopyWith<$Res> {
+  __$$MyReturnUpdateSuccessImplCopyWithImpl(_$MyReturnUpdateSuccessImpl _value,
+      $Res Function(_$MyReturnUpdateSuccessImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
+  const _$MyReturnUpdateSuccessImpl();
+
+  @override
+  String toString() {
+    return 'MyReturnState.successUpdateSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MyReturnUpdateSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myReturnDataList)
+        loadMyReturnData,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
+  }) {
+    return successUpdateSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
+  }) {
+    return successUpdateSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (successUpdateSuccess != null) {
+      return successUpdateSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyReturnLoading value) loading,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
+  }) {
+    return successUpdateSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyReturnLoading value)? loading,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
+  }) {
+    return successUpdateSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyReturnLoading value)? loading,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
+    required TResult orElse(),
+  }) {
+    if (successUpdateSuccess != null) {
+      return successUpdateSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MyReturnUpdateSuccess implements MyReturnState {
+  const factory MyReturnUpdateSuccess() = _$MyReturnUpdateSuccessImpl;
 }
 
 /// @nodoc
@@ -515,7 +821,7 @@ class _$MyReturnErrorImpl implements MyReturnError {
 
   @override
   String toString() {
-    return 'MyReturnState.outletReturnError(error: $error)';
+    return 'MyReturnState.myReturnError(error: $error)';
   }
 
   @override
@@ -542,9 +848,11 @@ class _$MyReturnErrorImpl implements MyReturnError {
         loadMyReturnData,
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? error) outletReturnError,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
   }) {
-    return outletReturnError(error);
+    return myReturnError(error);
   }
 
   @override
@@ -553,9 +861,11 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? error)? outletReturnError,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
   }) {
-    return outletReturnError?.call(error);
+    return myReturnError?.call(error);
   }
 
   @override
@@ -564,11 +874,13 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? error)? outletReturnError,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
     required TResult orElse(),
   }) {
-    if (outletReturnError != null) {
-      return outletReturnError(error);
+    if (myReturnError != null) {
+      return myReturnError(error);
     }
     return orElse();
   }
@@ -579,9 +891,11 @@ class _$MyReturnErrorImpl implements MyReturnError {
     required TResult Function(MyReturnDataList value) loadMyReturnData,
     required TResult Function(Initial value) initial,
     required TResult Function(MyReturnLoading value) loading,
-    required TResult Function(MyReturnError value) outletReturnError,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
   }) {
-    return outletReturnError(this);
+    return myReturnError(this);
   }
 
   @override
@@ -590,9 +904,11 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult? Function(MyReturnDataList value)? loadMyReturnData,
     TResult? Function(Initial value)? initial,
     TResult? Function(MyReturnLoading value)? loading,
-    TResult? Function(MyReturnError value)? outletReturnError,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
   }) {
-    return outletReturnError?.call(this);
+    return myReturnError?.call(this);
   }
 
   @override
@@ -601,11 +917,13 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult Function(MyReturnDataList value)? loadMyReturnData,
     TResult Function(Initial value)? initial,
     TResult Function(MyReturnLoading value)? loading,
-    TResult Function(MyReturnError value)? outletReturnError,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
     required TResult orElse(),
   }) {
-    if (outletReturnError != null) {
-      return outletReturnError(this);
+    if (myReturnError != null) {
+      return myReturnError(this);
     }
     return orElse();
   }
