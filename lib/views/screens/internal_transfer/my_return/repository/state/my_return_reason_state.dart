@@ -1,0 +1,23 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../my_request/domain/return_request_reason.dart';
+part 'my_return_reason_state.freezed.dart';
+
+extension Getters on MyReturnReasonState {
+  bool get isLoading => this is MyReturnLoading;
+}
+
+@freezed
+class MyReturnReasonState with _$MyReturnReasonState {
+  const factory MyReturnReasonState.loadReturnRequestReason(
+      List<ReturnRequestReason> myReturnReasonList) = MyReturnReasonList;
+  const factory MyReturnReasonState.incrementQty(int index, int qty) =
+      IncrementReturnQty;
+  const factory MyReturnReasonState.decrementQty(int index, int qty) =
+      DecrementReturnQty;
+  const factory MyReturnReasonState.addQtyTextFieldValue(int index, int qty) =
+      AddQtyTextFieldValue;
+  const factory MyReturnReasonState.initial() = Initial;
+  const factory MyReturnReasonState.loading() = MyReturnLoading;
+  const factory MyReturnReasonState.error({String? error}) = MyReturnError;
+}

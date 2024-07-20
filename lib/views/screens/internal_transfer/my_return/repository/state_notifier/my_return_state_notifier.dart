@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../my_request/domain/my_request.dart';
+import '../../../my_request/domain/return_request_reason.dart';
 import '../my_return_repository.dart';
 import '../state/my_return_state.dart';
 
@@ -12,6 +13,8 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
 
   final MyReturnRepository _myRequestRepository;
   List<MyRequest> myReturnList = [];
+  List<ReturnRequestReason> returnRequestReasonList = [];
+
   Future<void> getAllMyReturn() async {
     try {
       // state = const MyRequestState.loading();

@@ -529,7 +529,8 @@ class _EachReturnReasonWidgetState
               addMinusIconButtonWidget(() {
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
-                    .incrementTotalQty(widget.reasonIndex, totalQty);
+                    .incrementTotalQty(widget.reasonIndex, totalQty,
+                        widget.receiveQty.toInt());
                 setState(() {
                   sumRecevieQty = reasonQtyMap.values.fold(
                       0, (previousValue, element) => previousValue + element);

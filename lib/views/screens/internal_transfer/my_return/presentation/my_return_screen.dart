@@ -20,6 +20,7 @@ import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
 import 'widgets/accepted_my_return_widget.dart';
+import 'widgets/each_my_return_product_widget.dart';
 
 class MyReturnScreen extends ConsumerStatefulWidget {
   const MyReturnScreen({super.key});
@@ -245,7 +246,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 Expanded(
                   child: requestedMap[selectedWarehouseID] != null ||
                           selectedWarehouseID == -1
-                      ? outletReturnReceiveWidget(requestedMapList)
+                      ? myReturnDataWidget(requestedMapList)
                       : Center(
                           child: textWidget("No Data !"),
                         ),
@@ -258,7 +259,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
     );
   }
 
-  Widget outletReturnReceiveWidget(
+  Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
     return requestedMapList.isEmpty
@@ -300,113 +301,96 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                             String productLineKey =
                                 productLineMap.keys.elementAt(productIndex);
                             superPrint(productLineKey);
+                            superPrint(productLineMap[productLineKey]);
                             List<dynamic> productList =
-                                productLineMap[productLineKey] ?? [];
+                                productLineMap[productLineKey];
                             superPrint(productList);
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: productList.length,
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 0);
-                              },
-                              itemBuilder: (context, subIndex) {
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: AppColor.dropshadowColor
-                                              .withOpacity(0.02),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                if (visibleCode
-                                                    .contains(productLineKey)) {
-                                                  removeVisiblity(
-                                                      productLineKey);
-                                                } else {
-                                                  loadSetVisiblity(
-                                                      productLineKey);
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 100.w,
-                                                decoration: BoxDecoration(
-                                                    color: AppColor
-                                                        .bottomSheetBgColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                          color: Colors.black
-                                                              .withOpacity(
-                                                                  0.03),
-                                                          offset: const Offset(
-                                                              0, 3),
-                                                          blurRadius: 3)
-                                                    ]),
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 15,
-                                                        vertical: 15),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    textWidget(
-                                                      productLineKey,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color: Colors.black,
-                                                      size: 20,
-                                                    ),
-                                                    textWidget(
-                                                        DateFormat(
-                                                                'dd MMM yyyy')
-                                                            .format(
-                                                          DateTime.parse(
-                                                              warehouseData[
-                                                                  'date']),
-                                                        ),
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        size: 17)
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: visibleCode
-                                                  .contains(productLineKey),
-                                              child: const SizedBox(height: 13),
-                                            ),
-                                            Visibility(
-                                              visible: visibleCode
-                                                  .contains(productLineKey),
-                                              child: Container(
-                                                height: 30.h,
-                                                color: Colors.red,
-                                                width: 100.w,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColor.dropshadowColor
+                                          .withOpacity(0.02),
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    const SizedBox(height: 20)
-                                  ],
-                                );
-                              },
+                                    child: Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (visibleCode
+                                                .contains(productLineKey)) {
+                                              removeVisiblity(productLineKey);
+                                            } else {
+                                              loadSetVisiblity(productLineKey);
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 100.w,
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    AppColor.bottomSheetBgColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.03),
+                                                      offset:
+                                                          const Offset(0, 3),
+                                                      blurRadius: 3)
+                                                ]),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 15),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                textWidget(
+                                                  productLineKey,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.black,
+                                                  size: 20,
+                                                ),
+                                                textWidget(
+                                                    DateFormat('dd MMM yyyy')
+                                                        .format(
+                                                      DateTime.parse(
+                                                          warehouseData[
+                                                              'date']),
+                                                    ),
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w500,
+                                                    size: 17)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: visibleCode
+                                              .contains(productLineKey),
+                                          child: const SizedBox(height: 13),
+                                        ),
+                                        Visibility(
+                                          visible: visibleCode
+                                              .contains(productLineKey),
+                                          child: eachMyReturnProductLineWidget(
+                                              productLineKey,
+                                              warehouseData['warehouse_name'],
+                                              warehouseData['date'],
+                                              warehouseData['name'],
+                                              productList,
+                                              acceptProductID: acceptProductID),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 20)
+                              ],
                             );
                           },
                         );
