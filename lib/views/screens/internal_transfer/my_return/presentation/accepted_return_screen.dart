@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -12,7 +11,6 @@ import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/warehouse.dart';
 import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
@@ -26,10 +24,10 @@ class AcceptedReturnScreen extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<AcceptedReturnScreen> createState() =>
-      _OutletReturnScreenState();
+      _AcceptedReturnScreenState();
 }
 
-class _OutletReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
+class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
   List<Warehouse> warehouseList = [];
   int selectedWarehouseID = 0;
   List<Map<int, dynamic>> requestedMapList = [];
@@ -73,9 +71,6 @@ class _OutletReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      ref.read(currentRouteProvider.notifier).state = '/myreturn';
-    });
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
@@ -171,7 +166,7 @@ class _OutletReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
           child: Stack(
             children: [
               globalAppBarWidget(
-                "My Return",
+                "Accepted Return",
                 () {
                   Navigator.of(context).pop();
                 },

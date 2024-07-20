@@ -19,7 +19,6 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
-import 'accepted_return_screen.dart';
 import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
 
@@ -242,12 +241,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
               children: [
                 warehouseWidget(),
                 const SizedBox(height: 15),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AcceptedReturnScreen()));
-                    },
-                    child: acceptedMyReturnWidget(acceptedReturnList)),
+                acceptedMyReturnWidget(acceptedReturnList, context),
                 const SizedBox(height: 10),
                 Expanded(
                   child: requestedMap[selectedWarehouseID] != null ||
