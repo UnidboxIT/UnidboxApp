@@ -6,6 +6,7 @@ import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
 import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../../outlet_return/presentation/widgets/show_attachment_image_dialog.dart';
 import '../update_my_return_screen.dart';
 
 Widget eachMyReturnProductLineWidget(String requestCode, String name,
@@ -123,6 +124,28 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                           "Return Qty: ${productList[index].qty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 12,
                         ),
+                        productList[index].status == "accepted"
+                            ? GestureDetector(
+                                onTap: () {
+                                  showAttachmentImageDialog(context,
+                                      productList[index].attachmentFile);
+                                },
+                                child: Container(
+                                  width: 10.w,
+                                  height: 35,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: AppColor.pinkColor,
+                                  ),
+                                  child: const Icon(
+                                    Icons.file_present_rounded,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink()
                       ],
                     ),
                   ),
@@ -156,12 +179,19 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                         color: AppColor.orangeColor,
                         size: 12.5,
                       ),
-                      textWidget(
-                        capitalizeFirstLetter("Pending"),
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        size: 14,
-                      ),
+                      productList[index].status == "accepted"
+                          ? textWidget(
+                              capitalizeFirstLetter(productList[index].status),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            )
+                          : textWidget(
+                              capitalizeFirstLetter("Pending"),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            ),
                     ],
                   ),
                   SizedBox(width: 15.w)
@@ -187,29 +217,32 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                     ],
                   ),
                   const Spacer(),
-                  Consumer(builder: (context, ref, data) {
-                    return SizedBox(
-                      width: 25.w,
-                      height: 35,
-                      child: buttonWidget(
-                        "Edit",
-                        () {
-                          ref.read(bottomBarVisibilityProvider.notifier).state =
-                              false;
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => UpdateMyReturnScreen(
-                                    productCode: requestCode,
-                                    currentDate: currentDate,
-                                    requestWarehouse: requestWarehouse,
-                                    productLine: productList[index],
-                                    currentWarehouse: name,
-                                    receiveQty: productList[index].qty -
-                                        productList[index].receivedQty,
-                                  )));
-                        },
-                      ),
-                    );
-                  }),
+                  productList[index].status == "accepted"
+                      ? const SizedBox.shrink()
+                      : Consumer(builder: (context, ref, data) {
+                          return SizedBox(
+                            width: 25.w,
+                            height: 35,
+                            child: buttonWidget(
+                              "Edit",
+                              () {
+                                ref
+                                    .read(bottomBarVisibilityProvider.notifier)
+                                    .state = false;
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => UpdateMyReturnScreen(
+                                          productCode: requestCode,
+                                          currentDate: currentDate,
+                                          requestWarehouse: requestWarehouse,
+                                          productLine: productList[index],
+                                          currentWarehouse: name,
+                                          receiveQty: productList[index].qty -
+                                              productList[index].receivedQty,
+                                        )));
+                              },
+                            ),
+                          );
+                        }),
                   SizedBox(width: 3.5.w)
                 ],
               ),

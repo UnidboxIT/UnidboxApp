@@ -19,18 +19,17 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
-import 'accepted_return_screen.dart';
-import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
 
-class MyReturnScreen extends ConsumerStatefulWidget {
-  const MyReturnScreen({super.key});
+class AcceptedReturnScreen extends ConsumerStatefulWidget {
+  const AcceptedReturnScreen({super.key});
 
   @override
-  ConsumerState<MyReturnScreen> createState() => _OutletReturnScreenState();
+  ConsumerState<AcceptedReturnScreen> createState() =>
+      _OutletReturnScreenState();
 }
 
-class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
+class _OutletReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
   List<Warehouse> warehouseList = [];
   int selectedWarehouseID = 0;
   List<Map<int, dynamic>> requestedMapList = [];
@@ -122,10 +121,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == 'accepted' && element.isReturn) {
-                acceptedReturnList.add(element);
-              }
-              if (element.status == "returned" && element.isReturn) {
+              if (element.status == "accepted" && element.isReturn) {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
@@ -241,13 +237,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
             child: Column(
               children: [
                 warehouseWidget(),
-                const SizedBox(height: 15),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AcceptedReturnScreen()));
-                    },
-                    child: acceptedMyReturnWidget(acceptedReturnList)),
                 const SizedBox(height: 10),
                 Expanded(
                   child: requestedMap[selectedWarehouseID] != null ||
