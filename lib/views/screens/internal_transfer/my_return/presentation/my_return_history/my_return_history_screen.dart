@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
@@ -11,23 +10,23 @@ import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_na
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
 import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
-import '../../repository/provider/outlet_return_provider.dart';
-import '../../repository/state/outlet_return_state.dart';
+import '../../repository/provider/my_return_provider.dart';
+import '../../repository/state/my_return_state.dart';
 
-class OutletReturnHistoryScreen extends ConsumerStatefulWidget {
-  const OutletReturnHistoryScreen({super.key});
+class MyReturnHistoryScreen extends ConsumerStatefulWidget {
+  const MyReturnHistoryScreen({super.key});
 
   @override
-  ConsumerState<OutletReturnHistoryScreen> createState() =>
+  ConsumerState<MyReturnHistoryScreen> createState() =>
       _PendingRequestListScreenState();
 }
 
 class _PendingRequestListScreenState
-    extends ConsumerState<OutletReturnHistoryScreen> {
+    extends ConsumerState<MyReturnHistoryScreen> {
   List<Map<String, dynamic>> requestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
-  List<OtherRequest> otherRequestList = [];
+  List<MyRequest> myRequestList = [];
   bool requestLoading = false;
   @override
   void initState() {
@@ -35,18 +34,18 @@ class _PendingRequestListScreenState
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
   }
 
   loadRequestHistory() {
     requestedHistoryList.clear();
-    for (var data in otherRequestList) {
+    for (var data in myRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("done") && element.isReturn) {
           setState(() {
             String date = data.createDate.substring(0, 10);
-            String warehouseName = element.warehouseList[1];
+            String warehouseName = data.requestToWh[1];
             String productLineKey = data.name;
             if (!requestedHistoryMap.containsKey(date)) {
               requestedHistoryMap[date] = {
@@ -91,16 +90,16 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(outletReturnStateNotifier, (pre, next) {
-      if (next is OutletReturnLoading) {
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
         setState(() {
           requestLoading = true;
-          otherRequestList = [];
+          myRequestList = [];
         });
       }
-      if (next is OutletReturnList) {
+      if (next is MyReturnDataList) {
         setState(() {
-          otherRequestList = next.outletReturnList;
+          myRequestList = next.myReturnDataList;
           loadRequestHistory();
           requestLoading = false;
         });
@@ -196,7 +195,7 @@ class _PendingRequestListScreenState
                           size: 14,
                           color: Colors.black.withOpacity(0.7),
                         ),
-                        textWidget("Returned From"),
+                        textWidget("Returned To"),
                       ],
                     ),
                   ),
@@ -333,32 +332,6 @@ class _PendingRequestListScreenState
                                   },
                                 ),
                               ),
-                              // Container(
-                              //   padding: !visibleCode.contains(productLineKey)
-                              //       ? EdgeInsets.zero
-                              //       : const EdgeInsets.symmetric(
-                              //           horizontal: 15, vertical: 0),
-                              //   decoration: BoxDecoration(
-                              //     color: Colors.white,
-                              //     borderRadius: BorderRadius.circular(15),
-                              //   ),
-                              //   child: ListView.separated(
-                              //     shrinkWrap: true,
-                              //     physics: const NeverScrollableScrollPhysics(),
-                              //     itemCount: productList.length,
-                              //     separatorBuilder: (context, index) {
-                              //       return const SizedBox(height: 0);
-                              //     },
-                              //     itemBuilder: (context, subIndex) {
-                              //       return Visibility(
-                              //         visible:
-                              //             visibleCode.contains(productLineKey),
-                              //         child: eachHistoryWidget(
-                              //             productList[subIndex]),
-                              //       );
-                              //     },
-                              //   ),
-                              // ),
                               Visibility(
                                   visible: visibleCode.contains(productLineKey),
                                   child: const SizedBox(height: 5))
@@ -380,19 +353,27 @@ class _PendingRequestListScreenState
   Widget eachHistoryWidget(ProductLineId product) {
     List<Widget> attributeTexts = [];
     for (int i = 0; i < product.productIdList[5].length; i++) {
-      attributeTexts.add(Text(product.productIdList[5][i],
+      attributeTexts.add(
+        Text(
+          product.productIdList[5][i],
           style: const TextStyle(
             fontSize: 13,
             color: Colors.black,
             fontWeight: FontWeight.w500,
-          )));
+          ),
+        ),
+      );
       if (i != product.productIdList[5].length - 1) {
-        attributeTexts.add(const Text(', ',
+        attributeTexts.add(
+          const Text(
+            ', ',
             style: TextStyle(
               fontSize: 13,
               color: Colors.black,
               fontWeight: FontWeight.w500,
-            )));
+            ),
+          ),
+        );
       }
     }
     return Column(
@@ -426,6 +407,7 @@ class _PendingRequestListScreenState
           ],
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             textWidget(
               "Attribute ",
@@ -435,7 +417,11 @@ class _PendingRequestListScreenState
             const SizedBox(width: 5),
             product.productIdList[5] == []
                 ? textWidget("")
-                : Row(children: attributeTexts)
+                : Expanded(
+                    child: Wrap(
+                      children: attributeTexts,
+                    ),
+                  )
           ],
         ),
         const SizedBox(height: 20),
@@ -464,7 +450,7 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Received Qty : ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  "Received Qty : ${product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,

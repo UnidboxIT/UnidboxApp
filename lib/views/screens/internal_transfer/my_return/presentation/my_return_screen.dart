@@ -19,6 +19,7 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
+import 'my_return_history/my_return_history_screen.dart';
 import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
 
@@ -198,7 +199,15 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        ref.read(bottomBarVisibilityProvider.notifier).state =
+                            false;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const MyReturnHistoryScreen(),
+                          ),
+                        );
+                      },
                       child: Container(
                         color: Colors.transparent,
                         padding: const EdgeInsets.symmetric(

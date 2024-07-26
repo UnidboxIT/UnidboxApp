@@ -228,22 +228,24 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
-          Expanded(
-            child: Column(
-              children: [
-                warehouseWidget(),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? myReturnDataWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
-                ),
-              ],
-            ),
-          )
+          warehouseList.isEmpty
+              ? SizedBox.fromSize()
+              : Expanded(
+                  child: Column(
+                    children: [
+                      warehouseWidget(),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: requestedMap[selectedWarehouseID] != null ||
+                                selectedWarehouseID == -1
+                            ? myReturnDataWidget(requestedMapList)
+                            : Center(
+                                child: textWidget("No Data !"),
+                              ),
+                      ),
+                    ],
+                  ),
+                )
         ],
       ),
     );
