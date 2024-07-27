@@ -103,7 +103,8 @@ class _InternalTransferScreenState
       child: Scaffold(
         backgroundColor: Colors.white,
         key: scaffoldKey,
-        endDrawer: draweWidget(context, scaffoldKey, isInternalTransfer: true),
+        endDrawer:
+            draweWidget(context, scaffoldKey, ref, isInternalTransfer: true),
         drawerScrimColor: Colors.transparent,
         body: SizedBox(
           width: 100.w,

@@ -78,7 +78,7 @@ class MyReturnRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/product?offset=$pageNumber&limit=10&fields=id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,warehouse_id,uom_id,default_wh_qty&barcode=$barcode',
+          'joborder/product?offset=$pageNumber&limit=10&fields=create_date,id,brand,display_name,full_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,warehouse_id,uom_id,default_wh_qty&barcode=$barcode',
       headers: CommonMethods.setHeaders(),
     );
 

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_return/repository/provider/my_return_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/product_provider.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -106,7 +107,7 @@ class _BarcodeScannerWithOverlayState
                     .clearScanProduct();
                 for (var barcode in capture.barcodes) {
                   ref
-                      .read(scanProductStateNotifierProvier.notifier)
+                      .read(myReturnStateNotifierProvider.notifier)
                       .scanProductByBarCode(
                           barcode.rawValue.toString(), context, 0);
                 }

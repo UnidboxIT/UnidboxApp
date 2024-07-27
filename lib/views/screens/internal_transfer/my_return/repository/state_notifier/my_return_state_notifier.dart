@@ -8,6 +8,7 @@ import '../../../../../../utils/commons/super_print.dart';
 import '../../../../inventory_tracker/domain/product.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/domain/return_request_reason.dart';
+import '../../presentation/make_new_my_return_screen.dart';
 import '../my_return_repository.dart';
 import '../state/my_return_state.dart';
 
@@ -106,18 +107,13 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
           }
           state = MyReturnState.loadScanProduct(scanProductList);
           Navigator.of(context).pop();
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) =>  UpdateMyReturnScreen(
-          //       productCode: "",
-          //       requestWarehouse: "",
-          //       currentDate: "",
-          //       productLine: scanProductList.first,
-          //       currentWarehouse: "",
-          //       receiveQty: "",
-          //     ),
-          //   ),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MakeNewMyReturnScreen(
+                scanProductList: scanProductList,
+              ),
+            ),
+          );
         } else {
           Navigator.of(context).pop();
           CommonMethods.customizedAlertDialog("No product found!", context);

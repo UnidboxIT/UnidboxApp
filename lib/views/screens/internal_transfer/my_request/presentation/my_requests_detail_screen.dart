@@ -137,7 +137,7 @@ class _MyRequestsDetailScreenState
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xffF6F6F6),
-        endDrawer: draweWidget(context, scaffoldKey),
+        endDrawer: draweWidget(context, scaffoldKey, ref),
         drawerScrimColor: Colors.transparent,
         body: SizedBox(
           width: 100.w,
