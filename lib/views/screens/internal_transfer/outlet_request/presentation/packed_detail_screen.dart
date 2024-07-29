@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:slide_action/slide_action.dart';
-import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../../utils/commons/common_method.dart';
 import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../repository/state/other_request_state.dart';
+import 'my_return_issued/my_return_issued_bottomsheet.dart';
 import 'widgets/packed_other_request_widget.dart';
 
 class PackedDetailScreen extends ConsumerStatefulWidget {
@@ -288,7 +289,7 @@ class _OtherRequestsDetailScreenState
               );
             },
             action: () async {
-              // Async operation
+              //Async operation
               if (!isSwipeLoading) {
                 await Future.delayed(
                   const Duration(milliseconds: 10),
@@ -306,6 +307,8 @@ class _OtherRequestsDetailScreenState
                               .deliveryOtherRequest(idList, context)
                               .then((_) {
                             isSwipeLoading = false;
+                            myReturnIsuuedBottomSheet(
+                                context, selectedWarehouseID, "");
                           });
                         } else {
                           isSwipeLoading = false;

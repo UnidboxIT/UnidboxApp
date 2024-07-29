@@ -6,6 +6,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../../utils/commons/super_print.dart';
 import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../repository/provider/other_request_provider.dart';
 import '../repository/state/other_request_state.dart';
@@ -61,7 +62,7 @@ class _OtherRequestsDetailScreenState
             packedProductList.add(element);
           });
         }
-        if (element.status.contains("accepted")) {
+        if (element.status == "accepted") {
           setState(() {
             int warehouseId = element.warehouseList[0];
             String warehouseName = element.warehouseList[1];
@@ -97,8 +98,8 @@ class _OtherRequestsDetailScreenState
       // requestedMapList.add(acceptedWarehouseMap);
     }
     // superPrint(selectedWarehouseID);
-    // superPrint(requestedMapList);
-    // superPrint(acceptedWarehouseMap);
+    superPrint(requestedMapList);
+    superPrint(acceptedWarehouseMap);
   }
 
   @override
