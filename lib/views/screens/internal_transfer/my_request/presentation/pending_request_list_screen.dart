@@ -111,7 +111,9 @@ class _PendingRequestListScreenState
                   List<ProductLineId> productList = pendingRequestList[index]
                       .productLineList
                       .where((productLine) {
-                    return productLine.status == 'requested';
+                    return productLine.status == 'requested' ||
+                        (productLine.status == 'requested' &&
+                            productLine.isReturn);
                   }).toList();
                   String currentDate = pendingRequestList[index].createDate;
                   String requestWarehouse =

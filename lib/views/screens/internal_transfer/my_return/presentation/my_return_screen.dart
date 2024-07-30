@@ -125,7 +125,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
               if (element.status == 'return_accepted' && element.isReturn) {
                 acceptedReturnList.add(element);
               }
-              if (element.status == "returned" && element.isReturn) {
+              if (element.status == "returned") {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
