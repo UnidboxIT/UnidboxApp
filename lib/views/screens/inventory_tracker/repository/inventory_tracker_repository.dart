@@ -92,6 +92,7 @@ class InventoryTrackerRepository {
       "quantity": totalQty,
       "uom_id": uomID,
       "is_urgent": isUrgent,
+      "reason_ids": []
     };
     superPrint(formData);
     http.Response response = await ApiService().post(

@@ -9,11 +9,16 @@ import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_na
 import '../../../outlet_return/presentation/widgets/show_attachment_image_dialog.dart';
 import '../update_my_return_screen.dart';
 
-Widget eachMyReturnProductLineWidget(String requestCode, String name,
-    String currentDate, String requestWarehouse, List productList,
-    {bool isPending = false,
-    bool myRequestLoading = false,
-    int acceptProductID = -1}) {
+Widget eachMyReturnProductLineWidget(
+  String requestCode,
+  String name,
+  String currentDate,
+  String requestWarehouse,
+  List productList, {
+  bool isPending = false,
+  bool myRequestLoading = false,
+  int acceptProductID = -1,
+}) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -124,7 +129,7 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                           "Return Qty: ${productList[index].qty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 12,
                         ),
-                        productList[index].status == "accepted"
+                        productList[index].status == "return_accepted"
                             ? GestureDetector(
                                 onTap: () {
                                   showAttachmentImageDialog(context,
@@ -179,19 +184,14 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                         color: AppColor.orangeColor,
                         size: 12.5,
                       ),
-                      productList[index].status == "accepted"
-                          ? textWidget(
-                              capitalizeFirstLetter(productList[index].status),
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              size: 14,
-                            )
-                          : textWidget(
-                              capitalizeFirstLetter("Pending"),
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              size: 14,
-                            ),
+                      textWidget(
+                        productList[index].status == "return_accepted"
+                            ? "Accepted"
+                            : capitalizeFirstLetter(productList[index].status),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        size: 14,
+                      )
                     ],
                   ),
                   SizedBox(width: 15.w)
@@ -217,7 +217,7 @@ Widget eachMyReturnProductLineWidget(String requestCode, String name,
                     ],
                   ),
                   const Spacer(),
-                  productList[index].status == "accepted"
+                  productList[index].status == "return_accepted"
                       ? const SizedBox.shrink()
                       : Consumer(builder: (context, ref, data) {
                           return SizedBox(

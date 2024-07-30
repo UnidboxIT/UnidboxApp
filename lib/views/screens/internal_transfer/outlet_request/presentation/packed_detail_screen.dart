@@ -11,6 +11,8 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repos
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../widgets/internal_transfer/no_product_widget.dart';
+import '../../my_return/repository/provider/my_return_provider.dart';
+import '../../my_return/repository/state/my_return_state.dart';
 import '../repository/state/other_request_state.dart';
 import 'my_return_issued/my_return_issued_bottomsheet.dart';
 import 'widgets/packed_other_request_widget.dart';
@@ -43,6 +45,10 @@ class _OtherRequestsDetailScreenState
   List<Map<int, dynamic>> finalDeveilerMapList = [];
   List<Map<int, dynamic>> acceptedMapList = [];
   bool isPackedProductEqual = false;
+  List<MyRequest> myReturnList = [];
+  List<ProductLineId> acceptedReturnList = [];
+  Map<int, dynamic> requestedMap = {};
+  List<Map<int, dynamic>> requestedReturnMapList = [];
 
   @override
   void initState() {
@@ -51,6 +57,9 @@ class _OtherRequestsDetailScreenState
       otherRequestList = widget.otherRequestList;
     });
     loadWarehouseData();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
   }
 
   loadWarehouseData() {
@@ -177,6 +186,55 @@ class _OtherRequestsDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
+        setState(() {
+          myReturnList = [];
+          acceptedReturnList.clear();
+        });
+      }
+      if (next is MyReturnDataList) {
+        setState(() {
+          myReturnList = next.myReturnDataList;
+          requestedMap.clear();
+          requestedReturnMapList.clear();
+          for (var data in myReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "return_accepted" && element.isReturn) {
+                int warehouseId = element.requestWarehouse[0];
+                String warehouseName = element.requestWarehouse[1];
+                String productLineKey = data.name;
+                if (!requestedMap.containsKey(warehouseId)) {
+                  requestedMap[warehouseId] = {
+                    "warehouse_name": warehouseName,
+                    "name": data.userId[1],
+                    "date": data.createDate,
+                    "product_line": {}
+                  };
+                }
+                if (!requestedMap[warehouseId]['product_line']
+                    .containsKey(productLineKey)) {
+                  requestedMap[warehouseId]['product_line']
+                      [productLineKey] = [];
+                }
+                requestedMap[warehouseId]['product_line'][productLineKey]
+                    .add(element);
+              }
+            }
+          }
+          if (requestedMap.isNotEmpty) {
+            if (requestedMap.keys.contains(selectedWarehouseID)) {
+              selectedWarehouseID = selectedWarehouseID;
+            } else {
+              selectedWarehouseID = requestedMap.keys.first;
+            }
+            requestedReturnMapList
+                .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
+          }
+        });
+      }
+    });
+    superPrint(requestedReturnMapList);
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
@@ -289,7 +347,7 @@ class _OtherRequestsDetailScreenState
               );
             },
             action: () async {
-              //Async operation
+              // Async operation
               if (!isSwipeLoading) {
                 await Future.delayed(
                   const Duration(milliseconds: 10),
@@ -299,6 +357,8 @@ class _OtherRequestsDetailScreenState
                     });
                     superPrint(idList);
                     setState(() {
+                      List<String> warehouseNames =
+                          getWarehouseNames(requestedReturnMapList);
                       Future.delayed(const Duration(milliseconds: 100));
                       if (idList.isNotEmpty) {
                         if (!isPackedProductEqual) {
@@ -307,8 +367,15 @@ class _OtherRequestsDetailScreenState
                               .deliveryOtherRequest(idList, context)
                               .then((_) {
                             isSwipeLoading = false;
-                            myReturnIsuuedBottomSheet(
-                                context, selectedWarehouseID, "");
+                            if (warehouseNames.contains(
+                                packedWarehouseMap[selectedWarehouseID]
+                                    ['warehouse_name'])) {
+                              myReturnIsuuedBottomSheet(
+                                  context,
+                                  selectedWarehouseID,
+                                  packedWarehouseMap[selectedWarehouseID]
+                                      ['warehouse_name']);
+                            }
                           });
                         } else {
                           isSwipeLoading = false;
@@ -522,5 +589,17 @@ class _OtherRequestsDetailScreenState
         ],
       ),
     );
+  }
+
+  List<String> getWarehouseNames(List<Map<int, dynamic>> data) {
+    List<String> warehouseNames = [];
+    for (var map in data) {
+      map.forEach((key, value) {
+        if (value.containsKey('warehouse_name')) {
+          warehouseNames.add(value['warehouse_name']);
+        }
+      });
+    }
+    return warehouseNames;
   }
 }

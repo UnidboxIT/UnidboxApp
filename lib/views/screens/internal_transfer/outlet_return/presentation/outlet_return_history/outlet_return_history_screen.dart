@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../../../../widgets/app_bar/global_app_bar.dart';
-import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_request/domain/my_request.dart';
-import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
-import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
 import '../../repository/provider/outlet_return_provider.dart';
 import '../../repository/state/outlet_return_state.dart';
 
@@ -106,54 +101,7 @@ class _PendingRequestListScreenState
         });
       }
     });
-    return SuperScaffold(
-      topColor: AppColor.primary,
-      botColor: const Color(0xffF6F6F6),
-      child: Scaffold(
-        backgroundColor: const Color(0xffF6F6F6),
-        body: PopScope(
-          onPopInvoked: (didPop) =>
-              ref.read(bottomBarVisibilityProvider.notifier).state = true,
-          child: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(
-              children: [
-                globalAppBarWidget(
-                  "Transfered History",
-                  () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Transform.translate(
-                  offset: Offset(0, 14.h),
-                  child: pendingRequestWidget(),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget pendingRequestWidget() {
-    return Container(
-      width: 100.w,
-      height: 81.h,
-      decoration: BoxDecoration(
-        color: AppColor.bgColor,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        children: [
-          filterByDateWidget(),
-          const SearchPendingRequestWidget(),
-          Expanded(child: requestHistoryWidget(requestedHistoryList)),
-        ],
-      ),
-    );
+    return requestHistoryWidget(requestedHistoryList);
   }
 
   Widget requestHistoryWidget(

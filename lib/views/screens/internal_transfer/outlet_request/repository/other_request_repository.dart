@@ -100,6 +100,22 @@ class OtherRequestRepository {
     return response;
   }
 
+  Future<Response> returnIssued(List<int> productID) async {
+    Map<String, dynamic> formData = {
+      "state": "return_issued",
+      "ids": productID,
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-request/update',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
   Future<Response> outletRejectReason() async {
     Response response = await ApiService().get(
       url: baseUrl,

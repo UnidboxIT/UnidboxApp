@@ -309,8 +309,11 @@ Widget eachProductLineWidget(
                                                     requestWarehouse,
                                                 productLine: product,
                                                 currentWarehouse: name,
-                                                receiveQty: product.issueQty -
-                                                    product.receivedQty,
+                                                receiveReasonQty:
+                                                    product.issueQty -
+                                                        product.receivedQty,
+                                                receiveQty:
+                                                    product.receivedQty.toInt(),
                                               )
                                           // ReceiveScanScreen(
                                           //   productID: product.id,

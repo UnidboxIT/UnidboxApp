@@ -12,6 +12,7 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../global_return_history/global_return_history_screen.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/domain/warehouse.dart';
@@ -19,7 +20,6 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/outlet_return_provider.dart';
 import '../repository/state/outlet_return_state.dart';
-import 'outlet_return_history/outlet_return_history_screen.dart';
 import 'widgets/each_outlet_return_receive_widget.dart';
 
 class AcceptedOutletReturnScreen extends ConsumerStatefulWidget {
@@ -123,7 +123,7 @@ class _AcceptedOutletReturnScreenState
           acceptedOutletReturnList.clear();
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == "accepted") {
+              if (element.status == "return_accepted" && element.isReturn) {
                 int warehouseId = element.warehouseList[0];
                 String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
@@ -199,7 +199,7 @@ class _AcceptedOutletReturnScreenState
                         false;
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            const OutletReturnHistoryScreen()));
+                            const GlobalReturnHistoryScreen()));
                   },
                   child: Container(
                     alignment: Alignment.centerLeft,

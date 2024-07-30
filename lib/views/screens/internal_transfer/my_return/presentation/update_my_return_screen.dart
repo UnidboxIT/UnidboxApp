@@ -340,7 +340,10 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                                       reasonIndex,
                                       txtOtherComment.text,
                                       context,
-                                      ref);
+                                      ref)
+                                  .then((_) {
+                                Navigator.of(context).pop();
+                              });
                             },
                             isBool: isMyReturnUpdate,
                           ),

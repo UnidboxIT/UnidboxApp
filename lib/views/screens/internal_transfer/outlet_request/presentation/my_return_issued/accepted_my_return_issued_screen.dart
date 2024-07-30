@@ -1,17 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:slide_action/slide_action.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../../widgets/text_widget.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_return/presentation/widgets/each_my_return_product_widget.dart';
 import '../../../my_return/repository/provider/my_return_provider.dart';
 import '../../../my_return/repository/state/my_return_state.dart';
+import '../../repository/provider/other_request_provider.dart';
 import '../widgets/search_other_request_widget.dart';
 
 class AcceptedMyReturnIssuedScreen extends ConsumerStatefulWidget {
@@ -37,6 +42,8 @@ class _AcceptedReturnScreenState
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
   List<String> visibleCode = [];
+  bool isSwipeLoading = false;
+  List<int> idList = [];
 
   @override
   void initState() {
@@ -76,7 +83,7 @@ class _AcceptedReturnScreenState
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "accepted" && element.isReturn) {
+              if (element.status == "return_accepted" && element.isReturn) {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
@@ -112,7 +119,7 @@ class _AcceptedReturnScreenState
 
     return SuperScaffold(
       topColor: AppColor.primary,
-      botColor: const Color(0xffF6F6F6),
+      botColor: AppColor.primary,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
         body: SizedBox(
@@ -123,41 +130,28 @@ class _AcceptedReturnScreenState
               globalAppBarWidget(
                 "Accepted Return",
                 () {
+                  ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                   Navigator.of(context).pop();
                 },
               ),
               Positioned(
                 right: 5.w,
                 top: 6.5.h,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 20),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 20),
+                    child: const Icon(
+                      Icons.history,
+                      color: Colors.white,
+                      size: 28,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        color: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 20),
-                        child: const Icon(
-                          Icons.history,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Transform.translate(
@@ -175,7 +169,7 @@ class _AcceptedReturnScreenState
     superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 81.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -205,7 +199,8 @@ class _AcceptedReturnScreenState
                             offset: const Offset(-2, 2),
                           )
                         ]),
-                    child: textWidget("Kapo", color: Colors.white),
+                    child:
+                        textWidget(widget.warehouseName, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -217,6 +212,117 @@ class _AcceptedReturnScreenState
                           child: textWidget("No Data !"),
                         ),
                 ),
+                Container(
+                  height: 12.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: AppColor.primary,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
+                    ),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                  child: SlideAction(
+                    thumbWidth: 100,
+                    rightToLeft: isSwipeLoading,
+                    trackBuilder: (context, state) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 8,
+                            ),
+                          ],
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(
+                              left: state.isPerformingAction || isSwipeLoading
+                                  ? 0
+                                  : 20.w,
+                              right: state.isPerformingAction || isSwipeLoading
+                                  ? 20.w
+                                  : 0),
+                          child: Text(
+                            // Show loading if async operation is being performed
+                            isSwipeLoading
+                                ? "Issued"
+                                : state.isPerformingAction
+                                    ? "Loading..."
+                                    : ">>  Slide to Issue",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    thumbBuilder: (context, state) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        margin: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                          // Show loading indicator if async operation is being performed
+                          child: state.isPerformingAction
+                              ? const CupertinoActivityIndicator(
+                                  color: Colors.white,
+                                )
+                              : const Icon(
+                                  CupertinoIcons.car,
+                                  color: Colors.white,
+                                ),
+                        ),
+                      );
+                    },
+                    action: () async {
+                      //Async operation
+                      if (!isSwipeLoading) {
+                        await Future.delayed(
+                          const Duration(milliseconds: 10),
+                          () {
+                            setState(() {
+                              isSwipeLoading = true;
+                            });
+                            superPrint(idList);
+                            setState(() {
+                              for (var warehouseProduct in requestedMapList) {
+                                warehouseProduct.forEach((key, value) {
+                                  idList.add(value['id']);
+                                });
+                              }
+                              Future.delayed(const Duration(milliseconds: 100));
+                              if (idList.isNotEmpty) {
+                                ref
+                                    .read(otherRequestStateNotifierProvider
+                                        .notifier)
+                                    .deliveryReturnIssued(idList, context)
+                                    .then((_) {
+                                  isSwipeLoading = false;
+                                });
+                              } else {
+                                isSwipeLoading = false;
+                                CommonMethods.customizedAlertDialog(
+                                    "Please packed all your requested product",
+                                    context);
+                              }
+                            });
+                          },
+                        );
+                      }
+                    },
+                  ),
+                )
               ],
             ),
           )
@@ -344,13 +450,14 @@ class _AcceptedReturnScreenState
                                           visible: visibleCode
                                               .contains(productLineKey),
                                           child: eachMyReturnProductLineWidget(
-                                              productLineKey,
-                                              warehouseData['warehouse_name'],
-                                              warehouseData['date'],
-                                              warehouseData['name'],
-                                              productList,
-                                              acceptProductID: acceptProductID),
-                                        )
+                                            productLineKey,
+                                            warehouseData['warehouse_name'],
+                                            warehouseData['date'],
+                                            warehouseData['name'],
+                                            productList,
+                                            acceptProductID: acceptProductID,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

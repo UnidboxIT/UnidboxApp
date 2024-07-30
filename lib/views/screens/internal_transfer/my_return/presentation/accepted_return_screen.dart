@@ -11,6 +11,8 @@ import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../global_return_history/global_return_history_screen.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/warehouse.dart';
 import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
@@ -116,7 +118,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "accepted" && element.isReturn) {
+              if (element.status == "return_accepted" && element.isReturn) {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
@@ -190,7 +192,16 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        ref.read(bottomBarVisibilityProvider.notifier).state =
+                            false;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const GlobalReturnHistoryScreen(),
+                          ),
+                        );
+                      },
                       child: Container(
                         color: Colors.transparent,
                         padding: const EdgeInsets.symmetric(

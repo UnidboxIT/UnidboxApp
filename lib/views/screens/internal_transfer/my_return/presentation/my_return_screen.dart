@@ -13,13 +13,13 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../global_return_history/global_return_history_screen.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../../outlet_request/domain/warehouse.dart';
 import '../../outlet_request/presentation/widgets/search_other_request_widget.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
-import 'my_return_history/my_return_history_screen.dart';
 import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
 
@@ -122,7 +122,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == 'accepted' && element.isReturn) {
+              if (element.status == 'return_accepted' && element.isReturn) {
                 acceptedReturnList.add(element);
               }
               if (element.status == "returned" && element.isReturn) {
@@ -204,7 +204,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                             false;
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const MyReturnHistoryScreen(),
+                            builder: (context) =>
+                                const GlobalReturnHistoryScreen(),
                           ),
                         );
                       },

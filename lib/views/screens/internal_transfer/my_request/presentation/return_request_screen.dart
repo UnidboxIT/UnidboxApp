@@ -31,7 +31,8 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
   final String requestWarehouse;
   final ProductLineId productLine;
   final String currentWarehouse;
-  final double receiveQty;
+  final double receiveReasonQty;
+  final int receiveQty;
 
   const ReturnRequestScreen({
     super.key,
@@ -40,6 +41,7 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
     required this.requestWarehouse,
     required this.productLine,
     required this.currentWarehouse,
+    required this.receiveReasonQty,
     required this.receiveQty,
   });
 
@@ -67,7 +69,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //superPrint(widget.receiveQty);
+    superPrint(widget.receiveReasonQty);
     ref.listen(returnRequestReasonStateNotifierProvider, (pre, next) {
       if (next is ReturnReceiveLoading) {
         setState(() {
@@ -361,7 +363,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                       superPrint(sumRecevieQty);
                       if (!reasonIndex
                           .contains(returnRequestReasonList[index].id)) {
-                        if (widget.receiveQty > sumRecevieQty) {
+                        if (widget.receiveReasonQty > sumRecevieQty) {
                           reasonIndex.add(returnRequestReasonList[index].id);
                         }
                       } else {
@@ -400,7 +402,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                       reasonName: returnRequestReasonList[index].reason,
                       reasonIndexList: reasonIndex,
                       returnRequestReasonList: returnRequestReasonList,
-                      receiveQty: widget.receiveQty),
+                      receiveQty: widget.receiveReasonQty),
                 ),
               ],
             );
