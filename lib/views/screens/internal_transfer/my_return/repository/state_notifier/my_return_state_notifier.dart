@@ -107,6 +107,7 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
           }
           state = MyReturnState.loadScanProduct(scanProductList);
           Navigator.of(context).pop();
+
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => MakeNewMyReturnScreen(

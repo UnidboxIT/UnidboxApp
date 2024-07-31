@@ -109,7 +109,11 @@ class _BarcodeScannerWithOverlayState
                   ref
                       .read(myReturnStateNotifierProvider.notifier)
                       .scanProductByBarCode(
-                          barcode.rawValue.toString(), context, 0);
+                          barcode.rawValue.toString(), context, 0)
+                      .then((_) {
+                    ref.read(bottomBarVisibilityProvider.notifier).state =
+                        false;
+                  });
                 }
                 mobileScanner.stop();
               },

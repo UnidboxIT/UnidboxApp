@@ -11,7 +11,10 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../inventory_tracker/domain/inhouse_stock.dart';
 import '../../../inventory_tracker/domain/product.dart';
+import '../../../inventory_tracker/repository/provider/inhouse_stock_provider.dart';
+import '../../../inventory_tracker/repository/state/inhouse_stock_state.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/return_request_reason.dart';
 import '../../my_request/presentation/return_request_screen.dart';
@@ -37,13 +40,24 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   bool isMyReturnUpdate = false;
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
+  List<InhouseStock> inHouseStockList = [];
+  List<InhouseStock> filterWareHouseList = [];
+  int requestWarehouseID = -1;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     WidgetsBinding.instance.addObserver(this);
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+      ref
+          .read(userWarehouseStateNotifierProvider.notifier)
+          .getUserWarehouse()
+          .then((_) {
+        ref
+            .read(inhouseStockStateNotifierProvider.notifier)
+            .getInHouseStock(widget.scanProductList.first.id, context);
+      });
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
@@ -105,6 +119,27 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         });
       }
     });
+    ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
+      if (next is SelectedWarehouseID) {
+        setState(() {
+          requestWarehouseID = next.warehouseID;
+        });
+      }
+      if (next is InhouseStockList) {
+        setState(() {
+          inHouseStockList = next.inhouseStock;
+          filterWareHouseList = inHouseStockList
+              .where((stock) =>
+                  userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
+                  double.parse(stock.qty) > 0)
+              .toList();
+          if (filterWareHouseList.isNotEmpty) {
+            requestWarehouseID = filterWareHouseList.first.warehouseList[0];
+            superPrint(requestWarehouseID);
+          }
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -123,7 +158,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               child: Stack(
                 children: [
                   globalAppBarWidget(
-                    "Edit Return Request",
+                    "New Return Request",
                     () {
                       ref.read(bottomBarVisibilityProvider.notifier).state =
                           true;
@@ -190,29 +225,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        textWidget(
-                          widget.scanProductList[0].barcode,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                        textWidget(
-                            DateFormat('dd MMM yyyy').format(
-                              DateTime.parse(
-                                  widget.scanProductList[0].createDate),
-                            ),
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            size: 17)
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -262,40 +274,30 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                   size: 13),
                             ),
                             const SizedBox(height: 20),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: textWidget(
-                                "Return To",
-                                color: AppColor.orangeColor,
-                                size: 13,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 57.w,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColor.orangeColor,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
+                            textWidget(
+                                DateFormat('dd MMM yyyy').format(
+                                  DateTime.parse(
+                                      widget.scanProductList[0].createDate),
                                 ),
-                              ),
-                              child: textWidget(
-                                  widget.scanProductList[0]
-                                      .defaultWarehouseList[1],
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            )
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                size: 17),
                           ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: textWidget(
+                      "Return To",
+                      color: AppColor.orangeColor,
+                      size: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  returnToAllWarehouseWidget(),
                   textWidget(
                     "Returned Request By",
                     size: 13,
@@ -303,7 +305,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                     fontWeight: FontWeight.w500,
                   ),
                   textWidget(
-                    userWarehouse.warehouseList[1],
+                    userWarehouse.warehouseList.isEmpty
+                        ? ""
+                        : userWarehouse.warehouseList[1],
                     size: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -337,7 +341,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           width: 35.w,
                           height: 43,
                           child: buttonWidget(
-                            "Update",
+                            "Send Request",
                             () {
                               superPrint(reasonIndex);
                               superPrint(txtOtherComment.text);
@@ -345,8 +349,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                   .read(myReturnStateNotifierProvider.notifier)
                                   .updateMyReturn(
                                       userWarehouse.warehouseList[0],
-                                      widget.scanProductList[0]
-                                          .defaultWarehouseList[0],
+                                      requestWarehouseID,
                                       widget.scanProductList[0].id,
                                       widget.scanProductList[0].name,
                                       widget.scanProductList[0].quantity
@@ -390,12 +393,13 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    // int sumRecevieQty = reasonQtyMap.values.fold(
-                    //     0, (previousValue, element) => previousValue + element);
+                    int sumRecevieQty = reasonQtyMap.values.fold(
+                        0, (previousValue, element) => previousValue + element);
                     if (!reasonIndex.contains(myReturnReason[index].id)) {
-                      // if (widget.receiveQty > sumRecevieQty) {
-                      reasonIndex.add(myReturnReason[index].id);
-                      // }
+                      if (widget.scanProductList.first.quantity >
+                          sumRecevieQty) {
+                        reasonIndex.add(myReturnReason[index].id);
+                      }
                     } else {
                       reasonQtyMap.remove(myReturnReason[index].id);
                       reasonIndex.remove(myReturnReason[index].id);
@@ -438,5 +442,108 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
           return const SizedBox(height: 10);
         },
         itemCount: myReturnReason.length);
+  }
+
+  Widget returnToAllWarehouseWidget() {
+    return SizedBox(
+      height: inHouseStockList.length > 3 ? 17.h : 7.h,
+      child: GridView.builder(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 1.5,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10),
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              // textWidget(
+              //   inHouseStockList[index].warehouseList[1],
+              //   color: AppColor.orangeColor,
+              //   fontWeight: FontWeight.w600,
+              // ),
+              GestureDetector(
+                onTap: () {
+                  superPrint(inHouseStockList[index].warehouseList);
+                  if (widget
+                      .scanProductList.first.defaultWarehouseList.isEmpty) {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .selectedWarehouseID(
+                            inHouseStockList[index].warehouseList[0],
+                            double.parse(inHouseStockList[index].qty).toInt());
+                  } else if (widget.scanProductList.first.defaultWarehouseList
+                          .isNotEmpty &&
+                      widget.scanProductList.first.defaultWarehouseList[0] !=
+                          userWarehouse.warehouseList[0]) {
+                    ref
+                        .read(inhouseStockStateNotifierProvider.notifier)
+                        .selectedWarehouseID(
+                            inHouseStockList[index].warehouseList[0],
+                            double.parse(inHouseStockList[index].qty).toInt());
+                  }
+                },
+                child: widget.scanProductList.first.defaultWarehouseList
+                            .isNotEmpty &&
+                        widget.scanProductList.first.defaultWarehouseList[0] ==
+                            userWarehouse.warehouseList[0]
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 3,
+                                  spreadRadius: 3),
+                            ]),
+                        alignment: Alignment.center,
+                        child:
+                            textWidget(inHouseStockList[index].warehouseList[1],
+                                // double.parse(
+                                //         inHouseStockList[index].qty)
+                                //     .toInt()
+                                //     .toString(),
+                                textAlign: TextAlign.center,
+                                color: Colors.black),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: inHouseStockList[index].warehouseList[0] ==
+                                    requestWarehouseID
+                                ? AppColor.orangeColor
+                                : Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 3,
+                                  spreadRadius: 3),
+                            ]),
+                        alignment: Alignment.center,
+                        child: textWidget(
+                            inHouseStockList[index].warehouseList[1],
+                            // double.parse(
+                            //         inHouseStockList[index].qty)
+                            //     .toInt()
+                            //     .toString(),
+                            textAlign: TextAlign.center,
+                            color: inHouseStockList[index].warehouseList[0] ==
+                                    requestWarehouseID
+                                ? Colors.white
+                                : Colors.black),
+                      ),
+              ),
+            ],
+          );
+        },
+        itemCount: inHouseStockList.length,
+      ),
+    );
   }
 }
