@@ -455,7 +455,6 @@ class _AcceptedReturnScreenState
                                             warehouseData['date'],
                                             warehouseData['name'],
                                             productList,
-                                            warehouseData['reasons'],
                                             acceptProductID: acceptProductID,
                                           ),
                                         ),

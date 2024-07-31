@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -11,6 +13,8 @@ import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
 import '../../../internal_transfer/my_request/domain/my_request.dart';
+import '../../../internal_transfer/my_return/repository/provider/my_return_provider.dart';
+import '../../../internal_transfer/my_return/repository/state/my_return_state.dart';
 import '../../../internal_transfer/outlet_request/domain/other_request.dart';
 import '../../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import '../../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
@@ -40,13 +44,19 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   List<ProductLineId> outletReturnProductList = [];
   bool isLoading = false;
   int totalInternalTransferLength = 0;
+  List<MyRequest> myReturnList = [];
+  List<ProductLineId> myReturnProductList = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+      ref
+          .read(otherRequestStateNotifierProvider.notifier)
+          .getAllOtherRequest()
+          .then((_) => ref
+              .read(myRequestStateNotifierProvider.notifier)
+              .getAllMyRequest());
     });
   }
 
@@ -83,6 +93,30 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
       }
     });
 
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
+        setState(() {
+          myReturnList = [];
+          myReturnProductList.clear();
+        });
+      }
+      if (next is MyReturnDataList) {
+        setState(() {
+          myReturnList = next.myReturnDataList;
+          for (var data in myReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                myReturnProductList.add(element);
+              }
+            }
+          }
+          setState(() {
+            totalInternalTransferLength += myReturnProductList.length;
+          });
+        });
+      }
+    });
+    superPrint(totalInternalTransferLength);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,

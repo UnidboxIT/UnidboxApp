@@ -395,7 +395,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                                               warehouseData['date'],
                                               warehouseData['name'],
                                               productList,
-                                              warehouseData['reasons'],
                                               acceptProductID: acceptProductID),
                                         )
                                       ],
