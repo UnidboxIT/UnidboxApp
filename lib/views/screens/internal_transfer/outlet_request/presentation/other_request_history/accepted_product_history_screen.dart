@@ -1,152 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
-import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_history/packed_product_history_screen.dart';
-import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../../../../widgets/app_bar/global_app_bar.dart';
-import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../../../../widgets/text_widget.dart';
 import '../../../my_request/domain/my_request.dart';
-import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
-import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
-import '../../domain/other_request.dart';
-import '../../repository/provider/other_request_provider.dart';
-import '../../repository/state/other_request_state.dart';
-import 'accepted_product_history_screen.dart';
 
-class OtherRequestHistoryScreen extends ConsumerStatefulWidget {
-  const OtherRequestHistoryScreen({super.key});
+class AcceptedProductHistoryScreen extends ConsumerStatefulWidget {
+  final List<Map<String, dynamic>> requestedHistoryList;
+  const AcceptedProductHistoryScreen(
+      {super.key, required this.requestedHistoryList});
 
   @override
-  ConsumerState<OtherRequestHistoryScreen> createState() =>
-      _PendingRequestListScreenState();
+  ConsumerState<AcceptedProductHistoryScreen> createState() =>
+      _AcceptedProductHistoryScreenState();
 }
 
-class _PendingRequestListScreenState
-    extends ConsumerState<OtherRequestHistoryScreen> {
-  List<Map<String, dynamic>> requestedHistoryList = [];
-  List<Map<String, dynamic>> acceptedHistoryList = [];
-  List<Map<String, dynamic>> packedHistoryList = [];
-  Map<String, dynamic> requestedHistoryMap = {};
-  Map<String, dynamic> acceptedHistoryMap = {};
-  Map<String, dynamic> packedHistoryMap = {};
+class _AcceptedProductHistoryScreenState
+    extends ConsumerState<AcceptedProductHistoryScreen> {
   List<String> visibleCode = [];
-  List<OtherRequest> otherRequestList = [];
-  bool requestLoading = false;
-  String historyText = "";
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
-    });
-    setState(() {
-      historyText = "accepted";
-    });
-  }
-
-  loadRequestHistory() {
-    acceptedHistoryList.clear();
-    requestedHistoryList.clear();
-    packedHistoryList.clear();
-    for (var data in otherRequestList) {
-      for (var element in data.productLineList) {
-        if (element.status == "accepted") {
-          setState(() {
-            String date = data.createDate.substring(0, 10);
-            String warehouseName = element.warehouseList[1];
-            String productLineKey = data.name;
-            if (!acceptedHistoryMap.containsKey(date)) {
-              acceptedHistoryMap[date] = {
-                "id": data.id,
-                "date": data.createDate,
-                "product_line": {}
-              };
-            }
-            // Ensure each product line is unique per warehouse
-            if (!acceptedHistoryMap[date]['product_line']
-                .containsKey(productLineKey)) {
-              acceptedHistoryMap[date]['product_line'][productLineKey] = {
-                "warehouse_name": warehouseName,
-                "products": []
-              };
-            }
-            acceptedHistoryMap[date]['product_line'][productLineKey]['products']
-                .add(element);
-          });
-        }
-        if (element.status == "done") {
-          setState(() {
-            String date = data.createDate.substring(0, 10);
-            String warehouseName = element.warehouseList[1];
-            String productLineKey = data.name;
-            if (!requestedHistoryMap.containsKey(date)) {
-              requestedHistoryMap[date] = {
-                "id": data.id,
-                "date": data.createDate,
-                "product_line": {}
-              };
-            }
-            // Ensure each product line is unique per warehouse
-            if (!requestedHistoryMap[date]['product_line']
-                .containsKey(productLineKey)) {
-              requestedHistoryMap[date]['product_line'][productLineKey] = {
-                "warehouse_name": warehouseName,
-                "products": []
-              };
-            }
-            requestedHistoryMap[date]['product_line'][productLineKey]
-                    ['products']
-                .add(element);
-          });
-        }
-
-        if (element.status == "packed") {
-          setState(() {
-            String date = data.createDate.substring(0, 10);
-            String warehouseName = element.warehouseList[1];
-            String productLineKey = data.name;
-            if (!packedHistoryMap.containsKey(date)) {
-              packedHistoryMap[date] = {
-                "id": data.id,
-                "date": data.createDate,
-                "product_line": {}
-              };
-            }
-            // Ensure each product line is unique per warehouse
-            if (!packedHistoryMap[date]['product_line']
-                .containsKey(productLineKey)) {
-              packedHistoryMap[date]['product_line'][productLineKey] = {
-                "warehouse_name": warehouseName,
-                "products": []
-              };
-            }
-            packedHistoryMap[date]['product_line'][productLineKey]['products']
-                .add(element);
-          });
-        }
-      }
-    }
-    if (requestedHistoryMap.isNotEmpty) {
-      setState(() {
-        requestedHistoryList.add(requestedHistoryMap);
-      });
-    }
-    if (acceptedHistoryMap.isNotEmpty) {
-      setState(() {
-        acceptedHistoryList.add(acceptedHistoryMap);
-      });
-    }
-    if (packedHistoryMap.isNotEmpty) {
-      setState(() {
-        packedHistoryList.add(packedHistoryMap);
-      });
-    }
-  }
 
   loadSetVisiblity(String code) {
     setState(() {
@@ -162,181 +35,8 @@ class _PendingRequestListScreenState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(otherRequestStateNotifierProvider, (pre, next) {
-      if (next is OtherRequestLoading) {
-        setState(() {
-          requestLoading = true;
-          otherRequestList = [];
-        });
-      }
-      if (next is OtherRequestList) {
-        setState(() {
-          otherRequestList = next.otherRequestList;
-          loadRequestHistory();
-          requestLoading = false;
-        });
-      }
-    });
-    return SuperScaffold(
-      topColor: AppColor.primary,
-      botColor: const Color(0xffF6F6F6),
-      child: Scaffold(
-        backgroundColor: const Color(0xffF6F6F6),
-        body: PopScope(
-          onPopInvoked: (didPop) =>
-              ref.read(bottomBarVisibilityProvider.notifier).state = true,
-          child: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(
-              children: [
-                globalAppBarWidget(
-                  historyText == "accepted"
-                      ? "Accepted History"
-                      : historyText == "packed"
-                          ? "Packed History"
-                          : "Issued History",
-                  () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Transform.translate(
-                  offset: Offset(0, 14.h),
-                  child: pendingRequestWidget(),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget pendingRequestWidget() {
-    return Container(
-      width: 100.w,
-      height: 81.h,
-      decoration: BoxDecoration(
-        color: AppColor.bgColor,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        children: [
-          filterByDateWidget(),
-          const SearchPendingRequestWidget(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-            child: Container(
-              width: 100.w,
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.category_rounded,
-                        color: AppColor.pinkColor,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "accepted";
-                        });
-                      },
-                      child: textWidget("Accepted\nHistroy",
-                          color: historyText == "accepted"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "packed";
-                        });
-                      },
-                      child: textWidget("Packed\nHistory",
-                          color: historyText == "packed"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.w800,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "issued";
-                        });
-                      },
-                      child: textWidget("Issued\nHistory",
-                          color: historyText == "issued"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.w800,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          requestLoading
-              ? Expanded(
-                  child: Center(
-                    child: CupertinoActivityIndicator(
-                      color: AppColor.primary,
-                    ),
-                  ),
-                )
-              : Expanded(
-                  child: historyText == "accepted"
-                      ? AcceptedProductHistoryScreen(
-                          requestedHistoryList: acceptedHistoryList)
-                      : historyText == "packed"
-                          ? PackedProductHistoryScreen(
-                              requestedHistoryList: packedHistoryList)
-                          : requestHistoryWidget(requestedHistoryList),
-                ),
-        ],
-      ),
-    );
+    superPrint(widget.requestedHistoryList);
+    return requestHistoryWidget(widget.requestedHistoryList);
   }
 
   Widget requestHistoryWidget(
@@ -401,6 +101,7 @@ class _PendingRequestListScreenState
                               productLineMap.keys.elementAt(productIndex);
                           List<dynamic> productList =
                               productLineMap[productLineKey]['products'] ?? [];
+                          superPrint(productList);
                           return Column(
                             children: [
                               GestureDetector(
@@ -481,7 +182,7 @@ class _PendingRequestListScreenState
                                               decoration: BoxDecoration(
                                                 color: productList[subIndex]
                                                             .status ==
-                                                        "done"
+                                                        "accepted"
                                                     ? AppColor.orangeColor
                                                     : Colors.grey.shade300,
                                                 borderRadius:
@@ -494,10 +195,10 @@ class _PendingRequestListScreenState
                                             ),
                                           ),
                                           Positioned(
-                                            left: -12.5.w,
+                                            left: -9.w,
                                             child: Transform.rotate(
                                               angle: 80.1,
-                                              child: textWidget("Issued",
+                                              child: textWidget("ACCEPTED",
                                                   size: 12,
                                                   fontWeight: FontWeight.w800,
                                                   color: Colors.white,
@@ -621,7 +322,7 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
+                  "Accepted Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,

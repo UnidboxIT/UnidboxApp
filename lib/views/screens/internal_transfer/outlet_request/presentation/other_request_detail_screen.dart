@@ -223,32 +223,30 @@ class _OtherRequestsDetailScreenState
                     Navigator.of(context).pop();
                   },
                 ),
-                Transform.translate(
-                  offset: Offset(65.w, 6.h),
+                Positioned(
+                  right: 5.w,
+                  top: 6.5.h,
                   child: GestureDetector(
                     onTap: () {
                       ref.read(bottomBarVisibilityProvider.notifier).state =
                           false;
-                      Navigator.of(context).push(MaterialPageRoute(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
                           builder: (context) =>
-                              const OtherRequestHistoryScreen()));
-                      superPrint("Other request History");
+                              const OtherRequestHistoryScreen(),
+                        ),
+                      );
                     },
                     child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: AppColor.orangeColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
-                        ),
-                        child: textWidget("Transfered\nHistory",
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            size: 17,
-                            textAlign: TextAlign.center)),
+                      color: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
+                      child: const Icon(
+                        Icons.history,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
                   ),
                 ),
                 Transform.translate(

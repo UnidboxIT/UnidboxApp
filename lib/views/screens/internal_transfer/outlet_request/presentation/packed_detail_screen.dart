@@ -104,7 +104,7 @@ class _OtherRequestsDetailScreenState
                 .add(element);
           });
         }
-        if (element.status.contains("packed")) {
+        if (element.status == "packed") {
           setState(() {
             // packedProductList.add(element);
             int warehouseId = element.warehouseList[0];
