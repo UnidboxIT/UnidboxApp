@@ -201,7 +201,7 @@ Widget eachOutletReturnWidget(
                 ],
               ),
               const SizedBox(height: 10),
-              productList[index].status == 'accepted'
+              productList[index].status == 'return_accepted'
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

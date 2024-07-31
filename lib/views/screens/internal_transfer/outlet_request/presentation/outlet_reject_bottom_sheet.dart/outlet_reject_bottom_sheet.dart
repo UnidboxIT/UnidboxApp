@@ -250,7 +250,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                               .acceptOtherRequest(
                                   widget.productId,
                                   widget.issuedQty,
-                                  selectedRejectReason.id,
+                                  selectedRejectReason.reason,
                                   txtOtherRemark.text,
                                   context)
                               .then((_) {
@@ -264,7 +264,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                               .acceptOtherRequest(
                                   widget.productId,
                                   widget.issuedQty,
-                                  selectedRejectReason.id,
+                                  selectedRejectReason.reason,
                                   "",
                                   context)
                               .then((_) {

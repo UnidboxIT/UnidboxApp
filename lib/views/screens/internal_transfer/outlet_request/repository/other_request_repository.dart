@@ -29,11 +29,11 @@ class OtherRequestRepository {
   Future<Response> accepted(
     int productID,
     double qty,
-    int reasonId,
+    String reasonId,
     String otherComment,
   ) async {
     Map<String, dynamic> formData = {};
-    if (reasonId == -1 && otherComment.isEmpty) {
+    if (reasonId == "" && otherComment.isEmpty) {
       formData = {
         "state": "accepted",
         "qty": qty,
@@ -44,14 +44,14 @@ class OtherRequestRepository {
         "state": "accepted",
         "qty": qty,
         "ids": [productID],
-        "reason_id": reasonId,
+        "reason": reasonId,
       };
     } else {
       formData = {
         "state": "accepted",
         "qty": qty,
         "ids": [productID],
-        "reason_id": reasonId,
+        "reason": reasonId,
         "comment": otherComment
       };
     }
