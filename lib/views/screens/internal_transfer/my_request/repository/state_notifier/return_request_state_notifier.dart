@@ -5,7 +5,8 @@ class ReturnRequestStateNotifier extends StateNotifier<ReturnRequestState> {
   ReturnRequestStateNotifier() : super(const ReturnRequestState.initial());
 
   addQtyTextFieldValue(int productID, int qty) {
-    state = ReturnRequestState.addQtyTextFieldValue(productID, qty);
+    state =
+        ReturnRequestState.addReturnRequestQtyTextFieldValue(productID, qty);
   }
 
   incrementTotalQty(int productID, int qty, int receiveQty, int totalQty) {

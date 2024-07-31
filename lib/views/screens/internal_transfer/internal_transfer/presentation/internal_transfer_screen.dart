@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
@@ -15,6 +16,8 @@ import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../my_request/presentation/widgets/drawer_widget.dart';
 import '../../my_return/presentation/my_return_screen.dart';
+import '../../my_return/repository/provider/my_return_provider.dart';
+import '../../my_return/repository/state/my_return_state.dart';
 import '../../outlet_request/domain/other_request.dart';
 import '../../outlet_request/presentation/other_request_detail_screen.dart';
 import '../../outlet_request/repository/provider/other_request_provider.dart';
@@ -40,8 +43,10 @@ class _InternalTransferScreenState
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
   List<OtherRequest> otherRequestList = [];
+  List<MyRequest> myReturnList = [];
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
+  List<ProductLineId> myReturnProductList = [];
   bool isLoading = false;
   @override
   void initState() {
@@ -51,6 +56,9 @@ class _InternalTransferScreenState
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
     });
   }
 
@@ -93,6 +101,27 @@ class _InternalTransferScreenState
             }
           }
           isLoading = false;
+        });
+      }
+    });
+
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
+        setState(() {
+          myReturnList = [];
+          myReturnProductList.clear();
+        });
+      }
+      if (next is MyReturnDataList) {
+        setState(() {
+          myReturnList = next.myReturnDataList;
+          for (var data in myReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                myReturnProductList.add(element);
+              }
+            }
+          }
         });
       }
     });
@@ -250,6 +279,23 @@ class _InternalTransferScreenState
               radius: 19,
               child: textWidget(
                 requestProductList.length.toString(),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                size: 13,
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: count == 2 && myReturnProductList.isNotEmpty,
+          child: Positioned(
+            top: -10,
+            right: -5,
+            child: CircleAvatar(
+              backgroundColor: AppColor.pinkColor,
+              radius: 19,
+              child: textWidget(
+                myReturnProductList.length.toString(),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 size: 13,

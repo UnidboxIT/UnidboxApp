@@ -21,7 +21,7 @@ import '../../my_request/presentation/return_request_screen.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
 import '../repository/state/my_return_state.dart';
-import 'widgets/each_my_return_reason_widget.dart';
+import 'widgets/make_new_return_reason_widget.dart';
 import 'widgets/scan_search_bar_widget.dart';
 
 class MakeNewMyReturnScreen extends ConsumerStatefulWidget {
@@ -43,6 +43,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   List<InhouseStock> inHouseStockList = [];
   List<InhouseStock> filterWareHouseList = [];
   int requestWarehouseID = -1;
+  int totalQty = 1;
   @override
   void initState() {
     // TODO: implement initState
@@ -201,7 +202,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         children: [
           Container(
             width: 100.w,
-            height: 66.h,
             decoration: BoxDecoration(
               color: AppColor.bgColor,
               borderRadius: const BorderRadius.only(
@@ -320,7 +320,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   ),
                   const SizedBox(height: 5),
                   returnReasonWidget(),
-                  const Spacer(),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Row(
@@ -343,8 +343,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           child: buttonWidget(
                             "Send Request",
                             () {
+                              superPrint(sumNewReturnQty);
                               superPrint(reasonIndex);
-                              superPrint(txtOtherComment.text);
+                              superPrint(txtNewReturnComment.text);
                               ref
                                   .read(myReturnStateNotifierProvider.notifier)
                                   .updateMyReturn(
@@ -352,14 +353,16 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                       requestWarehouseID,
                                       widget.scanProductList[0].id,
                                       widget.scanProductList[0].name,
-                                      widget.scanProductList[0].quantity
-                                          .toInt(),
+                                      sumNewReturnQty,
                                       widget.scanProductList[0].price,
                                       widget.scanProductList[0].uomList[0],
                                       reasonIndex,
-                                      txtOtherComment.text,
+                                      txtNewReturnComment.text,
                                       context,
-                                      ref);
+                                      ref)
+                                  .then((_) {
+                                Navigator.of(context).pop();
+                              });
                             },
                             isBool: isMyReturnUpdate,
                           ),
@@ -393,13 +396,13 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    int sumRecevieQty = reasonQtyMap.values.fold(
-                        0, (previousValue, element) => previousValue + element);
+                    // int sumRecevieQty = reasonQtyMap.values.fold(
+                    //     0, (previousValue, element) => previousValue + element);
                     if (!reasonIndex.contains(myReturnReason[index].id)) {
-                      if (widget.scanProductList.first.quantity >
-                          sumRecevieQty) {
-                        reasonIndex.add(myReturnReason[index].id);
-                      }
+                      // if (widget.scanProductList.first.quantity >
+                      //     sumRecevieQty) {
+                      reasonIndex.add(myReturnReason[index].id);
+                      // }
                     } else {
                       reasonQtyMap.remove(myReturnReason[index].id);
                       reasonIndex.remove(myReturnReason[index].id);
@@ -428,7 +431,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               ),
               Visibility(
                 visible: reasonIndex.contains(myReturnReason[index].id),
-                child: EachMyReturnReasonWidget(
+                child: MakeNewReturnReasonWidget(
                   reasonIndex: myReturnReason[index].id,
                   reasonIndexList: reasonIndex,
                   returnRequestReasonList: myReturnReason,
@@ -450,6 +453,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
       child: GridView.builder(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             childAspectRatio: 1.5,

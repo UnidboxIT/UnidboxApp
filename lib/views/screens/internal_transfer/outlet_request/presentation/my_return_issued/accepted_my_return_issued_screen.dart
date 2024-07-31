@@ -92,7 +92,7 @@ class _AcceptedReturnScreenState
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "product_line": {}
+                    "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
@@ -455,6 +455,7 @@ class _AcceptedReturnScreenState
                                             warehouseData['date'],
                                             warehouseData['name'],
                                             productList,
+                                            warehouseData['reasons'],
                                             acceptProductID: acceptProductID,
                                           ),
                                         ),

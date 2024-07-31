@@ -12,14 +12,15 @@ import '../../../my_request/repository/provider/my_request_provider.dart';
 import '../../../my_request/repository/state/return_request_state.dart';
 import 'each_my_return_product_widget.dart';
 
-TextEditingController txtOtherComment = TextEditingController();
+TextEditingController txtNewReturnComment = TextEditingController();
+int sumNewReturnQty = 0;
 
-class EachMyReturnReasonWidget extends ConsumerStatefulWidget {
+class MakeNewReturnReasonWidget extends ConsumerStatefulWidget {
   final int reasonIndex;
   final List<int> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
   final double receiveQty;
-  const EachMyReturnReasonWidget(
+  const MakeNewReturnReasonWidget(
       {super.key,
       required this.reasonIndex,
       required this.reasonIndexList,
@@ -27,29 +28,28 @@ class EachMyReturnReasonWidget extends ConsumerStatefulWidget {
       required this.receiveQty});
 
   @override
-  ConsumerState<EachMyReturnReasonWidget> createState() =>
+  ConsumerState<MakeNewReturnReasonWidget> createState() =>
       _EachReturnReasonWidgetState();
 }
 
 class _EachReturnReasonWidgetState
-    extends ConsumerState<EachMyReturnReasonWidget> {
+    extends ConsumerState<MakeNewReturnReasonWidget> {
   TextEditingController txtQty = TextEditingController();
   bool isShowTextField = false;
   int totalQty = 1;
   bool requestLoading = false;
-  int sumRecevieQty = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    txtOtherComment.clear();
+    txtNewReturnComment.clear();
     for (var data in widget.reasonIndexList) {
       reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
-      sumRecevieQty = reasonQtyMap.values
+      sumNewReturnQty = reasonQtyMap.values
           .fold(0, (previousValue, element) => previousValue + element);
     }
-    superPrint(sumRecevieQty);
+    superPrint(sumNewReturnQty);
     superPrint(reasonQtyMap);
   }
 
@@ -62,6 +62,8 @@ class _EachReturnReasonWidgetState
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
+          sumNewReturnQty = reasonQtyMap.values
+              .fold(0, (previousValue, element) => previousValue + element);
         });
       }
       if (next is DecrementReturnRequestQty &&
@@ -70,6 +72,8 @@ class _EachReturnReasonWidgetState
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
+          sumNewReturnQty = reasonQtyMap.values
+              .fold(0, (previousValue, element) => previousValue + element);
         });
       }
 
@@ -186,14 +190,14 @@ class _EachReturnReasonWidgetState
               const SizedBox(width: 5),
               addMinusIconButtonWidget(() {
                 setState(() {
-                  sumRecevieQty = reasonQtyMap.values.fold(
+                  sumNewReturnQty = reasonQtyMap.values.fold(
                       0, (previousValue, element) => previousValue + element);
-                  superPrint(sumRecevieQty);
+                  superPrint(sumNewReturnQty);
                 });
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
                     .incrementTotalQty(widget.reasonIndex, totalQty,
-                        widget.receiveQty.toInt(), sumRecevieQty);
+                        widget.receiveQty.toInt(), sumNewReturnQty);
 
                 superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),
@@ -220,7 +224,7 @@ class _EachReturnReasonWidgetState
                 ],
               ),
               child: TextField(
-                controller: txtOtherComment,
+                controller: txtNewReturnComment,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,

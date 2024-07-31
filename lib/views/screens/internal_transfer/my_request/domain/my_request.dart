@@ -27,15 +27,16 @@ class MyRequest {
       productList = [];
     }
     return MyRequest(
-        id: json['id'] ?? 0,
-        name: json['name'].toString(),
-        intStatus: json['int_status'].toString(),
-        userId: List.from(json['user_id']),
-        requestToWh: json['request_to_wh'] == false
-            ? []
-            : List.from(json['request_to_wh']),
-        productLineList: productList,
-        createDate: json['date'].toString());
+      id: json['id'] ?? 0,
+      name: json['name'].toString(),
+      intStatus: json['int_status'].toString(),
+      userId: List.from(json['user_id']),
+      requestToWh: json['request_to_wh'] == false
+          ? []
+          : List.from(json['request_to_wh']),
+      productLineList: productList,
+      createDate: json['date'].toString(),
+    );
   }
 }
 
@@ -56,24 +57,27 @@ class ProductLineId {
   List requestWarehouse;
   bool isReturn;
   List productUomList;
+  //List reasonList;
 
-  ProductLineId(
-      {this.id = 0,
-      this.attachmentFile = "",
-      this.productIdList = const [],
-      this.code = "",
-      this.model = "",
-      this.qty = 0.0,
-      this.issueQty = 0.0,
-      this.receivedQty = 0.0,
-      this.imageUrl = "",
-      this.price = 0.0,
-      this.status = "",
-      this.removeReject = false,
-      this.warehouseList = const [],
-      this.requestWarehouse = const [],
-      this.isReturn = false,
-      this.productUomList = const []});
+  ProductLineId({
+    this.id = 0,
+    this.attachmentFile = "",
+    this.productIdList = const [],
+    this.code = "",
+    this.model = "",
+    this.qty = 0.0,
+    this.issueQty = 0.0,
+    this.receivedQty = 0.0,
+    this.imageUrl = "",
+    this.price = 0.0,
+    this.status = "",
+    this.removeReject = false,
+    this.warehouseList = const [],
+    this.requestWarehouse = const [],
+    this.isReturn = false,
+    this.productUomList = const [],
+    // this.reasonList = const [],
+  });
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
@@ -97,6 +101,7 @@ class ProductLineId {
       productUomList: json['product_uom_id'] == false
           ? []
           : List.from(json['product_uom_id']),
+      //reasonList: List.from(json['reasons'] ?? []),
     );
   }
 }

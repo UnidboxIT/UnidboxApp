@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -14,7 +15,8 @@ Widget eachMyReturnProductLineWidget(
   String name,
   String currentDate,
   String requestWarehouse,
-  List productList, {
+  List productList,
+  List reasonList, {
   bool isPending = false,
   bool myRequestLoading = false,
   int acceptProductID = -1,
@@ -23,6 +25,7 @@ Widget eachMyReturnProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        superPrint(reasonList);
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -187,7 +190,10 @@ Widget eachMyReturnProductLineWidget(
                       textWidget(
                         productList[index].status == "return_accepted"
                             ? "Accepted"
-                            : capitalizeFirstLetter(productList[index].status),
+                            : productList[index].status == "returned"
+                                ? "Pending"
+                                : capitalizeFirstLetter(
+                                    productList[index].status),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         size: 14,

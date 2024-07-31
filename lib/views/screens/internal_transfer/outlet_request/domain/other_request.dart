@@ -19,6 +19,7 @@ class OtherRequest {
 
   factory OtherRequest.fromJson(Map<String, dynamic> json) {
     List<ProductLineId> productList = [];
+
     if (json['product_line_ids'] != null) {
       for (var data in json['product_line_ids']) {
         productList.add(ProductLineId.fromJson(data));
@@ -26,12 +27,21 @@ class OtherRequest {
     } else {
       productList = [];
     }
+
+    // if (json['reasons'] != null) {
+    //   for (var data in json['reasons']) {
+    //     reasonList.add(List.from(data));
+    //   }
+    // } else {
+    //   reasonList = [];
+    // }
     return OtherRequest(
-        id: json['id'] ?? 0,
-        name: json['name'].toString(),
-        intStatus: json['int_status'].toString(),
-        userId: json['user_id'] == false ? [] : List.from(json['user_id']),
-        productLineList: productList,
-        createDate: json['date'].toString());
+      id: json['id'] ?? 0,
+      name: json['name'].toString(),
+      intStatus: json['int_status'].toString(),
+      userId: json['user_id'] == false ? [] : List.from(json['user_id']),
+      productLineList: productList,
+      createDate: json['date'].toString(),
+    );
   }
 }

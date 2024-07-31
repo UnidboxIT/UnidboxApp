@@ -134,7 +134,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "product_line": {}
+                    "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
@@ -291,6 +291,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 children: warehouseMap.entries.map((entry) {
                   // int warehouseId = entry.key;
                   Map<dynamic, dynamic> warehouseData = entry.value;
+                  superPrint(warehouseData);
+                  superPrint(warehouseData['reasons']);
                   Map<dynamic, dynamic> productLineMap =
                       warehouseData['product_line'];
                   return productLineMap.isEmpty
@@ -393,6 +395,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                                               warehouseData['date'],
                                               warehouseData['name'],
                                               productList,
+                                              warehouseData['reasons'],
                                               acceptProductID: acceptProductID),
                                         )
                                       ],

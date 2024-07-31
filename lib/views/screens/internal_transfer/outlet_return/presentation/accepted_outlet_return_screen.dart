@@ -123,7 +123,7 @@ class _AcceptedOutletReturnScreenState
           acceptedOutletReturnList.clear();
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == "return_accepted" && element.isReturn) {
+              if (element.status == "return_accepted") {
                 int warehouseId = element.warehouseList[0];
                 String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
@@ -132,7 +132,7 @@ class _AcceptedOutletReturnScreenState
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "product_line": {}
+                    "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']

@@ -20,7 +20,8 @@ mixin _$ReturnRequestState {
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -30,7 +31,7 @@ mixin _$ReturnRequestState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -40,7 +41,7 @@ mixin _$ReturnRequestState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -49,9 +50,10 @@ mixin _$ReturnRequestState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -59,9 +61,10 @@ mixin _$ReturnRequestState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -69,9 +72,10 @@ mixin _$ReturnRequestState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
@@ -99,20 +103,23 @@ class _$ReturnRequestStateCopyWithImpl<$Res, $Val extends ReturnRequestState>
 }
 
 /// @nodoc
-abstract class _$$IncrementReturnQtyImplCopyWith<$Res> {
-  factory _$$IncrementReturnQtyImplCopyWith(_$IncrementReturnQtyImpl value,
-          $Res Function(_$IncrementReturnQtyImpl) then) =
-      __$$IncrementReturnQtyImplCopyWithImpl<$Res>;
+abstract class _$$IncrementReturnRequestQtyImplCopyWith<$Res> {
+  factory _$$IncrementReturnRequestQtyImplCopyWith(
+          _$IncrementReturnRequestQtyImpl value,
+          $Res Function(_$IncrementReturnRequestQtyImpl) then) =
+      __$$IncrementReturnRequestQtyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index, int qty});
 }
 
 /// @nodoc
-class __$$IncrementReturnQtyImplCopyWithImpl<$Res>
-    extends _$ReturnRequestStateCopyWithImpl<$Res, _$IncrementReturnQtyImpl>
-    implements _$$IncrementReturnQtyImplCopyWith<$Res> {
-  __$$IncrementReturnQtyImplCopyWithImpl(_$IncrementReturnQtyImpl _value,
-      $Res Function(_$IncrementReturnQtyImpl) _then)
+class __$$IncrementReturnRequestQtyImplCopyWithImpl<$Res>
+    extends _$ReturnRequestStateCopyWithImpl<$Res,
+        _$IncrementReturnRequestQtyImpl>
+    implements _$$IncrementReturnRequestQtyImplCopyWith<$Res> {
+  __$$IncrementReturnRequestQtyImplCopyWithImpl(
+      _$IncrementReturnRequestQtyImpl _value,
+      $Res Function(_$IncrementReturnRequestQtyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -121,7 +128,7 @@ class __$$IncrementReturnQtyImplCopyWithImpl<$Res>
     Object? index = null,
     Object? qty = null,
   }) {
-    return _then(_$IncrementReturnQtyImpl(
+    return _then(_$IncrementReturnRequestQtyImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -136,8 +143,8 @@ class __$$IncrementReturnQtyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$IncrementReturnQtyImpl implements IncrementReturnQty {
-  const _$IncrementReturnQtyImpl(this.index, this.qty);
+class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
+  const _$IncrementReturnRequestQtyImpl(this.index, this.qty);
 
   @override
   final int index;
@@ -153,7 +160,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$IncrementReturnQtyImpl &&
+            other is _$IncrementReturnRequestQtyImpl &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.qty, qty) || other.qty == qty));
   }
@@ -164,16 +171,17 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$IncrementReturnQtyImplCopyWith<_$IncrementReturnQtyImpl> get copyWith =>
-      __$$IncrementReturnQtyImplCopyWithImpl<_$IncrementReturnQtyImpl>(
-          this, _$identity);
+  _$$IncrementReturnRequestQtyImplCopyWith<_$IncrementReturnRequestQtyImpl>
+      get copyWith => __$$IncrementReturnRequestQtyImplCopyWithImpl<
+          _$IncrementReturnRequestQtyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -186,7 +194,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -199,7 +207,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -214,9 +222,10 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -227,9 +236,10 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -240,9 +250,10 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
@@ -255,32 +266,35 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   }
 }
 
-abstract class IncrementReturnQty implements ReturnRequestState {
-  const factory IncrementReturnQty(final int index, final int qty) =
-      _$IncrementReturnQtyImpl;
+abstract class IncrementReturnRequestQty implements ReturnRequestState {
+  const factory IncrementReturnRequestQty(final int index, final int qty) =
+      _$IncrementReturnRequestQtyImpl;
 
   int get index;
   int get qty;
   @JsonKey(ignore: true)
-  _$$IncrementReturnQtyImplCopyWith<_$IncrementReturnQtyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$IncrementReturnRequestQtyImplCopyWith<_$IncrementReturnRequestQtyImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DecrementReturnQtyImplCopyWith<$Res> {
-  factory _$$DecrementReturnQtyImplCopyWith(_$DecrementReturnQtyImpl value,
-          $Res Function(_$DecrementReturnQtyImpl) then) =
-      __$$DecrementReturnQtyImplCopyWithImpl<$Res>;
+abstract class _$$DecrementReturnRequestQtyImplCopyWith<$Res> {
+  factory _$$DecrementReturnRequestQtyImplCopyWith(
+          _$DecrementReturnRequestQtyImpl value,
+          $Res Function(_$DecrementReturnRequestQtyImpl) then) =
+      __$$DecrementReturnRequestQtyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index, int qty});
 }
 
 /// @nodoc
-class __$$DecrementReturnQtyImplCopyWithImpl<$Res>
-    extends _$ReturnRequestStateCopyWithImpl<$Res, _$DecrementReturnQtyImpl>
-    implements _$$DecrementReturnQtyImplCopyWith<$Res> {
-  __$$DecrementReturnQtyImplCopyWithImpl(_$DecrementReturnQtyImpl _value,
-      $Res Function(_$DecrementReturnQtyImpl) _then)
+class __$$DecrementReturnRequestQtyImplCopyWithImpl<$Res>
+    extends _$ReturnRequestStateCopyWithImpl<$Res,
+        _$DecrementReturnRequestQtyImpl>
+    implements _$$DecrementReturnRequestQtyImplCopyWith<$Res> {
+  __$$DecrementReturnRequestQtyImplCopyWithImpl(
+      _$DecrementReturnRequestQtyImpl _value,
+      $Res Function(_$DecrementReturnRequestQtyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -289,7 +303,7 @@ class __$$DecrementReturnQtyImplCopyWithImpl<$Res>
     Object? index = null,
     Object? qty = null,
   }) {
-    return _then(_$DecrementReturnQtyImpl(
+    return _then(_$DecrementReturnRequestQtyImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -304,8 +318,8 @@ class __$$DecrementReturnQtyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DecrementReturnQtyImpl implements DecrementReturnQty {
-  const _$DecrementReturnQtyImpl(this.index, this.qty);
+class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
+  const _$DecrementReturnRequestQtyImpl(this.index, this.qty);
 
   @override
   final int index;
@@ -321,7 +335,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DecrementReturnQtyImpl &&
+            other is _$DecrementReturnRequestQtyImpl &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.qty, qty) || other.qty == qty));
   }
@@ -332,16 +346,17 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DecrementReturnQtyImplCopyWith<_$DecrementReturnQtyImpl> get copyWith =>
-      __$$DecrementReturnQtyImplCopyWithImpl<_$DecrementReturnQtyImpl>(
-          this, _$identity);
+  _$$DecrementReturnRequestQtyImplCopyWith<_$DecrementReturnRequestQtyImpl>
+      get copyWith => __$$DecrementReturnRequestQtyImplCopyWithImpl<
+          _$DecrementReturnRequestQtyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -354,7 +369,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -367,7 +382,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -382,9 +397,10 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -395,9 +411,10 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -408,9 +425,10 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
@@ -423,32 +441,35 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   }
 }
 
-abstract class DecrementReturnQty implements ReturnRequestState {
-  const factory DecrementReturnQty(final int index, final int qty) =
-      _$DecrementReturnQtyImpl;
+abstract class DecrementReturnRequestQty implements ReturnRequestState {
+  const factory DecrementReturnRequestQty(final int index, final int qty) =
+      _$DecrementReturnRequestQtyImpl;
 
   int get index;
   int get qty;
   @JsonKey(ignore: true)
-  _$$DecrementReturnQtyImplCopyWith<_$DecrementReturnQtyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DecrementReturnRequestQtyImplCopyWith<_$DecrementReturnRequestQtyImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AddQtyTextFieldValueImplCopyWith<$Res> {
-  factory _$$AddQtyTextFieldValueImplCopyWith(_$AddQtyTextFieldValueImpl value,
-          $Res Function(_$AddQtyTextFieldValueImpl) then) =
-      __$$AddQtyTextFieldValueImplCopyWithImpl<$Res>;
+abstract class _$$AddReturnRequestQtyTextFieldValueImplCopyWith<$Res> {
+  factory _$$AddReturnRequestQtyTextFieldValueImplCopyWith(
+          _$AddReturnRequestQtyTextFieldValueImpl value,
+          $Res Function(_$AddReturnRequestQtyTextFieldValueImpl) then) =
+      __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index, int qty});
 }
 
 /// @nodoc
-class __$$AddQtyTextFieldValueImplCopyWithImpl<$Res>
-    extends _$ReturnRequestStateCopyWithImpl<$Res, _$AddQtyTextFieldValueImpl>
-    implements _$$AddQtyTextFieldValueImplCopyWith<$Res> {
-  __$$AddQtyTextFieldValueImplCopyWithImpl(_$AddQtyTextFieldValueImpl _value,
-      $Res Function(_$AddQtyTextFieldValueImpl) _then)
+class __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl<$Res>
+    extends _$ReturnRequestStateCopyWithImpl<$Res,
+        _$AddReturnRequestQtyTextFieldValueImpl>
+    implements _$$AddReturnRequestQtyTextFieldValueImplCopyWith<$Res> {
+  __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl(
+      _$AddReturnRequestQtyTextFieldValueImpl _value,
+      $Res Function(_$AddReturnRequestQtyTextFieldValueImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -457,7 +478,7 @@ class __$$AddQtyTextFieldValueImplCopyWithImpl<$Res>
     Object? index = null,
     Object? qty = null,
   }) {
-    return _then(_$AddQtyTextFieldValueImpl(
+    return _then(_$AddReturnRequestQtyTextFieldValueImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -472,8 +493,9 @@ class __$$AddQtyTextFieldValueImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
-  const _$AddQtyTextFieldValueImpl(this.index, this.qty);
+class _$AddReturnRequestQtyTextFieldValueImpl
+    implements AddReturnRequestQtyTextFieldValue {
+  const _$AddReturnRequestQtyTextFieldValueImpl(this.index, this.qty);
 
   @override
   final int index;
@@ -482,14 +504,14 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
 
   @override
   String toString() {
-    return 'ReturnRequestState.addQtyTextFieldValue(index: $index, qty: $qty)';
+    return 'ReturnRequestState.addReturnRequestQtyTextFieldValue(index: $index, qty: $qty)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddQtyTextFieldValueImpl &&
+            other is _$AddReturnRequestQtyTextFieldValueImpl &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.qty, qty) || other.qty == qty));
   }
@@ -500,22 +522,23 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddQtyTextFieldValueImplCopyWith<_$AddQtyTextFieldValueImpl>
-      get copyWith =>
-          __$$AddQtyTextFieldValueImplCopyWithImpl<_$AddQtyTextFieldValueImpl>(
-              this, _$identity);
+  _$$AddReturnRequestQtyTextFieldValueImplCopyWith<
+          _$AddReturnRequestQtyTextFieldValueImpl>
+      get copyWith => __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl<
+          _$AddReturnRequestQtyTextFieldValueImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
   }) {
-    return addQtyTextFieldValue(index, qty);
+    return addReturnRequestQtyTextFieldValue(index, qty);
   }
 
   @override
@@ -523,12 +546,12 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
   }) {
-    return addQtyTextFieldValue?.call(index, qty);
+    return addReturnRequestQtyTextFieldValue?.call(index, qty);
   }
 
   @override
@@ -536,14 +559,14 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
-    if (addQtyTextFieldValue != null) {
-      return addQtyTextFieldValue(index, qty);
+    if (addReturnRequestQtyTextFieldValue != null) {
+      return addReturnRequestQtyTextFieldValue(index, qty);
     }
     return orElse();
   }
@@ -551,55 +574,59 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
   }) {
-    return addQtyTextFieldValue(this);
+    return addReturnRequestQtyTextFieldValue(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
   }) {
-    return addQtyTextFieldValue?.call(this);
+    return addReturnRequestQtyTextFieldValue?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
     required TResult orElse(),
   }) {
-    if (addQtyTextFieldValue != null) {
-      return addQtyTextFieldValue(this);
+    if (addReturnRequestQtyTextFieldValue != null) {
+      return addReturnRequestQtyTextFieldValue(this);
     }
     return orElse();
   }
 }
 
-abstract class AddQtyTextFieldValue implements ReturnRequestState {
-  const factory AddQtyTextFieldValue(final int index, final int qty) =
-      _$AddQtyTextFieldValueImpl;
+abstract class AddReturnRequestQtyTextFieldValue implements ReturnRequestState {
+  const factory AddReturnRequestQtyTextFieldValue(
+      final int index, final int qty) = _$AddReturnRequestQtyTextFieldValueImpl;
 
   int get index;
   int get qty;
   @JsonKey(ignore: true)
-  _$$AddQtyTextFieldValueImplCopyWith<_$AddQtyTextFieldValueImpl>
+  _$$AddReturnRequestQtyTextFieldValueImplCopyWith<
+          _$AddReturnRequestQtyTextFieldValueImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -643,7 +670,8 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -656,7 +684,7 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -669,7 +697,7 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -684,9 +712,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -697,9 +726,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -710,9 +740,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
@@ -770,7 +801,8 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -783,7 +815,7 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -796,7 +828,7 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -811,9 +843,10 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -824,9 +857,10 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -837,9 +871,10 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,
@@ -923,7 +958,8 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   TResult when<TResult extends Object?>({
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
-    required TResult Function(int index, int qty) addQtyTextFieldValue,
+    required TResult Function(int index, int qty)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -936,7 +972,7 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
-    TResult? Function(int index, int qty)? addQtyTextFieldValue,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -949,7 +985,7 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
-    TResult Function(int index, int qty)? addQtyTextFieldValue,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -964,9 +1000,10 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(IncrementReturnQty value) incrementQty,
-    required TResult Function(DecrementReturnQty value) decrementQty,
-    required TResult Function(AddQtyTextFieldValue value) addQtyTextFieldValue,
+    required TResult Function(IncrementReturnRequestQty value) incrementQty,
+    required TResult Function(DecrementReturnRequestQty value) decrementQty,
+    required TResult Function(AddReturnRequestQtyTextFieldValue value)
+        addReturnRequestQtyTextFieldValue,
     required TResult Function(Initial value) initial,
     required TResult Function(ReturnRequestLoading value) loading,
     required TResult Function(ReturnRequestError value) error,
@@ -977,9 +1014,10 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(IncrementReturnQty value)? incrementQty,
-    TResult? Function(DecrementReturnQty value)? decrementQty,
-    TResult? Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult? Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult? Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult? Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult? Function(Initial value)? initial,
     TResult? Function(ReturnRequestLoading value)? loading,
     TResult? Function(ReturnRequestError value)? error,
@@ -990,9 +1028,10 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(IncrementReturnQty value)? incrementQty,
-    TResult Function(DecrementReturnQty value)? decrementQty,
-    TResult Function(AddQtyTextFieldValue value)? addQtyTextFieldValue,
+    TResult Function(IncrementReturnRequestQty value)? incrementQty,
+    TResult Function(DecrementReturnRequestQty value)? decrementQty,
+    TResult Function(AddReturnRequestQtyTextFieldValue value)?
+        addReturnRequestQtyTextFieldValue,
     TResult Function(Initial value)? initial,
     TResult Function(ReturnRequestLoading value)? loading,
     TResult Function(ReturnRequestError value)? error,

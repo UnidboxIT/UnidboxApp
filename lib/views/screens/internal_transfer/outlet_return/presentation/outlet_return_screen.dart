@@ -134,7 +134,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "product_line": {}
+                    "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']

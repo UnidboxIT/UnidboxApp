@@ -492,14 +492,16 @@ class _EachReturnReasonWidgetState
   @override
   Widget build(BuildContext context) {
     ref.listen(returnRequestStateNotifierProvider, (pre, next) {
-      if (next is IncrementReturnQty && widget.reasonIndex == next.index) {
+      if (next is IncrementReturnRequestQty &&
+          widget.reasonIndex == next.index) {
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
         });
       }
-      if (next is DecrementReturnQty && widget.reasonIndex == next.index) {
+      if (next is DecrementReturnRequestQty &&
+          widget.reasonIndex == next.index) {
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
@@ -507,7 +509,8 @@ class _EachReturnReasonWidgetState
         });
       }
 
-      if (next is AddQtyTextFieldValue && widget.reasonIndex == next.index) {
+      if (next is AddReturnRequestQtyTextFieldValue &&
+          widget.reasonIndex == next.index) {
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
