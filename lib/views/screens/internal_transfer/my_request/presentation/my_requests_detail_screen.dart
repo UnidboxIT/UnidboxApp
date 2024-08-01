@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +38,7 @@ class _MyRequestsDetailScreenState
   int acceptProductID = -1;
   bool receivedLoading = false;
   bool myRequestLoading = false;
+  bool isMyRequestDataLoading = false;
   // bool requestLoading = false;
   List<String> visibleCode = [];
   List<FilterProductStatus> filterProductStatusList = [
@@ -93,7 +95,13 @@ class _MyRequestsDetailScreenState
               }
             }
           }
+          isMyRequestDataLoading = false;
           //requestLoading = false;
+        });
+      }
+      if (next is MyRequestDataListLoading) {
+        setState(() {
+          isMyRequestDataLoading = true;
         });
       }
 
@@ -130,7 +138,6 @@ class _MyRequestsDetailScreenState
         setState(() {
           myRequestList = [];
           pendingRequestList.clear();
-
           myRequestList = next.searchMyRequestList;
         });
       }
@@ -224,7 +231,13 @@ class _MyRequestsDetailScreenState
         children: [
           MyRequestSearchWidget(myRequestList: myRequestList),
           Expanded(
-            child: myrequestDetailWidget(),
+            child: isMyRequestDataLoading
+                ? Center(
+                    child: CupertinoActivityIndicator(
+                      color: AppColor.primary,
+                    ),
+                  )
+                : myrequestDetailWidget(),
           ),
         ],
       ),

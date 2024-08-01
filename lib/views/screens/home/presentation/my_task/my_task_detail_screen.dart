@@ -80,9 +80,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
-          totalInternalTransferLength = requestProductList.length +
-              outletReturnProductList.length +
-              myReturnProductList.length;
+
           isLoading = false;
         });
       }
@@ -106,11 +104,13 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
             }
           }
           superPrint(myReturnProductList);
-          totalInternalTransferLength = requestProductList.length +
-              outletReturnProductList.length +
-              myReturnProductList.length;
         });
       }
+    });
+    setState(() {
+      totalInternalTransferLength = requestProductList.length +
+          outletReturnProductList.length +
+          myReturnProductList.length;
     });
     superPrint(totalInternalTransferLength);
     return SuperScaffold(

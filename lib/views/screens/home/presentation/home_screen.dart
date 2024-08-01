@@ -111,9 +111,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               }
             }
           }
-          totalInternalTransferLength = requestProductList.length +
-              outletReturnProductList.length +
-              myReturnProductList.length;
+
           isLoading = false;
         });
       }
@@ -135,11 +133,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               }
             }
           }
-          totalInternalTransferLength = requestProductList.length +
-              outletReturnProductList.length +
-              myReturnProductList.length;
         });
       }
+    });
+    setState(() {
+      totalInternalTransferLength = requestProductList.length +
+          outletReturnProductList.length +
+          myReturnProductList.length;
     });
 
     return SuperScaffold(

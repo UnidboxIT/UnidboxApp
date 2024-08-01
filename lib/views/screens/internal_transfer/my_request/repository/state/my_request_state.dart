@@ -19,6 +19,8 @@ class MyRequestState with _$MyRequestState {
   const factory MyRequestState.isDataExist(bool isExit) = IsDataExit;
   const factory MyRequestState.initial() = Initial;
   const factory MyRequestState.loading() = MyRequestLoading;
+  const factory MyRequestState.myRequestDataLoading() =
+      MyRequestDataListLoading;
   const factory MyRequestState.error({String? error}) = MyRequestError;
   const factory MyRequestState.receivedProductID(int productID) =
       ReceivedProductID;
