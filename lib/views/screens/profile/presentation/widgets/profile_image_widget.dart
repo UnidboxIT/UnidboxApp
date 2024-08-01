@@ -117,7 +117,9 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
           ),
           const SizedBox(height: 8),
           textWidget(
-            '( ${userWarehouse.warehouseList[1] ?? ""} )',
+            userWarehouse.warehouseList.isEmpty
+                ? ""
+                : '( ${userWarehouse.warehouseList[1] ?? ""} )',
             color: Colors.black,
             fontWeight: FontWeight.bold,
             size: 14,

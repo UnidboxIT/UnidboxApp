@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -51,12 +49,10 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(otherRequestStateNotifierProvider.notifier)
-          .getAllOtherRequest()
-          .then((_) => ref
-              .read(myRequestStateNotifierProvider.notifier)
-              .getAllMyRequest());
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
   }
 
@@ -84,10 +80,9 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
-          setState(() {
-            totalInternalTransferLength =
-                requestProductList.length + outletReturnProductList.length;
-          });
+          totalInternalTransferLength = requestProductList.length +
+              outletReturnProductList.length +
+              myReturnProductList.length;
           isLoading = false;
         });
       }
@@ -110,9 +105,10 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
-          setState(() {
-            totalInternalTransferLength += myReturnProductList.length;
-          });
+          superPrint(myReturnProductList);
+          totalInternalTransferLength = requestProductList.length +
+              outletReturnProductList.length +
+              myReturnProductList.length;
         });
       }
     });

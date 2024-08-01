@@ -8,6 +8,8 @@ import 'package:unidbox_app/views/screens/home/presentation/widgets/home_app_bar
 import 'package:unidbox_app/views/screens/home/repository/state/home_state.dart';
 import '../../../../utils/commons/super_scaffold.dart';
 import '../../internal_transfer/my_request/domain/my_request.dart';
+import '../../internal_transfer/my_return/repository/provider/my_return_provider.dart';
+import '../../internal_transfer/my_return/repository/state/my_return_state.dart';
 import '../../internal_transfer/outlet_request/domain/other_request.dart';
 import '../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import '../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
@@ -33,6 +35,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   int totalInternalTransferLength = 0;
   List<MyTask> myTaskList = [];
   Map<int, List<MyTask>> myTaskDetailMap = {};
+  List<MyRequest> myReturnList = [];
+  List<ProductLineId> myReturnProductList = [];
 
   @override
   void initState() {
@@ -47,6 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       await ref
           .read(otherRequestStateNotifierProvider.notifier)
           .getAllOtherRequest();
+      await ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   // final state = ref.read(homeStateNotifierProvider);
@@ -106,9 +111,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               }
             }
           }
-          totalInternalTransferLength =
-              requestProductList.length + outletReturnProductList.length;
+          totalInternalTransferLength = requestProductList.length +
+              outletReturnProductList.length +
+              myReturnProductList.length;
           isLoading = false;
+        });
+      }
+    });
+    ref.listen(myReturnStateNotifierProvider, (pre, next) {
+      if (next is MyReturnLoading) {
+        setState(() {
+          myReturnList = [];
+          myReturnProductList.clear();
+        });
+      }
+      if (next is MyReturnDataList) {
+        setState(() {
+          myReturnList = next.myReturnDataList;
+          for (var data in myReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                myReturnProductList.add(element);
+              }
+            }
+          }
+          totalInternalTransferLength = requestProductList.length +
+              outletReturnProductList.length +
+              myReturnProductList.length;
         });
       }
     });

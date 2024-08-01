@@ -5,7 +5,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
@@ -58,7 +57,7 @@ class _InternalTransferScreenState
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
   }
 

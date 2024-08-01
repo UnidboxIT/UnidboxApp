@@ -387,6 +387,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               productList,
                                               ref,
                                               context,
+                                              isAcceptLoading: acceptLoading,
                                               acceptProductID: acceptProductID),
                                         )
                                       ],
