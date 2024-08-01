@@ -22,7 +22,7 @@ import '../repository/state/return_request_reason_state.dart';
 import '../repository/state/return_request_state.dart';
 import 'widgets/each_product_line_widget.dart';
 
-Map<int, int> reasonQtyMap = {};
+Map<String, int> reasonQtyMap = {};
 List returnRequestImageList = [];
 
 class ReturnRequestScreen extends ConsumerStatefulWidget {
@@ -52,7 +52,7 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
 
 class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
   List<ReturnRequestReason> returnRequestReasonList = [];
-  List<int> reasonIndex = [];
+  List<String> reasonIndex = [];
   bool requestLoading = false;
   @override
   void initState() {
@@ -362,13 +362,16 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                           (previousValue, element) => previousValue + element);
                       superPrint(sumRecevieQty);
                       if (!reasonIndex
-                          .contains(returnRequestReasonList[index].id)) {
+                          .contains(returnRequestReasonList[index].reason)) {
                         if (widget.receiveReasonQty > sumRecevieQty) {
-                          reasonIndex.add(returnRequestReasonList[index].id);
+                          reasonIndex
+                              .add(returnRequestReasonList[index].reason);
                         }
                       } else {
-                        reasonQtyMap.remove(returnRequestReasonList[index].id);
-                        reasonIndex.remove(returnRequestReasonList[index].id);
+                        reasonQtyMap
+                            .remove(returnRequestReasonList[index].reason);
+                        reasonIndex
+                            .remove(returnRequestReasonList[index].reason);
                       }
                     });
                   },
@@ -377,8 +380,8 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          reasonIndex
-                                  .contains(returnRequestReasonList[index].id)
+                          reasonIndex.contains(
+                                  returnRequestReasonList[index].reason)
                               ? Icons.check_box_outlined
                               : Icons.check_box_outline_blank,
                           size: 18,
@@ -394,11 +397,11 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   ),
                 ),
                 Visibility(
-                  visible:
-                      reasonIndex.contains(returnRequestReasonList[index].id),
+                  visible: reasonIndex
+                      .contains(returnRequestReasonList[index].reason),
                   child: EachReturnReasonWidget(
                       productID: widget.productLine.id,
-                      reasonIndex: returnRequestReasonList[index].id,
+                      reasonIndex: returnRequestReasonList[index].reason,
                       reasonName: returnRequestReasonList[index].reason,
                       reasonIndexList: reasonIndex,
                       returnRequestReasonList: returnRequestReasonList,
@@ -417,9 +420,9 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 
 class EachReturnReasonWidget extends ConsumerStatefulWidget {
   final int productID;
-  final int reasonIndex;
+  final String reasonIndex;
   final String reasonName;
-  final List<int> reasonIndexList;
+  final List<String> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
   final double receiveQty;
   const EachReturnReasonWidget(
@@ -701,12 +704,12 @@ class _EachReturnReasonWidgetState
             ],
           ),
           Visibility(
-              visible:
-                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
+              visible: widget.reasonIndex ==
+                  widget.returnRequestReasonList.last.reason,
               child: const SizedBox(height: 10)),
           Visibility(
-            visible:
-                widget.reasonIndex == widget.returnRequestReasonList.last.id,
+            visible: widget.reasonIndex ==
+                widget.returnRequestReasonList.last.reason,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(

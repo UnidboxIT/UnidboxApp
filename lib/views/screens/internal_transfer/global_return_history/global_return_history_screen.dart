@@ -104,7 +104,7 @@ class _GlobalReturnHistoryScreenState
                               blurRadius: 3)
                         ]),
                     child: textWidget(
-                      "My Return",
+                      "My Returned",
                       color: isMyReturn ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -128,7 +128,7 @@ class _GlobalReturnHistoryScreenState
                               blurRadius: 3)
                         ]),
                     child: textWidget(
-                      "Outlet Return",
+                      "Outlet Returned",
                       color: !isMyReturn ? Colors.white : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),

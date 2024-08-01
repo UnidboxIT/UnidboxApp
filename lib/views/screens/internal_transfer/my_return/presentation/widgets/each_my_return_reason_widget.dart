@@ -15,8 +15,8 @@ import 'each_my_return_product_widget.dart';
 TextEditingController txtOtherComment = TextEditingController();
 
 class EachMyReturnReasonWidget extends ConsumerStatefulWidget {
-  final int reasonIndex;
-  final List<int> reasonIndexList;
+  final String reasonIndex;
+  final List<String> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
   final double receiveQty;
   const EachMyReturnReasonWidget(

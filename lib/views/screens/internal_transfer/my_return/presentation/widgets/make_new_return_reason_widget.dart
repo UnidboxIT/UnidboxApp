@@ -16,8 +16,8 @@ TextEditingController txtNewReturnComment = TextEditingController();
 int sumNewReturnQty = 0;
 
 class MakeNewReturnReasonWidget extends ConsumerStatefulWidget {
-  final int reasonIndex;
-  final List<int> reasonIndexList;
+  final String reasonIndex;
+  final List<String> reasonIndexList;
   final List<ReturnRequestReason> returnRequestReasonList;
   final double receiveQty;
   const MakeNewReturnReasonWidget(
@@ -205,12 +205,12 @@ class _EachReturnReasonWidgetState
             ],
           ),
           Visibility(
-              visible:
-                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
+              visible: widget.reasonIndex ==
+                  widget.returnRequestReasonList.last.reason,
               child: const SizedBox(height: 10)),
           Visibility(
-            visible:
-                widget.reasonIndex == widget.returnRequestReasonList.last.id,
+            visible: widget.reasonIndex ==
+                widget.returnRequestReasonList.last.reason,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(

@@ -43,7 +43,7 @@ class UpdateMyReturnScreen extends ConsumerStatefulWidget {
 class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
     with WidgetsBindingObserver {
   List<ReturnRequestReason> myReturnReason = [];
-  List<int> reasonIndex = [];
+  List<String> reasonIndex = [];
   bool isMyReturnUpdate = false;
   @override
   void initState() {
@@ -144,7 +144,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
       ),
       child: Column(
         children: [
-          scanSearchBarWidget(),
+          scanSearchBarWidget(context),
           Expanded(child: returnRequestWidget()),
         ],
       ),
@@ -379,13 +379,13 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                   setState(() {
                     int sumRecevieQty = reasonQtyMap.values.fold(
                         0, (previousValue, element) => previousValue + element);
-                    if (!reasonIndex.contains(myReturnReason[index].id)) {
+                    if (!reasonIndex.contains(myReturnReason[index].reason)) {
                       if (widget.receiveQty > sumRecevieQty) {
-                        reasonIndex.add(myReturnReason[index].id);
+                        reasonIndex.add(myReturnReason[index].reason);
                       }
                     } else {
-                      reasonQtyMap.remove(myReturnReason[index].id);
-                      reasonIndex.remove(myReturnReason[index].id);
+                      reasonQtyMap.remove(myReturnReason[index].reason);
+                      reasonIndex.remove(myReturnReason[index].reason);
                     }
                   });
                 },
@@ -410,9 +410,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                 ),
               ),
               Visibility(
-                visible: reasonIndex.contains(myReturnReason[index].id),
+                visible: reasonIndex.contains(myReturnReason[index].reason),
                 child: EachMyReturnReasonWidget(
-                    reasonIndex: myReturnReason[index].id,
+                    reasonIndex: myReturnReason[index].reason,
                     reasonIndexList: reasonIndex,
                     returnRequestReasonList: myReturnReason,
                     receiveQty: widget.receiveQty),

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget scanSearchBarWidget() {
+import '../barcode_scanner_screen.dart';
+
+Widget scanSearchBarWidget(BuildContext context) {
   TextEditingController txtSearchController = TextEditingController();
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -36,7 +38,11 @@ Widget scanSearchBarWidget() {
               CupertinoIcons.qrcode_viewfinder,
               size: 18,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const NewReturnBarCodeScannerScreen(),
+              ));
+            },
           ),
           prefixIcon: const Icon(
             CupertinoIcons.search,

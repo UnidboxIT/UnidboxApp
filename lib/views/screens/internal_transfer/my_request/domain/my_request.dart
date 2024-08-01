@@ -57,7 +57,8 @@ class ProductLineId {
   List requestWarehouse;
   bool isReturn;
   List productUomList;
-  //List reasonList;
+  String reason;
+  String otherComment;
 
   ProductLineId({
     this.id = 0,
@@ -76,7 +77,8 @@ class ProductLineId {
     this.requestWarehouse = const [],
     this.isReturn = false,
     this.productUomList = const [],
-    // this.reasonList = const [],
+    this.reason = "",
+    this.otherComment = "",
   });
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
@@ -101,7 +103,8 @@ class ProductLineId {
       productUomList: json['product_uom_id'] == false
           ? []
           : List.from(json['product_uom_id']),
-      //reasonList: List.from(json['reasons'] ?? []),
+      reason: json['reason'].toString(),
+      otherComment: json['comment'].toString(),
     );
   }
 }

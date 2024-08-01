@@ -7,12 +7,12 @@ extension Getters on ReturnRequestState {
 
 @freezed
 class ReturnRequestState with _$ReturnRequestState {
-  const factory ReturnRequestState.incrementQty(int index, int qty) =
+  const factory ReturnRequestState.incrementQty(String index, int qty) =
       IncrementReturnRequestQty;
-  const factory ReturnRequestState.decrementQty(int index, int qty) =
+  const factory ReturnRequestState.decrementQty(String index, int qty) =
       DecrementReturnRequestQty;
   const factory ReturnRequestState.addReturnRequestQtyTextFieldValue(
-      int index, int qty) = AddReturnRequestQtyTextFieldValue;
+      String index, int qty) = AddReturnRequestQtyTextFieldValue;
   const factory ReturnRequestState.initial() = Initial;
   const factory ReturnRequestState.loading() = ReturnRequestLoading;
   const factory ReturnRequestState.error({String? error}) = ReturnRequestError;

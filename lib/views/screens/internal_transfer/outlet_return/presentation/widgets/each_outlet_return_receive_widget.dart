@@ -189,7 +189,13 @@ Widget eachOutletReturnWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            "Over Stock",
+                            productList[index].reason == "false"
+                                ? ""
+                                : productList[index]
+                                    .reason
+                                    .replaceAll("[", "")
+                                    .replaceAll("]", "")
+                                    .replaceAll("'", ""),
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,

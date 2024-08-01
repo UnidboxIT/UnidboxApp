@@ -20,6 +20,7 @@ import '../../outlet_request/presentation/widgets/search_other_request_widget.da
 import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_state.dart';
+import 'barcode_scanner_screen.dart';
 import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
 
@@ -186,7 +187,12 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              const NewReturnBarCodeScannerScreen(),
+                        ));
+                      },
                       child: Container(
                         color: Colors.transparent,
                         padding: const EdgeInsets.symmetric(
@@ -291,8 +297,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 children: warehouseMap.entries.map((entry) {
                   // int warehouseId = entry.key;
                   Map<dynamic, dynamic> warehouseData = entry.value;
-                  superPrint(warehouseData);
-                  superPrint(warehouseData['reasons']);
                   Map<dynamic, dynamic> productLineMap =
                       warehouseData['product_line'];
                   return productLineMap.isEmpty

@@ -40,14 +40,14 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
   }
 
   Future<void> updateMyReturn(
-    int currentWarehouseID,
     int requestWarehouseID,
+    int currentWarehouseID,
     int productID,
     String productName,
     int totalQty,
     double price,
     int uomID,
-    List<int> reasonIDList,
+    List<String> reasonIDList,
     String comment,
     BuildContext context,
     WidgetRef ref,
@@ -55,8 +55,8 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
     try {
       state = const MyReturnState.updateLoading();
       Response response = await _myRequestRepository.myReturnStockRequest(
-          currentWarehouseID,
           requestWarehouseID,
+          currentWarehouseID,
           productID,
           productName,
           DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),

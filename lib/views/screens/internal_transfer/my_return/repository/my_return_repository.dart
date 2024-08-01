@@ -26,15 +26,15 @@ class MyReturnRepository {
   }
 
   Future<Response> myReturnStockRequest(
-    int currentWarehouseID,
     int requestWarehouseID,
+    int currentWarehouseID,
     int productID,
     String productName,
     String dateTime,
     int totalQty,
     double price,
     int uomID,
-    List<int> reasonID,
+    List<String> reasonID,
     String comment,
   ) async {
     Map<String, dynamic> formData = {};
@@ -47,7 +47,7 @@ class MyReturnRepository {
         "quantity": totalQty,
         "uom_id": uomID,
         "is_return": true,
-        "reason_ids": reasonID,
+        "reason": reasonID,
         "comment": comment
       };
     } else {
@@ -59,7 +59,7 @@ class MyReturnRepository {
         "quantity": totalQty,
         "uom_id": uomID,
         "is_return": true,
-        "reason_ids": reasonID,
+        "reason": reasonID,
       };
     }
 

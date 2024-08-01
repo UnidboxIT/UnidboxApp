@@ -50,14 +50,14 @@ class MyRequestRepository {
   }
 
   Future<Response> receivedByImage(int productID, int qty,
-      List<int> reasonIdList, String otherComment, List imageList) async {
+      List<String> reasonIdList, String otherComment, List imageList) async {
     Map<String, dynamic> formData = {};
     if (otherComment.isNotEmpty) {
       formData = {
         "state": "received",
         "qty": qty,
         "ids": [productID],
-        "reason_ids": reasonIdList,
+        "reason": reasonIdList,
         "comment": otherComment,
         "img_name": "picking_$productID.png",
         "images": imageList,
@@ -67,7 +67,7 @@ class MyRequestRepository {
         "state": "received",
         "qty": qty,
         "ids": [productID],
-        "reason_ids": reasonIdList,
+        "reason": reasonIdList,
         "images": imageList,
       };
     }
