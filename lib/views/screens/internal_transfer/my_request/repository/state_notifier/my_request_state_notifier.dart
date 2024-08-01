@@ -45,6 +45,12 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getAllMyRequest();
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['result']['error'],
+            context,
+          );
+          state = const MyRequestState.error();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

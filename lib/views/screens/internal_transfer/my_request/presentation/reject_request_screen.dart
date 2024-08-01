@@ -142,7 +142,6 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                       productLine.status == "accepted") &&
                   !productLine.removeReject;
         }).toList();
-        superPrint(productList);
         String requestWarehouse = rejectRequestList[index].requestToWh.isEmpty
             ? ""
             : rejectRequestList[index].requestToWh[1];
