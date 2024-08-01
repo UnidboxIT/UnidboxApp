@@ -86,10 +86,9 @@ class _MyRequestsDetailScreenState
               if (element.status == 'requested') {
                 pendingRequestList.add(element);
               }
-              if (element.status == "rejected" ||
+              if (element.status == "rejected" && !element.removeReject ||
                   element.qty > element.issueQty &&
-                      element.status == "accepted" &&
-                      !element.removeReject) {
+                      element.status == "accepted") {
                 rejectedList.add(element);
               }
             }
