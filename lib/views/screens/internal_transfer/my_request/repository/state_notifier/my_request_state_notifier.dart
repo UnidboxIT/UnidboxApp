@@ -8,6 +8,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_request/repositor
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/my_request_state.dart';
 import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
+import '../../presentation/widgets/return_request_success_bottomsheet.dart';
 
 class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
   MyRequestStateNotifier(this._myRequestRepository)
@@ -82,8 +83,8 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
             result['error']['data']['message'],
             context,
           );
-          state = const MyRequestState.error();
         }
+        state = const MyRequestState.error();
       }
     } catch (e) {
       superPrint(e.toString());
@@ -111,8 +112,8 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
             result['error']['data']['message'],
             context,
           );
-          state = const MyRequestState.error();
         }
+        state = const MyRequestState.error();
       }
     } catch (e) {
       superPrint(e.toString());
@@ -139,8 +140,11 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          getAllMyRequest();
-          Navigator.of(context).pop();
+          returnRequestSuccessBottomSheet(() {
+            getAllMyRequest();
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          }, context);
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

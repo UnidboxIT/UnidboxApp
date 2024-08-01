@@ -115,6 +115,12 @@ class _MyRequestsDetailScreenState
         });
       }
 
+      if (next is MyRequestError) {
+        setState(() {
+          myRequestLoading = false;
+        });
+      }
+
       if (next is Error) {
         setState(() {
           myRequestLoading = false;

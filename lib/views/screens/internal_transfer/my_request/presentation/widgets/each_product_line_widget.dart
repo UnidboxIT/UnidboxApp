@@ -46,6 +46,7 @@ Widget eachProductLineWidget(
               product = productList[index];
             }
           }
+
           return Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
