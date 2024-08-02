@@ -18,7 +18,8 @@ Widget eachPendingRequestListWidget(
     String currentDate,
     String requestWarehouse,
     List<ProductLineId> productList,
-    {int acceptProductID = -1}) {
+    {int acceptProductID = -1,
+    bool isUpdateLoading = false}) {
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -254,7 +255,8 @@ Widget eachPendingRequestListWidget(
                                             productID: product.id);
                                   });
                                 },
-                                isBool: product.id == acceptProductID,
+                                isBool: isUpdateLoading &&
+                                    product.id == acceptProductID,
                                 elevation: 1,
                                 bgColor: Colors.white,
                                 fontColor: Colors.black,
@@ -271,6 +273,8 @@ Widget eachPendingRequestListWidget(
                                           .notifier)
                                       .myRequestPending(true,
                                           productID: product.id);
+                                  isUpdateLoading = false;
+                                  acceptProductID = -1;
                                 },
                                 elevation: 1,
                                 bgColor: Colors.white,

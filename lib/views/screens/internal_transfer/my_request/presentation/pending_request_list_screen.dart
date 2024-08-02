@@ -26,6 +26,7 @@ class _PendingRequestListScreenState
     extends ConsumerState<PendingRequestListScreen> {
   List<MyRequest> pendingRequestList = [];
   int acceptProductID = -1;
+  bool isMyRequestLoading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -40,21 +41,29 @@ class _PendingRequestListScreenState
     superPrint("HERE");
     // ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestLoading) {
+        setState(() {
+          isMyRequestLoading = true;
+        });
+      }
       if (next is MyRequestList) {
         pendingRequestList = [];
         setState(() {
           pendingRequestList = next.myRequestList;
           acceptProductID = -1;
+          isMyRequestLoading = false;
         });
       }
       if (next is ReceivedProductID) {
         setState(() {
           acceptProductID = next.productID;
+          isMyRequestLoading = false;
         });
       }
       if (next is Error) {
         setState(() {
           acceptProductID = -1;
+          isMyRequestLoading = false;
         });
       }
     });
@@ -128,7 +137,8 @@ class _PendingRequestListScreenState
                     children: [
                       eachPendingRequestListWidget(requestCode, name,
                           currentDate, requestWarehouse, productList,
-                          acceptProductID: acceptProductID),
+                          acceptProductID: acceptProductID,
+                          isUpdateLoading: isMyRequestLoading),
                       const SizedBox(height: 20)
                     ],
                   );
