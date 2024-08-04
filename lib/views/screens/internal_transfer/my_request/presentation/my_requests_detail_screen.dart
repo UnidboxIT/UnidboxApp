@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/drawer_widget.dart';
@@ -75,6 +76,9 @@ class _MyRequestsDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ref.read(currentRouteProvider.notifier).state = '/myRequest';
+    });
     ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestList) {

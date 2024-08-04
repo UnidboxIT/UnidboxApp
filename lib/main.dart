@@ -14,6 +14,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/reposi
 import 'package:unidbox_app/views/screens/system_navigation/home_navigation.dart';
 import 'views/global_provider_observe.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
+import 'views/screens/internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
 import 'views/screens/notification_service/notification_service.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import 'views/user_warehouse/provider/user_warehouse_provider.dart';
@@ -74,7 +75,9 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       .read(currentRouteProvider.notifier)
       .state;
   superPrint(currentRoute != '/outletRequest');
-  if (currentRoute != '/outletRequest') {
+  if (currentRoute != '/outletRequest' &&
+          receivedAction.body!.contains("updated") ||
+      receivedAction.body!.contains("request")) {
     // if (receivedAction.body!.contains("updated") ||
     //     receivedAction.body!.contains("request")) {
     Navigator.push(
@@ -82,5 +85,14 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
     // }
+  } else if (currentRoute != '/myRequest' &&
+          receivedAction.body!.contains("accepted") ||
+      receivedAction.body!.contains("packed")) {
+    Navigator.of(
+      homeNavRouteState.currentState!.context,
+    ).push(MaterialPageRoute(
+        builder: (context) => const MyRequestsDetailScreen(
+              isStockRequest: false,
+            )));
   }
 }
