@@ -36,6 +36,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> packedProductList = [];
   int acceptProductID = -1;
   bool acceptLoading = false;
+  bool isAcceptedLoading = false;
   List<Map<int, dynamic>> requestedMapList = [];
   @override
   void initState() {
@@ -109,12 +110,14 @@ class _OtherRequestsDetailScreenState
         setState(() {
           packedProductList.clear();
           otherRequestList = [];
+          isAcceptedLoading = true;
         });
       }
       if (next is OtherRequestList) {
         setState(() {
           otherRequestList = next.otherRequestList;
           loadWarehouseData();
+          isAcceptedLoading = false;
           acceptLoading = false;
         });
       }
@@ -138,25 +141,30 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    return Column(
-      children: [
-        packedRequestWidget(),
-        const SizedBox(height: 15),
-        warehouseWidget(),
-        requestedMapList.isNotEmpty
-            ? Expanded(
-                child: acceptedWarehouseMap[selectedWarehouseID] == null
-                    ? Center(child: textWidget("No Data !"))
-                    : acceptedProductLineWidget(requestedMapList),
-              )
-            : Expanded(
-                child: Center(
-                  child: textWidget("No Data !"),
-                ),
-              ),
-        const SizedBox(height: 20),
-      ],
-    );
+    return isAcceptedLoading
+        ? Center(
+            child: CupertinoActivityIndicator(
+            color: AppColor.primary,
+          ))
+        : Column(
+            children: [
+              packedRequestWidget(),
+              const SizedBox(height: 15),
+              warehouseWidget(),
+              requestedMapList.isNotEmpty
+                  ? Expanded(
+                      child: acceptedWarehouseMap[selectedWarehouseID] == null
+                          ? Center(child: textWidget("No Data !"))
+                          : acceptedProductLineWidget(requestedMapList),
+                    )
+                  : Expanded(
+                      child: Center(
+                        child: textWidget("No Data !"),
+                      ),
+                    ),
+              const SizedBox(height: 20),
+            ],
+          );
   }
 
   Widget acceptedProductLineWidget(

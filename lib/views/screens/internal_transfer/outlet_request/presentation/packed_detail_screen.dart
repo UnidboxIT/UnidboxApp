@@ -49,6 +49,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> acceptedReturnList = [];
   Map<int, dynamic> requestedMap = {};
   List<Map<int, dynamic>> requestedReturnMapList = [];
+  bool isPackedLoading = false;
 
   @override
   void initState() {
@@ -56,13 +57,17 @@ class _OtherRequestsDetailScreenState
     setState(() {
       otherRequestList = widget.otherRequestList;
     });
-    loadWarehouseData();
+    loadWarehouseData().then((_) {
+      setState(() {
+        isPackedLoading = false;
+      });
+    });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
   }
 
-  loadWarehouseData() {
+  Future<void> loadWarehouseData() async {
     // packedWarehouseMap.clear();
     // packedProductMap.clear();
     packedWarehouseMap.forEach((key, value) {
@@ -150,10 +155,6 @@ class _OtherRequestsDetailScreenState
       if (acceptedWarehouseMap.isNotEmpty) {
         acceptedMapList.add(acceptedWarehouseMap);
       }
-      superPrint(requestedMapList);
-      superPrint(idList);
-      superPrint(finalDeveilerMapList);
-      superPrint(acceptedMapList);
     }
     for (var map1 in finalDeveilerMapList) {
       for (var map2 in acceptedMapList) {
@@ -246,6 +247,9 @@ class _OtherRequestsDetailScreenState
         setState(() {
           otherRequestList = next.otherRequestList;
           loadWarehouseData();
+          setState(() {
+            isPackedLoading = false;
+          });
         });
       }
       if (next is Error) {
@@ -259,144 +263,152 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    return Column(
-      children: [
-        packedRequestWidget(),
-        const SizedBox(height: 15),
-        warehouseWidget(),
-        requestedMapList.isNotEmpty
-            ? Expanded(
-                child: packedWarehouseMap[selectedWarehouseID] == null
-                    ? Center(child: textWidget("No Data !"))
-                    : acceptedProductLineWidget(requestedMapList),
-              )
-            : Expanded(
-                child: Center(
-                  child: textWidget("No Data !"),
-                ),
-              ),
-        Container(
-          height: 12.h,
-          width: 100.w,
-          decoration: BoxDecoration(
+    return isPackedLoading
+        ? Center(
+            child: CupertinoActivityIndicator(
             color: AppColor.primary,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-          child: SlideAction(
-            thumbWidth: 100,
-            rightToLeft: isSwipeLoading,
-            trackBuilder: (context, state) {
-              return Container(
+          ))
+        : Column(
+            children: [
+              packedRequestWidget(),
+              const SizedBox(height: 15),
+              warehouseWidget(),
+              requestedMapList.isNotEmpty
+                  ? Expanded(
+                      child: packedWarehouseMap[selectedWarehouseID] == null
+                          ? Center(child: textWidget("No Data !"))
+                          : acceptedProductLineWidget(requestedMapList),
+                    )
+                  : Expanded(
+                      child: Center(
+                        child: textWidget("No Data !"),
+                      ),
+                    ),
+              Container(
+                height: 12.h,
+                width: 100.w,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(
-                      left:
-                          state.isPerformingAction || isSwipeLoading ? 0 : 20.w,
-                      right: state.isPerformingAction || isSwipeLoading
-                          ? 20.w
-                          : 0),
-                  child: Text(
-                    // Show loading if async operation is being performed
-                    isSwipeLoading
-                        ? "Issued"
-                        : state.isPerformingAction
-                            ? "Loading..."
-                            : ">>  Slide to Issue",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 17,
-                    ),
+                  color: AppColor.primary,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
                 ),
-              );
-            },
-            thumbBuilder: (context, state) {
-              return Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  // Show loading indicator if async operation is being performed
-                  child: state.isPerformingAction
-                      ? const CupertinoActivityIndicator(
-                          color: Colors.white,
-                        )
-                      : const Icon(
-                          CupertinoIcons.car,
-                          color: Colors.white,
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                child: SlideAction(
+                  thumbWidth: 100,
+                  rightToLeft: isSwipeLoading,
+                  trackBuilder: (context, state) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(
+                            left: state.isPerformingAction || isSwipeLoading
+                                ? 0
+                                : 20.w,
+                            right: state.isPerformingAction || isSwipeLoading
+                                ? 20.w
+                                : 0),
+                        child: Text(
+                          // Show loading if async operation is being performed
+                          isSwipeLoading
+                              ? "Issued"
+                              : state.isPerformingAction
+                                  ? "Loading..."
+                                  : ">>  Slide to Issue",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
                         ),
-                ),
-              );
-            },
-            action: () async {
-              // Async operation
-              if (!isSwipeLoading) {
-                await Future.delayed(
-                  const Duration(milliseconds: 10),
-                  () {
-                    setState(() {
-                      isSwipeLoading = true;
-                    });
-                    superPrint(idList);
-                    setState(() {
-                      List<String> warehouseNames =
-                          getWarehouseNames(requestedReturnMapList);
-                      Future.delayed(const Duration(milliseconds: 100));
-                      if (idList.isNotEmpty) {
-                        if (!isPackedProductEqual) {
-                          ref
-                              .read(otherRequestStateNotifierProvider.notifier)
-                              .deliveryOtherRequest(idList, context)
-                              .then((_) {
-                            isSwipeLoading = false;
-                            if (warehouseNames.contains(
-                                packedWarehouseMap[selectedWarehouseID]
-                                    ['warehouse_name'])) {
-                              myReturnIsuuedBottomSheet(
-                                  context,
-                                  selectedWarehouseID,
-                                  packedWarehouseMap[selectedWarehouseID]
-                                      ['warehouse_name']);
+                      ),
+                    );
+                  },
+                  thumbBuilder: (context, state) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        // Show loading indicator if async operation is being performed
+                        child: state.isPerformingAction
+                            ? const CupertinoActivityIndicator(
+                                color: Colors.white,
+                              )
+                            : const Icon(
+                                CupertinoIcons.car,
+                                color: Colors.white,
+                              ),
+                      ),
+                    );
+                  },
+                  action: () async {
+                    // Async operation
+                    if (!isSwipeLoading) {
+                      await Future.delayed(
+                        const Duration(milliseconds: 10),
+                        () {
+                          setState(() {
+                            isSwipeLoading = true;
+                          });
+                          superPrint(idList);
+                          setState(() {
+                            List<String> warehouseNames =
+                                getWarehouseNames(requestedReturnMapList);
+                            Future.delayed(const Duration(milliseconds: 100));
+                            if (idList.isNotEmpty) {
+                              if (!isPackedProductEqual) {
+                                ref
+                                    .read(otherRequestStateNotifierProvider
+                                        .notifier)
+                                    .deliveryOtherRequest(idList, context)
+                                    .then((_) {
+                                  isSwipeLoading = false;
+                                  if (warehouseNames.contains(
+                                      packedWarehouseMap[selectedWarehouseID]
+                                          ['warehouse_name'])) {
+                                    myReturnIsuuedBottomSheet(
+                                        context,
+                                        selectedWarehouseID,
+                                        packedWarehouseMap[selectedWarehouseID]
+                                            ['warehouse_name']);
+                                  }
+                                });
+                              } else {
+                                isSwipeLoading = false;
+                                CommonMethods.customizedAlertDialog(
+                                    "Please packed all your requested product",
+                                    context);
+                              }
+                            } else {
+                              isSwipeLoading = false;
+                              CommonMethods.customizedAlertDialog(
+                                  "Please check picking first", context);
                             }
                           });
-                        } else {
-                          isSwipeLoading = false;
-                          CommonMethods.customizedAlertDialog(
-                              "Please packed all your requested product",
-                              context);
-                        }
-                      } else {
-                        isSwipeLoading = false;
-                        CommonMethods.customizedAlertDialog(
-                            "Please check picking first", context);
-                      }
-                    });
+                        },
+                      );
+                    }
                   },
-                );
-              }
-            },
-          ),
-        )
-      ],
-    );
+                ),
+              )
+            ],
+          );
   }
 
   Widget acceptedProductLineWidget(

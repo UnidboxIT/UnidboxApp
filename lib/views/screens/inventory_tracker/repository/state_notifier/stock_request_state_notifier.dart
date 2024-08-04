@@ -79,7 +79,9 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
               });
             },
             context,
-          );
+          ).then((_) {
+            Navigator.of(context).pop();
+          });
           // successfullyBottomSheet(
           //   "Request Sent!",
           //   "Check status under pending requests",

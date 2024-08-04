@@ -140,6 +140,12 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
             getAllOtherRequest();
             Navigator.of(context).pop();
           }, context);
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['result']['error'],
+            context,
+          );
+          state = const OtherRequestState.error();
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

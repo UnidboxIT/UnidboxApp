@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,14 @@ import 'other_request_history/other_request_history_screen.dart';
 import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
 import 'widgets/each_other_request_product_widget.dart';
 import 'widgets/search_other_request_widget.dart';
+
+class ProductLineInfo {
+  final int outerKey; // The main key like 4 or 3
+  final String productLineKey; // The product line key like "D502/24/00237"
+  final int length; // Length of the list
+
+  ProductLineInfo(this.outerKey, this.productLineKey, this.length);
+}
 
 class OtherRequestDetailScreen extends ConsumerStatefulWidget {
   const OtherRequestDetailScreen({super.key});
@@ -51,6 +60,9 @@ class _OtherRequestsDetailScreenState
   bool acceptLoading = false;
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
+  List<ProductLineInfo> productLineInfos = [];
+  int eachKey = -1;
+  int eachValueLength = -1;
 
   @override
   void initState() {
@@ -61,10 +73,14 @@ class _OtherRequestsDetailScreenState
           .read(userWarehouseStateNotifierProvider.notifier)
           .getUserWarehouse()
           .then((_) {
-        ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
+        ref
+            .read(warehouseStateNotifierProvider.notifier)
+            .getAllWarehouse()
+            .then((_) {
+          _loadProducts(0);
+        });
       });
     });
-    _loadProducts(0);
   }
 
   void _loadProducts(int offset) {
@@ -82,6 +98,7 @@ class _OtherRequestsDetailScreenState
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
+          requestLoading = true;
           isWarehouseLoading = true;
         });
       }
@@ -95,6 +112,7 @@ class _OtherRequestsDetailScreenState
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
+          requestLoading = true;
           warehouseList = [];
         });
       }
@@ -111,7 +129,6 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
-          requestLoading = true;
           otherRequestList = [];
           requestProductList.clear();
           acceptProductList.clear();
@@ -157,18 +174,44 @@ class _OtherRequestsDetailScreenState
           }
           if (requestedMap.isNotEmpty) {
             if (requestedMap.keys.contains(selectedWarehouseID)) {
-              superPrint(selectedWarehouseID);
+              //superPrint(selectedWarehouseID);
               selectedWarehouseID = selectedWarehouseID;
             } else {
-              superPrint(selectedWarehouseID);
+              // superPrint(selectedWarehouseID);
               selectedWarehouseID = requestedMap.keys.first;
-              superPrint(requestedMap.keys.first);
+              //superPrint(requestedMap.keys.first);
             }
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             // requestedMapList.add(requestedMap);
+            setState(() {
+              superPrint(requestedMap);
+              requestedMap.forEach((outerKey, outerValue) {
+                superPrint(outerValue['product_line'].isEmpty);
+                superPrint(outerKey);
+
+                var productLine = outerValue['product_line'];
+                superPrint(productLine);
+                // Check if the outerKey matches any Warehouse id
+                if (productLine.isNotEmpty) {
+                  bool isWarehouseMatch = warehouseList
+                      .any((warehouse) => warehouse.id == outerKey);
+                  if (isWarehouseMatch) {
+                    productLine.forEach((key, value) {
+                      productLineInfos
+                          .add(ProductLineInfo(outerKey, key, value.length));
+                    });
+                    superPrint(productLineInfos);
+                  }
+                } else {
+                  productLineInfos
+                      .removeWhere((info) => info.outerKey == outerKey);
+                }
+              });
+            });
           }
           acceptLoading = false;
+          requestLoading = false;
         });
       }
 
@@ -274,7 +317,14 @@ class _OtherRequestsDetailScreenState
         children: [
           const SearchOtherRequestWidget(),
           outletRequestBreadcrumbHeadline(context, "", ""),
-          Expanded(child: myrequestDetailWidget()),
+          Expanded(
+              child: requestLoading
+                  ? Center(
+                      child: CupertinoActivityIndicator(
+                        color: AppColor.primary,
+                      ),
+                    )
+                  : myrequestDetailWidget()),
         ],
       ),
     );
@@ -284,7 +334,6 @@ class _OtherRequestsDetailScreenState
     return Column(
       children: [
         acceptRequestWidget(),
-        const SizedBox(height: 15),
         warehouseWidget(),
         isWarehouseLoading
             ? const SizedBox.shrink()
@@ -376,8 +425,8 @@ class _OtherRequestsDetailScreenState
 
   Widget warehouseWidget() {
     return Container(
-      height: 5.5.h,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      height: 7.h,
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -388,52 +437,86 @@ class _OtherRequestsDetailScreenState
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedWarehouseID = warehouseList[index].id;
-                      if (requestedMap[selectedWarehouseID] != null) {
-                        Map<String, dynamic> value =
-                            requestedMap[selectedWarehouseID] ?? {};
-                        requestedMapList.clear();
-                        if (requestedMap.containsKey(selectedWarehouseID)) {
-                          requestedMap[selectedWarehouseID] = {
-                            "warehouse_name": value['warehouse_name'],
-                            "name": value['name'],
-                            "date": value['date'],
-                            "product_line": value['product_line']
-                          };
+                int warehouseID = warehouseList[index].id;
+                // Find the corresponding ProductLineInfo object for the current warehouse
+                ProductLineInfo? productLineInfo = productLineInfos.firstWhere(
+                  (info) => info.outerKey == warehouseID,
+                  orElse: () => ProductLineInfo(
+                      warehouseID, '', 0), // Default if not found
+                );
+
+                return Container(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedWarehouseID = warehouseList[index].id;
+                        if (requestedMap[selectedWarehouseID] != null) {
+                          Map<String, dynamic> value =
+                              requestedMap[selectedWarehouseID] ?? {};
+                          requestedMapList.clear();
+                          if (requestedMap.containsKey(selectedWarehouseID)) {
+                            requestedMap[selectedWarehouseID] = {
+                              "warehouse_name": value['warehouse_name'],
+                              "name": value['name'],
+                              "date": value['date'],
+                              "product_line": value['product_line']
+                            };
+                          }
+                          requestedMapList.add({
+                            selectedWarehouseID:
+                                requestedMap[selectedWarehouseID]
+                          });
+                        } else {
+                          setState(() {
+                            requestedMap.remove(selectedWarehouseID);
+                          });
                         }
-                        requestedMapList.add({
-                          selectedWarehouseID: requestedMap[selectedWarehouseID]
-                        });
-                      } else {
-                        setState(() {
-                          requestedMap.remove(selectedWarehouseID);
-                        });
-                      }
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: selectedWarehouseID == warehouseList[index].id
-                            ? AppColor.orangeColor
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 1,
-                            spreadRadius: 1,
-                            offset: const Offset(-2, 2),
-                          )
-                        ]),
-                    child: textWidget(warehouseList[index].name,
-                        color: selectedWarehouseID == warehouseList[index].id
-                            ? Colors.white
-                            : Colors.black),
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: selectedWarehouseID == warehouseList[index].id
+                              ? AppColor.orangeColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              offset: const Offset(-2, 2),
+                            )
+                          ]),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          textWidget(warehouseList[index].name,
+                              color:
+                                  selectedWarehouseID == warehouseList[index].id
+                                      ? Colors.white
+                                      : Colors.black),
+                          Positioned(
+                            top: -2.h,
+                            right: -6.w,
+                            child: productLineInfo.length == 0
+                                ? const SizedBox.shrink()
+                                : CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: AppColor.pinkColor,
+                                    child: textWidget(
+                                      productLineInfo.length.toString(),
+                                      size: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
