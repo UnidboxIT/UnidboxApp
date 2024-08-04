@@ -141,30 +141,25 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    return isAcceptedLoading
-        ? Center(
-            child: CupertinoActivityIndicator(
-            color: AppColor.primary,
-          ))
-        : Column(
-            children: [
-              packedRequestWidget(),
-              const SizedBox(height: 15),
-              warehouseWidget(),
-              requestedMapList.isNotEmpty
-                  ? Expanded(
-                      child: acceptedWarehouseMap[selectedWarehouseID] == null
-                          ? Center(child: textWidget("No Data !"))
-                          : acceptedProductLineWidget(requestedMapList),
-                    )
-                  : Expanded(
-                      child: Center(
-                        child: textWidget("No Data !"),
-                      ),
-                    ),
-              const SizedBox(height: 20),
-            ],
-          );
+    return Column(
+      children: [
+        packedRequestWidget(),
+        const SizedBox(height: 15),
+        warehouseWidget(),
+        requestedMapList.isNotEmpty
+            ? Expanded(
+                child: acceptedWarehouseMap[selectedWarehouseID] == null
+                    ? Center(child: textWidget("No Data !"))
+                    : acceptedProductLineWidget(requestedMapList),
+              )
+            : Expanded(
+                child: Center(
+                  child: textWidget("No Data !"),
+                ),
+              ),
+        const SizedBox(height: 20),
+      ],
+    );
   }
 
   Widget acceptedProductLineWidget(
@@ -320,15 +315,17 @@ class _OtherRequestsDetailScreenState
 
   Widget packedRequestWidget() {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context, rootNavigator: false).push(
-          MaterialPageRoute(
-            builder: (context) => PackedListScreen(
-              otherRequestList: otherRequestList,
-            ),
-          ),
-        );
-      },
+      onTap: isAcceptedLoading
+          ? () {}
+          : () {
+              Navigator.of(context, rootNavigator: false).push(
+                MaterialPageRoute(
+                  builder: (context) => PackedListScreen(
+                    otherRequestList: otherRequestList,
+                  ),
+                ),
+              );
+            },
       child: Padding(
         padding: EdgeInsets.only(
             left: 20, right: 20, top: packedProductList.isEmpty ? 0 : 10),

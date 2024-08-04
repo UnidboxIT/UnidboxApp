@@ -400,6 +400,7 @@ class _PendingRequestListScreenState
           ],
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             textWidget(
               "Attribute ",
@@ -409,7 +410,11 @@ class _PendingRequestListScreenState
             const SizedBox(width: 5),
             product.productIdList[5] == []
                 ? textWidget("")
-                : Row(children: attributeTexts)
+                : Expanded(
+                    child: Wrap(
+                      children: attributeTexts,
+                    ),
+                  )
           ],
         ),
         const SizedBox(height: 20),

@@ -87,7 +87,8 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     // }
   } else if (currentRoute != '/myRequest' &&
           receivedAction.body!.contains("accepted") ||
-      receivedAction.body!.contains("packed")) {
+      receivedAction.body!.contains("packed") ||
+      receivedAction.body!.contains("issued")) {
     Navigator.of(
       homeNavRouteState.currentState!.context,
     ).push(MaterialPageRoute(

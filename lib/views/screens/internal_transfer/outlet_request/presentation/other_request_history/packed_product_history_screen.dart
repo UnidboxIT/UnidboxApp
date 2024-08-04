@@ -284,6 +284,7 @@ class _AcceptedProductHistoryScreenState
           ],
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             textWidget(
               "Attribute ",
@@ -293,7 +294,11 @@ class _AcceptedProductHistoryScreenState
             const SizedBox(width: 5),
             product.productIdList[5] == []
                 ? textWidget("")
-                : Row(children: attributeTexts)
+                : Expanded(
+                    child: Wrap(
+                      children: attributeTexts,
+                    ),
+                  )
           ],
         ),
         const SizedBox(height: 20),

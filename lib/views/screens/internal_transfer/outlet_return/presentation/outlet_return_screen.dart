@@ -122,7 +122,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
           acceptedOutletReturnList.clear();
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == "accepted") {
+              if (element.status == "return_accepted") {
                 acceptedOutletReturnList.add(element);
               }
               if (element.status == "returned") {
