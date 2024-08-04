@@ -45,6 +45,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(myRequestStateNotifierProvider);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestLoading) {
         setState(() {
