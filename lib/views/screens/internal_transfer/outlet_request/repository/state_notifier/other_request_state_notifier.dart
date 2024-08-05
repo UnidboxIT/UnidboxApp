@@ -9,6 +9,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repos
 
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
+import '../../presentation/my_return_issued/my_return_issued_bottomsheet.dart';
 
 class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   OtherRequestStateNotifier(this._otherRequestRepository)
@@ -94,7 +95,11 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
   }
 
   Future<void> deliveryOtherRequest(
-      List<int> mainID, BuildContext context) async {
+      List<int> mainID,
+      BuildContext context,
+      List<String> warehouseNames,
+      Map<int, dynamic> packedWarehouseMap,
+      int selectedWarehouseID) async {
     try {
       state = const OtherRequestState.acceptLoading();
       Response response = await _otherRequestRepository.issued(mainID);
@@ -103,10 +108,17 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           successfullyBottomSheet(
-              "Issued", "All Item had been handed over for delivery", () {
+                  "Issued", "All Item had been handed over for delivery", () {
             getAllOtherRequest();
             Navigator.of(context).pop();
-          }, context);
+          }, context)
+              .then((_) {
+            if (warehouseNames.contains(
+                packedWarehouseMap[selectedWarehouseID]['warehouse_name'])) {
+              myReturnIsuuedBottomSheet(context, selectedWarehouseID,
+                  packedWarehouseMap[selectedWarehouseID]['warehouse_name']);
+            }
+          });
         }
       } else if (result.containsKey('error')) {
         if (result['error']['data']['message'] == "Session expired") {

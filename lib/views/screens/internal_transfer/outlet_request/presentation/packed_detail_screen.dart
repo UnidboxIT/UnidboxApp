@@ -14,7 +14,6 @@ import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../../my_return/repository/provider/my_return_provider.dart';
 import '../../my_return/repository/state/my_return_state.dart';
 import '../repository/state/other_request_state.dart';
-import 'my_return_issued/my_return_issued_bottomsheet.dart';
 import 'widgets/packed_other_request_widget.dart';
 
 class PackedDetailScreen extends ConsumerStatefulWidget {
@@ -196,7 +195,7 @@ class _OtherRequestsDetailScreenState
           requestedReturnMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "return_accepted" && element.isReturn) {
+              if (element.status == "return_accepted") {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
@@ -355,23 +354,22 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       List<String> warehouseNames =
                           getWarehouseNames(requestedReturnMapList);
+                      superPrint(warehouseNames);
                       Future.delayed(const Duration(milliseconds: 100));
+
                       if (idList.isNotEmpty) {
                         if (!isPackedProductEqual) {
                           ref
                               .read(otherRequestStateNotifierProvider.notifier)
-                              .deliveryOtherRequest(idList, context)
+                              .deliveryOtherRequest(
+                                idList,
+                                context,
+                                warehouseNames,
+                                packedWarehouseMap,
+                                selectedWarehouseID,
+                              )
                               .then((_) {
                             isSwipeLoading = false;
-                            if (warehouseNames.contains(
-                                packedWarehouseMap[selectedWarehouseID]
-                                    ['warehouse_name'])) {
-                              myReturnIsuuedBottomSheet(
-                                  context,
-                                  selectedWarehouseID,
-                                  packedWarehouseMap[selectedWarehouseID]
-                                      ['warehouse_name']);
-                            }
                           });
                         } else {
                           isSwipeLoading = false;

@@ -52,26 +52,87 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.dropshadowColor,
-                      blurRadius: 3,
-                      spreadRadius: 3,
-                      offset: const Offset(0, 3),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: productLine.imageUrl != "false"
-                          ? NetworkImage(productLine.imageUrl)
-                          : const AssetImage('assets/images/app_icon.jpeg'),
-                      fit: BoxFit.cover),
-                ),
-                height: 13.h,
-                width: 22.w,
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.centerLeft,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColor.dropshadowColor,
+                          blurRadius: 3,
+                          spreadRadius: 3,
+                          offset: const Offset(0, 3),
+                        )
+                      ],
+                      borderRadius: productLine.isUrgent
+                          ? const BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            )
+                          : BorderRadius.circular(10),
+                      image: DecorationImage(
+                          image: productLine.imageUrl != "false"
+                              ? NetworkImage(productLine.imageUrl)
+                              : const AssetImage('assets/images/app_icon.jpeg'),
+                          fit: BoxFit.cover),
+                    ),
+                    height: 13.h,
+                    width: 22.w,
+                  ),
+                  productLine.isUrgent
+                      ? Positioned(
+                          left: -3.w,
+                          child: Container(
+                            width: 4.w,
+                            height: 13.h,
+                            decoration: BoxDecoration(
+                                color: AppColor.primary,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                )),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                  productLine.isUrgent
+                      ? Positioned(
+                          left: -8.3.w,
+                          child: Transform.rotate(
+                            angle: 80.1,
+                            child: textWidget(
+                              "URGENT",
+                              size: 12,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
               ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: AppColor.dropshadowColor,
+              //         blurRadius: 3,
+              //         spreadRadius: 3,
+              //         offset: const Offset(0, 3),
+              //       )
+              //     ],
+              //     borderRadius: BorderRadius.circular(10),
+              //     image: DecorationImage(
+              //         image: productLine.imageUrl != "false"
+              //             ? NetworkImage(productLine.imageUrl)
+              //             : const AssetImage('assets/images/app_icon.jpeg'),
+              //         fit: BoxFit.cover),
+              //   ),
+              //   height: 13.h,
+              //   width: 22.w,
+              // ),
               const SizedBox(width: 15),
               Expanded(
                 child: Column(

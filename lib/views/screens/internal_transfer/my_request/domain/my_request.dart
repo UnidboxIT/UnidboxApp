@@ -59,27 +59,28 @@ class ProductLineId {
   List productUomList;
   String reason;
   String otherComment;
+  bool isUrgent;
 
-  ProductLineId({
-    this.id = 0,
-    this.attachmentFile = "",
-    this.productIdList = const [],
-    this.code = "",
-    this.model = "",
-    this.qty = 0.0,
-    this.issueQty = 0.0,
-    this.receivedQty = 0.0,
-    this.imageUrl = "",
-    this.price = 0.0,
-    this.status = "",
-    this.removeReject = false,
-    this.warehouseList = const [],
-    this.requestWarehouse = const [],
-    this.isReturn = false,
-    this.productUomList = const [],
-    this.reason = "",
-    this.otherComment = "",
-  });
+  ProductLineId(
+      {this.id = 0,
+      this.attachmentFile = "",
+      this.productIdList = const [],
+      this.code = "",
+      this.model = "",
+      this.qty = 0.0,
+      this.issueQty = 0.0,
+      this.receivedQty = 0.0,
+      this.imageUrl = "",
+      this.price = 0.0,
+      this.status = "",
+      this.removeReject = false,
+      this.warehouseList = const [],
+      this.requestWarehouse = const [],
+      this.isReturn = false,
+      this.productUomList = const [],
+      this.reason = "",
+      this.otherComment = "",
+      this.isUrgent = false});
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
@@ -105,6 +106,7 @@ class ProductLineId {
           : List.from(json['product_uom_id']),
       reason: json['reason'].toString(),
       otherComment: json['comment'].toString(),
+      isUrgent: json['is_urgent'],
     );
   }
 }

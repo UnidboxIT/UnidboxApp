@@ -85,8 +85,8 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
     // }
-  } else if (currentRoute != '/myRequest' &&
-          receivedAction.body!.contains("accepted") ||
+  } else if (currentRoute != '/myRequest' ||
+      receivedAction.body!.contains("accepted") ||
       receivedAction.body!.contains("packed") ||
       receivedAction.body!.contains("issued")) {
     Navigator.of(

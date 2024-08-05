@@ -311,8 +311,10 @@ Widget eachProductLineWidget(
                                                 productLine: product,
                                                 currentWarehouse: name,
                                                 receiveReasonQty:
-                                                    product.issueQty -
-                                                        product.receivedQty,
+                                                    productList[index]
+                                                            .issueQty -
+                                                        productList[index]
+                                                            .receivedQty,
                                                 receiveQty:
                                                     product.receivedQty.toInt(),
                                               )

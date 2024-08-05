@@ -6,7 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:slide_action/slide_action.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
@@ -83,12 +82,13 @@ class _AcceptedReturnScreenState
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "return_accepted" && element.isReturn) {
+              if (element.status == "return_accepted") {
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
+                    "id": data.id,
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
@@ -107,15 +107,31 @@ class _AcceptedReturnScreenState
           }
           acceptLoading = false;
           requestLoading = false;
+          superPrint(requestedMap);
           if (requestedMap.isNotEmpty) {
             requestedMapList
                 .add({widget.warehouseID: requestedMap[widget.warehouseID]});
             //requestedMapList.add(requestedMap);
+            superPrint(requestedMapList);
+            for (var warehouseProduct in requestedMapList) {
+              warehouseProduct.forEach((key, value) {
+                superPrint(value['product_line']);
+                // Process or store product_line as needed
+                value['product_line'].forEach((productKey, productValue) {
+                  superPrint('Product Key: $productKey');
+                  superPrint('Product Value: $productValue');
+                  for (var productLineId in productValue) {
+                    // Access the id from each ProductLineId instance
+                    idList.add(productLineId.id);
+                  }
+                });
+              });
+            }
           }
         });
       }
     });
-    superPrint(requestedMapList);
+    superPrint(idList);
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -294,28 +310,17 @@ class _AcceptedReturnScreenState
                             setState(() {
                               isSwipeLoading = true;
                             });
+                            superPrint(requestedMapList);
                             superPrint(idList);
                             setState(() {
-                              for (var warehouseProduct in requestedMapList) {
-                                warehouseProduct.forEach((key, value) {
-                                  idList.add(value['id']);
-                                });
-                              }
                               Future.delayed(const Duration(milliseconds: 100));
-                              if (idList.isNotEmpty) {
-                                ref
-                                    .read(otherRequestStateNotifierProvider
-                                        .notifier)
-                                    .deliveryReturnIssued(idList, context)
-                                    .then((_) {
-                                  isSwipeLoading = false;
-                                });
-                              } else {
+                              ref
+                                  .read(otherRequestStateNotifierProvider
+                                      .notifier)
+                                  .deliveryReturnIssued(idList, context)
+                                  .then((_) {
                                 isSwipeLoading = false;
-                                CommonMethods.customizedAlertDialog(
-                                    "Please packed all your requested product",
-                                    context);
-                              }
+                              });
                             });
                           },
                         );
