@@ -13,7 +13,7 @@ Widget eachMyReturnProductLineWidget(
   String requestCode,
   String name,
   String currentDate,
-  String requestWarehouse,
+  // String requestWarehouse,
   List productList, {
   bool isPending = false,
   bool myRequestLoading = false,
@@ -168,7 +168,7 @@ Widget eachMyReturnProductLineWidget(
                         size: 12.5,
                       ),
                       textWidget(
-                        requestWarehouse,
+                        productList[index].requestWarehouse[1],
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         size: 14,
@@ -242,7 +242,8 @@ Widget eachMyReturnProductLineWidget(
                                     builder: (context) => UpdateMyReturnScreen(
                                           productCode: requestCode,
                                           currentDate: currentDate,
-                                          requestWarehouse: requestWarehouse,
+                                          requestWarehouse: productList[index]
+                                              .warehouseList[1],
                                           productLine: productList[index],
                                           currentWarehouse: name,
                                           receiveQty: productList[index].qty -

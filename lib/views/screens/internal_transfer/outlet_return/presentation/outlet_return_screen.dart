@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +44,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
   List<String> visibleCode = [];
+  bool isOutletReturnLoading = false;
 
   @override
   void initState() {
@@ -80,6 +82,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
+          isOutletReturnLoading = true;
           isWarehouseLoading = true;
         });
       }
@@ -93,6 +96,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
+          isOutletReturnLoading = true;
           warehouseList = [];
         });
       }
@@ -126,8 +130,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 acceptedOutletReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.warehouseList[0];
-                String warehouseName = element.warehouseList[1];
+                int warehouseId = element.requestWarehouse[0];
+                String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -157,9 +161,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
             }
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
-            //requestedMapList.add(requestedMap);
           }
         });
+        isOutletReturnLoading = false;
       }
       if (next is ReceiveLoading) {
         setState(() {
@@ -240,22 +244,29 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         children: [
           const SearchOtherRequestWidget(),
           Expanded(
-            child: Column(
-              children: [
-                warehouseWidget(),
-                const SizedBox(height: 15),
-                acceptedOutletReturnWidget(acceptedOutletReturnList, context),
-                const SizedBox(height: 15),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? outletReturnReceiveWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
-                ),
-              ],
-            ),
+            child: isOutletReturnLoading
+                ? Center(
+                    child: CupertinoActivityIndicator(
+                      color: AppColor.primary,
+                    ),
+                  )
+                : Column(
+                    children: [
+                      warehouseWidget(),
+                      const SizedBox(height: 15),
+                      acceptedOutletReturnWidget(
+                          acceptedOutletReturnList, context),
+                      const SizedBox(height: 15),
+                      Expanded(
+                        child: requestedMap[selectedWarehouseID] != null ||
+                                selectedWarehouseID == -1
+                            ? outletReturnReceiveWidget(requestedMapList)
+                            : Center(
+                                child: textWidget("No Data !"),
+                              ),
+                      ),
+                    ],
+                  ),
           )
         ],
       ),
@@ -383,7 +394,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              warehouseData['name'],
+                                              //warehouseData['name'],
                                               productList,
                                               ref,
                                               context,
@@ -399,40 +410,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                             );
                           },
                         );
-                  // ListView.separated(
-                  //     shrinkWrap: true,
-                  //     physics: const NeverScrollableScrollPhysics(),
-                  //     itemCount: productLineMap.keys.length,
-                  //     separatorBuilder: (context, index) {
-                  //       return const SizedBox(height: 0);
-                  //     },
-                  //     itemBuilder: (context, productIndex) {
-                  //       String productLineKey =
-                  //           productLineMap.keys.elementAt(productIndex);
-                  //       List<dynamic> productList =
-                  //           productLineMap[productLineKey] ?? [];
-                  //       return ListView.separated(
-                  //         shrinkWrap: true,
-                  //         physics: const NeverScrollableScrollPhysics(),
-                  //         itemCount: productList.length,
-                  //         separatorBuilder: (context, index) {
-                  //           return const SizedBox(height: 0);
-                  //         },
-                  //         itemBuilder: (context, subIndex) {
-                  //           return eachOutletReturnWidget(
-                  //             productLineKey,
-                  //             warehouseData['name'],
-                  //             warehouseData['date'],
-                  //             productList[subIndex],
-                  //             ref,
-                  //             context,
-                  //             isAcceptLoading: acceptLoading,
-                  //             acceptProductID: acceptProductID,
-                  //           );
-                  //         },
-                  //       );
-                  //  },
-                  //  );
                 }).toList(),
               );
             },
@@ -448,6 +425,38 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         shrinkWrap: true,
         padding: const EdgeInsets.only(bottom: 5),
         children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedWarehouseID = -1;
+                requestedMapList.clear();
+                if (requestedMap.isNotEmpty) {
+                  requestedMapList.add(requestedMap);
+                }
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: selectedWarehouseID == -1
+                      ? AppColor.orangeColor
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.dropshadowColor,
+                      blurRadius: 1,
+                      spreadRadius: 1,
+                      offset: const Offset(-2, 2),
+                    )
+                  ]),
+              child: textWidget("All",
+                  color:
+                      selectedWarehouseID == -1 ? Colors.white : Colors.black),
+            ),
+          ),
+          const SizedBox(width: 10),
           ListView.separated(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
@@ -506,38 +515,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 return const SizedBox(width: 10);
               },
               itemCount: warehouseList.length),
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedWarehouseID = -1;
-                requestedMapList.clear();
-                if (requestedMap.isNotEmpty) {
-                  requestedMapList.add(requestedMap);
-                }
-              });
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: selectedWarehouseID == -1
-                      ? AppColor.orangeColor
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.dropshadowColor,
-                      blurRadius: 1,
-                      spreadRadius: 1,
-                      offset: const Offset(-2, 2),
-                    )
-                  ]),
-              child: textWidget("All",
-                  color:
-                      selectedWarehouseID == -1 ? Colors.white : Colors.black),
-            ),
-          ),
         ],
       ),
     );

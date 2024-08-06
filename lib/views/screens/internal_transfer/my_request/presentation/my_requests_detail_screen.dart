@@ -94,7 +94,10 @@ class _MyRequestsDetailScreenState
               }
               if (element.status == "rejected" && !element.removeReject ||
                   (element.qty > element.issueQty &&
-                      element.status != "cancel")) {
+                      element.status != "cancel" &&
+                      element.status != "done" &&
+                      element.status != "requested" &&
+                      !element.removeReject)) {
                 rejectedList.add(element);
               }
             }

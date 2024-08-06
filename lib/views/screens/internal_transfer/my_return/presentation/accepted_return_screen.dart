@@ -385,7 +385,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              warehouseData['name'],
+                                              // warehouseData['name'],
                                               productList,
                                               acceptProductID: acceptProductID),
                                         )

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
   List<String> visibleCode = [];
+  bool isMyReturnLoading = false;
 
   @override
   void initState() {
@@ -81,6 +83,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
+          isMyReturnLoading = true;
           isWarehouseLoading = true;
         });
       }
@@ -94,6 +97,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
+          isMyReturnLoading = true;
           warehouseList = [];
         });
       }
@@ -127,8 +131,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 acceptedReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -160,6 +164,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             //requestedMapList.add(requestedMap);
           }
+          isMyReturnLoading = false;
         });
       }
     });
@@ -253,22 +258,29 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
         children: [
           const SearchOtherRequestWidget(),
           Expanded(
-            child: Column(
-              children: [
-                warehouseWidget(),
-                const SizedBox(height: 15),
-                acceptedMyReturnWidget(acceptedReturnList, context),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? myReturnDataWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
-                ),
-              ],
-            ),
+            child: isMyReturnLoading
+                ? Center(
+                    child: CupertinoActivityIndicator(
+                      color: AppColor.primary,
+                    ),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      warehouseWidget(),
+                      const SizedBox(height: 15),
+                      acceptedMyReturnWidget(acceptedReturnList, context),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: requestedMap[selectedWarehouseID] != null ||
+                                selectedWarehouseID == -1
+                            ? myReturnDataWidget(requestedMapList)
+                            : Center(
+                                child: textWidget("No Data !"),
+                              ),
+                      ),
+                    ],
+                  ),
           )
         ],
       ),
@@ -397,7 +409,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              warehouseData['name'],
+                                              // warehouseData['name'],
                                               productList,
                                               acceptProductID: acceptProductID),
                                         )

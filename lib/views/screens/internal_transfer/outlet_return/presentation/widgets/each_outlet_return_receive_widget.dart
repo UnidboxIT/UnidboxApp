@@ -14,7 +14,7 @@ Widget eachOutletReturnWidget(
     String requestCode,
     String name,
     String currentDate,
-    String requestWarehouse,
+    // String requestWarehouse,
     List productList,
     WidgetRef ref,
     BuildContext context,
@@ -29,7 +29,7 @@ Widget eachOutletReturnWidget(
       },
       itemBuilder: (context, index) {
         double returnQty =
-            productList[index].issueQty - productList[index].receivedQty;
+            productList[index].qty - productList[index].receivedQty;
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -151,12 +151,12 @@ Widget eachOutletReturnWidget(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textWidget(
-                    "Return To",
+                    "Returned From",
                     color: AppColor.orangeColor,
                     size: 12.5,
                   ),
                   textWidget(
-                    productList[index].requestWarehouse[1],
+                    name,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,
@@ -168,12 +168,12 @@ Widget eachOutletReturnWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           textWidget(
-                            "Request By",
+                            "Returned By",
                             color: AppColor.orangeColor,
                             size: 12.5,
                           ),
                           textWidget(
-                            name,
+                            productList[index].warehouseList[1],
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,

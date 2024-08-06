@@ -14,6 +14,7 @@ import '../../../../widgets/internal_transfer/no_product_widget.dart';
 import '../../my_return/repository/provider/my_return_provider.dart';
 import '../../my_return/repository/state/my_return_state.dart';
 import '../repository/state/other_request_state.dart';
+import 'my_return_issued/accepted_my_return_issued_screen.dart';
 import 'widgets/packed_other_request_widget.dart';
 
 class PackedDetailScreen extends ConsumerStatefulWidget {
@@ -46,38 +47,37 @@ class _OtherRequestsDetailScreenState
   bool isPackedProductEqual = false;
   List<MyRequest> myReturnList = [];
   List<ProductLineId> acceptedReturnList = [];
-  Map<int, dynamic> requestedMap = {};
+  Map<int, dynamic> returnRequestedMap = {};
   List<Map<int, dynamic>> requestedReturnMapList = [];
 
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
+      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
     setState(() {
       otherRequestList = widget.otherRequestList;
     });
-    loadWarehouseData();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
-    });
+    // loadWarehouseData();
   }
 
   Future<void> loadWarehouseData() async {
-    // packedWarehouseMap.clear();
-    // packedProductMap.clear();
     idList.clear();
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
-    acceptedProductList.clear();
+    // acceptedProductList.clear();
     finalDeveilerMapList.clear();
     requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
-        if (element.status == 'packed') {
-          setState(() {
-            packedProductList.add(element);
-          });
-        }
+        // if (element.status == 'packed') {
+        //   setState(() {
+        //     packedProductList.add(element);
+        //   });
+        // }
         if (element.status.contains("requested")) {
           acceptedProductList.add(element);
           setState(() {
@@ -106,7 +106,7 @@ class _OtherRequestsDetailScreenState
         }
         if (element.status == "packed") {
           setState(() {
-            // packedProductList.add(element);
+            packedProductList.add(element);
             int warehouseId = element.warehouseList[0];
             String warehouseName = element.warehouseList[1];
             String productLineKey = data.name;
@@ -131,6 +131,7 @@ class _OtherRequestsDetailScreenState
         }
       }
     }
+    superPrint(packedWarehouseMap);
     if (packedWarehouseMap.isNotEmpty) {
       if (packedWarehouseMap.keys.contains(selectedWarehouseID)) {
         selectedWarehouseID = selectedWarehouseID;
@@ -140,13 +141,12 @@ class _OtherRequestsDetailScreenState
       requestedMapList
           .add({selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
       finalDeveilerMapList.add(packedWarehouseMap);
-
+      superPrint(requestedMapList);
       for (var warehouseProduct in requestedMapList) {
         warehouseProduct.forEach((key, value) {
           idList.add(value['id']);
         });
       }
-
       if (acceptedWarehouseMap.isNotEmpty) {
         acceptedMapList.add(acceptedWarehouseMap);
       }
@@ -192,7 +192,7 @@ class _OtherRequestsDetailScreenState
       if (next is MyReturnDataList) {
         setState(() {
           myReturnList = next.myReturnDataList;
-          requestedMap.clear();
+          returnRequestedMap.clear();
           requestedReturnMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
@@ -200,32 +200,32 @@ class _OtherRequestsDetailScreenState
                 int warehouseId = element.requestWarehouse[0];
                 String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
-                if (!requestedMap.containsKey(warehouseId)) {
-                  requestedMap[warehouseId] = {
+                if (!returnRequestedMap.containsKey(warehouseId)) {
+                  returnRequestedMap[warehouseId] = {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
                     "product_line": {}
                   };
                 }
-                if (!requestedMap[warehouseId]['product_line']
+                if (!returnRequestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
+                  returnRequestedMap[warehouseId]['product_line']
                       [productLineKey] = [];
                 }
-                requestedMap[warehouseId]['product_line'][productLineKey]
+                returnRequestedMap[warehouseId]['product_line'][productLineKey]
                     .add(element);
               }
             }
           }
-          if (requestedMap.isNotEmpty) {
-            if (requestedMap.keys.contains(selectedWarehouseID)) {
+          if (returnRequestedMap.isNotEmpty) {
+            if (returnRequestedMap.keys.contains(selectedWarehouseID)) {
               selectedWarehouseID = selectedWarehouseID;
             } else {
-              selectedWarehouseID = requestedMap.keys.first;
+              selectedWarehouseID = returnRequestedMap.keys.first;
             }
-            requestedReturnMapList
-                .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
+            requestedReturnMapList.add(
+                {selectedWarehouseID: returnRequestedMap[selectedWarehouseID]});
           }
         });
       }
@@ -234,7 +234,6 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
-          packedProductList.clear();
           otherRequestList = [];
         });
       }
@@ -606,32 +605,42 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget returnProductItemWidget() {
-    return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 5.h),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: AppColor.bottomSheetBgColor,
-        ),
-        child: Row(
-          children: [
-            textWidget(
-              "Return".toUpperCase(),
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              size: 15,
-            ),
-            const Spacer(),
-            const Icon(CupertinoIcons.bus),
-            const SizedBox(width: 7),
-            textWidget(
-              "${acceptedReturnList.length} Items",
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              size: 15,
-            ),
-          ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AcceptedMyReturnIssuedScreen(
+                  warehouseID: selectedWarehouseID,
+                  warehouseName: packedWarehouseMap[selectedWarehouseID]
+                      ['warehouse_name'],
+                )));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 5.h),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: AppColor.bottomSheetBgColor,
+          ),
+          child: Row(
+            children: [
+              textWidget(
+                "Return".toUpperCase(),
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                size: 15,
+              ),
+              const Spacer(),
+              const Icon(CupertinoIcons.bus),
+              const SizedBox(width: 7),
+              textWidget(
+                "${acceptedReturnList.length} Items",
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                size: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );

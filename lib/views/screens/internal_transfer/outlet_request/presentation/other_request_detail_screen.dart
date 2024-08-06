@@ -49,7 +49,7 @@ class _OtherRequestsDetailScreenState
   List<Warehouse> warehouseList = [];
   List<ProductLineId> productByWarehouse = [];
   int offset = 0;
-  bool requestLoading = false;
+  // bool requestLoading = false;
   bool xLoading = false;
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
@@ -98,7 +98,6 @@ class _OtherRequestsDetailScreenState
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
-          requestLoading = true;
           isWarehouseLoading = true;
         });
       }
@@ -112,7 +111,6 @@ class _OtherRequestsDetailScreenState
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
-          requestLoading = true;
           warehouseList = [];
         });
       }
@@ -211,7 +209,6 @@ class _OtherRequestsDetailScreenState
             });
           }
           acceptLoading = false;
-          requestLoading = false;
         });
       }
 
@@ -317,14 +314,7 @@ class _OtherRequestsDetailScreenState
         children: [
           const SearchOtherRequestWidget(),
           outletRequestBreadcrumbHeadline(context, "", ""),
-          Expanded(
-              child: requestLoading
-                  ? Center(
-                      child: CupertinoActivityIndicator(
-                        color: AppColor.primary,
-                      ),
-                    )
-                  : myrequestDetailWidget()),
+          Expanded(child: myrequestDetailWidget()),
         ],
       ),
     );
@@ -527,36 +517,39 @@ class _OtherRequestsDetailScreenState
           const SizedBox(width: 10),
           warehouseList.isEmpty
               ? const SizedBox.shrink()
-              : GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedWarehouseID = -1;
-                      requestedMapList.clear();
-                      if (requestedMap.isNotEmpty) {
-                        requestedMapList.add(requestedMap);
-                      }
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: selectedWarehouseID == -1
-                            ? AppColor.orangeColor
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 1,
-                            spreadRadius: 1,
-                            offset: const Offset(-2, 2),
-                          )
-                        ]),
-                    child: textWidget("All",
-                        color: selectedWarehouseID == -1
-                            ? Colors.white
-                            : Colors.black),
+              : Container(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedWarehouseID = -1;
+                        requestedMapList.clear();
+                        if (requestedMap.isNotEmpty) {
+                          requestedMapList.add(requestedMap);
+                        }
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: selectedWarehouseID == -1
+                              ? AppColor.orangeColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              offset: const Offset(-2, 2),
+                            )
+                          ]),
+                      child: textWidget("All",
+                          color: selectedWarehouseID == -1
+                              ? Colors.white
+                              : Colors.black),
+                    ),
                   ),
                 ),
         ],
