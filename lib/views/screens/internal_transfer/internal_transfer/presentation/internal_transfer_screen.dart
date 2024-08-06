@@ -5,6 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/state/outlet_return_state.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
@@ -43,6 +45,7 @@ class _InternalTransferScreenState
   UserWarehouse userWarehouse = UserWarehouse();
   List<OtherRequest> otherRequestList = [];
   List<MyRequest> myReturnList = [];
+  List<OtherRequest> outletReturnList = [];
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
   List<ProductLineId> myReturnProductList = [];
@@ -58,6 +61,9 @@ class _InternalTransferScreenState
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
   }
 
@@ -94,9 +100,6 @@ class _InternalTransferScreenState
               if (element.status == "requested") {
                 requestProductList.add(element);
               }
-              if (element.status == "returned") {
-                outletReturnProductList.add(element);
-              }
             }
           }
           isLoading = false;
@@ -118,6 +121,26 @@ class _InternalTransferScreenState
             for (var element in data.productLineList) {
               if (element.status == "returned") {
                 myReturnProductList.add(element);
+              }
+            }
+          }
+        });
+      }
+    });
+    ref.listen(outletReturnStateNotifier, (pre, next) {
+      if (next is OutletReturnLoading) {
+        setState(() {
+          outletReturnList = [];
+          outletReturnProductList.clear();
+        });
+      }
+      if (next is OutletReturnList) {
+        setState(() {
+          outletReturnList = next.outletReturnList;
+          for (var data in outletReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
               }
             }
           }
@@ -204,8 +227,16 @@ class _InternalTransferScreenState
                             const OtherRequestDetailScreen()));
                   } else if (index == 2) {
                     superPrint("MY RETURN >>>>>");
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyReturnScreen()));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(
+                            builder: (context) => const MyReturnScreen()))
+                        .then((_) {
+                      Future.delayed(const Duration(milliseconds: 10), () {
+                        ref
+                            .read(myReturnStateNotifierProvider.notifier)
+                            .getAllMyReturn();
+                      });
+                    });
                   } else {
                     Navigator.of(context)
                         .push(MaterialPageRoute(
@@ -213,8 +244,8 @@ class _InternalTransferScreenState
                         .then((_) {
                       Future.delayed(const Duration(milliseconds: 10), () {
                         ref
-                            .read(otherRequestStateNotifierProvider.notifier)
-                            .getAllOtherRequest();
+                            .read(outletReturnStateNotifier.notifier)
+                            .getAlloutletReturn();
                       });
                     });
                   }

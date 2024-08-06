@@ -151,12 +151,12 @@ Widget eachOutletReturnWidget(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textWidget(
-                    "Request From",
+                    "Return To",
                     color: AppColor.orangeColor,
                     size: 12.5,
                   ),
                   textWidget(
-                    productList[index].warehouseList[1],
+                    productList[index].requestWarehouse[1],
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,

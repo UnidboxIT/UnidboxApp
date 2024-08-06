@@ -64,6 +64,7 @@ class _OtherRequestsDetailScreenState
   Future<void> loadWarehouseData() async {
     // packedWarehouseMap.clear();
     // packedProductMap.clear();
+    idList.clear();
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
@@ -229,7 +230,7 @@ class _OtherRequestsDetailScreenState
         });
       }
     });
-    superPrint(requestedReturnMapList);
+
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
@@ -263,7 +264,14 @@ class _OtherRequestsDetailScreenState
             ? Expanded(
                 child: packedWarehouseMap[selectedWarehouseID] == null
                     ? Center(child: textWidget("No Data !"))
-                    : acceptedProductLineWidget(requestedMapList),
+                    : ListView(
+                        children: [
+                          acceptedProductLineWidget(requestedMapList),
+                          acceptedReturnList.isNotEmpty
+                              ? returnProductItemWidget()
+                              : const SizedBox.shrink(),
+                        ],
+                      ),
               )
             : Expanded(
                 child: Center(
@@ -399,7 +407,7 @@ class _OtherRequestsDetailScreenState
     return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 20),
-      physics: const ClampingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: requestedMapList.length,
       separatorBuilder: (context, index) {
         return const SizedBox(height: 0);
@@ -595,5 +603,37 @@ class _OtherRequestsDetailScreenState
       });
     }
     return warehouseNames;
+  }
+
+  Widget returnProductItemWidget() {
+    return Padding(
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 5.h),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColor.bottomSheetBgColor,
+        ),
+        child: Row(
+          children: [
+            textWidget(
+              "Return".toUpperCase(),
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+              size: 15,
+            ),
+            const Spacer(),
+            const Icon(CupertinoIcons.bus),
+            const SizedBox(width: 7),
+            textWidget(
+              "${acceptedReturnList.length} Items",
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+              size: 15,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

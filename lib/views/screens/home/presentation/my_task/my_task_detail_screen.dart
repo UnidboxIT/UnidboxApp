@@ -16,6 +16,8 @@ import '../../../internal_transfer/my_return/repository/state/my_return_state.da
 import '../../../internal_transfer/outlet_request/domain/other_request.dart';
 import '../../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import '../../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
+import '../../../internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
+import '../../../internal_transfer/outlet_return/repository/state/outlet_return_state.dart';
 import '../../../order_receiving/presentation/order_receiving_screen.dart';
 
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
@@ -37,7 +39,8 @@ class MyTaskDetailScreen extends ConsumerStatefulWidget {
 
 class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   List<OtherRequest> otherRequestList = [];
-  List<OtherRequest> myRequestList = [];
+  List<MyRequest> myRequestList = [];
+  List<OtherRequest> outletReturnList = [];
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
   bool isLoading = false;
@@ -53,6 +56,9 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
     });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
   }
 
@@ -75,9 +81,9 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               if (element.status == "requested") {
                 requestProductList.add(element);
               }
-              if (element.status == "returned") {
-                outletReturnProductList.add(element);
-              }
+              // if (element.status == "returned") {
+              //   outletReturnProductList.add(element);
+              // }
             }
           }
 
@@ -103,7 +109,26 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
-          superPrint(myReturnProductList);
+        });
+      }
+    });
+    ref.listen(outletReturnStateNotifier, (pre, next) {
+      if (next is OutletReturnLoading) {
+        setState(() {
+          outletReturnList = [];
+          outletReturnProductList.clear();
+        });
+      }
+      if (next is OutletReturnList) {
+        setState(() {
+          outletReturnList = next.outletReturnList;
+          for (var data in outletReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
+              }
+            }
+          }
         });
       }
     });

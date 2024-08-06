@@ -157,7 +157,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
         children: [
           Container(
             width: 100.w,
-            height: 70.h,
+            height: 67.h,
             decoration: BoxDecoration(
               color: AppColor.bgColor,
               borderRadius: const BorderRadius.only(
@@ -394,7 +394,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                   child: Row(
                     children: [
                       Icon(
-                        reasonIndex.contains(myReturnReason[index].id)
+                        reasonIndex.contains(myReturnReason[index].reason)
                             ? Icons.check_box_outlined
                             : Icons.check_box_outline_blank,
                         size: 18,

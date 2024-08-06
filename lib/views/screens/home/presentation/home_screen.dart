@@ -13,6 +13,8 @@ import '../../internal_transfer/my_return/repository/state/my_return_state.dart'
 import '../../internal_transfer/outlet_request/domain/other_request.dart';
 import '../../internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import '../../internal_transfer/outlet_request/repository/state/other_request_state.dart';
+import '../../internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
+import '../../internal_transfer/outlet_return/repository/state/outlet_return_state.dart';
 import '../domain/noti.dart';
 import '../repository/provider/home_provider.dart';
 import 'widgets/important_reminder_widget.dart';
@@ -28,7 +30,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Noti> notiList = [];
   bool isNotiLoading = false;
   List<OtherRequest> otherRequestList = [];
-  List<OtherRequest> myRequestList = [];
+  List<MyRequest> myRequestList = [];
+  List<OtherRequest> outletReturnList = [];
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
   bool isLoading = false;
@@ -52,6 +55,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           .read(otherRequestStateNotifierProvider.notifier)
           .getAllOtherRequest();
       await ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+      await ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   // final state = ref.read(homeStateNotifierProvider);
@@ -106,12 +110,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               if (element.status == "requested") {
                 requestProductList.add(element);
               }
-              if (element.status == "returned") {
-                outletReturnProductList.add(element);
-              }
             }
           }
-
           isLoading = false;
         });
       }
@@ -130,6 +130,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             for (var element in data.productLineList) {
               if (element.status == "returned") {
                 myReturnProductList.add(element);
+              }
+            }
+          }
+        });
+      }
+    });
+
+    ref.listen(outletReturnStateNotifier, (pre, next) {
+      if (next is OutletReturnLoading) {
+        setState(() {
+          outletReturnList = [];
+          outletReturnProductList.clear();
+        });
+      }
+      if (next is OutletReturnList) {
+        setState(() {
+          outletReturnList = next.outletReturnList;
+          for (var data in outletReturnList) {
+            for (var element in data.productLineList) {
+              if (element.status == "returned") {
+                outletReturnProductList.add(element);
               }
             }
           }

@@ -201,12 +201,12 @@ class _EachReturnReasonWidgetState
             ],
           ),
           Visibility(
-              visible:
-                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
+              visible: widget.reasonIndex ==
+                  widget.returnRequestReasonList.last.reason,
               child: const SizedBox(height: 10)),
           Visibility(
-            visible:
-                widget.reasonIndex == widget.returnRequestReasonList.last.id,
+            visible: widget.reasonIndex ==
+                widget.returnRequestReasonList.last.reason,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(
