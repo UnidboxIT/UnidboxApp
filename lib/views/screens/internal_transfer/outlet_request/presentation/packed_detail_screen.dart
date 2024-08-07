@@ -35,6 +35,7 @@ class _OtherRequestsDetailScreenState
   List<OtherRequest> otherRequestList = [];
   // Map<String, List<ProductLineId>> packedProductMap = {};
   int selectedWarehouseID = -1;
+  int acceptedSelectedWarehouseID = -1;
   Map<int, dynamic> packedWarehouseMap = {};
   Map<int, dynamic> acceptedWarehouseMap = {};
   List<ProductLineId> packedProductList = [];
@@ -46,21 +47,19 @@ class _OtherRequestsDetailScreenState
   List<Map<int, dynamic>> acceptedMapList = [];
   bool isPackedProductEqual = false;
   List<MyRequest> myReturnList = [];
-  List<ProductLineId> acceptedReturnList = [];
   Map<int, dynamic> returnRequestedMap = {};
   List<Map<int, dynamic>> requestedReturnMapList = [];
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
-      ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
-    });
     setState(() {
       otherRequestList = widget.otherRequestList;
     });
-    // loadWarehouseData();
+    loadWarehouseData();
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      await ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
   }
 
   Future<void> loadWarehouseData() async {
@@ -68,16 +67,15 @@ class _OtherRequestsDetailScreenState
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
-    // acceptedProductList.clear();
     finalDeveilerMapList.clear();
     requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
-        // if (element.status == 'packed') {
-        //   setState(() {
-        //     packedProductList.add(element);
-        //   });
-        // }
+        if (element.status == 'packed') {
+          setState(() {
+            packedProductList.add(element);
+          });
+        }
         if (element.status.contains("requested")) {
           acceptedProductList.add(element);
           setState(() {
@@ -106,7 +104,6 @@ class _OtherRequestsDetailScreenState
         }
         if (element.status == "packed") {
           setState(() {
-            packedProductList.add(element);
             int warehouseId = element.warehouseList[0];
             String warehouseName = element.warehouseList[1];
             String productLineKey = data.name;
@@ -186,7 +183,6 @@ class _OtherRequestsDetailScreenState
       if (next is MyReturnLoading) {
         setState(() {
           myReturnList = [];
-          acceptedReturnList.clear();
         });
       }
       if (next is MyReturnDataList) {
@@ -197,11 +193,12 @@ class _OtherRequestsDetailScreenState
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!returnRequestedMap.containsKey(warehouseId)) {
                   returnRequestedMap[warehouseId] = {
+                    "id": data.id,
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
@@ -218,14 +215,17 @@ class _OtherRequestsDetailScreenState
               }
             }
           }
+
           if (returnRequestedMap.isNotEmpty) {
-            if (returnRequestedMap.keys.contains(selectedWarehouseID)) {
-              selectedWarehouseID = selectedWarehouseID;
+            if (returnRequestedMap.keys.contains(acceptedSelectedWarehouseID)) {
+              acceptedSelectedWarehouseID = acceptedSelectedWarehouseID;
             } else {
-              selectedWarehouseID = returnRequestedMap.keys.first;
+              acceptedSelectedWarehouseID = returnRequestedMap.keys.first;
             }
-            requestedReturnMapList.add(
-                {selectedWarehouseID: returnRequestedMap[selectedWarehouseID]});
+            requestedReturnMapList.add({
+              acceptedSelectedWarehouseID:
+                  returnRequestedMap[acceptedSelectedWarehouseID]
+            });
           }
         });
       }
@@ -234,6 +234,7 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
+          packedProductList.clear();
           otherRequestList = [];
         });
       }
@@ -266,7 +267,12 @@ class _OtherRequestsDetailScreenState
                     : ListView(
                         children: [
                           acceptedProductLineWidget(requestedMapList),
-                          acceptedReturnList.isNotEmpty
+                          returnRequestedMap.isNotEmpty &&
+                                  packedWarehouseMap[selectedWarehouseID]
+                                          ['warehouse_name'] ==
+                                      returnRequestedMap[
+                                              acceptedSelectedWarehouseID]
+                                          ['warehouse_name']
                               ? returnProductItemWidget()
                               : const SizedBox.shrink(),
                         ],
@@ -634,7 +640,7 @@ class _OtherRequestsDetailScreenState
               const Icon(CupertinoIcons.bus),
               const SizedBox(width: 7),
               textWidget(
-                "${acceptedReturnList.length} Items",
+                "${returnRequestedMap[selectedWarehouseID]['product_line'].values.length} Items",
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
                 size: 15,

@@ -15,7 +15,6 @@ import '../../../my_request/domain/my_request.dart';
 import '../../../my_return/presentation/widgets/each_my_return_product_widget.dart';
 import '../../../my_return/repository/provider/my_return_provider.dart';
 import '../../../my_return/repository/state/my_return_state.dart';
-import '../../repository/provider/other_request_provider.dart';
 import '../widgets/search_other_request_widget.dart';
 
 class AcceptedMyReturnIssuedScreen extends ConsumerStatefulWidget {
@@ -43,11 +42,16 @@ class _AcceptedReturnScreenState
   List<String> visibleCode = [];
   bool isSwipeLoading = false;
   List<int> idList = [];
+  int selectedWarehouseID = -1;
+  String selectedWarehouseName = "";
 
   @override
   void initState() {
     super.initState();
-
+    setState(() {
+      selectedWarehouseID = widget.warehouseID;
+      selectedWarehouseName = widget.warehouseName;
+    });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
@@ -83,8 +87,8 @@ class _AcceptedReturnScreenState
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -105,21 +109,13 @@ class _AcceptedReturnScreenState
               }
             }
           }
-          acceptLoading = false;
-          requestLoading = false;
-          superPrint(requestedMap);
+
           if (requestedMap.isNotEmpty) {
             requestedMapList
-                .add({widget.warehouseID: requestedMap[widget.warehouseID]});
-            //requestedMapList.add(requestedMap);
-            superPrint(requestedMapList);
+                .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             for (var warehouseProduct in requestedMapList) {
               warehouseProduct.forEach((key, value) {
-                superPrint(value['product_line']);
-                // Process or store product_line as needed
                 value['product_line'].forEach((productKey, productValue) {
-                  superPrint('Product Key: $productKey');
-                  superPrint('Product Value: $productValue');
                   for (var productLineId in productValue) {
                     // Access the id from each ProductLineId instance
                     idList.add(productLineId.id);
@@ -128,6 +124,8 @@ class _AcceptedReturnScreenState
               });
             }
           }
+          acceptLoading = false;
+          requestLoading = false;
         });
       }
     });
@@ -185,7 +183,7 @@ class _AcceptedReturnScreenState
     superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
-      height: 81.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -197,39 +195,36 @@ class _AcceptedReturnScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    width: 20.w,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: AppColor.orangeColor,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.dropshadowColor,
-                            blurRadius: 1,
-                            spreadRadius: 1,
-                            offset: const Offset(-2, 2),
-                          )
-                        ]),
-                    child:
-                        textWidget(widget.warehouseName, color: Colors.white),
-                  ),
-                ),
+                selectedWarehouseID == -1
+                    ? const SizedBox.shrink()
+                    : Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          width: 20.w,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: AppColor.orangeColor,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColor.dropshadowColor,
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  offset: const Offset(-2, 2),
+                                )
+                              ]),
+                          child: textWidget(selectedWarehouseName,
+                              color: Colors.white),
+                        ),
+                      ),
                 const SizedBox(height: 10),
                 Expanded(
-                  child: requestedMap[widget.warehouseID] != null ||
-                          widget.warehouseID == -1
-                      ? myReturnDataWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
+                  child: myReturnDataWidget(requestedMapList),
                 ),
                 Container(
-                  height: 12.h,
+                  height: 13.h,
                   width: 100.w,
                   decoration: BoxDecoration(
                     color: AppColor.primary,
@@ -238,8 +233,8 @@ class _AcceptedReturnScreenState
                       topRight: Radius.circular(25),
                     ),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                  padding: EdgeInsets.only(
+                      left: 30, right: 30, top: 10, bottom: 5.h),
                   child: SlideAction(
                     thumbWidth: 100,
                     rightToLeft: isSwipeLoading,
@@ -315,11 +310,16 @@ class _AcceptedReturnScreenState
                             setState(() {
                               Future.delayed(const Duration(milliseconds: 100));
                               ref
-                                  .read(otherRequestStateNotifierProvider
-                                      .notifier)
+                                  .read(myReturnStateNotifierProvider.notifier)
                                   .deliveryReturnIssued(idList, context)
                                   .then((_) {
                                 isSwipeLoading = false;
+                                selectedWarehouseID = -1;
+                                selectedWarehouseName = "";
+                                ref
+                                    .read(
+                                        myReturnStateNotifierProvider.notifier)
+                                    .getAllMyReturn();
                               });
                             });
                           },

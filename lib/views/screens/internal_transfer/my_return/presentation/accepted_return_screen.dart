@@ -119,8 +119,8 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {

@@ -138,45 +138,6 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  Future<void> deliveryReturnIssued(
-      List<int> mainID, BuildContext context) async {
-    try {
-      state = const OtherRequestState.acceptLoading();
-      Response response = await _otherRequestRepository.returnIssued(mainID);
-      superPrint(response);
-      var result = jsonDecode(response.body);
-      if (result.containsKey('result')) {
-        if (result['result']['code'] == 200) {
-          successfullyBottomSheet(
-              "Issued", "All Item had been handed over for delivery", () {
-            getAllOtherRequest();
-            Navigator.of(context).pop();
-          }, context);
-        } else {
-          CommonMethods.customizedAlertDialog(
-            result['result']['error'],
-            context,
-          );
-          state = const OtherRequestState.error();
-        }
-      } else if (result.containsKey('error')) {
-        if (result['error']['data']['message'] == "Session expired") {
-          //Session Expired
-        } else {
-          CommonMethods.customizedAlertDialog(
-            result['error']['data']['message'],
-            context,
-          );
-          state = const OtherRequestState.error();
-        }
-      }
-
-      // state = OtherRequestState.acceptProductID(productID);
-    } catch (e) {
-      superPrint(e.toString());
-    }
-  }
-
   incrementTotalQty(int productID, double qty) {
     qty = qty + 1;
     state = OtherRequestState.incrementQty(productID, qty);

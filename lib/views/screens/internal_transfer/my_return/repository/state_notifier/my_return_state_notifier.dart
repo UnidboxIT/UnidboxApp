@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
+import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../../inventory_tracker/domain/product.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/domain/return_request_reason.dart';
@@ -33,7 +34,6 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
         myReturnList.add(MyRequest.fromJson(element));
       }
       state = MyReturnState.loadMyReturnData(myReturnList);
-      superPrint(response.body);
     } catch (e) {
       superPrint(e.toString());
     }
@@ -123,6 +123,45 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
         }
       }
       superPrint(scanProductList.length);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  Future<void> deliveryReturnIssued(
+      List<int> mainID, BuildContext context) async {
+    try {
+      state = const MyReturnState.loading();
+      Response response = await _myRequestRepository.returnIssued(mainID);
+      superPrint(response);
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          successfullyBottomSheet(
+              "Issued", "All Item had been handed over for delivery", () {
+            getAllMyReturn();
+            Navigator.of(context).pop();
+          }, context);
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['result']['error'],
+            context,
+          );
+          state = const MyReturnState.myReturnError();
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const MyReturnState.myReturnError();
+        }
+      }
+
+      // state = OtherRequestState.acceptProductID(productID);
     } catch (e) {
       superPrint(e.toString());
     }
