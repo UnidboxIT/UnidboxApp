@@ -152,6 +152,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
               }
             }
           }
+          isMyReturnLoading = false;
           acceptLoading = false;
           requestLoading = false;
           if (requestedMap.isNotEmpty) {
@@ -164,7 +165,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             //requestedMapList.add(requestedMap);
           }
-          isMyReturnLoading = false;
         });
       }
     });

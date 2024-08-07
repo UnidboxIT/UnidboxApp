@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -186,7 +188,7 @@ class _AcceptedReturnScreenState
     superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
-      height: 80.h,
+      height: Platform.isIOS ? 80.h : 80.5.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

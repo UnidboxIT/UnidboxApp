@@ -38,7 +38,8 @@ class _PendingRequestListScreenState
     requestedHistoryList.clear();
     for (var data in myRequestList) {
       for (var element in data.productLineList) {
-        if (element.status.contains("done") && element.isReturn) {
+        if ((element.status.contains("done") && element.isReturn) ||
+            (element.status.contains("return_issued") && element.isReturn)) {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.requestToWh[1];
@@ -245,8 +246,11 @@ class _PendingRequestListScreenState
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 color: productList[subIndex]
-                                                            .status ==
-                                                        "done"
+                                                                .status ==
+                                                            "done" ||
+                                                        productList[subIndex]
+                                                                .status ==
+                                                            "return_issued"
                                                     ? AppColor.orangeColor
                                                     : Colors.grey.shade300,
                                                 borderRadius:
@@ -386,7 +390,7 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Return Qty : ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  "Return Qty :  ${product.qty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,
@@ -399,7 +403,7 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Received Qty : ${product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  "Received Qty :  ${product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,
