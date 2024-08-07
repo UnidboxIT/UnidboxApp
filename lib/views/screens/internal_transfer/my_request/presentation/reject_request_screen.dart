@@ -142,7 +142,11 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                   !productLine.removeReject ||
               (productLine.qty > productLine.issueQty &&
                   productLine.status != "cancel" &&
+                  !productLine.removeReject) ||
+              (productLine.qty > productLine.issueQty &&
                   productLine.status != "done" &&
+                  !productLine.removeReject) ||
+              (productLine.qty > productLine.issueQty &&
                   productLine.status != "requested" &&
                   !productLine.removeReject);
         }).toList();

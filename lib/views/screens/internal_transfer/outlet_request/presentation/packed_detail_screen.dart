@@ -383,6 +383,10 @@ class _OtherRequestsDetailScreenState
                               )
                               .then((_) {
                             isSwipeLoading = false;
+                            ref
+                                .read(
+                                    otherRequestStateNotifierProvider.notifier)
+                                .getAllOtherRequest();
                           });
                         } else {
                           isSwipeLoading = false;

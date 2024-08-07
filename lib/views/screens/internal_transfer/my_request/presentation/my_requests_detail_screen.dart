@@ -95,7 +95,11 @@ class _MyRequestsDetailScreenState
               if (element.status == "rejected" && !element.removeReject ||
                   (element.qty > element.issueQty &&
                       element.status != "cancel" &&
+                      !element.removeReject) ||
+                  (element.qty > element.issueQty &&
                       element.status != "done" &&
+                      !element.removeReject) ||
+                  (element.qty > element.issueQty &&
                       element.status != "requested" &&
                       !element.removeReject)) {
                 rejectedList.add(element);

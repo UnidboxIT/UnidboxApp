@@ -136,43 +136,46 @@ class _AcceptedReturnScreenState
       botColor: AppColor.primary,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Accepted Return",
-                () {
-                  ref.read(bottomBarVisibilityProvider.notifier).state = true;
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                },
-              ),
-              Positioned(
-                right: 5.w,
-                top: 6.5.h,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    color: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 20),
-                    child: const Icon(
-                      Icons.history,
-                      color: Colors.white,
-                      size: 28,
+        body: PopScope(
+          onPopInvoked: (didPop) {
+            ref.read(bottomBarVisibilityProvider.notifier).state = false;
+          },
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Accepted Return",
+                  () {
+                    ref.read(bottomBarVisibilityProvider.notifier).state =
+                        false;
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Positioned(
+                  right: 5.w,
+                  top: 6.5.h,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      color: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
+                      child: const Icon(
+                        Icons.history,
+                        color: Colors.white,
+                        size: 28,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: myReturnWidget(),
-              ),
-            ],
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: myReturnWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
