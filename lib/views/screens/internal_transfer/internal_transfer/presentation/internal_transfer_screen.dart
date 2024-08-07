@@ -217,6 +217,7 @@ class _InternalTransferScreenState
               return GestureDetector(
                 onTap: () {
                   if (index == 0) {
+                    selectedFilterIndex = 4;
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const MyRequestsDetailScreen(
                               isStockRequest: false,

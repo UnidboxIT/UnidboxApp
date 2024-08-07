@@ -20,6 +20,8 @@ import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
 import 'widgets/rejected_product_widget.dart';
 
+int selectedFilterIndex = 4;
+
 class MyRequestsDetailScreen extends ConsumerStatefulWidget {
   final bool isStockRequest;
   const MyRequestsDetailScreen({super.key, required this.isStockRequest});
@@ -48,7 +50,6 @@ class _MyRequestsDetailScreenState
     FilterProductStatus(id: 3, name: "On-Delivery"),
     FilterProductStatus(id: 4, name: "Receiving"),
   ];
-  int selectedFilterIndex = 4;
 
   @override
   void initState() {

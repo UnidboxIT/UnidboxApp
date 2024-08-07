@@ -75,6 +75,7 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       .read(currentRouteProvider.notifier)
       .state;
   superPrint(currentRoute != '/outletRequest');
+  RegExp regExp = RegExp(r'\baccepted\b');
   if (currentRoute != '/outletRequest' &&
           receivedAction.body!.contains("updated") ||
       receivedAction.body!.contains("request")) {
@@ -86,9 +87,17 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     );
     // }
   } else if (currentRoute != '/myRequest' ||
-      receivedAction.body!.contains("accepted") ||
+      regExp.hasMatch(receivedAction.body!) ||
       receivedAction.body!.contains("packed") ||
       receivedAction.body!.contains("issued")) {
+    if (receivedAction.body!.contains("accepted")) {
+      selectedFilterIndex = 1;
+    } else if (receivedAction.body!.contains("packed")) {
+      selectedFilterIndex = 2;
+    } else {
+      selectedFilterIndex = 4;
+    }
+
     Navigator.of(
       homeNavRouteState.currentState!.context,
     ).push(MaterialPageRoute(
