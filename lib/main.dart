@@ -8,8 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/app_screen.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentation/my_return_screen.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_return/repository/provider/my_return_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_detail_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/presentation/outlet_return_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
 import 'package:unidbox_app/views/screens/system_navigation/home_navigation.dart';
 import 'views/global_provider_observe.dart';
@@ -58,6 +61,9 @@ void backgroundNotificationListener(Map<String, dynamic> data) {
   globalProviderObserver.container!
       .read(outletReturnStateNotifier.notifier)
       .getAlloutletReturn();
+  globalProviderObserver.container!
+      .read(myReturnStateNotifierProvider.notifier)
+      .getAllMyReturn();
 
   if (Platform.isAndroid) {
     Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
@@ -76,6 +82,7 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       .state;
   superPrint(currentRoute != '/outletRequest');
   RegExp regExp = RegExp(r'\baccepted\b');
+  RegExp returnRegExp = RegExp(r'\breturned\b');
   if (currentRoute != '/outletRequest' &&
           receivedAction.body!.contains("updated") ||
       receivedAction.body!.contains("request")) {
@@ -90,19 +97,30 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       regExp.hasMatch(receivedAction.body!) ||
       receivedAction.body!.contains("packed") ||
       receivedAction.body!.contains("issued")) {
-    if (receivedAction.body!.contains("accepted")) {
+    if (regExp.hasMatch(receivedAction.body!)) {
       selectedFilterIndex = 1;
     } else if (receivedAction.body!.contains("packed")) {
       selectedFilterIndex = 2;
     } else {
       selectedFilterIndex = 4;
     }
-
     Navigator.of(
       homeNavRouteState.currentState!.context,
     ).push(MaterialPageRoute(
         builder: (context) => const MyRequestsDetailScreen(
               isStockRequest: false,
             )));
+  } else if (currentRoute != '/myReturn' &&
+      returnRegExp.hasMatch(receivedAction.body!) &&
+      receivedAction.body!.contains("return_accepted")) {
+    Navigator.of(
+      homeNavRouteState.currentState!.context,
+    ).push(MaterialPageRoute(builder: (context) => const MyReturnScreen()));
+    //MyReturn
   }
+  // else if (currentRoute != '/outletReturn') {
+  //   Navigator.of(
+  //     homeNavRouteState.currentState!.context,
+  //   ).push(MaterialPageRoute(builder: (context) => const OutletReturnScreen()));
+  // }
 }

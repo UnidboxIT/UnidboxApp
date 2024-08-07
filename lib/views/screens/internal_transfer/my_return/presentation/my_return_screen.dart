@@ -78,8 +78,9 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
   @override
   Widget build(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      ref.read(currentRouteProvider.notifier).state = '/myreturn';
+      ref.read(currentRouteProvider.notifier).state = '/myReturn';
     });
+    ref.watch(myReturnStateNotifierProvider);
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
