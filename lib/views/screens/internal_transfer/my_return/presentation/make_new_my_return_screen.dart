@@ -48,7 +48,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-
     WidgetsBinding.instance.addObserver(this);
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
@@ -448,6 +447,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   }
 
   Widget returnToAllWarehouseWidget() {
+    superPrint(widget.scanProductList.first.defaultWarehouseList[0]);
+    superPrint(userWarehouse.warehouseList);
     return SizedBox(
       height: inHouseStockList.length > 3 ? 17.h : 7.h,
       child: GridView.builder(
@@ -456,7 +457,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            childAspectRatio: 1.5,
+            childAspectRatio: 2,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10),
         itemBuilder: (context, index) {
@@ -480,7 +481,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   } else if (widget.scanProductList.first.defaultWarehouseList
                           .isNotEmpty &&
                       widget.scanProductList.first.defaultWarehouseList[0] !=
-                          userWarehouse.warehouseList[0]) {
+                          inHouseStockList[index].warehouseList[0]) {
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
                         .selectedWarehouseID(
@@ -491,7 +492,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                 child: widget.scanProductList.first.defaultWarehouseList
                             .isNotEmpty &&
                         widget.scanProductList.first.defaultWarehouseList[0] ==
-                            userWarehouse.warehouseList[0]
+                            inHouseStockList[index].warehouseList[0]
+                    // userWarehouse.warehouseList[0]
                     ? Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 10),

@@ -9,7 +9,7 @@ class OtherRequestRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/stock-request-list/?fields=reason_ids,id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
+          'joborder/stock-request-list/?fields=is_return,reason_ids,id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
       headers: CommonMethods.setHeaders(),
     );
 

@@ -63,7 +63,6 @@ class _OtherRequestsDetailScreenState
   }
 
   Future<void> loadWarehouseData() async {
-    idList.clear();
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
@@ -234,6 +233,7 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
+          idList.clear();
           packedProductList.clear();
           otherRequestList = [];
         });

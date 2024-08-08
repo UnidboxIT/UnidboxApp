@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../my_request/domain/my_request.dart';
@@ -38,8 +39,9 @@ class _PendingRequestListScreenState
     requestedHistoryList.clear();
     for (var data in myRequestList) {
       for (var element in data.productLineList) {
-        if ((element.status.contains("done") && element.isReturn) ||
-            (element.status.contains("return_issued") && element.isReturn)) {
+        superPrint(data.isNewReturn);
+        if ((data.isNewReturn && !element.isReturn) ||
+            (!data.isNewReturn && element.isReturn)) {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.requestToWh[1];
@@ -56,6 +58,7 @@ class _PendingRequestListScreenState
                 .containsKey(productLineKey)) {
               requestedHistoryMap[date]['product_line'][productLineKey] = {
                 "warehouse_name": warehouseName,
+                "is_return": data.isNewReturn,
                 "products": []
               };
             }
@@ -167,6 +170,9 @@ class _PendingRequestListScreenState
                               productLineMap.keys.elementAt(productIndex);
                           List<dynamic> productList =
                               productLineMap[productLineKey]['products'] ?? [];
+                          // superPrint(
+                          //     productLineMap[productLineKey]['is_return'],
+                          //     title: "IS RETURN >>>");
                           return Column(
                             children: [
                               GestureDetector(
@@ -246,11 +252,10 @@ class _PendingRequestListScreenState
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 color: productList[subIndex]
-                                                                .status ==
-                                                            "done" ||
-                                                        productList[subIndex]
-                                                                .status ==
-                                                            "return_issued"
+                                                            .isReturn ||
+                                                        productLineMap[
+                                                                productLineKey]
+                                                            ['is_return']
                                                     ? AppColor.orangeColor
                                                     : Colors.grey.shade300,
                                                 borderRadius:
@@ -277,7 +282,9 @@ class _PendingRequestListScreenState
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 0),
                                             child: eachHistoryWidget(
-                                                productList[subIndex]),
+                                                productList[subIndex],
+                                                productLineMap[productLineKey]
+                                                    ['is_return']),
                                           ),
                                         ],
                                       ),
@@ -303,7 +310,7 @@ class _PendingRequestListScreenState
     );
   }
 
-  Widget eachHistoryWidget(ProductLineId product) {
+  Widget eachHistoryWidget(ProductLineId product, bool isNewReturn) {
     List<Widget> attributeTexts = [];
     for (int i = 0; i < product.productIdList[5].length; i++) {
       attributeTexts.add(
@@ -390,7 +397,9 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Return Qty :  ${product.qty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  isNewReturn || product.status == "return_issued"
+                      ? "Return Qty :  ${product.receivedQty.toInt()} ${product.productUomList[1]}"
+                      : "Return Qty :  ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,

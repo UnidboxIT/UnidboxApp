@@ -12,7 +12,6 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentati
 import 'package:unidbox_app/views/screens/internal_transfer/my_return/repository/provider/my_return_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_detail_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/presentation/outlet_return_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
 import 'package:unidbox_app/views/screens/system_navigation/home_navigation.dart';
 import 'views/global_provider_observe.dart';

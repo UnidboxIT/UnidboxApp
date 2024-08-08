@@ -9,7 +9,7 @@ class OutletReturnRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/stock-request-list/?fields=id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=0',
+          'joborder/stock-request-list/?fields=is_return,id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=0',
       headers: CommonMethods.setHeaders(),
     );
 
