@@ -59,7 +59,6 @@ class _PendingRequestListScreenState
     acceptedHistoryList.clear();
     requestedHistoryList.clear();
     packedHistoryList.clear();
-    dateFilteredData.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == "accepted") {
@@ -140,6 +139,7 @@ class _PendingRequestListScreenState
     }
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
+        dateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
         dateFilteredData.add(requestedHistoryMap);
         superPrint(dateFilteredData);
@@ -732,10 +732,10 @@ class _PendingRequestListScreenState
         },
         onCancel: () {
           setState(() {
-            selectedDateRange =
-                "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))}";
-            dateFilteredData.clear();
-            dateFilteredData.add(requestedHistoryMap);
+            // selectedDateRange =
+            //     "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))}";
+            // dateFilteredData.clear();
+            // dateFilteredData.add(requestedHistoryMap);
             Navigator.of(dialogContext).pop();
           });
           superPrint(selectedDateRange);
@@ -749,15 +749,12 @@ class _PendingRequestListScreenState
       selectedDateRange =
           '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
           ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      List<String> dates = selectedDateRange.split(' - ');
-      setState(() {
-        dateFilteredData.clear();
-        startDate = DateFormat('dd/MM/yyyy').parse(dates[0]);
-        endDate = DateFormat('dd/MM/yyyy').parse(dates[1]);
-        dateFilteredData =
-            filterDataByDateRange(requestedHistoryList, startDate, endDate);
-      });
+      List<String> selectedDates = selectedDateRange.split(' - ');
+      startDate = DateFormat('dd/MM/yyyy').parse(selectedDates[0]);
+      endDate = DateFormat('dd/MM/yyyy').parse(selectedDates[1]);
+      dateFilteredData.clear();
+      dateFilteredData =
+          filterDataByDateRange(requestedHistoryList, startDate, endDate);
     });
-    superPrint(selectedDateRange);
   }
 }
