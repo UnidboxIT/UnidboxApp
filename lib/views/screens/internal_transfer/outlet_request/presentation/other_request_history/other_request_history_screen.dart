@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_history/packed_product_history_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
@@ -10,7 +12,6 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_request/domain/my_request.dart';
-import '../../../my_request/presentation/widgets/filter_by_date_widget.dart';
 import '../../../my_request/presentation/widgets/search_pending_request_widget.dart';
 import '../../domain/other_request.dart';
 import '../../repository/provider/other_request_provider.dart';
@@ -37,6 +38,10 @@ class _PendingRequestListScreenState
   List<OtherRequest> otherRequestList = [];
   bool requestLoading = false;
   String historyText = "";
+  List<Map<String, dynamic>> dateFilteredData = [];
+  String selectedDateRange = "";
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -45,6 +50,8 @@ class _PendingRequestListScreenState
     });
     setState(() {
       historyText = "accepted";
+      selectedDateRange =
+          "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
     });
   }
 
@@ -52,6 +59,7 @@ class _PendingRequestListScreenState
     acceptedHistoryList.clear();
     requestedHistoryList.clear();
     packedHistoryList.clear();
+    dateFilteredData.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == "accepted") {
@@ -133,6 +141,8 @@ class _PendingRequestListScreenState
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
         requestedHistoryList.add(requestedHistoryMap);
+        dateFilteredData.add(requestedHistoryMap);
+        superPrint(dateFilteredData);
       });
     }
     if (acceptedHistoryMap.isNotEmpty) {
@@ -157,6 +167,17 @@ class _PendingRequestListScreenState
     setState(() {
       visibleCode.remove(code);
     });
+  }
+
+  List<Map<String, dynamic>> filterDataByDateRange(
+      List<Map<String, dynamic>> data, DateTime startDate, DateTime endDate) {
+    return data.where((entry) {
+      String keyDate = entry.keys.first;
+      DateTime date = DateTime.parse(keyDate);
+      return date.isAtSameMomentAs(startDate) ||
+          date.isAtSameMomentAs(endDate) ||
+          (date.isAfter(startDate) && date.isBefore(endDate));
+    }).toList();
   }
 
   @override
@@ -222,7 +243,8 @@ class _PendingRequestListScreenState
       ),
       child: Column(
         children: [
-          filterByDateWidget(),
+          dateFilterWidget(),
+          // filterByDateWidget(context),
           const SearchPendingRequestWidget(),
           Padding(
             padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
@@ -238,7 +260,10 @@ class _PendingRequestListScreenState
                   Expanded(
                     flex: 3,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
                       child: Icon(
                         Icons.category_rounded,
                         color: AppColor.pinkColor,
@@ -300,6 +325,8 @@ class _PendingRequestListScreenState
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                          dateFilteredData.clear();
+                          dateFilteredData.add(requestedHistoryMap);
                           historyText = "issued";
                         });
                       },
@@ -331,26 +358,24 @@ class _PendingRequestListScreenState
                       : historyText == "packed"
                           ? PackedProductHistoryScreen(
                               requestedHistoryList: packedHistoryList)
-                          : requestHistoryWidget(requestedHistoryList),
+                          : requestHistoryWidget(),
                 ),
         ],
       ),
     );
   }
 
-  Widget requestHistoryWidget(
-    List<Map<String, dynamic>> requestedMapList,
-  ) {
+  Widget requestHistoryWidget() {
     return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 20),
       physics: const ClampingScrollPhysics(),
-      itemCount: requestedMapList.length,
+      itemCount: dateFilteredData.length,
       separatorBuilder: (context, index) {
         return const SizedBox(height: 0);
       },
       itemBuilder: (context, index) {
-        Map<String, dynamic> warehouseMap = requestedMapList[index];
+        Map<String, dynamic> warehouseMap = dateFilteredData[index];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: warehouseMap.entries.map((entry) {
@@ -637,5 +662,102 @@ class _PendingRequestListScreenState
         const SizedBox(height: 10),
       ],
     );
+  }
+
+  Widget dateFilterWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+      child: Container(
+        height: 45,
+        width: 100.w,
+        padding: const EdgeInsets.only(left: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.dropshadowColor,
+                blurRadius: 5,
+                spreadRadius: 5,
+              )
+            ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            textWidget("Filter date", color: Colors.grey.shade400, size: 13),
+            GestureDetector(
+              onTap: () async {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext dialogContext) {
+                    return Dialog(
+                      insetPadding: const EdgeInsets.only(left: 20, right: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: getDateRangePicker(dialogContext),
+                    );
+                  },
+                );
+              },
+              child: Container(
+                color: Colors.transparent,
+                width: 20.w,
+                padding: const EdgeInsets.only(right: 10),
+                alignment: Alignment.centerRight,
+                child: const Icon(Icons.calendar_month_outlined),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getDateRangePicker(BuildContext dialogContext) {
+    return Container(
+      height: 35.h,
+      width: 100.w,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      child: SfDateRangePicker(
+        backgroundColor: Colors.white,
+        view: DateRangePickerView.month,
+        selectionMode: DateRangePickerSelectionMode.range,
+        onSelectionChanged: selectionChanged,
+        initialSelectedRange: PickerDateRange(startDate, endDate),
+        showActionButtons: true,
+        onSubmit: (value) {
+          Navigator.of(dialogContext).pop();
+        },
+        onCancel: () {
+          setState(() {
+            selectedDateRange =
+                "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))}";
+            dateFilteredData.clear();
+            dateFilteredData.add(requestedHistoryMap);
+            Navigator.of(dialogContext).pop();
+          });
+          superPrint(selectedDateRange);
+        },
+      ),
+    );
+  }
+
+  void selectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      selectedDateRange =
+          '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
+          ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      List<String> dates = selectedDateRange.split(' - ');
+      setState(() {
+        dateFilteredData.clear();
+        startDate = DateFormat('dd/MM/yyyy').parse(dates[0]);
+        endDate = DateFormat('dd/MM/yyyy').parse(dates[1]);
+        dateFilteredData =
+            filterDataByDateRange(requestedHistoryList, startDate, endDate);
+      });
+    });
+    superPrint(selectedDateRange);
   }
 }

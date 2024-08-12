@@ -142,7 +142,7 @@ class _PendingRequestListScreenState
       ),
       child: Column(
         children: [
-          filterByDateWidget(),
+          filterByDateWidget(context),
           const SearchPendingRequestWidget(),
           Expanded(child: requestHistoryWidget(requestedHistoryList)),
         ],
