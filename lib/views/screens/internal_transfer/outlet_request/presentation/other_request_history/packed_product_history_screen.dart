@@ -307,30 +307,35 @@ class _AcceptedProductHistoryScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColor.pinkColor.withOpacity(0.2)),
-                child: textWidget(
-                  "Request Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
-                  color: Colors.black.withOpacity(0.7),
-                  fontWeight: FontWeight.w700,
-                  size: 13.5,
+              Expanded(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.pinkColor.withOpacity(0.2)),
+                  child: textWidget(
+                    "Request Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
+                    color: Colors.black.withOpacity(0.7),
+                    fontWeight: FontWeight.w700,
+                    size: 13.5,
+                  ),
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColor.pinkColor.withOpacity(0.2)),
-                child: textWidget(
-                  "Packed Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
-                  color: Colors.black.withOpacity(0.7),
-                  fontWeight: FontWeight.w700,
-                  size: 13.5,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.pinkColor.withOpacity(0.2)),
+                  child: textWidget(
+                    "Packed Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
+                    color: Colors.black.withOpacity(0.7),
+                    fontWeight: FontWeight.w700,
+                    size: 13.5,
+                  ),
                 ),
               ),
             ],

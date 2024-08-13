@@ -58,6 +58,9 @@ class _PendingRequestListScreenState
   }
 
   loadRequestHistory() {
+    requestedHistoryMap.clear();
+    acceptedHistoryMap.clear();
+    packedHistoryMap.clear();
     acceptedHistoryList.clear();
     requestedHistoryList.clear();
     packedHistoryList.clear();
@@ -87,7 +90,7 @@ class _PendingRequestListScreenState
                 .add(element);
           });
         }
-        if (element.status == "done") {
+        if (element.status == "done" || element.status == "receiving") {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = element.warehouseList[1];
@@ -142,6 +145,7 @@ class _PendingRequestListScreenState
 
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
+        superPrint(requestedHistoryMap);
         dateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
         dateFilteredData.add(requestedHistoryMap);
@@ -179,13 +183,23 @@ class _PendingRequestListScreenState
 
   List<Map<String, dynamic>> filterDataByDateRange(
       List<Map<String, dynamic>> data, DateTime startDate, DateTime endDate) {
-    return data.where((entry) {
-      String keyDate = entry.keys.first;
-      DateTime date = DateTime.parse(keyDate);
-      return date.isAtSameMomentAs(startDate) ||
-          date.isAtSameMomentAs(endDate) ||
-          (date.isAfter(startDate) && date.isBefore(endDate));
-    }).toList();
+    superPrint(startDate);
+    superPrint(endDate);
+    return data
+        .map((entry) {
+          Map<String, dynamic> filteredEntry = {};
+          entry.forEach((keyDate, value) {
+            DateTime date = DateTime.parse(keyDate);
+            if (date.isAtSameMomentAs(startDate) ||
+                date.isAtSameMomentAs(endDate) ||
+                (date.isAfter(startDate) && date.isBefore(endDate))) {
+              filteredEntry[keyDate] = value;
+            }
+          });
+          return filteredEntry;
+        })
+        .where((filteredEntry) => filteredEntry.isNotEmpty)
+        .toList();
   }
 
   @override
@@ -532,8 +546,11 @@ class _PendingRequestListScreenState
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 color: productList[subIndex]
-                                                            .status ==
-                                                        "done"
+                                                                .status ==
+                                                            "done" ||
+                                                        productList[subIndex]
+                                                                .status ==
+                                                            "receiving"
                                                     ? AppColor.orangeColor
                                                     : Colors.grey.shade300,
                                                 borderRadius:
@@ -658,30 +675,35 @@ class _PendingRequestListScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColor.pinkColor.withOpacity(0.2)),
-                child: textWidget(
-                  "Request Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
-                  color: Colors.black.withOpacity(0.7),
-                  fontWeight: FontWeight.w700,
-                  size: 13.5,
+              Expanded(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.pinkColor.withOpacity(0.2)),
+                  child: textWidget(
+                    "Request Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
+                    color: Colors.black.withOpacity(0.7),
+                    fontWeight: FontWeight.w700,
+                    size: 13.5,
+                  ),
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColor.pinkColor.withOpacity(0.2)),
-                child: textWidget(
-                  "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
-                  color: Colors.black.withOpacity(0.7),
-                  fontWeight: FontWeight.w700,
-                  size: 13.5,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.pinkColor.withOpacity(0.2)),
+                  child: textWidget(
+                    "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
+                    color: Colors.black.withOpacity(0.7),
+                    fontWeight: FontWeight.w700,
+                    size: 13.5,
+                  ),
                 ),
               ),
             ],
@@ -777,10 +799,13 @@ class _PendingRequestListScreenState
       selectedDateRange =
           '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
           ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      superPrint(selectedDateRange);
       List<String> selectedDates = selectedDateRange.split(' - ');
       startDate = DateFormat('dd/MM/yyyy').parse(selectedDates[0]);
       endDate = DateFormat('dd/MM/yyyy').parse(selectedDates[1]);
       dateFilteredData.clear();
+      acceptedDateFilteredData.clear();
+      packedDateFilteredData.clear();
       if (historyText == "accepted") {
         acceptedDateFilteredData =
             filterDataByDateRange(acceptedHistoryList, startDate, endDate);
@@ -788,6 +813,7 @@ class _PendingRequestListScreenState
         packedDateFilteredData =
             filterDataByDateRange(packedHistoryList, startDate, endDate);
       } else {
+        superPrint(requestedHistoryList);
         dateFilteredData =
             filterDataByDateRange(requestedHistoryList, startDate, endDate);
       }
