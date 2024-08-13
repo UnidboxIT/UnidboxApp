@@ -39,6 +39,8 @@ class _PendingRequestListScreenState
   bool requestLoading = false;
   String historyText = "";
   List<Map<String, dynamic>> dateFilteredData = [];
+  List<Map<String, dynamic>> acceptedDateFilteredData = [];
+  List<Map<String, dynamic>> packedDateFilteredData = [];
   String selectedDateRange = "";
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
@@ -137,6 +139,7 @@ class _PendingRequestListScreenState
         }
       }
     }
+
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
         dateFilteredData.clear();
@@ -147,12 +150,17 @@ class _PendingRequestListScreenState
     }
     if (acceptedHistoryMap.isNotEmpty) {
       setState(() {
+        acceptedDateFilteredData.clear();
         acceptedHistoryList.add(acceptedHistoryMap);
+        acceptedDateFilteredData.add(acceptedHistoryMap);
+        superPrint(dateFilteredData);
       });
     }
     if (packedHistoryMap.isNotEmpty) {
       setState(() {
+        packedDateFilteredData.clear();
         packedHistoryList.add(packedHistoryMap);
+        packedDateFilteredData.add(packedHistoryMap);
       });
     }
   }
@@ -282,6 +290,12 @@ class _PendingRequestListScreenState
                       onTap: () {
                         setState(() {
                           historyText = "accepted";
+                          startDate = DateTime.now();
+                          endDate = DateTime.now();
+                          selectedDateRange =
+                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                          acceptedDateFilteredData.clear();
+                          acceptedDateFilteredData.add(acceptedHistoryMap);
                         });
                       },
                       child: textWidget("Accepted\nHistroy",
@@ -304,6 +318,12 @@ class _PendingRequestListScreenState
                       onTap: () {
                         setState(() {
                           historyText = "packed";
+                          startDate = DateTime.now();
+                          endDate = DateTime.now();
+                          selectedDateRange =
+                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                          packedDateFilteredData.clear();
+                          packedDateFilteredData.add(packedHistoryMap);
                         });
                       },
                       child: textWidget("Packed\nHistory",
@@ -325,9 +345,13 @@ class _PendingRequestListScreenState
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                          historyText = "issued";
+                          startDate = DateTime.now();
+                          endDate = DateTime.now();
+                          selectedDateRange =
+                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
                           dateFilteredData.clear();
                           dateFilteredData.add(requestedHistoryMap);
-                          historyText = "issued";
                         });
                       },
                       child: textWidget("Issued\nHistory",
@@ -354,10 +378,14 @@ class _PendingRequestListScreenState
               : Expanded(
                   child: historyText == "accepted"
                       ? AcceptedProductHistoryScreen(
-                          requestedHistoryList: acceptedHistoryList)
+                          requestedHistoryList: acceptedDateFilteredData
+                          //acceptedHistoryList
+                          )
                       : historyText == "packed"
                           ? PackedProductHistoryScreen(
-                              requestedHistoryList: packedHistoryList)
+                              requestedHistoryList: packedDateFilteredData
+                              //packedHistoryList,
+                              )
                           : requestHistoryWidget(),
                 ),
         ],
@@ -518,10 +546,10 @@ class _PendingRequestListScreenState
                                             ),
                                           ),
                                           Positioned(
-                                            left: -12.5.w,
+                                            left: -6.w,
                                             child: Transform.rotate(
                                               angle: 80.1,
-                                              child: textWidget("Issued",
+                                              child: textWidget("ISSUED",
                                                   size: 12,
                                                   fontWeight: FontWeight.w800,
                                                   color: Colors.white,
@@ -732,10 +760,10 @@ class _PendingRequestListScreenState
         },
         onCancel: () {
           setState(() {
-            // selectedDateRange =
-            //     "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(DateTime.now()))}";
-            // dateFilteredData.clear();
-            // dateFilteredData.add(requestedHistoryMap);
+            startDate = DateTime.now();
+            endDate = DateTime.now();
+            selectedDateRange =
+                "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
             Navigator.of(dialogContext).pop();
           });
           superPrint(selectedDateRange);
@@ -753,8 +781,16 @@ class _PendingRequestListScreenState
       startDate = DateFormat('dd/MM/yyyy').parse(selectedDates[0]);
       endDate = DateFormat('dd/MM/yyyy').parse(selectedDates[1]);
       dateFilteredData.clear();
-      dateFilteredData =
-          filterDataByDateRange(requestedHistoryList, startDate, endDate);
+      if (historyText == "accepted") {
+        acceptedDateFilteredData =
+            filterDataByDateRange(acceptedHistoryList, startDate, endDate);
+      } else if (historyText == "packed") {
+        packedDateFilteredData =
+            filterDataByDateRange(packedHistoryList, startDate, endDate);
+      } else {
+        dateFilteredData =
+            filterDataByDateRange(requestedHistoryList, startDate, endDate);
+      }
     });
   }
 }
