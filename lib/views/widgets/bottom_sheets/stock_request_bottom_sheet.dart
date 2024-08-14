@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import '../button/button_widget.dart';
 import '../text_widget.dart';
 import 'global_bottom_sheet.dart';
 
@@ -59,23 +58,39 @@ Widget stockRequestBottomSheet(String title, String bodyText,
         ),
         const Spacer(),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              width: 45.w,
-              height: 55,
-              child: buttonWidget(
-                  "Make Another\nRequest", anotherRequestPressed,
-                  textAlign: TextAlign.center),
+            const SizedBox(width: 5),
+            GestureDetector(
+              onTap: anotherRequestPressed,
+              child: Container(
+                  alignment: Alignment.center,
+                  width: 46.w,
+                  height: 55,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: textWidget("Make Another\nRequest",
+                      textAlign: TextAlign.center,
+                      size: 13,
+                      fontWeight: FontWeight.w600)),
             ),
             const SizedBox(width: 10),
-            SizedBox(
-              width: 45.w,
-              height: 55,
-              child: buttonWidget(
-                  "Proceed To\nPending Requests", pendingRequestPressed,
-                  textAlign: TextAlign.center),
+            GestureDetector(
+              onTap: anotherRequestPressed,
+              child: Container(
+                  width: 46.w,
+                  height: 55,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: textWidget("Proceed To\nPending Requests",
+                      textAlign: TextAlign.center,
+                      size: 13,
+                      fontWeight: FontWeight.w600)),
             ),
+            const SizedBox(width: 5),
           ],
         ),
         const Spacer(),

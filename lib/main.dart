@@ -92,8 +92,8 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
     // }
-  } else if (currentRoute != '/myRequest' ||
-      regExp.hasMatch(receivedAction.body!) ||
+  } else if (currentRoute != '/myRequest' &&
+          regExp.hasMatch(receivedAction.body!) ||
       receivedAction.body!.contains("packed") ||
       receivedAction.body!.contains("issued")) {
     if (regExp.hasMatch(receivedAction.body!)) {
