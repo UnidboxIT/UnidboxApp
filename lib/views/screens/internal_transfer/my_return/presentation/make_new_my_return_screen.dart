@@ -22,7 +22,6 @@ import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
 import '../repository/state/my_return_state.dart';
 import 'widgets/make_new_return_reason_widget.dart';
-import 'widgets/scan_search_bar_widget.dart';
 
 class MakeNewMyReturnScreen extends ConsumerStatefulWidget {
   final List<Products> scanProductList;
@@ -181,16 +180,16 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
     return Container(
       width: 100.w,
       height: 84.h,
+      padding: const EdgeInsets.only(top: 25),
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Column(
-        children: [
-          scanSearchBarWidget(context),
-          Expanded(child: returnRequestWidget()),
-        ],
-      ),
+      child: widget.scanProductList.isEmpty
+          ? Center(
+              child: textWidget("No Product!"),
+            )
+          : returnRequestWidget(),
     );
   }
 
@@ -330,6 +329,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           child: buttonWidget(
                             "Cancel",
                             () {
+                              FocusManager.instance.primaryFocus!.unfocus();
                               Navigator.of(context).pop();
                             },
                             fontColor: AppColor.primary,

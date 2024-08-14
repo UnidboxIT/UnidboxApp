@@ -16,7 +16,7 @@ import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
 import '../repository/state/my_return_state.dart';
 import 'widgets/each_my_return_reason_widget.dart';
-import 'widgets/scan_search_bar_widget.dart';
+import 'widgets/new_return_scan_search_bar_widget.dart';
 
 class UpdateMyReturnScreen extends ConsumerStatefulWidget {
   final String productCode;
@@ -144,7 +144,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
       ),
       child: Column(
         children: [
-          scanSearchBarWidget(context),
+          const NewReturnSearchAndScanWidget(),
           Expanded(child: returnRequestWidget()),
         ],
       ),

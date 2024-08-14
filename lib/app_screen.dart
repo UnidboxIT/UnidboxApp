@@ -18,12 +18,6 @@ class AppScreen extends ConsumerStatefulWidget {
 
 class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (ref.watch(connectivityStatusProviders) ==
         ConnectivityStatus.isConnected) {

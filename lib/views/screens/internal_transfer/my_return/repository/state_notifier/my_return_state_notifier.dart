@@ -21,6 +21,7 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
   List<MyRequest> myReturnList = [];
   List<ReturnRequestReason> returnRequestReasonList = [];
   List<Products> scanProductList = [];
+  List<Products> searchProductList = [];
 
   Future<void> getAllMyReturn() async {
     try {
@@ -123,6 +124,46 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
         }
       }
       superPrint(scanProductList.length);
+    } catch (e) {
+      superPrint(e.toString());
+    }
+  }
+
+  Future<void> searchProduct(
+    String name,
+    BuildContext context,
+    int pageNumber,
+  ) async {
+    superPrint(name);
+    try {
+      state = const MyReturnState.loading();
+      Response response =
+          await _myRequestRepository.searchProduct(name, pageNumber);
+      var result = jsonDecode(response.body);
+      if (result['result']['code'] == 200) {
+        searchProductList.clear();
+        Iterable dataList = result['result']['records'];
+        for (var element in dataList) {
+          searchProductList.add(Products.fromJson(element));
+        }
+        state = MyReturnState.loadSearchProduct(searchProductList);
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MakeNewMyReturnScreen(
+              scanProductList: searchProductList,
+            ),
+          ),
+        );
+      } else {
+        Navigator.of(context).pop();
+        CommonMethods.customizedAlertDialog("No product found!", context);
+        state = const MyReturnState.loadScanProduct([]);
+        //state = const ScanProductState.error(error: "No product found!");
+      }
+      superPrint(searchProductList);
+      superPrint(searchProductList.first.name);
+      superPrint(searchProductList.length, title: "Search Product Length");
     } catch (e) {
       superPrint(e.toString());
     }

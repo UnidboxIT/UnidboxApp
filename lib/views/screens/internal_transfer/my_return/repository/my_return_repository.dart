@@ -100,4 +100,16 @@ class MyReturnRepository {
 
     return response;
   }
+
+  Future<Response> searchProduct(String name, int pageNumber) async {
+    superPrint(pageNumber, title: "Search Product Page Number");
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint:
+          'joborder/product-search/?offset=$pageNumber&limit=10&sort=display_name&name=$name&fields=create_date,id,brand,display_name,default_code,categ_id,barcode,quantity,qty_warning_out_stock,sale_price,image_url,attributes,barcode_ids,full_name,warehouse_id,uom_id,default_wh_qty',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
 }

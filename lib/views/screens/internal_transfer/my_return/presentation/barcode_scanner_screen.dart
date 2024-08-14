@@ -10,6 +10,7 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
 
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import 'widgets/new_return_scan_search_bar_widget.dart';
 
 class NewReturnBarCodeScannerScreen extends ConsumerStatefulWidget {
   const NewReturnBarCodeScannerScreen({super.key});
@@ -120,6 +121,13 @@ class _BarcodeScannerWithOverlayState
             ),
             scannerOverlayWidget(),
             scannerBorderWidget(),
+            Transform.translate(
+              offset: Offset(0, -23.h),
+              child: SizedBox(
+                width: 100.w,
+                child: const NewReturnSearchAndScanWidget(),
+              ),
+            ),
           ],
         ));
   }

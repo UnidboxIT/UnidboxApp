@@ -15,7 +15,8 @@ class MyReturnState with _$MyReturnState {
       List<MyRequest> myReturnDataList) = MyReturnDataList;
   const factory MyReturnState.loadScanProduct(List<Products> scanProductList) =
       MyReturnScanProductList;
-
+  const factory MyReturnState.loadSearchProduct(
+      List<Products> searchProductList) = SearchMyReturnProductList;
   const factory MyReturnState.initial() = Initial;
   const factory MyReturnState.loading() = MyReturnLoading;
   const factory MyReturnState.updateLoading() = MyReturnUpdateLoading;

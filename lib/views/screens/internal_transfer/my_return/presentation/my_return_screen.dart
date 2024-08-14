@@ -84,7 +84,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
-          isMyReturnLoading = true;
           isWarehouseLoading = true;
         });
       }
