@@ -46,7 +46,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   int totalQty = 1;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     Future.delayed(const Duration(milliseconds: 10), () {
@@ -447,8 +446,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   }
 
   Widget returnToAllWarehouseWidget() {
-    superPrint(widget.scanProductList.first.defaultWarehouseList[0]);
-    superPrint(userWarehouse.warehouseList);
     return SizedBox(
       height: inHouseStockList.length > 3 ? 17.h : 7.h,
       child: GridView.builder(

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'nav_bar.dart';
 
 Widget floatingActionBottomWidget() {
@@ -21,56 +20,32 @@ Widget floatingActionBottomWidget() {
 List<NavBar> navBarList = [
   NavBar(
     id: 0,
-    unselectedIcon: Icon(
-      Icons.home_filled,
-      color: Colors.black.withOpacity(0.7),
-    ),
-    selectedIcon: Icon(
-      Icons.home_filled,
-      color: AppColor.primary,
-    ),
-    name: "Home",
+    unselectedIcon: Icons.home_filled,
+    selectedIcon: Icons.home_filled,
+    //name: "Home",
   ),
   NavBar(
     id: 1,
-    unselectedIcon: Icon(
-      Icons.calendar_month,
-      color: Colors.black.withOpacity(0.7),
-    ),
-    selectedIcon: Icon(
-      Icons.calendar_month,
-      color: AppColor.primary,
-    ),
-    name: "Calendar",
+    unselectedIcon: Icons.calendar_month,
+    selectedIcon: Icons.calendar_month,
+    //name: "Calendar",
   ),
   NavBar(
     id: 2,
-    selectedIcon: const SizedBox.shrink(),
-    unselectedIcon: const SizedBox.shrink(),
-    name: "",
+    selectedIcon: Icons.calendar_month,
+    unselectedIcon: Icons.calendar_month,
+    //name: "",
   ),
   NavBar(
     id: 3,
-    unselectedIcon: Icon(
-      Icons.sms_rounded,
-      color: Colors.black.withOpacity(0.7),
-    ),
-    selectedIcon: Icon(
-      Icons.sms_rounded,
-      color: AppColor.primary,
-    ),
-    name: "Message",
+    unselectedIcon: Icons.sms_rounded,
+    selectedIcon: Icons.sms_rounded,
+    // name: "Message",
   ),
   NavBar(
     id: 4,
-    unselectedIcon: Icon(
-      CupertinoIcons.person_fill,
-      color: Colors.black.withOpacity(0.7),
-    ),
-    selectedIcon: Icon(
-      CupertinoIcons.person_fill,
-      color: AppColor.primary,
-    ),
-    name: "Profile",
+    unselectedIcon: CupertinoIcons.person_fill,
+    selectedIcon: CupertinoIcons.person_fill,
+    //name: "Profile",
   ),
 ];

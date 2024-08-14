@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
 import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
 import '../../../my_request/domain/my_request.dart';
@@ -218,12 +217,13 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                 ],
               ),
               const Spacer(),
-              SizedBox(
+              Container(
                 height: 35,
                 width: 30.w,
-                child: buttonWidget(
+                alignment: Alignment.bottomCenter,
+                child: textWidget(
                   "Packed",
-                  () {},
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],

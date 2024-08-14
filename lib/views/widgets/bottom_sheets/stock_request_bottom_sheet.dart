@@ -59,7 +59,7 @@ Widget stockRequestBottomSheet(String title, String bodyText,
         ),
         const Spacer(),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               width: 45.w,

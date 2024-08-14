@@ -563,10 +563,18 @@ class _PendingRequestListScreenState
                                             ),
                                           ),
                                           Positioned(
-                                            left: -6.w,
+                                            left:
+                                                productList[subIndex].status ==
+                                                        "done"
+                                                    ? -4.w
+                                                    : -9.w,
                                             child: Transform.rotate(
                                               angle: 80.1,
-                                              child: textWidget("ISSUED",
+                                              child: textWidget(
+                                                  productList[subIndex]
+                                                      .status
+                                                      .toString()
+                                                      .toUpperCase(),
                                                   size: 12,
                                                   fontWeight: FontWeight.w800,
                                                   color: Colors.white,

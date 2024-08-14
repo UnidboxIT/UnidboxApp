@@ -373,6 +373,9 @@ Widget requestStockWidget(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
+                          if (product.multiUomList[index][0] == false) {
+                            return const SizedBox.shrink();
+                          }
                           return GestureDetector(
                               onTap: () {
                                 ref

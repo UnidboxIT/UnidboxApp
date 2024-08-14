@@ -156,11 +156,11 @@ Widget eachProductLineWidget(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textWidget(
-                                      "Requested Qty: ${product.qty.toString()} ${product.productUomList[1]}",
+                                      "Requested Qty: ${product.qty.toInt()} ${product.productUomList[1]}",
                                       size: 12,
                                     ),
                                     textWidget(
-                                      "Issued Qty : ${product.issueQty.toString()} ${product.productUomList[1]}",
+                                      "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
                                       size: 12,
                                     ),
                                   ],
@@ -170,11 +170,11 @@ Widget eachProductLineWidget(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     textWidget(
-                                      "Requested Qty : ${product.qty.toString()} ${product.productUomList[1]}",
+                                      "Requested Qty : ${product.qty.toInt()} ${product.productUomList[1]}",
                                       size: 12,
                                     ),
                                     textWidget(
-                                      "Issued Qty : ${product.issueQty.toString()} ${product.productUomList[1]}",
+                                      "Issued Qty : ${product.issueQty.toInt()} ${product.productUomList[1]}",
                                       size: 12,
                                     ),
                                     const SizedBox(height: 5),

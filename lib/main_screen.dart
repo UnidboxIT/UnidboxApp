@@ -8,7 +8,6 @@ import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
 import 'views/screens/system_navigation/home_navigation.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
-import 'views/widgets/text_widget.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -86,53 +85,63 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         children: navBarList
             .map(
               (e) => GestureDetector(
-                onTap: () {
-                  if (e.id != 2) {
-                    if (currentIndex == e.id) {
-                      navigatorKeys[currentIndex]
-                          .currentState
-                          ?.popUntil((route) => route.isFirst);
-                    } else {
-                      setState(() {
-                        currentIndex = e.id;
-                      });
-                      if (currentIndex == 4) {
-                        SystemChrome.setSystemUIOverlayStyle(
-                          SystemUiOverlayStyle(
-                            statusBarColor: AppColor.primary,
-                          ),
-                        );
+                  onTap: () {
+                    if (e.id != 2) {
+                      if (currentIndex == e.id) {
+                        navigatorKeys[currentIndex]
+                            .currentState
+                            ?.popUntil((route) => route.isFirst);
+                      } else {
+                        setState(() {
+                          currentIndex = e.id;
+                        });
+                        if (currentIndex == 4) {
+                          SystemChrome.setSystemUIOverlayStyle(
+                            SystemUiOverlayStyle(
+                              statusBarColor: AppColor.primary,
+                            ),
+                          );
+                        }
                       }
                     }
-                  }
-                },
-                child: Container(
-                  width: 17.w,
-                  height: e.id != 2 ? 60 : 0,
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      e.id == currentIndex ? e.selectedIcon : e.unselectedIcon,
-                      e.id == currentIndex
-                          ? textWidget(
-                              e.name,
-                              fontWeight: FontWeight.w600,
-                              size: 15,
-                              color: AppColor.primary,
-                            )
-                          : const SizedBox(
-                              height: 5,
-                            ),
-                    ],
+                  },
+                  child: Container(
+                    width: 17.w,
+                    height: e.id != 2 ? 60 : 0,
+                    color: Colors.transparent,
+                    alignment: Alignment.center,
+                    child: e.id != 2
+                        ? Icon(
+                            e.selectedIcon,
+                            size: e.id == currentIndex ? 4.h : 3.h,
+                            color: e.id == currentIndex
+                                ? AppColor.primary
+                                : Colors.black.withOpacity(0.7),
+                          )
+                        : const SizedBox.shrink(),
+                  )
+                  // Container(
+                  //     width: 17.w,
+                  //     height: e.id != 2 ? 60 : 0,
+                  //     color: Colors.transparent,
+                  //     alignment: Alignment.center,
+                  //     child: e.unselectedIcon,
+                  //   ),
                   ),
-                ),
-              ),
             )
             .toList(),
       ),
     );
   }
 }
+
+ // e.id == currentIndex
+//     ? textWidget(
+//         e.name,
+//         fontWeight: FontWeight.w600,
+//         size: 15,
+//         color: AppColor.primary,
+//       )
+//     : const SizedBox(
+//         height: 5,
+//       ),
