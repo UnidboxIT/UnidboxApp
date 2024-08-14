@@ -23,7 +23,8 @@ import 'views/user_warehouse/provider/user_warehouse_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await NotificationController.initializeLocalNotifications(
     onActionReceivedMethod,
   );

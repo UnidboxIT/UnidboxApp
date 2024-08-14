@@ -338,107 +338,126 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                       fontSize: 15,
                                       bgColor: Colors.grey.shade100,
                                       fontColor: AppColor.primary),
-                                  requestButtonWidgetInProductList("Send", () {
-                                    ref
-                                        .read(bottomBarVisibilityProvider
-                                            .notifier)
-                                        .state = false;
-
-                                    if (productList[index]
-                                        .defaultWarehouseList
-                                        .isEmpty) {
-                                      ref
-                                          .read(
-                                              inhouseStockStateNotifierProvider
-                                                  .notifier)
-                                          .getInHouseStock(
-                                              productList[index].id, context)
-                                          .then((_) {});
-                                      showInsuffiecientBottomSheet(
-                                        productList[index].id.toString(),
-                                        context,
-                                        productList[index],
-                                        userWarehouse,
-                                        "Default warehouse is not set.",
-                                        isBackRequest: widget.isBackRequest,
-                                      ).then((_) {
-                                        ref
-                                            .read(bottomBarVisibilityProvider
-                                                .notifier)
-                                            .state = true;
-                                      });
-                                    } else if (productList[index]
-                                                .defaultWarehouseQty <
-                                            qtyByMap[productList[index]
-                                                .id
-                                                .toString()]! ||
-                                        productList[index]
-                                                .defaultWarehouseList[0] ==
-                                            userWarehouse.warehouseList[0]) {
-                                      ref
-                                          .read(
-                                              inhouseStockStateNotifierProvider
-                                                  .notifier)
-                                          .getInHouseStock(
-                                              productList[index].id, context)
-                                          .then((_) {});
-                                      showInsuffiecientBottomSheet(
-                                        productList[index].id.toString(),
-                                        context,
-                                        productList[index],
-                                        userWarehouse,
-                                        productList[index]
-                                                .defaultWarehouseList[1] +
-                                            "have insufficient quantity\n for your request.",
-                                        isBackRequest: widget.isBackRequest,
-                                      ).then((_) {
-                                        ref
-                                            .read(bottomBarVisibilityProvider
-                                                .notifier)
-                                            .state = true;
-                                      });
-                                    } else {
+                                  requestButtonWidgetInProductList(
+                                      "Send",
                                       isSendRequestLoading
                                           ? () {}
-                                          : ref
-                                              .read(
-                                                  stockRequesstStateNotifierProvider
-                                                      .notifier)
-                                              .requestInHouseStock(
-                                                userWarehouse.warehouseList[0],
-                                                productList[index]
-                                                    .defaultWarehouseList[0],
-                                                admin.companyId,
-                                                productList[index].id,
-                                                productList[index].name,
-                                                qtyByMap[productList[index]
-                                                    .id
-                                                    .toString()]!,
-                                                productList[index].price,
-                                                selectedBox,
-                                                isUrgentMap[productList[index]
-                                                        .id
-                                                        .toString()] ??
-                                                    false,
-                                                context,
-                                                ref,
-                                              )
-                                              .then((_) {
-                                              ref
-                                                  .read(
-                                                      inhouseStockStateNotifierProvider
-                                                          .notifier)
-                                                  .getInHouseStock(
-                                                      productList[index].id,
-                                                      context);
+                                          : () {
                                               ref
                                                   .read(
                                                       bottomBarVisibilityProvider
                                                           .notifier)
-                                                  .state = true;
-                                            });
-                                    }
-                                  },
+                                                  .state = false;
+
+                                              if (productList[index]
+                                                  .defaultWarehouseList
+                                                  .isEmpty) {
+                                                ref
+                                                    .read(
+                                                        inhouseStockStateNotifierProvider
+                                                            .notifier)
+                                                    .getInHouseStock(
+                                                        productList[index].id,
+                                                        context)
+                                                    .then((_) {});
+                                                showInsuffiecientBottomSheet(
+                                                  productList[index]
+                                                      .id
+                                                      .toString(),
+                                                  context,
+                                                  productList[index],
+                                                  userWarehouse,
+                                                  "Default warehouse is not set.",
+                                                  isBackRequest:
+                                                      widget.isBackRequest,
+                                                ).then((_) {
+                                                  ref
+                                                      .read(
+                                                          bottomBarVisibilityProvider
+                                                              .notifier)
+                                                      .state = true;
+                                                });
+                                              } else if (productList[index]
+                                                          .defaultWarehouseQty <
+                                                      qtyByMap[
+                                                          productList[index]
+                                                              .id
+                                                              .toString()]! ||
+                                                  productList[index]
+                                                              .defaultWarehouseList[
+                                                          0] ==
+                                                      userWarehouse
+                                                          .warehouseList[0]) {
+                                                ref
+                                                    .read(
+                                                        inhouseStockStateNotifierProvider
+                                                            .notifier)
+                                                    .getInHouseStock(
+                                                        productList[index].id,
+                                                        context)
+                                                    .then((_) {});
+                                                showInsuffiecientBottomSheet(
+                                                  productList[index]
+                                                      .id
+                                                      .toString(),
+                                                  context,
+                                                  productList[index],
+                                                  userWarehouse,
+                                                  productList[index]
+                                                          .defaultWarehouseList[1] +
+                                                      "have insufficient quantity\n for your request.",
+                                                  isBackRequest:
+                                                      widget.isBackRequest,
+                                                ).then((_) {
+                                                  ref
+                                                      .read(
+                                                          bottomBarVisibilityProvider
+                                                              .notifier)
+                                                      .state = true;
+                                                });
+                                              } else {
+                                                ref
+                                                    .read(
+                                                        stockRequesstStateNotifierProvider
+                                                            .notifier)
+                                                    .requestInHouseStock(
+                                                      userWarehouse
+                                                          .warehouseList[0],
+                                                      productList[index]
+                                                          .defaultWarehouseList[0],
+                                                      admin.companyId,
+                                                      productList[index].id,
+                                                      productList[index].name,
+                                                      qtyByMap[
+                                                          productList[index]
+                                                              .id
+                                                              .toString()]!,
+                                                      productList[index].price,
+                                                      selectedBox,
+                                                      isUrgentMap[productList[
+                                                                  index]
+                                                              .id
+                                                              .toString()] ??
+                                                          false,
+                                                      context,
+                                                      ref,
+                                                    )
+                                                    .then((_) {
+                                                  ref
+                                                      .read(
+                                                          inhouseStockStateNotifierProvider
+                                                              .notifier)
+                                                      .getInHouseStock(
+                                                          productList[index].id,
+                                                          context);
+                                                  ref
+                                                      .read(
+                                                          bottomBarVisibilityProvider
+                                                              .notifier)
+                                                      .state = true;
+                                                });
+                                              }
+                                            },
                                       isBool: isSendRequestLoading,
                                       fontSize: 15,
                                       elevation: 0.2,

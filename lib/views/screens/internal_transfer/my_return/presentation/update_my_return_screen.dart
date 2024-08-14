@@ -325,6 +325,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                           child: buttonWidget(
                             "Update",
                             () {
+                              FocusManager.instance.primaryFocus!.unfocus();
                               superPrint(reasonIndex);
                               superPrint(txtOtherComment.text);
                               ref
@@ -340,7 +341,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                                       reasonIndex,
                                       txtOtherComment.text,
                                       context,
-                                      ref)
+                                      ref,
+                                      false)
                                   .then((_) {
                                 Navigator.of(context).pop();
                               });

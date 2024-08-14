@@ -8,7 +8,7 @@ class MyReturnRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/stock-request-list/?fields=id,is_return,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
+          'joborder/stock-request-list/?fields=id,is_return,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&return=my_return',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -52,6 +52,7 @@ class MyReturnRepository {
     int uomID,
     List<String> reasonID,
     String comment,
+    bool isNewReturn,
   ) async {
     Map<String, dynamic> formData = {};
     if (comment.isNotEmpty) {
@@ -64,7 +65,8 @@ class MyReturnRepository {
         "uom_id": uomID,
         "is_return": true,
         "reason": reasonID,
-        "comment": comment
+        "comment": comment,
+        "new_request": isNewReturn
       };
     } else {
       formData = {
@@ -76,6 +78,7 @@ class MyReturnRepository {
         "uom_id": uomID,
         "is_return": true,
         "reason": reasonID,
+        "new_request": isNewReturn,
       };
     }
 

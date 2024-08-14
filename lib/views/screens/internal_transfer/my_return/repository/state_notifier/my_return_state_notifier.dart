@@ -52,6 +52,7 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
     String comment,
     BuildContext context,
     WidgetRef ref,
+    bool isNewReturn,
   ) async {
     try {
       state = const MyReturnState.updateLoading();
@@ -65,7 +66,8 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
           price,
           uomID,
           reasonIDList,
-          comment);
+          comment,
+          isNewReturn);
       superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {

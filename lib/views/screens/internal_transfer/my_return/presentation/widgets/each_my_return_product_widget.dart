@@ -238,6 +238,7 @@ Widget eachMyReturnProductLineWidget(
                                 ref
                                     .read(bottomBarVisibilityProvider.notifier)
                                     .state = false;
+                                FocusManager.instance.primaryFocus!.unfocus();
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => UpdateMyReturnScreen(
                                           productCode: requestCode,

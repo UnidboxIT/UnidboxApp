@@ -123,7 +123,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
       ),
       child: Column(
         children: [
-          filterByDateWidget(context),
+          //filterByDateWidget(context),
           const SearchPendingRequestWidget(),
           Expanded(child: rejectedRequestListWidget()),
         ],

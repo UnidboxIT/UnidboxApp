@@ -103,42 +103,42 @@ class _FilterByDateWidgetState extends State<FilterByDateWidget> {
   }
 }
 
-Widget filterByDateWidget(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-    child: Container(
-      height: 45,
-      width: 100.w,
-      padding: const EdgeInsets.only(left: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.dropshadowColor,
-              blurRadius: 5,
-              spreadRadius: 5,
-            )
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          textWidget("Filter date", color: Colors.grey.shade400, size: 13),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              color: Colors.transparent,
-              width: 20.w,
-              padding: const EdgeInsets.only(right: 10),
-              alignment: Alignment.centerRight,
-              child: const Icon(Icons.calendar_month_outlined),
-            ),
-          )
-        ],
-      ),
-    ),
-  );
-}
+// Widget filterByDateWidget(BuildContext context) {
+//   return Padding(
+//     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+//     child: Container(
+//       height: 45,
+//       width: 100.w,
+//       padding: const EdgeInsets.only(left: 10),
+//       decoration: BoxDecoration(
+//           color: Colors.white,
+//           borderRadius: BorderRadius.circular(8),
+//           boxShadow: [
+//             BoxShadow(
+//               color: AppColor.dropshadowColor,
+//               blurRadius: 5,
+//               spreadRadius: 5,
+//             )
+//           ]),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           textWidget("Filter date", color: Colors.grey.shade400, size: 13),
+//           GestureDetector(
+//             onTap: () {},
+//             child: Container(
+//               color: Colors.transparent,
+//               width: 20.w,
+//               padding: const EdgeInsets.only(right: 10),
+//               alignment: Alignment.centerRight,
+//               child: const Icon(Icons.calendar_month_outlined),
+//             ),
+//           )
+//         ],
+//       ),
+//     ),
+//   );
+// }
 
 // DateRange? selectedDateRange;
 

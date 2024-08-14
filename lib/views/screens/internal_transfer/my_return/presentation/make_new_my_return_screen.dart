@@ -317,7 +317,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   ),
                   const SizedBox(height: 5),
                   returnReasonWidget(),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Row(
@@ -341,6 +341,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           child: buttonWidget(
                             "Send Request",
                             () {
+                              FocusManager.instance.primaryFocus!.unfocus();
                               superPrint(sumNewReturnQty);
                               superPrint(reasonIndex);
                               superPrint(txtNewReturnComment.text);
@@ -357,7 +358,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                       reasonIndex,
                                       txtNewReturnComment.text,
                                       context,
-                                      ref)
+                                      ref,
+                                      true)
                                   .then((_) {
                                 Navigator.of(context).pop();
                               });
