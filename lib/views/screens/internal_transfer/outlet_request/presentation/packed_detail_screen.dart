@@ -382,11 +382,11 @@ class _OtherRequestsDetailScreenState
                                 selectedWarehouseID,
                               )
                               .then((_) {
-                            isSwipeLoading = false;
                             ref
                                 .read(
                                     otherRequestStateNotifierProvider.notifier)
                                 .getAllOtherRequest();
+                            isSwipeLoading = false;
                           });
                         } else {
                           isSwipeLoading = false;

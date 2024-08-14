@@ -17,6 +17,7 @@ import 'package:unidbox_app/views/screens/system_navigation/home_navigation.dart
 import 'views/global_provider_observe.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
+import 'views/screens/internal_transfer/outlet_return/presentation/outlet_return_screen.dart';
 import 'views/screens/notification_service/notification_service.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import 'views/user_warehouse/provider/user_warehouse_provider.dart';
@@ -86,13 +87,10 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
   if (currentRoute != '/outletRequest' &&
           receivedAction.body!.contains("updated") ||
       receivedAction.body!.contains("request")) {
-    // if (receivedAction.body!.contains("updated") ||
-    //     receivedAction.body!.contains("request")) {
     Navigator.push(
       homeNavRouteState.currentState!.context,
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
-    // }
   } else if (currentRoute != '/myRequest' &&
           regExp.hasMatch(receivedAction.body!) ||
       receivedAction.body!.contains("packed") ||
@@ -111,16 +109,15 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
               isStockRequest: false,
             )));
   } else if (currentRoute != '/myReturn' &&
-      returnRegExp.hasMatch(receivedAction.body!) &&
       receivedAction.body!.contains("return_accepted")) {
     Navigator.of(
       homeNavRouteState.currentState!.context,
     ).push(MaterialPageRoute(builder: (context) => const MyReturnScreen()));
     //MyReturn
+  } else if (currentRoute != '/outletReturn' &&
+      returnRegExp.hasMatch(receivedAction.body!)) {
+    Navigator.of(
+      homeNavRouteState.currentState!.context,
+    ).push(MaterialPageRoute(builder: (context) => const OutletReturnScreen()));
   }
-  // else if (currentRoute != '/outletReturn') {
-  //   Navigator.of(
-  //     homeNavRouteState.currentState!.context,
-  //   ).push(MaterialPageRoute(builder: (context) => const OutletReturnScreen()));
-  // }
 }

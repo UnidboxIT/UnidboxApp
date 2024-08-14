@@ -471,7 +471,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                 onTap: () {
                   superPrint(inHouseStockList[index].warehouseList);
                   if (widget
-                      .scanProductList.first.defaultWarehouseList.isEmpty) {
+                          .scanProductList.first.defaultWarehouseList.isEmpty &&
+                      userWarehouse.warehouseList[0] !=
+                          inHouseStockList[index].warehouseList[0]) {
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
                         .selectedWarehouseID(
@@ -480,6 +482,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   } else if (widget.scanProductList.first.defaultWarehouseList
                           .isNotEmpty &&
                       widget.scanProductList.first.defaultWarehouseList[0] !=
+                          inHouseStockList[index].warehouseList[0] &&
+                      userWarehouse.warehouseList[0] !=
                           inHouseStockList[index].warehouseList[0]) {
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
@@ -489,8 +493,11 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   }
                 },
                 child: widget.scanProductList.first.defaultWarehouseList
-                            .isNotEmpty &&
-                        widget.scanProductList.first.defaultWarehouseList[0] ==
+                                .isNotEmpty &&
+                            widget.scanProductList.first
+                                    .defaultWarehouseList[0] ==
+                                inHouseStockList[index].warehouseList[0] ||
+                        userWarehouse.warehouseList[0] ==
                             inHouseStockList[index].warehouseList[0]
                     // userWarehouse.warehouseList[0]
                     ? Container(

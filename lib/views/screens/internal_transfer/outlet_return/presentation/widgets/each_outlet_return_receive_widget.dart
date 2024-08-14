@@ -29,7 +29,7 @@ Widget eachOutletReturnWidget(
       },
       itemBuilder: (context, index) {
         double returnQty =
-            productList[index].qty - productList[index].receivedQty;
+            productList[index].issueQty - productList[index].receivedQty;
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),

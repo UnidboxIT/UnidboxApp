@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import '../../../../../utils/constant/app_color.dart';
@@ -131,8 +132,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 acceptedOutletReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = element.warehouseList[0];
+                String warehouseName = element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -160,6 +161,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
             } else {
               selectedWarehouseID = requestedMap.keys.first;
             }
+            superPrint(selectedWarehouseID);
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
           }
