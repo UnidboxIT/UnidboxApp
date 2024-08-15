@@ -45,7 +45,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
   List<String> visibleCode = [];
-  bool isMyReturnLoading = false;
 
   @override
   void initState() {
@@ -97,7 +96,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
-          isMyReturnLoading = true;
           warehouseList = [];
         });
       }
@@ -105,9 +103,9 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            //if (data.id != userWarehouse.warehouseList[0]) {
-            warehouseList.add(data);
-            // }
+            if (data.id != userWarehouse.warehouseList[0]) {
+              warehouseList.add(data);
+            }
           }
         });
       }
@@ -123,7 +121,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
       if (next is MyReturnDataList) {
         setState(() {
           myReturnList = next.myReturnDataList;
-          isMyReturnLoading = false;
+
           requestedMap.clear();
           requestedMapList.clear();
           for (var data in myReturnList) {
@@ -132,24 +130,30 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 acceptedReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = data.isNewReturn
+                    ? element.warehouseList[0]
+                    : element.requestWarehouse[0];
+                String warehouseName = data.isNewReturn
+                    ? element.warehouseList[1]
+                    : element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                  requestedMap[warehouseId]['product_line'][productLineKey] = {
+                    "is_return": data.isNewReturn,
+                    "products": []
+                  };
                 }
                 requestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
@@ -261,29 +265,23 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
         children: [
           const SearchOtherRequestWidget(),
           Expanded(
-            child: isMyReturnLoading
-                ? Center(
-                    child: CupertinoActivityIndicator(
-                      color: AppColor.primary,
-                    ),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      warehouseWidget(),
-                      const SizedBox(height: 15),
-                      acceptedMyReturnWidget(acceptedReturnList, context),
-                      const SizedBox(height: 10),
-                      Expanded(
-                        child: requestedMap[selectedWarehouseID] != null ||
-                                selectedWarehouseID == -1
-                            ? myReturnDataWidget(requestedMapList)
-                            : Center(
-                                child: textWidget("No Data !"),
-                              ),
-                      ),
-                    ],
-                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                warehouseWidget(),
+                const SizedBox(height: 15),
+                acceptedMyReturnWidget(acceptedReturnList, context),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: requestedMap[selectedWarehouseID] != null ||
+                          selectedWarehouseID == -1
+                      ? myReturnDataWidget(requestedMapList)
+                      : Center(
+                          child: textWidget("No Data !"),
+                        ),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -332,9 +330,10 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                             String productLineKey =
                                 productLineMap.keys.elementAt(productIndex);
                             superPrint(productLineKey);
-                            superPrint(productLineMap[productLineKey]);
+                            superPrint(
+                                productLineMap[productLineKey]['products']);
                             List<dynamic> productList =
-                                productLineMap[productLineKey];
+                                productLineMap[productLineKey]['products'];
                             superPrint(productList);
                             return Column(
                               children: [
@@ -412,8 +411,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              warehouseData['is_return'],
-                                              // warehouseData['name'],
+                                              productLineMap[productLineKey]
+                                                  ['is_return'],
                                               productList,
                                               acceptProductID: acceptProductID),
                                         )
@@ -459,7 +458,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                             "warehouse_name": value['warehouse_name'],
                             "name": value['name'],
                             "date": value['date'],
-                            "is_return": value["is_return"],
                             "product_line": value['product_line']
                           };
                         }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -20,6 +21,7 @@ Widget eachMyReturnProductLineWidget(
   bool myRequestLoading = false,
   int acceptProductID = -1,
 }) {
+  superPrint(isNewReturn);
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -171,7 +173,9 @@ Widget eachMyReturnProductLineWidget(
                         size: 12.5,
                       ),
                       textWidget(
-                        productList[index].requestWarehouse[1],
+                        isNewReturn
+                            ? productList[index].requestWarehouse[1]
+                            : productList[index].warehouseList[1],
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         size: 14,

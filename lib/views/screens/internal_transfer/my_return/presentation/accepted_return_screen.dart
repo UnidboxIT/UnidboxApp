@@ -119,24 +119,30 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = data.isNewReturn
+                    ? element.warehouseList[0]
+                    : element.requestWarehouse[0];
+                String warehouseName = data.isNewReturn
+                    ? element.warehouseList[1]
+                    : element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                  requestedMap[warehouseId]['product_line'][productLineKey] = {
+                    "is_return": data.isNewReturn,
+                    "products": []
+                  };
                 }
                 requestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
@@ -306,9 +312,10 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                             String productLineKey =
                                 productLineMap.keys.elementAt(productIndex);
                             superPrint(productLineKey);
-                            superPrint(productLineMap[productLineKey]);
+                            superPrint(
+                                productLineMap[productLineKey]['products']);
                             List<dynamic> productList =
-                                productLineMap[productLineKey];
+                                productLineMap[productLineKey]['products'];
                             superPrint(productList);
                             return Column(
                               children: [
@@ -386,7 +393,8 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              warehouseData["is_return"],
+                                              productLineMap[productLineKey]
+                                                  ["is_return"],
                                               // warehouseData['name'],
                                               productList,
                                               acceptProductID: acceptProductID),
@@ -433,7 +441,6 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                             "warehouse_name": value['warehouse_name'],
                             "name": value['name'],
                             "date": value['date'],
-                            "is_return": value["is_return"],
                             "product_line": value['product_line']
                           };
                         }

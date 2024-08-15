@@ -106,9 +106,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            //if (data.id != userWarehouse.warehouseList[0]) {
-            warehouseList.add(data);
-            // }
+            if (data.id != userWarehouse.warehouseList[0]) {
+              warehouseList.add(data);
+            }
           }
         });
       }
@@ -132,24 +132,30 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 acceptedOutletReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.warehouseList[0];
-                String warehouseName = element.warehouseList[1];
+                int warehouseId = data.isNewReturn
+                    ? element.requestWarehouse[0]
+                    : element.warehouseList[0];
+                String warehouseName = data.isNewReturn
+                    ? element.requestWarehouse[1]
+                    : element.warehouseList[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                  requestedMap[warehouseId]['product_line'][productLineKey] = {
+                    "is_return": data.isNewReturn,
+                    "products": []
+                  };
                 }
                 requestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
@@ -320,7 +326,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                 productLineMap.keys.elementAt(productIndex);
 
                             List<dynamic> productList =
-                                productLineMap[productLineKey];
+                                productLineMap[productLineKey]['products'];
 
                             return Column(
                               children: [
@@ -398,8 +404,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
-                                              //warehouseData['name'],
-                                              warehouseData['is_return'],
+                                              productLineMap[productLineKey]
+                                                  ['is_return'],
                                               productList,
                                               ref,
                                               context,
@@ -480,7 +486,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                             "warehouse_name": value['warehouse_name'],
                             "name": value['name'],
                             "date": value['date'],
-                            "is_return": value["is_return"],
                             "product_line": value['product_line']
                           };
                         }
