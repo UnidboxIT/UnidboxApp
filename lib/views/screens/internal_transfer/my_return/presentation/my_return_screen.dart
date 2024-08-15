@@ -126,7 +126,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == 'return_accepted' && element.isReturn) {
+              if (element.status == 'return_accepted') {
                 acceptedReturnList.add(element);
               }
               if (element.status == "returned") {

@@ -36,7 +36,6 @@ class _AcceptedReturnScreenState
   Map<int, dynamic> requestedMap = {};
   bool requestLoading = false;
   List<MyRequest> myReturnList = [];
-  List<ProductLineId> acceptedReturnList = [];
   int acceptProductID = -1;
   bool acceptLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
@@ -50,10 +49,6 @@ class _AcceptedReturnScreenState
   @override
   void initState() {
     super.initState();
-    setState(() {
-      selectedWarehouseID = widget.warehouseID;
-      selectedWarehouseName = widget.warehouseName;
-    });
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
@@ -73,24 +68,32 @@ class _AcceptedReturnScreenState
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      selectedWarehouseID = widget.warehouseID;
+      selectedWarehouseName = widget.warehouseName;
+    });
     ref.listen(myReturnStateNotifierProvider, (pre, next) {
       if (next is MyReturnLoading) {
         setState(() {
           requestLoading = true;
           myReturnList = [];
-          acceptedReturnList.clear();
         });
       }
       if (next is MyReturnDataList) {
         setState(() {
           myReturnList = next.myReturnDataList;
           requestedMap.clear();
+          idList.clear();
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = data.isNewReturn
+                    ? element.warehouseList[0]
+                    : element.requestWarehouse[0];
+                String warehouseName = data.isNewReturn
+                    ? element.warehouseList[1]
+                    : element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {
@@ -98,28 +101,31 @@ class _AcceptedReturnScreenState
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
-                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
                 if (!requestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                  requestedMap[warehouseId]['product_line'][productLineKey] = {
+                    "is_return": data.isNewReturn,
+                    "products": []
+                  };
                 }
                 requestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
           }
-
+          superPrint(requestedMap);
           if (requestedMap.isNotEmpty) {
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             for (var warehouseProduct in requestedMapList) {
               warehouseProduct.forEach((key, value) {
                 value['product_line'].forEach((productKey, productValue) {
-                  for (var productLineId in productValue) {
+                  superPrint(productKey);
+                  for (var productLineId in productValue['products']) {
                     // Access the id from each ProductLineId instance
                     idList.add(productLineId.id);
                   }
@@ -127,12 +133,12 @@ class _AcceptedReturnScreenState
               });
             }
           }
+          superPrint(idList, title: "ID List");
           acceptLoading = false;
           requestLoading = false;
         });
       }
     });
-    superPrint(idList);
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -186,7 +192,6 @@ class _AcceptedReturnScreenState
   }
 
   Widget myReturnWidget() {
-    superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
       height: Platform.isIOS ? 80.h : 80.5.h,
@@ -345,143 +350,132 @@ class _AcceptedReturnScreenState
   Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
-    return requestedMapList.isEmpty
-        ? Center(
-            child: textWidget("No Data !"),
-          )
-        : ListView.separated(
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(bottom: 20),
-            physics: const ClampingScrollPhysics(),
-            itemCount: requestedMapList.length,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 0);
-            },
-            itemBuilder: (context, index) {
-              Map<int, dynamic> warehouseMap = requestedMapList[index];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: warehouseMap.entries.map((entry) {
-                  // int warehouseId = entry.key;
-                  Map<dynamic, dynamic> warehouseData = entry.value;
-                  Map<dynamic, dynamic> productLineMap =
-                      warehouseData['product_line'];
-                  return productLineMap.isEmpty
-                      ? Container(
-                          alignment: Alignment.center,
-                          width: 100.w,
-                          height: 50.h,
-                          child: textWidget("No Data !"),
-                        )
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: productLineMap.keys.length,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: 0);
-                          },
-                          itemBuilder: (context, productIndex) {
-                            String productLineKey =
-                                productLineMap.keys.elementAt(productIndex);
-                            superPrint(productLineKey);
-                            superPrint(productLineMap[productLineKey]);
-                            List<dynamic> productList =
-                                productLineMap[productLineKey];
-                            superPrint(productList);
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColor.dropshadowColor
-                                          .withOpacity(0.02),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            if (visibleCode
-                                                .contains(productLineKey)) {
-                                              removeVisiblity(productLineKey);
-                                            } else {
-                                              loadSetVisiblity(productLineKey);
-                                            }
-                                          },
-                                          child: Container(
-                                            width: 100.w,
-                                            decoration: BoxDecoration(
-                                                color:
-                                                    AppColor.bottomSheetBgColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.03),
-                                                      offset:
-                                                          const Offset(0, 3),
-                                                      blurRadius: 3)
-                                                ]),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 15),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                textWidget(
-                                                  productLineKey,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: Colors.black,
-                                                  size: 20,
-                                                ),
-                                                textWidget(
-                                                    DateFormat('dd MMM yyyy')
-                                                        .format(
-                                                      DateTime.parse(
-                                                          warehouseData[
-                                                              'date']),
-                                                    ),
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w500,
-                                                    size: 17)
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: visibleCode
-                                              .contains(productLineKey),
-                                          child: const SizedBox(height: 13),
-                                        ),
-                                        Visibility(
-                                          visible: visibleCode
-                                              .contains(productLineKey),
-                                          child: eachMyReturnProductLineWidget(
+    return ListView.separated(
+      shrinkWrap: true,
+      padding: const EdgeInsets.only(bottom: 20),
+      physics: const ClampingScrollPhysics(),
+      itemCount: requestedMapList.length,
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 0);
+      },
+      itemBuilder: (context, index) {
+        Map<int, dynamic> warehouseMap = requestedMapList[index];
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: warehouseMap.entries.map((entry) {
+            // int warehouseId = entry.key;
+            Map<dynamic, dynamic> warehouseData = entry.value;
+            Map<dynamic, dynamic> productLineMap =
+                warehouseData['product_line'];
+            return productLineMap.isEmpty
+                ? Container(
+                    alignment: Alignment.center,
+                    width: 100.w,
+                    height: 50.h,
+                    child: textWidget("No Data !"),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: productLineMap.keys.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 0);
+                    },
+                    itemBuilder: (context, productIndex) {
+                      String productLineKey =
+                          productLineMap.keys.elementAt(productIndex);
+
+                      List<dynamic> productList =
+                          productLineMap[productLineKey]['products'];
+                      superPrint(productList);
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    AppColor.dropshadowColor.withOpacity(0.02),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (visibleCode
+                                          .contains(productLineKey)) {
+                                        removeVisiblity(productLineKey);
+                                      } else {
+                                        loadSetVisiblity(productLineKey);
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                          color: AppColor.bottomSheetBgColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.03),
+                                                offset: const Offset(0, 3),
+                                                blurRadius: 3)
+                                          ]),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          textWidget(
                                             productLineKey,
-                                            warehouseData['warehouse_name'],
-                                            warehouseData['date'],
-                                            warehouseData['is_return'],
-                                            // warehouseData['name'],
-                                            productList,
-                                            acceptProductID: acceptProductID,
+                                            fontWeight: FontWeight.w800,
+                                            color: Colors.black,
+                                            size: 20,
                                           ),
-                                        ),
-                                      ],
+                                          textWidget(
+                                              DateFormat('dd MMM yyyy').format(
+                                                DateTime.parse(
+                                                    warehouseData['date']),
+                                              ),
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              size: 17)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 20)
-                              ],
-                            );
-                          },
-                        );
-                }).toList(),
-              );
-            },
-          );
+                                  Visibility(
+                                    visible:
+                                        visibleCode.contains(productLineKey),
+                                    child: const SizedBox(height: 13),
+                                  ),
+                                  Visibility(
+                                    visible:
+                                        visibleCode.contains(productLineKey),
+                                    child: eachMyReturnProductLineWidget(
+                                      productLineKey,
+                                      warehouseData['warehouse_name'],
+                                      warehouseData['date'],
+                                      productLineMap[productLineKey]
+                                          ['is_return'],
+                                      productList,
+                                      acceptProductID: acceptProductID,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20)
+                        ],
+                      );
+                    },
+                  );
+          }).toList(),
+        );
+      },
+    );
   }
 }

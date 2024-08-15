@@ -192,8 +192,12 @@ class _OtherRequestsDetailScreenState
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.requestWarehouse[0];
-                String warehouseName = element.requestWarehouse[1];
+                int warehouseId = data.isNewReturn
+                    ? element.warehouseList[0]
+                    : element.requestWarehouse[0];
+                String warehouseName = data.isNewReturn
+                    ? element.warehouseList[1]
+                    : element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!returnRequestedMap.containsKey(warehouseId)) {
                   returnRequestedMap[warehouseId] = {
@@ -207,9 +211,13 @@ class _OtherRequestsDetailScreenState
                 if (!returnRequestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
                   returnRequestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                      [productLineKey] = {
+                    "is_return": data.isNewReturn,
+                    "products": []
+                  };
                 }
                 returnRequestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
@@ -229,6 +237,7 @@ class _OtherRequestsDetailScreenState
         });
       }
     });
+    superPrint(requestedReturnMapList);
 
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {

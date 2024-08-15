@@ -81,6 +81,7 @@ Widget productReturnWidget(context, int warehouseID, String warehouseName) {
           child: buttonWidget(
             "Proceed",
             () {
+              Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => AcceptedMyReturnIssuedScreen(
                         warehouseID: warehouseID,
