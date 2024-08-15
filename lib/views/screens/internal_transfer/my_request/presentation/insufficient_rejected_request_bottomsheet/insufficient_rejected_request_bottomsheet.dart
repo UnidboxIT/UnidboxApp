@@ -21,6 +21,7 @@ import '../../../../inventory_tracker/repository/state/product_detail_state.dart
 import '../../../../inventory_tracker/repository/state/stock_request_state.dart';
 import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/my_request.dart';
+import '../../repository/provider/my_request_provider.dart';
 import '../widgets/each_pending_request_list_widget.dart';
 
 Future<void> showInsufficientRejectedRequestBottomsheet(
@@ -478,6 +479,10 @@ class _RequestStockWidgetState extends ConsumerState<RequestStockWidget> {
                             ref,
                           )
                           .then((_) {
+                          ref
+                              .read(myRequestStateNotifierProvider.notifier)
+                              .removeRejectProduct(
+                                  widget.productLineId.id, context);
                           ref
                               .read(inhouseStockStateNotifierProvider.notifier)
                               .getInHouseStock(
