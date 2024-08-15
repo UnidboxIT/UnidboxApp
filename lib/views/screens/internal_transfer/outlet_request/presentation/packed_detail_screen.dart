@@ -192,8 +192,8 @@ class _OtherRequestsDetailScreenState
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
               if (element.status == "return_accepted") {
-                int warehouseId = element.warehouseList[0];
-                String warehouseName = element.warehouseList[1];
+                int warehouseId = element.requestWarehouse[0];
+                String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!returnRequestedMap.containsKey(warehouseId)) {
                   returnRequestedMap[warehouseId] = {

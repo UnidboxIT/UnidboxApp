@@ -131,8 +131,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 acceptedReturnList.add(element);
               }
               if (element.status == "returned") {
-                int warehouseId = element.warehouseList[0];
-                String warehouseName = element.warehouseList[1];
+                int warehouseId = element.requestWarehouse[0];
+                String warehouseName = element.requestWarehouse[1];
                 String productLineKey = data.name;
                 if (!requestedMap.containsKey(warehouseId)) {
                   requestedMap[warehouseId] = {

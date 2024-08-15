@@ -449,7 +449,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
 
   Widget returnToAllWarehouseWidget() {
     return SizedBox(
-      height: inHouseStockList.length > 3 ? 17.h : 7.h,
+      height: filterWareHouseList.length > 3 ? 17.h : 7.h,
       child: GridView.builder(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
@@ -469,36 +469,37 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
               // ),
               GestureDetector(
                 onTap: () {
-                  superPrint(inHouseStockList[index].warehouseList);
+                  superPrint(filterWareHouseList[index].warehouseList);
                   if (widget
                           .scanProductList.first.defaultWarehouseList.isEmpty &&
                       userWarehouse.warehouseList[0] !=
-                          inHouseStockList[index].warehouseList[0]) {
+                          filterWareHouseList[index].warehouseList[0]) {
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
                         .selectedWarehouseID(
-                            inHouseStockList[index].warehouseList[0],
+                            filterWareHouseList[index].warehouseList[0],
                             double.parse(inHouseStockList[index].qty).toInt());
                   } else if (widget.scanProductList.first.defaultWarehouseList
                           .isNotEmpty &&
                       widget.scanProductList.first.defaultWarehouseList[0] !=
-                          inHouseStockList[index].warehouseList[0] &&
+                          filterWareHouseList[index].warehouseList[0] &&
                       userWarehouse.warehouseList[0] !=
-                          inHouseStockList[index].warehouseList[0]) {
+                          filterWareHouseList[index].warehouseList[0]) {
                     ref
                         .read(inhouseStockStateNotifierProvider.notifier)
                         .selectedWarehouseID(
-                            inHouseStockList[index].warehouseList[0],
-                            double.parse(inHouseStockList[index].qty).toInt());
+                            filterWareHouseList[index].warehouseList[0],
+                            double.parse(filterWareHouseList[index].qty)
+                                .toInt());
                   }
                 },
                 child: widget.scanProductList.first.defaultWarehouseList
                                 .isNotEmpty &&
                             widget.scanProductList.first
                                     .defaultWarehouseList[0] ==
-                                inHouseStockList[index].warehouseList[0] ||
+                                filterWareHouseList[index].warehouseList[0] ||
                         userWarehouse.warehouseList[0] ==
-                            inHouseStockList[index].warehouseList[0]
+                            filterWareHouseList[index].warehouseList[0]
                     // userWarehouse.warehouseList[0]
                     ? Container(
                         padding: const EdgeInsets.symmetric(
@@ -513,24 +514,25 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                   spreadRadius: 3),
                             ]),
                         alignment: Alignment.center,
-                        child:
-                            textWidget(inHouseStockList[index].warehouseList[1],
-                                // double.parse(
-                                //         inHouseStockList[index].qty)
-                                //     .toInt()
-                                //     .toString(),
-                                textAlign: TextAlign.center,
-                                color: Colors.black),
+                        child: textWidget(
+                            filterWareHouseList[index].warehouseList[1],
+                            // double.parse(
+                            //         inHouseStockList[index].qty)
+                            //     .toInt()
+                            //     .toString(),
+                            textAlign: TextAlign.center,
+                            color: Colors.black),
                       )
                     : Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: inHouseStockList[index].warehouseList[0] ==
-                                    requestWarehouseID
-                                ? AppColor.orangeColor
-                                : Colors.white,
+                            color:
+                                filterWareHouseList[index].warehouseList[0] ==
+                                        requestWarehouseID
+                                    ? AppColor.orangeColor
+                                    : Colors.white,
                             boxShadow: [
                               BoxShadow(
                                   color: AppColor.dropshadowColor,
@@ -539,22 +541,23 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                             ]),
                         alignment: Alignment.center,
                         child: textWidget(
-                            inHouseStockList[index].warehouseList[1],
+                            filterWareHouseList[index].warehouseList[1],
                             // double.parse(
                             //         inHouseStockList[index].qty)
                             //     .toInt()
                             //     .toString(),
                             textAlign: TextAlign.center,
-                            color: inHouseStockList[index].warehouseList[0] ==
-                                    requestWarehouseID
-                                ? Colors.white
-                                : Colors.black),
+                            color:
+                                filterWareHouseList[index].warehouseList[0] ==
+                                        requestWarehouseID
+                                    ? Colors.white
+                                    : Colors.black),
                       ),
               ),
             ],
           );
         },
-        itemCount: inHouseStockList.length,
+        itemCount: filterWareHouseList.length,
       ),
     );
   }

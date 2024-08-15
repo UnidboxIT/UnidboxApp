@@ -346,7 +346,15 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                                                 .read(
                                                     myRequestStateNotifierProvider
                                                         .notifier)
+                                                .removeRejectProduct(
+                                                    productList[index].id,
+                                                    context);
+                                            ref
+                                                .read(
+                                                    myRequestStateNotifierProvider
+                                                        .notifier)
                                                 .getAllMyRequest();
+
                                             ref
                                                 .read(
                                                     bottomBarVisibilityProvider
