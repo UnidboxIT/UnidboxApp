@@ -167,6 +167,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             //requestedMapList.add(requestedMap);
           }
+          superPrint(requestedMap[selectedWarehouseID]);
         });
       }
     });
@@ -458,6 +459,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                             "warehouse_name": value['warehouse_name'],
                             "name": value['name'],
                             "date": value['date'],
+                            "is_return": value["is_return"],
                             "product_line": value['product_line']
                           };
                         }

@@ -473,6 +473,7 @@ class _AcceptedOutletReturnScreenState
                             "warehouse_name": value['warehouse_name'],
                             "name": value['name'],
                             "date": value['date'],
+                            "is_return": value["is_return"],
                             "product_line": value['product_line']
                           };
                         }
