@@ -136,6 +136,7 @@ class _AcceptedOutletReturnScreenState
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
+                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
@@ -391,6 +392,7 @@ class _AcceptedOutletReturnScreenState
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
                                               //warehouseData['name'],
+                                              warehouseData['is_return'],
                                               productList,
                                               ref,
                                               context,

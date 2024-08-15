@@ -106,9 +106,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            if (data.id != userWarehouse.warehouseList[0]) {
-              warehouseList.add(data);
-            }
+            //if (data.id != userWarehouse.warehouseList[0]) {
+            warehouseList.add(data);
+            // }
           }
         });
       }
@@ -140,6 +140,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
+                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
@@ -398,6 +399,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
                                               //warehouseData['name'],
+                                              warehouseData['is_return'],
                                               productList,
                                               ref,
                                               context,

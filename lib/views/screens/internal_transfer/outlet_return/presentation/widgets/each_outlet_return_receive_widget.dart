@@ -14,6 +14,7 @@ Widget eachOutletReturnWidget(
     String requestCode,
     String name,
     String currentDate,
+    bool isNewReturn,
     // String requestWarehouse,
     List productList,
     WidgetRef ref,
@@ -109,7 +110,9 @@ Widget eachOutletReturnWidget(
                           size: 12,
                         ),
                         textWidget(
-                          "Returned Qty : ${returnQty.toInt()} ${productList[index].productUomList[1]}",
+                          isNewReturn
+                              ? "Returned Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}"
+                              : "Returned Qty : ${returnQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 13,
                           color: Colors.black.withOpacity(0.6),
                         ),
@@ -128,7 +131,10 @@ Widget eachOutletReturnWidget(
                                 CupertinoIcons.minus_circle_fill,
                                 AppColor.pinkColor),
                             const SizedBox(width: 10),
-                            textWidget(returnQty.toInt().toString(),
+                            textWidget(
+                                isNewReturn
+                                    ? productList[index].qty.toInt().toString()
+                                    : returnQty.toInt().toString(),
                                 color: AppColor.primary,
                                 fontWeight: FontWeight.bold,
                                 size: 13),

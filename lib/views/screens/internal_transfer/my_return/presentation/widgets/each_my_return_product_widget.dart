@@ -13,6 +13,7 @@ Widget eachMyReturnProductLineWidget(
   String requestCode,
   String name,
   String currentDate,
+  bool isNewReturn,
   // String requestWarehouse,
   List productList, {
   bool isPending = false,
@@ -126,7 +127,9 @@ Widget eachMyReturnProductLineWidget(
                         ),
                         const SizedBox(height: 10),
                         textWidget(
-                          "Return Qty: ${productList[index].issueQty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}",
+                          isNewReturn
+                              ? "Return Qty: ${productList[index].qty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}"
+                              : "Return Qty: ${productList[index].issueQty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 12,
                         ),
                         productList[index].status == "return_accepted"

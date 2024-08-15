@@ -411,7 +411,7 @@ class _PendingRequestListScreenState
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
                   isNewReturn || product.status == "return_issued"
-                      ? "Return Qty :  ${product.receivedQty.toInt()} ${product.productUomList[1]}"
+                      ? "Return Qty :  ${product.qty.toInt()} ${product.productUomList[1]}"
                       : "Return Qty : ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,

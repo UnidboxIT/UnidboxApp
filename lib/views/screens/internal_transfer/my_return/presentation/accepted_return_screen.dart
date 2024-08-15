@@ -127,6 +127,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                     "warehouse_name": warehouseName,
                     "name": data.userId[1],
                     "date": data.createDate,
+                    "is_return": data.isNewReturn,
                     "product_line": {},
                   };
                 }
@@ -385,6 +386,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                                               productLineKey,
                                               warehouseData['warehouse_name'],
                                               warehouseData['date'],
+                                              warehouseData["is_return"],
                                               // warehouseData['name'],
                                               productList,
                                               acceptProductID: acceptProductID),
