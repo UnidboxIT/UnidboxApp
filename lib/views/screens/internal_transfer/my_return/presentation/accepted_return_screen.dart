@@ -118,8 +118,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
           requestedMapList.clear();
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "return_accepted" ||
-                  element.status == "return_issued") {
+              if (element.status == "return_accepted") {
                 int warehouseId = data.isNewReturn
                     ? element.warehouseList[0]
                     : element.requestWarehouse[0];
