@@ -6,7 +6,7 @@ Widget noAcceptPackedProductWidget(String title, String subtitle) {
   return Container(
     alignment: Alignment.center,
     width: 100.w,
-    height: 50.h,
+    height: 25.h,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

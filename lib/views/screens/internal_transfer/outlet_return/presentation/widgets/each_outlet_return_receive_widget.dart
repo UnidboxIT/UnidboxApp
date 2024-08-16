@@ -164,7 +164,7 @@ Widget eachOutletReturnWidget(
                     size: 12.5,
                   ),
                   textWidget(
-                    name,
+                    productList[index].requestWarehouse[1],
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,
@@ -181,9 +181,7 @@ Widget eachOutletReturnWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            isNewReturn
-                                ? productList[index].warehouseList[1]
-                                : productList[index].requestWarehouse[1],
+                            name,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
@@ -227,18 +225,25 @@ Widget eachOutletReturnWidget(
                           width: 67.w,
                           child: buttonWidget(
                             "Receive",
-                            () {
-                              isAcceptLoading &&
-                                      acceptProductID == productList[index].id
-                                  ? () {}
-                                  : ref
-                                      .read(outletReturnStateNotifier.notifier)
-                                      .outletReturnReceived(
-                                          productList[index].id, context);
-                            },
+                            productList[index].status != 'return_issued'
+                                ? () {}
+                                : () {
+                                    isAcceptLoading &&
+                                            acceptProductID ==
+                                                productList[index].id
+                                        ? () {}
+                                        : ref
+                                            .read(outletReturnStateNotifier
+                                                .notifier)
+                                            .outletReturnReceived(
+                                                productList[index].id, context);
+                                  },
                             isBool: isAcceptLoading &&
                                 acceptProductID == productList[index].id,
-                            bgColor: AppColor.pinkColor,
+                            bgColor:
+                                productList[index].status != 'return_issued'
+                                    ? Colors.grey.shade400
+                                    : AppColor.pinkColor,
                             fontColor: Colors.white,
                             elevation: 0,
                           ),

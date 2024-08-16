@@ -396,7 +396,7 @@ class _AcceptedOutletReturnScreenState
                                               .contains(productLineKey),
                                           child: eachOutletReturnWidget(
                                               productLineKey,
-                                              warehouseData['warehouse_name'],
+                                              warehouseData['name'],
                                               warehouseData['date'],
                                               productLineMap[productLineKey]
                                                   ['is_return'],

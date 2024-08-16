@@ -48,6 +48,10 @@ class _AcceptedReturnScreenState
 
   @override
   void initState() {
+    setState(() {
+      selectedWarehouseID = widget.warehouseID;
+      selectedWarehouseName = widget.warehouseName;
+    });
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
@@ -68,10 +72,6 @@ class _AcceptedReturnScreenState
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      selectedWarehouseID = widget.warehouseID;
-      selectedWarehouseName = widget.warehouseName;
-    });
     ref.listen(myReturnStateNotifierProvider, (pre, next) {
       if (next is MyReturnLoading) {
         setState(() {
@@ -325,12 +325,12 @@ class _AcceptedReturnScreenState
                                   .deliveryReturnIssued(idList, context)
                                   .then((_) {
                                 isSwipeLoading = false;
-                                selectedWarehouseID = -1;
-                                selectedWarehouseName = "";
                                 ref
                                     .read(
                                         myReturnStateNotifierProvider.notifier)
                                     .getAllMyReturn();
+                                selectedWarehouseID = -1;
+                                selectedWarehouseName = "";
                               });
                             });
                           },
@@ -350,6 +350,14 @@ class _AcceptedReturnScreenState
   Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
+    if (requestedMapList.isEmpty) {
+      return Container(
+        alignment: Alignment.center,
+        width: 100.w,
+        height: 50.h,
+        child: textWidget("No Data !"),
+      );
+    }
     return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.only(bottom: 20),

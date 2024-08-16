@@ -403,7 +403,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               .contains(productLineKey),
                                           child: eachOutletReturnWidget(
                                               productLineKey,
-                                              warehouseData['warehouse_name'],
+                                              warehouseData['name'],
                                               warehouseData['date'],
                                               productLineMap[productLineKey]
                                                   ['is_return'],
