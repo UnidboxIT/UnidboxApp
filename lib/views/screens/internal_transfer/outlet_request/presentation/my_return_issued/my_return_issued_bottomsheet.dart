@@ -62,7 +62,7 @@ Widget productReturnWidget(context, int warehouseID, String warehouseName) {
       children: [
         const SizedBox(height: 10),
         textWidget(
-          "You have Pending product\nto be return to 685",
+          "You have Pending product\nto be return to $warehouseName",
           textAlign: TextAlign.center,
           fontWeight: FontWeight.w600,
           size: 16,
