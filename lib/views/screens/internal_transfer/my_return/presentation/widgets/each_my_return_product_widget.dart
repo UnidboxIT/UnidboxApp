@@ -130,7 +130,7 @@ Widget eachMyReturnProductLineWidget(
                         const SizedBox(height: 10),
                         textWidget(
                           isNewReturn
-                              ? "Return Qty: ${productList[index].qty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}"
+                              ? "Return Qty: ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}"
                               : "Return Qty: ${productList[index].issueQty.toInt() - productList[index].receivedQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 12,
                         ),

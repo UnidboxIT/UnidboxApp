@@ -127,7 +127,8 @@ class _AcceptedOutletReturnScreenState
           acceptedOutletReturnList.clear();
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
-              if (element.status == "return_accepted") {
+              if (element.status == "return_accepted" ||
+                  element.status == "return_issued") {
                 int warehouseId = data.isNewReturn
                     ? element.requestWarehouse[0]
                     : element.warehouseList[0];

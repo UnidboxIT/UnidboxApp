@@ -15,7 +15,6 @@ Widget eachOutletReturnWidget(
     String name,
     String currentDate,
     bool isNewReturn,
-    // String requestWarehouse,
     List productList,
     WidgetRef ref,
     BuildContext context,
@@ -110,7 +109,8 @@ Widget eachOutletReturnWidget(
                           size: 12,
                         ),
                         textWidget(
-                          isNewReturn
+                          isNewReturn ||
+                                  productList[index].status == "return_issued"
                               ? "Returned Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}"
                               : "Returned Qty : ${returnQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 13,
@@ -132,7 +132,9 @@ Widget eachOutletReturnWidget(
                                 AppColor.pinkColor),
                             const SizedBox(width: 10),
                             textWidget(
-                                isNewReturn
+                                isNewReturn ||
+                                        productList[index].status ==
+                                            "return_issued"
                                     ? productList[index].qty.toInt().toString()
                                     : returnQty.toInt().toString(),
                                 color: AppColor.primary,
@@ -215,7 +217,8 @@ Widget eachOutletReturnWidget(
                 ],
               ),
               const SizedBox(height: 10),
-              productList[index].status == 'return_accepted'
+              productList[index].status == 'return_accepted' ||
+                      productList[index].status == 'return_issued'
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

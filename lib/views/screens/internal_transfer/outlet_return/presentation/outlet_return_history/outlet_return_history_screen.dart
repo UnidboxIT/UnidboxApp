@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
@@ -38,8 +39,12 @@ class _PendingRequestListScreenState
     requestedHistoryList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
-        if ((data.isNewReturn && !element.isReturn) ||
-            (!data.isNewReturn && element.isReturn)) {
+        if ((data.isNewReturn &&
+                !element.isReturn &&
+                element.status == "done") ||
+            (!data.isNewReturn &&
+                element.isReturn &&
+                element.status == "done")) {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.requestToWh[1];
@@ -332,6 +337,7 @@ class _PendingRequestListScreenState
   }
 
   Widget eachHistoryWidget(ProductLineId product, bool isNewReturn) {
+    superPrint(isNewReturn);
     List<Widget> attributeTexts = [];
     for (int i = 0; i < product.productIdList[5].length; i++) {
       attributeTexts.add(Text(product.productIdList[5][i],
@@ -410,8 +416,8 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  isNewReturn || product.status == "return_issued"
-                      ? "Return Qty :  ${product.qty.toInt()} ${product.productUomList[1]}"
+                  isNewReturn
+                      ? "Return Qty : ${product.qty.toInt()} ${product.productUomList[1]}"
                       : "Return Qty : ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
@@ -425,7 +431,10 @@ class _PendingRequestListScreenState
                     borderRadius: BorderRadius.circular(10),
                     color: AppColor.pinkColor.withOpacity(0.2)),
                 child: textWidget(
-                  "Received Qty : ${product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  isNewReturn
+                      ? "Received Qty : ${product.qty.toInt()} ${product.productUomList[1]}"
+                      : "Received Qty :  ${product.issueQty.toInt() - product.receivedQty.toInt()} ${product.productUomList[1]}",
+                  //  "Received Qty : ${product.receivedQty.toInt()} ${product.productUomList[1]}",
                   color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w700,
                   size: 13.5,
