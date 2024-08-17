@@ -77,7 +77,7 @@ Widget stockRequestBottomSheet(String title, String bodyText,
             ),
             const SizedBox(width: 10),
             GestureDetector(
-              onTap: anotherRequestPressed,
+              onTap: pendingRequestPressed,
               child: Container(
                   width: 46.w,
                   height: 55,
