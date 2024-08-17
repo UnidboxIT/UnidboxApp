@@ -24,6 +24,7 @@ import 'views/user_warehouse/provider/user_warehouse_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AwesomeNotifications().cancelAll();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await NotificationController.initializeLocalNotifications(
@@ -65,7 +66,61 @@ void backgroundNotificationListener(Map<String, dynamic> data) {
   globalProviderObserver.container!
       .read(myReturnStateNotifierProvider.notifier)
       .getAllMyReturn();
-
+  // if (Platform.isIOS) {
+  //   AwesomeNotifications().setListeners(
+  //     onActionReceivedMethod: (ReceivedAction receivedAction) async {
+  //       print("Notification Action Received 111 : ${receivedAction.body}");
+  //       print(
+  //           "Notification Action Received  222: ${receivedAction.channelKey}");
+  //       onActionReceivedMethod(receivedAction);
+  //     },
+  //   );
+  //   debugPrint("Notification Action Received : ${data['message']}");
+  //   // final currentRoute = globalProviderObserver.container!
+  //   //     .read(currentRouteProvider.notifier)
+  //   //     .state;
+  //   // superPrint(currentRoute != '/outletRequest');
+  //   // RegExp regExp = RegExp(r'\baccepted\b');
+  //   // RegExp returnRegExp = RegExp(r'\breturned\b');
+  //   // if (currentRoute != '/outletRequest' &&
+  //   //         data['message'].contains("updated") ||
+  //   //     data['message'].contains("request")) {
+  //   //   Navigator.push(
+  //   //     homeNavRouteState.currentState!.context,
+  //   //     MaterialPageRoute(
+  //   //         builder: (builder) => const OtherRequestDetailScreen()),
+  //   //   );
+  //   // } else if (currentRoute != '/myRequest' &&
+  //   //         regExp.hasMatch(data['message'].body!) ||
+  //   //     data['message'].contains("packed") ||
+  //   //     data['message'].contains("issued")) {
+  //   //   if (regExp.hasMatch(data['message'].body!)) {
+  //   //     selectedFilterIndex = 1;
+  //   //   } else if (data['message'].contains("packed")) {
+  //   //     selectedFilterIndex = 2;
+  //   //   } else {
+  //   //     selectedFilterIndex = 4;
+  //   //   }
+  //   //   Navigator.of(
+  //   //     homeNavRouteState.currentState!.context,
+  //   //   ).push(MaterialPageRoute(
+  //   //       builder: (context) => const MyRequestsDetailScreen(
+  //   //             isStockRequest: false,
+  //   //           )));
+  //   // } else if (currentRoute != '/myReturn' &&
+  //   //     data['message'].contains("return_accepted")) {
+  //   //   Navigator.of(
+  //   //     homeNavRouteState.currentState!.context,
+  //   //   ).push(MaterialPageRoute(builder: (context) => const MyReturnScreen()));
+  //   //   //MyReturn
+  //   // } else if (currentRoute != '/outletReturn' &&
+  //   //     returnRegExp.hasMatch(data['message'].body!)) {
+  //   //   Navigator.of(
+  //   //     homeNavRouteState.currentState!.context,
+  //   //   ).push(
+  //   //       MaterialPageRoute(builder: (context) => const OutletReturnScreen()));
+  //   // }
+  // }
   if (Platform.isAndroid) {
     Map<String, dynamic> jsonMap = jsonDecode(data['__json']);
     NotificationController.displayNotificationRationale(

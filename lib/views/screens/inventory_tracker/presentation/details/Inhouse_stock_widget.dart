@@ -155,15 +155,16 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     superPrint("Contain");
     superPrint(widget.userWarehouse.warehouseList[0]);
     superPrint(widget.inHouseStockList[0].warehouseList[0]);
-    superPrint(widget.inHouseStockList[0].warehouseList[0] !=
-        widget.userWarehouse.warehouseList[0]);
+    superPrint(widget.inHouseStockList[0].warehouseList
+        .contains(widget.userWarehouse.warehouseList[0]));
     superPrint(double.parse(qty));
+    // if (double.parse(qty) <= 0 &&
+    //     widget.inHouseStockList[0].warehouseList
+    //         .contains(widget.userWarehouse.warehouseList[0])) {
+    //   return const SizedBox.shrink();
+    // } else
     if (double.parse(qty) <= 0 &&
-        widget.inHouseStockList[0].warehouseList[0] !=
-            widget.userWarehouse.warehouseList[0]) {
-      return const SizedBox.shrink();
-    } else if (double.parse(qty) == 0 &&
-        widget.inHouseStockList[0].warehouseList[0] ==
+        widget.inHouseStockList[index].warehouseList[0] ==
             widget.userWarehouse.warehouseList[0]) {
       return Column(
         children: [
@@ -186,7 +187,9 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
           const SizedBox(height: 10)
         ],
       );
-    } else if (double.parse(qty) <= 0) {
+    } else if (double.parse(qty) <= 0 &&
+        widget.inHouseStockList[index].warehouseList[0] !=
+            widget.userWarehouse.warehouseList[0]) {
       return const SizedBox.shrink();
     }
 
