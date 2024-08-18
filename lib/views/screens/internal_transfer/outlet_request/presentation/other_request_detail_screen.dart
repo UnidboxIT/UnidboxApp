@@ -94,7 +94,8 @@ class _OtherRequestsDetailScreenState
     SchedulerBinding.instance.addPostFrameCallback((_) {
       ref.read(currentRouteProvider.notifier).state = '/outletRequest';
     });
-
+    ref.watch(otherRequestStateNotifierProvider);
+    superPrint(ref.read(currentRouteProvider.notifier).state);
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {

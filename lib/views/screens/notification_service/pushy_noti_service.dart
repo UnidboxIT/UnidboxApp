@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:pushy_flutter/pushy_flutter.dart';
 import '../../../utils/commons/super_print.dart';
@@ -24,15 +23,15 @@ Future pushyRegister(backgroundNotificationListener) async {
     superPrint(pushyToken);
     if (Platform.isIOS) {
       Pushy.setNotificationClickListener((Map<String, dynamic> data) {
-        print('Notification click: $data');
-        // Extract notification messsage
-        final currentRoute = globalProviderObserver.container!
+        final currentIosRoute = globalProviderObserver.container!
             .read(currentRouteProvider.notifier)
             .state;
-        superPrint(currentRoute != '/outletRequest');
+        print('Notification click: $data');
+        superPrint(currentIosRoute != '/myRequest');
+        superPrint(currentIosRoute);
         RegExp regExp = RegExp(r'\baccepted\b');
         RegExp returnRegExp = RegExp(r'\breturned\b');
-        if (currentRoute != '/outletRequest' &&
+        if (currentIosRoute != '/outletRequest' &&
                 data['message'].contains("updated") ||
             data['message'].contains("request")) {
           Navigator.push(
@@ -40,30 +39,42 @@ Future pushyRegister(backgroundNotificationListener) async {
             MaterialPageRoute(
                 builder: (builder) => const OtherRequestDetailScreen()),
           );
-        } else if (currentRoute != '/myRequest' &&
+        } else if (currentIosRoute != '/myRequest' &&
                 regExp.hasMatch(data['message']) ||
             data['message'].contains("packed") ||
             data['message'].contains("issued")) {
           if (regExp.hasMatch(data['message'])) {
             selectedFilterIndex = 1;
+            Navigator.of(
+              homeNavRouteState.currentState!.context,
+            ).push(MaterialPageRoute(
+                builder: (context) => const MyRequestsDetailScreen(
+                      isStockRequest: false,
+                    )));
           } else if (data['message'].contains("packed")) {
             selectedFilterIndex = 2;
+            Navigator.of(
+              homeNavRouteState.currentState!.context,
+            ).push(MaterialPageRoute(
+                builder: (context) => const MyRequestsDetailScreen(
+                      isStockRequest: false,
+                    )));
           } else {
             selectedFilterIndex = 4;
+            Navigator.of(
+              homeNavRouteState.currentState!.context,
+            ).push(MaterialPageRoute(
+                builder: (context) => const MyRequestsDetailScreen(
+                      isStockRequest: false,
+                    )));
           }
-          Navigator.of(
-            homeNavRouteState.currentState!.context,
-          ).push(MaterialPageRoute(
-              builder: (context) => const MyRequestsDetailScreen(
-                    isStockRequest: false,
-                  )));
-        } else if (currentRoute != '/myReturn' &&
+        } else if (currentIosRoute != '/myReturn' &&
             data['message'].contains("return_accepted")) {
           Navigator.of(
             homeNavRouteState.currentState!.context,
           ).push(
               MaterialPageRoute(builder: (context) => const MyReturnScreen()));
-        } else if (currentRoute != '/outletReturn' &&
+        } else if (currentIosRoute != '/outletReturn' &&
             returnRegExp.hasMatch(data['message'])) {
           Navigator.of(
             homeNavRouteState.currentState!.context,
@@ -71,8 +82,8 @@ Future pushyRegister(backgroundNotificationListener) async {
               builder: (context) => const OutletReturnScreen()));
         }
       });
-      Pushy.clearBadge();
     }
+    Pushy.clearBadge();
   } catch (error) {
     // Display an alert with the error message
     superPrint(error);

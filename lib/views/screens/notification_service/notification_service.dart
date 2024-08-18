@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class NotificationController {
@@ -29,7 +31,9 @@ class NotificationController {
         print("Notification Action Received 111 : ${receivedAction.body}");
         print(
             "Notification Action Received  222: ${receivedAction.channelKey}");
-        onActionReceivedMethod(receivedAction);
+        if (Platform.isAndroid) {
+          onActionReceivedMethod(receivedAction);
+        }
       },
     );
   }

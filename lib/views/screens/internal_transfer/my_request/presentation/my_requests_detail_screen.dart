@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/presentation/widgets/drawer_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -81,6 +82,7 @@ class _MyRequestsDetailScreenState
       ref.read(currentRouteProvider.notifier).state = '/myRequest';
     });
     ref.watch(myRequestStateNotifierProvider);
+    superPrint(ref.read(currentRouteProvider.notifier).state);
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
       if (next is MyRequestList) {
         setState(() {

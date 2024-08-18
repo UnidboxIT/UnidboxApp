@@ -80,7 +80,7 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
   final currentRoute = globalProviderObserver.container!
       .read(currentRouteProvider.notifier)
       .state;
-  superPrint(currentRoute != '/outletRequest');
+
   RegExp regExp = RegExp(r'\baccepted\b');
   RegExp returnRegExp = RegExp(r'\breturned\b');
   if (currentRoute != '/outletRequest' &&
