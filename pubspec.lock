@@ -916,10 +916,10 @@ packages:
     dependency: "direct main"
     description:
       name: pushy_flutter
-      sha256: "66dead80c40d86055420b221621489ef453576032c02fe474ab9500b60fc09dd"
+      sha256: ea4e8610d1f8397515133c392ec3d640d6b707b2e5e1756ea555d10403afb79b
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.20"
+    version: "2.0.23"
   responsive_sizer:
     dependency: "direct main"
     description:

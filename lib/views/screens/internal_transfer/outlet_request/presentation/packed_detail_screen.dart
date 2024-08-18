@@ -127,7 +127,6 @@ class _OtherRequestsDetailScreenState
         }
       }
     }
-    superPrint(packedWarehouseMap);
     if (packedWarehouseMap.isNotEmpty) {
       if (packedWarehouseMap.keys.contains(selectedWarehouseID)) {
         selectedWarehouseID = selectedWarehouseID;
@@ -137,7 +136,6 @@ class _OtherRequestsDetailScreenState
       requestedMapList
           .add({selectedWarehouseID: packedWarehouseMap[selectedWarehouseID]});
       finalDeveilerMapList.add(packedWarehouseMap);
-      superPrint(requestedMapList);
       for (var warehouseProduct in requestedMapList) {
         warehouseProduct.forEach((key, value) {
           idList.add(value['id']);
@@ -230,6 +228,9 @@ class _OtherRequestsDetailScreenState
             } else {
               acceptedSelectedWarehouseID = returnRequestedMap.keys.first;
             }
+            if (selectedWarehouseID == -1) {
+              selectedWarehouseID = acceptedSelectedWarehouseID;
+            }
             requestedReturnMapList.add({
               acceptedSelectedWarehouseID:
                   returnRequestedMap[acceptedSelectedWarehouseID]
@@ -283,32 +284,24 @@ class _OtherRequestsDetailScreenState
         packedRequestWidget(),
         const SizedBox(height: 15),
         warehouseWidget(),
-        requestedMapList.isNotEmpty
-            ? Expanded(
-                child: packedWarehouseMap[selectedWarehouseID] == null
-                    ? Center(child: textWidget("No Data !"))
-                    : ListView(
-                        children: [
-                          acceptedProductLineWidget(requestedMapList),
-                          returnRequestedMap.isNotEmpty &&
-                                  returnRequestedMap[
-                                          acceptedSelectedWarehouseID] !=
-                                      null &&
-                                  packedWarehouseMap[selectedWarehouseID]
-                                          ['warehouse_name'] ==
-                                      returnRequestedMap[
-                                              acceptedSelectedWarehouseID]
-                                          ['warehouse_name']
-                              ? returnProductItemWidget()
-                              : const SizedBox.shrink(),
-                        ],
-                      ),
-              )
-            : Expanded(
-                child: Center(
-                  child: textWidget("No Data !"),
+        Expanded(
+          child: packedWarehouseMap[selectedWarehouseID] == null
+              ? Center(child: textWidget("No Data !"))
+              : ListView(
+                  children: [
+                    acceptedProductLineWidget(requestedMapList),
+                    returnRequestedMap.isNotEmpty &&
+                            returnRequestedMap[acceptedSelectedWarehouseID] !=
+                                null &&
+                            packedWarehouseMap[selectedWarehouseID]
+                                    ['warehouse_name'] ==
+                                returnRequestedMap[acceptedSelectedWarehouseID]
+                                    ['warehouse_name']
+                        ? returnProductItemWidget()
+                        : const SizedBox.shrink(),
+                  ],
                 ),
-              ),
+        ),
         Container(
           height: 13.5.h,
           width: 100.w,
@@ -564,7 +557,7 @@ class _OtherRequestsDetailScreenState
                         };
                       }
                       requestedReturnMapList.add({
-                        selectedWarehouseID:
+                        acceptedSelectedWarehouseID:
                             returnRequestedMap[acceptedSelectedWarehouseID]
                       });
                     }

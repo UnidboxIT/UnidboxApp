@@ -36,12 +36,12 @@ dependencies:
   slider_button: ^2.1.0
   slide_action: ^0.0.2
   connectivity_plus: ^6.0.3
-  pushy_flutter: ^2.0.20
   awesome_notifications: ^0.9.3+1
   device_info_plus: ^10.1.0
   flutter_native_splash: ^2.4.0
   flutter_date_range_picker: ^0.1.1
   syncfusion_flutter_datepicker: ^26.2.8
+  pushy_flutter: ^2.0.23
   
 dev_dependencies:
   flutter_test:
