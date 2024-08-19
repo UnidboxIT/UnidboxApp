@@ -145,6 +145,7 @@ class _OtherRequestsDetailScreenState
         acceptedMapList.add(acceptedWarehouseMap);
       }
     }
+    superPrint(idList);
     for (var map1 in finalDeveilerMapList) {
       for (var map2 in acceptedMapList) {
         for (var key1 in map1.keys) {
@@ -249,10 +250,6 @@ class _OtherRequestsDetailScreenState
         });
       }
     });
-    superPrint(requestedReturnMapList);
-    superPrint(packedWarehouseMap);
-    superPrint(returnRequestedMap);
-    superPrint(requestedMapList);
 
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
@@ -386,9 +383,7 @@ class _OtherRequestsDetailScreenState
                     setState(() {
                       List<String> warehouseNames =
                           getWarehouseNames(requestedReturnMapList);
-                      superPrint(warehouseNames);
                       Future.delayed(const Duration(milliseconds: 100));
-
                       if (idList.isNotEmpty) {
                         if (!isPackedProductEqual) {
                           ref
@@ -545,7 +540,6 @@ class _OtherRequestsDetailScreenState
                         null) {
                       Map<String, dynamic> returnedValueMap =
                           returnRequestedMap[acceptedSelectedWarehouseID] ?? {};
-                      superPrint(returnedValueMap);
                       if (returnRequestedMap
                           .containsKey(acceptedSelectedWarehouseID)) {
                         returnRequestedMap[acceptedSelectedWarehouseID] = {

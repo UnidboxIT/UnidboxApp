@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
@@ -24,12 +23,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   ];
   Future<bool> _systemBackButtonPressed(bool didPop) {
     if (navigatorKeys[currentIndex].currentState?.canPop() == true) {
-      superPrint("HERE");
       navigatorKeys[currentIndex]
           .currentState
           ?.pop(navigatorKeys[currentIndex].currentContext);
     } else {
-      superPrint("HI");
       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
     }
     return Future.value(false);
@@ -46,7 +43,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Widget build(BuildContext context) {
     ref.watch(bottomBarVisibilityProvider);
     final isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
-
     return PopScope(
       canPop: false,
       onPopInvoked: _systemBackButtonPressed,

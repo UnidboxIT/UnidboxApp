@@ -27,24 +27,27 @@ Future pushyRegister(backgroundNotificationListener) async {
             .read(currentRouteProvider.notifier)
             .state;
         print('Notification click: $data');
+        String receivedMessage = data['message'] ?? 'Hello World!';
         superPrint(currentIosRoute);
-        superPrint(currentIosRoute != '/myRequest');
         RegExp regExp = RegExp(r'\baccepted\b');
         RegExp returnRegExp = RegExp(r'\breturned\b');
         if (currentIosRoute != '/outletRequest' &&
-                data['message'].contains("updated") ||
-            data['message'].contains("request")) {
+            (receivedMessage.contains("updated") ||
+                receivedMessage.contains("request"))) {
           Navigator.push(
             homeNavRouteState.currentState!.context,
             MaterialPageRoute(
                 builder: (builder) => const OtherRequestDetailScreen()),
           );
-        } else if (currentIosRoute != '/myRequest') {
-          if (regExp.hasMatch(data['message'])) {
+        } else if (currentIosRoute != '/myRequest' &&
+            (regExp.hasMatch(receivedMessage) ||
+                receivedMessage.contains("packed") ||
+                receivedMessage.contains("issued"))) {
+          if (regExp.hasMatch(receivedMessage)) {
             selectedFilterIndex = 1;
-          } else if (data['message'].contains("packed")) {
+          } else if (receivedMessage.contains("packed")) {
             selectedFilterIndex = 2;
-          } else if (data['message'].contains("issued")) {
+          } else if (receivedMessage.contains("issued")) {
             selectedFilterIndex = 4;
           }
           Navigator.of(
@@ -54,13 +57,13 @@ Future pushyRegister(backgroundNotificationListener) async {
                     isStockRequest: false,
                   )));
         } else if (currentIosRoute != '/myReturn' &&
-            data['message'].contains("return_accepted")) {
+            receivedMessage.contains("return_accepted")) {
           Navigator.of(
             homeNavRouteState.currentState!.context,
           ).push(
               MaterialPageRoute(builder: (context) => const MyReturnScreen()));
         } else if (currentIosRoute != '/outletReturn' &&
-            returnRegExp.hasMatch(data['message'])) {
+            returnRegExp.hasMatch(receivedMessage)) {
           Navigator.of(
             homeNavRouteState.currentState!.context,
           ).push(MaterialPageRoute(

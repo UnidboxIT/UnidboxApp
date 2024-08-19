@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
@@ -45,7 +43,6 @@ class _OtherRequestsDetailScreenState
     extends ConsumerState<OtherRequestDetailScreen> {
   List<OtherRequest> otherRequestList = [];
   List<ProductLineId> acceptProductList = [];
-  List<ProductLineId> requestProductList = [];
   List<Warehouse> warehouseList = [];
   List<ProductLineId> productByWarehouse = [];
   int offset = 0;
@@ -95,7 +92,6 @@ class _OtherRequestsDetailScreenState
       ref.read(currentRouteProvider.notifier).state = '/outletRequest';
     });
     ref.watch(otherRequestStateNotifierProvider);
-    superPrint(ref.read(currentRouteProvider.notifier).state);
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
@@ -129,7 +125,6 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestLoading) {
         setState(() {
           otherRequestList = [];
-          requestProductList.clear();
           acceptProductList.clear();
           productByWarehouse = [];
         });
@@ -180,12 +175,8 @@ class _OtherRequestsDetailScreenState
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             setState(() {
-              superPrint(requestedMap);
               requestedMap.forEach((outerKey, outerValue) {
-                superPrint(outerValue['product_line'].isEmpty);
-                superPrint(outerKey);
                 var productLine = outerValue['product_line'];
-                superPrint(productLine);
                 // Check if the outerKey matches any Warehouse id
                 if (productLine.isNotEmpty) {
                   bool isWarehouseMatch = warehouseList
@@ -195,7 +186,6 @@ class _OtherRequestsDetailScreenState
                       productLineInfos
                           .add(ProductLineInfo(outerKey, key, value.length));
                     });
-                    superPrint(productLineInfos);
                   }
                 } else {
                   productLineInfos

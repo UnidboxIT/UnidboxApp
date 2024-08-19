@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -47,6 +46,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
   int totalInternalTransferLength = 0;
   List<MyRequest> myReturnList = [];
   List<ProductLineId> myReturnProductList = [];
+  bool isMyReturnLoading = false;
+  bool isOutletReturnLoading = false;
 
   @override
   void initState() {
@@ -70,7 +71,6 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
           isLoading = true;
           otherRequestList = [];
           requestProductList.clear();
-          outletReturnProductList.clear();
         });
       }
       if (next is OtherRequestList) {
@@ -81,12 +81,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               if (element.status == "requested") {
                 requestProductList.add(element);
               }
-              // if (element.status == "returned") {
-              //   outletReturnProductList.add(element);
-              // }
             }
           }
-
           isLoading = false;
         });
       }
@@ -95,6 +91,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
     ref.listen(myReturnStateNotifierProvider, (pre, next) {
       if (next is MyReturnLoading) {
         setState(() {
+          isMyReturnLoading = true;
           myReturnList = [];
           myReturnProductList.clear();
         });
@@ -109,12 +106,14 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
+          isMyReturnLoading = false;
         });
       }
     });
     ref.listen(outletReturnStateNotifier, (pre, next) {
       if (next is OutletReturnLoading) {
         setState(() {
+          isOutletReturnLoading = true;
           outletReturnList = [];
           outletReturnProductList.clear();
         });
@@ -129,15 +128,17 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
               }
             }
           }
+          isOutletReturnLoading = false;
         });
       }
     });
     setState(() {
-      totalInternalTransferLength = requestProductList.length +
-          outletReturnProductList.length +
-          myReturnProductList.length;
+      if (!isLoading && !isMyReturnLoading && !isOutletReturnLoading) {
+        totalInternalTransferLength = requestProductList.length +
+            outletReturnProductList.length +
+            myReturnProductList.length;
+      }
     });
-    superPrint(totalInternalTransferLength);
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,

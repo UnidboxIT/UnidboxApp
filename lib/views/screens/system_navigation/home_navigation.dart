@@ -20,8 +20,6 @@ class _HomeNavigationRouteState extends State<HomeNavigationRoute> {
             settings: setting,
             builder: (BuildContext context) {
               switch (setting.name) {
-                case "/issue":
-                case "/":
                 default:
                   return const HomeScreen();
               }

@@ -50,10 +50,10 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
         if (result['result']['code'] == 200) {
           Admin adminData = Admin.fromJson(result['result']);
           saveLogin(adminData.sessionId, result['result']);
-          if (context.mounted) {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const MainScreen()));
-          }
+          // if (context.mounted) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainScreen()));
+          // }
           state = const AuthState.success();
         } else {
           CommonMethods.customizedAlertDialog(

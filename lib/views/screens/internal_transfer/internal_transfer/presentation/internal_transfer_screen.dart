@@ -50,19 +50,21 @@ class _InternalTransferScreenState
   List<ProductLineId> outletReturnProductList = [];
   List<ProductLineId> myReturnProductList = [];
   bool isLoading = false;
+  bool isMyReturnLoading = false;
+  bool isOutletReturnLoading = false;
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
     });
-    Future.delayed(const Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 5), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
-    Future.delayed(const Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 5), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
-    Future.delayed(const Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 5), () {
       ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
   }
@@ -89,7 +91,6 @@ class _InternalTransferScreenState
           isLoading = true;
           otherRequestList = [];
           requestProductList.clear();
-          outletReturnProductList.clear();
         });
       }
       if (next is OtherRequestList) {
@@ -110,6 +111,7 @@ class _InternalTransferScreenState
     ref.listen(myReturnStateNotifierProvider, (pre, next) {
       if (next is MyReturnLoading) {
         setState(() {
+          isMyReturnLoading = true;
           myReturnList = [];
           myReturnProductList.clear();
         });
@@ -124,12 +126,14 @@ class _InternalTransferScreenState
               }
             }
           }
+          isMyReturnLoading = false;
         });
       }
     });
     ref.listen(outletReturnStateNotifier, (pre, next) {
       if (next is OutletReturnLoading) {
         setState(() {
+          isOutletReturnLoading = true;
           outletReturnList = [];
           outletReturnProductList.clear();
         });
@@ -144,6 +148,7 @@ class _InternalTransferScreenState
               }
             }
           }
+          isOutletReturnLoading = false;
         });
       }
     });
@@ -301,7 +306,7 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 1 && requestProductList.isNotEmpty,
+          visible: count == 1 && requestProductList.isNotEmpty && !isLoading,
           child: Positioned(
             top: -10,
             right: -5,
@@ -318,7 +323,9 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 2 && myReturnProductList.isNotEmpty,
+          visible: count == 2 &&
+              myReturnProductList.isNotEmpty &&
+              !isMyReturnLoading,
           child: Positioned(
             top: -10,
             right: -5,
@@ -335,7 +342,9 @@ class _InternalTransferScreenState
           ),
         ),
         Visibility(
-          visible: count == 3 && outletReturnProductList.isNotEmpty,
+          visible: count == 3 &&
+              outletReturnProductList.isNotEmpty &&
+              !isOutletReturnLoading,
           child: Positioned(
             top: -10,
             right: -5,
