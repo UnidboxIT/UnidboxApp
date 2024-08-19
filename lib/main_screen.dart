@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -111,13 +112,21 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                     color: Colors.transparent,
                     alignment: Alignment.center,
                     child: e.id != 2
-                        ? Icon(
-                            e.selectedIcon,
-                            size: e.id == currentIndex ? 4.h : 3.h,
-                            color: e.id == currentIndex
-                                ? AppColor.primary
-                                : Colors.black.withOpacity(0.7),
-                          )
+                        ? e.id == 4
+                            ? Icon(
+                                CupertinoIcons.person_fill,
+                                size: e.id == currentIndex ? 4.h : 3.5.h,
+                                color: e.id == currentIndex
+                                    ? AppColor.primary
+                                    : Colors.black.withOpacity(0.7),
+                              )
+                            : Image.asset(
+                                e.selectedIcon,
+                                height: e.id == currentIndex ? 3.5.h : 2.8.h,
+                                color: e.id == currentIndex
+                                    ? AppColor.primary
+                                    : Colors.black.withOpacity(0.7),
+                              )
                         : const SizedBox.shrink(),
                   )
                   // Container(
