@@ -91,14 +91,14 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
   } else if (currentRoute != '/myRequest' &&
-          regExp.hasMatch(receivedAction.body!) ||
-      receivedAction.body!.contains("packed") ||
-      receivedAction.body!.contains("issued")) {
+      (regExp.hasMatch(receivedAction.body!) ||
+          receivedAction.body!.contains("packed") ||
+          receivedAction.body!.contains("issued"))) {
     if (regExp.hasMatch(receivedAction.body!)) {
       selectedFilterIndex = 1;
     } else if (receivedAction.body!.contains("packed")) {
       selectedFilterIndex = 2;
-    } else {
+    } else if (receivedAction.body!.contains("issued")) {
       selectedFilterIndex = 4;
     }
     Navigator.of(

@@ -46,6 +46,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Widget build(BuildContext context) {
     ref.watch(bottomBarVisibilityProvider);
     final isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
+
     return PopScope(
       canPop: false,
       onPopInvoked: _systemBackButtonPressed,

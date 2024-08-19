@@ -196,47 +196,52 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       botColor: const Color(0xffF6F6F6),
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Outlet Return",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Positioned(
-                right: 2.w,
-                top: 8.h,
-                child: GestureDetector(
-                  onTap: () {
-                    ref.read(bottomBarVisibilityProvider.notifier).state =
-                        false;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const GlobalReturnHistoryScreen()));
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(currentRouteProvider.notifier).state = '/',
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Outlet Return",
+                  () {
+                    ref.read(currentRouteProvider.notifier).state = '/';
+                    Navigator.of(context).pop();
                   },
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 20.w,
-                    height: 40,
-                    color: Colors.transparent,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
-                    child: const Icon(
-                      Icons.history,
-                      color: Colors.white,
+                ),
+                Positioned(
+                  right: 2.w,
+                  top: 8.h,
+                  child: GestureDetector(
+                    onTap: () {
+                      ref.read(bottomBarVisibilityProvider.notifier).state =
+                          false;
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              const GlobalReturnHistoryScreen()));
+                    },
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: 20.w,
+                      height: 40,
+                      color: Colors.transparent,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                      child: const Icon(
+                        Icons.history,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: outletReturnWidget(),
-              ),
-            ],
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: outletReturnWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

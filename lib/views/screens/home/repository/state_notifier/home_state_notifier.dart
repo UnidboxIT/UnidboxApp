@@ -33,7 +33,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
 
   Future<void> getAllMyTask() async {
     try {
-      // state = const HomeState.loading();
+      state = const HomeState.loading();
       http.Response response = await _homeRepository.myTask();
       Map<String, dynamic> result = jsonDecode(response.body);
       myTaskList.clear();

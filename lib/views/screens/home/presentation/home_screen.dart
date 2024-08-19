@@ -1,11 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/home/domain/my_task.dart';
 import 'package:unidbox_app/views/screens/home/presentation/my_task/my_task_screen.dart';
 import 'package:unidbox_app/views/screens/home/presentation/ongoing_job/ongoing_job_screen.dart';
 import 'package:unidbox_app/views/screens/home/presentation/widgets/home_app_bar_widget.dart';
 import 'package:unidbox_app/views/screens/home/repository/state/home_state.dart';
+import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/commons/super_scaffold.dart';
 import '../../internal_transfer/my_request/domain/my_request.dart';
 import '../../internal_transfer/my_return/repository/provider/my_return_provider.dart';
@@ -29,6 +32,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Noti> notiList = [];
   bool isNotiLoading = false;
+  bool isMyTaskLoading = false;
   List<OtherRequest> otherRequestList = [];
   List<MyRequest> myRequestList = [];
   List<OtherRequest> outletReturnList = [];
@@ -44,12 +48,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () async {
+    Future.delayed(const Duration(milliseconds: 5), () async {
       await ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
-    });
-    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(homeStateNotifierProvider.notifier).notiReminder();
     });
+
     Future.delayed(const Duration(milliseconds: 10), () async {
       await ref
           .read(otherRequestStateNotifierProvider.notifier)
@@ -71,6 +74,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (next is Loading) {
         notiList = [];
         setState(() {
+          isMyTaskLoading = true;
           isNotiLoading = true;
         });
       }
@@ -83,6 +87,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (next is MyTaskList) {
         setState(() {
           myTaskList = next.myTaskList;
+          isMyTaskLoading = false;
         });
       }
       if (next is MyTaskDetailMap) {
@@ -177,19 +182,48 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const HomeAppBarWidget(),
               ImportantReminderWidget(
                   notiList: notiList, isLoading: isNotiLoading),
-              Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    MyTaskScreen(
-                      myTaskList: myTaskList,
-                      myTaskDetailMap: myTaskDetailMap,
-                      totalInternalTransferLength: totalInternalTransferLength,
-                    ),
-                    const OngoingJobScreen(),
-                  ],
-                ),
-              )
+              isMyTaskLoading
+                  ? Expanded(
+                      child: Center(
+                        child: Container(
+                          width: 30.w,
+                          height: 10.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CupertinoActivityIndicator(
+                                color: AppColor.primary,
+                              ),
+                              const SizedBox(height: 12),
+                              textWidget(
+                                "Loading  ...",
+                                color: Colors.black.withOpacity(0.4),
+                                fontWeight: FontWeight.w600,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          MyTaskScreen(
+                            myTaskList: myTaskList,
+                            myTaskDetailMap: myTaskDetailMap,
+                            totalInternalTransferLength:
+                                totalInternalTransferLength,
+                          ),
+                          const OngoingJobScreen(),
+                        ],
+                      ),
+                    )
             ],
           ),
         ),
