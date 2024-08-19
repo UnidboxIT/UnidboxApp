@@ -303,7 +303,7 @@ class _OtherRequestsDetailScreenState
                 ),
         ),
         Container(
-          height: 13.5.h,
+          height: 14.h,
           width: 100.w,
           decoration: BoxDecoration(
             color: AppColor.primary,

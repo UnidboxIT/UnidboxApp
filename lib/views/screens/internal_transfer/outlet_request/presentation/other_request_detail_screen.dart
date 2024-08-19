@@ -173,22 +173,17 @@ class _OtherRequestsDetailScreenState
           }
           if (requestedMap.isNotEmpty) {
             if (requestedMap.keys.contains(selectedWarehouseID)) {
-              //superPrint(selectedWarehouseID);
               selectedWarehouseID = selectedWarehouseID;
             } else {
-              // superPrint(selectedWarehouseID);
               selectedWarehouseID = requestedMap.keys.first;
-              //superPrint(requestedMap.keys.first);
             }
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
-            // requestedMapList.add(requestedMap);
             setState(() {
               superPrint(requestedMap);
               requestedMap.forEach((outerKey, outerValue) {
                 superPrint(outerValue['product_line'].isEmpty);
                 superPrint(outerKey);
-
                 var productLine = outerValue['product_line'];
                 superPrint(productLine);
                 // Check if the outerKey matches any Warehouse id

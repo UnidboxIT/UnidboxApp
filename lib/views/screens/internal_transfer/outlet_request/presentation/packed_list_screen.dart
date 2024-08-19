@@ -72,7 +72,7 @@ class _PackedListScreenState extends ConsumerState<PackedListScreen> {
   Widget eachAcceptedListWidget() {
     return Container(
       width: 100.w,
-      height: Platform.isIOS ? 80.h : 81.h,
+      height: Platform.isIOS ? 80.h : 81.5.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
