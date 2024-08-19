@@ -115,14 +115,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                         ? e.id == 4
                             ? Icon(
                                 CupertinoIcons.person_fill,
-                                size: e.id == currentIndex ? 4.h : 3.5.h,
+                                size: e.id == currentIndex ? 4.h : 3.2.h,
                                 color: e.id == currentIndex
                                     ? AppColor.primary
                                     : Colors.black.withOpacity(0.7),
                               )
                             : Image.asset(
                                 e.selectedIcon,
-                                height: e.id == currentIndex ? 3.5.h : 2.8.h,
+                                height: e.id == currentIndex ? 3.5.h : 2.7.h,
                                 color: e.id == currentIndex
                                     ? AppColor.primary
                                     : Colors.black.withOpacity(0.7),
