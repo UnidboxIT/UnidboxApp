@@ -10,11 +10,13 @@ class MyTaskScreen extends ConsumerWidget {
   final List<MyTask> myTaskList;
   final Map<int, List<MyTask>> myTaskDetailMap;
   final int totalInternalTransferLength;
+  final bool isLoading;
   const MyTaskScreen({
     super.key,
     required this.myTaskList,
     required this.myTaskDetailMap,
     required this.totalInternalTransferLength,
+    required this.isLoading,
   });
 
   @override
@@ -30,37 +32,41 @@ class MyTaskScreen extends ConsumerWidget {
             size: 20,
           ),
           const SizedBox(height: 0),
-          SizedBox(
-            height: 29.h,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(right: 20, top: 20, bottom: 10),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MyTaskDetailScreen(
-                              parentID: myTaskList[index].id.toString(),
-                              name: myTaskList[index].name.toString(),
-                              myTaskDetail:
-                                  myTaskDetailMap[myTaskList[index].id] ?? [],
-                              myTaskDetailMap: myTaskDetailMap),
-                        ),
-                      );
+          isLoading
+              ? shimmerMyTaskWidget()
+              : SizedBox(
+                  height: 29.h,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        const EdgeInsets.only(right: 20, top: 20, bottom: 10),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MyTaskDetailScreen(
+                                    parentID: myTaskList[index].id.toString(),
+                                    name: myTaskList[index].name.toString(),
+                                    myTaskDetail:
+                                        myTaskDetailMap[myTaskList[index].id] ??
+                                            [],
+                                    myTaskDetailMap: myTaskDetailMap),
+                              ),
+                            );
+                          },
+                          child: eachMyTaskWidget(
+                            myTaskList[index],
+                            totalInternalTransferLength,
+                          ));
                     },
-                    child: eachMyTaskWidget(
-                      myTaskList[index],
-                      totalInternalTransferLength,
-                    ));
-              },
-              itemCount: myTaskList.length,
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 20);
-              },
-            ),
-          ),
+                    itemCount: myTaskList.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(width: 20);
+                    },
+                  ),
+                ),
         ],
       ),
     );
