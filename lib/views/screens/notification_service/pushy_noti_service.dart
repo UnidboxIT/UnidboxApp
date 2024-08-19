@@ -42,29 +42,17 @@ Future pushyRegister(backgroundNotificationListener) async {
         } else if (currentIosRoute != '/myRequest') {
           if (regExp.hasMatch(data['message'])) {
             selectedFilterIndex = 1;
-            Navigator.of(
-              homeNavRouteState.currentState!.context,
-            ).push(MaterialPageRoute(
-                builder: (context) => const MyRequestsDetailScreen(
-                      isStockRequest: false,
-                    )));
           } else if (data['message'].contains("packed")) {
             selectedFilterIndex = 2;
-            Navigator.of(
-              homeNavRouteState.currentState!.context,
-            ).push(MaterialPageRoute(
-                builder: (context) => const MyRequestsDetailScreen(
-                      isStockRequest: false,
-                    )));
           } else if (data['message'].contains("issued")) {
             selectedFilterIndex = 4;
-            Navigator.of(
-              homeNavRouteState.currentState!.context,
-            ).push(MaterialPageRoute(
-                builder: (context) => const MyRequestsDetailScreen(
-                      isStockRequest: false,
-                    )));
           }
+          Navigator.of(
+            homeNavRouteState.currentState!.context,
+          ).push(MaterialPageRoute(
+              builder: (context) => const MyRequestsDetailScreen(
+                    isStockRequest: false,
+                  )));
         } else if (currentIosRoute != '/myReturn' &&
             data['message'].contains("return_accepted")) {
           Navigator.of(
