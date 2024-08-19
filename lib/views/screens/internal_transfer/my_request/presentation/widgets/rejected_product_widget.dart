@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
 import '../../../../../widgets/text_widget.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/my_request.dart';
 import '../reject_request_screen.dart';
 
 Widget rejectedProductWidget(
-    List<ProductLineId> rejectedList, BuildContext context) {
+    List<ProductLineId> rejectedList, BuildContext context, WidgetRef ref) {
   return GestureDetector(
     onTap: () {
+      ref.read(currentRouteProvider.notifier).state = '/';
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const RejectRequestScreen()));
     },

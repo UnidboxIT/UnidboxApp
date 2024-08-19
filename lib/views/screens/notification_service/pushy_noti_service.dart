@@ -27,8 +27,8 @@ Future pushyRegister(backgroundNotificationListener) async {
             .read(currentRouteProvider.notifier)
             .state;
         print('Notification click: $data');
-        superPrint(currentIosRoute != '/myRequest');
         superPrint(currentIosRoute);
+        superPrint(currentIosRoute != '/myRequest');
         RegExp regExp = RegExp(r'\baccepted\b');
         RegExp returnRegExp = RegExp(r'\breturned\b');
         if (currentIosRoute != '/outletRequest' &&
@@ -39,10 +39,7 @@ Future pushyRegister(backgroundNotificationListener) async {
             MaterialPageRoute(
                 builder: (builder) => const OtherRequestDetailScreen()),
           );
-        } else if (currentIosRoute != '/myRequest' &&
-                regExp.hasMatch(data['message']) ||
-            data['message'].contains("packed") ||
-            data['message'].contains("issued")) {
+        } else if (currentIosRoute != '/myRequest') {
           if (regExp.hasMatch(data['message'])) {
             selectedFilterIndex = 1;
             Navigator.of(
@@ -59,7 +56,7 @@ Future pushyRegister(backgroundNotificationListener) async {
                 builder: (context) => const MyRequestsDetailScreen(
                       isStockRequest: false,
                     )));
-          } else {
+          } else if (data['message'].contains("issued")) {
             selectedFilterIndex = 4;
             Navigator.of(
               homeNavRouteState.currentState!.context,

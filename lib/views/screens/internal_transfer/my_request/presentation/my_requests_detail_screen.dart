@@ -159,68 +159,74 @@ class _MyRequestsDetailScreenState
         backgroundColor: const Color(0xffF6F6F6),
         endDrawer: draweWidget(context, scaffoldKey, ref),
         drawerScrimColor: Colors.transparent,
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "My Requests",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Positioned(
-                right: 5.w,
-                top: 6.5.h,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (scaffoldKey.currentState!.isDrawerOpen) {
-                          scaffoldKey.currentState!.closeEndDrawer();
-                        } else {
-                          scaffoldKey.currentState!.openEndDrawer();
-                        }
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 20),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        ref.read(bottomBarVisibilityProvider.notifier).state =
-                            false;
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                const RequestHistoryScreen()));
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 20),
-                        child: const Icon(
-                          Icons.history,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    ),
-                  ],
+        body: PopScope(
+          onPopInvoked: (_) =>
+              ref.read(currentRouteProvider.notifier).state = '/',
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "My Requests",
+                  () {
+                    ref.read(currentRouteProvider.notifier).state = '/';
+                    Navigator.of(context).pop();
+                  },
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: orderReceivingBodyWidget(),
-              ),
-            ],
+                Positioned(
+                  right: 5.w,
+                  top: 6.5.h,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (scaffoldKey.currentState!.isDrawerOpen) {
+                            scaffoldKey.currentState!.closeEndDrawer();
+                          } else {
+                            scaffoldKey.currentState!.openEndDrawer();
+                          }
+                        },
+                        child: Container(
+                          color: Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 20),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          ref.read(bottomBarVisibilityProvider.notifier).state =
+                              false;
+                          ref.read(currentRouteProvider.notifier).state = '/';
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const RequestHistoryScreen()));
+                        },
+                        child: Container(
+                          color: Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 20),
+                          child: const Icon(
+                            Icons.history,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: orderReceivingBodyWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -270,7 +276,7 @@ class _MyRequestsDetailScreenState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            rejectedProductWidget(rejectedList, context),
+            rejectedProductWidget(rejectedList, context, ref),
             pendingRequestWidget(),
           ],
         ),
@@ -403,6 +409,7 @@ class _MyRequestsDetailScreenState
   Widget pendingRequestWidget() {
     return GestureDetector(
       onTap: () {
+        ref.read(currentRouteProvider.notifier).state = '/';
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => const PendingRequestListScreen(),

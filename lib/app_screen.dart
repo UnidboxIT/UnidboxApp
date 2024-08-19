@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
@@ -8,6 +9,7 @@ import 'main.dart';
 import 'views/screens/internet_connection/provider/internet_provider.dart';
 import 'views/screens/internet_connection/state/connection_status.dart';
 import 'views/screens/notification_service/pushy_noti_service.dart';
+import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 class AppScreen extends ConsumerStatefulWidget {
   const AppScreen({super.key});
@@ -19,6 +21,9 @@ class AppScreen extends ConsumerStatefulWidget {
 class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      ref.read(currentRouteProvider.notifier).state = '/';
+    });
     if (ref.watch(connectivityStatusProviders) ==
         ConnectivityStatus.isConnected) {
       pushyRegister(backgroundNotificationListener);
