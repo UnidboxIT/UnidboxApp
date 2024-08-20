@@ -210,29 +210,32 @@ Widget eachMyReturnProductLineWidget(
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textWidget(
-                        "Reason",
-                        color: AppColor.orangeColor,
-                        size: 12.5,
-                      ),
-                      textWidget(
-                        productList[index].reason == "false"
-                            ? ""
-                            : productList[index]
-                                .reason
-                                .replaceAll("[", "")
-                                .replaceAll("]", "")
-                                .replaceAll("'", ""),
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        size: 14,
-                      )
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textWidget(
+                          "Reason",
+                          color: AppColor.orangeColor,
+                          size: 12.5,
+                        ),
+                        textWidget(
+                          productList[index].reason == "false"
+                              ? ""
+                              : productList[index]
+                                  .reason
+                                  .replaceAll("[", "")
+                                  .replaceAll("]", "")
+                                  .replaceAll("'", ""),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.left,
+                          size: 14,
+                        )
+                      ],
+                    ),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   productList[index].status == "return_accepted"
                       ? const SizedBox.shrink()
                       : Consumer(builder: (context, ref, data) {

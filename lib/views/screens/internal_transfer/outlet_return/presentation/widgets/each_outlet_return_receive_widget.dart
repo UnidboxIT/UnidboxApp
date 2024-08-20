@@ -109,8 +109,7 @@ Widget eachOutletReturnWidget(
                           size: 12,
                         ),
                         textWidget(
-                          isNewReturn ||
-                                  productList[index].status == "return_issued"
+                          isNewReturn
                               ? "Returned Qty : ${productList[index].qty.toInt()} ${productList[index].productUomList[1]}"
                               : "Returned Qty : ${returnQty.toInt()} ${productList[index].productUomList[1]}",
                           size: 13,
@@ -132,9 +131,7 @@ Widget eachOutletReturnWidget(
                                 AppColor.pinkColor),
                             const SizedBox(width: 10),
                             textWidget(
-                                isNewReturn ||
-                                        productList[index].status ==
-                                            "return_issued"
+                                isNewReturn
                                     ? productList[index].qty.toInt().toString()
                                     : returnQty.toInt().toString(),
                                 color: AppColor.primary,
@@ -173,44 +170,49 @@ Widget eachOutletReturnWidget(
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(
-                            "Returned By",
-                            color: AppColor.orangeColor,
-                            size: 12.5,
-                          ),
-                          textWidget(
-                            name,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            size: 14,
-                          )
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget(
+                              "Returned By",
+                              color: AppColor.orangeColor,
+                              size: 12.5,
+                            ),
+                            textWidget(
+                              name,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            )
+                          ],
+                        ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textWidget(
-                            "Reason",
-                            color: AppColor.orangeColor,
-                            size: 12.5,
-                          ),
-                          textWidget(
-                            productList[index].reason == "false"
-                                ? ""
-                                : productList[index]
-                                    .reason
-                                    .replaceAll("[", "")
-                                    .replaceAll("]", "")
-                                    .replaceAll("'", ""),
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            size: 14,
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textWidget(
+                              "Reason",
+                              color: AppColor.orangeColor,
+                              size: 12.5,
+                            ),
+                            textWidget(
+                              productList[index].reason == "false"
+                                  ? ""
+                                  : productList[index]
+                                      .reason
+                                      .replaceAll("[", "")
+                                      .replaceAll("]", "")
+                                      .replaceAll("'", ""),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
