@@ -280,7 +280,11 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                 ),
               ],
             ),
-          )
+          ),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          ),
         ],
       ),
     );

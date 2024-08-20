@@ -269,7 +269,11 @@ class _AcceptedOutletReturnScreenState
                 ),
               ],
             ),
-          )
+          ),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          ),
         ],
       ),
     );
