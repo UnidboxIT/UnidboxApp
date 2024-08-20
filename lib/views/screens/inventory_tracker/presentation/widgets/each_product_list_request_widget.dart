@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
@@ -43,7 +42,6 @@ class _EachProductListRequestWidgetState
     }
     selectedBox =
         widget.product.uomList.isNotEmpty ? widget.product.uomList[0] : 0;
-    superPrint(qtyByMap);
   }
 
   @override
@@ -100,8 +98,6 @@ class _EachProductListRequestWidgetState
       // }
     });
 
-    superPrint(qtyByMap);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -157,7 +153,6 @@ class _EachProductListRequestWidgetState
           children: [
             addMinusIconButtonWidget(
               () {
-                superPrint(productId);
                 ref
                     .read(inhouseStockStateNotifierProvider.notifier)
                     .defaultWarehouseDecrementQty(productId, totalQty);

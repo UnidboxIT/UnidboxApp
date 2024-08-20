@@ -273,7 +273,9 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                warehouseWidget(),
+                warehouseList.isEmpty
+                    ? const SizedBox.shrink()
+                    : warehouseWidget(),
                 const SizedBox(height: 15),
                 acceptedMyReturnWidget(acceptedReturnList, context),
                 const SizedBox(height: 10),
@@ -281,9 +283,11 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                   child: requestedMap[selectedWarehouseID] != null ||
                           selectedWarehouseID == -1
                       ? myReturnDataWidget(requestedMapList)
-                      : Center(
-                          child: textWidget("No Data !"),
-                        ),
+                      : warehouseList.isEmpty
+                          ? const SizedBox.shrink()
+                          : Center(
+                              child: textWidget("No Data !"),
+                            ),
                 ),
               ],
             ),

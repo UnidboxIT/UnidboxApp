@@ -45,7 +45,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       state = const AuthState.loading();
       http.Response response = await _authRepository.login(username, password);
       Map<String, dynamic> result = jsonDecode(response.body);
-      superPrint(result);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           Admin adminData = Admin.fromJson(result['result']);
@@ -89,7 +88,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
   }
 
   void logout(BuildContext context, WidgetRef ref) {
-    superPrint(sharedPreferences.getString(AppKeys.userName));
     rememberMe(
         sharedPreferences.getString(AppKeys.userName) ?? "",
         sharedPreferences.getString(AppKeys.password) ?? "",
@@ -112,7 +110,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
 
       http.Response response = await _authRepository.deleteDeviceToken();
       Map<String, dynamic> result = jsonDecode(response.body);
-      superPrint(response);
+
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           state = const AuthState.success();
@@ -134,7 +132,6 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
   }
 
   rememberMe(String name, String password, bool isCheck) {
-    superPrint(isCheck);
     if (isCheck) {
       sharedPreferences.setString(AppKeys.userName, name);
       sharedPreferences.setString(AppKeys.password, password);
@@ -146,6 +143,5 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
       sharedPreferences.remove("isRemember");
       state = const AuthState.rememberMe("", "", false);
     }
-    superPrint(name);
   }
 }

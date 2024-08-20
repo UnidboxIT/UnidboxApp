@@ -21,10 +21,9 @@ class InhouseStockStateNotifier extends StateNotifier<InhouseStockState> {
       state = const InhouseStockState.loading();
       Response response =
           await _inventoryTrackerRepository.inhouseStock(productID);
-      superPrint(response.body);
+
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
-        superPrint(result['result']['result'], title: "In House Stock");
         if (result['result']['code'] == 200) {
           Iterable dataList = result['result']['result'];
           inHouseStockList.clear();

@@ -478,8 +478,6 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                                             productIdList.add(productId);
                                           });
                                         }
-
-                                        superPrint(productIdList);
                                       },
                                       elevation: 0.2,
                                       bgColor: Colors.grey.shade100,

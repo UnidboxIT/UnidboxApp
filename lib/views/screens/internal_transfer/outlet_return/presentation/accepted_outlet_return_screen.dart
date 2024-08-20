@@ -251,26 +251,24 @@ class _AcceptedOutletReturnScreenState
         children: [
           const SearchOtherRequestWidget(),
           Expanded(
-            child: isAcceptedOutletReturnLoading
-                ? Center(
-                    child: CupertinoActivityIndicator(
-                      color: AppColor.primary,
-                    ),
-                  )
-                : Column(
-                    children: [
-                      warehouseWidget(),
-                      const SizedBox(height: 15),
-                      Expanded(
-                        child: requestedMap[selectedWarehouseID] != null ||
-                                selectedWarehouseID == -1
-                            ? outletReturnReceiveWidget(requestedMapList)
-                            : Center(
-                                child: textWidget("No Data !"),
-                              ),
-                      ),
-                    ],
-                  ),
+            child: Column(
+              children: [
+                warehouseList.isEmpty
+                    ? const SizedBox.shrink()
+                    : warehouseWidget(),
+                const SizedBox(height: 15),
+                Expanded(
+                  child: requestedMap[selectedWarehouseID] != null ||
+                          selectedWarehouseID == -1
+                      ? outletReturnReceiveWidget(requestedMapList)
+                      : warehouseList.isEmpty
+                          ? const SizedBox.shrink()
+                          : Center(
+                              child: textWidget("No Data !"),
+                            ),
+                ),
+              ],
+            ),
           )
         ],
       ),

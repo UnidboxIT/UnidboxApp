@@ -25,28 +25,11 @@ class AttributeStateNotifier extends StateNotifier<AttributeState> {
       for (var element in dataList) {
         attributeList.add(Attribute.fromJson(element));
       }
-      superPrint(attributeList.first.attributeList);
       state = AttributeState.loadAttributeList(attributeList);
     } catch (e) {
       superPrint(e.toString());
     }
   }
-
-  // Future<void> getAttributeByID(id) async {
-  //   try {
-  //     state = const AttributeState.attributeLoading();
-  //     Response response = await _inventoryTrackerRepository.attributeByID(id);
-  //     var result = jsonDecode(response.body);
-  //     Iterable dataList = result['result']['records'];
-  //     attributeListByID.clear();
-  //     for (var element in dataList) {
-  //       attributeListByID.add(Attribute.fromJson(element));
-  //     }
-  //     state = AttributeState.loadAttributeListByID(attributeListByID);
-  //   } catch (e) {
-  //     superPrint(e.toString());
-  //   }
-  // }
 
   void eachSelectedUom(Attribute attribute) {
     state = AttributeState.selectedAttribute(attribute);

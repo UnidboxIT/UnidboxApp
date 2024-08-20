@@ -60,6 +60,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineInfo> productLineInfos = [];
   int eachKey = -1;
   int eachValueLength = -1;
+  bool isOutletRequestLoading = false;
 
   @override
   void initState() {
@@ -124,6 +125,7 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
+          isOutletRequestLoading = true;
           otherRequestList = [];
           acceptProductList.clear();
           productByWarehouse = [];
@@ -194,6 +196,7 @@ class _OtherRequestsDetailScreenState
               });
             });
           }
+          isOutletRequestLoading = false;
           acceptLoading = false;
         });
       }
@@ -545,15 +548,17 @@ class _OtherRequestsDetailScreenState
 
   Widget acceptRequestWidget() {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AcceptedListScreen(
-              otherRequestList: otherRequestList,
-            ),
-          ),
-        );
-      },
+      onTap: isOutletRequestLoading
+          ? () {}
+          : () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AcceptedListScreen(
+                    otherRequestList: otherRequestList,
+                  ),
+                ),
+              );
+            },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: Stack(

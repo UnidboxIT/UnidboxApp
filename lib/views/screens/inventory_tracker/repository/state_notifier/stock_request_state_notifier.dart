@@ -44,7 +44,6 @@ class StockRequestStateNotifier extends StateNotifier<StockRequestState> {
           price,
           uomID,
           isUrgent);
-      superPrint(response.body);
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {

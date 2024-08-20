@@ -17,7 +17,7 @@ class UserWarehouseStateNotifier extends StateNotifier<UserWarehouseState> {
       state = const UserWarehouseState.loading();
       Response response = await _warehouseRepository.warehouse();
       var result = jsonDecode(response.body);
-      superPrint(result);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (result['result']['code'] == 200) {
           userWarehouse =

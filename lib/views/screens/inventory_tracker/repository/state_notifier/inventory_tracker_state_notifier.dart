@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inventory_tacker_state.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +21,6 @@ class InventoryTrackerStateNotifier
       state = const InventoryTrackerState.loading();
       http.Response response =
           await _inventoryTrackerRepository.inventoryTracker();
-      superPrint(response);
       var result = jsonDecode(response.body);
       inventoryTrackerList.clear();
       tempInventoryTrackerList.clear();

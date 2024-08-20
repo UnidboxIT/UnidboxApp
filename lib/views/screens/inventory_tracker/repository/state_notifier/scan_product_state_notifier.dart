@@ -53,7 +53,6 @@ class ScanProductStateNotifier extends StateNotifier<ScanProductState> {
           //state = const ScanProductState.error(error: "No product found!");
         }
       }
-      superPrint(scanProductList.length);
     } catch (e) {
       superPrint(e.toString());
     }
@@ -84,7 +83,6 @@ class ScanProductStateNotifier extends StateNotifier<ScanProductState> {
           }
         }
       }
-      superPrint(scanProductList.length);
     } catch (e) {
       superPrint(e.toString());
     }
@@ -92,6 +90,5 @@ class ScanProductStateNotifier extends StateNotifier<ScanProductState> {
 
   Future<void> clearScanProduct() async {
     scanProductList.clear();
-    superPrint(scanProductList, title: "Provider Clear");
   }
 }

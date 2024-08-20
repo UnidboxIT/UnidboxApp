@@ -54,9 +54,8 @@ class RackStateNotifier extends StateNotifier<RackState> {
       Response response = await _inventoryTrackerRepository.updateProduct(
           productID, rackList, retailPrice, costPrice);
       var result = jsonDecode(response.body);
-      superPrint(result);
+
       if (result['result']['code'] == 200) {
-        superPrint(result);
         successfullyBottomSheet("Update Confirmation",
             "Please ensure the retail price is \n 20% margin of the cost price",
             () {

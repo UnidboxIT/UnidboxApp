@@ -108,9 +108,9 @@ class _OtherRequestsDetailScreenState
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
+          isAcceptedLoading = true;
           packedProductList.clear();
           otherRequestList = [];
-          isAcceptedLoading = true;
         });
       }
       if (next is OtherRequestList) {

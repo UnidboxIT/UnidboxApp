@@ -248,7 +248,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
         children: [
           const SearchOtherRequestWidget(),
           warehouseList.isEmpty
-              ? SizedBox.fromSize()
+              ? const SizedBox.shrink()
               : Expanded(
                   child: Column(
                     children: [
@@ -258,9 +258,11 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
                         child: requestedMap[selectedWarehouseID] != null ||
                                 selectedWarehouseID == -1
                             ? myReturnDataWidget(requestedMapList)
-                            : Center(
-                                child: textWidget("No Data !"),
-                              ),
+                            : warehouseList.isEmpty
+                                ? const SizedBox.shrink()
+                                : Center(
+                                    child: textWidget("No Data !"),
+                                  ),
                       ),
                     ],
                   ),

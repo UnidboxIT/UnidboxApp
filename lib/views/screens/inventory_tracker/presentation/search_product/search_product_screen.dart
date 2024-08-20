@@ -66,10 +66,8 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
   }
 
   void _loadProducts(pageNumber) {
-    superPrint("HERE");
     if (txtSearchProduct.text.isNotEmpty) {
       Future.delayed(const Duration(milliseconds: 10), () {
-        superPrint(txtSearchProduct.text);
         ref
             .read(searchProductStateNotifierProvier.notifier)
             .searchProduct(txtSearchProduct.text, context, pageNumber);
@@ -370,7 +368,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                 double price = productList[index].price;
                                 double qtyOutStock =
                                     productList[index].qtyOutStock;
-                                superPrint(productList[index].uomList);
+
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
@@ -581,7 +579,6 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                 children: [
                                                   requestButtonWidgetInProductList(
                                                       "Cancel", () {
-                                                    superPrint(productIdList);
                                                     if (productIdList
                                                         .contains(productId)) {
                                                       setState(() {
@@ -610,7 +607,6 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                     if (productList[index]
                                                         .defaultWarehouseList
                                                         .isEmpty) {
-                                                      superPrint("HERE");
                                                       ref
                                                           .read(
                                                               inhouseStockStateNotifierProvider
@@ -753,9 +749,6 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                 .add(productId);
                                                           });
                                                         }
-
-                                                        superPrint(
-                                                            productIdList);
                                                       },
                                                       elevation: 0.2,
                                                       bgColor:

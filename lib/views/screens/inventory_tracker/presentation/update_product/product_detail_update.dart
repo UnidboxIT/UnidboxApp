@@ -2,7 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/back_up/home/create_product_widget/each_text_field_widget.dart';
@@ -52,7 +51,7 @@ class _ProductDetailUpdateScreenState
       txtRetailPrice.text = widget.retailPrice;
       txtCostPrice.text = widget.costPrice;
     });
-    superPrint(widget.rackIdList);
+
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(rackStateNotifierProvider.notifier).getRacks(widget.rackIdList);
     });
@@ -139,7 +138,6 @@ class _ProductDetailUpdateScreenState
                 selectedRackIdList.clear();
                 for (var data in selectedRacks) {
                   selectedRackIdList.add(data.id);
-                  superPrint(data.name);
                 }
 
                 ref
@@ -223,9 +221,7 @@ class _ProductDetailUpdateScreenState
                   ),
                 );
               }).toList(),
-              onChanged: (value) {
-                superPrint(value);
-              },
+              onChanged: (value) {},
               value: selectedRacks.isEmpty ? null : selectedRacks.last.name,
               selectedItemBuilder: (context) {
                 String joinedNames =

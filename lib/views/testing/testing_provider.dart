@@ -5,10 +5,7 @@ class TestingNotifier extends StateNotifier<String> {
   TestingNotifier() : super("HELLO");
 
   void updateValue(String newValue) {
-    superPrint("HAY HAY>>>>");
     state = newValue;
-    superPrint(state);
-    superPrint("HIIHIH>>>>");
   }
 }
 

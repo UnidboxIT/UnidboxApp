@@ -32,7 +32,5 @@ class MainUomStateNotifier extends StateNotifier<MainUomState> {
 
   void eachSelectedUom(Uom uom) {
     state = MainUomState.selectedMainUom(uom);
-    superPrint(uom.name);
-    superPrint(uom.id);
   }
 }

@@ -47,7 +47,6 @@ Widget cameraWidget(ProductController controller) {
         IconButton(
             onPressed: () {
               controller.clearSelectedImage();
-              superPrint("Icon Button");
             },
             icon: const Icon(
               CupertinoIcons.delete,

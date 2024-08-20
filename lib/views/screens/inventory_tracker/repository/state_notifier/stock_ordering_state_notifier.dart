@@ -154,7 +154,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         "sku": sku,
       };
     }
-    superPrint(checkOutMap);
     state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }

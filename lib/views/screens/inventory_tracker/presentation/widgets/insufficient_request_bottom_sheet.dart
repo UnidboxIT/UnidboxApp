@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../../utils/constant/app_constant.dart';
@@ -56,7 +55,6 @@ Future<void> showInsuffiecientBottomSheet(
               .bottom, // To ensure the sheet is above the keyboard
         ),
         child: Consumer(builder: (context, ref, child) {
-          superPrint(userWarehouse.warehouseList[1]);
           final state = ref.watch(inhouseStockStateNotifierProvider);
           if (state is DefaultWarehouseIncrementQty &&
               state.productID == productId) {
@@ -123,9 +121,6 @@ Widget requestStockWidget(
     int requestWarehouseID,
     String title,
     bool isBackRequest) {
-  superPrint(inHouseStockList);
-  superPrint(requestWarehouseID);
-  superPrint(qtyByMap[productId]);
   return Consumer(builder: (context, ref, child) {
     final next = ref.watch(stockRequesstStateNotifierProvider);
     if (next is StockRequestLoading) {
@@ -213,7 +208,6 @@ Widget requestStockWidget(
                     ),
                     GestureDetector(
                       onTap: () {
-                        superPrint(inHouseStockList[index].warehouseList);
                         if (product.defaultWarehouseList.isEmpty) {
                           ref
                               .read(inhouseStockStateNotifierProvider.notifier)
@@ -416,7 +410,6 @@ Widget requestStockWidget(
               () {
                 if (requestWarehouseID != -1 &&
                     requestWarehouseQty >= qtyByMap[productId]!) {
-                  superPrint(qtyByMap[product.id.toString()]!);
                   isSendRequestLoading
                       ? () {}
                       : ref

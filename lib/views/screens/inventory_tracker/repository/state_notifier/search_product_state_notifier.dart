@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/search_product_state.dart';
-import '../../../../../utils/commons/super_print.dart';
 import '../../domain/product.dart';
 
 class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
@@ -19,7 +18,6 @@ class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
     BuildContext context,
     int pageNumber,
   ) async {
-    superPrint(name);
     try {
       if (searchProductList.isEmpty) {
         state = const SearchProductState.loading();
@@ -35,15 +33,10 @@ class SearchProductStateNotifier extends StateNotifier<SearchProductState> {
       if (dataList.isEmpty) {
         state = const SearchProductState.isSearchDataExist(false);
       }
-      superPrint(searchProductList.first.name);
-      superPrint(searchProductList.length, title: "Search Product Length");
-    } catch (e) {
-      superPrint(e.toString());
-    }
+    } catch (e) {}
   }
 
   Future<void> clearSearchProductValue() async {
     searchProductList.clear();
-    superPrint(searchProductList, title: "Provider Clear");
   }
 }
