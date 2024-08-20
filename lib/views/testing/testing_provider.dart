@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 
 class TestingNotifier extends StateNotifier<String> {
   TestingNotifier() : super("HELLO");

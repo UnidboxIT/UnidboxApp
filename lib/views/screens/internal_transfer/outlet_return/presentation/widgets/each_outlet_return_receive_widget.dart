@@ -209,6 +209,7 @@ Widget eachOutletReturnWidget(
                                       .replaceAll("'", ""),
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
+                              textAlign: TextAlign.left,
                               size: 14,
                             ),
                           ],

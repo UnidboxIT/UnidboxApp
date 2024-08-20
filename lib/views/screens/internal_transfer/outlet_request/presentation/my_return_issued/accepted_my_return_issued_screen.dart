@@ -350,7 +350,7 @@ class _AcceptedReturnScreenState
   Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
-    if (requestedMapList.isEmpty) {
+    if (requestedMapList.isEmpty || requestedMapList[0].containsKey(-1)) {
       return Container(
         alignment: Alignment.center,
         width: 100.w,

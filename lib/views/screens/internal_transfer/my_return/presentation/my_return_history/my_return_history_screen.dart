@@ -48,7 +48,10 @@ class _PendingRequestListScreenState
                 element.status == "done")) {
           setState(() {
             String date = data.createDate.substring(0, 10);
-            String warehouseName = data.requestToWh[1];
+            // String warehouseName = data.requestToWh[1];
+            String warehouseName = data.isNewReturn
+                ? element.warehouseList[1]
+                : element.requestWarehouse[1];
             String productLineKey = data.name;
             if (!requestedHistoryMap.containsKey(date)) {
               requestedHistoryMap[date] = {
