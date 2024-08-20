@@ -164,7 +164,9 @@ Widget eachOutletReturnWidget(
                     size: 12.5,
                   ),
                   textWidget(
-                    productList[index].requestWarehouse[1],
+                    isNewReturn
+                        ? productList[index].requestWarehouse[1]
+                        : productList[index].warehouseList[1],
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     size: 14,
