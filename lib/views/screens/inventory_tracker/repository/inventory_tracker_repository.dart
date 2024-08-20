@@ -9,7 +9,8 @@ class InventoryTrackerRepository {
   Future<http.Response> inventoryTracker() async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/category?fields=id,name,parent_id,image_url&offset=1',
+      endpoint:
+          'joborder/category?fields=sequence,id,name,parent_id,image_url&sort=sequence',
       headers: CommonMethods.setHeaders(),
     );
 

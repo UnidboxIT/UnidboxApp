@@ -281,6 +281,9 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
+                  // int totalReturnReasonQty = reasonQtyMap.values.fold(
+                  //     0, (previousValue, element) => previousValue + element);
+                  // if (totalReturnReasonQty == widget.receiveReasonQty.toInt()) {
                   ref
                       .read(myRequestStateNotifierProvider.notifier)
                       .receivedByImageMyRequest(
@@ -291,6 +294,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                         txtOtherComment.text,
                         returnRequestImageList,
                       );
+                  //}
                 },
                 child: Container(
                   height: 40,
@@ -315,29 +319,6 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                         ),
                 ),
               ),
-              //  SizedBox(
-              //   width: 80.w,
-              //   height: 43,
-              //   child: buttonWidget(
-              //     "Submit Return",
-              //     () {
-              //       //base64Image
-              //       ref
-              //           .read(myRequestStateNotifierProvider.notifier)
-              //           .receivedByImageMyRequest(
-              //             widget.productLine.id,
-              //             widget.receiveQty.toInt(),
-              //             context,
-              //             reasonIndex,
-              //             txtOtherComment.text,
-              //             returnRequestImageList,
-              //           );
-              //     },
-              //     isBool: requestLoading,
-              //     bgColor: AppColor.primary,
-              //     fontColor: Colors.white,
-              //   ),
-              // ),
             ),
             SizedBox(height: 5.h),
           ],
@@ -360,6 +341,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                     setState(() {
                       int sumRecevieQty = reasonQtyMap.values.fold(0,
                           (previousValue, element) => previousValue + element);
+
                       superPrint(sumRecevieQty);
                       if (!reasonIndex
                           .contains(returnRequestReasonList[index].reason)) {
@@ -455,10 +437,13 @@ class _EachReturnReasonWidgetState
   void initState() {
     super.initState();
     for (var data in widget.reasonIndexList) {
-      reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
-      sumRecevieQty = reasonQtyMap.values
-          .fold(0, (previousValue, element) => previousValue + element);
+      setState(() {
+        reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
+        sumRecevieQty = reasonQtyMap.values
+            .fold(0, (previousValue, element) => previousValue + element);
+      });
     }
+
     superPrint(sumRecevieQty);
     superPrint(reasonQtyMap);
   }
@@ -627,14 +612,11 @@ class _EachReturnReasonWidgetState
                 setState(() {
                   sumRecevieQty = reasonQtyMap.values.fold(
                       0, (previousValue, element) => previousValue + element);
-                  superPrint(sumRecevieQty);
                 });
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
                     .incrementTotalQty(widget.reasonIndex, totalQty,
                         widget.receiveQty.toInt(), sumRecevieQty);
-
-                superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),
               const SizedBox(width: 5),
               //camera

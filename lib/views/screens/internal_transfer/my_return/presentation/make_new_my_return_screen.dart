@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
@@ -63,6 +64,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
           .getAllMyReturnReason();
     });
     reasonQtyMap.clear();
+    sumNewReturnQty = 0;
   }
 
   @override
@@ -340,30 +342,50 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           height: 43,
                           child: buttonWidget(
                             "Send Request",
-                            () {
-                              FocusManager.instance.primaryFocus!.unfocus();
-                              superPrint(sumNewReturnQty);
-                              superPrint(reasonIndex);
-                              superPrint(txtNewReturnComment.text);
-                              ref
-                                  .read(myReturnStateNotifierProvider.notifier)
-                                  .updateMyReturn(
-                                      requestWarehouseID,
-                                      userWarehouse.warehouseList[0],
-                                      widget.scanProductList[0].id,
-                                      widget.scanProductList[0].name,
-                                      sumNewReturnQty,
-                                      widget.scanProductList[0].price,
-                                      widget.scanProductList[0].uomList[0],
-                                      reasonIndex,
-                                      txtNewReturnComment.text,
+                            requestWarehouseID == -1
+                                ? () {
+                                    superPrint(requestWarehouseID);
+                                    CommonMethods.customizedAlertDialog(
+                                      "Please request from other outlet",
                                       context,
-                                      ref,
-                                      true)
-                                  .then((_) {
-                                Navigator.of(context).pop();
-                              });
-                            },
+                                    );
+                                  }
+                                : () {
+                                    FocusManager.instance.primaryFocus!
+                                        .unfocus();
+                                    sumNewReturnQty = reasonQtyMap.values.fold(
+                                        0,
+                                        (previousValue, element) =>
+                                            previousValue + element);
+                                    if (sumNewReturnQty != 0) {
+                                      ref
+                                          .read(myReturnStateNotifierProvider
+                                              .notifier)
+                                          .updateMyReturn(
+                                              requestWarehouseID,
+                                              userWarehouse.warehouseList[0],
+                                              widget.scanProductList[0].id,
+                                              widget.scanProductList[0].name,
+                                              sumNewReturnQty,
+                                              widget.scanProductList[0].price,
+                                              widget.scanProductList[0]
+                                                  .uomList[0],
+                                              reasonIndex,
+                                              txtNewReturnComment.text,
+                                              context,
+                                              ref,
+                                              true)
+                                          .then((_) {
+                                        Navigator.of(context).pop();
+                                      });
+                                    } else {
+                                      superPrint(requestWarehouseID);
+                                      CommonMethods.customizedAlertDialog(
+                                        "Please select new return request reason",
+                                        context,
+                                      );
+                                    }
+                                  },
                             isBool: isMyReturnUpdate,
                           ),
                         ),
@@ -482,7 +504,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   } else if (widget.scanProductList.first.defaultWarehouseList
                           .isNotEmpty &&
                       widget.scanProductList.first.defaultWarehouseList[0] !=
-                          filterWareHouseList[index].warehouseList[0] &&
+                          userWarehouse.warehouseList[0] &&
                       userWarehouse.warehouseList[0] !=
                           filterWareHouseList[index].warehouseList[0]) {
                     ref
@@ -497,10 +519,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                 .isNotEmpty &&
                             widget.scanProductList.first
                                     .defaultWarehouseList[0] ==
-                                filterWareHouseList[index].warehouseList[0] ||
+                                userWarehouse.warehouseList[0] ||
                         userWarehouse.warehouseList[0] ==
                             filterWareHouseList[index].warehouseList[0]
-                    // userWarehouse.warehouseList[0]
                     ? Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 10),
