@@ -7,6 +7,7 @@ import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domai
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../my_request/domain/my_request.dart';
+import '../../../my_return/presentation/my_return_history/shimmer_myreturn_history.dart';
 import '../../repository/provider/outlet_return_provider.dart';
 import '../../repository/state/outlet_return_state.dart';
 
@@ -29,7 +30,6 @@ class _PendingRequestListScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
@@ -111,7 +111,7 @@ class _PendingRequestListScreenState
       }
     });
     return requestLoading
-        ? const SizedBox.shrink()
+        ? shimmerMyReturnHistoryWidget()
         : requestHistoryWidget(requestedHistoryList);
   }
 

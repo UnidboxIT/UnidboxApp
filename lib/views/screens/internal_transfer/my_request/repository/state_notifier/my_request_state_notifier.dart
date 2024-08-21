@@ -19,9 +19,9 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
 
   Future<void> getAllMyRequest() async {
     try {
-      if (myRequestList.isEmpty) {
-        state = const MyRequestState.myRequestDataLoading();
-      }
+      // if (myRequestList.isEmpty) {
+      state = const MyRequestState.myRequestDataLoading();
+      // }
 
       Response response = await _myRequestRepository.myrequest();
       superPrint(response.body);

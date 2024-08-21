@@ -9,6 +9,7 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../repository/provider/my_return_provider.dart';
 import '../../repository/state/my_return_state.dart';
+import 'shimmer_myreturn_history.dart';
 
 class MyReturnHistoryScreen extends ConsumerStatefulWidget {
   const MyReturnHistoryScreen({super.key});
@@ -115,7 +116,7 @@ class _PendingRequestListScreenState
     });
 
     return requestLoading
-        ? const SizedBox.shrink()
+        ? shimmerMyReturnHistoryWidget()
         : requestHistoryWidget(requestedHistoryList);
   }
 
