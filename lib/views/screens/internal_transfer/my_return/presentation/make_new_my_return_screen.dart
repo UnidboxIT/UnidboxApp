@@ -19,6 +19,9 @@ import '../../../inventory_tracker/repository/state/inhouse_stock_state.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/return_request_reason.dart';
 import '../../my_request/presentation/return_request_screen.dart';
+import '../../my_request/repository/state/warehouse_state.dart';
+import '../../outlet_request/domain/warehouse.dart';
+import '../../outlet_request/repository/provider/other_request_provider.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
 import '../repository/state/my_return_state.dart';
@@ -40,8 +43,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   bool isMyReturnUpdate = false;
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
-  List<InhouseStock> inHouseStockList = [];
-  List<InhouseStock> filterWareHouseList = [];
+  // List<InhouseStock> inHouseStockList = [];
+  // List<InhouseStock> filterWareHouseList = [];
+  List<Warehouse> warehouseList = [];
   int requestWarehouseID = -1;
   int totalQty = 1;
 
@@ -54,9 +58,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
           .read(userWarehouseStateNotifierProvider.notifier)
           .getUserWarehouse()
           .then((_) {
-        ref
-            .read(inhouseStockStateNotifierProvider.notifier)
-            .getInHouseStock(widget.scanProductList.first.id, context);
+        ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
       });
     });
     Future.delayed(const Duration(milliseconds: 10), () {
@@ -120,28 +122,47 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         });
       }
     });
-    ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
-      if (next is SelectedWarehouseID) {
+
+    ref.listen(warehouseStateNotifierProvider, (pre, next) {
+      if (next is WarehouseLoading) {
         setState(() {
-          requestWarehouseID = next.warehouseID;
+          warehouseList = [];
         });
       }
-      if (next is InhouseStockList) {
+      if (next is WarehouseList) {
         setState(() {
-          inHouseStockList = next.inhouseStock;
-          filterWareHouseList = inHouseStockList
-              .where((stock) =>
-                  userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
-                  double.parse(stock.qty) > 0)
-              .toList();
-
-          if (filterWareHouseList.isNotEmpty) {
-            requestWarehouseID = filterWareHouseList.first.warehouseList[0];
-            superPrint(requestWarehouseID);
+          List<Warehouse> whList = next.warehouseList;
+          for (var data in whList) {
+            if (data.id != userWarehouse.warehouseList[0]) {
+              warehouseList.add(data);
+            }
+            requestWarehouseID = warehouseList.first.id;
           }
         });
       }
     });
+    // ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
+    //   if (next is SelectedWarehouseID) {
+    //     setState(() {
+    //       requestWarehouseID = next.warehouseID;
+    //     });
+    //   }
+    //   if (next is InhouseStockList) {
+    //     setState(() {
+    //       inHouseStockList = next.inhouseStock;
+    //       filterWareHouseList = inHouseStockList
+    //           .where((stock) =>
+    //               userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
+    //               double.parse(stock.qty) > 0)
+    //           .toList();
+
+    //       if (filterWareHouseList.isNotEmpty) {
+    //         requestWarehouseID = filterWareHouseList.first.warehouseList[0];
+    //         superPrint(requestWarehouseID);
+    //       }
+    //     });
+    //   }
+    // });
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -299,7 +320,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                     ),
                   ),
                   const SizedBox(height: 5),
-                  returnToAllWarehouseWidget(),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 20, bottom: 10),
+                      child: returnToAllWarehouseWidget()),
                   textWidget(
                     "Returned Request By",
                     size: 13,
@@ -345,57 +368,47 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           height: 43,
                           child: buttonWidget(
                             "Send Request",
-                            requestWarehouseID == -1
-                                ? () {
-                                    superPrint(requestWarehouseID);
-                                    CommonMethods.customizedAlertDialog(
-                                      "Please request from other outlet",
-                                      context,
-                                    );
-                                  }
-                                : () {
-                                    FocusManager.instance.primaryFocus!
-                                        .unfocus();
-                                    sumNewReturnQty = reasonQtyMap.values.fold(
-                                        0,
-                                        (previousValue, element) =>
-                                            previousValue + element);
-
-                                    if (sumNewReturnQty <=
-                                        widget.scanProductList[0].quantity) {
-                                      ref
-                                          .read(myReturnStateNotifierProvider
-                                              .notifier)
-                                          .updateMyReturn(
-                                              requestWarehouseID,
-                                              userWarehouse.warehouseList[0],
-                                              widget.scanProductList[0].id,
-                                              widget.scanProductList[0].name,
-                                              sumNewReturnQty,
-                                              widget.scanProductList[0].price,
-                                              widget.scanProductList[0]
-                                                  .uomList[0],
-                                              reasonIndex,
-                                              txtNewReturnComment.text,
-                                              context,
-                                              ref,
-                                              true)
-                                          .then((_) {
-                                        Navigator.of(context).pop();
-                                      });
-                                    } else if (sumNewReturnQty == 0) {
-                                      superPrint(requestWarehouseID);
-                                      CommonMethods.customizedAlertDialog(
-                                        "Please select new return request reason",
+                            () {
+                              FocusManager.instance.primaryFocus!.unfocus();
+                              sumNewReturnQty = reasonQtyMap.values.fold(
+                                  0,
+                                  (previousValue, element) =>
+                                      previousValue + element);
+                              superPrint(requestWarehouseID);
+                              if (sumNewReturnQty <=
+                                  widget.scanProductList[0].quantity) {
+                                ref
+                                    .read(
+                                        myReturnStateNotifierProvider.notifier)
+                                    .updateMyReturn(
+                                        requestWarehouseID,
+                                        userWarehouse.warehouseList[0],
+                                        widget.scanProductList[0].id,
+                                        widget.scanProductList[0].name,
+                                        sumNewReturnQty,
+                                        widget.scanProductList[0].price,
+                                        widget.scanProductList[0].uomList[0],
+                                        reasonIndex,
+                                        txtNewReturnComment.text,
                                         context,
-                                      );
-                                    } else {
-                                      CommonMethods.customizedAlertDialog(
-                                        "Return quantity is exceed than current balance",
-                                        context,
-                                      );
-                                    }
-                                  },
+                                        ref,
+                                        true)
+                                    .then((_) {
+                                  Navigator.of(context).pop();
+                                });
+                              } else if (sumNewReturnQty == 0) {
+                                superPrint(requestWarehouseID);
+                                CommonMethods.customizedAlertDialog(
+                                  "Please select new return request reason",
+                                  context,
+                                );
+                              } else {
+                                CommonMethods.customizedAlertDialog(
+                                  "Return quantity is exceed than current balance",
+                                  context,
+                                );
+                              }
+                            },
                             isBool: isMyReturnUpdate,
                           ),
                         ),
@@ -480,116 +493,51 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   }
 
   Widget returnToAllWarehouseWidget() {
-    return SizedBox(
-      height: filterWareHouseList.length > 3 ? 17.h : 7.h,
-      child: GridView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10),
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              // textWidget(
-              //   inHouseStockList[index].warehouseList[1],
-              //   color: AppColor.orangeColor,
-              //   fontWeight: FontWeight.w600,
-              // ),
-              GestureDetector(
-                onTap: () {
-                  superPrint(filterWareHouseList[index].warehouseList);
-                  if (widget
-                          .scanProductList.first.defaultWarehouseList.isEmpty &&
-                      userWarehouse.warehouseList[0] !=
-                          filterWareHouseList[index].warehouseList[0]) {
-                    ref
-                        .read(inhouseStockStateNotifierProvider.notifier)
-                        .selectedWarehouseID(
-                            filterWareHouseList[index].warehouseList[0],
-                            double.parse(inHouseStockList[index].qty).toInt());
-                  } else if (widget.scanProductList.first.defaultWarehouseList
-                          .isNotEmpty &&
-                      widget.scanProductList.first.defaultWarehouseList[0] !=
-                          userWarehouse.warehouseList[0] &&
-                      userWarehouse.warehouseList[0] !=
-                          filterWareHouseList[index].warehouseList[0]) {
-                    ref
-                        .read(inhouseStockStateNotifierProvider.notifier)
-                        .selectedWarehouseID(
-                            filterWareHouseList[index].warehouseList[0],
-                            double.parse(filterWareHouseList[index].qty)
-                                .toInt());
-                  }
-                },
-                child: widget.scanProductList.first.defaultWarehouseList
-                                .isNotEmpty &&
-                            widget.scanProductList.first
-                                    .defaultWarehouseList[0] ==
-                                userWarehouse.warehouseList[0] ||
-                        userWarehouse.warehouseList[0] ==
-                            filterWareHouseList[index].warehouseList[0]
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColor.dropshadowColor,
-                                  blurRadius: 3,
-                                  spreadRadius: 3),
-                            ]),
-                        alignment: Alignment.center,
-                        child: textWidget(
-                            filterWareHouseList[index].warehouseList[1],
-                            // double.parse(
-                            //         inHouseStockList[index].qty)
-                            //     .toInt()
-                            //     .toString(),
-                            textAlign: TextAlign.center,
-                            color: Colors.black),
-                      )
-                    : Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color:
-                                filterWareHouseList[index].warehouseList[0] ==
-                                        requestWarehouseID
-                                    ? AppColor.orangeColor
-                                    : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColor.dropshadowColor,
-                                  blurRadius: 3,
-                                  spreadRadius: 3),
-                            ]),
-                        alignment: Alignment.center,
-                        child: textWidget(
-                            filterWareHouseList[index].warehouseList[1],
-                            // double.parse(
-                            //         inHouseStockList[index].qty)
-                            //     .toInt()
-                            //     .toString(),
-                            textAlign: TextAlign.center,
-                            color:
-                                filterWareHouseList[index].warehouseList[0] ==
-                                        requestWarehouseID
-                                    ? Colors.white
-                                    : Colors.black),
-                      ),
+    return GridView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10),
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  requestWarehouseID = warehouseList[index].id;
+                });
+                superPrint(requestWarehouseID);
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: warehouseList[index].id == requestWarehouseID
+                        ? AppColor.orangeColor
+                        : Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: AppColor.dropshadowColor,
+                          blurRadius: 3,
+                          spreadRadius: 3),
+                    ]),
+                alignment: Alignment.center,
+                child: textWidget(warehouseList[index].name,
+                    textAlign: TextAlign.center,
+                    color: warehouseList[index].id == requestWarehouseID
+                        ? Colors.white
+                        : AppColor.orangeColor),
               ),
-            ],
-          );
-        },
-        itemCount: filterWareHouseList.length,
-      ),
+            ),
+          ],
+        );
+      },
+      itemCount: warehouseList.length,
     );
   }
 }
