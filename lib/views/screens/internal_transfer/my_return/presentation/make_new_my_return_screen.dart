@@ -361,7 +361,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                         (previousValue, element) =>
                                             previousValue + element);
 
-                                    if (sumNewReturnQty <
+                                    if (sumNewReturnQty <=
                                         widget.scanProductList[0].quantity) {
                                       ref
                                           .read(myReturnStateNotifierProvider
