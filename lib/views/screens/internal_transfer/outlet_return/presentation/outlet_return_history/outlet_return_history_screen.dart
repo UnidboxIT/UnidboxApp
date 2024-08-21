@@ -110,7 +110,9 @@ class _PendingRequestListScreenState
         });
       }
     });
-    return requestHistoryWidget(requestedHistoryList);
+    return requestLoading
+        ? const SizedBox.shrink()
+        : requestHistoryWidget(requestedHistoryList);
   }
 
   Widget requestHistoryWidget(
