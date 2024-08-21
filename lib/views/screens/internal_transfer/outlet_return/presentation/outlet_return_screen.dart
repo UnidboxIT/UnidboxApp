@@ -84,7 +84,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
     ref.listen(userWarehouseStateNotifierProvider, (pre, next) {
       if (next is Loading) {
         setState(() {
-          isOutletReturnLoading = true;
           isWarehouseLoading = true;
         });
       }
@@ -98,7 +97,6 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
     ref.listen(warehouseStateNotifierProvider, (pre, next) {
       if (next is WarehouseLoading) {
         setState(() {
-          isOutletReturnLoading = true;
           warehouseList = [];
         });
       }
@@ -117,6 +115,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       if (next is OutletReturnLoading) {
         setState(() {
           requestLoading = true;
+          isOutletReturnLoading = true;
           otherRequestList = [];
         });
       }
@@ -173,8 +172,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
           }
+          isOutletReturnLoading = false;
         });
-        isOutletReturnLoading = false;
       }
       if (next is ReceiveLoading) {
         setState(() {
@@ -259,28 +258,31 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
-          Expanded(
-            child: Column(
-              children: [
-                warehouseList.isEmpty
-                    ? const SizedBox.shrink()
-                    : warehouseWidget(),
-                const SizedBox(height: 15),
-                acceptedOutletReturnWidget(acceptedOutletReturnList, context),
-                const SizedBox(height: 15),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? outletReturnReceiveWidget(requestedMapList)
-                      : warehouseList.isEmpty
+          isOutletReturnLoading
+              ? SizedBox.fromSize()
+              : Expanded(
+                  child: Column(
+                    children: [
+                      warehouseList.isEmpty
                           ? const SizedBox.shrink()
-                          : Center(
-                              child: textWidget("No Data !"),
-                            ),
+                          : warehouseWidget(),
+                      const SizedBox(height: 15),
+                      acceptedOutletReturnWidget(
+                          acceptedOutletReturnList, context),
+                      const SizedBox(height: 15),
+                      Expanded(
+                        child: requestedMap[selectedWarehouseID] != null ||
+                                selectedWarehouseID == -1
+                            ? outletReturnReceiveWidget(requestedMapList)
+                            : warehouseList.isEmpty
+                                ? const SizedBox.shrink()
+                                : Center(
+                                    child: textWidget("No Data !"),
+                                  ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
           Container(
             height: 5.h,
             color: Colors.transparent,

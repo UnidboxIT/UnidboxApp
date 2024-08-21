@@ -237,8 +237,9 @@ class _InternalTransferScreenState
                         .push(MaterialPageRoute(
                             builder: (context) => const MyReturnScreen()))
                         .then((_) {
-                      Future.delayed(const Duration(milliseconds: 10), () {
-                        ref
+                      Future.delayed(const Duration(milliseconds: 10),
+                          () async {
+                        await ref
                             .read(myReturnStateNotifierProvider.notifier)
                             .getAllMyReturn();
                       });

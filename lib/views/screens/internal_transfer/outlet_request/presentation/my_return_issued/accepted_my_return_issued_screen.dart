@@ -307,36 +307,40 @@ class _AcceptedReturnScreenState
                         ),
                       );
                     },
-                    action: () async {
-                      //Async operation
-                      if (!isSwipeLoading) {
-                        await Future.delayed(
-                          const Duration(milliseconds: 10),
-                          () {
-                            setState(() {
-                              isSwipeLoading = true;
-                            });
-                            superPrint(requestedMapList);
-                            superPrint(idList);
-                            setState(() {
-                              Future.delayed(const Duration(milliseconds: 100));
-                              ref
-                                  .read(myReturnStateNotifierProvider.notifier)
-                                  .deliveryReturnIssued(idList, context)
-                                  .then((_) {
-                                isSwipeLoading = false;
-                                ref
-                                    .read(
-                                        myReturnStateNotifierProvider.notifier)
-                                    .getAllMyReturn();
-                                selectedWarehouseID = -1;
-                                selectedWarehouseName = "";
-                              });
-                            });
+                    action: requestLoading
+                        ? () {}
+                        : () async {
+                            //Async operation
+                            if (!isSwipeLoading) {
+                              await Future.delayed(
+                                const Duration(milliseconds: 10),
+                                () {
+                                  setState(() {
+                                    isSwipeLoading = true;
+                                  });
+                                  superPrint(requestedMapList);
+                                  superPrint(idList);
+                                  setState(() {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 100));
+                                    ref
+                                        .read(myReturnStateNotifierProvider
+                                            .notifier)
+                                        .deliveryReturnIssued(idList, context)
+                                        .then((_) {
+                                      isSwipeLoading = false;
+                                      ref
+                                          .read(myReturnStateNotifierProvider
+                                              .notifier)
+                                          .getAllMyReturn();
+                                      selectedWarehouseID = -1;
+                                      selectedWarehouseName = "";
+                                    });
+                                  });
+                                },
+                              );
+                            }
                           },
-                        );
-                      }
-                    },
                   ),
                 )
               ],
@@ -350,6 +354,9 @@ class _AcceptedReturnScreenState
   Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
+    if (requestLoading) {
+      return const SizedBox.shrink();
+    }
     if (requestedMapList.isEmpty || requestedMapList[0].containsKey(-1)) {
       return Container(
         alignment: Alignment.center,

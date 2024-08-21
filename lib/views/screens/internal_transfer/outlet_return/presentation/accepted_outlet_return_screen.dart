@@ -250,26 +250,28 @@ class _AcceptedOutletReturnScreenState
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
-          Expanded(
-            child: Column(
-              children: [
-                warehouseList.isEmpty
-                    ? const SizedBox.shrink()
-                    : warehouseWidget(),
-                const SizedBox(height: 15),
-                Expanded(
-                  child: requestedMap[selectedWarehouseID] != null ||
-                          selectedWarehouseID == -1
-                      ? outletReturnReceiveWidget(requestedMapList)
-                      : warehouseList.isEmpty
+          requestLoading
+              ? const SizedBox.shrink()
+              : Expanded(
+                  child: Column(
+                    children: [
+                      warehouseList.isEmpty
                           ? const SizedBox.shrink()
-                          : Center(
-                              child: textWidget("No Data !"),
-                            ),
+                          : warehouseWidget(),
+                      const SizedBox(height: 15),
+                      Expanded(
+                        child: requestedMap[selectedWarehouseID] != null ||
+                                selectedWarehouseID == -1
+                            ? outletReturnReceiveWidget(requestedMapList)
+                            : warehouseList.isEmpty
+                                ? const SizedBox.shrink()
+                                : Center(
+                                    child: textWidget("No Data !"),
+                                  ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
           Container(
             height: 5.h,
             color: Colors.transparent,
