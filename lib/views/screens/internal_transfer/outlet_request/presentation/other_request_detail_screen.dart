@@ -60,7 +60,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineInfo> productLineInfos = [];
   int eachKey = -1;
   int eachValueLength = -1;
-  bool isOutletRequestLoading = false;
+  bool isOutletRequestLoading = true;
 
   @override
   void initState() {
