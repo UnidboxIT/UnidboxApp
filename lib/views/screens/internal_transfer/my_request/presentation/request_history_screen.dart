@@ -5,7 +5,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentation/my_return_history/shimmer_myreturn_history.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
@@ -33,7 +32,6 @@ class _PendingRequestListScreenState
   String selectedDateRange = "";
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
-  bool isMyRequestHistroyLoading = false;
 
   @override
   void initState() {
@@ -122,17 +120,11 @@ class _PendingRequestListScreenState
   @override
   Widget build(BuildContext context) {
     ref.listen(myRequestStateNotifierProvider, (pre, next) {
-      if (next is MyRequestDataListLoading) {
-        setState(() {
-          isMyRequestHistroyLoading = true;
-        });
-      }
       if (next is MyRequestList) {
         setState(() {
           pendingRequestList = [];
           pendingRequestList = next.myRequestList;
           loadRequestHistory();
-          isMyRequestHistroyLoading = false;
         });
       }
     });
@@ -180,9 +172,7 @@ class _PendingRequestListScreenState
         children: [
           dateFilterWidget(),
           const SearchPendingRequestWidget(),
-          isMyRequestHistroyLoading
-              ? shimmerMyReturnHistoryWidget()
-              : Expanded(child: requestHistoryWidget()),
+          Expanded(child: requestHistoryWidget()),
         ],
       ),
     );

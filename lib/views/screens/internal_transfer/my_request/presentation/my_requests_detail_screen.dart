@@ -104,6 +104,7 @@ class _MyRequestsDetailScreenState
             }
           }
           isMyRequestDataLoading = false;
+          myRequestLoading = false;
           //requestLoading = false;
         });
       }
