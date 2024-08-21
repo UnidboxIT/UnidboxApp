@@ -250,16 +250,16 @@ class _AcceptedOutletReturnScreenState
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
-          requestLoading
-              ? const SizedBox.shrink()
-              : Expanded(
-                  child: Column(
-                    children: [
-                      warehouseList.isEmpty
-                          ? const SizedBox.shrink()
-                          : warehouseWidget(),
-                      const SizedBox(height: 15),
-                      Expanded(
+          Expanded(
+            child: Column(
+              children: [
+                warehouseList.isEmpty
+                    ? const SizedBox.shrink()
+                    : warehouseWidget(),
+                const SizedBox(height: 15),
+                requestLoading
+                    ? const SizedBox.shrink()
+                    : Expanded(
                         child: requestedMap[selectedWarehouseID] != null ||
                                 selectedWarehouseID == -1
                             ? outletReturnReceiveWidget(requestedMapList)
@@ -269,9 +269,9 @@ class _AcceptedOutletReturnScreenState
                                     child: textWidget("No Data !"),
                                   ),
                       ),
-                    ],
-                  ),
-                ),
+              ],
+            ),
+          ),
           Container(
             height: 5.h,
             color: Colors.transparent,

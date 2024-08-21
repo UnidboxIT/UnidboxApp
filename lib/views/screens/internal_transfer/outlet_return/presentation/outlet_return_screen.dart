@@ -258,19 +258,18 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
       child: Column(
         children: [
           const SearchOtherRequestWidget(),
-          isOutletReturnLoading
-              ? SizedBox.fromSize()
-              : Expanded(
-                  child: Column(
-                    children: [
-                      warehouseList.isEmpty
-                          ? const SizedBox.shrink()
-                          : warehouseWidget(),
-                      const SizedBox(height: 15),
-                      acceptedOutletReturnWidget(
-                          acceptedOutletReturnList, context),
-                      const SizedBox(height: 15),
-                      Expanded(
+          Expanded(
+            child: Column(
+              children: [
+                warehouseList.isEmpty
+                    ? const SizedBox.shrink()
+                    : warehouseWidget(),
+                const SizedBox(height: 15),
+                acceptedOutletReturnWidget(acceptedOutletReturnList, context),
+                const SizedBox(height: 15),
+                isOutletReturnLoading
+                    ? SizedBox.fromSize()
+                    : Expanded(
                         child: requestedMap[selectedWarehouseID] != null ||
                                 selectedWarehouseID == -1
                             ? outletReturnReceiveWidget(requestedMapList)
@@ -280,9 +279,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                     child: textWidget("No Data !"),
                                   ),
                       ),
-                    ],
-                  ),
-                ),
+              ],
+            ),
+          ),
           Container(
             height: 5.h,
             color: Colors.transparent,
