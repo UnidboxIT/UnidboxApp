@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
@@ -46,7 +47,6 @@ class _OtherRequestsDetailScreenState
   List<Warehouse> warehouseList = [];
   List<ProductLineId> productByWarehouse = [];
   int offset = 0;
-  // bool requestLoading = false;
   bool xLoading = false;
   bool isDataExist = true;
   ScrollController scrollController = ScrollController();
@@ -66,22 +66,18 @@ class _OtherRequestsDetailScreenState
   void initState() {
     super.initState();
     ref.read(acceptedStateNotifierProvider.notifier).clearOtherRequestMap();
-    Future.delayed(const Duration(milliseconds: 10), () async {
+    Future.delayed(const Duration(milliseconds: 5), () async {
       await ref
           .read(userWarehouseStateNotifierProvider.notifier)
           .getUserWarehouse()
           .then((_) {
-        ref
-            .read(warehouseStateNotifierProvider.notifier)
-            .getAllWarehouse()
-            .then((_) {
-          _loadProducts(0);
-        });
+        ref.read(warehouseStateNotifierProvider.notifier).getAllWarehouse();
       });
     });
+    _loadProducts();
   }
 
-  void _loadProducts(int offset) {
+  void _loadProducts() {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
@@ -232,6 +228,8 @@ class _OtherRequestsDetailScreenState
       // }
     });
 
+    superPrint(isOutletRequestLoading);
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -256,16 +254,19 @@ class _OtherRequestsDetailScreenState
                   right: 5.w,
                   top: 6.5.h,
                   child: GestureDetector(
-                    onTap: () {
-                      ref.read(bottomBarVisibilityProvider.notifier).state =
-                          false;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const OtherRequestHistoryScreen(),
-                        ),
-                      );
-                    },
+                    onTap: isOutletRequestLoading
+                        ? () {}
+                        : () {
+                            ref
+                                .read(bottomBarVisibilityProvider.notifier)
+                                .state = false;
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const OtherRequestHistoryScreen(),
+                              ),
+                            );
+                          },
                     child: Container(
                       color: Colors.transparent,
                       padding: const EdgeInsets.symmetric(

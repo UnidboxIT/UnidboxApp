@@ -48,7 +48,7 @@ class _PendingRequestListScreenState
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
+    Future.delayed(const Duration(milliseconds: 5), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
     });
     setState(() {
@@ -306,18 +306,20 @@ class _PendingRequestListScreenState
                         Expanded(
                           flex: 4,
                           child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                historyText = "accepted";
-                                startDate = DateTime.now();
-                                endDate = DateTime.now();
-                                selectedDateRange =
-                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                                acceptedDateFilteredData.clear();
-                                acceptedDateFilteredData
-                                    .add(acceptedHistoryMap);
-                              });
-                            },
+                            onTap: requestLoading
+                                ? () {}
+                                : () {
+                                    setState(() {
+                                      historyText = "accepted";
+                                      startDate = DateTime.now();
+                                      endDate = DateTime.now();
+                                      selectedDateRange =
+                                          "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                      acceptedDateFilteredData.clear();
+                                      acceptedDateFilteredData
+                                          .add(acceptedHistoryMap);
+                                    });
+                                  },
                             child: textWidget("Accepted\nHistroy",
                                 color: historyText == "accepted"
                                     ? AppColor.primary
@@ -335,17 +337,20 @@ class _PendingRequestListScreenState
                         Expanded(
                           flex: 5,
                           child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                historyText = "packed";
-                                startDate = DateTime.now();
-                                endDate = DateTime.now();
-                                selectedDateRange =
-                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                                packedDateFilteredData.clear();
-                                packedDateFilteredData.add(packedHistoryMap);
-                              });
-                            },
+                            onTap: requestLoading
+                                ? () {}
+                                : () {
+                                    setState(() {
+                                      historyText = "packed";
+                                      startDate = DateTime.now();
+                                      endDate = DateTime.now();
+                                      selectedDateRange =
+                                          "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                      packedDateFilteredData.clear();
+                                      packedDateFilteredData
+                                          .add(packedHistoryMap);
+                                    });
+                                  },
                             child: textWidget("Packed\nHistory",
                                 color: historyText == "packed"
                                     ? AppColor.primary
@@ -363,17 +368,19 @@ class _PendingRequestListScreenState
                         Expanded(
                           flex: 5,
                           child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                historyText = "issued";
-                                startDate = DateTime.now();
-                                endDate = DateTime.now();
-                                selectedDateRange =
-                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                                dateFilteredData.clear();
-                                dateFilteredData.add(requestedHistoryMap);
-                              });
-                            },
+                            onTap: requestLoading
+                                ? () {}
+                                : () {
+                                    setState(() {
+                                      historyText = "issued";
+                                      startDate = DateTime.now();
+                                      endDate = DateTime.now();
+                                      selectedDateRange =
+                                          "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                      dateFilteredData.clear();
+                                      dateFilteredData.add(requestedHistoryMap);
+                                    });
+                                  },
                             child: textWidget("Issued\nHistory",
                                 color: historyText == "issued"
                                     ? AppColor.primary
