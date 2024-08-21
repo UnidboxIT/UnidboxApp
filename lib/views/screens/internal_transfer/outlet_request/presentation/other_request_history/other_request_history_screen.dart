@@ -65,6 +65,7 @@ class _PendingRequestListScreenState
     acceptedHistoryList.clear();
     requestedHistoryList.clear();
     packedHistoryList.clear();
+
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == "accepted") {
@@ -147,7 +148,6 @@ class _PendingRequestListScreenState
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
         superPrint(requestedHistoryMap);
-        dateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
         dateFilteredData.add(requestedHistoryMap);
         superPrint(dateFilteredData);
@@ -155,7 +155,6 @@ class _PendingRequestListScreenState
     }
     if (acceptedHistoryMap.isNotEmpty) {
       setState(() {
-        acceptedDateFilteredData.clear();
         acceptedHistoryList.add(acceptedHistoryMap);
         acceptedDateFilteredData.add(acceptedHistoryMap);
         superPrint(dateFilteredData);
@@ -163,7 +162,6 @@ class _PendingRequestListScreenState
     }
     if (packedHistoryMap.isNotEmpty) {
       setState(() {
-        packedDateFilteredData.clear();
         packedHistoryList.add(packedHistoryMap);
         packedDateFilteredData.add(packedHistoryMap);
       });
@@ -210,6 +208,9 @@ class _PendingRequestListScreenState
         setState(() {
           requestLoading = true;
           otherRequestList = [];
+          dateFilteredData = [];
+          acceptedDateFilteredData = [];
+          packedDateFilteredData = [];
         });
       }
       if (next is OtherRequestList) {
@@ -269,119 +270,124 @@ class _PendingRequestListScreenState
           dateFilterWidget(),
           // filterByDateWidget(context),
           const SearchPendingRequestWidget(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-            child: Container(
-              width: 100.w,
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                      },
-                      child: Icon(
-                        Icons.category_rounded,
-                        color: AppColor.pinkColor,
-                        size: 30,
-                      ),
+          requestLoading
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                  child: Container(
+                    width: 100.w,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.category_rounded,
+                              color: AppColor.pinkColor,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.grey,
+                          size: 18,
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                historyText = "accepted";
+                                startDate = DateTime.now();
+                                endDate = DateTime.now();
+                                selectedDateRange =
+                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                acceptedDateFilteredData.clear();
+                                acceptedDateFilteredData
+                                    .add(acceptedHistoryMap);
+                              });
+                            },
+                            child: textWidget("Accepted\nHistroy",
+                                color: historyText == "accepted"
+                                    ? AppColor.primary
+                                    : AppColor.pinkColor,
+                                fontWeight: FontWeight.bold,
+                                size: 14,
+                                textAlign: TextAlign.center),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.grey,
+                          size: 18,
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                historyText = "packed";
+                                startDate = DateTime.now();
+                                endDate = DateTime.now();
+                                selectedDateRange =
+                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                packedDateFilteredData.clear();
+                                packedDateFilteredData.add(packedHistoryMap);
+                              });
+                            },
+                            child: textWidget("Packed\nHistory",
+                                color: historyText == "packed"
+                                    ? AppColor.primary
+                                    : AppColor.pinkColor,
+                                fontWeight: FontWeight.w800,
+                                size: 14,
+                                textAlign: TextAlign.center),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.grey,
+                          size: 18,
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                historyText = "issued";
+                                startDate = DateTime.now();
+                                endDate = DateTime.now();
+                                selectedDateRange =
+                                    "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                                dateFilteredData.clear();
+                                dateFilteredData.add(requestedHistoryMap);
+                              });
+                            },
+                            child: textWidget("Issued\nHistory",
+                                color: historyText == "issued"
+                                    ? AppColor.primary
+                                    : AppColor.pinkColor,
+                                fontWeight: FontWeight.w800,
+                                size: 14,
+                                textAlign: TextAlign.center),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "accepted";
-                          startDate = DateTime.now();
-                          endDate = DateTime.now();
-                          selectedDateRange =
-                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                          acceptedDateFilteredData.clear();
-                          acceptedDateFilteredData.add(acceptedHistoryMap);
-                        });
-                      },
-                      child: textWidget("Accepted\nHistroy",
-                          color: historyText == "accepted"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.bold,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "packed";
-                          startDate = DateTime.now();
-                          endDate = DateTime.now();
-                          selectedDateRange =
-                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                          packedDateFilteredData.clear();
-                          packedDateFilteredData.add(packedHistoryMap);
-                        });
-                      },
-                      child: textWidget("Packed\nHistory",
-                          color: historyText == "packed"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.w800,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey,
-                    size: 18,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          historyText = "issued";
-                          startDate = DateTime.now();
-                          endDate = DateTime.now();
-                          selectedDateRange =
-                              "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                          dateFilteredData.clear();
-                          dateFilteredData.add(requestedHistoryMap);
-                        });
-                      },
-                      child: textWidget("Issued\nHistory",
-                          color: historyText == "issued"
-                              ? AppColor.primary
-                              : AppColor.pinkColor,
-                          fontWeight: FontWeight.w800,
-                          size: 14,
-                          textAlign: TextAlign.center),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
           requestLoading
               ? Expanded(
                   child: Center(
