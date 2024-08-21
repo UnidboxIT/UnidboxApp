@@ -59,13 +59,6 @@ class _PendingRequestListScreenState
   }
 
   loadRequestHistory() {
-    requestedHistoryMap.clear();
-    acceptedHistoryMap.clear();
-    packedHistoryMap.clear();
-    acceptedHistoryList.clear();
-    requestedHistoryList.clear();
-    packedHistoryList.clear();
-
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == "accepted") {
@@ -211,6 +204,12 @@ class _PendingRequestListScreenState
           dateFilteredData = [];
           acceptedDateFilteredData = [];
           packedDateFilteredData = [];
+          acceptedHistoryList.clear();
+          requestedHistoryList.clear();
+          packedHistoryList.clear();
+          requestedHistoryMap = {};
+          acceptedHistoryMap = {};
+          packedHistoryMap = {};
         });
       }
       if (next is OtherRequestList) {

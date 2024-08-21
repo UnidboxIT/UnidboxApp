@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/back_up/controllers/home_controllers/product_controller.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 
 Widget cameraWidget(ProductController controller) {
