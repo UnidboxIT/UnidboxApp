@@ -55,6 +55,7 @@ class _EachReturnReasonWidgetState
 
   @override
   Widget build(BuildContext context) {
+    superPrint(widget.receiveQty, title: "Return Qty");
     ref.listen(returnRequestStateNotifierProvider, (pre, next) {
       if (next is IncrementReturnRequestQty &&
           widget.reasonIndex == next.index) {
@@ -196,8 +197,8 @@ class _EachReturnReasonWidgetState
                 });
                 ref
                     .read(returnRequestStateNotifierProvider.notifier)
-                    .incrementTotalQty(widget.reasonIndex, totalQty,
-                        widget.receiveQty.toInt(), sumNewReturnQty);
+                    .incrementNewReturnTotalQty(
+                        widget.reasonIndex, totalQty, sumNewReturnQty);
 
                 superPrint(reasonQtyMap.values);
               }, CupertinoIcons.add_circled_solid, AppColor.primary),

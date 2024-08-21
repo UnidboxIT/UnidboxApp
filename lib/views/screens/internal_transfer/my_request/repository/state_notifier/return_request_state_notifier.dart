@@ -16,6 +16,12 @@ class ReturnRequestStateNotifier extends StateNotifier<ReturnRequestState> {
     }
   }
 
+  incrementNewReturnTotalQty(
+      String productID, int qty, int totalQty) {
+    qty = qty + 1;
+    state = ReturnRequestState.incrementQty(productID, qty);
+  }
+
   decrementTotalQty(String productID, int qty) {
     if (qty >= 1) {
       qty--;

@@ -44,6 +44,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   List<InhouseStock> filterWareHouseList = [];
   int requestWarehouseID = -1;
   int totalQty = 1;
+
   @override
   void initState() {
     super.initState();
@@ -133,6 +134,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
                   double.parse(stock.qty) > 0)
               .toList();
+
           if (filterWareHouseList.isNotEmpty) {
             requestWarehouseID = filterWareHouseList.first.warehouseList[0];
             superPrint(requestWarehouseID);
@@ -140,6 +142,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         });
       }
     });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -357,7 +360,9 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                         0,
                                         (previousValue, element) =>
                                             previousValue + element);
-                                    if (sumNewReturnQty != 0) {
+
+                                    if (sumNewReturnQty <
+                                        widget.scanProductList[0].quantity) {
                                       ref
                                           .read(myReturnStateNotifierProvider
                                               .notifier)
@@ -378,10 +383,15 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                           .then((_) {
                                         Navigator.of(context).pop();
                                       });
-                                    } else {
+                                    } else if (sumNewReturnQty == 0) {
                                       superPrint(requestWarehouseID);
                                       CommonMethods.customizedAlertDialog(
                                         "Please select new return request reason",
+                                        context,
+                                      );
+                                    } else {
+                                      CommonMethods.customizedAlertDialog(
+                                        "Return quantity is exceed than current balance",
                                         context,
                                       );
                                     }
