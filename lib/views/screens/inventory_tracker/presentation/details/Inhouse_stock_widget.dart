@@ -45,14 +45,15 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     // TODO: implement initState
     super.initState();
     txtTotalQty.text = "1";
+    setState(() {
+      selectedBox = widget.productDetail.uomList.isNotEmpty
+          ? widget.productDetail.uomList[0]
+          : 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    selectedBox = widget.productDetail.uomList.isNotEmpty
-        ? widget.productDetail.uomList[0]
-        : 0;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(

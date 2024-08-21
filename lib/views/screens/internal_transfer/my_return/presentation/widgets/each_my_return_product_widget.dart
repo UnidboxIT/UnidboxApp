@@ -236,7 +236,8 @@ Widget eachMyReturnProductLineWidget(
                     ),
                   ),
                   // const Spacer(),
-                  productList[index].status == "return_accepted"
+                  productList[index].status == "return_accepted" ||
+                          productList[index].status == "return_issued"
                       ? const SizedBox.shrink()
                       : Consumer(builder: (context, ref, data) {
                           return SizedBox(
