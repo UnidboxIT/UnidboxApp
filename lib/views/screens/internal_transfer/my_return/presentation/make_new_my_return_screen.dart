@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../../utils/constant/app_color.dart';
@@ -12,10 +11,7 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../../inventory_tracker/domain/inhouse_stock.dart';
 import '../../../inventory_tracker/domain/product.dart';
-import '../../../inventory_tracker/repository/provider/inhouse_stock_provider.dart';
-import '../../../inventory_tracker/repository/state/inhouse_stock_state.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/return_request_reason.dart';
 import '../../my_request/presentation/return_request_screen.dart';
@@ -375,39 +371,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                   (previousValue, element) =>
                                       previousValue + element);
                               superPrint(requestWarehouseID);
-                              if (sumNewReturnQty <=
-                                  widget.scanProductList[0].quantity) {
-                                ref
-                                    .read(
-                                        myReturnStateNotifierProvider.notifier)
-                                    .updateMyReturn(
-                                        requestWarehouseID,
-                                        userWarehouse.warehouseList[0],
-                                        widget.scanProductList[0].id,
-                                        widget.scanProductList[0].name,
-                                        sumNewReturnQty,
-                                        widget.scanProductList[0].price,
-                                        widget.scanProductList[0].uomList[0],
-                                        reasonIndex,
-                                        txtNewReturnComment.text,
-                                        context,
-                                        ref,
-                                        true)
-                                    .then((_) {
-                                  Navigator.of(context).pop();
-                                });
-                              } else if (sumNewReturnQty == 0) {
-                                superPrint(requestWarehouseID);
-                                CommonMethods.customizedAlertDialog(
-                                  "Please select new return request reason",
-                                  context,
-                                );
-                              } else {
-                                CommonMethods.customizedAlertDialog(
-                                  "Return quantity is exceed than current balance",
-                                  context,
-                                );
-                              }
                             },
                             isBool: isMyReturnUpdate,
                           ),

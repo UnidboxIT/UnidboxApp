@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/provider/my_request_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/state/outlet_return_state.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
@@ -16,6 +17,7 @@ import '../../../home/domain/my_task.dart';
 import '../../my_request/domain/my_request.dart';
 import '../../my_request/presentation/my_requests_detail_screen.dart';
 import '../../my_request/presentation/widgets/drawer_widget.dart';
+import '../../my_request/repository/state/my_request_state.dart';
 import '../../my_return/presentation/my_return_screen.dart';
 import '../../my_return/repository/provider/my_return_provider.dart';
 import '../../my_return/repository/state/my_return_state.dart';
@@ -49,6 +51,8 @@ class _InternalTransferScreenState
   List<ProductLineId> requestProductList = [];
   List<ProductLineId> outletReturnProductList = [];
   List<ProductLineId> myReturnProductList = [];
+  List<MyRequest> myRequestList = [];
+  List<ProductLineId> pendingMyRequestProductList = [];
   bool isLoading = false;
   bool isMyReturnLoading = false;
   bool isOutletReturnLoading = false;
@@ -57,6 +61,9 @@ class _InternalTransferScreenState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
+    });
+    Future.delayed(const Duration(milliseconds: 5), () {
+      ref.read(myRequestStateNotifierProvider.notifier).getAllMyRequest();
     });
     Future.delayed(const Duration(milliseconds: 5), () {
       ref.read(otherRequestStateNotifierProvider.notifier).getAllOtherRequest();
@@ -81,6 +88,22 @@ class _InternalTransferScreenState
         setState(() {
           userWarehouse = next.warehouse;
           isWarehouseLoading = false;
+        });
+      }
+    });
+    ref.listen(myRequestStateNotifierProvider, (pre, next) {
+      if (next is MyRequestList) {
+        setState(() {
+          myRequestList = [];
+          pendingMyRequestProductList.clear();
+          myRequestList = next.myRequestList;
+          for (var data in myRequestList) {
+            for (var element in data.productLineList) {
+              if (element.status == "requested") {
+                pendingMyRequestProductList.add(element);
+              }
+            }
+          }
         });
       }
     });
@@ -215,62 +238,72 @@ class _InternalTransferScreenState
           color: AppColor.bgColor,
           borderRadius: BorderRadius.circular(25),
         ),
-        padding: EdgeInsets.only(top: 4.h, bottom: 8.h),
-        child: ListView.separated(
-            padding: EdgeInsets.zero,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  if (index == 0) {
-                    selectedFilterIndex = 4;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyRequestsDetailScreen(
-                              isStockRequest: false,
-                            )));
-                  } else if (index == 1) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const OtherRequestDetailScreen()));
-                  } else if (index == 2) {
-                    superPrint("MY RETURN >>>>>");
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
-                            builder: (context) => const MyReturnScreen()))
-                        .then((_) {
-                      Future.delayed(const Duration(milliseconds: 10),
-                          () async {
-                        await ref
-                            .read(myReturnStateNotifierProvider.notifier)
-                            .getAllMyReturn();
-                      });
-                    });
-                  } else {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(
-                            builder: (context) => const OutletReturnScreen()))
-                        .then((_) {
-                      Future.delayed(const Duration(milliseconds: 10), () {
-                        ref
-                            .read(outletReturnStateNotifier.notifier)
-                            .getAlloutletReturn();
-                      });
-                    });
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: eachInternalTransferWidget(
-                    widget.internalTransferList[index].imageUrl,
-                    widget.internalTransferList[index].name,
-                    index,
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 2.h);
-            },
-            itemCount: widget.internalTransferList.length));
+        padding: EdgeInsets.only(top: 0, bottom: 8.h),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (index == 0) {
+                          selectedFilterIndex = 4;
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const MyRequestsDetailScreen(
+                                    isStockRequest: false,
+                                  )));
+                        } else if (index == 1) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const OtherRequestDetailScreen()));
+                        } else if (index == 2) {
+                          superPrint("MY RETURN >>>>>");
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => const MyReturnScreen()))
+                              .then((_) {
+                            Future.delayed(const Duration(milliseconds: 10),
+                                () async {
+                              await ref
+                                  .read(myReturnStateNotifierProvider.notifier)
+                                  .getAllMyReturn();
+                            });
+                          });
+                        } else {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const OutletReturnScreen()))
+                              .then((_) {
+                            Future.delayed(const Duration(milliseconds: 10),
+                                () {
+                              ref
+                                  .read(outletReturnStateNotifier.notifier)
+                                  .getAlloutletReturn();
+                            });
+                          });
+                        }
+                      },
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20, right: 20, top: 20),
+                        child: eachInternalTransferWidget(
+                          widget.internalTransferList[index].imageUrl,
+                          widget.internalTransferList[index].name,
+                          index,
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 5);
+                  },
+                  itemCount: widget.internalTransferList.length),
+            ),
+          ],
+        ));
   }
 
   Widget eachInternalTransferWidget(String image, String name, int count) {
@@ -304,6 +337,23 @@ class _InternalTransferScreenState
                 child: textWidget(name, size: 18, fontWeight: FontWeight.bold),
               ),
             ],
+          ),
+        ),
+        Visibility(
+          visible: count == 0 && pendingMyRequestProductList.isNotEmpty,
+          child: Positioned(
+            top: -10,
+            right: -5,
+            child: CircleAvatar(
+              backgroundColor: AppColor.pinkColor,
+              radius: 19,
+              child: textWidget(
+                pendingMyRequestProductList.length.toString(),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                size: 13,
+              ),
+            ),
           ),
         ),
         Visibility(
