@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/home/repository/state_notifier/time_state_notifier.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../auth/repository/auth_state_notifier.dart';
+import '../../../internal_transfer/my_request/presentation/request_history_screen.dart';
 
 class HomeAppBarWidget extends ConsumerWidget {
   const HomeAppBarWidget({super.key});
@@ -58,14 +59,20 @@ class HomeAppBarWidget extends ConsumerWidget {
               color: Colors.redAccent,
             ),
           ),
-          Container(
-            width: 10.w,
-            height: 50,
-            color: Colors.transparent,
-            alignment: Alignment.centerRight,
-            child: const Icon(
-              CupertinoIcons.bell,
-              color: Colors.redAccent,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const RequestHistoryScreen()));
+            },
+            child: Container(
+              width: 10.w,
+              height: 50,
+              color: Colors.transparent,
+              alignment: Alignment.centerRight,
+              child: const Icon(
+                CupertinoIcons.bell,
+                color: Colors.redAccent,
+              ),
             ),
           ),
           const SizedBox(width: 10),
