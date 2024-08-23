@@ -7,9 +7,16 @@ import '../../../../../widgets/text_widget.dart';
 import '../../../../inventory_tracker/presentation/details/product_detail_screen.dart';
 import '../../../my_request/domain/my_request.dart';
 
-Widget eachPackedDataWiget(String code, String name, String currentDate,
-    ProductLineId productLine, WidgetRef ref, BuildContext context,
-    {bool isAcceptLoading = false, int acceptProductID = -1}) {
+Widget eachPackedDataWiget(
+    String code,
+    String name,
+    String currentDate,
+    ProductLineId productLine,
+    WidgetRef ref,
+    bool isUrgentPicking,
+    BuildContext context,
+    {bool isAcceptLoading = false,
+    int acceptProductID = -1}) {
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
     child: Container(
@@ -65,7 +72,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                           offset: const Offset(0, 3),
                         )
                       ],
-                      borderRadius: productLine.isUrgent
+                      borderRadius: isUrgentPicking
                           ? const BorderRadius.only(
                               topRight: Radius.circular(10),
                               bottomRight: Radius.circular(10),
@@ -80,7 +87,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                     height: 13.h,
                     width: 22.w,
                   ),
-                  productLine.isUrgent
+                  isUrgentPicking
                       ? Positioned(
                           left: -3.w,
                           child: Container(
@@ -95,7 +102,7 @@ Widget eachPackedDataWiget(String code, String name, String currentDate,
                           ),
                         )
                       : const SizedBox.shrink(),
-                  productLine.isUrgent
+                  isUrgentPicking
                       ? Positioned(
                           left: -8.3.w,
                           child: Transform.rotate(

@@ -80,9 +80,13 @@ class _OtherRequestsDetailScreenState
             if (!acceptedWarehouseMap[warehouseId]['product_line']
                 .containsKey(productLineKey)) {
               acceptedWarehouseMap[warehouseId]['product_line']
-                  [productLineKey] = [];
+                  [productLineKey] = {
+                "is_urgent_picking": data.isUrgentPicking,
+                "products": []
+              };
             }
             acceptedWarehouseMap[warehouseId]['product_line'][productLineKey]
+                    ['products']
                 .add(element);
           });
         }
@@ -197,7 +201,7 @@ class _OtherRequestsDetailScreenState
                       String productLineKey =
                           productLineMap.keys.elementAt(productIndex);
                       List<dynamic> productList =
-                          productLineMap[productLineKey] ?? [];
+                          productLineMap[productLineKey]['products'] ?? [];
 
                       return ListView.separated(
                         shrinkWrap: true,
@@ -213,6 +217,7 @@ class _OtherRequestsDetailScreenState
                             warehouseData['date'],
                             productList[subIndex],
                             ref,
+                            productLineMap[productLineKey]['is_urgent_picking'],
                             isAcceptLoading: acceptLoading,
                             acceptProductID: acceptProductID,
                           );

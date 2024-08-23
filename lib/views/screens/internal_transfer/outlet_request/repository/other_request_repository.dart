@@ -6,10 +6,11 @@ import '../../../../../utils/commons/common_method.dart';
 
 class OtherRequestRepository {
   Future<Response> otherRequest() async {
+    //reason_ids,
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/stock-request-list/?fields=is_return,reason_ids,id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
+          'joborder/stock-request-list/?fields=is_urgent_picking,is_return,id,name,date,move_lines,request_to_wh,int_status,user_id&sort=id&others_request=1',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -19,7 +20,7 @@ class OtherRequestRepository {
   Future<Response> warehouse() async {
     Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/warehouse?fields=id,name',
+      endpoint: 'joborder/warehouse?fields=id,name,code',
       headers: CommonMethods.setHeaders(),
     );
 

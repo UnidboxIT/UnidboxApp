@@ -90,8 +90,7 @@ class InventoryTrackerRepository {
       "date": dateTime,
       "quantity": totalQty,
       "uom_id": uomID,
-      "is_urgent": isUrgent,
-      "reason_ids": [],
+      "is_urgent_picking": isUrgent,
       "new_request": false
     };
     superPrint(formData);

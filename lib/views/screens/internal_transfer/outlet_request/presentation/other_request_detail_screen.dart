@@ -156,10 +156,13 @@ class _OtherRequestsDetailScreenState
                 // Ensure each product line is unique per warehouse
                 if (!requestedMap[warehouseId]['product_line']
                     .containsKey(productLineKey)) {
-                  requestedMap[warehouseId]['product_line']
-                      [productLineKey] = [];
+                  requestedMap[warehouseId]['product_line'][productLineKey] = {
+                    "is_urgent_picking": data.isUrgentPicking,
+                    "products": []
+                  };
                 }
                 requestedMap[warehouseId]['product_line'][productLineKey]
+                        ['products']
                     .add(element);
               }
             }
@@ -375,7 +378,8 @@ class _OtherRequestsDetailScreenState
                             String productLineKey =
                                 productLineMap.keys.elementAt(productIndex);
                             List<dynamic> productList =
-                                productLineMap[productLineKey] ?? [];
+                                productLineMap[productLineKey]['products'] ??
+                                    [];
                             return ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -390,6 +394,8 @@ class _OtherRequestsDetailScreenState
                                   warehouseData['date'],
                                   productList[subIndex],
                                   ref,
+                                  productLineMap[productLineKey]
+                                      ['is_urgent_picking'],
                                   isAcceptLoading: acceptLoading,
                                   acceptProductID: acceptProductID,
                                 );

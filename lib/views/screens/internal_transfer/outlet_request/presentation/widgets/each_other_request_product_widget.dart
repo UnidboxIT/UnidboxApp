@@ -16,7 +16,7 @@ import '../../repository/provider/other_request_provider.dart';
 import '../outlet_reject_bottom_sheet.dart/outlet_reject_bottom_sheet.dart';
 
 Widget eachAcceptedDataWiget(String code, String name, String currentDate,
-    ProductLineId productLine, WidgetRef ref,
+    ProductLineId productLine, WidgetRef ref, bool isUrgentPicking,
     {bool isAcceptLoading = false, int acceptProductID = -1}) {
   ProductLineId product = productLine;
   double issuedQty = product.qty;
@@ -93,7 +93,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                             offset: const Offset(0, 3),
                           )
                         ],
-                        borderRadius: productLine.isUrgent
+                        borderRadius: isUrgentPicking
                             ? const BorderRadius.only(
                                 topRight: Radius.circular(10),
                                 bottomRight: Radius.circular(10),
@@ -109,7 +109,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                       height: 13.h,
                       width: 22.w,
                     ),
-                    productLine.isUrgent
+                    isUrgentPicking
                         ? Positioned(
                             left: -3.w,
                             child: Container(
@@ -124,7 +124,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                             ),
                           )
                         : const SizedBox.shrink(),
-                    productLine.isUrgent
+                    isUrgentPicking
                         ? Positioned(
                             left: -8.3.w,
                             child: Transform.rotate(

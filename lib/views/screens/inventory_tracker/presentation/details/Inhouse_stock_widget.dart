@@ -151,14 +151,6 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   Widget eachInhouseStockWidget(
       String location, String qty, int id, int index, BuildContext context) {
-    superPrint(qty);
-    superPrint(location);
-    superPrint("Contain");
-    superPrint(widget.userWarehouse.warehouseList[0]);
-    superPrint(widget.inHouseStockList[0].warehouseList[0]);
-    superPrint(widget.inHouseStockList[0].warehouseList
-        .contains(widget.userWarehouse.warehouseList[0]));
-    superPrint(double.parse(qty));
     // if (double.parse(qty) <= 0 &&
     //     widget.inHouseStockList[0].warehouseList
     //         .contains(widget.userWarehouse.warehouseList[0])) {
@@ -321,8 +313,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                     if (txtTotalQty.text.isEmpty) {
                       txtTotalQty.text = "0";
                     }
-                    superPrint(double.parse(qty).toInt());
-                    superPrint(int.parse(txtTotalQty.text).toInt());
+                    // superPrint(double.parse(qty).toInt());
+                    // superPrint(int.parse(txtTotalQty.text).toInt());
                     if (double.parse(txtTotalQty.text).toInt() > 1) {
                       if (double.parse(qty).toInt() != 0) {
                         if (double.parse(qty).toInt() + 1 <
@@ -409,8 +401,6 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                             }
                           });
                         }
-
-                        superPrint(isOverQty);
                       }
                     },
                     keyboardType: TextInputType.number,

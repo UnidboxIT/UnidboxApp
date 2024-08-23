@@ -119,9 +119,13 @@ class _OtherRequestsDetailScreenState
             if (!packedWarehouseMap[warehouseId]['product_line']
                 .containsKey(productLineKey)) {
               packedWarehouseMap[warehouseId]['product_line']
-                  [productLineKey] = [];
+                  [productLineKey] = {
+                "is_urgent_picking": data.isUrgentPicking,
+                "products": [],
+              };
             }
             packedWarehouseMap[warehouseId]['product_line'][productLineKey]
+                    ['products']
                 .add(element);
           });
         }
@@ -150,8 +154,10 @@ class _OtherRequestsDetailScreenState
       for (var map2 in acceptedMapList) {
         for (var key1 in map1.keys) {
           if (map2.containsKey(key1)) {
-            String productLineKey1 = map1[key1]['product_line'].keys.first;
-            String productLineKey2 = map2[key1]['product_line'].keys.first;
+            String productLineKey1 =
+                map1[key1]['product_line']['products'].keys.first;
+            String productLineKey2 =
+                map2[key1]['product_line']['products'].keys.first;
             if (productLineKey1 == productLineKey2) {
               setState(() {
                 isPackedProductEqual = true;
@@ -458,25 +464,27 @@ class _OtherRequestsDetailScreenState
                     itemBuilder: (context, productIndex) {
                       String productLineKey =
                           productLineMap.keys.elementAt(productIndex);
-                      return productLineMap[productLineKey] is Map
-                          ? const SizedBox.shrink()
-                          : ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: productLineMap[productLineKey].length,
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 0);
-                              },
-                              itemBuilder: (context, subIndex) {
-                                return eachPackedDataWiget(
-                                    productLineKey,
-                                    warehouseData['name'],
-                                    warehouseData['date'],
-                                    productLineMap[productLineKey][subIndex],
-                                    ref,
-                                    context);
-                              },
-                            );
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            productLineMap[productLineKey]['products'].length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 0);
+                        },
+                        itemBuilder: (context, subIndex) {
+                          return eachPackedDataWiget(
+                              productLineKey,
+                              warehouseData['name'],
+                              warehouseData['date'],
+                              productLineMap[productLineKey]['products']
+                                  [subIndex],
+                              ref,
+                              productLineMap[productLineKey]
+                                  ['is_urgent_picking'],
+                              context);
+                        },
+                      );
                     },
                   );
           }).toList(),

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
@@ -49,8 +50,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      await ref
           .read(userWarehouseStateNotifierProvider.notifier)
           .getUserWarehouse()
           .then((_) {
@@ -87,6 +88,28 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         });
       }
     });
+    ref.listen(warehouseStateNotifierProvider, (pre, next) {
+      if (next is WarehouseLoading) {
+        setState(() {
+          warehouseList = [];
+        });
+      }
+      if (next is WarehouseList) {
+        setState(() {
+          List<Warehouse> whList = next.warehouseList;
+          superPrint(whList);
+          for (var data in whList) {
+            if (data.id != userWarehouse.warehouseList[0]) {
+              warehouseList.add(data);
+            }
+            if (warehouseList.isNotEmpty) {
+              requestWarehouseID = warehouseList.first.id;
+            }
+          }
+          superPrint(warehouseList);
+        });
+      }
+    });
 
     ref.listen(myReturnReasonStateNotifierProvider, (pre, next) {
       if (next is MyReturnReasonLoading) {
@@ -119,24 +142,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
       }
     });
 
-    ref.listen(warehouseStateNotifierProvider, (pre, next) {
-      if (next is WarehouseLoading) {
-        setState(() {
-          warehouseList = [];
-        });
-      }
-      if (next is WarehouseList) {
-        setState(() {
-          List<Warehouse> whList = next.warehouseList;
-          for (var data in whList) {
-            if (data.id != userWarehouse.warehouseList[0]) {
-              warehouseList.add(data);
-            }
-            requestWarehouseID = warehouseList.first.id;
-          }
-        });
-      }
-    });
     // ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
     //   if (next is SelectedWarehouseID) {
     //     setState(() {
@@ -371,6 +376,39 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                   (previousValue, element) =>
                                       previousValue + element);
                               superPrint(requestWarehouseID);
+                              if (sumNewReturnQty <=
+                                  widget.scanProductList[0].quantity) {
+                                ref
+                                    .read(
+                                        myReturnStateNotifierProvider.notifier)
+                                    .updateMyReturn(
+                                        requestWarehouseID,
+                                        userWarehouse.warehouseList[0],
+                                        widget.scanProductList[0].id,
+                                        widget.scanProductList[0].name,
+                                        sumNewReturnQty,
+                                        widget.scanProductList[0].price,
+                                        widget.scanProductList[0].uomList[0],
+                                        reasonIndex,
+                                        txtNewReturnComment.text,
+                                        context,
+                                        ref,
+                                        true)
+                                    .then((_) {
+                                  Navigator.of(context).pop();
+                                });
+                              } else if (sumNewReturnQty == 0) {
+                                superPrint(requestWarehouseID);
+                                CommonMethods.customizedAlertDialog(
+                                  "Please select new return request reason",
+                                  context,
+                                );
+                              } else {
+                                CommonMethods.customizedAlertDialog(
+                                  "Return quantity is exceed than current balance",
+                                  context,
+                                );
+                              }
                             },
                             isBool: isMyReturnUpdate,
                           ),

@@ -9,6 +9,7 @@ class OtherRequest {
   bool isNewReturn;
   List<ProductLineId> productLineList;
   String createDate;
+  bool isUrgentPicking;
 
   OtherRequest({
     this.id = 0,
@@ -19,6 +20,7 @@ class OtherRequest {
     this.isNewReturn = false,
     this.productLineList = const [],
     this.createDate = "",
+    this.isUrgentPicking = false,
   });
 
   factory OtherRequest.fromJson(Map<String, dynamic> json) {
@@ -40,16 +42,16 @@ class OtherRequest {
     //   reasonList = [];
     // }
     return OtherRequest(
-      id: json['id'] ?? 0,
-      name: json['name'].toString(),
-      intStatus: json['int_status'].toString(),
-      userId: json['user_id'] == false ? [] : List.from(json['user_id']),
-      requestToWh: json['request_to_wh'] == false
-          ? []
-          : List.from(json['request_to_wh']),
-      isNewReturn: json['is_return'] ?? false,
-      productLineList: productList,
-      createDate: json['date'].toString(),
-    );
+        id: json['id'] ?? 0,
+        name: json['name'].toString(),
+        intStatus: json['int_status'].toString(),
+        userId: json['user_id'] == false ? [] : List.from(json['user_id']),
+        requestToWh: json['request_to_wh'] == false
+            ? []
+            : List.from(json['request_to_wh']),
+        isNewReturn: json['is_return'] ?? false,
+        productLineList: productList,
+        createDate: json['date'].toString(),
+        isUrgentPicking: json['is_urgent_picking'] ?? false);
   }
 }

@@ -42,6 +42,7 @@ dependencies:
   flutter_date_range_picker: ^0.1.1
   syncfusion_flutter_datepicker: ^26.2.8
   pushy_flutter: ^2.0.23
+  flutter_launcher_icons: ^0.13.1
   
 dev_dependencies:
   flutter_test:
