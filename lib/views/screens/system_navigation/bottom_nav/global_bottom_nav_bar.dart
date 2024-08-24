@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../inventory_tracker/presentation/inventory_tracker_screen.dart';
+import '../home_navigation.dart';
 import 'nav_bar.dart';
 
 Widget floatingActionBottomWidget(BuildContext context) {
   return FloatingActionButton(
     onPressed: () {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const InventoryTrackerScreen()));
+      Navigator.push(
+        homeNavRouteState.currentState!.context,
+        MaterialPageRoute(builder: (builder) => const InventoryTrackerScreen()),
+      );
     },
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(50),

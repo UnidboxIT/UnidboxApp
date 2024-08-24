@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/job_order/presentation/job_order_screen.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
 import 'views/screens/system_navigation/home_navigation.dart';
+import 'views/screens/system_navigation/job_order_navigation.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
@@ -22,6 +22,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   int currentIndex = 0;
   final List<GlobalKey<NavigatorState>> navigatorKeys = [
     homeNavRouteState,
+    jobOrderNavRouteState,
   ];
   Future<bool> _systemBackButtonPressed(bool didPop) {
     if (navigatorKeys[currentIndex].currentState?.canPop() == true) {
@@ -36,7 +37,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   List<Widget> indexWidgets = <Widget>[
     const HomeNavigationRoute(),
-    const JobOrderScreen(),
+    const JobOrderNavigationRoute(),
     Container(),
     const MessagesScreen(),
     const ProfileScreen(),
@@ -50,7 +51,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       onPopInvoked: _systemBackButtonPressed,
       child: Scaffold(
         backgroundColor: const Color(0xffF6F6F6),
-        // body: indexWidgets[indexBottomNavbar],
         extendBody: true,
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
