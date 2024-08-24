@@ -46,7 +46,7 @@ mixin _$ProfileState {
     required TResult Function(ProfileData value) loadProfile,
     required TResult Function(Initial value) initial,
     required TResult Function(ProfileLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(ProfileError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +54,7 @@ mixin _$ProfileState {
     TResult? Function(ProfileData value)? loadProfile,
     TResult? Function(Initial value)? initial,
     TResult? Function(ProfileLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(ProfileError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,7 +62,7 @@ mixin _$ProfileState {
     TResult Function(ProfileData value)? loadProfile,
     TResult Function(Initial value)? initial,
     TResult Function(ProfileLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(ProfileError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,7 +190,7 @@ class _$ProfileDataImpl implements ProfileData {
     required TResult Function(ProfileData value) loadProfile,
     required TResult Function(Initial value) initial,
     required TResult Function(ProfileLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(ProfileError value) error,
   }) {
     return loadProfile(this);
   }
@@ -201,7 +201,7 @@ class _$ProfileDataImpl implements ProfileData {
     TResult? Function(ProfileData value)? loadProfile,
     TResult? Function(Initial value)? initial,
     TResult? Function(ProfileLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(ProfileError value)? error,
   }) {
     return loadProfile?.call(this);
   }
@@ -212,7 +212,7 @@ class _$ProfileDataImpl implements ProfileData {
     TResult Function(ProfileData value)? loadProfile,
     TResult Function(Initial value)? initial,
     TResult Function(ProfileLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(ProfileError value)? error,
     required TResult orElse(),
   }) {
     if (loadProfile != null) {
@@ -309,7 +309,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(ProfileData value) loadProfile,
     required TResult Function(Initial value) initial,
     required TResult Function(ProfileLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(ProfileError value) error,
   }) {
     return initial(this);
   }
@@ -320,7 +320,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(ProfileData value)? loadProfile,
     TResult? Function(Initial value)? initial,
     TResult? Function(ProfileLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(ProfileError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -331,7 +331,7 @@ class _$InitialImpl implements Initial {
     TResult Function(ProfileData value)? loadProfile,
     TResult Function(Initial value)? initial,
     TResult Function(ProfileLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(ProfileError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -423,7 +423,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
     required TResult Function(ProfileData value) loadProfile,
     required TResult Function(Initial value) initial,
     required TResult Function(ProfileLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(ProfileError value) error,
   }) {
     return loading(this);
   }
@@ -434,7 +434,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
     TResult? Function(ProfileData value)? loadProfile,
     TResult? Function(Initial value)? initial,
     TResult? Function(ProfileLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(ProfileError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -445,7 +445,7 @@ class _$ProfileLoadingImpl implements ProfileLoading {
     TResult Function(ProfileData value)? loadProfile,
     TResult Function(Initial value)? initial,
     TResult Function(ProfileLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(ProfileError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -460,20 +460,20 @@ abstract class ProfileLoading implements ProfileState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$ProfileErrorImplCopyWith<$Res> {
+  factory _$$ProfileErrorImplCopyWith(
+          _$ProfileErrorImpl value, $Res Function(_$ProfileErrorImpl) then) =
+      __$$ProfileErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$ProfileStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$ProfileErrorImplCopyWithImpl<$Res>
+    extends _$ProfileStateCopyWithImpl<$Res, _$ProfileErrorImpl>
+    implements _$$ProfileErrorImplCopyWith<$Res> {
+  __$$ProfileErrorImplCopyWithImpl(
+      _$ProfileErrorImpl _value, $Res Function(_$ProfileErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -481,7 +481,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$ProfileErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -492,8 +492,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$ProfileErrorImpl implements ProfileError {
+  const _$ProfileErrorImpl({this.error});
 
   @override
   final String? error;
@@ -507,7 +507,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$ProfileErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -517,8 +517,8 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$ProfileErrorImplCopyWith<_$ProfileErrorImpl> get copyWith =>
+      __$$ProfileErrorImplCopyWithImpl<_$ProfileErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -563,7 +563,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(ProfileData value) loadProfile,
     required TResult Function(Initial value) initial,
     required TResult Function(ProfileLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(ProfileError value) error,
   }) {
     return error(this);
   }
@@ -574,7 +574,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(ProfileData value)? loadProfile,
     TResult? Function(Initial value)? initial,
     TResult? Function(ProfileLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(ProfileError value)? error,
   }) {
     return error?.call(this);
   }
@@ -585,7 +585,7 @@ class _$ErrorImpl implements Error {
     TResult Function(ProfileData value)? loadProfile,
     TResult Function(Initial value)? initial,
     TResult Function(ProfileLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(ProfileError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -595,11 +595,11 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements ProfileState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class ProfileError implements ProfileState {
+  const factory ProfileError({final String? error}) = _$ProfileErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$ProfileErrorImplCopyWith<_$ProfileErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

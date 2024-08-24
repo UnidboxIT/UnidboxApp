@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/profile/repository/profile_repository.dart';
 import 'package:unidbox_app/views/screens/profile/repository/state/profile_state.dart';
+import '../../../../../utils/commons/common_method.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../domain/profile.dart';
@@ -69,15 +70,39 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
       Response response = await _profileRepository.updatePartner(
           firstName, lastName, phone, email, countryId, religion, race);
       var result = jsonDecode(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      superPrint(result);
+      if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
           getPartnerInfo();
           successfullyBottomSheet(
               "Successfully Updated", "The informations have been updated", () {
             Navigator.of(context).pop();
           }, context);
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['result']['error'],
+            context,
+          );
+          state = const ProfileState.error();
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          CommonMethods.customizedAlertDialog(
+            result['error']['data']['message'],
+            context,
+          );
+          state = const ProfileState.error();
         }
       }
+      // if (result['result']['code'] == 200) {
+      //   getPartnerInfo();
+      //   successfullyBottomSheet(
+      //       "Successfully Updated", "The informations have been updated", () {
+      //     Navigator.of(context).pop();
+      //   }, context);
+      // }
     } catch (e) {
       superPrint(e);
     }

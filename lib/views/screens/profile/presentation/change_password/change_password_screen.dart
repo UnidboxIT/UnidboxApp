@@ -50,7 +50,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
               Navigator.of(context).pop();
             }),
             Transform.translate(
-              offset: Offset(0, 13.h),
+              offset: Offset(0, 15.h),
               child: changePasswordBodyWidget(),
             ),
           ],
@@ -61,13 +61,13 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
 
   Widget changePasswordBodyWidget() {
     return Container(
+      width: 100.w,
+      height: 90.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: AppColor.bgColor,
       ),
       child: Container(
-        width: 100.w,
-        height: 90.h,
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
               "Confirm New Password",
             ),
             SizedBox(
-              height: 40.h,
+              height: 30.h,
             ),
             Center(
               child: Container(

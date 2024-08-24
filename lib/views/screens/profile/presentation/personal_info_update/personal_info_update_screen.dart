@@ -44,9 +44,12 @@ class _PersonalInfoUpdateScreenState
   loadData() {
     setState(() {
       txtFirstName.text = widget.profile.firstName;
-      txtLastName.text = widget.profile.lastName;
-      txtContactNumber.text = widget.profile.phone;
-      txtEmail.text = widget.profile.email;
+      txtLastName.text =
+          widget.profile.lastName == 'null' ? "" : widget.profile.lastName;
+      txtContactNumber.text =
+          widget.profile.phone == 'false' ? "" : widget.profile.phone;
+      txtEmail.text =
+          widget.profile.email == 'false' ? "" : widget.profile.email;
     });
   }
 
@@ -65,6 +68,11 @@ class _PersonalInfoUpdateScreenState
         });
       }
       if (next is ProfileData) {
+        setState(() {
+          isUpdateInfo = false;
+        });
+      }
+      if (next is ProfileError) {
         setState(() {
           isUpdateInfo = false;
         });
@@ -105,7 +113,7 @@ class _PersonalInfoUpdateScreenState
               Navigator.of(context).pop();
             }),
             Transform.translate(
-              offset: Offset(0, 13.h),
+              offset: Offset(0, 15.h),
               child: personalInfoUpdateWidget(context),
             )
           ],
@@ -116,13 +124,13 @@ class _PersonalInfoUpdateScreenState
 
   Widget personalInfoUpdateWidget(BuildContext context) {
     return Container(
+      width: 100.w,
+      height: 90.h,
       decoration: BoxDecoration(
           color: AppColor.bgColor, borderRadius: BorderRadius.circular(20)),
       child: SingleChildScrollView(
-        reverse: true,
+        // reverse: true,
         child: Container(
-          width: 100.w,
-          height: 90.h,
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,11 +184,12 @@ class _PersonalInfoUpdateScreenState
                   height: 40,
                   color: Colors.transparent,
                   child: buttonWidget("Update", () {
+                    superPrint("HERE");
                     FocusManager.instance.primaryFocus!.unfocus();
+                    superPrint(selectedRace.name);
                     ref.read(countryStateNotifierProvider);
                     ref.read(religionStateNotifierProvider);
                     ref.read(raceStateNotifierProvider);
-                    superPrint(selectedRace.name);
                     ref
                         .read(profileStateNotifierProvider.notifier)
                         .updatePartnerInfo(

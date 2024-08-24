@@ -11,5 +11,5 @@ class ProfileState with _$ProfileState {
   const factory ProfileState.loadProfile(Profile profile) = ProfileData;
   const factory ProfileState.initial() = Initial;
   const factory ProfileState.loading() = ProfileLoading;
-  const factory ProfileState.error({String? error}) = Error;
+  const factory ProfileState.error({String? error}) = ProfileError;
 }
