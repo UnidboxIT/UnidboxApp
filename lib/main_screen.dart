@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/job_order/presentation/job_order_screen.dart';
 import 'utils/constant/app_color.dart';
+import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
 import 'views/screens/system_navigation/home_navigation.dart';
@@ -34,9 +36,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   List<Widget> indexWidgets = <Widget>[
     const HomeNavigationRoute(),
+    const JobOrderScreen(),
     Container(),
-    Container(),
-    Container(),
+    const MessagesScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -54,7 +56,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
           child: !isVisible
               ? const SizedBox.shrink()
-              : floatingActionBottomWidget(),
+              : floatingActionBottomWidget(context),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar:

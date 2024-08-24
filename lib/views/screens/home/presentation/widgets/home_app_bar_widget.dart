@@ -5,10 +5,16 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/home/repository/state_notifier/time_state_notifier.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../auth/repository/auth_state_notifier.dart';
+import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
 import '../../../internal_transfer/my_request/presentation/request_history_screen.dart';
+import '../../../inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
+import '../../domain/my_task.dart';
 
 class HomeAppBarWidget extends ConsumerWidget {
-  const HomeAppBarWidget({super.key});
+  final Map<int, List<MyTask>> myTaskDetailMap;
+  final List<MyTask> myTaskDetail;
+  const HomeAppBarWidget(
+      {super.key, required this.myTaskDetailMap, required this.myTaskDetail});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,24 +45,42 @@ class HomeAppBarWidget extends ConsumerWidget {
             ],
           ),
           const Spacer(),
-          Container(
-            width: 10.w,
-            height: 50,
-            alignment: Alignment.centerRight,
-            color: Colors.transparent,
-            child: const Icon(
-              Icons.shopping_cart_rounded,
-              color: Colors.redAccent,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => InternalTransferScreen(
+                    internalTransferList:
+                        myTaskDetailMap[myTaskDetail.first.id] ?? [],
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              width: 10.w,
+              height: 50,
+              alignment: Alignment.centerRight,
+              color: Colors.transparent,
+              child: const Icon(
+                Icons.shopping_cart_rounded,
+                color: Colors.redAccent,
+              ),
             ),
           ),
-          Container(
-            width: 10.w,
-            height: 50,
-            alignment: Alignment.centerRight,
-            color: Colors.transparent,
-            child: const Icon(
-              CupertinoIcons.qrcode_viewfinder,
-              color: Colors.redAccent,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const BarCodeScannerScreen()));
+            },
+            child: Container(
+              width: 10.w,
+              height: 50,
+              alignment: Alignment.centerRight,
+              color: Colors.transparent,
+              child: const Icon(
+                CupertinoIcons.qrcode_viewfinder,
+                color: Colors.redAccent,
+              ),
             ),
           ),
           GestureDetector(

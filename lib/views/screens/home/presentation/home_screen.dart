@@ -176,7 +176,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeAppBarWidget(),
+              HomeAppBarWidget(
+                myTaskDetailMap: myTaskDetailMap,
+                myTaskDetail: myTaskList,
+              ),
               ImportantReminderWidget(
                   notiList: notiList, isLoading: isNotiLoading),
               Expanded(

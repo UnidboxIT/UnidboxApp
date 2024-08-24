@@ -1,10 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../inventory_tracker/presentation/inventory_tracker_screen.dart';
 import 'nav_bar.dart';
 
-Widget floatingActionBottomWidget() {
+Widget floatingActionBottomWidget(BuildContext context) {
   return FloatingActionButton(
-    onPressed: () {},
+    onPressed: () {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const InventoryTrackerScreen()));
+    },
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(50),
     ),
