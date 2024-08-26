@@ -42,6 +42,7 @@ class _OtherRequestsDetailScreenState
   List<ProductLineId> acceptedProductList = [];
   bool isSwipeLoading = false;
   List<int> idList = [];
+  List<int> isUrgentIdList = [];
   List<Map<int, dynamic>> requestedMapList = [];
   List<Map<int, dynamic>> finalDeveilerMapList = [];
   List<Map<int, dynamic>> acceptedMapList = [];
@@ -63,9 +64,11 @@ class _OtherRequestsDetailScreenState
   }
 
   Future<void> loadWarehouseData() async {
-    packedWarehouseMap.forEach((key, value) {
-      value['product_line'] = {};
-    });
+    // packedWarehouseMap.forEach((key, value) {
+    //   value['product_line'] = {};
+    // });
+    acceptedMapList.clear();
+    packedWarehouseMap.clear();
     finalDeveilerMapList.clear();
     requestedMapList.clear();
     for (var data in otherRequestList) {
@@ -84,7 +87,6 @@ class _OtherRequestsDetailScreenState
             String productLineKey = data.name;
             if (!acceptedWarehouseMap.containsKey(warehouseId)) {
               acceptedWarehouseMap[warehouseId] = {
-                "id": data.id,
                 "warehouse_name": warehouseName,
                 "name": data.userId[1],
                 "date": data.createDate,
@@ -95,9 +97,14 @@ class _OtherRequestsDetailScreenState
             if (!acceptedWarehouseMap[warehouseId]['product_line']
                 .containsKey(productLineKey)) {
               acceptedWarehouseMap[warehouseId]['product_line']
-                  [productLineKey] = [];
+                  [productLineKey] = {
+                "id": data.id,
+                "is_urgent_picking": data.isUrgentPicking,
+                "products": [],
+              };
             }
             acceptedWarehouseMap[warehouseId]['product_line'][productLineKey]
+                    ['products']
                 .add(element);
           });
         }
@@ -108,7 +115,6 @@ class _OtherRequestsDetailScreenState
             String productLineKey = data.name;
             if (!packedWarehouseMap.containsKey(warehouseId)) {
               packedWarehouseMap[warehouseId] = {
-                "id": data.id,
                 "warehouse_name": warehouseName,
                 "name": data.userId[1],
                 "date": data.createDate,
@@ -120,6 +126,7 @@ class _OtherRequestsDetailScreenState
                 .containsKey(productLineKey)) {
               packedWarehouseMap[warehouseId]['product_line']
                   [productLineKey] = {
+                "id": data.id,
                 "is_urgent_picking": data.isUrgentPicking,
                 "products": [],
               };
@@ -131,6 +138,7 @@ class _OtherRequestsDetailScreenState
         }
       }
     }
+    superPrint(packedWarehouseMap);
     if (packedWarehouseMap.isNotEmpty) {
       if (packedWarehouseMap.keys.contains(selectedWarehouseID)) {
         selectedWarehouseID = selectedWarehouseID;
@@ -142,7 +150,15 @@ class _OtherRequestsDetailScreenState
       finalDeveilerMapList.add(packedWarehouseMap);
       for (var warehouseProduct in requestedMapList) {
         warehouseProduct.forEach((key, value) {
-          idList.add(value['id']);
+          Map<dynamic, dynamic> productLine = value['product_line'];
+          superPrint(productLine);
+          productLine.forEach((key, value) {
+            if (value['is_urgent_picking']) {
+              isUrgentIdList.add(value['id']);
+            } else {
+              idList.add(value['id']);
+            }
+          });
         });
       }
       if (acceptedWarehouseMap.isNotEmpty) {
@@ -150,35 +166,38 @@ class _OtherRequestsDetailScreenState
       }
     }
     superPrint(idList);
-    for (var map1 in finalDeveilerMapList) {
-      for (var map2 in acceptedMapList) {
-        for (var key1 in map1.keys) {
-          if (map2.containsKey(key1)) {
-            String productLineKey1 =
-                map1[key1]['product_line']['products'].keys.first;
-            String productLineKey2 =
-                map2[key1]['product_line']['products'].keys.first;
-            if (productLineKey1 == productLineKey2) {
-              setState(() {
-                isPackedProductEqual = true;
-              });
-              superPrint(
-                  'The product lines are equal: $productLineKey1 && $isPackedProductEqual');
-            } else {
-              setState(() {
-                isPackedProductEqual = false;
-              });
-              superPrint(
-                  'The product lines are not equal: $productLineKey1 != $productLineKey2 && $isPackedProductEqual');
-            }
-          } else {
-            setState(() {
-              isPackedProductEqual = false;
-            });
-          }
-        }
-      }
-    }
+    // superPrint(finalDeveilerMapList);
+    // superPrint(acceptedMapList);
+    // for (var map1 in finalDeveilerMapList) {
+    //   for (var map2 in acceptedMapList) {
+    //     superPrint(map1.keys);
+    //     for (var key1 in map1.keys) {
+    //       if (map2.containsKey(key1)) {
+    //         String productLineKey1 =
+    //             map1[key1]['product_line']['products'].keys.first;
+    //         String productLineKey2 =
+    //             map2[key1]['product_line']['products'].keys.first;
+    //         if (productLineKey1 == productLineKey2) {
+    //           setState(() {
+    //             isPackedProductEqual = true;
+    //           });
+    //           superPrint(
+    //               'The product lines are equal: $productLineKey1 && $isPackedProductEqual');
+    //         } else {
+    //           setState(() {
+    //             isPackedProductEqual = false;
+    //           });
+    //           superPrint(
+    //               'The product lines are not equal: $productLineKey1 != $productLineKey2 && $isPackedProductEqual');
+    //         }
+    //       } else {
+    //         setState(() {
+    //           isPackedProductEqual = false;
+    //         });
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   @override
@@ -261,6 +280,7 @@ class _OtherRequestsDetailScreenState
       if (next is OtherRequestLoading) {
         setState(() {
           idList.clear();
+          isUrgentIdList.clear();
           packedProductList.clear();
           otherRequestList = [];
         });
@@ -390,30 +410,46 @@ class _OtherRequestsDetailScreenState
                       List<String> warehouseNames =
                           getWarehouseNames(requestedReturnMapList);
                       Future.delayed(const Duration(milliseconds: 100));
-                      if (idList.isNotEmpty) {
-                        if (!isPackedProductEqual) {
+                      if (isUrgentIdList.isNotEmpty) {
+                        ref
+                            .read(otherRequestStateNotifierProvider.notifier)
+                            .deliveryOtherRequest(
+                              isUrgentIdList,
+                              context,
+                              warehouseNames,
+                              packedWarehouseMap,
+                              selectedWarehouseID,
+                            )
+                            .then((_) {
                           ref
                               .read(otherRequestStateNotifierProvider.notifier)
-                              .deliveryOtherRequest(
-                                idList,
-                                context,
-                                warehouseNames,
-                                packedWarehouseMap,
-                                selectedWarehouseID,
-                              )
-                              .then((_) {
-                            ref
-                                .read(
-                                    otherRequestStateNotifierProvider.notifier)
-                                .getAllOtherRequest();
-                            isSwipeLoading = false;
-                          });
-                        } else {
+                              .getAllOtherRequest();
                           isSwipeLoading = false;
-                          CommonMethods.customizedAlertDialog(
-                              "Please packed all your requested product",
-                              context);
-                        }
+                        });
+                      } else if (idList.isNotEmpty) {
+                        ref
+                            .read(otherRequestStateNotifierProvider.notifier)
+                            .deliveryOtherRequest(
+                              idList,
+                              context,
+                              warehouseNames,
+                              packedWarehouseMap,
+                              selectedWarehouseID,
+                            )
+                            .then((_) {
+                          ref
+                              .read(otherRequestStateNotifierProvider.notifier)
+                              .getAllOtherRequest();
+                          isSwipeLoading = false;
+                        });
+
+                        // if (!isPackedProductEqual) {
+                        // } else {
+                        //   isSwipeLoading = false;
+                        //   CommonMethods.customizedAlertDialog(
+                        //       "Please packed all your requested product",
+                        //       context);
+                        // }
                       } else {
                         isSwipeLoading = false;
                         CommonMethods.customizedAlertDialog(
@@ -532,7 +568,7 @@ class _OtherRequestsDetailScreenState
                     requestedReturnMapList.clear();
                     if (packedWarehouseMap.containsKey(selectedWarehouseID)) {
                       packedWarehouseMap[selectedWarehouseID] = {
-                        "id": value["id"],
+                        //"id": value["id"],
                         "warehouse_name": value['warehouse_name'],
                         "name": value['name'],
                         "date": value['date'],
@@ -572,7 +608,14 @@ class _OtherRequestsDetailScreenState
                 });
                 for (var warehouseProduct in requestedMapList) {
                   warehouseProduct.forEach((key, value) {
-                    idList.add(value['id']);
+                    Map<dynamic, dynamic> productLine = value['product_line'];
+                    productLine.forEach((key, value) {
+                      if (value['is_urgent_picking']) {
+                        isUrgentIdList.add(value['id']);
+                      } else {
+                        idList.add(value['id']);
+                      }
+                    });
                   });
                 }
                 superPrint(idList);

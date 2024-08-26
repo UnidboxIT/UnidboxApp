@@ -9,7 +9,10 @@ import '../../domain/my_request.dart';
 import '../reject_request_screen.dart';
 
 Widget rejectedProductWidget(
-    List<ProductLineId> rejectedList, BuildContext context, WidgetRef ref) {
+  List<ProductLineId> rejectedList,
+  BuildContext context,
+  WidgetRef ref,
+) {
   return GestureDetector(
     onTap: () {
       ref.read(currentRouteProvider.notifier).state = '/';

@@ -135,8 +135,13 @@ class _PendingRequestListScreenState
 
                   return Column(
                     children: [
-                      eachPendingRequestListWidget(requestCode, name,
-                          currentDate, requestWarehouse, productList,
+                      eachPendingRequestListWidget(
+                          requestCode,
+                          name,
+                          currentDate,
+                          requestWarehouse,
+                          productList,
+                          pendingRequestList[index].isUrgentPicking,
                           acceptProductID: acceptProductID,
                           isUpdateLoading: isMyRequestLoading),
                       const SizedBox(height: 20)

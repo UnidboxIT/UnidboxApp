@@ -67,11 +67,11 @@ class _OtherRequestsDetailScreenState
           setState(() {
             int warehouseId = element.warehouseList[0];
             String warehouseName = element.warehouseList[1];
+            superPrint(warehouseName);
             String productLineKey = data.name;
             if (!acceptedWarehouseMap.containsKey(warehouseId)) {
               acceptedWarehouseMap[warehouseId] = {
                 "warehouse_name": warehouseName,
-                "name": data.userId[1],
                 "date": data.createDate,
                 "product_line": {}
               };
@@ -81,6 +81,7 @@ class _OtherRequestsDetailScreenState
                 .containsKey(productLineKey)) {
               acceptedWarehouseMap[warehouseId]['product_line']
                   [productLineKey] = {
+                "name": data.userId[1],
                 "is_urgent_picking": data.isUrgentPicking,
                 "products": []
               };
@@ -213,7 +214,7 @@ class _OtherRequestsDetailScreenState
                         itemBuilder: (context, subIndex) {
                           return eachAcceptedDataWiget(
                             productLineKey,
-                            warehouseData['name'],
+                            productLineMap[productLineKey]['name'],
                             warehouseData['date'],
                             productList[subIndex],
                             ref,
@@ -270,7 +271,7 @@ class _OtherRequestsDetailScreenState
                           .containsKey(selectedWarehouseID)) {
                         acceptedWarehouseMap[selectedWarehouseID] = {
                           "warehouse_name": value['warehouse_name'],
-                          "name": value['name'],
+                          //"name": value['name'],
                           "date": value['date'],
                           "product_line": value['product_line']
                         };

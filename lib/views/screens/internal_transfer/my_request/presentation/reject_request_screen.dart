@@ -152,10 +152,11 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
         if (productList.isEmpty) {
           return const SizedBox.shrink();
         }
+
         return Column(
           children: [
-            eachProductLineWidget(
-                requestWarehouse, productList, requestWarehouseID),
+            eachProductLineWidget(requestWarehouse, productList,
+                requestWarehouseID, rejectRequestList[index].isUrgentPicking),
             const SizedBox(height: 20)
           ],
         );
@@ -164,8 +165,11 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
     );
   }
 
-  Widget eachProductLineWidget(String requestWh,
-      List<ProductLineId> productList, int requestWarehouseID) {
+  Widget eachProductLineWidget(
+      String requestWh,
+      List<ProductLineId> productList,
+      int requestWarehouseID,
+      bool isUrgentPicking) {
     return ListView.separated(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -214,25 +218,93 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
                                 spreadRadius: 1,
                                 offset: const Offset(0, 0))
                           ]),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+                      padding: isUrgentPicking
+                          ? const EdgeInsets.only(
+                              left: 15, right: 10, top: 10, bottom: 10)
+                          : const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: productList[index].imageUrl != "false"
-                                      ? NetworkImage(
-                                          productList[index].imageUrl)
-                                      : const AssetImage(
-                                          'assets/images/app_icon.jpeg'),
-                                  fit: BoxFit.contain),
-                            ),
-                            height: 13.h,
-                            width: 22.w,
+                          Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.centerLeft,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColor.dropshadowColor,
+                                      blurRadius: 3,
+                                      spreadRadius: 3,
+                                      offset: const Offset(0, 3),
+                                    )
+                                  ],
+                                  borderRadius: isUrgentPicking
+                                      ? const BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        )
+                                      : BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: productList[index].imageUrl !=
+                                              "false"
+                                          ? NetworkImage(
+                                              productList[index].imageUrl)
+                                          : const AssetImage(
+                                              'assets/images/app_icon.jpeg'),
+                                      fit: BoxFit.cover),
+                                ),
+                                height: 13.h,
+                                width: 22.w,
+                              ),
+                              isUrgentPicking
+                                  ? Positioned(
+                                      left: -3.w,
+                                      child: Container(
+                                        width: 4.w,
+                                        height: 13.h,
+                                        decoration: BoxDecoration(
+                                            color: AppColor.primary,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                            )),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              isUrgentPicking
+                                  ? Positioned(
+                                      left: -8.3.w,
+                                      child: Transform.rotate(
+                                        angle: 80.1,
+                                        child: textWidget(
+                                          "URGENT",
+                                          size: 12,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.white,
+                                          letterSpacing: 2,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ],
                           ),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(10),
+                          //     image: DecorationImage(
+                          //         image: productList[index].imageUrl != "false"
+                          //             ? NetworkImage(
+                          //                 productList[index].imageUrl)
+                          //             : const AssetImage(
+                          //                 'assets/images/app_icon.jpeg'),
+                          //         fit: BoxFit.contain),
+                          //   ),
+                          //   height: 13.h,
+                          //   width: 22.w,
+                          // ),
                           const SizedBox(width: 15),
                           Expanded(
                             child: Column(

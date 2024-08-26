@@ -194,10 +194,12 @@ Widget eachMyReturnProductLineWidget(
                       textWidget(
                         productList[index].status == "return_accepted"
                             ? "Accepted"
-                            : productList[index].status == "returned"
-                                ? "Pending"
-                                : capitalizeFirstLetter(
-                                    productList[index].status),
+                            : productList[index].status == "return_issued"
+                                ? "Return Issued"
+                                : productList[index].status == "returned"
+                                    ? "Pending"
+                                    : capitalizeFirstLetter(
+                                        productList[index].status),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         size: 14,

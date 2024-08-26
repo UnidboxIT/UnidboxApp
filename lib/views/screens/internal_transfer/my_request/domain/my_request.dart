@@ -5,6 +5,7 @@ class MyRequest {
   List userId;
   List requestToWh;
   bool isNewReturn;
+  bool isUrgentPicking;
   List<ProductLineId> productLineList;
   String createDate;
 
@@ -15,6 +16,7 @@ class MyRequest {
     this.userId = const [],
     this.requestToWh = const [],
     this.isNewReturn = false,
+    this.isUrgentPicking = false,
     this.productLineList = const [],
     this.createDate = "",
   });
@@ -37,6 +39,7 @@ class MyRequest {
           ? []
           : List.from(json['request_to_wh']),
       isNewReturn: json['is_return'] ?? false,
+      isUrgentPicking: json['is_urgent_picking'] ?? false,
       productLineList: productList,
       createDate: json['date'].toString(),
     );

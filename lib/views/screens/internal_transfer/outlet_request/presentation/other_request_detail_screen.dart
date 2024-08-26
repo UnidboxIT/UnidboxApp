@@ -176,18 +176,25 @@ class _OtherRequestsDetailScreenState
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             setState(() {
+              superPrint(requestedMap);
               requestedMap.forEach((outerKey, outerValue) {
                 var productLine = outerValue['product_line'];
-                // Check if the outerKey matches any Warehouse id
                 if (productLine.isNotEmpty) {
-                  bool isWarehouseMatch = warehouseList
-                      .any((warehouse) => warehouse.id == outerKey);
-                  if (isWarehouseMatch) {
-                    productLine.forEach((key, value) {
-                      productLineInfos
-                          .add(ProductLineInfo(outerKey, key, value.length));
-                    });
-                  }
+                  // bool isWarehouseMatch = warehouseList
+                  //     .any((warehouse) => warehouse.id == outerKey);
+                  int totalProducts = 0;
+                  String productLineKey = "";
+                  superPrint(productLine);
+                  //if (isWarehouseMatch) {
+                  productLine.forEach((key, value) {
+                    superPrint(value['products']);
+                    totalProducts += value['products'].length as int;
+                    productLineKey = key;
+                  });
+                  superPrint(totalProducts);
+                  productLineInfos.add(
+                      ProductLineInfo(outerKey, productLineKey, totalProducts));
+                  //}
                 } else {
                   productLineInfos
                       .removeWhere((info) => info.outerKey == outerKey);
@@ -230,8 +237,6 @@ class _OtherRequestsDetailScreenState
       //   superPrint(otherRequestList);
       // }
     });
-
-    superPrint(isOutletRequestLoading);
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -430,6 +435,8 @@ class _OtherRequestsDetailScreenState
                   orElse: () => ProductLineInfo(
                       warehouseID, '', 0), // Default if not found
                 );
+                // superPrint(productLineInfos);
+                // superPrint(productLineInfo.productLineKey);
 
                 return Container(
                   padding: const EdgeInsets.only(top: 15),
