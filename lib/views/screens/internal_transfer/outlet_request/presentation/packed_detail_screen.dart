@@ -121,7 +121,6 @@ class _OtherRequestsDetailScreenState
                 "product_line": {}
               };
             }
-            // Ensure each product line is unique per warehouse
             if (!packedWarehouseMap[warehouseId]['product_line']
                 .containsKey(productLineKey)) {
               packedWarehouseMap[warehouseId]['product_line']

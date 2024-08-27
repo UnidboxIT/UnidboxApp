@@ -57,10 +57,13 @@ class _OtherRequestsDetailScreenState
   bool acceptLoading = false;
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
-  List<ProductLineInfo> productLineInfos = [];
+  List<ProductLineInfo> productLineInfosList = [];
   int eachKey = -1;
   int eachValueLength = -1;
   bool isOutletRequestLoading = true;
+  int totalProducts = 0;
+  String productLineKey = "";
+  ProductLineInfo productLineInfo = ProductLineInfo(0, "", 0);
 
   @override
   void initState() {
@@ -177,28 +180,32 @@ class _OtherRequestsDetailScreenState
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             setState(() {
               superPrint(requestedMap);
+              productLineInfosList.clear();
               requestedMap.forEach((outerKey, outerValue) {
                 var productLine = outerValue['product_line'];
                 if (productLine.isNotEmpty) {
-                  // bool isWarehouseMatch = warehouseList
-                  //     .any((warehouse) => warehouse.id == outerKey);
-                  int totalProducts = 0;
-                  String productLineKey = "";
+                  bool isWarehouseMatch = warehouseList
+                      .any((warehouse) => warehouse.id == outerKey);
+                  // if (isWarehouseMatch) {
+                  totalProducts = 0;
+                  productLineKey = "";
                   superPrint(productLine);
-                  //if (isWarehouseMatch) {
                   productLine.forEach((key, value) {
                     superPrint(value['products']);
                     totalProducts += value['products'].length as int;
                     productLineKey = key;
                   });
-                  superPrint(totalProducts);
-                  productLineInfos.add(
-                      ProductLineInfo(outerKey, productLineKey, totalProducts));
-                  //}
+                  productLineInfo =
+                      ProductLineInfo(outerKey, productLineKey, totalProducts);
+                  //  }
                 } else {
-                  productLineInfos
+                  productLineInfosList
                       .removeWhere((info) => info.outerKey == outerKey);
                 }
+                setState(() {
+                  productLineInfosList.add(productLineInfo);
+                });
+                superPrint(productLineInfosList.first.length);
               });
             });
           }
@@ -429,8 +436,8 @@ class _OtherRequestsDetailScreenState
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 int warehouseID = warehouseList[index].id;
-                // Find the corresponding ProductLineInfo object for the current warehouse
-                ProductLineInfo? productLineInfo = productLineInfos.firstWhere(
+                ProductLineInfo? productLineInfo =
+                    productLineInfosList.firstWhere(
                   (info) => info.outerKey == warehouseID,
                   orElse: () => ProductLineInfo(
                       warehouseID, '', 0), // Default if not found
