@@ -184,8 +184,8 @@ class _OtherRequestsDetailScreenState
               requestedMap.forEach((outerKey, outerValue) {
                 var productLine = outerValue['product_line'];
                 if (productLine.isNotEmpty) {
-                  bool isWarehouseMatch = warehouseList
-                      .any((warehouse) => warehouse.id == outerKey);
+                  // bool isWarehouseMatch = warehouseList
+                  //     .any((warehouse) => warehouse.id == outerKey);
                   // if (isWarehouseMatch) {
                   totalProducts = 0;
                   productLineKey = "";

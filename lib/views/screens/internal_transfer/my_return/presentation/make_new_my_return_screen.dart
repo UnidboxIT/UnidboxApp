@@ -25,7 +25,7 @@ import '../repository/state/my_return_state.dart';
 import 'widgets/make_new_return_reason_widget.dart';
 
 class MakeNewMyReturnScreen extends ConsumerStatefulWidget {
-  final List<Products> scanProductList;
+  final Products scanProductList;
   const MakeNewMyReturnScreen({super.key, required this.scanProductList});
 
   @override
@@ -40,8 +40,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
   bool isMyReturnUpdate = false;
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
-  // List<InhouseStock> inHouseStockList = [];
-  // List<InhouseStock> filterWareHouseList = [];
   List<Warehouse> warehouseList = [];
   int requestWarehouseID = -1;
   int totalQty = 1;
@@ -142,29 +140,6 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
       }
     });
 
-    // ref.listen(inhouseStockStateNotifierProvider, (pre, next) {
-    //   if (next is SelectedWarehouseID) {
-    //     setState(() {
-    //       requestWarehouseID = next.warehouseID;
-    //     });
-    //   }
-    //   if (next is InhouseStockList) {
-    //     setState(() {
-    //       inHouseStockList = next.inhouseStock;
-    //       filterWareHouseList = inHouseStockList
-    //           .where((stock) =>
-    //               userWarehouse.warehouseList[0] != stock.warehouseList[0] &&
-    //               double.parse(stock.qty) > 0)
-    //           .toList();
-
-    //       if (filterWareHouseList.isNotEmpty) {
-    //         requestWarehouseID = filterWareHouseList.first.warehouseList[0];
-    //         superPrint(requestWarehouseID);
-    //       }
-    //     });
-    //   }
-    // });
-
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -212,11 +187,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: widget.scanProductList.isEmpty
-          ? Center(
-              child: textWidget("No Product!"),
-            )
-          : returnRequestWidget(),
+      child: returnRequestWidget(),
     );
   }
 
@@ -264,9 +235,8 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           ],
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            image: widget.scanProductList[0].imageUrl != "false"
-                                ? NetworkImage(
-                                    widget.scanProductList[0].imageUrl)
+                            image: widget.scanProductList.imageUrl != "false"
+                                ? NetworkImage(widget.scanProductList.imageUrl)
                                 : const AssetImage(
                                     'assets/images/app_icon.jpeg'),
                             fit: BoxFit.cover,
@@ -283,8 +253,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 20),
-                              child: textWidget(
-                                  widget.scanProductList[0].fullName,
+                              child: textWidget(widget.scanProductList.fullName,
                                   fontWeight: FontWeight.w700,
                                   size: 14,
                                   color: Colors.black,
@@ -294,14 +263,14 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                             Padding(
                               padding: const EdgeInsets.only(right: 20),
                               child: textWidget(
-                                  widget.scanProductList[0].defaultCode,
+                                  widget.scanProductList.defaultCode,
                                   size: 13),
                             ),
                             const SizedBox(height: 20),
                             textWidget(
                                 DateFormat('dd MMM yyyy').format(
                                   DateTime.parse(
-                                      widget.scanProductList[0].createDate),
+                                      widget.scanProductList.createDate),
                                 ),
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
@@ -377,18 +346,18 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                                       previousValue + element);
                               superPrint(requestWarehouseID);
                               if (sumNewReturnQty <=
-                                  widget.scanProductList[0].quantity) {
+                                  widget.scanProductList.quantity) {
                                 ref
                                     .read(
                                         myReturnStateNotifierProvider.notifier)
                                     .updateMyReturn(
                                         requestWarehouseID,
                                         userWarehouse.warehouseList[0],
-                                        widget.scanProductList[0].id,
-                                        widget.scanProductList[0].name,
+                                        widget.scanProductList.id,
+                                        widget.scanProductList.name,
                                         sumNewReturnQty,
-                                        widget.scanProductList[0].price,
-                                        widget.scanProductList[0].uomList[0],
+                                        widget.scanProductList.price,
+                                        widget.scanProductList.uomList[0],
                                         reasonIndex,
                                         txtNewReturnComment.text,
                                         context,
@@ -481,7 +450,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<MakeNewMyReturnScreen>
                   reasonIndex: myReturnReason[index].reason,
                   reasonIndexList: reasonIndex,
                   returnRequestReasonList: myReturnReason,
-                  receiveQty: widget.scanProductList[0].quantity,
+                  receiveQty: widget.scanProductList.quantity,
                 ),
               ),
             ],

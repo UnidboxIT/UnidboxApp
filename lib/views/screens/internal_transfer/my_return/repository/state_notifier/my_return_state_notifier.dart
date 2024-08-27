@@ -10,6 +10,7 @@ import '../../../../inventory_tracker/domain/product.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../../my_request/domain/return_request_reason.dart';
 import '../../presentation/make_new_my_return_screen.dart';
+import '../../presentation/search_make_new_return_product_screen.dart';
 import '../my_return_repository.dart';
 import '../state/my_return_state.dart';
 
@@ -110,11 +111,10 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
           }
           state = MyReturnState.loadScanProduct(scanProductList);
           Navigator.of(context).pop();
-
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => MakeNewMyReturnScreen(
-                scanProductList: scanProductList,
+                scanProductList: scanProductList.first,
               ),
             ),
           );
@@ -152,10 +152,13 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MakeNewMyReturnScreen(
-              scanProductList: searchProductList,
-            ),
-          ),
+              builder: (context) => SearchMakeNewReturnProductScreen(
+                    searchProductList: searchProductList,
+                  )
+              // MakeNewMyReturnScreen(
+              //   scanProductList: searchProductList.first,
+              // ),
+              ),
         );
       } else {
         Navigator.of(context).pop();

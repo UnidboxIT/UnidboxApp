@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_return/repository/provider/my_return_provider.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/text_widget.dart';
-import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../barcode_scanner_screen.dart';
+
+TextEditingController txtSearchController = TextEditingController();
 
 class NewReturnSearchAndScanWidget extends ConsumerStatefulWidget {
   const NewReturnSearchAndScanWidget({super.key});
@@ -17,7 +18,6 @@ class NewReturnSearchAndScanWidget extends ConsumerStatefulWidget {
 
 class _NewReturnSearchAndScanWidgetState
     extends ConsumerState<NewReturnSearchAndScanWidget> {
-  TextEditingController txtSearchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,13 +57,11 @@ class _NewReturnSearchAndScanWidgetState
                 ? TextButton(
                     onPressed: () async {
                       FocusManager.instance.primaryFocus!.unfocus();
+                      // ref.read(bottomBarVisibilityProvider.notifier).state =
+                      //     true;
                       ref
                           .read(myReturnStateNotifierProvider.notifier)
-                          .searchProduct(txtSearchController.text, context, 0)
-                          .then((_) {
-                        ref.read(bottomBarVisibilityProvider.notifier).state =
-                            false;
-                      });
+                          .searchProduct(txtSearchController.text, context, 0);
                     },
                     child: textWidget(
                       "Search",
@@ -77,6 +75,7 @@ class _NewReturnSearchAndScanWidgetState
                       size: 18,
                     ),
                     onPressed: () {
+                      txtSearchController.clear();
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             const NewReturnBarCodeScannerScreen(),

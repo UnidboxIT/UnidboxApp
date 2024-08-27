@@ -4,10 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../../../inventory_tracker/presentation/inventory_tracker_screen.dart';
-import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../my_return/presentation/barcode_scanner_screen.dart';
+import '../../../my_return/presentation/widgets/new_return_scan_search_bar_widget.dart';
 
 Widget draweWidget(
     BuildContext context, GlobalKey<ScaffoldState> scaffoldKey, WidgetRef ref,
@@ -55,7 +54,7 @@ Widget draweWidget(
             }),
             const SizedBox(height: 20),
             drawerTabWidget("Make New\nReturn", () {
-              ref.read(bottomBarVisibilityProvider.notifier).state = false;
+              txtSearchController.clear();
               scaffoldKey.currentState!.closeEndDrawer();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const NewReturnBarCodeScannerScreen(),

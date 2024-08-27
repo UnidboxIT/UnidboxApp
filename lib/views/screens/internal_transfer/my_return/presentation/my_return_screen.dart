@@ -24,6 +24,7 @@ import '../repository/state/my_return_state.dart';
 import 'barcode_scanner_screen.dart';
 import 'widgets/accepted_my_return_widget.dart';
 import 'widgets/each_my_return_product_widget.dart';
+import 'widgets/new_return_scan_search_bar_widget.dart';
 
 class MyReturnScreen extends ConsumerStatefulWidget {
   const MyReturnScreen({super.key});
@@ -204,6 +205,7 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          txtSearchController.clear();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 const NewReturnBarCodeScannerScreen(),
