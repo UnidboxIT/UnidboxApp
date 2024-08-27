@@ -28,6 +28,9 @@ mixin _$MyReturnState {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,6 +43,8 @@ mixin _$MyReturnState {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +57,8 @@ mixin _$MyReturnState {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +73,8 @@ mixin _$MyReturnState {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +87,8 @@ mixin _$MyReturnState {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +101,8 @@ mixin _$MyReturnState {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -197,6 +210,9 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return loadMyReturnData(myReturnDataList);
   }
@@ -212,6 +228,8 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return loadMyReturnData?.call(myReturnDataList);
   }
@@ -227,6 +245,8 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadMyReturnData != null) {
@@ -247,6 +267,8 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return loadMyReturnData(this);
   }
@@ -262,6 +284,8 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return loadMyReturnData?.call(this);
   }
@@ -277,6 +301,8 @@ class _$MyReturnDataListImpl implements MyReturnDataList {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadMyReturnData != null) {
@@ -381,6 +407,9 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return loadScanProduct(scanProductList);
   }
@@ -396,6 +425,8 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return loadScanProduct?.call(scanProductList);
   }
@@ -411,6 +442,8 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadScanProduct != null) {
@@ -431,6 +464,8 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return loadScanProduct(this);
   }
@@ -446,6 +481,8 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return loadScanProduct?.call(this);
   }
@@ -461,6 +498,8 @@ class _$MyReturnScanProductListImpl implements MyReturnScanProductList {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadScanProduct != null) {
@@ -566,6 +605,9 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return loadSearchProduct(searchProductList);
   }
@@ -581,6 +623,8 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return loadSearchProduct?.call(searchProductList);
   }
@@ -596,6 +640,8 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadSearchProduct != null) {
@@ -616,6 +662,8 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return loadSearchProduct(this);
   }
@@ -631,6 +679,8 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return loadSearchProduct?.call(this);
   }
@@ -646,6 +696,8 @@ class _$SearchMyReturnProductListImpl implements SearchMyReturnProductList {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loadSearchProduct != null) {
@@ -713,6 +765,9 @@ class _$InitialImpl implements Initial {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return initial();
   }
@@ -728,6 +783,8 @@ class _$InitialImpl implements Initial {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return initial?.call();
   }
@@ -743,6 +800,8 @@ class _$InitialImpl implements Initial {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -763,6 +822,8 @@ class _$InitialImpl implements Initial {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return initial(this);
   }
@@ -778,6 +839,8 @@ class _$InitialImpl implements Initial {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return initial?.call(this);
   }
@@ -793,6 +856,8 @@ class _$InitialImpl implements Initial {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -854,6 +919,9 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return loading();
   }
@@ -869,6 +937,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return loading?.call();
   }
@@ -884,6 +954,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -904,6 +976,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return loading(this);
   }
@@ -919,6 +993,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return loading?.call(this);
   }
@@ -934,6 +1010,8 @@ class _$MyReturnLoadingImpl implements MyReturnLoading {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -997,6 +1075,9 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return updateLoading();
   }
@@ -1012,6 +1093,8 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return updateLoading?.call();
   }
@@ -1027,6 +1110,8 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (updateLoading != null) {
@@ -1047,6 +1132,8 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return updateLoading(this);
   }
@@ -1062,6 +1149,8 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return updateLoading?.call(this);
   }
@@ -1077,6 +1166,8 @@ class _$MyReturnUpdateLoadingImpl implements MyReturnUpdateLoading {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (updateLoading != null) {
@@ -1140,6 +1231,9 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return successUpdateSuccess();
   }
@@ -1155,6 +1249,8 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return successUpdateSuccess?.call();
   }
@@ -1170,6 +1266,8 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (successUpdateSuccess != null) {
@@ -1190,6 +1288,8 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return successUpdateSuccess(this);
   }
@@ -1205,6 +1305,8 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return successUpdateSuccess?.call(this);
   }
@@ -1220,6 +1322,8 @@ class _$MyReturnUpdateSuccessImpl implements MyReturnUpdateSuccess {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (successUpdateSuccess != null) {
@@ -1307,6 +1411,9 @@ class _$MyReturnErrorImpl implements MyReturnError {
     required TResult Function() updateLoading,
     required TResult Function() successUpdateSuccess,
     required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
   }) {
     return myReturnError(error);
   }
@@ -1322,6 +1429,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult? Function()? updateLoading,
     TResult? Function()? successUpdateSuccess,
     TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
   }) {
     return myReturnError?.call(error);
   }
@@ -1337,6 +1446,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult Function()? updateLoading,
     TResult Function()? successUpdateSuccess,
     TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (myReturnError != null) {
@@ -1357,6 +1468,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     required TResult Function(MyReturnUpdateLoading value) updateLoading,
     required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
     required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
   }) {
     return myReturnError(this);
   }
@@ -1372,6 +1485,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult? Function(MyReturnUpdateLoading value)? updateLoading,
     TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
   }) {
     return myReturnError?.call(this);
   }
@@ -1387,6 +1502,8 @@ class _$MyReturnErrorImpl implements MyReturnError {
     TResult Function(MyReturnUpdateLoading value)? updateLoading,
     TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
     TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
     required TResult orElse(),
   }) {
     if (myReturnError != null) {
@@ -1403,4 +1520,205 @@ abstract class MyReturnError implements MyReturnState {
   @JsonKey(ignore: true)
   _$$MyReturnErrorImplCopyWith<_$MyReturnErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterDataByDateInMyReturnImplCopyWith<$Res> {
+  factory _$$FilterDataByDateInMyReturnImplCopyWith(
+          _$FilterDataByDateInMyReturnImpl value,
+          $Res Function(_$FilterDataByDateInMyReturnImpl) then) =
+      __$$FilterDataByDateInMyReturnImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, dynamic>> myReturnedDateFilteredData});
+}
+
+/// @nodoc
+class __$$FilterDataByDateInMyReturnImplCopyWithImpl<$Res>
+    extends _$MyReturnStateCopyWithImpl<$Res, _$FilterDataByDateInMyReturnImpl>
+    implements _$$FilterDataByDateInMyReturnImplCopyWith<$Res> {
+  __$$FilterDataByDateInMyReturnImplCopyWithImpl(
+      _$FilterDataByDateInMyReturnImpl _value,
+      $Res Function(_$FilterDataByDateInMyReturnImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? myReturnedDateFilteredData = null,
+  }) {
+    return _then(_$FilterDataByDateInMyReturnImpl(
+      null == myReturnedDateFilteredData
+          ? _value._myReturnedDateFilteredData
+          : myReturnedDateFilteredData // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterDataByDateInMyReturnImpl implements FilterDataByDateInMyReturn {
+  const _$FilterDataByDateInMyReturnImpl(
+      final List<Map<String, dynamic>> myReturnedDateFilteredData)
+      : _myReturnedDateFilteredData = myReturnedDateFilteredData;
+
+  final List<Map<String, dynamic>> _myReturnedDateFilteredData;
+  @override
+  List<Map<String, dynamic>> get myReturnedDateFilteredData {
+    if (_myReturnedDateFilteredData is EqualUnmodifiableListView)
+      return _myReturnedDateFilteredData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_myReturnedDateFilteredData);
+  }
+
+  @override
+  String toString() {
+    return 'MyReturnState.filterDataByDateInMyReturn(myReturnedDateFilteredData: $myReturnedDateFilteredData)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterDataByDateInMyReturnImpl &&
+            const DeepCollectionEquality().equals(
+                other._myReturnedDateFilteredData,
+                _myReturnedDateFilteredData));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_myReturnedDateFilteredData));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterDataByDateInMyReturnImplCopyWith<_$FilterDataByDateInMyReturnImpl>
+      get copyWith => __$$FilterDataByDateInMyReturnImplCopyWithImpl<
+          _$FilterDataByDateInMyReturnImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<MyRequest> myReturnDataList)
+        loadMyReturnData,
+    required TResult Function(List<Products> scanProductList) loadScanProduct,
+    required TResult Function(List<Products> searchProductList)
+        loadSearchProduct,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() updateLoading,
+    required TResult Function() successUpdateSuccess,
+    required TResult Function(String? error) myReturnError,
+    required TResult Function(
+            List<Map<String, dynamic>> myReturnedDateFilteredData)
+        filterDataByDateInMyReturn,
+  }) {
+    return filterDataByDateInMyReturn(myReturnedDateFilteredData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult? Function(List<Products> scanProductList)? loadScanProduct,
+    TResult? Function(List<Products> searchProductList)? loadSearchProduct,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? updateLoading,
+    TResult? Function()? successUpdateSuccess,
+    TResult? Function(String? error)? myReturnError,
+    TResult? Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
+  }) {
+    return filterDataByDateInMyReturn?.call(myReturnedDateFilteredData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<MyRequest> myReturnDataList)? loadMyReturnData,
+    TResult Function(List<Products> scanProductList)? loadScanProduct,
+    TResult Function(List<Products> searchProductList)? loadSearchProduct,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? updateLoading,
+    TResult Function()? successUpdateSuccess,
+    TResult Function(String? error)? myReturnError,
+    TResult Function(List<Map<String, dynamic>> myReturnedDateFilteredData)?
+        filterDataByDateInMyReturn,
+    required TResult orElse(),
+  }) {
+    if (filterDataByDateInMyReturn != null) {
+      return filterDataByDateInMyReturn(myReturnedDateFilteredData);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MyReturnDataList value) loadMyReturnData,
+    required TResult Function(MyReturnScanProductList value) loadScanProduct,
+    required TResult Function(SearchMyReturnProductList value)
+        loadSearchProduct,
+    required TResult Function(Initial value) initial,
+    required TResult Function(MyReturnLoading value) loading,
+    required TResult Function(MyReturnUpdateLoading value) updateLoading,
+    required TResult Function(MyReturnUpdateSuccess value) successUpdateSuccess,
+    required TResult Function(MyReturnError value) myReturnError,
+    required TResult Function(FilterDataByDateInMyReturn value)
+        filterDataByDateInMyReturn,
+  }) {
+    return filterDataByDateInMyReturn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MyReturnDataList value)? loadMyReturnData,
+    TResult? Function(MyReturnScanProductList value)? loadScanProduct,
+    TResult? Function(SearchMyReturnProductList value)? loadSearchProduct,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(MyReturnLoading value)? loading,
+    TResult? Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult? Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult? Function(MyReturnError value)? myReturnError,
+    TResult? Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
+  }) {
+    return filterDataByDateInMyReturn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MyReturnDataList value)? loadMyReturnData,
+    TResult Function(MyReturnScanProductList value)? loadScanProduct,
+    TResult Function(SearchMyReturnProductList value)? loadSearchProduct,
+    TResult Function(Initial value)? initial,
+    TResult Function(MyReturnLoading value)? loading,
+    TResult Function(MyReturnUpdateLoading value)? updateLoading,
+    TResult Function(MyReturnUpdateSuccess value)? successUpdateSuccess,
+    TResult Function(MyReturnError value)? myReturnError,
+    TResult Function(FilterDataByDateInMyReturn value)?
+        filterDataByDateInMyReturn,
+    required TResult orElse(),
+  }) {
+    if (filterDataByDateInMyReturn != null) {
+      return filterDataByDateInMyReturn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FilterDataByDateInMyReturn implements MyReturnState {
+  const factory FilterDataByDateInMyReturn(
+          final List<Map<String, dynamic>> myReturnedDateFilteredData) =
+      _$FilterDataByDateInMyReturnImpl;
+
+  List<Map<String, dynamic>> get myReturnedDateFilteredData;
+  @JsonKey(ignore: true)
+  _$$FilterDataByDateInMyReturnImplCopyWith<_$FilterDataByDateInMyReturnImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

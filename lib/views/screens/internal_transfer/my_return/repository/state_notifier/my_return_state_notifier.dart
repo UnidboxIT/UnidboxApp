@@ -212,4 +212,8 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
       superPrint(e.toString());
     }
   }
+
+  void dateFilterMyReturn(List<Map<String, dynamic>> dateFilterList) {
+    state = MyReturnState.filterDataByDateInMyReturn(dateFilterList);
+  }
 }

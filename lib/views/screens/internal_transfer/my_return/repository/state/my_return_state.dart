@@ -22,4 +22,7 @@ class MyReturnState with _$MyReturnState {
   const factory MyReturnState.updateLoading() = MyReturnUpdateLoading;
   const factory MyReturnState.successUpdateSuccess() = MyReturnUpdateSuccess;
   const factory MyReturnState.myReturnError({String? error}) = MyReturnError;
+  const factory MyReturnState.filterDataByDateInMyReturn(
+          List<Map<String, dynamic>> myReturnedDateFilteredData) =
+      FilterDataByDateInMyReturn;
 }

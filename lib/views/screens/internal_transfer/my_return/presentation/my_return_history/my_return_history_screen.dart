@@ -11,6 +11,8 @@ import '../../repository/provider/my_return_provider.dart';
 import '../../repository/state/my_return_state.dart';
 import 'shimmer_myreturn_history.dart';
 
+List<Map<String, dynamic>> requestedHistoryList = [];
+
 class MyReturnHistoryScreen extends ConsumerStatefulWidget {
   const MyReturnHistoryScreen({super.key});
 
@@ -21,17 +23,18 @@ class MyReturnHistoryScreen extends ConsumerStatefulWidget {
 
 class _PendingRequestListScreenState
     extends ConsumerState<MyReturnHistoryScreen> {
-  List<Map<String, dynamic>> requestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
   List<MyRequest> myRequestList = [];
   bool requestLoading = false;
+  List<Map<String, dynamic>> myReturnedDateFilteredData = [];
+
+  // List<Map<String, dynamic>> outletReturnedFilteredData = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
     });
@@ -80,7 +83,9 @@ class _PendingRequestListScreenState
     }
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
+        myReturnedDateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
+        myReturnedDateFilteredData.add(requestedHistoryMap);
       });
     }
   }
@@ -113,11 +118,17 @@ class _PendingRequestListScreenState
           requestLoading = false;
         });
       }
+      if (next is FilterDataByDateInMyReturn) {
+        setState(() {
+          myReturnedDateFilteredData = next.myReturnedDateFilteredData;
+          superPrint(myReturnedDateFilteredData);
+        });
+      }
     });
 
     return requestLoading
         ? shimmerMyReturnHistoryWidget()
-        : requestHistoryWidget(requestedHistoryList);
+        : requestHistoryWidget(myReturnedDateFilteredData);
   }
 
   Widget requestHistoryWidget(

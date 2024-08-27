@@ -138,9 +138,10 @@ class _GlobalReturnHistoryScreenState
             ),
           ),
           Expanded(
-              child: isMyReturn
-                  ? const MyReturnHistoryScreen()
-                  : const OutletReturnHistoryScreen()),
+            child: isMyReturn
+                ? const MyReturnHistoryScreen()
+                : const OutletReturnHistoryScreen(),
+          ),
         ],
       ),
     );
