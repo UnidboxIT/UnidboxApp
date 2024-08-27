@@ -25,6 +25,9 @@ mixin _$OutletReturnState {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +39,9 @@ mixin _$OutletReturnState {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -46,6 +52,8 @@ mixin _$OutletReturnState {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -58,6 +66,8 @@ mixin _$OutletReturnState {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,6 +78,8 @@ mixin _$OutletReturnState {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +90,8 @@ mixin _$OutletReturnState {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -182,6 +196,9 @@ class _$OutletReturnListImpl implements OutletReturnList {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return loadOtherRequestData(outletReturnList);
   }
@@ -196,6 +213,9 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return loadOtherRequestData?.call(outletReturnList);
   }
@@ -209,6 +229,8 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (loadOtherRequestData != null) {
@@ -227,6 +249,8 @@ class _$OutletReturnListImpl implements OutletReturnList {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return loadOtherRequestData(this);
   }
@@ -240,6 +264,8 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return loadOtherRequestData?.call(this);
   }
@@ -253,6 +279,8 @@ class _$OutletReturnListImpl implements OutletReturnList {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (loadOtherRequestData != null) {
@@ -317,6 +345,9 @@ class _$InitialImpl implements Initial {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return initial();
   }
@@ -331,6 +362,9 @@ class _$InitialImpl implements Initial {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return initial?.call();
   }
@@ -344,6 +378,8 @@ class _$InitialImpl implements Initial {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -362,6 +398,8 @@ class _$InitialImpl implements Initial {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return initial(this);
   }
@@ -375,6 +413,8 @@ class _$InitialImpl implements Initial {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return initial?.call(this);
   }
@@ -388,6 +428,8 @@ class _$InitialImpl implements Initial {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -447,6 +489,9 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return loading();
   }
@@ -461,6 +506,9 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return loading?.call();
   }
@@ -474,6 +522,8 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -492,6 +542,8 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return loading(this);
   }
@@ -505,6 +557,8 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return loading?.call(this);
   }
@@ -518,6 +572,8 @@ class _$OutletReturnLoadingImpl implements OutletReturnLoading {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -576,6 +632,9 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return acceptLoading();
   }
@@ -590,6 +649,9 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return acceptLoading?.call();
   }
@@ -603,6 +665,8 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (acceptLoading != null) {
@@ -621,6 +685,8 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return acceptLoading(this);
   }
@@ -634,6 +700,8 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return acceptLoading?.call(this);
   }
@@ -647,6 +715,8 @@ class _$ReceiveLoadingImpl implements ReceiveLoading {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (acceptLoading != null) {
@@ -732,6 +802,9 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return outletReturnError(error);
   }
@@ -746,6 +819,9 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return outletReturnError?.call(error);
   }
@@ -759,6 +835,8 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (outletReturnError != null) {
@@ -777,6 +855,8 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return outletReturnError(this);
   }
@@ -790,6 +870,8 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return outletReturnError?.call(this);
   }
@@ -803,6 +885,8 @@ class _$OutletReturnErrorImpl implements OutletReturnError {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (outletReturnError != null) {
@@ -897,6 +981,9 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     required TResult Function() acceptLoading,
     required TResult Function(String? error) outletReturnError,
     required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
   }) {
     return returnReceivedProductID(productID);
   }
@@ -911,6 +998,9 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult? Function()? acceptLoading,
     TResult? Function(String? error)? outletReturnError,
     TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
   }) {
     return returnReceivedProductID?.call(productID);
   }
@@ -924,6 +1014,8 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult Function()? acceptLoading,
     TResult Function(String? error)? outletReturnError,
     TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (returnReceivedProductID != null) {
@@ -942,6 +1034,8 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     required TResult Function(OutletReturnError value) outletReturnError,
     required TResult Function(ReturnReceivedProductID value)
         returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
   }) {
     return returnReceivedProductID(this);
   }
@@ -955,6 +1049,8 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult? Function(ReceiveLoading value)? acceptLoading,
     TResult? Function(OutletReturnError value)? outletReturnError,
     TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
   }) {
     return returnReceivedProductID?.call(this);
   }
@@ -968,6 +1064,8 @@ class _$ReturnReceivedProductIDImpl implements ReturnReceivedProductID {
     TResult Function(ReceiveLoading value)? acceptLoading,
     TResult Function(OutletReturnError value)? outletReturnError,
     TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
     required TResult orElse(),
   }) {
     if (returnReceivedProductID != null) {
@@ -984,5 +1082,199 @@ abstract class ReturnReceivedProductID implements OutletReturnState {
   int get productID;
   @JsonKey(ignore: true)
   _$$ReturnReceivedProductIDImplCopyWith<_$ReturnReceivedProductIDImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterDataByDateOutletReturnImplCopyWith<$Res> {
+  factory _$$FilterDataByDateOutletReturnImplCopyWith(
+          _$FilterDataByDateOutletReturnImpl value,
+          $Res Function(_$FilterDataByDateOutletReturnImpl) then) =
+      __$$FilterDataByDateOutletReturnImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, dynamic>> outletReturnedDateFilteredData});
+}
+
+/// @nodoc
+class __$$FilterDataByDateOutletReturnImplCopyWithImpl<$Res>
+    extends _$OutletReturnStateCopyWithImpl<$Res,
+        _$FilterDataByDateOutletReturnImpl>
+    implements _$$FilterDataByDateOutletReturnImplCopyWith<$Res> {
+  __$$FilterDataByDateOutletReturnImplCopyWithImpl(
+      _$FilterDataByDateOutletReturnImpl _value,
+      $Res Function(_$FilterDataByDateOutletReturnImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? outletReturnedDateFilteredData = null,
+  }) {
+    return _then(_$FilterDataByDateOutletReturnImpl(
+      null == outletReturnedDateFilteredData
+          ? _value._outletReturnedDateFilteredData
+          : outletReturnedDateFilteredData // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterDataByDateOutletReturnImpl
+    implements FilterDataByDateOutletReturn {
+  const _$FilterDataByDateOutletReturnImpl(
+      final List<Map<String, dynamic>> outletReturnedDateFilteredData)
+      : _outletReturnedDateFilteredData = outletReturnedDateFilteredData;
+
+  final List<Map<String, dynamic>> _outletReturnedDateFilteredData;
+  @override
+  List<Map<String, dynamic>> get outletReturnedDateFilteredData {
+    if (_outletReturnedDateFilteredData is EqualUnmodifiableListView)
+      return _outletReturnedDateFilteredData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_outletReturnedDateFilteredData);
+  }
+
+  @override
+  String toString() {
+    return 'OutletReturnState.filterDataByDateOutletReturn(outletReturnedDateFilteredData: $outletReturnedDateFilteredData)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterDataByDateOutletReturnImpl &&
+            const DeepCollectionEquality().equals(
+                other._outletReturnedDateFilteredData,
+                _outletReturnedDateFilteredData));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_outletReturnedDateFilteredData));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterDataByDateOutletReturnImplCopyWith<
+          _$FilterDataByDateOutletReturnImpl>
+      get copyWith => __$$FilterDataByDateOutletReturnImplCopyWithImpl<
+          _$FilterDataByDateOutletReturnImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<OtherRequest> outletReturnList)
+        loadOtherRequestData,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() acceptLoading,
+    required TResult Function(String? error) outletReturnError,
+    required TResult Function(int productID) returnReceivedProductID,
+    required TResult Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)
+        filterDataByDateOutletReturn,
+  }) {
+    return filterDataByDateOutletReturn(outletReturnedDateFilteredData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<OtherRequest> outletReturnList)?
+        loadOtherRequestData,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? acceptLoading,
+    TResult? Function(String? error)? outletReturnError,
+    TResult? Function(int productID)? returnReceivedProductID,
+    TResult? Function(
+            List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
+  }) {
+    return filterDataByDateOutletReturn?.call(outletReturnedDateFilteredData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<OtherRequest> outletReturnList)? loadOtherRequestData,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? acceptLoading,
+    TResult Function(String? error)? outletReturnError,
+    TResult Function(int productID)? returnReceivedProductID,
+    TResult Function(List<Map<String, dynamic>> outletReturnedDateFilteredData)?
+        filterDataByDateOutletReturn,
+    required TResult orElse(),
+  }) {
+    if (filterDataByDateOutletReturn != null) {
+      return filterDataByDateOutletReturn(outletReturnedDateFilteredData);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OutletReturnList value) loadOtherRequestData,
+    required TResult Function(Initial value) initial,
+    required TResult Function(OutletReturnLoading value) loading,
+    required TResult Function(ReceiveLoading value) acceptLoading,
+    required TResult Function(OutletReturnError value) outletReturnError,
+    required TResult Function(ReturnReceivedProductID value)
+        returnReceivedProductID,
+    required TResult Function(FilterDataByDateOutletReturn value)
+        filterDataByDateOutletReturn,
+  }) {
+    return filterDataByDateOutletReturn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OutletReturnList value)? loadOtherRequestData,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(OutletReturnLoading value)? loading,
+    TResult? Function(ReceiveLoading value)? acceptLoading,
+    TResult? Function(OutletReturnError value)? outletReturnError,
+    TResult? Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult? Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
+  }) {
+    return filterDataByDateOutletReturn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OutletReturnList value)? loadOtherRequestData,
+    TResult Function(Initial value)? initial,
+    TResult Function(OutletReturnLoading value)? loading,
+    TResult Function(ReceiveLoading value)? acceptLoading,
+    TResult Function(OutletReturnError value)? outletReturnError,
+    TResult Function(ReturnReceivedProductID value)? returnReceivedProductID,
+    TResult Function(FilterDataByDateOutletReturn value)?
+        filterDataByDateOutletReturn,
+    required TResult orElse(),
+  }) {
+    if (filterDataByDateOutletReturn != null) {
+      return filterDataByDateOutletReturn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FilterDataByDateOutletReturn implements OutletReturnState {
+  const factory FilterDataByDateOutletReturn(
+          final List<Map<String, dynamic>> outletReturnedDateFilteredData) =
+      _$FilterDataByDateOutletReturnImpl;
+
+  List<Map<String, dynamic>> get outletReturnedDateFilteredData;
+  @JsonKey(ignore: true)
+  _$$FilterDataByDateOutletReturnImplCopyWith<
+          _$FilterDataByDateOutletReturnImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

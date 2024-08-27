@@ -18,4 +18,7 @@ class OutletReturnState with _$OutletReturnState {
       OutletReturnError;
   const factory OutletReturnState.returnReceivedProductID(int productID) =
       ReturnReceivedProductID;
+  const factory OutletReturnState.filterDataByDateOutletReturn(
+          List<Map<String, dynamic>> outletReturnedDateFilteredData) =
+      FilterDataByDateOutletReturn;
 }

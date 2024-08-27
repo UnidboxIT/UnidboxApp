@@ -11,6 +11,8 @@ import '../../../my_return/presentation/my_return_history/shimmer_myreturn_histo
 import '../../repository/provider/outlet_return_provider.dart';
 import '../../repository/state/outlet_return_state.dart';
 
+List<Map<String, dynamic>> requestedOutletReturnHistoryList = [];
+
 class OutletReturnHistoryScreen extends ConsumerStatefulWidget {
   const OutletReturnHistoryScreen({super.key});
 
@@ -21,11 +23,12 @@ class OutletReturnHistoryScreen extends ConsumerStatefulWidget {
 
 class _PendingRequestListScreenState
     extends ConsumerState<OutletReturnHistoryScreen> {
-  List<Map<String, dynamic>> requestedHistoryList = [];
+  // List<Map<String, dynamic>> requestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
   List<OtherRequest> otherRequestList = [];
   bool requestLoading = false;
+  List<Map<String, dynamic>> outletReturnedFilteredData = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +39,7 @@ class _PendingRequestListScreenState
   }
 
   loadRequestHistory() {
-    requestedHistoryList.clear();
+    requestedOutletReturnHistoryList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if ((data.isNewReturn &&
@@ -76,7 +79,9 @@ class _PendingRequestListScreenState
     }
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
-        requestedHistoryList.add(requestedHistoryMap);
+        outletReturnedFilteredData.clear();
+        requestedOutletReturnHistoryList.add(requestedHistoryMap);
+        outletReturnedFilteredData.add(requestedHistoryMap);
       });
     }
   }
@@ -109,10 +114,16 @@ class _PendingRequestListScreenState
           requestLoading = false;
         });
       }
+      if (next is FilterDataByDateOutletReturn) {
+        setState(() {
+          outletReturnedFilteredData = next.outletReturnedDateFilteredData;
+          superPrint(outletReturnedFilteredData);
+        });
+      }
     });
     return requestLoading
         ? shimmerMyReturnHistoryWidget()
-        : requestHistoryWidget(requestedHistoryList);
+        : requestHistoryWidget(outletReturnedFilteredData);
   }
 
   Widget requestHistoryWidget(

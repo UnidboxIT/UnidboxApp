@@ -5,12 +5,15 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/presentation/outlet_return_history/outlet_return_history_screen.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../my_return/presentation/my_return_history/my_return_history_screen.dart';
 import '../../../my_return/repository/provider/my_return_provider.dart';
 
 class FilterByDateWidget extends ConsumerStatefulWidget {
-  const FilterByDateWidget({super.key});
+  final bool isMyReturn;
+  const FilterByDateWidget({super.key, required this.isMyReturn});
 
   @override
   ConsumerState<FilterByDateWidget> createState() => _FilterByDateWidgetState();
@@ -112,8 +115,16 @@ class _FilterByDateWidgetState extends ConsumerState<FilterByDateWidget> {
       // myReturnedDateFilteredData.clear();
       // myReturnedDateFilteredData =
       //     filterDataByDateRange(requestedHistoryList, startDate, endDate);
-      ref.read(myReturnStateNotifierProvider.notifier).dateFilterMyReturn(
-          filterDataByDateRange(requestedHistoryList, startDate, endDate));
+      superPrint(widget.isMyReturn);
+      if (widget.isMyReturn) {
+        ref.read(myReturnStateNotifierProvider.notifier).dateFilterMyReturn(
+            filterDataByDateRange(requestedHistoryList, startDate, endDate));
+      } else {
+        ref.read(outletReturnStateNotifier.notifier).dateFilterOutletReturn(
+            filterDataByDateRange(
+                requestedOutletReturnHistoryList, startDate, endDate));
+      }
+
       superPrint(selectedDateRange);
     });
   }

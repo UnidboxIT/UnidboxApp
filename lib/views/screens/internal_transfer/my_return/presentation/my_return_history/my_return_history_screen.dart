@@ -29,8 +29,6 @@ class _PendingRequestListScreenState
   bool requestLoading = false;
   List<Map<String, dynamic>> myReturnedDateFilteredData = [];
 
-  // List<Map<String, dynamic>> outletReturnedFilteredData = [];
-
   @override
   void initState() {
     // TODO: implement initState

@@ -93,4 +93,8 @@ class OutletReturnStateNotifier extends StateNotifier<OutletReturnState> {
       state = const OutletReturnState.outletReturnError();
     }
   }
+
+  void dateFilterOutletReturn(List<Map<String, dynamic>> dateFilterList) {
+    state = OutletReturnState.filterDataByDateOutletReturn(dateFilterList);
+  }
 }
