@@ -158,7 +158,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
 
-  clearTotalQty() {
-    state = const StockOrderingState.clearTotalQty({});
+  clearTotalQty(StockOrder stockOrder) {
+    state = StockOrderingState.clearTotalQty({stockOrder.id: 1});
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
@@ -26,11 +27,24 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   List<Map<String, dynamic>> orderLineList = [];
   Map<String, Map<String, dynamic>> checkOutDataMap = {};
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.stockOrderList.isNotEmpty) {
+      setState(() {
+        totalQty = {widget.stockOrderList.first.id: 1};
+      });
+      superPrint(totalQty);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
       if (next is IncrementStockOrderQty) {
         setState(() {
           totalQty = next.qty;
+          superPrint(totalQty);
         });
       }
       if (next is DecrementStockOrderQty) {
@@ -58,7 +72,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
     });
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Column(
         children: [
           Row(
@@ -100,7 +114,12 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                 int companyId = widget.stockOrderList[index].company[0];
                 int partnerId = widget.stockOrderList[index].name[0];
                 return eachStockOrderingWidget(
-                    vendor, price, stockOrderID, companyId, partnerId);
+                  vendor,
+                  price,
+                  stockOrderID,
+                  companyId,
+                  partnerId,
+                );
               },
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 10);
@@ -113,28 +132,45 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
 
   Widget eachStockOrderingWidget(
       String vendor, String price, int vendorId, int companyId, int parterId) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 4,
-          child: textWidget(vendor,
-              color: Colors.black, size: 14, textAlign: TextAlign.left),
-        ),
-        Expanded(
-          flex: 3,
-          child: textWidget(price,
-              color: Colors.black, size: 14, textAlign: TextAlign.center),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          flex: 5,
-          child: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    addMinusIconButtonWidget(
-                      () {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+            ? AppColor.primary
+            : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 4,
+            child: textWidget(vendor,
+                color:
+                    totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                        ? Colors.white
+                        : Colors.black,
+                size: 14,
+                textAlign: TextAlign.left),
+          ),
+          Expanded(
+            flex: 3,
+            child: textWidget("\$$price",
+                color:
+                    totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                        ? Colors.white
+                        : Colors.black,
+                size: 14,
+                textAlign: TextAlign.center),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            flex: 5,
+            child: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      addMinusIconButtonWidget(() {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
                             .decrementTotalQty(
@@ -150,19 +186,19 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                               widget.productDetail.imageUrl,
                               widget.productDetail.defaultCode,
                             );
-                      },
-                      CupertinoIcons.minus_circle_fill,
-                    ),
-                    const SizedBox(width: 10),
-                    textWidget(
-                      totalQty[vendorId].toString(),
-                      size: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    const SizedBox(width: 10),
-                    addMinusIconButtonWidget(
-                      () {
+                      }, CupertinoIcons.minus_circle_fill, vendorId),
+                      const SizedBox(width: 10),
+                      textWidget(
+                        totalQty[vendorId].toString(),
+                        size: 18,
+                        color: totalQty.containsKey(vendorId) &&
+                                totalQty[vendorId]! >= 1
+                            ? Colors.white
+                            : Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(width: 10),
+                      addMinusIconButtonWidget(() {
                         ref
                             .read(stockOrderStateNotifierProvider.notifier)
                             .incrementTotalQty(
@@ -178,34 +214,34 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                               widget.productDetail.imageUrl,
                               widget.productDetail.defaultCode,
                             );
-                      },
-                      CupertinoIcons.add_circled_solid,
-                    ),
-                  ],
-                )
-              : buttonWidget("Add To Cart", () {
-                  ref
-                      .read(stockOrderStateNotifierProvider.notifier)
-                      .incrementTotalQty(
-                        vendorId,
-                        vendor,
-                        totalQty,
-                        orderLineList,
-                        checkOutDataMap,
-                        widget.productDetail.id,
-                        widget.productDetail.name,
-                        widget.productDetail.uomList[0],
-                        widget.productDetail.price,
-                        widget.productDetail.imageUrl,
-                        widget.productDetail.defaultCode,
-                      );
-                }),
-        )
-      ],
+                      }, CupertinoIcons.add_circled_solid, vendorId),
+                    ],
+                  )
+                : buttonWidget("Add To Cart", () {
+                    ref
+                        .read(stockOrderStateNotifierProvider.notifier)
+                        .incrementTotalQty(
+                          vendorId,
+                          vendor,
+                          totalQty,
+                          orderLineList,
+                          checkOutDataMap,
+                          widget.productDetail.id,
+                          widget.productDetail.name,
+                          widget.productDetail.uomList[0],
+                          widget.productDetail.price,
+                          widget.productDetail.imageUrl,
+                          widget.productDetail.defaultCode,
+                        );
+                  }),
+          )
+        ],
+      ),
     );
   }
 
-  Widget addMinusIconButtonWidget(VoidCallback onPressed, IconData iconData) {
+  Widget addMinusIconButtonWidget(
+      VoidCallback onPressed, IconData iconData, int vendorId) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -214,7 +250,9 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
         color: Colors.transparent,
         child: Icon(
           iconData,
-          color: AppColor.primary,
+          color: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+              ? Colors.white
+              : Colors.black,
           size: 30,
         ),
       ),

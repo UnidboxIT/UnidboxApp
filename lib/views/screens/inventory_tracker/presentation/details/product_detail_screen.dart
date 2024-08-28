@@ -8,7 +8,7 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/inhouse_stock.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/Inhouse_stock_widget.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/stock_ordering_widget.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/stock_ordering/stock_ordering_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/stock_button_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
@@ -28,7 +28,7 @@ import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
 import '../update_product/product_detail_update.dart';
-import 'check_out_order_detail_screen.dart';
+import '../stock_ordering/check_out_order_detail_screen.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
@@ -53,7 +53,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   bool isLoading = false;
   bool isInHouseLoading = false;
   String stockName = "In-house Stock";
-  Map<int, int> totalQty = {};
+  Map<int, int> totalStockOrderQty = {};
   List<Map<String, dynamic>> orderLineList = [];
   Map<String, Map<String, dynamic>> checkOutDataMap = {};
   bool isWarehouseLoading = false;
@@ -145,12 +145,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       }
       if (next is IncrementStockOrderQty) {
         setState(() {
-          totalQty = next.qty;
+          totalStockOrderQty = next.qty;
         });
       }
       if (next is DecrementStockOrderQty) {
         setState(() {
-          totalQty = next.qty;
+          totalStockOrderQty = next.qty;
         });
       }
 
@@ -167,14 +167,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       }
       if (next is ClearTotalQty) {
         setState(() {
-          totalQty = next.totalQty;
+          totalStockOrderQty = next.totalQty;
         });
       }
     });
 
     return SuperScaffold(
       topColor: AppColor.primary,
-      botColor: Colors.white,
+      botColor: AppColor.primary,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: PopScope(
@@ -222,11 +222,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   bottom: 0,
                   child: stockName == "In-house Stock"
                       ? const SizedBox.shrink()
-                      : totalQty.isEmpty || totalQty.values.contains(0)
+                      : totalStockOrderQty.isEmpty ||
+                              totalStockOrderQty.values.contains(0)
                           ? const SizedBox.shrink()
                           : Container(
                               width: 100.w,
-                              height: 7.h,
+                              height: 10.h,
+                              alignment: Alignment.topCenter,
+                              padding: const EdgeInsets.only(top: 10),
                               decoration: BoxDecoration(
                                 color: AppColor.primary,
                                 borderRadius: const BorderRadius.only(
@@ -242,11 +245,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                     color: Colors.white,
                                   ),
                                   const SizedBox(width: 10),
-                                  for (var data in totalQty.values)
-                                    textWidget(data.toString(),
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        size: 16),
+                                  textWidget(
+                                      totalStockOrderQty.values
+                                          .reduce((a, b) => a + b)
+                                          .toString(),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      size: 16),
                                   const SizedBox(width: 5),
                                   textWidget("Items",
                                       color: Colors.white,
@@ -300,6 +305,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       children: [
                         stockButtonWidget(
                           () {
+                            if (stockOrderList.isNotEmpty) {
+                              ref
+                                  .read(
+                                      stockOrderStateNotifierProvider.notifier)
+                                  .clearTotalQty(stockOrderList.first);
+                            }
+
                             toggleInHouseStockButton("In-house Stock");
                           },
                           "In-house Stock",
@@ -308,6 +320,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                         stockButtonWidget(
                           () {
                             toggleInHouseStockButton("Stock Ordering");
+                            if (stockOrderList.isNotEmpty) {
+                              setState(() {
+                                totalStockOrderQty = {
+                                  stockOrderList.first.id: 1
+                                };
+                              });
+                            }
                           },
                           "Stock Ordering",
                           stockName,
