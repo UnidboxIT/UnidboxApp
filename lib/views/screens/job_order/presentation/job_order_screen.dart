@@ -16,7 +16,7 @@ class JobOrderScreen extends StatelessWidget {
           extendBodyBehindAppBar: true,
           backgroundColor: Colors.white,
           body: Center(
-            child: textWidget("Coming Soon"),
+            child: textWidget("New Feature Coming in Next Version!!"),
           ),
         ));
   }

@@ -215,7 +215,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 }, Icons.edit_document,
                     isInternalTransfer: !widget.isInternalTransfer),
                 Transform.translate(
-                  offset: Offset(0, 14.h),
+                  offset: Offset(0, 15.h),
                   child: productDetailBodyWidget(),
                 ),
                 Positioned(

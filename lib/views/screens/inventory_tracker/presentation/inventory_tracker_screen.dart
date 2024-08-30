@@ -9,6 +9,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/inventory_tacker_state.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import '../../../../utils/commons/super_print.dart';
 import '../domain/inventory_tracker.dart';
 import '../domain/product.dart';
 import '../repository/provider/product_provider.dart';
@@ -50,6 +51,7 @@ class _InventoryTrackerScreenState
 
   @override
   Widget build(BuildContext context) {
+    superPrint(MediaQuery.of(context).size.width);
     ref.listen(inventroyTrackerStateNotifier, (prev, next) {
       if (next is Loading) {
         inventoryTrackerList = [];
@@ -103,7 +105,7 @@ class _InventoryTrackerScreenState
                 Icons.add,
               ),
               Transform.translate(
-                offset: Offset(0, 14.h),
+                offset: Offset(0, 15.h),
                 child:
                     inventoryTrackerBodyWidget(inventoryTrackerList, context),
               ),

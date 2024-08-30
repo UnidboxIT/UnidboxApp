@@ -58,7 +58,7 @@ class _InventoryCategoryScreenState
                     builder: (context) => const CreateProductScreen()));
               }, Icons.add, isInternalTransfer: false),
               Transform.translate(
-                offset: Offset(0, 14.h),
+                offset: Offset(0, 15.h),
                 child: subCategoryBodyWidget(context),
               ),
             ],

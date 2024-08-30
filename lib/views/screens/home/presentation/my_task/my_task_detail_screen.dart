@@ -153,7 +153,7 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                 Navigator.of(context).pop();
               }),
               Transform.translate(
-                offset: Offset(0, 14.h),
+                offset: Offset(0, 15.h),
                 child: mytaskDetailBodyWidget(),
               ),
             ],
