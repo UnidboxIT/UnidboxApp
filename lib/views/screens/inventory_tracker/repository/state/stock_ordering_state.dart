@@ -19,6 +19,10 @@ class StockOrderingState with _$StockOrderingState {
       List<Map<String, dynamic>> orderLine) = OrderLines;
   const factory StockOrderingState.checkOut(
       Map<String, Map<String, dynamic>> checkoutMap) = CheckOutMap;
+  const factory StockOrderingState.backupOrderList(
+      List<Map<String, dynamic>> orderLine) = BackupOrderList;
+  const factory StockOrderingState.backupCheckOut(
+      Map<String, Map<String, dynamic>> checkoutMap) = BackupCheckOut;
   const factory StockOrderingState.clearTotalQty(Map<int, int> totalQty) =
       ClearTotalQty;
   const factory StockOrderingState.initial() = Initial;

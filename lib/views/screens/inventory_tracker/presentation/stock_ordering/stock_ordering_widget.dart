@@ -6,7 +6,6 @@ import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.d
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
 
@@ -28,13 +27,43 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   Map<String, Map<String, dynamic>> checkOutDataMap = {};
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.stockOrderList.isNotEmpty) {
       setState(() {
-        totalQty = {widget.stockOrderList.first.id: 1};
+        Future.delayed(const Duration(milliseconds: 10), () {
+          ref.read(stockOrderStateNotifierProvider.notifier).incrementTotalQty(
+                widget.stockOrderList[0].id,
+                widget.stockOrderList[0].name[1],
+                totalQty,
+                [
+                  {
+                    'product_id': widget.productDetail.id,
+                    'name': widget.productDetail.name,
+                    'product_qty': 1,
+                    'product_uom': widget.productDetail.uomList[0],
+                    'price_unit': widget.productDetail.price,
+                  }
+                ],
+                {
+                  widget.stockOrderList.first.name[1]: {
+                    'product_id': widget.productDetail.id,
+                    'name': widget.productDetail.name,
+                    'product_qty': 1,
+                    'product_uom': widget.productDetail.uomList[0],
+                    'price_unit': widget.productDetail.price,
+                    "image": widget.productDetail.imageUrl,
+                    "sku": widget.productDetail.defaultCode,
+                  }
+                },
+                widget.productDetail.id,
+                widget.productDetail.name,
+                widget.productDetail.uomList[0],
+                widget.productDetail.price,
+                widget.productDetail.imageUrl,
+                widget.productDetail.defaultCode,
+              );
+        });
       });
-      superPrint(totalQty);
     }
   }
 
@@ -132,110 +161,115 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
 
   Widget eachStockOrderingWidget(
       String vendor, String price, int vendorId, int companyId, int parterId) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
-            ? AppColor.primary
-            : Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 4,
-            child: textWidget(vendor,
-                color:
-                    totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
-                        ? Colors.white
-                        : Colors.black,
-                size: 14,
-                textAlign: TextAlign.left),
-          ),
-          Expanded(
-            flex: 3,
-            child: textWidget("\$$price",
-                color:
-                    totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
-                        ? Colors.white
-                        : Colors.black,
-                size: 14,
-                textAlign: TextAlign.center),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            flex: 5,
-            child: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      addMinusIconButtonWidget(() {
-                        ref
-                            .read(stockOrderStateNotifierProvider.notifier)
-                            .decrementTotalQty(
-                              vendorId,
-                              vendor,
-                              totalQty,
-                              orderLineList,
-                              checkOutDataMap,
-                              widget.productDetail.id,
-                              widget.productDetail.name,
-                              widget.productDetail.uomList[0],
-                              widget.productDetail.price,
-                              widget.productDetail.imageUrl,
-                              widget.productDetail.defaultCode,
-                            );
-                      }, CupertinoIcons.minus_circle_fill, vendorId),
-                      const SizedBox(width: 10),
-                      textWidget(
-                        totalQty[vendorId].toString(),
-                        size: 18,
-                        color: totalQty.containsKey(vendorId) &&
-                                totalQty[vendorId]! >= 1
-                            ? Colors.white
-                            : Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      const SizedBox(width: 10),
-                      addMinusIconButtonWidget(() {
-                        ref
-                            .read(stockOrderStateNotifierProvider.notifier)
-                            .incrementTotalQty(
-                              vendorId,
-                              vendor,
-                              totalQty,
-                              orderLineList,
-                              checkOutDataMap,
-                              widget.productDetail.id,
-                              widget.productDetail.name,
-                              widget.productDetail.uomList[0],
-                              widget.productDetail.price,
-                              widget.productDetail.imageUrl,
-                              widget.productDetail.defaultCode,
-                            );
-                      }, CupertinoIcons.add_circled_solid, vendorId),
-                    ],
-                  )
-                : buttonWidget("Add To Cart", () {
-                    ref
-                        .read(stockOrderStateNotifierProvider.notifier)
-                        .incrementTotalQty(
-                          vendorId,
-                          vendor,
-                          totalQty,
-                          orderLineList,
-                          checkOutDataMap,
-                          widget.productDetail.id,
-                          widget.productDetail.name,
-                          widget.productDetail.uomList[0],
-                          widget.productDetail.price,
-                          widget.productDetail.imageUrl,
-                          widget.productDetail.defaultCode,
-                        );
-                  }),
-          )
-        ],
+    return GestureDetector(
+      onTap: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+          ? null
+          : () {
+              ref
+                  .read(stockOrderStateNotifierProvider.notifier)
+                  .incrementTotalQty(
+                    vendorId,
+                    vendor,
+                    totalQty,
+                    orderLineList,
+                    checkOutDataMap,
+                    widget.productDetail.id,
+                    widget.productDetail.name,
+                    widget.productDetail.uomList[0],
+                    widget.productDetail.price,
+                    widget.productDetail.imageUrl,
+                    widget.productDetail.defaultCode,
+                  );
+            },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+              ? AppColor.primary
+              : Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 4,
+              child: textWidget(vendor,
+                  color:
+                      totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                          ? Colors.white
+                          : Colors.black,
+                  size: 14,
+                  textAlign: TextAlign.left),
+            ),
+            Expanded(
+              flex: 3,
+              child: textWidget("\$$price",
+                  color:
+                      totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                          ? Colors.white
+                          : Colors.black,
+                  size: 14,
+                  textAlign: TextAlign.center),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+                flex: 5,
+                child: totalQty.containsKey(vendorId) &&
+                        totalQty[vendorId]! >= 1
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          addMinusIconButtonWidget(() {
+                            ref
+                                .read(stockOrderStateNotifierProvider.notifier)
+                                .decrementTotalQty(
+                                  vendorId,
+                                  vendor,
+                                  totalQty,
+                                  orderLineList,
+                                  checkOutDataMap,
+                                  widget.productDetail.id,
+                                  widget.productDetail.name,
+                                  widget.productDetail.uomList[0],
+                                  widget.productDetail.price,
+                                  widget.productDetail.imageUrl,
+                                  widget.productDetail.defaultCode,
+                                );
+                          }, CupertinoIcons.minus_circle_fill, vendorId),
+                          const SizedBox(width: 10),
+                          textWidget(
+                            totalQty[vendorId].toString(),
+                            size: 18,
+                            color: totalQty.containsKey(vendorId) &&
+                                    totalQty[vendorId]! >= 1
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(width: 10),
+                          addMinusIconButtonWidget(() {
+                            ref
+                                .read(stockOrderStateNotifierProvider.notifier)
+                                .incrementTotalQty(
+                                  vendorId,
+                                  vendor,
+                                  totalQty,
+                                  orderLineList,
+                                  checkOutDataMap,
+                                  widget.productDetail.id,
+                                  widget.productDetail.name,
+                                  widget.productDetail.uomList[0],
+                                  widget.productDetail.price,
+                                  widget.productDetail.imageUrl,
+                                  widget.productDetail.defaultCode,
+                                );
+                          }, CupertinoIcons.add_circled_solid, vendorId),
+                        ],
+                      )
+                    : const SizedBox.shrink())
+          ],
+        ),
       ),
     );
   }

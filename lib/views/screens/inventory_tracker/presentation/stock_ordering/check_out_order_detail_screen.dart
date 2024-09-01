@@ -7,6 +7,7 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
@@ -15,11 +16,11 @@ import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
 
 class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
-  final List<Map<String, dynamic>> orderLine;
+  final List<Map<String, dynamic>> orderLineList;
   final Map<String, Map<String, dynamic>> checkOutDataMap;
   const CheckOutOrderDetailScreen({
     super.key,
-    required this.orderLine,
+    required this.orderLineList,
     required this.checkOutDataMap,
   });
 
@@ -32,11 +33,18 @@ class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
   double totalPrice = 0.0;
   bool isSubmit = false;
+  // List<Map<String, dynamic>> orderLineList = [];
+  // Map<String, Map<String, dynamic>> checkOutDataMap = {};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (var data in widget.orderLine) {
+    Future.delayed(const Duration(milliseconds: 10), () {
+      // ref
+      //     .read(stockOrderStateNotifierProvider.notifier)
+      //     .addToCartOrderForm(widget.orderLineList, widget.checkOutDataMap);
+    });
+    for (var data in widget.orderLineList) {
       totalPrice += (data['product_qty'] * data["price_unit"]);
     }
     superPrint(totalPrice);
@@ -54,6 +62,11 @@ class _CheckOutOrderDetailScreenState
         setState(() {
           isSubmit = false;
         });
+      }
+    });
+    ref.listen(stockOrderStateNotifierProvider, (pre, next) {
+      if (next is BackupOrderList) {
+        superPrint(next.orderLine);
       }
     });
     return SuperScaffold(
@@ -103,7 +116,7 @@ class _CheckOutOrderDetailScreenState
                           ref
                               .read(checkoutOrderStateNotifierProvider.notifier)
                               .checkOutOrder(admin.companyId, admin.partnerId,
-                                  widget.orderLine, context, ref);
+                                  widget.orderLineList, context, ref);
                         }, isBool: isSubmit),
                       ),
                       const SizedBox(width: 10),
@@ -121,6 +134,7 @@ class _CheckOutOrderDetailScreenState
 
   Widget orderLineDetailWidget(
       Map<String, Map<String, dynamic>> orderLineList) {
+    superPrint(orderLineList);
     return Container(
       width: 100.w,
       height: 71.h,

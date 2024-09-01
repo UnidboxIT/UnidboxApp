@@ -11,4 +11,5 @@ class AppKeys {
 
   static String userName = "userName";
   static String password = "password";
+  static String orderForm = "orderForm";
 }

@@ -27,8 +27,8 @@ import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
-import '../update_product/product_detail_update.dart';
 import '../stock_ordering/check_out_order_detail_screen.dart';
+import '../update_product/product_detail_update.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
@@ -80,6 +80,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .getStockOrder(int.parse(widget.productID));
+        ref.read(stockOrderStateNotifierProvider.notifier).retrieveOrderData();
       }
     });
   }
@@ -216,7 +217,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     isInternalTransfer: !widget.isInternalTransfer),
                 Transform.translate(
                   offset: Offset(0, 15.h),
-                  child: productDetailBodyWidget(),
+                  child: productDetailBodyWidget(productDetail),
                 ),
                 Positioned(
                   bottom: 0,
@@ -251,20 +252,23 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                           .toString(),
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      size: 16),
+                                      size: 17),
                                   const SizedBox(width: 5),
                                   textWidget("Items",
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      size: 16),
+                                      size: 17),
                                   const Spacer(),
-                                  buttonWidget("Check Out", () {
+                                  buttonWidget("Add To Cart", () {
+                                    superPrint(orderLineList);
+                                    superPrint(checkOutDataMap);
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (_) =>
                                             CheckOutOrderDetailScreen(
-                                                orderLine: orderLineList,
+                                                orderLineList: orderLineList,
                                                 checkOutDataMap:
                                                     checkOutDataMap),
                                       ),
@@ -283,7 +287,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     );
   }
 
-  Widget productDetailBodyWidget() {
+  Widget productDetailBodyWidget(productDetail) {
     return Container(
       width: 100.w,
       height: 80.h,
