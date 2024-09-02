@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:unidbox_app/views/screens/auth/repository/auth_state_notifier.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import '../../../../../utils/commons/super_print.dart';
@@ -44,7 +43,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String vendorName,
     Map<int, int> qtyMap,
     List<Map<String, dynamic>> orderLineMap,
-    Map<String, Map<String, dynamic>> checkOutDataMap,
+    Map<String, List<Map<String, dynamic>>> checkOutDataMap,
     int productID,
     String productName,
     int uomID,
@@ -52,6 +51,10 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String image,
     String sku,
   ) async {
+    Map<String, List<Map<String, dynamic>>> storageDataMap =
+        await retrieveOrderData();
+    superPrint("Local Storage :::: $storageDataMap");
+
     //increment qty
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (qtyMap.containsKey(vendorId)) {
@@ -78,38 +81,86 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         'price_unit': priceUnit,
       });
     }
-    //for show checkout detail screen
-    Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
-    if (checkOutMap.containsKey(vendorName)) {
-      checkOutMap[vendorName]!.addAll({
-        'product_id': productID,
-        'name': productName,
-        'product_qty': mutableQtyMap[vendorId],
-        'product_uom': uomID,
-        'price_unit': priceUnit,
-        "image": image,
-        "sku": sku,
-      });
+
+    // Prepare new product entry
+    Map<String, dynamic> newProductEntry = {
+      'product_id': productID,
+      'name': productName,
+      'product_qty': mutableQtyMap[vendorId],
+      'product_uom': uomID,
+      'price_unit': priceUnit,
+      'image': image,
+      'sku': sku,
+    };
+
+    // Update checkout data
+    Map<String, List<Map<String, dynamic>>> mergedMap =
+        Map.from(storageDataMap);
+    if (checkOutDataMap.containsKey(vendorName)) {
+      if (mergedMap.containsKey(vendorName)) {
+        List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+        bool productExists = false;
+        for (var product in existingProducts) {
+          if (product['product_id'] == productID) {
+            product['product_qty'] = mutableQtyMap[vendorId];
+            productExists = true;
+            break;
+          }
+        }
+        if (!productExists) {
+          existingProducts.add(newProductEntry);
+        }
+      } else {
+        mergedMap[vendorName] = checkOutDataMap[vendorName]!;
+      }
     } else {
-      checkOutMap[vendorName] = {
-        'product_id': productID,
-        'name': productName,
-        'product_qty': mutableQtyMap[vendorId],
-        'product_uom': uomID,
-        'price_unit': priceUnit,
-        "image": image,
-        "sku": sku,
-      };
+      if (mergedMap.containsKey(vendorName)) {
+        List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+        bool productExists = false;
+        for (var product in existingProducts) {
+          if (product['product_id'] == productID) {
+            product['product_qty'] = mutableQtyMap[vendorId];
+            productExists = true;
+            break;
+          }
+        }
+        if (!productExists) {
+          existingProducts.add(newProductEntry);
+        }
+      } else {
+        mergedMap[vendorName] = checkOutDataMap[vendorName]!;
+      }
     }
-    state = StockOrderingState.checkOut(checkOutMap);
+
+    superPrint(mergedMap);
+    //for show checkout detail screen
+    // Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
+    // if (checkOutMap.containsKey(vendorName)) {
+    //   checkOutMap[vendorName]!.addAll({
+    //     'product_id': productID,
+    //     'name': productName,
+    //     'product_qty': mutableQtyMap[vendorId],
+    //     'product_uom': uomID,
+    //     'price_unit': priceUnit,
+    //     "image": image,
+    //     "sku": sku,
+    //   });
+    // } else {
+    //   checkOutMap[vendorName] = {
+    //     'product_id': productID,
+    //     'name': productName,
+    //     'product_qty': mutableQtyMap[vendorId],
+    //     'product_uom': uomID,
+    //     'price_unit': priceUnit,
+    //     "image": image,
+    //     "sku": sku,
+    //   };
+    // }
+    state = StockOrderingState.checkOut(mergedMap);
     state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.incrementStockOrderQty(mutableQtyMap);
-    superPrint(checkOutMap);
-    // Store data
-    await storeOrderData(checkOutMap);
-
-    // Retrieve data
-    await retrieveOrderData();
+    Map<String, List<Map<String, dynamic>>> dkmfdfj = await retrieveOrderData();
+    superPrint("Local Storage :::: $dkmfdfj");
   }
 
   decrementTotalQty(
@@ -117,7 +168,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String vendorName,
     Map<int, int> qtyMap,
     List<Map<String, dynamic>> orderLineMap,
-    Map<String, Map<String, dynamic>> checkOutDataMap,
+    Map<String, List<Map<String, dynamic>>> checkOutDataMap,
     int productID,
     String productName,
     int uomID,
@@ -168,45 +219,47 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
 
-  // addToCartOrderForm(
-  //   Map<String, Map<String, dynamic>> checkOutDataMap,
-  // ) {
-  //   // state = StockOrderingState.backupOrderList(orderLineList);
-  //   state = StockOrderingState.backupCheckOut(checkOutDataMap);
-  // }
-
   clearTotalQty(StockOrder stockOrder) {
     state = StockOrderingState.clearTotalQty({stockOrder.id: 1});
   }
 
   Future<void> storeOrderData(
-      Map<String, Map<String, dynamic>> checkOutMap) async {
+      Map<String, List<Map<String, dynamic>>> checkOutMap) async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // Convert data to JSON string and store
-      String jsonData = jsonEncode(checkOutMap);
-      await prefs.setString(AppKeys.orderForm, jsonData);
+      String jsonData = jsonEncode(
+          {for (var entry in checkOutMap.entries) entry.key: entry.value});
+      await _sharedPreferences.setString(AppKeys.orderForm, jsonData);
       print("Data stored successfully.");
     } catch (e) {
       print("Error storing data: $e");
     }
   }
 
-  Future<void> retrieveOrderData() async {
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // Retrieve JSON string
-      String? jsonData = prefs.getString(AppKeys.orderForm);
-
-      if (jsonData != null) {
-        // Convert JSON string to Map
-        Map<String, dynamic> data = jsonDecode(jsonData);
-        print("Retrieved data: $data");
-      } else {
-        print("No data found.");
-      }
-    } catch (e) {
-      print("Error retrieving data: $e");
+  Future<Map<String, List<Map<String, dynamic>>>> retrieveOrderData() async {
+    String? jsonString = _sharedPreferences.getString(AppKeys.orderForm);
+    if (jsonString == null) {
+      return {};
     }
+    Map<String, dynamic> decodedMap = jsonDecode(jsonString);
+    return {
+      for (var entry in decodedMap.entries)
+        entry.key: List<Map<String, dynamic>>.from(entry.value as List)
+    };
+  }
+
+  clearAllOrderForm() async {
+    _sharedPreferences.remove(AppKeys.orderForm);
+    showAllOrderFormData();
+  }
+
+  addProductToCart(Map<String, List<Map<String, dynamic>>> mergedMap) async {
+    await storeOrderData(mergedMap);
+  }
+
+  showAllOrderFormData() async {
+    Map<String, List<Map<String, dynamic>>> storageOrderFormData =
+        await retrieveOrderData();
+    superPrint("Add Local Storage :::: $storageOrderFormData");
+    state = StockOrderingState.backupCheckOut(storageOrderFormData);
   }
 }

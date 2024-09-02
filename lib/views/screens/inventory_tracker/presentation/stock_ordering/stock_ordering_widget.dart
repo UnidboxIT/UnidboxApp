@@ -24,7 +24,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   int qty = 0;
   Map<int, int> totalQty = {};
   List<Map<String, dynamic>> orderLineList = [];
-  Map<String, Map<String, dynamic>> checkOutDataMap = {};
+  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
   @override
   void initState() {
     super.initState();
@@ -45,15 +45,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                   }
                 ],
                 {
-                  widget.stockOrderList.first.name[1]: {
-                    'product_id': widget.productDetail.id,
-                    'name': widget.productDetail.name,
-                    'product_qty': 1,
-                    'product_uom': widget.productDetail.uomList[0],
-                    'price_unit': widget.productDetail.price,
-                    "image": widget.productDetail.imageUrl,
-                    "sku": widget.productDetail.defaultCode,
-                  }
+                  widget.stockOrderList.first.name[1]: [
+                    {
+                      'product_id': widget.productDetail.id,
+                      'name': widget.productDetail.name,
+                      'product_qty': 1,
+                      'product_uom': widget.productDetail.uomList[0],
+                      'price_unit': widget.productDetail.price,
+                      "image": widget.productDetail.imageUrl,
+                      "sku": widget.productDetail.defaultCode,
+                    }
+                  ]
                 },
                 widget.productDetail.id,
                 widget.productDetail.name,

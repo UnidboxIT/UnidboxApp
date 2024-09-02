@@ -55,7 +55,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   String stockName = "In-house Stock";
   Map<int, int> totalStockOrderQty = {};
   List<Map<String, dynamic>> orderLineList = [];
-  Map<String, Map<String, dynamic>> checkOutDataMap = {};
+  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
 
@@ -262,15 +262,19 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                   buttonWidget("Add To Cart", () {
                                     superPrint(orderLineList);
                                     superPrint(checkOutDataMap);
-
+                                    ref
+                                        .read(stockOrderStateNotifierProvider
+                                            .notifier)
+                                        .addProductToCart(checkOutDataMap);
+                                    // ref
+                                    //     .read(stockOrderStateNotifierProvider
+                                    //         .notifier)
+                                    //     .clearAllOrderForm();
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (_) =>
-                                            CheckOutOrderDetailScreen(
-                                                orderLineList: orderLineList,
-                                                checkOutDataMap:
-                                                    checkOutDataMap),
+                                            const CheckOutOrderDetailScreen(),
                                       ),
                                     );
                                   }),

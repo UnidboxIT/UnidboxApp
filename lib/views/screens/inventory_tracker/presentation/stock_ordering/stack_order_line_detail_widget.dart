@@ -6,17 +6,11 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 
 Widget stackOrderLineWidget(
-    String name,
-    String image,
-    int totalQty,
-    double price,
-    String sku,
-    Map<String, Map<String, dynamic>> orderLineList,
-    int index) {
+    String vendorName, List<Map<String, dynamic>> orderLineList) {
   return Stack(
     children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
@@ -48,10 +42,12 @@ Widget stackOrderLineWidget(
                             ],
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
-                                image: image != "false"
-                                    ? NetworkImage(image)
-                                    : const AssetImage(
-                                        'assets/images/app_icon.jpeg'),
+                                image:
+                                    orderLineList[eachIndex]['image'] != "false"
+                                        ? NetworkImage(
+                                            orderLineList[eachIndex]['image'])
+                                        : const AssetImage(
+                                            'assets/images/app_icon.jpeg'),
                                 fit: BoxFit.cover),
                           ),
                           height: 11.h,
@@ -62,18 +58,19 @@ Widget stackOrderLineWidget(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textWidget(name,
+                              textWidget(orderLineList[eachIndex]['name'],
                                   size: 15,
                                   fontWeight: FontWeight.bold,
                                   maxLine: 2,
                                   textOverflow: TextOverflow.fade,
                                   textAlign: TextAlign.left),
-                              textWidget(sku, size: 13, color: Colors.grey),
+                              textWidget(orderLineList[eachIndex]['sku'],
+                                  size: 13, color: Colors.grey),
                               const SizedBox(height: 8),
                               Row(
                                 children: [
                                   textWidget(
-                                    "\$ $price",
+                                    "\$ ${orderLineList[eachIndex]['price_unit']}",
                                     fontWeight: FontWeight.bold,
                                     size: 15,
                                   ),
@@ -82,7 +79,9 @@ Widget stackOrderLineWidget(
                                     CupertinoIcons.minus_circle_fill,
                                   ),
                                   const SizedBox(width: 10),
-                                  textWidget("1"),
+                                  textWidget(orderLineList[eachIndex]
+                                          ['product_qty']
+                                      .toString()),
                                   const SizedBox(width: 10),
                                   addMinusIconButtonWidget(
                                     CupertinoIcons.add_circled_solid,
@@ -99,7 +98,7 @@ Widget stackOrderLineWidget(
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 15);
                 },
-                itemCount: totalQty,
+                itemCount: orderLineList.length,
               ),
             ],
           ),
@@ -119,7 +118,7 @@ Widget stackOrderLineWidget(
             ),
           ),
           child: textWidget(
-            orderLineList.entries.elementAt(index).key,
+            vendorName,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             size: 16,

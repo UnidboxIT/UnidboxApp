@@ -22,11 +22,13 @@ mixin _$StockOrderingState {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -40,9 +42,10 @@ mixin _$StockOrderingState {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -56,9 +59,10 @@ mixin _$StockOrderingState {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -212,11 +216,13 @@ class _$StockOrderingListImpl implements StockOrderingList {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -233,9 +239,10 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -252,9 +259,10 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -416,11 +424,13 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -437,9 +447,10 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -456,9 +467,10 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -620,11 +632,13 @@ class _$DecrementStockOrderQtyImpl implements DecrementStockOrderQty {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -641,9 +655,10 @@ class _$DecrementStockOrderQtyImpl implements DecrementStockOrderQty {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -660,9 +675,10 @@ class _$DecrementStockOrderQtyImpl implements DecrementStockOrderQty {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -823,11 +839,13 @@ class _$OrderLinesImpl implements OrderLines {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -844,9 +862,10 @@ class _$OrderLinesImpl implements OrderLines {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -863,9 +882,10 @@ class _$OrderLinesImpl implements OrderLines {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -956,7 +976,7 @@ abstract class _$$CheckOutMapImplCopyWith<$Res> {
           _$CheckOutMapImpl value, $Res Function(_$CheckOutMapImpl) then) =
       __$$CheckOutMapImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<String, Map<String, dynamic>> checkoutMap});
+  $Res call({Map<String, List<Map<String, dynamic>>> checkoutMap});
 }
 
 /// @nodoc
@@ -976,7 +996,7 @@ class __$$CheckOutMapImplCopyWithImpl<$Res>
       null == checkoutMap
           ? _value._checkoutMap
           : checkoutMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>,
+              as Map<String, List<Map<String, dynamic>>>,
     ));
   }
 }
@@ -984,12 +1004,13 @@ class __$$CheckOutMapImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CheckOutMapImpl implements CheckOutMap {
-  const _$CheckOutMapImpl(final Map<String, Map<String, dynamic>> checkoutMap)
+  const _$CheckOutMapImpl(
+      final Map<String, List<Map<String, dynamic>>> checkoutMap)
       : _checkoutMap = checkoutMap;
 
-  final Map<String, Map<String, dynamic>> _checkoutMap;
+  final Map<String, List<Map<String, dynamic>>> _checkoutMap;
   @override
-  Map<String, Map<String, dynamic>> get checkoutMap {
+  Map<String, List<Map<String, dynamic>>> get checkoutMap {
     if (_checkoutMap is EqualUnmodifiableMapView) return _checkoutMap;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_checkoutMap);
@@ -1026,11 +1047,13 @@ class _$CheckOutMapImpl implements CheckOutMap {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1047,9 +1070,10 @@ class _$CheckOutMapImpl implements CheckOutMap {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -1066,9 +1090,10 @@ class _$CheckOutMapImpl implements CheckOutMap {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -1145,9 +1170,10 @@ class _$CheckOutMapImpl implements CheckOutMap {
 
 abstract class CheckOutMap implements StockOrderingState {
   const factory CheckOutMap(
-      final Map<String, Map<String, dynamic>> checkoutMap) = _$CheckOutMapImpl;
+          final Map<String, List<Map<String, dynamic>>> checkoutMap) =
+      _$CheckOutMapImpl;
 
-  Map<String, Map<String, dynamic>> get checkoutMap;
+  Map<String, List<Map<String, dynamic>>> get checkoutMap;
   @JsonKey(ignore: true)
   _$$CheckOutMapImplCopyWith<_$CheckOutMapImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1230,11 +1256,13 @@ class _$BackupOrderListImpl implements BackupOrderList {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1251,9 +1279,10 @@ class _$BackupOrderListImpl implements BackupOrderList {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -1270,9 +1299,10 @@ class _$BackupOrderListImpl implements BackupOrderList {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -1363,7 +1393,7 @@ abstract class _$$BackupCheckOutImplCopyWith<$Res> {
           $Res Function(_$BackupCheckOutImpl) then) =
       __$$BackupCheckOutImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<String, Map<String, dynamic>> checkoutMap});
+  $Res call({Map<String, List<Map<String, dynamic>>> checkoutMap});
 }
 
 /// @nodoc
@@ -1383,7 +1413,7 @@ class __$$BackupCheckOutImplCopyWithImpl<$Res>
       null == checkoutMap
           ? _value._checkoutMap
           : checkoutMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, dynamic>>,
+              as Map<String, List<Map<String, dynamic>>>,
     ));
   }
 }
@@ -1392,12 +1422,12 @@ class __$$BackupCheckOutImplCopyWithImpl<$Res>
 
 class _$BackupCheckOutImpl implements BackupCheckOut {
   const _$BackupCheckOutImpl(
-      final Map<String, Map<String, dynamic>> checkoutMap)
+      final Map<String, List<Map<String, dynamic>>> checkoutMap)
       : _checkoutMap = checkoutMap;
 
-  final Map<String, Map<String, dynamic>> _checkoutMap;
+  final Map<String, List<Map<String, dynamic>>> _checkoutMap;
   @override
-  Map<String, Map<String, dynamic>> get checkoutMap {
+  Map<String, List<Map<String, dynamic>>> get checkoutMap {
     if (_checkoutMap is EqualUnmodifiableMapView) return _checkoutMap;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_checkoutMap);
@@ -1435,11 +1465,13 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1456,9 +1488,10 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -1475,9 +1508,10 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -1554,10 +1588,10 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
 
 abstract class BackupCheckOut implements StockOrderingState {
   const factory BackupCheckOut(
-          final Map<String, Map<String, dynamic>> checkoutMap) =
+          final Map<String, List<Map<String, dynamic>>> checkoutMap) =
       _$BackupCheckOutImpl;
 
-  Map<String, Map<String, dynamic>> get checkoutMap;
+  Map<String, List<Map<String, dynamic>>> get checkoutMap;
   @JsonKey(ignore: true)
   _$$BackupCheckOutImplCopyWith<_$BackupCheckOutImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1638,11 +1672,13 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1659,9 +1695,10 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -1678,9 +1715,10 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -1807,11 +1845,13 @@ class _$InitialImpl implements Initial {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1828,9 +1868,10 @@ class _$InitialImpl implements Initial {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -1847,9 +1888,10 @@ class _$InitialImpl implements Initial {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -1971,11 +2013,13 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -1992,9 +2036,10 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -2011,9 +2056,10 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,
@@ -2160,11 +2206,13 @@ class _$ErrorImpl implements Error {
     required TResult Function(Map<int, int> qty) incrementStockOrderQty,
     required TResult Function(Map<int, int> qty) decremenStockOrderQty,
     required TResult Function(List<Map<String, dynamic>> orderLine) addOrder,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         checkOut,
     required TResult Function(List<Map<String, dynamic>> orderLine)
         backupOrderList,
-    required TResult Function(Map<String, Map<String, dynamic>> checkoutMap)
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
     required TResult Function(Map<int, int> totalQty) clearTotalQty,
     required TResult Function() initial,
@@ -2181,9 +2229,10 @@ class _$ErrorImpl implements Error {
     TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult? Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult? Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult? Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
     TResult? Function()? initial,
@@ -2200,9 +2249,10 @@ class _$ErrorImpl implements Error {
     TResult Function(Map<int, int> qty)? incrementStockOrderQty,
     TResult Function(Map<int, int> qty)? decremenStockOrderQty,
     TResult Function(List<Map<String, dynamic>> orderLine)? addOrder,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)? checkOut,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        checkOut,
     TResult Function(List<Map<String, dynamic>> orderLine)? backupOrderList,
-    TResult Function(Map<String, Map<String, dynamic>> checkoutMap)?
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
     TResult Function()? initial,

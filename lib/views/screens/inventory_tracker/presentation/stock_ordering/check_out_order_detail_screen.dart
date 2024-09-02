@@ -2,26 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/check_out_order_state.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/utils/constant/app_constant.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../repository/provider/stock_order_provider.dart';
+import '../../repository/state/check_out_order_state.dart';
+import '../../repository/state/stock_ordering_state.dart';
 import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
 
 class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
-  final List<Map<String, dynamic>> orderLineList;
-  final Map<String, Map<String, dynamic>> checkOutDataMap;
   const CheckOutOrderDetailScreen({
     super.key,
-    required this.orderLineList,
-    required this.checkOutDataMap,
   });
 
   @override
@@ -33,21 +28,15 @@ class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
   double totalPrice = 0.0;
   bool isSubmit = false;
-  // List<Map<String, dynamic>> orderLineList = [];
-  // Map<String, Map<String, dynamic>> checkOutDataMap = {};
+  //List<Map<String, dynamic>> orderLineList = [];
+  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      // ref
-      //     .read(stockOrderStateNotifierProvider.notifier)
-      //     .addToCartOrderForm(widget.orderLineList, widget.checkOutDataMap);
+      ref.read(stockOrderStateNotifierProvider.notifier).showAllOrderFormData();
     });
-    for (var data in widget.orderLineList) {
-      totalPrice += (data['product_qty'] * data["price_unit"]);
-    }
-    superPrint(totalPrice);
   }
 
   @override
@@ -64,11 +53,23 @@ class _CheckOutOrderDetailScreenState
         });
       }
     });
+
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
-      if (next is BackupOrderList) {
-        superPrint(next.orderLine);
+      if (next is BackupCheckOut) {
+        setState(() {
+          checkOutDataMap = next.checkoutMap;
+        });
       }
     });
+    superPrint(checkOutDataMap);
+    for (var checkOutMap in checkOutDataMap.entries) {
+      double entryTotalPrice = checkOutMap.value.fold(
+        0.0,
+        (sum, product) =>
+            sum + (product['product_qty'] * product['price_unit']),
+      );
+      totalPrice += entryTotalPrice;
+    }
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.primary,
@@ -114,9 +115,12 @@ class _CheckOutOrderDetailScreenState
                         width: 30.w,
                         child: buttonWidget("Submit", () {
                           ref
-                              .read(checkoutOrderStateNotifierProvider.notifier)
-                              .checkOutOrder(admin.companyId, admin.partnerId,
-                                  widget.orderLineList, context, ref);
+                              .read(stockOrderStateNotifierProvider.notifier)
+                              .clearAllOrderForm();
+                          // ref
+                          //     .read(checkoutOrderStateNotifierProvider.notifier)
+                          //     .checkOutOrder(admin.companyId, admin.partnerId,
+                          //         widget.orderLineList, context, ref);
                         }, isBool: isSubmit),
                       ),
                       const SizedBox(width: 10),
@@ -125,16 +129,13 @@ class _CheckOutOrderDetailScreenState
                 ),
               ),
               Transform.translate(
-                  offset: Offset(0, 14.h),
-                  child: orderLineDetailWidget(widget.checkOutDataMap)),
+                  offset: Offset(0, 14.h), child: orderLineDetailWidget()),
             ])),
       ),
     );
   }
 
-  Widget orderLineDetailWidget(
-      Map<String, Map<String, dynamic>> orderLineList) {
-    superPrint(orderLineList);
+  Widget orderLineDetailWidget() {
     return Container(
       width: 100.w,
       height: 71.h,
@@ -146,32 +147,17 @@ class _CheckOutOrderDetailScreenState
         ),
       ),
       child: ListView.separated(
+          padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            orderLineList.entries.elementAt(index);
-            int totalQty =
-                orderLineList.entries.elementAt(index).value['product_qty'];
-            String image =
-                orderLineList.entries.elementAt(index).value['image'];
-            String name = orderLineList.entries.elementAt(index).value['name'];
-            String sku = orderLineList.entries.elementAt(index).value['sku'];
-            double price =
-                orderLineList.entries.elementAt(index).value['price_unit'];
-            superPrint(totalQty);
-            return Column(
-              children: [
-                stackOrderLineWidget(
-                    name, image, totalQty, price, sku, orderLineList, index),
-                Container(
-                  height: 25.h,
-                  color: Colors.red,
-                )
-              ],
-            );
+            var entry = checkOutDataMap.entries.elementAt(index);
+            String companyName = entry.key;
+            List<Map<String, dynamic>> products = entry.value;
+            return stackOrderLineWidget(companyName, products);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 0);
           },
-          itemCount: orderLineList.length),
+          itemCount: checkOutDataMap.length),
     );
   }
 }
