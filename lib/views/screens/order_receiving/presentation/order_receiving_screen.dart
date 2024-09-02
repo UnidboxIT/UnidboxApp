@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/widgets/app_bar/global_app_bar.dart';
+import 'package:unidbox_app/views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import '../../../widgets/app_bar/global_app_bar.dart';
+import '../../inventory_tracker/presentation/stock_ordering/check_out_order_detail_screen.dart';
+import '../../inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_order_receiving.dart';
 
 class OrderReceivingScreen extends ConsumerStatefulWidget {
@@ -21,22 +24,53 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
       topColor: AppColor.primary,
       botColor: Colors.white,
       child: Scaffold(
-        body: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Stack(
-            children: [
-              globalAppBarWidget(
-                "Orders Receiving",
-                () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: orderReceivingBodyWidget(),
-              ),
-            ],
+        body: PopScope(
+          onPopInvoked: (didPop) =>
+              ref.read(bottomBarVisibilityProvider.notifier).state = true,
+          child: SizedBox(
+            width: 100.w,
+            height: 100.h,
+            child: Stack(
+              children: [
+                globalAppBarWidget(
+                  "Orders Receiving",
+                  () {
+                    ref.read(bottomBarVisibilityProvider.notifier).state = true;
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Positioned(
+                  right: 5.w,
+                  top: 6.5.h,
+                  child: GestureDetector(
+                    onTap: () {
+                      ref.read(bottomBarVisibilityProvider.notifier).state =
+                          false;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const CheckOutOrderDetailScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: orderReceivingBodyWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -18,6 +18,7 @@ import '../../../internal_transfer/outlet_request/repository/state/other_request
 import '../../../internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
 import '../../../internal_transfer/outlet_return/repository/state/outlet_return_state.dart';
 import '../../../order_receiving/presentation/order_receiving_screen.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 class MyTaskDetailScreen extends ConsumerStatefulWidget {
   final String name;
@@ -197,7 +198,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
                                 widget.myTaskDetailMap[task.id] ?? [],
                           )));
                   break;
-                case "Order Receiving":
+                case "Orders Receiving":
+                  ref.read(bottomBarVisibilityProvider.notifier).state = false;
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const OrderReceivingScreen()));
                   break;
