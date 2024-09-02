@@ -274,7 +274,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (_) =>
-                                            const CheckOutOrderDetailScreen(),
+                                            CheckOutOrderDetailScreen(
+                                          stockOrderList: stockOrderList,
+                                          productDetail: productDetail,
+                                        ),
                                       ),
                                     );
                                   }),

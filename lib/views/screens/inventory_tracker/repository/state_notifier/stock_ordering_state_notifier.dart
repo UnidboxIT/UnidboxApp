@@ -230,9 +230,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
           {for (var entry in checkOutMap.entries) entry.key: entry.value});
       await _sharedPreferences.setString(AppKeys.orderForm, jsonData);
       print("Data stored successfully.");
-    } catch (e) {
-      print("Error storing data: $e");
-    }
+    } catch (e) {}
   }
 
   Future<Map<String, List<Map<String, dynamic>>>> retrieveOrderData() async {
@@ -247,12 +245,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     };
   }
 
-  clearAllOrderForm() async {
-    _sharedPreferences.remove(AppKeys.orderForm);
-    showAllOrderFormData();
-  }
-
   addProductToCart(Map<String, List<Map<String, dynamic>>> mergedMap) async {
+    state = StockOrderingState.checkOut(mergedMap);
     await storeOrderData(mergedMap);
   }
 
@@ -261,5 +255,13 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         await retrieveOrderData();
     superPrint("Add Local Storage :::: $storageOrderFormData");
     state = StockOrderingState.backupCheckOut(storageOrderFormData);
+  }
+
+  clearAllOrderForm() async {
+    _sharedPreferences.remove(AppKeys.orderForm);
+    showAllOrderFormData();
+    state = const StockOrderingState.checkOut({});
+    state = const StockOrderingState.addOrder([]);
+    state = const StockOrderingState.incrementStockOrderQty({});
   }
 }

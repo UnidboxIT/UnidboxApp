@@ -5,9 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../domain/stock_order.dart';
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/check_out_order_state.dart';
 import '../../repository/state/stock_ordering_state.dart';
@@ -15,9 +17,10 @@ import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
 
 class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
-  const CheckOutOrderDetailScreen({
-    super.key,
-  });
+  final List<StockOrder> stockOrderList;
+  final Products productDetail;
+  const CheckOutOrderDetailScreen(
+      {super.key, required this.stockOrderList, required this.productDetail});
 
   @override
   ConsumerState<CheckOutOrderDetailScreen> createState() =>
@@ -117,6 +120,49 @@ class _CheckOutOrderDetailScreenState
                           ref
                               .read(stockOrderStateNotifierProvider.notifier)
                               .clearAllOrderForm();
+                          if (widget.stockOrderList.isNotEmpty) {
+                            ref
+                                .read(stockOrderStateNotifierProvider.notifier)
+                                .incrementTotalQty(
+                                  widget.stockOrderList[0].id,
+                                  widget.stockOrderList[0].name[1],
+                                  {widget.stockOrderList.first.id: 0},
+                                  [
+                                    {
+                                      'product_id': widget.productDetail.id,
+                                      'name': widget.productDetail.name,
+                                      'product_qty': 1,
+                                      'product_uom':
+                                          widget.productDetail.uomList[0],
+                                      'price_unit': widget.productDetail.price,
+                                    }
+                                  ],
+                                  {
+                                    widget.stockOrderList.first.name[1]: [
+                                      {
+                                        'product_id': widget.productDetail.id,
+                                        'name': widget.productDetail.name,
+                                        'product_qty': 1,
+                                        'product_uom':
+                                            widget.productDetail.uomList[0],
+                                        'price_unit':
+                                            widget.productDetail.price,
+                                        "image": widget.productDetail.imageUrl,
+                                        "sku": widget.productDetail.defaultCode,
+                                      }
+                                    ]
+                                  },
+                                  widget.productDetail.id,
+                                  widget.productDetail.name,
+                                  widget.productDetail.uomList[0],
+                                  widget.productDetail.price,
+                                  widget.productDetail.imageUrl,
+                                  widget.productDetail.defaultCode,
+                                );
+                          }
+                          Navigator.of(context).pop();
+                          superPrint(checkOutDataMap);
+
                           // ref
                           //     .read(checkoutOrderStateNotifierProvider.notifier)
                           //     .checkOutOrder(admin.companyId, admin.partnerId,

@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../../widgets/app_bar/global_app_bar.dart';
 import '../../inventory_tracker/presentation/stock_ordering/check_out_order_detail_screen.dart';
-import '../../inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'widgets/search_order_receiving.dart';
 
 class OrderReceivingScreen extends ConsumerStatefulWidget {
@@ -49,7 +49,10 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const CheckOutOrderDetailScreen(),
+                          builder: (_) => CheckOutOrderDetailScreen(
+                            stockOrderList: const [],
+                            productDetail: Products(),
+                          ),
                         ),
                       );
                     },
