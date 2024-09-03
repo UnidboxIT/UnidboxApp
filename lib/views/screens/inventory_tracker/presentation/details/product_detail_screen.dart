@@ -266,10 +266,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                         .read(stockOrderStateNotifierProvider
                                             .notifier)
                                         .addProductToCart(checkOutDataMap);
-                                    // ref
-                                    //     .read(stockOrderStateNotifierProvider
-                                    //         .notifier)
-                                    //     .clearAllOrderForm();
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

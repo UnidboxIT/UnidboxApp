@@ -6,6 +6,7 @@ import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
@@ -84,7 +85,10 @@ class _CheckOutOrderDetailScreenState
             child: Stack(children: [
               inventoryAppBarWidget("Order Form", () {
                 Navigator.of(context).pop();
-              }, () {}, CupertinoIcons.qrcode_viewfinder),
+              }, () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const BarCodeScannerScreen()));
+              }, CupertinoIcons.qrcode_viewfinder),
               Positioned(
                 bottom: 0,
                 child: Container(
@@ -117,6 +121,7 @@ class _CheckOutOrderDetailScreenState
                         height: 45,
                         width: 30.w,
                         child: buttonWidget("Submit", () {
+                          //clear form data local storage
                           ref
                               .read(stockOrderStateNotifierProvider.notifier)
                               .clearAllOrderForm();
@@ -130,7 +135,7 @@ class _CheckOutOrderDetailScreenState
                                   [
                                     {
                                       'product_id': widget.productDetail.id,
-                                      'name': widget.productDetail.name,
+                                      'name': widget.productDetail.fullName,
                                       'product_qty': 1,
                                       'product_uom':
                                           widget.productDetail.uomList[0],
@@ -162,7 +167,6 @@ class _CheckOutOrderDetailScreenState
                           }
                           Navigator.of(context).pop();
                           superPrint(checkOutDataMap);
-
                           // ref
                           //     .read(checkoutOrderStateNotifierProvider.notifier)
                           //     .checkOutOrder(admin.companyId, admin.partnerId,
@@ -175,7 +179,9 @@ class _CheckOutOrderDetailScreenState
                 ),
               ),
               Transform.translate(
-                  offset: Offset(0, 14.h), child: orderLineDetailWidget()),
+                offset: Offset(0, 14.h),
+                child: orderLineDetailWidget(),
+              ),
             ])),
       ),
     );

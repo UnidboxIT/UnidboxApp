@@ -131,31 +131,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         mergedMap[vendorName] = checkOutDataMap[vendorName]!;
       }
     }
-
     superPrint(mergedMap);
-    //for show checkout detail screen
-    // Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
-    // if (checkOutMap.containsKey(vendorName)) {
-    //   checkOutMap[vendorName]!.addAll({
-    //     'product_id': productID,
-    //     'name': productName,
-    //     'product_qty': mutableQtyMap[vendorId],
-    //     'product_uom': uomID,
-    //     'price_unit': priceUnit,
-    //     "image": image,
-    //     "sku": sku,
-    //   });
-    // } else {
-    //   checkOutMap[vendorName] = {
-    //     'product_id': productID,
-    //     'name': productName,
-    //     'product_qty': mutableQtyMap[vendorId],
-    //     'product_uom': uomID,
-    //     'price_unit': priceUnit,
-    //     "image": image,
-    //     "sku": sku,
-    //   };
-    // }
     state = StockOrderingState.checkOut(mergedMap);
     state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.incrementStockOrderQty(mutableQtyMap);
@@ -177,44 +153,33 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String sku,
   ) {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
-    if (mutableQtyMap.containsKey(vendorId)) {
+    if (qtyMap.containsKey(vendorId)) {
       if (mutableQtyMap[vendorId]! >= 1) {
         mutableQtyMap[vendorId] = mutableQtyMap[vendorId]! - 1;
       }
     } else {
       mutableQtyMap[vendorId] = -1;
     }
+
+    //for orderlist to backend
     List<Map<String, dynamic>> mutableOrderLines = [];
     mutableOrderLines = List.from(orderLineMap);
     var existingOrder = mutableOrderLines.firstWhere(
         (order) => order['product_id'] == productID,
         orElse: () => {});
-
     if (existingOrder.isNotEmpty) {
-      existingOrder['product_qty'] = mutableQtyMap[vendorId];
-    }
-    Map<String, Map<String, dynamic>> checkOutMap = Map.from(checkOutDataMap);
-    if (checkOutMap.containsKey(vendorName)) {
-      checkOutMap[vendorName]!.addAll({
-        'product_id': productID,
-        'name': productName,
-        'product_qty': mutableQtyMap[vendorId],
-        'product_uom': uomID,
-        'price_unit': priceUnit,
-        "image": image,
-        "sku": sku,
-      });
+      existingOrder['product_qty'] =
+          mutableQtyMap.values.reduce((a, b) => a - b);
     } else {
-      checkOutMap[vendorName] = {
+      mutableOrderLines.add({
         'product_id': productID,
         'name': productName,
         'product_qty': mutableQtyMap[vendorId],
         'product_uom': uomID,
         'price_unit': priceUnit,
-        "image": image,
-        "sku": sku,
-      };
+      });
     }
+
     state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
