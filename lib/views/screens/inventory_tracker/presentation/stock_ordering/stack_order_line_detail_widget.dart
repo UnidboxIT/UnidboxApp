@@ -8,120 +8,169 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
 
-Map<String, List<bool>> goodReturnMap = {};
+Map<String, List<Map<int, bool>>> goodReturnMap = {};
 Widget stackOrderLineWidget(
     String vendorName, List<Map<String, dynamic>> orderLineList) {
+  goodReturnMap.clear();
   return Consumer(
     builder: (context, ref, child) {
-      return Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 5.h,
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, eachIndex) {
-                    String productImage = orderLineList[eachIndex]['image'];
-                    String productName = orderLineList[eachIndex]['name'];
-                    String productSku = orderLineList[eachIndex]['sku'];
-                    double productPrice =
-                        orderLineList[eachIndex]['price_unit'];
-                    String qty =
-                        orderLineList[eachIndex]['product_qty'].toString();
-                    return Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          height: 36.5.h,
-                          //height: 22.h,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15),
-                            ),
-                            color: AppColor.pinkColor,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  superPrint("Goods return");
-                                },
-                                child: Container(
-                                  color: Colors.transparent,
-                                  alignment: Alignment.bottomCenter,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.check_box_outline_blank_outlined,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      textWidget(
-                                        "Goods Return",
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                        size: 14,
-                                      )
-                                    ],
-                                  ),
+      return Container(
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, eachIndex) {
+                        int productID = orderLineList[eachIndex]['product_id'];
+                        String productImage = orderLineList[eachIndex]['image'];
+                        String productName = orderLineList[eachIndex]['name'];
+                        String productSku = orderLineList[eachIndex]['sku'];
+                        double productPrice =
+                            orderLineList[eachIndex]['price_unit'];
+                        String qty =
+                            orderLineList[eachIndex]['product_qty'].toString();
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              height: 36.5.h,
+                              //height: 22.h,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  bottomRight: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
                                 ),
+                                color: AppColor.pinkColor,
                               ),
-                              eachGoodReturnWidget(productName),
-                              const SizedBox(height: 10),
-                              dropdownOrderFormReturnWidget()
-                            ],
-                          ),
-                        ),
-                        eachOrderLineWidget(
-                          productImage,
-                          productName,
-                          productPrice,
-                          productSku,
-                          qty,
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 15);
-                  },
-                  itemCount: orderLineList.length,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      // Remove the product if it exists
+                                      if (goodReturnMap
+                                          .containsKey(vendorName)) {
+                                        // Retrieve the list of product maps for the vendor
+                                        List<Map<int, bool>> productMapList =
+                                            goodReturnMap[vendorName]!;
+
+                                        // Check if the product with the specified productID already exists
+                                        bool productExists = productMapList.any(
+                                            (productMap) => productMap
+                                                .containsKey(productID));
+
+                                        if (productExists) {
+                                          // If the product exists, remove it from the list
+                                          productMapList.removeWhere(
+                                              (productMap) => productMap
+                                                  .containsKey(productID));
+
+                                          // If the list becomes empty after removal, remove the vendor entry from the map
+                                          if (productMapList.isEmpty) {
+                                            goodReturnMap.remove(vendorName);
+                                          } else {
+                                            // Update the map for the vendor with the remaining products
+                                            goodReturnMap[vendorName] =
+                                                productMapList;
+                                          }
+                                        } else {
+                                          // If the product does not exist, add it to the list
+                                          productMapList.add({productID: true});
+                                          goodReturnMap[vendorName] =
+                                              productMapList;
+                                        }
+                                      } else {
+                                        // If the vendor does not exist, create a new entry for it
+                                        goodReturnMap[vendorName] = [
+                                          {productID: true}
+                                        ];
+                                      }
+                                      superPrint(goodReturnMap);
+                                    },
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      alignment: Alignment.bottomCenter,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons
+                                                .check_box_outline_blank_outlined,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: 5),
+                                          textWidget(
+                                            "Goods Return",
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            size: 14,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  eachGoodReturnWidget(productName),
+                                  const SizedBox(height: 10),
+                                  dropdownOrderFormReturnWidget()
+                                ],
+                              ),
+                            ),
+                            eachOrderLineWidget(
+                              productImage,
+                              productName,
+                              productPrice,
+                              productSku,
+                              qty,
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 3);
+                      },
+                      itemCount: orderLineList.length,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 18),
+              child: Container(
+                width: 100.w,
+                height: 60,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: AppColor.pinkColor,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Container(
-              width: 100.w,
-              height: 50,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                color: AppColor.pinkColor,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: textWidget(
-                vendorName,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                size: 16,
+                child: textWidget(
+                  vendorName,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  size: 16,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     },
   );
@@ -172,10 +221,12 @@ Widget eachOrderLineWidget(String productImage, String productName,
       borderRadius: const BorderRadius.only(
         bottomLeft: Radius.circular(15),
         bottomRight: Radius.circular(15),
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
       ),
       color: AppColor.bottomSheetBgColor,
     ),
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    padding: const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
     child: Row(
       children: [
         Container(
@@ -206,8 +257,9 @@ Widget eachOrderLineWidget(String productImage, String productName,
                   size: 15,
                   fontWeight: FontWeight.bold,
                   maxLine: 2,
-                  textOverflow: TextOverflow.fade,
+                  textOverflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left),
+              const SizedBox(height: 3),
               textWidget(productSku, size: 13, color: Colors.grey),
               const SizedBox(height: 8),
               Row(

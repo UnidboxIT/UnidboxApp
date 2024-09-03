@@ -4,9 +4,9 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
-import '../../../../../utils/commons/super_print.dart';
-import '../../../../../utils/constant/app_constant.dart';
-import '../state/stock_ordering_state.dart';
+import '../../../../../../utils/commons/super_print.dart';
+import '../../../../../../utils/constant/app_constant.dart';
+import '../../state/stock_order/stock_ordering_state.dart';
 
 class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
   StockOrderingStateNotifier(
@@ -17,7 +17,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
   final SharedPreferences _sharedPreferences;
 
   List<StockOrder> stockOrderList = [];
-
   Future<void> getStockOrder(int productID) async {
     try {
       state = const StockOrderingState.loading();
@@ -58,11 +57,15 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     } else {
       mutableQtyMap[vendorId] = 1;
     }
-
+    superPrint(orderFormValueMap);
     Map<String, List<Map<String, dynamic>>> storageDataMap =
-        await retrieveOrderData();
+        await retrieveOrderFormDataList();
     superPrint("Local Storage :::: $storageDataMap");
-    // Prepare new product entry
+    /**
+     * Add Order Form Product in Map
+     */
+    Map<String, List<Map<String, dynamic>>> mergedOrderFromMap =
+        Map.from(storageDataMap);
     Map<String, dynamic> newProductEntry = {
       'product_id': productID,
       'name': productName,
@@ -72,18 +75,10 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       'image': image,
       'sku': sku,
     };
-    superPrint(mutableQtyMap);
-    superPrint(newProductEntry);
-    superPrint(vendorName);
-    superPrint(orderFormValueMap);
-
-    // Update checkout data
-    Map<String, List<Map<String, dynamic>>> mergedMap =
-        Map.from(storageDataMap);
-
     // Check if vendorName already exists in the map
-    if (mergedMap.containsKey(vendorName)) {
-      List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+    if (mergedOrderFromMap.containsKey(vendorName)) {
+      List<Map<String, dynamic>> existingProducts =
+          mergedOrderFromMap[vendorName]!;
       bool productExists = false;
       for (var product in existingProducts) {
         if (product['product_id'] == productID) {
@@ -98,14 +93,11 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       }
     } else {
       // Vendor doesn't exist, so create a new entry for this vendor
-      mergedMap[vendorName] = [newProductEntry];
+      mergedOrderFromMap[vendorName] = [newProductEntry];
     }
-
-    superPrint(mergedMap);
+    superPrint(mergedOrderFromMap);
+    state = StockOrderingState.checkOut(mergedOrderFromMap);
     state = StockOrderingState.incrementStockOrderQty(mutableQtyMap);
-    state = StockOrderingState.checkOut(mergedMap);
-    Map<String, List<Map<String, dynamic>>> dkmfdfj = await retrieveOrderData();
-    superPrint("Local Storage :::: $dkmfdfj");
   }
 
   decrementTotalQty(
@@ -128,8 +120,12 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     } else {
       mutableQtyMap[vendorId] = -1;
     }
+
+    /**
+     * Add Order Form Product in Map
+     */
     Map<String, List<Map<String, dynamic>>> storageDataMap =
-        await retrieveOrderData();
+        await retrieveOrderFormDataList();
     Map<String, dynamic> newProductEntry = {
       'product_id': productID,
       'name': productName,
@@ -140,12 +136,12 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       'sku': sku,
     };
 
-    Map<String, List<Map<String, dynamic>>> mergedMap =
+    Map<String, List<Map<String, dynamic>>> mergedOrderFromMap =
         Map.from(storageDataMap);
-
     // Check if vendorName already exists in the map
-    if (mergedMap.containsKey(vendorName)) {
-      List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+    if (mergedOrderFromMap.containsKey(vendorName)) {
+      List<Map<String, dynamic>> existingProducts =
+          mergedOrderFromMap[vendorName]!;
       bool productExists = false;
       for (var product in existingProducts) {
         if (product['product_id'] == productID) {
@@ -160,9 +156,9 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       }
     } else {
       // Vendor doesn't exist, so create a new entry for this vendor
-      mergedMap[vendorName] = [newProductEntry];
+      mergedOrderFromMap[vendorName] = [newProductEntry];
     }
-    state = StockOrderingState.checkOut(mergedMap);
+    state = StockOrderingState.checkOut(mergedOrderFromMap);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
 
@@ -170,17 +166,16 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     state = StockOrderingState.clearTotalQty({stockOrder.id: 1});
   }
 
-  Future<void> storeOrderData(
+  Future<void> storeOrderFormDataList(
       Map<String, List<Map<String, dynamic>>> checkOutMap) async {
-    try {
-      String jsonData = jsonEncode(
-          {for (var entry in checkOutMap.entries) entry.key: entry.value});
-      await _sharedPreferences.setString(AppKeys.orderForm, jsonData);
-      print("Data stored successfully.");
-    } catch (e) {}
+    String jsonData = jsonEncode(
+        {for (var entry in checkOutMap.entries) entry.key: entry.value});
+    await _sharedPreferences.setString(AppKeys.orderForm, jsonData);
+    superPrint("Data stored successfully.");
   }
 
-  Future<Map<String, List<Map<String, dynamic>>>> retrieveOrderData() async {
+  Future<Map<String, List<Map<String, dynamic>>>>
+      retrieveOrderFormDataList() async {
     String? jsonString = _sharedPreferences.getString(AppKeys.orderForm);
     if (jsonString == null) {
       return {};
@@ -194,12 +189,12 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
 
   addProductToCart(Map<String, List<Map<String, dynamic>>> mergedMap) async {
     state = StockOrderingState.checkOut(mergedMap);
-    await storeOrderData(mergedMap);
+    await storeOrderFormDataList(mergedMap);
   }
 
   showAllOrderFormData() async {
     Map<String, List<Map<String, dynamic>>> storageOrderFormData =
-        await retrieveOrderData();
+        await retrieveOrderFormDataList();
     superPrint("Add Local Storage :::: $storageOrderFormData");
     state = StockOrderingState.backupCheckOut(storageOrderFormData);
   }
@@ -208,7 +203,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     _sharedPreferences.remove(AppKeys.orderForm);
     showAllOrderFormData();
     state = const StockOrderingState.checkOut({});
-    state = const StockOrderingState.addOrder([]);
     state = const StockOrderingState.incrementStockOrderQty({});
   }
 }

@@ -13,7 +13,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/stock_button_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/product_detail_state.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -80,7 +80,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .getStockOrder(int.parse(widget.productID));
-        ref.read(stockOrderStateNotifierProvider.notifier).retrieveOrderData();
+        ref
+            .read(stockOrderStateNotifierProvider.notifier)
+            .retrieveOrderFormDataList();
       }
     });
   }
@@ -152,12 +154,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       if (next is DecrementStockOrderQty) {
         setState(() {
           totalStockOrderQty = next.qty;
-        });
-      }
-
-      if (next is OrderLines) {
-        setState(() {
-          orderLineList = next.orderLine;
         });
       }
 

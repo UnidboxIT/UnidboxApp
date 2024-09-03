@@ -13,7 +13,7 @@ import '../../../../widgets/text_widget.dart';
 import '../../domain/stock_order.dart';
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/check_out_order_state.dart';
-import '../../repository/state/stock_ordering_state.dart';
+import '../../repository/state/stock_order/stock_ordering_state.dart';
 import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
 
@@ -148,7 +148,7 @@ class _CheckOutOrderDetailScreenState
                                     ]
                                   },
                                   widget.productDetail.id,
-                                  widget.productDetail.name,
+                                  widget.productDetail.fullName,
                                   widget.productDetail.uomList[0],
                                   widget.productDetail.price,
                                   widget.productDetail.imageUrl,

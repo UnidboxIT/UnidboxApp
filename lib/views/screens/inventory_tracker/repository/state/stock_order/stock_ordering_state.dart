@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/stock_order.dart';
+import '../../../domain/stock_order.dart';
 part 'stock_ordering_state.freezed.dart';
 
 extension Getters on StockOrderingState {
@@ -15,12 +15,12 @@ class StockOrderingState with _$StockOrderingState {
       IncrementStockOrderQty;
   const factory StockOrderingState.decremenStockOrderQty(Map<int, int> qty) =
       DecrementStockOrderQty;
-  const factory StockOrderingState.addOrder(
-      List<Map<String, dynamic>> orderLine) = OrderLines;
+  // const factory StockOrderingState.addOrder(
+  //     List<Map<String, dynamic>> orderLine) = OrderLines;
   const factory StockOrderingState.checkOut(
       Map<String, List<Map<String, dynamic>>> checkoutMap) = CheckOutMap;
-  const factory StockOrderingState.backupOrderList(
-      List<Map<String, dynamic>> orderLine) = BackupOrderList;
+  // const factory StockOrderingState.backupOrderList(
+  //     List<Map<String, dynamic>> orderLine) = BackupOrderList;
   const factory StockOrderingState.backupCheckOut(
       Map<String, List<Map<String, dynamic>>> checkoutMap) = BackupCheckOut;
   const factory StockOrderingState.clearTotalQty(Map<int, int> totalQty) =

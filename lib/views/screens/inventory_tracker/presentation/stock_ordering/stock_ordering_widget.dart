@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
-import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_ordering_state.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
@@ -49,7 +49,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                   ]
                 },
                 widget.productDetail.id,
-                widget.productDetail.name,
+                widget.productDetail.fullName,
                 widget.productDetail.uomList[0],
                 widget.productDetail.price,
                 widget.productDetail.imageUrl,
@@ -72,12 +72,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
       if (next is DecrementStockOrderQty) {
         setState(() {
           totalQty = next.qty;
-        });
-      }
-
-      if (next is OrderLines) {
-        setState(() {
-          orderLineList = next.orderLine;
         });
       }
 
