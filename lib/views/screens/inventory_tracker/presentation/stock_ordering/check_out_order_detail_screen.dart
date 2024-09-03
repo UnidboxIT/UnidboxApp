@@ -132,21 +132,11 @@ class _CheckOutOrderDetailScreenState
                                   widget.stockOrderList[0].id,
                                   widget.stockOrderList[0].name[1],
                                   {widget.stockOrderList.first.id: 0},
-                                  [
-                                    {
-                                      'product_id': widget.productDetail.id,
-                                      'name': widget.productDetail.fullName,
-                                      'product_qty': 1,
-                                      'product_uom':
-                                          widget.productDetail.uomList[0],
-                                      'price_unit': widget.productDetail.price,
-                                    }
-                                  ],
                                   {
                                     widget.stockOrderList.first.name[1]: [
                                       {
                                         'product_id': widget.productDetail.id,
-                                        'name': widget.productDetail.name,
+                                        'name': widget.productDetail.fullName,
                                         'product_qty': 1,
                                         'product_uom':
                                             widget.productDetail.uomList[0],

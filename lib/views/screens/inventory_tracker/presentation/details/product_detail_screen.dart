@@ -224,7 +224,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   child: stockName == "In-house Stock"
                       ? const SizedBox.shrink()
                       : totalStockOrderQty.isEmpty ||
-                              totalStockOrderQty.values.contains(0)
+                              totalStockOrderQty.values
+                                      .reduce((a, b) => a + b) ==
+                                  0
                           ? const SizedBox.shrink()
                           : Container(
                               width: 100.w,

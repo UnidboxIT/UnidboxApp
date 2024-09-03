@@ -35,20 +35,11 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                 widget.stockOrderList[0].id,
                 widget.stockOrderList[0].name[1],
                 totalQty,
-                [
-                  {
-                    'product_id': widget.productDetail.id,
-                    'name': widget.productDetail.fullName,
-                    'product_qty': 1,
-                    'product_uom': widget.productDetail.uomList[0],
-                    'price_unit': widget.productDetail.price,
-                  }
-                ],
                 {
                   widget.stockOrderList.first.name[1]: [
                     {
                       'product_id': widget.productDetail.id,
-                      'name': widget.productDetail.name,
+                      'name': widget.productDetail.fullName,
                       'product_qty': 1,
                       'product_uom': widget.productDetail.uomList[0],
                       'price_unit': widget.productDetail.price,
@@ -144,6 +135,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                 int stockOrderID = widget.stockOrderList[index].id;
                 int companyId = widget.stockOrderList[index].company[0];
                 int partnerId = widget.stockOrderList[index].name[0];
+
                 return eachStockOrderingWidget(
                   vendor,
                   price,
@@ -173,7 +165,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                     vendorId,
                     vendor,
                     totalQty,
-                    orderLineList,
                     checkOutDataMap,
                     widget.productDetail.id,
                     widget.productDetail.fullName,
@@ -229,7 +220,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                                   vendorId,
                                   vendor,
                                   totalQty,
-                                  orderLineList,
                                   checkOutDataMap,
                                   widget.productDetail.id,
                                   widget.productDetail.fullName,
@@ -257,7 +247,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                                   vendorId,
                                   vendor,
                                   totalQty,
-                                  orderLineList,
                                   checkOutDataMap,
                                   widget.productDetail.id,
                                   widget.productDetail.fullName,

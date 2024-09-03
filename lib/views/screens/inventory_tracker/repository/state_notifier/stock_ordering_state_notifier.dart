@@ -42,8 +42,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     int vendorId,
     String vendorName,
     Map<int, int> qtyMap,
-    List<Map<String, dynamic>> orderLineMap,
-    Map<String, List<Map<String, dynamic>>> checkOutDataMap,
+    Map<String, List<Map<String, dynamic>>> orderFormValueMap,
     int productID,
     String productName,
     int uomID,
@@ -51,37 +50,18 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     String image,
     String sku,
   ) async {
-    Map<String, List<Map<String, dynamic>>> storageDataMap =
-        await retrieveOrderData();
-    superPrint("Local Storage :::: $storageDataMap");
-
     //increment qty
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
+    superPrint(mutableQtyMap);
     if (qtyMap.containsKey(vendorId)) {
       mutableQtyMap[vendorId] = mutableQtyMap[vendorId]! + 1;
     } else {
       mutableQtyMap[vendorId] = 1;
     }
 
-    //for orderlist to backend
-    List<Map<String, dynamic>> mutableOrderLines = [];
-    mutableOrderLines = List.from(orderLineMap);
-    var existingOrder = mutableOrderLines.firstWhere(
-        (order) => order['product_id'] == productID,
-        orElse: () => {});
-    if (existingOrder.isNotEmpty) {
-      existingOrder['product_qty'] =
-          mutableQtyMap.values.reduce((a, b) => a + b);
-    } else {
-      mutableOrderLines.add({
-        'product_id': productID,
-        'name': productName,
-        'product_qty': mutableQtyMap[vendorId],
-        'product_uom': uomID,
-        'price_unit': priceUnit,
-      });
-    }
-
+    Map<String, List<Map<String, dynamic>>> storageDataMap =
+        await retrieveOrderData();
+    superPrint("Local Storage :::: $storageDataMap");
     // Prepare new product entry
     Map<String, dynamic> newProductEntry = {
       'product_id': productID,
@@ -92,49 +72,38 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       'image': image,
       'sku': sku,
     };
+    superPrint(mutableQtyMap);
+    superPrint(newProductEntry);
+    superPrint(vendorName);
+    superPrint(orderFormValueMap);
 
     // Update checkout data
     Map<String, List<Map<String, dynamic>>> mergedMap =
         Map.from(storageDataMap);
-    if (checkOutDataMap.containsKey(vendorName)) {
-      if (mergedMap.containsKey(vendorName)) {
-        List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
-        bool productExists = false;
-        for (var product in existingProducts) {
-          if (product['product_id'] == productID) {
-            product['product_qty'] = mutableQtyMap[vendorId];
-            productExists = true;
-            break;
-          }
+
+    // Check if vendorName already exists in the map
+    if (mergedMap.containsKey(vendorName)) {
+      List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+      bool productExists = false;
+      for (var product in existingProducts) {
+        if (product['product_id'] == productID) {
+          product['product_qty'] = mutableQtyMap[vendorId];
+          productExists = true;
+          break;
         }
-        if (!productExists) {
-          existingProducts.add(newProductEntry);
-        }
-      } else {
-        mergedMap[vendorName] = checkOutDataMap[vendorName]!;
+      }
+      // If the product does not exist, add it to the list
+      if (!productExists) {
+        existingProducts.add(newProductEntry);
       }
     } else {
-      if (mergedMap.containsKey(vendorName)) {
-        List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
-        bool productExists = false;
-        for (var product in existingProducts) {
-          if (product['product_id'] == productID) {
-            product['product_qty'] = mutableQtyMap[vendorId];
-            productExists = true;
-            break;
-          }
-        }
-        if (!productExists) {
-          existingProducts.add(newProductEntry);
-        }
-      } else {
-        mergedMap[vendorName] = checkOutDataMap[vendorName]!;
-      }
+      // Vendor doesn't exist, so create a new entry for this vendor
+      mergedMap[vendorName] = [newProductEntry];
     }
+
     superPrint(mergedMap);
-    state = StockOrderingState.checkOut(mergedMap);
-    state = StockOrderingState.addOrder(mutableOrderLines);
     state = StockOrderingState.incrementStockOrderQty(mutableQtyMap);
+    state = StockOrderingState.checkOut(mergedMap);
     Map<String, List<Map<String, dynamic>>> dkmfdfj = await retrieveOrderData();
     superPrint("Local Storage :::: $dkmfdfj");
   }
@@ -143,15 +112,14 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     int vendorId,
     String vendorName,
     Map<int, int> qtyMap,
-    List<Map<String, dynamic>> orderLineMap,
-    Map<String, List<Map<String, dynamic>>> checkOutDataMap,
+    Map<String, List<Map<String, dynamic>>> orderFormValueMap,
     int productID,
     String productName,
     int uomID,
     double priceUnit,
     String image,
     String sku,
-  ) {
+  ) async {
     Map<int, int> mutableQtyMap = Map.from(qtyMap);
     if (qtyMap.containsKey(vendorId)) {
       if (mutableQtyMap[vendorId]! >= 1) {
@@ -160,27 +128,41 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     } else {
       mutableQtyMap[vendorId] = -1;
     }
+    Map<String, List<Map<String, dynamic>>> storageDataMap =
+        await retrieveOrderData();
+    Map<String, dynamic> newProductEntry = {
+      'product_id': productID,
+      'name': productName,
+      'product_qty': mutableQtyMap[vendorId],
+      'product_uom': uomID,
+      'price_unit': priceUnit,
+      'image': image,
+      'sku': sku,
+    };
 
-    //for orderlist to backend
-    List<Map<String, dynamic>> mutableOrderLines = [];
-    mutableOrderLines = List.from(orderLineMap);
-    var existingOrder = mutableOrderLines.firstWhere(
-        (order) => order['product_id'] == productID,
-        orElse: () => {});
-    if (existingOrder.isNotEmpty) {
-      existingOrder['product_qty'] =
-          mutableQtyMap.values.reduce((a, b) => a - b);
+    Map<String, List<Map<String, dynamic>>> mergedMap =
+        Map.from(storageDataMap);
+
+    // Check if vendorName already exists in the map
+    if (mergedMap.containsKey(vendorName)) {
+      List<Map<String, dynamic>> existingProducts = mergedMap[vendorName]!;
+      bool productExists = false;
+      for (var product in existingProducts) {
+        if (product['product_id'] == productID) {
+          product['product_qty'] = mutableQtyMap[vendorId];
+          productExists = true;
+          break;
+        }
+      }
+      // If the product does not exist, add it to the list
+      if (!productExists) {
+        existingProducts.add(newProductEntry);
+      }
     } else {
-      mutableOrderLines.add({
-        'product_id': productID,
-        'name': productName,
-        'product_qty': mutableQtyMap[vendorId],
-        'product_uom': uomID,
-        'price_unit': priceUnit,
-      });
+      // Vendor doesn't exist, so create a new entry for this vendor
+      mergedMap[vendorName] = [newProductEntry];
     }
-
-    state = StockOrderingState.addOrder(mutableOrderLines);
+    state = StockOrderingState.checkOut(mergedMap);
     state = StockOrderingState.decremenStockOrderQty(mutableQtyMap);
   }
 

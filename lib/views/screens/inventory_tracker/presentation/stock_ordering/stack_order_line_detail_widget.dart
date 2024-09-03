@@ -26,6 +26,13 @@ Widget stackOrderLineWidget(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, eachIndex) {
+                    String productImage = orderLineList[eachIndex]['image'];
+                    String productName = orderLineList[eachIndex]['name'];
+                    String productSku = orderLineList[eachIndex]['sku'];
+                    double productPrice =
+                        orderLineList[eachIndex]['price_unit'];
+                    String qty =
+                        orderLineList[eachIndex]['product_qty'].toString();
                     return Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -71,112 +78,18 @@ Widget stackOrderLineWidget(
                                   ),
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  textWidget(
-                                    "Products",
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    size: 14,
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Container(
-                                    height: 45,
-                                    width: 100.w,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    alignment: Alignment.centerLeft,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: textWidget(
-                                      orderLineList[eachIndex]['name'],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              eachGoodReturnWidget(productName),
                               const SizedBox(height: 10),
                               dropdownOrderFormReturnWidget()
                             ],
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15),
-                            ),
-                            color: AppColor.bottomSheetBgColor,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColor.dropshadowColor,
-                                      blurRadius: 5,
-                                      spreadRadius: 5,
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: orderLineList[eachIndex]
-                                                  ['image'] !=
-                                              "false"
-                                          ? NetworkImage(
-                                              orderLineList[eachIndex]['image'])
-                                          : const AssetImage(
-                                              'assets/images/app_icon.jpeg'),
-                                      fit: BoxFit.cover),
-                                ),
-                                height: 11.h,
-                                width: 20.w,
-                              ),
-                              const SizedBox(width: 15),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    textWidget(orderLineList[eachIndex]['name'],
-                                        size: 15,
-                                        fontWeight: FontWeight.bold,
-                                        maxLine: 2,
-                                        textOverflow: TextOverflow.fade,
-                                        textAlign: TextAlign.left),
-                                    textWidget(orderLineList[eachIndex]['sku'],
-                                        size: 13, color: Colors.grey),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        textWidget(
-                                          "\$ ${orderLineList[eachIndex]['price_unit']}",
-                                          fontWeight: FontWeight.bold,
-                                          size: 15,
-                                        ),
-                                        const Spacer(),
-                                        addMinusOrderFormIconButtonWidget(
-                                          CupertinoIcons.minus_circle_fill,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        textWidget(orderLineList[eachIndex]
-                                                ['product_qty']
-                                            .toString()),
-                                        const SizedBox(width: 10),
-                                        addMinusOrderFormIconButtonWidget(
-                                          CupertinoIcons.add_circled_solid,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        eachOrderLineWidget(
+                          productImage,
+                          productName,
+                          productPrice,
+                          productSku,
+                          qty,
                         ),
                       ],
                     );
@@ -211,6 +124,116 @@ Widget stackOrderLineWidget(
         ],
       );
     },
+  );
+}
+
+Widget eachGoodReturnWidget(String productName) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      textWidget(
+        "Products",
+        fontWeight: FontWeight.w700,
+        color: Colors.white,
+        size: 14,
+      ),
+      const SizedBox(height: 6),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            height: 45,
+            width: 100.w,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: textWidget(
+              productName,
+              color: Colors.grey.shade500,
+              size: 13,
+              maxLine: 1,
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget eachOrderLineWidget(String productImage, String productName,
+    double productPrice, String productSku, String qty) {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(15),
+        bottomRight: Radius.circular(15),
+      ),
+      color: AppColor.bottomSheetBgColor,
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    child: Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.dropshadowColor,
+                blurRadius: 5,
+                spreadRadius: 5,
+              )
+            ],
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+                image: productImage != "false"
+                    ? NetworkImage(productImage)
+                    : const AssetImage('assets/images/app_icon.jpeg'),
+                fit: BoxFit.cover),
+          ),
+          height: 11.h,
+          width: 20.w,
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textWidget(productName,
+                  size: 15,
+                  fontWeight: FontWeight.bold,
+                  maxLine: 2,
+                  textOverflow: TextOverflow.fade,
+                  textAlign: TextAlign.left),
+              textWidget(productSku, size: 13, color: Colors.grey),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  textWidget(
+                    "\$ $productPrice",
+                    fontWeight: FontWeight.bold,
+                    size: 15,
+                  ),
+                  const Spacer(),
+                  addMinusOrderFormIconButtonWidget(
+                    CupertinoIcons.minus_circle_fill,
+                  ),
+                  const SizedBox(width: 10),
+                  textWidget(qty),
+                  const SizedBox(width: 10),
+                  addMinusOrderFormIconButtonWidget(
+                    CupertinoIcons.add_circled_solid,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
   );
 }
 
