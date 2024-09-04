@@ -4,16 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/good_return_state.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
+import '../../repository/provider/stock_order_provider.dart';
 
-Map<String, List<Map<int, bool>>> goodReturnMap = {};
 Widget stackOrderLineWidget(
     String vendorName, List<Map<String, dynamic>> orderLineList) {
-  goodReturnMap.clear();
+  Map<String, List<Map<int, bool>>> storeGoodReturnMap = {};
+
   return Consumer(
     builder: (context, ref, child) {
+      final state = ref.watch(goodReturnStateNotifier);
+      if (state is IsGoodReturnMap) {
+        storeGoodReturnMap = state.isGoodReturnMap;
+        superPrint(storeGoodReturnMap);
+      }
       return Container(
         color: Colors.transparent,
         child: Stack(
@@ -61,45 +68,41 @@ Widget stackOrderLineWidget(
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      // Remove the product if it exists
+                                      Map<String, List<Map<int, bool>>>
+                                          goodReturnMap =
+                                          Map.of(storeGoodReturnMap);
                                       if (goodReturnMap
                                           .containsKey(vendorName)) {
-                                        // Retrieve the list of product maps for the vendor
                                         List<Map<int, bool>> productMapList =
-                                            goodReturnMap[vendorName]!;
-
-                                        // Check if the product with the specified productID already exists
+                                            List.of(goodReturnMap[vendorName]!);
                                         bool productExists = productMapList.any(
                                             (productMap) => productMap
                                                 .containsKey(productID));
-
                                         if (productExists) {
-                                          // If the product exists, remove it from the list
                                           productMapList.removeWhere(
                                               (productMap) => productMap
                                                   .containsKey(productID));
 
-                                          // If the list becomes empty after removal, remove the vendor entry from the map
                                           if (productMapList.isEmpty) {
                                             goodReturnMap.remove(vendorName);
                                           } else {
-                                            // Update the map for the vendor with the remaining products
                                             goodReturnMap[vendorName] =
                                                 productMapList;
                                           }
                                         } else {
-                                          // If the product does not exist, add it to the list
                                           productMapList.add({productID: true});
                                           goodReturnMap[vendorName] =
                                               productMapList;
                                         }
                                       } else {
-                                        // If the vendor does not exist, create a new entry for it
                                         goodReturnMap[vendorName] = [
                                           {productID: true}
                                         ];
                                       }
-                                      superPrint(goodReturnMap);
+                                      ref
+                                          .read(
+                                              goodReturnStateNotifier.notifier)
+                                          .addGoodReturnValue(goodReturnMap);
                                     },
                                     child: Container(
                                       color: Colors.transparent,
@@ -108,10 +111,35 @@ Widget stackOrderLineWidget(
                                           vertical: 10),
                                       child: Row(
                                         children: [
-                                          const Icon(
-                                            Icons
-                                                .check_box_outline_blank_outlined,
-                                            color: Colors.white,
+                                          Icon(
+                                            storeGoodReturnMap.containsKey(
+                                                        vendorName) &&
+                                                    storeGoodReturnMap[
+                                                            vendorName]!
+                                                        .any((productMap) =>
+                                                            productMap
+                                                                .containsKey(
+                                                                    productID) &&
+                                                            productMap[
+                                                                    productID] ==
+                                                                true)
+                                                ? Icons.check_box
+                                                : Icons
+                                                    .check_box_outline_blank_outlined,
+                                            color: storeGoodReturnMap
+                                                        .containsKey(
+                                                            vendorName) &&
+                                                    storeGoodReturnMap[
+                                                            vendorName]!
+                                                        .any((productMap) =>
+                                                            productMap
+                                                                .containsKey(
+                                                                    productID) &&
+                                                            productMap[
+                                                                    productID] ==
+                                                                true)
+                                                ? AppColor.orangeColor
+                                                : Colors.white,
                                             size: 20,
                                           ),
                                           const SizedBox(width: 5),

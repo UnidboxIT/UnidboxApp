@@ -7,8 +7,8 @@ extension Getters on GoodReturnState {
 
 @freezed
 class GoodReturnState with _$GoodReturnState {
-  const factory GoodReturnState.checkOut(
-      Map<String, Map<int, List<bool>>> isGoodReturnMap) = IsGoodReturnMap;
+  const factory GoodReturnState.selectedGoodReturn(
+      Map<String, List<Map<int, bool>>> isGoodReturnMap) = IsGoodReturnMap;
 
   const factory GoodReturnState.initial() = Initial;
   const factory GoodReturnState.loading() = GoodReturnLoading;
