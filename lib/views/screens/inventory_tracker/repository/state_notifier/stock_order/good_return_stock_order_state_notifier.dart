@@ -8,4 +8,8 @@ class GoodReturnStockOrderStateNotifier extends StateNotifier<GoodReturnState> {
   addGoodReturnValue(Map<String, List<Map<int, bool>>> isGoodReturnMap) {
     state = GoodReturnState.selectedGoodReturn(isGoodReturnMap);
   }
+
+  clearGoodReturn() {
+    state = const GoodReturnState.clearSelectedGoodReturn();
+  }
 }

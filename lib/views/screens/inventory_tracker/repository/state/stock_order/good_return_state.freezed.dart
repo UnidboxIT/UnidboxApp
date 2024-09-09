@@ -20,6 +20,7 @@ mixin _$GoodReturnState {
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
         selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -29,6 +30,7 @@ mixin _$GoodReturnState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -38,6 +40,7 @@ mixin _$GoodReturnState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -47,6 +50,8 @@ mixin _$GoodReturnState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
     required TResult Function(Initial value) initial,
     required TResult Function(GoodReturnLoading value) loading,
     required TResult Function(GoodReturnError value) error,
@@ -55,6 +60,7 @@ mixin _$GoodReturnState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult? Function(Initial value)? initial,
     TResult? Function(GoodReturnLoading value)? loading,
     TResult? Function(GoodReturnError value)? error,
@@ -63,6 +69,7 @@ mixin _$GoodReturnState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult Function(Initial value)? initial,
     TResult Function(GoodReturnLoading value)? loading,
     TResult Function(GoodReturnError value)? error,
@@ -165,6 +172,7 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
         selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -177,6 +185,7 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -189,6 +198,7 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -204,6 +214,8 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
     required TResult Function(Initial value) initial,
     required TResult Function(GoodReturnLoading value) loading,
     required TResult Function(GoodReturnError value) error,
@@ -215,6 +227,7 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult? Function(Initial value)? initial,
     TResult? Function(GoodReturnLoading value)? loading,
     TResult? Function(GoodReturnError value)? error,
@@ -226,6 +239,7 @@ class _$IsGoodReturnMapImpl implements IsGoodReturnMap {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult Function(Initial value)? initial,
     TResult Function(GoodReturnLoading value)? loading,
     TResult Function(GoodReturnError value)? error,
@@ -247,6 +261,133 @@ abstract class IsGoodReturnMap implements GoodReturnState {
   @JsonKey(ignore: true)
   _$$IsGoodReturnMapImplCopyWith<_$IsGoodReturnMapImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearSelectedGoodReturnImplCopyWith<$Res> {
+  factory _$$ClearSelectedGoodReturnImplCopyWith(
+          _$ClearSelectedGoodReturnImpl value,
+          $Res Function(_$ClearSelectedGoodReturnImpl) then) =
+      __$$ClearSelectedGoodReturnImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearSelectedGoodReturnImplCopyWithImpl<$Res>
+    extends _$GoodReturnStateCopyWithImpl<$Res, _$ClearSelectedGoodReturnImpl>
+    implements _$$ClearSelectedGoodReturnImplCopyWith<$Res> {
+  __$$ClearSelectedGoodReturnImplCopyWithImpl(
+      _$ClearSelectedGoodReturnImpl _value,
+      $Res Function(_$ClearSelectedGoodReturnImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearSelectedGoodReturnImpl implements ClearSelectedGoodReturn {
+  const _$ClearSelectedGoodReturnImpl();
+
+  @override
+  String toString() {
+    return 'GoodReturnState.clearSelectedGoodReturn()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClearSelectedGoodReturnImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
+        selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+  }) {
+    return clearSelectedGoodReturn();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
+        selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+  }) {
+    return clearSelectedGoodReturn?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
+        selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    required TResult orElse(),
+  }) {
+    if (clearSelectedGoodReturn != null) {
+      return clearSelectedGoodReturn();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
+    required TResult Function(Initial value) initial,
+    required TResult Function(GoodReturnLoading value) loading,
+    required TResult Function(GoodReturnError value) error,
+  }) {
+    return clearSelectedGoodReturn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(GoodReturnLoading value)? loading,
+    TResult? Function(GoodReturnError value)? error,
+  }) {
+    return clearSelectedGoodReturn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
+    TResult Function(Initial value)? initial,
+    TResult Function(GoodReturnLoading value)? loading,
+    TResult Function(GoodReturnError value)? error,
+    required TResult orElse(),
+  }) {
+    if (clearSelectedGoodReturn != null) {
+      return clearSelectedGoodReturn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ClearSelectedGoodReturn implements GoodReturnState {
+  const factory ClearSelectedGoodReturn() = _$ClearSelectedGoodReturnImpl;
 }
 
 /// @nodoc
@@ -289,6 +430,7 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
         selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -301,6 +443,7 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -313,6 +456,7 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -328,6 +472,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
     required TResult Function(Initial value) initial,
     required TResult Function(GoodReturnLoading value) loading,
     required TResult Function(GoodReturnError value) error,
@@ -339,6 +485,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult? Function(Initial value)? initial,
     TResult? Function(GoodReturnLoading value)? loading,
     TResult? Function(GoodReturnError value)? error,
@@ -350,6 +497,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult Function(Initial value)? initial,
     TResult Function(GoodReturnLoading value)? loading,
     TResult Function(GoodReturnError value)? error,
@@ -406,6 +554,7 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
         selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -418,6 +567,7 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -430,6 +580,7 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -445,6 +596,8 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
     required TResult Function(Initial value) initial,
     required TResult Function(GoodReturnLoading value) loading,
     required TResult Function(GoodReturnError value) error,
@@ -456,6 +609,7 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult? Function(Initial value)? initial,
     TResult? Function(GoodReturnLoading value)? loading,
     TResult? Function(GoodReturnError value)? error,
@@ -467,6 +621,7 @@ class _$GoodReturnLoadingImpl implements GoodReturnLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult Function(Initial value)? initial,
     TResult Function(GoodReturnLoading value)? loading,
     TResult Function(GoodReturnError value)? error,
@@ -550,6 +705,7 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   TResult when<TResult extends Object?>({
     required TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)
         selectedGoodReturn,
+    required TResult Function() clearSelectedGoodReturn,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -562,6 +718,7 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult? Function()? clearSelectedGoodReturn,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -574,6 +731,7 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Map<String, List<Map<int, bool>>> isGoodReturnMap)?
         selectedGoodReturn,
+    TResult Function()? clearSelectedGoodReturn,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -589,6 +747,8 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsGoodReturnMap value) selectedGoodReturn,
+    required TResult Function(ClearSelectedGoodReturn value)
+        clearSelectedGoodReturn,
     required TResult Function(Initial value) initial,
     required TResult Function(GoodReturnLoading value) loading,
     required TResult Function(GoodReturnError value) error,
@@ -600,6 +760,7 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult? Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult? Function(Initial value)? initial,
     TResult? Function(GoodReturnLoading value)? loading,
     TResult? Function(GoodReturnError value)? error,
@@ -611,6 +772,7 @@ class _$GoodReturnErrorImpl implements GoodReturnError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsGoodReturnMap value)? selectedGoodReturn,
+    TResult Function(ClearSelectedGoodReturn value)? clearSelectedGoodReturn,
     TResult Function(Initial value)? initial,
     TResult Function(GoodReturnLoading value)? loading,
     TResult Function(GoodReturnError value)? error,

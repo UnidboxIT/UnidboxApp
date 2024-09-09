@@ -21,6 +21,9 @@ Widget stackOrderLineWidget(
         storeGoodReturnMap = state.isGoodReturnMap;
         superPrint(storeGoodReturnMap);
       }
+      if (state is ClearSelectedGoodReturn) {
+        storeGoodReturnMap.clear();
+      }
       return Container(
         color: Colors.transparent,
         child: Stack(
@@ -50,8 +53,15 @@ Widget stackOrderLineWidget(
                           clipBehavior: Clip.none,
                           children: [
                             Container(
-                              height: 36.5.h,
-                              //height: 22.h,
+                              height:
+                                  storeGoodReturnMap.containsKey(vendorName) &&
+                                          storeGoodReturnMap[vendorName]!.any(
+                                              (productMap) =>
+                                                  productMap
+                                                      .containsKey(productID) &&
+                                                  productMap[productID] == true)
+                                      ? 36.5.h
+                                      : 22.h,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(15),
@@ -153,9 +163,36 @@ Widget stackOrderLineWidget(
                                       ),
                                     ),
                                   ),
-                                  eachGoodReturnWidget(productName),
-                                  const SizedBox(height: 10),
-                                  dropdownOrderFormReturnWidget()
+                                  Visibility(
+                                      visible: storeGoodReturnMap
+                                              .containsKey(vendorName) &&
+                                          storeGoodReturnMap[vendorName]!.any(
+                                              (productMap) =>
+                                                  productMap
+                                                      .containsKey(productID) &&
+                                                  productMap[productID] ==
+                                                      true),
+                                      child: eachGoodReturnWidget(productName)),
+                                  Visibility(
+                                      visible: storeGoodReturnMap
+                                              .containsKey(vendorName) &&
+                                          storeGoodReturnMap[vendorName]!.any(
+                                              (productMap) =>
+                                                  productMap
+                                                      .containsKey(productID) &&
+                                                  productMap[productID] ==
+                                                      true),
+                                      child: const SizedBox(height: 10)),
+                                  Visibility(
+                                      visible: storeGoodReturnMap
+                                              .containsKey(vendorName) &&
+                                          storeGoodReturnMap[vendorName]!.any(
+                                              (productMap) =>
+                                                  productMap
+                                                      .containsKey(productID) &&
+                                                  productMap[productID] ==
+                                                      true),
+                                      child: dropdownOrderFormReturnWidget())
                                 ],
                               ),
                             ),

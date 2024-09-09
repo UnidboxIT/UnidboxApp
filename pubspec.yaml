@@ -1,7 +1,7 @@
 name: unidbox_app
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 3.0.0+3 #ios
+version: 3.0.0+5 #ios
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -33,16 +33,15 @@ dependencies:
   shared_preferences: ^2.2.3
   state_notifier: ^1.0.0
   freezed_annotation: ^2.4.1
-  slider_button: ^2.1.0
+  # slider_button: ^2.1.0
   slide_action: ^0.0.2
   connectivity_plus: ^6.0.3
   awesome_notifications: ^0.9.3+1
-  device_info_plus: ^10.1.0
-  flutter_native_splash: ^2.4.0
+  # flutter_native_splash: ^2.4.0
   flutter_date_range_picker: ^0.1.1
   syncfusion_flutter_datepicker: ^26.2.8
   pushy_flutter: ^2.0.23
-  flutter_launcher_icons: ^0.13.1
+  # flutter_launcher_icons: ^0.13.1
   
 dev_dependencies:
   flutter_test:
