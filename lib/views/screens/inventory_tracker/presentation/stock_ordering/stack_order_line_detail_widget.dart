@@ -172,7 +172,8 @@ Widget stackOrderLineWidget(
                                                       .containsKey(productID) &&
                                                   productMap[productID] ==
                                                       true),
-                                      child: eachGoodReturnWidget(productName)),
+                                      child: eachGoodReturnWidget(
+                                          productName, context)),
                                   Visibility(
                                       visible: storeGoodReturnMap
                                               .containsKey(vendorName) &&
@@ -241,7 +242,7 @@ Widget stackOrderLineWidget(
   );
 }
 
-Widget eachGoodReturnWidget(String productName) {
+Widget eachGoodReturnWidget(String productName, BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -252,26 +253,24 @@ Widget eachGoodReturnWidget(String productName) {
         size: 14,
       ),
       const SizedBox(height: 6),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: ClipRRect(
+      Container(
+        height: 45,
+        //width: 79.w,
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          child: Container(
-            height: 45,
-            width: 100.w,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: textWidget(
-              productName,
-              color: Colors.grey.shade500,
-              size: 13,
-              maxLine: 1,
-              textAlign: TextAlign.left,
-            ),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: textWidget(
+            productName,
+            color: Colors.grey.shade500,
+            size: 13,
+            maxLine: 1,
+            textAlign: TextAlign.left,
           ),
         ),
       ),

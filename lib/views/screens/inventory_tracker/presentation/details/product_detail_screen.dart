@@ -257,7 +257,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                       fontWeight: FontWeight.bold,
                                       size: 17),
                                   const Spacer(),
-                                  buttonWidget("Add To Cart", () {
+                                  buttonWidget("Add To Order", () {
                                     superPrint(orderLineList);
                                     superPrint(checkOutDataMap);
                                     ref

@@ -17,6 +17,16 @@ class InventoryTrackerRepository {
     return response;
   }
 
+  Future<Response> orderFormReason() async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/reason?fields=id,name,type&type=receive',
+      headers: CommonMethods.setHeaders(),
+    );
+
+    return response;
+  }
+
   Future<Response> products(String categoryID, int pageNumber) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
