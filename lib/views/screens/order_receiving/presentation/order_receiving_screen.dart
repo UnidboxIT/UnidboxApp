@@ -4,6 +4,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
+import 'package:unidbox_app/views/screens/order_receiving/presentation/pending_receiving_screen.dart';
+import 'package:unidbox_app/views/screens/order_receiving/presentation/receiving_history_screen.dart';
 import 'package:unidbox_app/views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../widgets/app_bar/global_app_bar.dart';
@@ -115,6 +117,11 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
                     child: titleReceivingWidget(receiveTitleList[1], 1))
               ],
             ),
+          ),
+          Expanded(
+            child: selectedTitle == 0
+                ? const PendingReceivingScreen()
+                : const ReceivingHistoryScreen(),
           )
         ],
       ),
@@ -136,11 +143,13 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
               blurRadius: 3,
             ),
           ]),
-      child: textWidget(title,
-          fontWeight: FontWeight.w700,
-          color: selectedTitle == index ? Colors.white : Colors.black,
-          size: 14,
-          textAlign: TextAlign.center),
+      child: textWidget(
+        title,
+        fontWeight: FontWeight.w700,
+        color: selectedTitle == index ? Colors.white : Colors.black,
+        size: 14,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
