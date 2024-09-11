@@ -40,6 +40,7 @@ class _CheckOutOrderDetailScreenState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(stockOrderStateNotifierProvider.notifier).showAllOrderFormData();
+      ref.read(orderFormReasonStateNotifier.notifier).getOrderFormReason();
     });
   }
 

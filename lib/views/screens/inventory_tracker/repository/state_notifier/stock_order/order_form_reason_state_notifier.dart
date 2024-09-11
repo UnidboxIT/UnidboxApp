@@ -13,7 +13,7 @@ class OrderFormReasonStateNotifier extends StateNotifier<OrderFormReasonState> {
   final InventoryTrackerRepository _inventoryTrackerRepository;
   List<ReturnRequestReason> orderFormReasonList = [];
 
-  Future<void> getOutletRejectReason() async {
+  Future<void> getOrderFormReason() async {
     try {
       state = const OrderFormReasonState.loading();
       orderFormReasonList.clear();
@@ -43,12 +43,26 @@ class OrderFormReasonStateNotifier extends StateNotifier<OrderFormReasonState> {
   decrementOrderFormQty(Map<String, int> qty, String productID) {
     Map<String, int> mutableQtyMap = Map.from(qty);
     if (qty.containsKey(productID)) {
-      if (mutableQtyMap[productID]! >= 1) {
+      if (mutableQtyMap[productID]! > 1) {
         mutableQtyMap[productID] = mutableQtyMap[productID]! - 1;
       }
     } else {
       mutableQtyMap[productID] = -2;
     }
     state = OrderFormReasonState.decrementOrderFormQty(mutableQtyMap);
+  }
+
+  addOrderFormReason(String productID, reason, Map<String, dynamic> reasonMap) {
+    Map<String, dynamic> mutableReasonMap = Map.from(reasonMap);
+    if (mutableReasonMap.containsKey(productID)) {
+      // Update the value if it exists
+      mutableReasonMap[productID] = reason;
+    } else {
+      // Create a new entry if it doesn't exist
+      mutableReasonMap[productID] = reason;
+    }
+    superPrint(mutableReasonMap);
+    state =
+        OrderFormReasonState.selectedOrderFormReturnReason(mutableReasonMap);
   }
 }

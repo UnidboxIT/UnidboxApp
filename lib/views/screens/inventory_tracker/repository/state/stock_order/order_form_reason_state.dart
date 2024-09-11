@@ -14,6 +14,8 @@ class OrderFormReasonState with _$OrderFormReasonState {
       Map<String, int> qty) = IncrementOrderFormReason;
   const factory OrderFormReasonState.decrementOrderFormQty(
       Map<String, int> qty) = DecrementOrderFormReason;
+  const factory OrderFormReasonState.selectedOrderFormReturnReason(
+      Map<String, dynamic> orderFormReasonMap) = SelectedOrderFormReturnReason;
   const factory OrderFormReasonState.initial() = Initial;
   const factory OrderFormReasonState.loading() = OrderFormReasonLoading;
   const factory OrderFormReasonState.error({String? error}) =

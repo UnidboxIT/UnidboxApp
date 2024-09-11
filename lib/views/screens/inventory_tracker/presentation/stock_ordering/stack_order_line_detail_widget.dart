@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/return_request_reason.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/good_return_state.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
@@ -365,6 +366,8 @@ Widget addMinusOrderFormIconButtonWidget(IconData iconData) {
 
 Widget dropdownOrderFormReturnWidget(String productID) {
   Map<String, int> orderReasonQty = {};
+  Map<String, dynamic> orderFormReasonMap = {};
+  List<ReturnRequestReason> orderFormReasonList = [];
 
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(orderFormReasonStateNotifier);
@@ -374,7 +377,14 @@ Widget dropdownOrderFormReturnWidget(String productID) {
     if (state is DecrementOrderFormReason) {
       orderReasonQty = state.qty;
     }
-
+    if (state is OrderFormReasonList) {
+      orderFormReasonList = state.orderFormReasonList;
+    }
+    if (state is SelectedOrderFormReturnReason) {
+      orderFormReasonMap = state.orderFormReasonMap;
+      superPrint(orderFormReasonMap);
+    }
+    superPrint(orderFormReasonMap[productID]);
     return Row(
       children: [
         Container(
@@ -406,8 +416,26 @@ Widget dropdownOrderFormReturnWidget(String productID) {
                       color: AppColor.fontColor.withOpacity(0.6),
                       fontWeight: FontWeight.w500),
                 ),
-                items: const [],
-                onChanged: (_) {}),
+                items: orderFormReasonList
+                    .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Text(
+                            item.reason,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                value: orderFormReasonMap[productID],
+                onChanged: (values) {
+                  superPrint(values);
+                  ref
+                      .read(orderFormReasonStateNotifier.notifier)
+                      .addOrderFormReason(
+                          productID, values!, orderFormReasonMap);
+                }),
           ),
         ),
         const SizedBox(width: 7),
