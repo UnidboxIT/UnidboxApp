@@ -185,7 +185,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                   color:
                       totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
                           ? Colors.white
-                          : Colors.black,
+                          : const Color.fromARGB(255, 14, 12, 12),
                   size: 14,
                   textAlign: TextAlign.left),
             ),

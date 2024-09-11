@@ -10,10 +10,10 @@ extension Getters on OrderFormReasonState {
 class OrderFormReasonState with _$OrderFormReasonState {
   const factory OrderFormReasonState.loadOrderFormReason(
       List<ReturnRequestReason> orderFormReasonList) = OrderFormReasonList;
-  const factory OrderFormReasonState.incrementQty(String index, int qty) =
-      IncrementOrderFormReason;
-  const factory OrderFormReasonState.decrementQty(String index, int qty) =
-      DecrementOrderFormReason;
+  const factory OrderFormReasonState.incrementOrderFormQty(
+      Map<String, int> qty) = IncrementOrderFormReason;
+  const factory OrderFormReasonState.decrementOrderFormQty(
+      Map<String, int> qty) = DecrementOrderFormReason;
   const factory OrderFormReasonState.initial() = Initial;
   const factory OrderFormReasonState.loading() = OrderFormReasonLoading;
   const factory OrderFormReasonState.error({String? error}) =

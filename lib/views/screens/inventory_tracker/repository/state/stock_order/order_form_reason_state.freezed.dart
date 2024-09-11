@@ -20,8 +20,8 @@ mixin _$OrderFormReasonState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -31,8 +31,8 @@ mixin _$OrderFormReasonState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -42,8 +42,8 @@ mixin _$OrderFormReasonState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -53,8 +53,10 @@ mixin _$OrderFormReasonState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
@@ -63,8 +65,8 @@ mixin _$OrderFormReasonState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
@@ -73,8 +75,8 @@ mixin _$OrderFormReasonState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
@@ -179,8 +181,8 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -193,8 +195,8 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -207,8 +209,8 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -224,8 +226,10 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
@@ -237,8 +241,8 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
@@ -250,8 +254,8 @@ class _$OrderFormReasonListImpl implements OrderFormReasonList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
@@ -282,7 +286,7 @@ abstract class _$$IncrementOrderFormReasonImplCopyWith<$Res> {
           $Res Function(_$IncrementOrderFormReasonImpl) then) =
       __$$IncrementOrderFormReasonImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, int qty});
+  $Res call({Map<String, int> qty});
 }
 
 /// @nodoc
@@ -298,18 +302,13 @@ class __$$IncrementOrderFormReasonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
     Object? qty = null,
   }) {
     return _then(_$IncrementOrderFormReasonImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as String,
       null == qty
-          ? _value.qty
+          ? _value._qty
           : qty // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Map<String, int>,
     ));
   }
 }
@@ -317,16 +316,19 @@ class __$$IncrementOrderFormReasonImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
-  const _$IncrementOrderFormReasonImpl(this.index, this.qty);
+  const _$IncrementOrderFormReasonImpl(final Map<String, int> qty) : _qty = qty;
 
+  final Map<String, int> _qty;
   @override
-  final String index;
-  @override
-  final int qty;
+  Map<String, int> get qty {
+    if (_qty is EqualUnmodifiableMapView) return _qty;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_qty);
+  }
 
   @override
   String toString() {
-    return 'OrderFormReasonState.incrementQty(index: $index, qty: $qty)';
+    return 'OrderFormReasonState.incrementOrderFormQty(qty: $qty)';
   }
 
   @override
@@ -334,12 +336,12 @@ class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IncrementOrderFormReasonImpl &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.qty, qty) || other.qty == qty));
+            const DeepCollectionEquality().equals(other._qty, _qty));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, qty);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
 
   @JsonKey(ignore: true)
   @override
@@ -353,13 +355,13 @@ class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
   }) {
-    return incrementQty(index, qty);
+    return incrementOrderFormQty(qty);
   }
 
   @override
@@ -367,13 +369,13 @@ class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
   }) {
-    return incrementQty?.call(index, qty);
+    return incrementOrderFormQty?.call(qty);
   }
 
   @override
@@ -381,15 +383,15 @@ class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
-    if (incrementQty != null) {
-      return incrementQty(index, qty);
+    if (incrementOrderFormQty != null) {
+      return incrementOrderFormQty(qty);
     }
     return orElse();
   }
@@ -398,52 +400,53 @@ class _$IncrementOrderFormReasonImpl implements IncrementOrderFormReason {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
   }) {
-    return incrementQty(this);
+    return incrementOrderFormQty(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
   }) {
-    return incrementQty?.call(this);
+    return incrementOrderFormQty?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
     required TResult orElse(),
   }) {
-    if (incrementQty != null) {
-      return incrementQty(this);
+    if (incrementOrderFormQty != null) {
+      return incrementOrderFormQty(this);
     }
     return orElse();
   }
 }
 
 abstract class IncrementOrderFormReason implements OrderFormReasonState {
-  const factory IncrementOrderFormReason(final String index, final int qty) =
+  const factory IncrementOrderFormReason(final Map<String, int> qty) =
       _$IncrementOrderFormReasonImpl;
 
-  String get index;
-  int get qty;
+  Map<String, int> get qty;
   @JsonKey(ignore: true)
   _$$IncrementOrderFormReasonImplCopyWith<_$IncrementOrderFormReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -456,7 +459,7 @@ abstract class _$$DecrementOrderFormReasonImplCopyWith<$Res> {
           $Res Function(_$DecrementOrderFormReasonImpl) then) =
       __$$DecrementOrderFormReasonImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, int qty});
+  $Res call({Map<String, int> qty});
 }
 
 /// @nodoc
@@ -472,18 +475,13 @@ class __$$DecrementOrderFormReasonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
     Object? qty = null,
   }) {
     return _then(_$DecrementOrderFormReasonImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as String,
       null == qty
-          ? _value.qty
+          ? _value._qty
           : qty // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Map<String, int>,
     ));
   }
 }
@@ -491,16 +489,19 @@ class __$$DecrementOrderFormReasonImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
-  const _$DecrementOrderFormReasonImpl(this.index, this.qty);
+  const _$DecrementOrderFormReasonImpl(final Map<String, int> qty) : _qty = qty;
 
+  final Map<String, int> _qty;
   @override
-  final String index;
-  @override
-  final int qty;
+  Map<String, int> get qty {
+    if (_qty is EqualUnmodifiableMapView) return _qty;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_qty);
+  }
 
   @override
   String toString() {
-    return 'OrderFormReasonState.decrementQty(index: $index, qty: $qty)';
+    return 'OrderFormReasonState.decrementOrderFormQty(qty: $qty)';
   }
 
   @override
@@ -508,12 +509,12 @@ class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DecrementOrderFormReasonImpl &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.qty, qty) || other.qty == qty));
+            const DeepCollectionEquality().equals(other._qty, _qty));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, qty);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
 
   @JsonKey(ignore: true)
   @override
@@ -527,13 +528,13 @@ class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
   }) {
-    return decrementQty(index, qty);
+    return decrementOrderFormQty(qty);
   }
 
   @override
@@ -541,13 +542,13 @@ class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
   }) {
-    return decrementQty?.call(index, qty);
+    return decrementOrderFormQty?.call(qty);
   }
 
   @override
@@ -555,15 +556,15 @@ class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
-    if (decrementQty != null) {
-      return decrementQty(index, qty);
+    if (decrementOrderFormQty != null) {
+      return decrementOrderFormQty(qty);
     }
     return orElse();
   }
@@ -572,52 +573,53 @@ class _$DecrementOrderFormReasonImpl implements DecrementOrderFormReason {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
   }) {
-    return decrementQty(this);
+    return decrementOrderFormQty(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
   }) {
-    return decrementQty?.call(this);
+    return decrementOrderFormQty?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
     required TResult orElse(),
   }) {
-    if (decrementQty != null) {
-      return decrementQty(this);
+    if (decrementOrderFormQty != null) {
+      return decrementOrderFormQty(this);
     }
     return orElse();
   }
 }
 
 abstract class DecrementOrderFormReason implements OrderFormReasonState {
-  const factory DecrementOrderFormReason(final String index, final int qty) =
+  const factory DecrementOrderFormReason(final Map<String, int> qty) =
       _$DecrementOrderFormReasonImpl;
 
-  String get index;
-  int get qty;
+  Map<String, int> get qty;
   @JsonKey(ignore: true)
   _$$DecrementOrderFormReasonImplCopyWith<_$DecrementOrderFormReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -663,8 +665,8 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -677,8 +679,8 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -691,8 +693,8 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -708,8 +710,10 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
@@ -721,8 +725,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
@@ -734,8 +738,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
@@ -796,8 +800,8 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -810,8 +814,8 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -824,8 +828,8 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -841,8 +845,10 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
@@ -854,8 +860,8 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
@@ -867,8 +873,8 @@ class _$OrderFormReasonLoadingImpl implements OrderFormReasonLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,
@@ -953,8 +959,8 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   TResult when<TResult extends Object?>({
     required TResult Function(List<ReturnRequestReason> orderFormReasonList)
         loadOrderFormReason,
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
+    required TResult Function(Map<String, int> qty) incrementOrderFormQty,
+    required TResult Function(Map<String, int> qty) decrementOrderFormQty,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
@@ -967,8 +973,8 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
+    TResult? Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult? Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -981,8 +987,8 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<ReturnRequestReason> orderFormReasonList)?
         loadOrderFormReason,
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
+    TResult Function(Map<String, int> qty)? incrementOrderFormQty,
+    TResult Function(Map<String, int> qty)? decrementOrderFormQty,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -998,8 +1004,10 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(OrderFormReasonList value) loadOrderFormReason,
-    required TResult Function(IncrementOrderFormReason value) incrementQty,
-    required TResult Function(DecrementOrderFormReason value) decrementQty,
+    required TResult Function(IncrementOrderFormReason value)
+        incrementOrderFormQty,
+    required TResult Function(DecrementOrderFormReason value)
+        decrementOrderFormQty,
     required TResult Function(Initial value) initial,
     required TResult Function(OrderFormReasonLoading value) loading,
     required TResult Function(OrderFormReasonError value) error,
@@ -1011,8 +1019,8 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult? Function(IncrementOrderFormReason value)? incrementQty,
-    TResult? Function(DecrementOrderFormReason value)? decrementQty,
+    TResult? Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult? Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(OrderFormReasonLoading value)? loading,
     TResult? Function(OrderFormReasonError value)? error,
@@ -1024,8 +1032,8 @@ class _$OrderFormReasonErrorImpl implements OrderFormReasonError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OrderFormReasonList value)? loadOrderFormReason,
-    TResult Function(IncrementOrderFormReason value)? incrementQty,
-    TResult Function(DecrementOrderFormReason value)? decrementQty,
+    TResult Function(IncrementOrderFormReason value)? incrementOrderFormQty,
+    TResult Function(DecrementOrderFormReason value)? decrementOrderFormQty,
     TResult Function(Initial value)? initial,
     TResult Function(OrderFormReasonLoading value)? loading,
     TResult Function(OrderFormReasonError value)? error,

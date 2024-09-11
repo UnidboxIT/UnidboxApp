@@ -9,6 +9,7 @@ import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
 import '../../repository/provider/stock_order_provider.dart';
+import '../../repository/state/stock_order/order_form_reason_state.dart';
 
 Widget stackOrderLineWidget(
     String vendorName, List<Map<String, dynamic>> orderLineList) {
@@ -193,7 +194,8 @@ Widget stackOrderLineWidget(
                                                       .containsKey(productID) &&
                                                   productMap[productID] ==
                                                       true),
-                                      child: dropdownOrderFormReturnWidget())
+                                      child: dropdownOrderFormReturnWidget(
+                                          productID.toString()))
                                 ],
                               ),
                             ),
@@ -361,67 +363,85 @@ Widget addMinusOrderFormIconButtonWidget(IconData iconData) {
   );
 }
 
-Widget dropdownOrderFormReturnWidget() {
-  return Row(
-    children: [
-      Container(
-        width: 42.w,
-        height: 45,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        alignment: Alignment.center,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-              isExpanded: true,
-              autofocus: true,
-              isDense: true,
-              dropdownStyleData: DropdownStyleData(
-                width: 80.w,
-                offset: const Offset(-10, 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-              ),
-              hint: Text(
-                'Select Reason',
-                style: TextStyle(
-                    fontSize: 13,
-                    color: AppColor.fontColor.withOpacity(0.6),
-                    fontWeight: FontWeight.w500),
-              ),
-              items: const [],
-              onChanged: (_) {}),
-        ),
-      ),
-      const SizedBox(width: 7),
-      Row(
-        children: [
-          addMinusIconButtonWidget(
-              () {}, CupertinoIcons.minus_circle_fill, Colors.white),
-          Container(
-            width: 15.w,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: textWidget(
-              "1",
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              size: 14,
-            ),
+Widget dropdownOrderFormReturnWidget(String productID) {
+  Map<String, int> orderReasonQty = {};
+
+  return Consumer(builder: (context, ref, child) {
+    final state = ref.watch(orderFormReasonStateNotifier);
+    if (state is IncrementOrderFormReason) {
+      orderReasonQty = state.qty;
+    }
+    if (state is DecrementOrderFormReason) {
+      orderReasonQty = state.qty;
+    }
+
+    return Row(
+      children: [
+        Container(
+          width: 42.w,
+          height: 45,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
           ),
-          addMinusIconButtonWidget(
-              () {}, CupertinoIcons.add_circled_solid, Colors.white),
-        ],
-      )
-    ],
-  );
+          alignment: Alignment.center,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton2(
+                isExpanded: true,
+                autofocus: true,
+                isDense: true,
+                dropdownStyleData: DropdownStyleData(
+                  width: 80.w,
+                  offset: const Offset(-10, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                ),
+                hint: Text(
+                  'Select Reason',
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: AppColor.fontColor.withOpacity(0.6),
+                      fontWeight: FontWeight.w500),
+                ),
+                items: const [],
+                onChanged: (_) {}),
+          ),
+        ),
+        const SizedBox(width: 7),
+        Row(
+          children: [
+            addMinusIconButtonWidget(() {
+              ref
+                  .read(orderFormReasonStateNotifier.notifier)
+                  .decrementOrderFormQty(orderReasonQty, productID);
+            }, CupertinoIcons.minus_circle_fill, Colors.white),
+            Container(
+              width: 15.w,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: textWidget(
+                '${orderReasonQty[productID] ?? 1} ',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                size: 14,
+              ),
+            ),
+            addMinusIconButtonWidget(() {
+              ref
+                  .read(orderFormReasonStateNotifier.notifier)
+                  .incrementOrderFormQty(orderReasonQty, productID);
+            }, CupertinoIcons.add_circled_solid, Colors.white),
+          ],
+        )
+      ],
+    );
+  });
 }
