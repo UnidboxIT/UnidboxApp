@@ -430,7 +430,6 @@ Widget dropdownOrderFormReturnWidget(String productID) {
                     .toList(),
                 value: orderFormReasonMap[productID],
                 onChanged: (values) {
-                  superPrint(values);
                   ref
                       .read(orderFormReasonStateNotifier.notifier)
                       .addOrderFormReason(

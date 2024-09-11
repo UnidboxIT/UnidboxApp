@@ -5,6 +5,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../widgets/app_bar/global_app_bar.dart';
 import '../../inventory_tracker/presentation/stock_ordering/check_out_order_detail_screen.dart';
 import 'widgets/search_order_receiving.dart';
@@ -18,6 +19,8 @@ class OrderReceivingScreen extends ConsumerStatefulWidget {
 }
 
 class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
+  List<String> receiveTitleList = ["Pending\nReceiving", "Purchase\nHistory"];
+  int selectedTitle = 0;
   @override
   Widget build(BuildContext context) {
     return SuperScaffold(
@@ -88,11 +91,56 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: const Column(
+      child: Column(
         children: [
-          SearchOrderReceiving(),
+          const SearchOrderReceiving(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedTitle = 0;
+                      });
+                    },
+                    child: titleReceivingWidget(receiveTitleList[0], 0)),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedTitle = 1;
+                      });
+                    },
+                    child: titleReceivingWidget(receiveTitleList[1], 1))
+              ],
+            ),
+          )
         ],
       ),
+    );
+  }
+
+  Widget titleReceivingWidget(String title, int index) {
+    return Container(
+      width: 42.w,
+      height: 6.h,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: selectedTitle == index ? AppColor.pinkColor : Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              spreadRadius: 3,
+              blurRadius: 3,
+            ),
+          ]),
+      child: textWidget(title,
+          fontWeight: FontWeight.w700,
+          color: selectedTitle == index ? Colors.white : Colors.black,
+          size: 14,
+          textAlign: TextAlign.center),
     );
   }
 }
