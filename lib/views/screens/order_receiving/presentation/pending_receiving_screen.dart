@@ -1,21 +1,45 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/order_receiving/repository/state/pending_receiving_state.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../domain/order_receiving.dart';
+import '../repository/provider/order_receiving_provider.dart';
+import 'widgets/receiving_product_line_widget.dart';
 
-class PendingReceivingScreen extends StatefulWidget {
+class PendingReceivingScreen extends ConsumerStatefulWidget {
   const PendingReceivingScreen({super.key});
 
   @override
-  State<PendingReceivingScreen> createState() => _PendingReceivingScreenState();
+  ConsumerState<PendingReceivingScreen> createState() =>
+      _PendingReceivingScreenState();
 }
 
-class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
+class _PendingReceivingScreenState
+    extends ConsumerState<PendingReceivingScreen> {
+  List<OrderReceiving> pendingOrderReceivingList = [];
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref
+          .read(pendingOrderReceivingStateNotifierProvider.notifier)
+          .getAllPendingReceiving();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(pendingOrderReceivingStateNotifierProvider, (pre, next) {
+      if (next is PendingReceivingData) {
+        setState(() {
+          pendingOrderReceivingList = next.pendingReceivingDataList;
+        });
+      }
+    });
     return ListView.separated(
         shrinkWrap: true,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -59,8 +83,8 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 15),
                 Container(
-                  height: 20.h,
                   decoration: BoxDecoration(
                     color: AppColor.bottomSheetBgColor,
                     borderRadius: const BorderRadius.only(
@@ -68,7 +92,40 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
                       bottomRight: Radius.circular(10),
                     ),
                   ),
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, productIndex) {
+                        String imageUrl = "";
+                        String name = pendingOrderReceivingList[index]
+                            .productList[productIndex]
+                            .products[1];
+                        String defaultCode = pendingOrderReceivingList[index]
+                            .productList[productIndex]
+                            .defaultCode;
+                        String price = pendingOrderReceivingList[index]
+                            .productList[productIndex]
+                            .price
+                            .toStringAsFixed(2);
+                        String qty = "1";
+                        return receivingProductLineWidget(
+                            imageUrl, name, defaultCode, price, qty);
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 15);
+                      },
+                      itemCount:
+                          pendingOrderReceivingList[index].productList.length),
                 ),
+                const SizedBox(height: 15),
+                SizedBox(
+                    width: 85.w,
+                    child: buttonWidget(
+                      "Delivery Received",
+                      () {},
+                      elevation: 0,
+                    )),
+                const SizedBox(height: 15),
               ],
             ),
           );
@@ -76,7 +133,7 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
         separatorBuilder: (context, index) {
           return const SizedBox(height: 20);
         },
-        itemCount: 10);
+        itemCount: pendingOrderReceivingList.length);
   }
 
   Widget eachOrderNoWidget(String orderCode, String date) {
@@ -118,8 +175,7 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-                flex: 4, child: textWidget("Invoice Number :", size: 13.5)),
+            Expanded(flex: 4, child: textWidget("Invoice Number :", size: 13)),
             Expanded(flex: 6, child: eachTextFieldWidget()),
             Expanded(
               flex: 2,
@@ -143,8 +199,13 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
           children: [
             Expanded(
                 flex: 4,
-                child:
-                    textWidget("Total Amount :\n(GST Excluded)", size: 13.5)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textWidget("Total Amount :", size: 13),
+                    textWidget("(GST Excluded)", size: 11)
+                  ],
+                )),
             Expanded(flex: 6, child: eachTextFieldWidget()),
             Expanded(flex: 2, child: SizedBox.fromSize())
           ],
@@ -193,7 +254,7 @@ class _PendingReceivingScreenState extends State<PendingReceivingScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(flex: 4, child: textWidget("DO Number :", size: 13.5)),
+        Expanded(flex: 4, child: textWidget("DO Number :", size: 13)),
         Expanded(flex: 6, child: eachTextFieldWidget()),
         Expanded(
           flex: 2,
