@@ -15,6 +15,7 @@ class PendingReceivingStateNotifier
   final OrderReceivingRepository _orderReceivingRepository;
   List<OrderReceiving> pendingOrderList = [];
   Future<void> getAllPendingReceiving() async {
+    state = const PendingReceivingState.loading();
     try {
       Response response = await _orderReceivingRepository.pendingReceiving();
       superPrint(response.body);

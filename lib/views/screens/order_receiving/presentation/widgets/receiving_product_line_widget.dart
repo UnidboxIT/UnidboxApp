@@ -2,18 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentation/widgets/each_my_return_product_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../../../../utils/constant/app_color.dart';
 
-Widget receivingProductLineWidget(
-  String imageUrl,
-  String name,
-  String defaultCode,
-  String price,
-  String qty,
-) {
+Widget receivingProductLineWidget(String imageUrl, String name,
+    String defaultCode, String price, String qty) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
     //  height: 20.h,

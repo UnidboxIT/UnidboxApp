@@ -10,6 +10,9 @@ import 'package:unidbox_app/views/screens/system_navigation/show_bottom_navbar_p
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../widgets/app_bar/global_app_bar.dart';
 import '../../inventory_tracker/presentation/stock_ordering/check_out_order_detail_screen.dart';
+import '../domain/order_receiving.dart';
+import '../repository/provider/order_receiving_provider.dart';
+import '../repository/state/pending_receiving_state.dart';
 import 'widgets/search_order_receiving.dart';
 
 class OrderReceivingScreen extends ConsumerStatefulWidget {
@@ -23,8 +26,34 @@ class OrderReceivingScreen extends ConsumerStatefulWidget {
 class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
   List<String> receiveTitleList = ["Pending\nReceiving", "Purchase\nHistory"];
   int selectedTitle = 0;
+  bool isPendingLoading = false;
+  List<OrderReceiving> pendingOrderReceivingList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref
+          .read(pendingOrderReceivingStateNotifierProvider.notifier)
+          .getAllPendingReceiving();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(pendingOrderReceivingStateNotifierProvider, (pre, next) {
+      if (next is PendingReceivingLoading) {
+        setState(() {
+          isPendingLoading = true;
+        });
+      }
+      if (next is PendingReceivingData) {
+        setState(() {
+          pendingOrderReceivingList = next.pendingReceivingDataList;
+          isPendingLoading = false;
+        });
+      }
+    });
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: Colors.white,
@@ -121,7 +150,10 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
           Expanded(
             child: selectedTitle == 0
                 ? const PendingReceivingScreen()
-                : const ReceivingHistoryScreen(),
+                : ReceivingHistoryScreen(
+                    isPendingLoading: isPendingLoading,
+                    pendingOrderReceivingList: pendingOrderReceivingList,
+                  ),
           )
         ],
       ),
