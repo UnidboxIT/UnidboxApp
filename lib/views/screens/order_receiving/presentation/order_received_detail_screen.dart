@@ -11,6 +11,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/order_receiving/repository/provider/order_receiving_provider.dart';
 import 'package:unidbox_app/views/screens/order_receiving/repository/state/product_received_remark_state.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/commons/super_print.dart';
 import '../../../widgets/bottom_sheets/global_bottom_sheet.dart';
@@ -88,7 +89,7 @@ class _OrderReceivedDetailScreenState
   Widget orderDetailWidget() {
     return Container(
       width: 100.w,
-      height: 81.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -96,6 +97,7 @@ class _OrderReceivedDetailScreenState
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
+          const SizedBox(height: 5),
           invoiceAndDoNumberWidget("Invoice Number".toUpperCase(),
               "I02/23/00012", Icons.edit_document, () {}),
           const SizedBox(height: 20),
@@ -103,6 +105,26 @@ class _OrderReceivedDetailScreenState
               Icons.handyman_rounded, () {}),
           productServiceWidget(),
           productReceivedListViewWidget(),
+          const SizedBox(height: 20),
+          amountWidget(
+              "Total Amount", "100", CupertinoIcons.money_dollar_circle),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              amountWidget(
+                  "Credit Amount", "30", Icons.money_off_csred_outlined),
+              amountWidget("Net Amount", "50", Icons.payment_outlined),
+            ],
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: 40.w,
+            child: buttonWidget(
+              "OK",
+              () {},
+            ),
+          )
         ],
       ),
     );
@@ -122,7 +144,7 @@ class _OrderReceivedDetailScreenState
         textWidget(
           "Product Received".toUpperCase(),
           color: AppColor.pinkColor,
-          size: 13,
+          size: 14,
           fontWeight: FontWeight.w700,
         ),
         const Spacer(),
@@ -244,12 +266,12 @@ class _OrderReceivedDetailScreenState
             textWidget(
               title,
               color: AppColor.pinkColor,
-              size: 13,
+              size: 14,
               fontWeight: FontWeight.w700,
             ),
             textWidget(
               numberText,
-              size: 13,
+              size: 14,
               color: Colors.black,
             ),
           ],
@@ -426,14 +448,30 @@ class _OrderReceivedDetailScreenState
     );
   }
 
-  // Widget textProductWidget(TextEditingController controller) {
-  //   return TextField(
-  //     controller: controller,
-  //     decoration: InputDecoration(
-  //       border: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(8),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget amountWidget(String title, String price, IconData iconData) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(
+          iconData,
+          color: AppColor.primary,
+          size: 19,
+        ),
+        const SizedBox(width: 15),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            textWidget(
+              title.toUpperCase(),
+              color: AppColor.pinkColor,
+              size: 13,
+              fontWeight: FontWeight.w700,
+            ),
+            textWidget("\$ $price")
+          ],
+        ),
+      ],
+    );
+  }
 }
