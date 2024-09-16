@@ -43,7 +43,7 @@ class ProductScreen extends ConsumerWidget {
               }, () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const CreateProductScreen()));
-              }, Icons.add, isInternalTransfer: false),
+              }, Icons.add, context, isInternalTransfer: false),
               Transform.translate(
                 offset: Offset(0, 15.h),
                 child: productBodyWidget(context),

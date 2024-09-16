@@ -79,7 +79,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             .getInHouseStock(int.parse(widget.productID), context);
         ref
             .read(stockOrderStateNotifierProvider.notifier)
-            .getStockOrder(int.parse(widget.productID));
+            .getStockOrder(int.parse(widget.productID), ref, context);
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .retrieveOrderFormDataList();
@@ -209,7 +209,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     superPrint("Here");
                     superPrint(productDetail.rackIdList);
                   });
-                }, Icons.edit_document,
+                }, Icons.edit_document, context,
                     isInternalTransfer: !widget.isInternalTransfer),
                 Transform.translate(
                   offset: Offset(0, 15.h),

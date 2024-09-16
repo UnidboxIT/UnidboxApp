@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
+import '../restock_product_popup/restock_product_popup_widget.dart';
 
 Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
-    VoidCallback iconOnPressed, IconData iconData,
+    VoidCallback iconOnPressed, IconData iconData, BuildContext context,
     {bool isInternalTransfer = true}) {
   return Container(
     height: 20.h,
@@ -62,6 +64,22 @@ Widget inventoryAppBarWidget(String name, VoidCallback onPressed,
               //     textOverflow: TextOverflow.ellipsis,
               //   ),
               // ),
+              Visibility(
+                  visible: isInternalTransfer,
+                  child: const SizedBox(width: 10)),
+              Visibility(
+                visible: isInternalTransfer,
+                child: IconButton(
+                  onPressed: () {
+                    restockProductPopUpWidget(context);
+                  },
+                  icon: const Icon(
+                    Icons.drive_folder_upload_outlined,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
               Visibility(
                 visible: isInternalTransfer,
                 child: IconButton(

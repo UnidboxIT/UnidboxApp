@@ -170,6 +170,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                           builder: (context) => const CreateProductScreen()));
                     },
                     Icons.add,
+                    context,
                   ),
                   Transform.translate(
                       offset: Offset(0, 14.h),
