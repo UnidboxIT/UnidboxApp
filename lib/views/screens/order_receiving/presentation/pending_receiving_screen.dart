@@ -6,20 +6,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/order_receiving/repository/state/pending_receiving_state.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/commons/super_print.dart';
 import '../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../domain/order_receiving.dart';
-import '../repository/provider/order_receiving_provider.dart';
+import 'order_received_detail_screen.dart';
 import 'widgets/receiving_product_line_widget.dart';
 import 'dart:math' as math;
-
 import 'widgets/shimmer_order_receiving_widget.dart';
 
 class PendingReceivingScreen extends ConsumerStatefulWidget {
-  const PendingReceivingScreen({super.key});
+  final bool isPendingLoading;
+  final List<OrderReceiving> pendingOrderReceivingList;
+  const PendingReceivingScreen(
+      {super.key,
+      required this.isPendingLoading,
+      required this.pendingOrderReceivingList});
 
   @override
   ConsumerState<PendingReceivingScreen> createState() =>
@@ -28,7 +31,6 @@ class PendingReceivingScreen extends ConsumerStatefulWidget {
 
 class _PendingReceivingScreenState
     extends ConsumerState<PendingReceivingScreen> {
-  List<OrderReceiving> pendingOrderReceivingList = [];
   File imageFile = File("");
   final ImagePicker picker = ImagePicker();
   String base64Image = "";
@@ -36,33 +38,15 @@ class _PendingReceivingScreenState
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtDoNumber = TextEditingController();
   List<int> visiblityIndex = [];
-  bool isPendingLoading = false;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      ref
-          .read(pendingOrderReceivingStateNotifierProvider.notifier)
-          .getAllPendingReceiving();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(pendingOrderReceivingStateNotifierProvider, (pre, next) {
-      if (next is PendingReceivingLoading) {
-        setState(() {
-          isPendingLoading = true;
-        });
-      }
-      if (next is PendingReceivingData) {
-        setState(() {
-          pendingOrderReceivingList = next.pendingReceivingDataList;
-          isPendingLoading = false;
-        });
-      }
-    });
-    return isPendingLoading
+    return widget.isPendingLoading
         ? shimmerOrderReceivingWidget()
         : ListView.separated(
             shrinkWrap: true,
@@ -137,7 +121,8 @@ class _PendingReceivingScreenState
                                       "P02/23/00012", "22 Oct 2023"),
                                   const SizedBox(height: 10),
                                   textWidget(
-                                    "Amax Machinery Pte Ltd",
+                                    widget.pendingOrderReceivingList[index]
+                                        .orderProduct[1],
                                     color: AppColor.orangeColor,
                                     fontWeight: FontWeight.w600,
                                     size: 14,
@@ -165,19 +150,19 @@ class _PendingReceivingScreenState
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, productIndex) {
                                     String imageUrl = "";
-                                    String name =
-                                        pendingOrderReceivingList[index]
-                                            .productList[productIndex]
-                                            .products[1];
-                                    String defaultCode =
-                                        pendingOrderReceivingList[index]
-                                            .productList[productIndex]
-                                            .defaultCode;
-                                    String price =
-                                        pendingOrderReceivingList[index]
-                                            .productList[productIndex]
-                                            .price
-                                            .toStringAsFixed(2);
+                                    String name = widget
+                                        .pendingOrderReceivingList[index]
+                                        .productList[productIndex]
+                                        .products[1];
+                                    String defaultCode = widget
+                                        .pendingOrderReceivingList[index]
+                                        .productList[productIndex]
+                                        .defaultCode;
+                                    String price = widget
+                                        .pendingOrderReceivingList[index]
+                                        .productList[productIndex]
+                                        .price
+                                        .toStringAsFixed(2);
                                     String qty = "1";
                                     return receivingProductLineWidget(imageUrl,
                                         name, defaultCode, price, qty);
@@ -185,7 +170,8 @@ class _PendingReceivingScreenState
                                   separatorBuilder: (context, index) {
                                     return const SizedBox(height: 15);
                                   },
-                                  itemCount: pendingOrderReceivingList[index]
+                                  itemCount: widget
+                                      .pendingOrderReceivingList[index]
                                       .productList
                                       .length),
                             ),
@@ -194,7 +180,23 @@ class _PendingReceivingScreenState
                                 width: 85.w,
                                 child: buttonWidget(
                                   "Delivery Received",
-                                  () {},
+                                  () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            OrderReceivedDetailScreen(
+                                                orderCode: "P02/23/00012",
+                                                name: widget
+                                                    .pendingOrderReceivingList[
+                                                        index]
+                                                    .orderProduct[1],
+                                                productList: widget
+                                                    .pendingOrderReceivingList[
+                                                        index]
+                                                    .productList),
+                                      ),
+                                    );
+                                  },
                                   elevation: 0,
                                 )),
                             const SizedBox(height: 15),
@@ -206,7 +208,7 @@ class _PendingReceivingScreenState
             separatorBuilder: (context, index) {
               return const SizedBox(height: 20);
             },
-            itemCount: pendingOrderReceivingList.length);
+            itemCount: widget.pendingOrderReceivingList.length);
   }
 
   Widget eachOrderNoWidget(String orderCode, String date) {

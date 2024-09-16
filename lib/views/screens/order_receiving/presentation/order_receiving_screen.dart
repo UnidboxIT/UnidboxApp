@@ -149,7 +149,10 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
           ),
           Expanded(
             child: selectedTitle == 0
-                ? const PendingReceivingScreen()
+                ? PendingReceivingScreen(
+                    isPendingLoading: isPendingLoading,
+                    pendingOrderReceivingList: pendingOrderReceivingList,
+                  )
                 : ReceivingHistoryScreen(
                     isPendingLoading: isPendingLoading,
                     pendingOrderReceivingList: pendingOrderReceivingList,

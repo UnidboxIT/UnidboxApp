@@ -2,12 +2,14 @@ class OrderReceiving {
   int id;
   String dateOrder;
   double amountTotal;
+  List orderProduct;
   List<OrderReceivingProduct> productList;
 
   OrderReceiving({
     this.id = 0,
     this.dateOrder = "",
     this.amountTotal = 0.0,
+    this.orderProduct = const [],
     this.productList = const [],
   });
 
@@ -22,6 +24,7 @@ class OrderReceiving {
       id: json['id'],
       dateOrder: json['date_order'],
       amountTotal: json['amount_total'],
+      orderProduct: json['partner_id'],
       productList: productList,
     );
   }
