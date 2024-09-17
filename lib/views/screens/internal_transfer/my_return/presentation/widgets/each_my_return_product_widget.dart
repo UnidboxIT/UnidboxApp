@@ -288,7 +288,8 @@ String capitalizeFirstLetter(String word) {
 }
 
 Widget addMinusIconButtonWidget(
-    VoidCallback onPressed, IconData iconData, Color iconColor) {
+    VoidCallback onPressed, IconData iconData, Color iconColor,
+    {double size = 30}) {
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -299,7 +300,7 @@ Widget addMinusIconButtonWidget(
       child: Icon(
         iconData,
         color: iconColor,
-        size: 30,
+        size: size,
       ),
     ),
   );

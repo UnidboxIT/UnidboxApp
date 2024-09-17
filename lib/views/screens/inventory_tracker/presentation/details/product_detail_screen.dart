@@ -182,7 +182,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             height: 100.h,
             child: Stack(
               children: [
-                inventoryAppBarWidget(widget.productName, () {
+                productDetailAppBarWidget(widget.productName, () {
                   ref.read(bottomBarVisibilityProvider.notifier).state = true;
                   Navigator.of(context).pop();
                 }, () {
@@ -209,8 +209,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     superPrint("Here");
                     superPrint(productDetail.rackIdList);
                   });
-                }, Icons.edit_document, context,
-                    isInternalTransfer: !widget.isInternalTransfer),
+                }, Icons.edit_document, context, productDetail),
                 Transform.translate(
                   offset: Offset(0, 15.h),
                   child: productDetailBodyWidget(productDetail),
