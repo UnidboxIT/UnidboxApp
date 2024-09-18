@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:restart_app/restart_app.dart';
+import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:unidbox_app/views/widgets/button/button_widget.dart';
+import 'utils/commons/super_print.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
@@ -10,6 +14,8 @@ import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
 import 'views/screens/system_navigation/home_navigation.dart';
 import 'views/screens/system_navigation/job_order_navigation.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
+
+final shorebirdCodePush = ShorebirdCodePush();
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -42,8 +48,26 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     const MessagesScreen(),
     const ProfileScreen(),
   ];
+
+  Future<void> _checkForUpdates() async {
+    // Check whether a patch is available to install.
+    final isUpdateAvailable =
+        await shorebirdCodePush.isNewPatchAvailableForDownload();
+    await shorebirdCodePush.downloadUpdateIfAvailable();
+    await Future.delayed(const Duration(milliseconds: 500));
+    superPrint(isUpdateAvailable);
+    if (isUpdateAvailable) {
+      // Download the new patch if it's available.
+      alertDialog();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((tp) {
+      _checkForUpdates();
+    });
+
     ref.watch(bottomBarVisibilityProvider);
     final isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
     return PopScope(
@@ -141,15 +165,120 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       ),
     );
   }
-}
 
- // e.id == currentIndex
-//     ? textWidget(
-//         e.name,
-//         fontWeight: FontWeight.w600,
-//         size: 15,
-//         color: AppColor.primary,
-//       )
-//     : const SizedBox(
-//         height: 5,
-//       ),
+  Future<void> _downloadUpdate() async {
+    await shorebirdCodePush.downloadUpdateIfAvailable();
+    restartApp();
+  }
+
+  alertDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) => SizedBox(
+        height: 25.h,
+        child: PopScope(
+          canPop: false,
+          child: MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: TextScaler.noScaling),
+            child: Dialog(
+              insetPadding: const EdgeInsets.symmetric(horizontal: 35),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              backgroundColor: Colors.white,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: Text(
+                        "A new version is available! Please update to the latest version",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Container(
+                        width: 40.w,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: buttonWidget(
+                          "OK",
+                          () {
+                            Navigator.of(context).pop();
+                            _downloadUpdate();
+                          },
+                          bgColor: AppColor.primary,
+                          fontColor: Colors.white,
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      barrierColor: Colors.black.withOpacity(0.1),
+      barrierDismissible: false,
+    );
+  }
+
+  restartApp() {
+    return showDialog(
+      context: context,
+      builder: (context) => PopScope(
+        canPop: false,
+        child: MediaQuery(
+          data:
+              MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+          child: Dialog(
+            insetPadding: const EdgeInsets.symmetric(horizontal: 35),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            backgroundColor: Colors.white,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Text(
+                      "New Version is ready!. Please restart the application",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: buttonWidget(
+                        "Restart App",
+                        Restart.restartApp,
+                        bgColor: AppColor.primary,
+                        fontColor: Colors.white,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      barrierColor: Colors.black.withOpacity(0.1),
+      barrierDismissible: false,
+    );
+  }
+}
