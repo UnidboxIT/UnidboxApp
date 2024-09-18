@@ -29,6 +29,7 @@ import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
 import '../stock_ordering/check_out_order_detail_screen.dart';
 import '../update_product/product_detail_update.dart';
+import 'show_barcode_generate_popup.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String productID;
@@ -471,7 +472,18 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                       fontWeight: FontWeight.bold,
                       size: 13,
                       color: AppColor.pinkColor),
-                  textWidget(barcode == "false" ? "" : barcode, size: 13),
+                  GestureDetector(
+                    onTap: barcode == "false"
+                        ? null
+                        : () {
+                            showBarcodeGeneratePopUp(context, barcode);
+                          },
+                    child: Container(
+                      color: Colors.transparent,
+                      child: textWidget(barcode == "false" ? "" : barcode,
+                          size: 13),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -486,15 +498,18 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               .map(
                 (e) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 8, top: 4, bottom: 4, right: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(25),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 8, top: 4, bottom: 4, right: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: textWidget(e, size: 12),
                     ),
-                    child: textWidget(e, size: 12),
                   ),
                 ),
               )

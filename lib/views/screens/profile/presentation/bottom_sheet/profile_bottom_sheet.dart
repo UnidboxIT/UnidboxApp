@@ -1,8 +1,7 @@
+import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-
-import '../../../../../utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/presentation/details/show_barcode_generate_popup.dart';
 import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
@@ -37,22 +36,26 @@ Widget barcodeBottomSheetWidget(BuildContext context) {
           size: 15,
         ),
         SizedBox(height: 5.h),
-        SizedBox(
-          width: 80.w,
-          height: 13.h,
-          child: SfBarcodeGenerator(
-            value: "UN001",
-            showValue: true,
-            symbology: Code128(),
-            // symbology: EAN13(),
-            barColor: AppColor.primary,
-            textStyle: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+        BarcodeWidget(
+          data: "UN001",
+          code: Barcode.code128(),
         ),
+        // SizedBox(
+        //   width: 80.w,
+        //   height: 13.h,
+        //   child: SfBarcodeGenerator(
+        //     value: "UN001",
+        //     showValue: true,
+        //     symbology: Code128(),
+        //     // symbology: EAN13(),
+        //     barColor: AppColor.primary,
+        //     textStyle: const TextStyle(
+        //       color: Colors.black,
+        //       fontSize: 16,
+        //       fontWeight: FontWeight.w500,
+        //     ),
+        //   ),
+        // ),
         SizedBox(height: 10.h),
         SizedBox(
           width: 30.w,
