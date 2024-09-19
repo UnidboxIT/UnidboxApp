@@ -8,6 +8,7 @@ import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'utils/commons/super_print.dart';
 import 'utils/constant/app_color.dart';
+import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
@@ -60,6 +61,13 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       // Download the new patch if it's available.
       alertDialog();
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(authStateNotifierControllerProvider.notifier).retrieveDomainName();
   }
 
   @override

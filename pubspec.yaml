@@ -40,7 +40,7 @@ dependencies:
   # flutter_native_splash: ^2.4.0
   flutter_date_range_picker: ^0.1.1
   syncfusion_flutter_datepicker: ^26.2.8
-  pushy_flutter: ^2.0.23
+  pushy_flutter: ^2.0.27
   shorebird_code_push: ^1.1.4
   restart_app: ^1.2.1
   barcode: ^2.2.8

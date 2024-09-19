@@ -10,6 +10,7 @@ import 'package:unidbox_app/views/screens/auth/presentation/widgets/remember_me_
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import '../../../../main.dart';
 import '../../../../utils/constant/app_color.dart';
+import '../../../widgets/button/button_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../internet_connection/provider/internet_provider.dart';
 import '../../internet_connection/state/connection_status.dart';
@@ -28,9 +29,12 @@ class AuthLoginScreen extends ConsumerStatefulWidget {
 class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
   TextEditingController txtUserID = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
+  TextEditingController txtDomain = TextEditingController();
   bool paymentState = false;
   bool isVisiblity = false;
   bool isCheck = false;
+  bool dialogShown = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +44,16 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
       txtPassword.text = state.getString(AppKeys.password) ?? "";
       isCheck = state.getBool("isRemember") ?? false;
     });
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!dialogShown) {
+        dialogShown = true; // Mark as shown
+        addDomainDialog().then((_) {
+          ref
+              .read(authStateNotifierControllerProvider.notifier)
+              .retrieveDomainName();
+        });
+      }
+    });
     superPrint(isCheck);
   }
 
@@ -71,6 +84,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
         });
       }
     });
+
     return SuperScaffold(
       topColor: Colors.white,
       botColor: Colors.white,
@@ -167,5 +181,82 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> addDomainDialog() {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            backgroundColor: Colors.white,
+            child: SizedBox(
+              height: 25.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          textAlign: TextAlign.left,
+                          controller: txtDomain,
+                          cursorColor: Colors.grey,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: "http://128.199.107.219:8073/",
+                            hintStyle: TextStyle(
+                                fontSize: 13,
+                                color: AppColor.fontColor.withOpacity(0.4),
+                                fontWeight: FontWeight.w500),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            suffix: const SizedBox(width: 25),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      )),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: 50.w,
+                    child: buttonWidget("Next", () {
+                      if (txtDomain.text.isEmpty) {
+                        txtDomain.text = "http://128.199.107.219:8073/";
+                      }
+                      ref
+                          .read(authStateNotifierControllerProvider.notifier)
+                          .saveDomain(txtDomain.text);
+                      Navigator.of(context).pop();
+                      superPrint(txtDomain.text);
+                    }),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

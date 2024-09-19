@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unidbox_app/services/api_service.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/auth/presentation/auth_login_screen.dart';
 import 'package:unidbox_app/views/screens/auth/repository/auth_repository.dart';
 import 'package:unidbox_app/main_screen.dart';
@@ -71,6 +73,10 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
     sharedPreferences.setString(AppKeys.userInfo, jsonEncode(result));
   }
 
+  void saveDomain(String baseUrl) async {
+    sharedPreferences.setString(AppKeys.domain, baseUrl);
+  }
+
   void selectedCheckBox(bool selected) {
     isSelected = selected;
   }
@@ -84,6 +90,11 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
     admin = Admin.fromJson(
         jsonDecode(sharedPreferences.getString(AppKeys.userInfo) ?? ""));
     return admin;
+  }
+
+  retrieveDomainName() {
+    baseUrl = sharedPreferences.getString(AppKeys.domain) ?? "";
+    superPrint(baseUrl);
   }
 
   void logout(BuildContext context, WidgetRef ref) {
