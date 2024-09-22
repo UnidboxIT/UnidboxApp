@@ -50,6 +50,7 @@ class _OtherRequestsDetailScreenState
   List<MyRequest> myReturnList = [];
   Map<int, dynamic> returnRequestedMap = {};
   List<Map<int, dynamic>> requestedReturnMapList = [];
+  Map<dynamic, dynamic> hideSlideButton = {};
 
   @override
   void initState() {
@@ -64,11 +65,10 @@ class _OtherRequestsDetailScreenState
   }
 
   Future<void> loadWarehouseData() async {
-    // packedWarehouseMap.forEach((key, value) {
-    //   value['product_line'] = {};
-    // });
+    packedWarehouseMap.forEach((key, value) {
+      value['product_line'] = {};
+    });
     acceptedMapList.clear();
-    packedWarehouseMap.clear();
     finalDeveilerMapList.clear();
     requestedMapList.clear();
     for (var data in otherRequestList) {
@@ -151,6 +151,7 @@ class _OtherRequestsDetailScreenState
         warehouseProduct.forEach((key, value) {
           Map<dynamic, dynamic> productLine = value['product_line'];
           superPrint(productLine);
+
           productLine.forEach((key, value) {
             if (value['is_urgent_picking']) {
               isUrgentIdList.add(value['id']);
@@ -164,6 +165,25 @@ class _OtherRequestsDetailScreenState
         acceptedMapList.add(acceptedWarehouseMap);
       }
     }
+
+    packedWarehouseMap.forEach((key, value) {
+      print('Warehouse ID: $key');
+      // Check if product_line exists
+      if (value.containsKey('product_line')) {
+        Map<dynamic, dynamic> productLine = value['product_line'];
+        if (productLine.isNotEmpty) {
+          productLine.forEach((lineKey, lineValue) {
+            hideSlideButton[key] = lineValue;
+            print('Product Line ID: $lineKey, Details: $lineValue');
+            superPrint(hideSlideButton[key]);
+          });
+        } else {
+          hideSlideButton[key] = productLine;
+          print('Product Line is empty for warehouse $key');
+        }
+      }
+    });
+
     superPrint(idList);
     // superPrint(finalDeveilerMapList);
     // superPrint(acceptedMapList);
@@ -324,143 +344,151 @@ class _OtherRequestsDetailScreenState
                   ],
                 ),
         ),
-        Container(
-          height: 14.h,
-          width: 100.w,
-          decoration: BoxDecoration(
-            color: AppColor.primary,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
-            ),
-          ),
-          padding: EdgeInsets.only(left: 30, right: 30, bottom: 3.5.h),
-          child: SlideAction(
-            thumbWidth: 100,
-            rightToLeft: isSwipeLoading,
-            trackBuilder: (context, state) {
-              return Container(
+        hideSlideButton[selectedWarehouseID] == {} ||
+                hideSlideButton[selectedWarehouseID].isEmpty
+            ? const SizedBox.shrink()
+            : Container(
+                height: 14.h,
+                width: 100.w,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(
-                      left:
-                          state.isPerformingAction || isSwipeLoading ? 0 : 20.w,
-                      right: state.isPerformingAction || isSwipeLoading
-                          ? 20.w
-                          : 0),
-                  child: Text(
-                    // Show loading if async operation is being performed
-                    isSwipeLoading
-                        ? "Issued"
-                        : state.isPerformingAction
-                            ? "Loading..."
-                            : ">>  Slide to Issue",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 17,
-                    ),
+                  color: AppColor.primary,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
                 ),
-              );
-            },
-            thumbBuilder: (context, state) {
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  // Show loading indicator if async operation is being performed
-                  child: state.isPerformingAction
-                      ? const CupertinoActivityIndicator(
-                          color: Colors.white,
-                        )
-                      : const Icon(
-                          CupertinoIcons.car,
-                          color: Colors.white,
+                padding: EdgeInsets.only(left: 30, right: 30, bottom: 3.5.h),
+                child: SlideAction(
+                  thumbWidth: 100,
+                  rightToLeft: isSwipeLoading,
+                  trackBuilder: (context, state) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(
+                            left: state.isPerformingAction || isSwipeLoading
+                                ? 0
+                                : 20.w,
+                            right: state.isPerformingAction || isSwipeLoading
+                                ? 20.w
+                                : 0),
+                        child: Text(
+                          // Show loading if async operation is being performed
+                          isSwipeLoading
+                              ? "Issued"
+                              : state.isPerformingAction
+                                  ? "Loading..."
+                                  : ">>  Slide to Issue",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
                         ),
-                ),
-              );
-            },
-            action: () async {
-              // Async operation
-              if (!isSwipeLoading) {
-                await Future.delayed(
-                  const Duration(milliseconds: 10),
-                  () {
-                    setState(() {
-                      isSwipeLoading = true;
-                    });
-                    superPrint(idList);
-                    setState(() {
-                      List<String> warehouseNames =
-                          getWarehouseNames(requestedReturnMapList);
-                      Future.delayed(const Duration(milliseconds: 100));
-                      if (isUrgentIdList.isNotEmpty) {
-                        ref
-                            .read(otherRequestStateNotifierProvider.notifier)
-                            .deliveryOtherRequest(
-                              isUrgentIdList,
-                              context,
-                              warehouseNames,
-                              packedWarehouseMap,
-                              selectedWarehouseID,
-                            )
-                            .then((_) {
-                          ref
-                              .read(otherRequestStateNotifierProvider.notifier)
-                              .getAllOtherRequest();
-                          isSwipeLoading = false;
-                        });
-                      } else if (idList.isNotEmpty) {
-                        ref
-                            .read(otherRequestStateNotifierProvider.notifier)
-                            .deliveryOtherRequest(
-                              idList,
-                              context,
-                              warehouseNames,
-                              packedWarehouseMap,
-                              selectedWarehouseID,
-                            )
-                            .then((_) {
-                          ref
-                              .read(otherRequestStateNotifierProvider.notifier)
-                              .getAllOtherRequest();
-                          isSwipeLoading = false;
-                        });
-
-                        // if (!isPackedProductEqual) {
-                        // } else {
-                        //   isSwipeLoading = false;
-                        //   CommonMethods.customizedAlertDialog(
-                        //       "Please packed all your requested product",
-                        //       context);
-                        // }
-                      } else {
-                        isSwipeLoading = false;
-                        CommonMethods.customizedAlertDialog(
-                            "Please check picking first", context);
-                      }
-                    });
+                      ),
+                    );
                   },
-                );
-              }
-            },
-          ),
-        )
+                  thumbBuilder: (context, state) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        // Show loading indicator if async operation is being performed
+                        child: state.isPerformingAction
+                            ? const CupertinoActivityIndicator(
+                                color: Colors.white,
+                              )
+                            : const Icon(
+                                CupertinoIcons.car,
+                                color: Colors.white,
+                              ),
+                      ),
+                    );
+                  },
+                  action: () async {
+                    // Async operation
+                    if (!isSwipeLoading) {
+                      await Future.delayed(
+                        const Duration(milliseconds: 10),
+                        () {
+                          setState(() {
+                            isSwipeLoading = true;
+                          });
+                          superPrint(idList);
+                          setState(() {
+                            List<String> warehouseNames =
+                                getWarehouseNames(requestedReturnMapList);
+                            Future.delayed(const Duration(milliseconds: 100));
+                            if (isUrgentIdList.isNotEmpty) {
+                              ref
+                                  .read(otherRequestStateNotifierProvider
+                                      .notifier)
+                                  .deliveryOtherRequest(
+                                    isUrgentIdList,
+                                    context,
+                                    warehouseNames,
+                                    packedWarehouseMap,
+                                    selectedWarehouseID,
+                                  )
+                                  .then((_) {
+                                ref
+                                    .read(otherRequestStateNotifierProvider
+                                        .notifier)
+                                    .getAllOtherRequest();
+                                isSwipeLoading = false;
+                              });
+                            } else if (idList.isNotEmpty) {
+                              ref
+                                  .read(otherRequestStateNotifierProvider
+                                      .notifier)
+                                  .deliveryOtherRequest(
+                                    idList,
+                                    context,
+                                    warehouseNames,
+                                    packedWarehouseMap,
+                                    selectedWarehouseID,
+                                  )
+                                  .then((_) {
+                                ref
+                                    .read(otherRequestStateNotifierProvider
+                                        .notifier)
+                                    .getAllOtherRequest();
+                                isSwipeLoading = false;
+                              });
+
+                              // if (!isPackedProductEqual) {
+                              // } else {
+                              //   isSwipeLoading = false;
+                              //   CommonMethods.customizedAlertDialog(
+                              //       "Please packed all your requested product",
+                              //       context);
+                              // }
+                            } else {
+                              isSwipeLoading = false;
+                              CommonMethods.customizedAlertDialog(
+                                  "Please check picking first", context);
+                            }
+                          });
+                        },
+                      );
+                    }
+                  },
+                ),
+              )
       ],
     );
   }
