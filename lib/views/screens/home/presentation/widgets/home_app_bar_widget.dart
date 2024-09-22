@@ -6,8 +6,9 @@ import 'package:unidbox_app/views/screens/home/repository/state_notifier/time_st
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../auth/repository/auth_state_notifier.dart';
 import '../../../internal_transfer/internal_transfer/presentation/internal_transfer_screen.dart';
-import '../../../internal_transfer/my_request/presentation/request_history_screen.dart';
 import '../../../inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
+import '../../../noti/presentation/outlet_notification_screen.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../domain/my_task.dart';
 
 class HomeAppBarWidget extends ConsumerWidget {
@@ -85,8 +86,9 @@ class HomeAppBarWidget extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: () {
+              ref.read(bottomBarVisibilityProvider.notifier).state = false;
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const RequestHistoryScreen()));
+                  builder: (context) => const OutletNotificationScreen()));
             },
             child: Container(
               width: 10.w,
