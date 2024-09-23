@@ -6,7 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
-import 'utils/commons/super_print.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
@@ -56,7 +55,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         await shorebirdCodePush.isNewPatchAvailableForDownload();
     await shorebirdCodePush.downloadUpdateIfAvailable();
     await Future.delayed(const Duration(milliseconds: 500));
-    superPrint(isUpdateAvailable);
+    // superPrint(isUpdateAvailable);
     if (isUpdateAvailable) {
       // Download the new patch if it's available.
       alertDialog();

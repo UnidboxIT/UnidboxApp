@@ -23,6 +23,7 @@ class GlobalReturnHistoryScreen extends ConsumerStatefulWidget {
 class _GlobalReturnHistoryScreenState
     extends ConsumerState<GlobalReturnHistoryScreen> {
   bool isMyReturn = true;
+  TextEditingController txtSearchController = TextEditingController();
   switchMyReturn() {
     setState(() {
       isMyReturn = true;
@@ -80,7 +81,9 @@ class _GlobalReturnHistoryScreenState
       child: Column(
         children: [
           FilterByDateWidget(isMyReturn: isMyReturn),
-          const SearchPendingRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchController,
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Row(

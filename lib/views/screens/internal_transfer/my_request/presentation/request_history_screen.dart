@@ -32,6 +32,7 @@ class _PendingRequestListScreenState
   String selectedDateRange = "";
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
+  TextEditingController txtSearchController = TextEditingController();
 
   @override
   void initState() {
@@ -171,7 +172,9 @@ class _PendingRequestListScreenState
       child: Column(
         children: [
           dateFilterWidget(),
-          const SearchPendingRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchController,
+          ),
           Expanded(child: requestHistoryWidget()),
         ],
       ),
@@ -378,7 +381,6 @@ class _PendingRequestListScreenState
   }
 
   Widget eachHistoryWidget(ProductLineId product) {
-    superPrint(product.productIdList[5]);
     List<Widget> attributeTexts = [];
     for (int i = 0; i < product.productIdList[5].length; i++) {
       attributeTexts.add(Text(product.productIdList[5][i],

@@ -31,6 +31,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   UserWarehouse userWarehouse = UserWarehouse();
   bool isWarehouseLoading = false;
   bool myRequestLoading = false;
+  TextEditingController txtSearchController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -123,7 +124,9 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
       child: Column(
         children: [
           //filterByDateWidget(context),
-          const SearchPendingRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchController,
+          ),
           Expanded(child: rejectedRequestListWidget()),
         ],
       ),

@@ -15,6 +15,7 @@ Widget rejectedProductWidget(
 ) {
   return GestureDetector(
     onTap: () {
+      FocusManager.instance.primaryFocus!.unfocus();
       ref.read(currentRouteProvider.notifier).state = '/';
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const RejectRequestScreen()));

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/home/repository/home_repository.dart';
 import 'package:unidbox_app/views/screens/home/repository/state/home_state.dart';
 import '../../domain/my_task.dart';
@@ -24,6 +25,7 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
       http.Response response = await _homeRepository.reminder();
       Map<String, dynamic> result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
+      superPrint(dataList);
       List<Noti> notiList = dataList.map((e) => Noti.fromJson(e)).toList();
       state = HomeState.loadNoti(notiList);
     } catch (e) {

@@ -1,17 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
+import '../../repository/provider/my_request_provider.dart';
 
-class SearchPendingRequestWidget extends StatefulWidget {
-  const SearchPendingRequestWidget({super.key});
+class SearchPendingRequestWidget extends ConsumerStatefulWidget {
+  final TextEditingController txtController;
+  const SearchPendingRequestWidget({super.key, required this.txtController});
 
   @override
-  State<SearchPendingRequestWidget> createState() =>
+  ConsumerState<SearchPendingRequestWidget> createState() =>
       _SearchOrderReceivingState();
 }
 
-class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
+class _SearchOrderReceivingState
+    extends ConsumerState<SearchPendingRequestWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +36,16 @@ class _SearchOrderReceivingState extends State<SearchPendingRequestWidget> {
           ],
         ),
         child: TextField(
+          controller: widget.txtController,
+          onChanged: (query) {
+            superPrint(query);
+            setState(() {
+              widget.txtController.text = query;
+              ref
+                  .read(myRequestStateNotifierProvider.notifier)
+                  .searchMyRequestData(query);
+            });
+          },
           style: const TextStyle(
             fontWeight: FontWeight.w700,
             color: Colors.black,

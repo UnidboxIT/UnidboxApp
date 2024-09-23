@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 
+import '../../../../../main.dart';
 import '../../domain/noti.dart';
 
 class ImportantReminderWidget extends ConsumerWidget {
@@ -34,11 +35,21 @@ class ImportantReminderWidget extends ConsumerWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 10),
+              notiInfo.body.toString().isEmpty
+                  ? SizedBox.fromSize()
+                  : textWidget(
+                      notiInfo.body.toString(),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      size: 14,
+                    ),
               isLoading
                   ? Container()
                   : notiList.isEmpty
                       ? Container(
-                          child: textWidget("No Important Reminders"),
+                          child: textWidget(notiInfo.body.toString().isNotEmpty
+                              ? ""
+                              : "No Important Reminders"),
                         )
                       : ListView.separated(
                           shrinkWrap: true,

@@ -1,19 +1,16 @@
-// class ReceivedNotification {
-//   ReceivedNotification({
-//     required this.id,
-//     required this.title,
-//     required this.body,
-//   });
+class NotiInfo {
+  NotiInfo({
+    this.title = "",
+    this.body = "",
+  });
 
-//   final int id;
-//   final String? title;
-//   final String? body;
+  final String? title;
+  final String? body;
 
-//   factory ReceivedNotification.fromJson(Map<String, dynamic> json) {
-//     return ReceivedNotification(
-//       id: json['id'],
-//       title: json['title'],
-//       body: json['body'],
-//     );
-//   }
-// }
+  factory NotiInfo.fromJson(Map<String, dynamic> json) {
+    return NotiInfo(
+      title: json['title'],
+      body: json['body'],
+    );
+  }
+}

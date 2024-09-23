@@ -187,6 +187,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
 
   bool productIdContainsQuery = false;
   searchMyRequestData(String query) {
+    superPrint(myRequestList);
     if (query.isNotEmpty) {
       List<MyRequest> searchRequest = myRequestList.where((request) {
         final nameContainsQuery =
@@ -202,13 +203,15 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
               .trim()
               .toLowerCase()
               .contains(query.toLowerCase());
-          superPrint(data.productIdList[1]);
+          // superPrint(data.productIdList[1]);
         }
 
         return nameContainsQuery ||
             userIdContainsQuery ||
             productIdContainsQuery;
       }).toList();
+
+      superPrint(searchRequest);
       state = MyRequestState.searchMyRequestValue(searchRequest);
     } else {
       getAllMyRequest();

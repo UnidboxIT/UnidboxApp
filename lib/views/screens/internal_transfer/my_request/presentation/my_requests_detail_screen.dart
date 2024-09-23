@@ -201,6 +201,7 @@ class _MyRequestsDetailScreenState
                       ),
                       GestureDetector(
                         onTap: () {
+                          FocusManager.instance.primaryFocus!.unfocus();
                           ref.read(bottomBarVisibilityProvider.notifier).state =
                               false;
                           ref.read(currentRouteProvider.notifier).state = '/';
@@ -410,6 +411,7 @@ class _MyRequestsDetailScreenState
   Widget pendingRequestWidget() {
     return GestureDetector(
       onTap: () {
+        FocusManager.instance.primaryFocus!.unfocus();
         ref.read(currentRouteProvider.notifier).state = '/';
         Navigator.of(context).push(
           MaterialPageRoute(

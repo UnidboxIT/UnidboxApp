@@ -18,10 +18,12 @@ import 'views/global_provider_observe.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
 import 'views/screens/internal_transfer/outlet_return/presentation/outlet_return_screen.dart';
+import 'views/screens/notification_service/noti.dart';
 import 'views/screens/notification_service/notification_service.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import 'views/user_warehouse/provider/user_warehouse_provider.dart';
 
+NotiInfo notiInfo = NotiInfo();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -71,6 +73,11 @@ void backgroundNotificationListener(Map<String, dynamic> data) {
       "Notification",
       jsonMap['message'],
     );
+
+    notiInfo = NotiInfo(title: "Request", body: jsonMap['message']);
+    superPrint(notiInfo);
+  } else {
+    superPrint(data);
   }
 }
 
@@ -83,6 +90,7 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
 
   RegExp regExp = RegExp(r'\baccepted\b');
   RegExp returnRegExp = RegExp(r'\breturned\b');
+
   if (currentRoute != '/outletRequest' &&
           receivedAction.body!.contains("updated") ||
       receivedAction.body!.contains("request")) {

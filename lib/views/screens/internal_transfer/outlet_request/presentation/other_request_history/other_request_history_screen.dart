@@ -44,6 +44,7 @@ class _PendingRequestListScreenState
   String selectedDateRange = "";
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
+  TextEditingController txtSearchController = TextEditingController();
 
   @override
   void initState() {
@@ -268,7 +269,9 @@ class _PendingRequestListScreenState
         children: [
           dateFilterWidget(),
           // filterByDateWidget(context),
-          const SearchPendingRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchController,
+          ),
           requestLoading
               ? const SizedBox.shrink()
               : Padding(

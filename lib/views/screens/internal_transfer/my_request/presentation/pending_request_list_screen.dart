@@ -27,6 +27,7 @@ class _PendingRequestListScreenState
   List<MyRequest> pendingRequestList = [];
   int acceptProductID = -1;
   bool isMyRequestLoading = false;
+  TextEditingController txtSearchController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -108,7 +109,9 @@ class _PendingRequestListScreenState
       ),
       child: Column(
         children: [
-          const SearchPendingRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchController,
+          ),
           makeNewWidget(context),
           Expanded(
             child: ListView.builder(
