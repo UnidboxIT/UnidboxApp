@@ -21,7 +21,7 @@ import 'widgets/each_product_line_widget.dart';
 import 'widgets/my_request_search_widget.dart';
 import 'widgets/rejected_product_widget.dart';
 
-int selectedFilterIndex = 4;
+int selectedFilterIndex = 3;
 
 class MyRequestsDetailScreen extends ConsumerStatefulWidget {
   final bool isStockRequest;
@@ -47,9 +47,9 @@ class _MyRequestsDetailScreenState
   List<String> visibleCode = [];
   List<FilterProductStatus> filterProductStatusList = [
     FilterProductStatus(id: 1, name: "Accepted"),
-    FilterProductStatus(id: 2, name: "Packed"),
-    FilterProductStatus(id: 3, name: "On-Delivery"),
-    FilterProductStatus(id: 4, name: "Receiving"),
+    //FilterProductStatus(id: 2, name: "Packed"),
+    FilterProductStatus(id: 2, name: "On-Delivery"),
+    FilterProductStatus(id: 3, name: "Receiving"),
   ];
 
   @override
@@ -274,6 +274,7 @@ class _MyRequestsDetailScreenState
     //   );
     // }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -291,33 +292,28 @@ class _MyRequestsDetailScreenState
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 String requestCode = myRequestList[index].name;
-                // superPrint(requestCode);
+
                 String name = myRequestList[index].userId[1];
-                List<ProductLineId> productList = selectedFilterIndex == 4 ||
+                List<ProductLineId> productList = selectedFilterIndex == 2 ||
                         selectedFilterIndex == 3
                     ? myRequestList[index]
                         .productLineList
-                        .where(
-                            (productLine) => productLine.status == "receiving")
+                        .where((productLine) => productLine.status == "issued")
                         .toList()
-                    : selectedFilterIndex == 2
-                        ? myRequestList[index]
-                            .productLineList
-                            .where(
-                                (productLine) => productLine.status == "packed")
-                            .toList()
-                        : myRequestList[index]
-                            .productLineList
-                            .where((productLine) =>
-                                productLine.status == "accepted")
-                            .toList();
-                // myRequestList[index]
-                //     .productLineList
-                //     .where((productLine) =>
-                //         productLine.status != 'done' &&
-                //         productLine.status != 'returned' &&
-                //         productLine.status != 'requested')
-                //     .toList();
+                    :
+                    // selectedFilterIndex == 2
+                    //     ? myRequestList[index]
+                    //         .productLineList
+                    //         .where(
+                    //             (productLine) => productLine.status == "packed")
+                    //         .toList()
+                    //     :
+                    myRequestList[index]
+                        .productLineList
+                        .where(
+                            (productLine) => productLine.status == "accepted")
+                        .toList();
+
                 String currentDate = myRequestList[index].createDate;
                 String requestWarehouse =
                     myRequestList[index].requestToWh.isEmpty
@@ -500,7 +496,7 @@ class _MyRequestsDetailScreenState
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.symmetric(
-                horizontal: 14,
+                horizontal: 20,
                 vertical: 10,
               ),
               child: textWidget(

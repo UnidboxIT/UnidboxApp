@@ -229,7 +229,7 @@ Widget eachPackedDataWiget(
                 width: 30.w,
                 alignment: Alignment.bottomCenter,
                 child: textWidget(
-                  "Packed",
+                  "Accepted",
                   fontWeight: FontWeight.w600,
                 ),
               ),

@@ -45,10 +45,12 @@ Future pushyRegister(backgroundNotificationListener) async {
                 receivedMessage.contains("issued"))) {
           if (regExp.hasMatch(receivedMessage)) {
             selectedFilterIndex = 1;
-          } else if (receivedMessage.contains("packed")) {
-            selectedFilterIndex = 2;
-          } else if (receivedMessage.contains("issued")) {
-            selectedFilterIndex = 4;
+          }
+          // else if (receivedMessage.contains("packed")) {
+          //   selectedFilterIndex = 2;
+          // }
+          else if (receivedMessage.contains("issued")) {
+            selectedFilterIndex = 3;
           }
           Navigator.of(
             homeNavRouteState.currentState!.context,

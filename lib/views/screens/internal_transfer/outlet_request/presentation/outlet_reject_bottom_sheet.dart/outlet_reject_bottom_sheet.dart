@@ -53,13 +53,13 @@ class OutletRejectWidget extends ConsumerStatefulWidget {
 }
 
 class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
-  OutletRejectReason selectedRejectReason =
-      OutletRejectReason(id: 0, reason: '');
+  ReasonsData selectedRejectReason = ReasonsData(
+      id: 0, name: '', newRequest: false, option: '', reject: false);
   TextEditingController txtOtherRemark = TextEditingController();
   bool isOther = false;
   int acceptProductID = -1;
   bool acceptLoading = false;
-  List<OutletRejectReason> outletRejectList = [];
+  List<ReasonsData> outletRejectList = [];
 
   @override
   void initState() {
@@ -76,7 +76,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
     if (values != null) {
       setState(() {
         selectedRejectReason = values;
-        if (selectedRejectReason.reason.trim() == "Others") {
+        if (selectedRejectReason.name.trim() == "Others") {
           isOther = true;
         } else {
           isOther = false;
@@ -162,7 +162,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<OutletRejectReason>(
+                      child: DropdownButton2<ReasonsData>(
                         isExpanded: true,
                         autofocus: true,
                         isDense: true,
@@ -182,10 +182,11 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                               fontWeight: FontWeight.w500),
                         ),
                         items: outletRejectList
-                            .map((item) => DropdownMenuItem<OutletRejectReason>(
+                            .where((e) => e.reject)
+                            .map((item) => DropdownMenuItem<ReasonsData>(
                                   value: item,
                                   child: Text(
-                                    item.reason,
+                                    item.name,
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
@@ -193,7 +194,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                                   ),
                                 ))
                             .toList(),
-                        value: selectedRejectReason.reason.isEmpty
+                        value: selectedRejectReason.name.isEmpty
                             ? null
                             : selectedRejectReason,
                         onChanged: (value) {
@@ -250,7 +251,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                               .acceptOtherRequest(
                                   widget.productId,
                                   widget.issuedQty,
-                                  selectedRejectReason.reason,
+                                  selectedRejectReason.id,
                                   txtOtherRemark.text,
                                   context)
                               .then((_) {
@@ -264,7 +265,7 @@ class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
                               .acceptOtherRequest(
                                   widget.productId,
                                   widget.issuedQty,
-                                  selectedRejectReason.reason,
+                                  selectedRejectReason.id,
                                   "",
                                   context)
                               .then((_) {

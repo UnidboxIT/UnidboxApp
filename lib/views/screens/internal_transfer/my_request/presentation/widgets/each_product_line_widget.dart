@@ -26,24 +26,24 @@ Widget eachProductLineWidget(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        superPrint(productList);
+        ProductLineId product = productList[index];
+        Map<int, double> receiveQtyMap = {product.id: product.issueQty};
         return Consumer(builder: (context, ref, child) {
           final state = ref.watch(myRequestStateNotifierProvider);
-          ProductLineId product = productList[index];
           if (state is IncrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.receivedQty = state.qty;
+              receiveQtyMap = {stateIndex: state.qty};
             } else {
-              product = productList[index];
+              receiveQtyMap = {product.id: product.issueQty};
             }
           }
           if (state is DecrementQty) {
             int stateIndex = state.index;
             if (product.id == stateIndex) {
-              product.receivedQty = state.qty;
+              receiveQtyMap = {stateIndex: state.qty};
             } else {
-              product = productList[index];
+              receiveQtyMap = {product.id: product.issueQty};
             }
           }
 
@@ -150,7 +150,7 @@ Widget eachProductLineWidget(
                                   ),
                           ),
                           const SizedBox(height: 10),
-                          productList[index].status != 'receiving'
+                          productList[index].status != 'issued'
                               ? Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,24 +188,27 @@ Widget eachProductLineWidget(
                                       children: [
                                         addMinusIconButtonWidget(() {
                                           if (productList[index].status ==
-                                              'receiving') {
+                                              'issued') {
                                             ref
                                                 .read(
                                                     myRequestStateNotifierProvider
                                                         .notifier)
                                                 .decrementTotalQty(
                                                     productList[index].id,
-                                                    product.receivedQty);
+                                                    receiveQtyMap[
+                                                        productList[index]
+                                                            .id]!);
                                           }
                                         },
                                             CupertinoIcons.minus_circle_fill,
                                             productList[index].status ==
-                                                    'receiving'
+                                                    'issued'
                                                 ? AppColor.primary
                                                 : AppColor.pinkColor),
                                         const SizedBox(width: 15),
                                         textWidget(
-                                            product.receivedQty
+                                            receiveQtyMap[
+                                                    productList[index].id]!
                                                 .toInt()
                                                 .toString(),
                                             color: AppColor.primary,
@@ -215,21 +218,24 @@ Widget eachProductLineWidget(
                                         addMinusIconButtonWidget(() {
                                           superPrint(product.issueQty);
                                           if (productList[index].status ==
-                                                  'receiving' &&
+                                                  'issued' &&
                                               product.issueQty >
-                                                  product.receivedQty) {
+                                                  receiveQtyMap[
+                                                      productList[index].id]!) {
                                             ref
                                                 .read(
                                                     myRequestStateNotifierProvider
                                                         .notifier)
                                                 .incrementTotalQty(
                                                     productList[index].id,
-                                                    product.receivedQty);
+                                                    receiveQtyMap[
+                                                        productList[index]
+                                                            .id]!);
                                           }
                                         },
                                             CupertinoIcons.add_circled_solid,
                                             productList[index].status ==
-                                                    'receiving'
+                                                    'issued'
                                                 ? AppColor.primary
                                                 : AppColor.pinkColor),
                                         textWidget(
@@ -285,13 +291,13 @@ Widget eachProductLineWidget(
                   ],
                 ),
                 Visibility(
-                    visible: productList[index].status == 'receiving',
+                    visible: productList[index].status == 'issued',
                     child: const SizedBox(height: 10)),
                 Visibility(
-                  visible: productList[index].status == 'receiving',
+                  visible: productList[index].status == 'issued',
                   child: SizedBox(
                     width: 80.w,
-                    child: product.issueQty != product.receivedQty
+                    child: product.issueQty != receiveQtyMap[product.id]
                         ? buttonWidget(
                             "Receive",
                             () {
@@ -310,20 +316,14 @@ Widget eachProductLineWidget(
                                                     requestWarehouse,
                                                 productLine: product,
                                                 currentWarehouse: name,
-                                                receiveReasonQty:
-                                                    productList[index]
-                                                            .issueQty -
-                                                        productList[index]
-                                                            .receivedQty,
+                                                receiveReasonQty: productList[
+                                                            index]
+                                                        .issueQty -
+                                                    receiveQtyMap[product.id]!,
                                                 receiveQty:
-                                                    product.receivedQty.toInt(),
-                                              )
-                                          // ReceiveScanScreen(
-                                          //   productID: product.id,
-                                          //   qty: product.receivedQty.toInt(),
-                                          //   productName: product.productIdList[1],
-                                          // ),
-                                          ),
+                                                    receiveQtyMap[product.id]!
+                                                        .toInt(),
+                                              )),
                                     );
                             },
                             isBool: isPending && product.id == acceptProductID,

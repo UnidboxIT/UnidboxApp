@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import '../../../../../../utils/commons/super_print.dart';
-import '../../domain/return_request_reason.dart';
+import '../../../outlet_request/domain/outlet_reject_reason.dart';
 import '../my_request_repository.dart';
 import '../state/return_request_reason_state.dart';
 
@@ -12,7 +12,7 @@ class ReturnRequestReasonStateNotifier
       : super(const ReturnRequestReasonState.initial());
   final MyRequestRepository _myRequestRepository;
 
-  List<ReturnRequestReason> returnRequestReasonList = [];
+  List<ReasonsData> returnRequestReasonList = [];
 
   Future<void> getOutletRejectReason() async {
     try {
@@ -22,11 +22,17 @@ class ReturnRequestReasonStateNotifier
       superPrint(response.body);
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
+
       for (var element in dataList) {
-        returnRequestReasonList.add(ReturnRequestReason.fromJson(element));
+        returnRequestReasonList.add(ReasonsData.fromJson(element));
       }
       state = ReturnRequestReasonState.loadReturnRequestReason(
-          returnRequestReasonList);
+          returnRequestReasonList
+              .where((e) =>
+                  e.option != "false" &&
+                  e.newRequest == false &&
+                  e.reject == false)
+              .toList());
     } catch (e) {
       superPrint(e.toString());
     }

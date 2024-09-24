@@ -14,7 +14,7 @@ class OutletRejectReasonStateNotifier
       : super(const OutletRejectReasonState.initial());
   final OtherRequestRepository _otherRequestRepository;
 
-  List<OutletRejectReason> outletRejectReasonList = [];
+  List<ReasonsData> outletRejectReasonList = [];
 
   Future<void> getOutletRejectReason() async {
     try {
@@ -25,7 +25,7 @@ class OutletRejectReasonStateNotifier
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
-        outletRejectReasonList.add(OutletRejectReason.fromJson(element));
+        outletRejectReasonList.add(ReasonsData.fromJson(element));
       }
       state = OutletRejectReasonState.loadOutletRejectReason(
           outletRejectReasonList);

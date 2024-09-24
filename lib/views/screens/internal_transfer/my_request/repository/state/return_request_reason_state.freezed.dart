@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ReturnRequestReasonState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> returnRequestReasonList)
+    required TResult Function(List<ReasonsData> returnRequestReasonList)
         loadReturnRequestReason,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -27,7 +27,7 @@ mixin _$ReturnRequestReasonState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult? Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -36,7 +36,7 @@ mixin _$ReturnRequestReasonState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -98,7 +98,7 @@ abstract class _$$ReturnRequestReasonListImplCopyWith<$Res> {
           $Res Function(_$ReturnRequestReasonListImpl) then) =
       __$$ReturnRequestReasonListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ReturnRequestReason> returnRequestReasonList});
+  $Res call({List<ReasonsData> returnRequestReasonList});
 }
 
 /// @nodoc
@@ -120,7 +120,7 @@ class __$$ReturnRequestReasonListImplCopyWithImpl<$Res>
       null == returnRequestReasonList
           ? _value._returnRequestReasonList
           : returnRequestReasonList // ignore: cast_nullable_to_non_nullable
-              as List<ReturnRequestReason>,
+              as List<ReasonsData>,
     ));
   }
 }
@@ -129,12 +129,12 @@ class __$$ReturnRequestReasonListImplCopyWithImpl<$Res>
 
 class _$ReturnRequestReasonListImpl implements ReturnRequestReasonList {
   const _$ReturnRequestReasonListImpl(
-      final List<ReturnRequestReason> returnRequestReasonList)
+      final List<ReasonsData> returnRequestReasonList)
       : _returnRequestReasonList = returnRequestReasonList;
 
-  final List<ReturnRequestReason> _returnRequestReasonList;
+  final List<ReasonsData> _returnRequestReasonList;
   @override
-  List<ReturnRequestReason> get returnRequestReasonList {
+  List<ReasonsData> get returnRequestReasonList {
     if (_returnRequestReasonList is EqualUnmodifiableListView)
       return _returnRequestReasonList;
     // ignore: implicit_dynamic_type
@@ -169,7 +169,7 @@ class _$ReturnRequestReasonListImpl implements ReturnRequestReasonList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> returnRequestReasonList)
+    required TResult Function(List<ReasonsData> returnRequestReasonList)
         loadReturnRequestReason,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -181,7 +181,7 @@ class _$ReturnRequestReasonListImpl implements ReturnRequestReasonList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult? Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -193,7 +193,7 @@ class _$ReturnRequestReasonListImpl implements ReturnRequestReasonList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -247,10 +247,10 @@ class _$ReturnRequestReasonListImpl implements ReturnRequestReasonList {
 
 abstract class ReturnRequestReasonList implements ReturnRequestReasonState {
   const factory ReturnRequestReasonList(
-          final List<ReturnRequestReason> returnRequestReasonList) =
+          final List<ReasonsData> returnRequestReasonList) =
       _$ReturnRequestReasonListImpl;
 
-  List<ReturnRequestReason> get returnRequestReasonList;
+  List<ReasonsData> get returnRequestReasonList;
   @JsonKey(ignore: true)
   _$$ReturnRequestReasonListImplCopyWith<_$ReturnRequestReasonListImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -294,7 +294,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> returnRequestReasonList)
+    required TResult Function(List<ReasonsData> returnRequestReasonList)
         loadReturnRequestReason,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -306,7 +306,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult? Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -318,7 +318,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -414,7 +414,7 @@ class _$ReturnReceiveLoadingImpl implements ReturnReceiveLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> returnRequestReasonList)
+    required TResult Function(List<ReasonsData> returnRequestReasonList)
         loadReturnRequestReason,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -426,7 +426,7 @@ class _$ReturnReceiveLoadingImpl implements ReturnReceiveLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult? Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -438,7 +438,7 @@ class _$ReturnReceiveLoadingImpl implements ReturnReceiveLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult Function()? initial,
     TResult Function()? loading,
@@ -560,7 +560,7 @@ class _$ReturnReceiveErrorImpl implements ReturnReceiveError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> returnRequestReasonList)
+    required TResult Function(List<ReasonsData> returnRequestReasonList)
         loadReturnRequestReason,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -572,7 +572,7 @@ class _$ReturnReceiveErrorImpl implements ReturnReceiveError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult? Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult? Function()? initial,
     TResult? Function()? loading,
@@ -584,7 +584,7 @@ class _$ReturnReceiveErrorImpl implements ReturnReceiveError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> returnRequestReasonList)?
+    TResult Function(List<ReasonsData> returnRequestReasonList)?
         loadReturnRequestReason,
     TResult Function()? initial,
     TResult Function()? loading,

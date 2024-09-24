@@ -4,12 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/accepted_list_screen.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/state/other_request_state.dart';
 import 'package:unidbox_app/views/widgets/load_more_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../utils/commons/super_scaffold.dart';
@@ -19,8 +13,14 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/my_request.dart';
+import '../../my_request/repository/state/warehouse_state.dart';
+import '../domain/other_request.dart';
+import '../domain/warehouse.dart';
+import '../repository/provider/other_request_provider.dart';
+import '../repository/state/other_request_state.dart';
 import 'other_request_history/other_request_history_screen.dart';
 import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
+import 'accepted_list_screen.dart';
 import 'widgets/each_other_request_product_widget.dart';
 import 'widgets/search_other_request_widget.dart';
 
@@ -318,7 +318,7 @@ class _OtherRequestsDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SearchOtherRequestWidget(),
-          outletRequestBreadcrumbHeadline(context, "", ""),
+          outletRequestBreadcrumbHeadline(context, ""),
           Expanded(child: myrequestDetailWidget()),
         ],
       ),
@@ -327,6 +327,7 @@ class _OtherRequestsDetailScreenState
 
   Widget myrequestDetailWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         acceptRequestWidget(),
         warehouseWidget(),

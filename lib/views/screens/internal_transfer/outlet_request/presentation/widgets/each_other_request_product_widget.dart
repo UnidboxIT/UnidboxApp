@@ -282,24 +282,24 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                   ],
                 ),
                 const Spacer(),
-                Visibility(
-                  visible: productLine.status == 'accepted',
-                  child: SizedBox(
-                    height: 35,
-                    width: 30.w,
-                    child: buttonWidget("Pack", () {
-                      superPrint(product.issueQty);
-                      isAcceptLoading && acceptProductID == productLine.id
-                          ? () {}
-                          : ref
-                              .read(otherRequestStateNotifierProvider.notifier)
-                              .packOtherRequest(
-                                  productLine.id, product.issueQty, context);
-                    },
-                        isBool: isAcceptLoading &&
-                            acceptProductID == productLine.id),
-                  ),
-                ),
+                // Visibility(
+                //   visible: productLine.status == 'accepted',
+                //   child: SizedBox(
+                //     height: 35,
+                //     width: 30.w,
+                //     child: buttonWidget("Pack", () {
+                //       superPrint(product.issueQty);
+                //       isAcceptLoading && acceptProductID == productLine.id
+                //           ? () {}
+                //           : ref
+                //               .read(otherRequestStateNotifierProvider.notifier)
+                //               .packOtherRequest(
+                //                   productLine.id, product.issueQty, context);
+                //     },
+                //         isBool: isAcceptLoading &&
+                //             acceptProductID == productLine.id),
+                //   ),
+                // ),
                 Visibility(
                   visible: productLine.status == 'requested',
                   child: SizedBox(
@@ -324,7 +324,7 @@ Widget eachAcceptedDataWiget(String code, String name, String currentDate,
                                 .read(
                                     otherRequestStateNotifierProvider.notifier)
                                 .acceptOtherRequest(
-                                    productLine.id, issuedQty, "", "", context);
+                                    productLine.id, issuedQty, 0, "", context);
                       }
                     },
                         isBool: isAcceptLoading &&

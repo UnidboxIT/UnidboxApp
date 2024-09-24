@@ -10,12 +10,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_return/presentation/widgets/each_my_return_reason_widget.dart';
 import '../domain/my_request.dart';
-import '../domain/return_request_reason.dart';
 import '../repository/provider/my_request_provider.dart';
 import '../repository/state/my_request_state.dart';
 import '../repository/state/return_request_reason_state.dart';
@@ -51,12 +51,11 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
 }
 
 class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
-  List<ReturnRequestReason> returnRequestReasonList = [];
+  List<ReasonsData> returnRequestReasonList = [];
   List<String> reasonIndex = [];
   bool requestLoading = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
@@ -344,16 +343,14 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 
                       superPrint(sumRecevieQty);
                       if (!reasonIndex
-                          .contains(returnRequestReasonList[index].reason)) {
+                          .contains(returnRequestReasonList[index].name)) {
                         if (widget.receiveReasonQty > sumRecevieQty) {
-                          reasonIndex
-                              .add(returnRequestReasonList[index].reason);
+                          reasonIndex.add(returnRequestReasonList[index].name);
                         }
                       } else {
                         reasonQtyMap
-                            .remove(returnRequestReasonList[index].reason);
-                        reasonIndex
-                            .remove(returnRequestReasonList[index].reason);
+                            .remove(returnRequestReasonList[index].name);
+                        reasonIndex.remove(returnRequestReasonList[index].name);
                       }
                     });
                   },
@@ -362,15 +359,15 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          reasonIndex.contains(
-                                  returnRequestReasonList[index].reason)
+                          reasonIndex
+                                  .contains(returnRequestReasonList[index].name)
                               ? Icons.check_box_outlined
                               : Icons.check_box_outline_blank,
                           size: 18,
                         ),
                         const SizedBox(width: 8),
                         textWidget(
-                          returnRequestReasonList[index].reason,
+                          returnRequestReasonList[index].name,
                           fontWeight: FontWeight.w700,
                           size: 14,
                         ),
@@ -379,12 +376,12 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   ),
                 ),
                 Visibility(
-                  visible: reasonIndex
-                      .contains(returnRequestReasonList[index].reason),
+                  visible:
+                      reasonIndex.contains(returnRequestReasonList[index].name),
                   child: EachReturnReasonWidget(
                       productID: widget.productLine.id,
-                      reasonIndex: returnRequestReasonList[index].reason,
-                      reasonName: returnRequestReasonList[index].reason,
+                      reasonIndex: returnRequestReasonList[index].name,
+                      reasonName: returnRequestReasonList[index].name,
                       reasonIndexList: reasonIndex,
                       returnRequestReasonList: returnRequestReasonList,
                       receiveQty: widget.receiveReasonQty),
@@ -405,7 +402,7 @@ class EachReturnReasonWidget extends ConsumerStatefulWidget {
   final String reasonIndex;
   final String reasonName;
   final List<String> reasonIndexList;
-  final List<ReturnRequestReason> returnRequestReasonList;
+  final List<ReasonsData> returnRequestReasonList;
   final double receiveQty;
   const EachReturnReasonWidget(
       {super.key,
@@ -687,11 +684,11 @@ class _EachReturnReasonWidgetState
           ),
           Visibility(
               visible: widget.reasonIndex ==
-                  widget.returnRequestReasonList.last.reason,
+                  widget.returnRequestReasonList.last.name,
               child: const SizedBox(height: 10)),
           Visibility(
-            visible: widget.reasonIndex ==
-                widget.returnRequestReasonList.last.reason,
+            visible:
+                widget.reasonIndex == widget.returnRequestReasonList.last.name,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(

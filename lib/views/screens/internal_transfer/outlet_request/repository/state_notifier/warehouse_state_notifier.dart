@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/repository/state/warehouse_state.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/other_request_repository.dart';
-
 import '../../../../../../utils/commons/super_print.dart';
+import '../../../my_request/repository/state/warehouse_state.dart';
 import '../../domain/warehouse.dart';
+import '../other_request_repository.dart';
 
 class WarehouseStateNotifier extends StateNotifier<WarehouseState> {
   WarehouseStateNotifier(this._otherRequestRepository)
@@ -20,13 +18,24 @@ class WarehouseStateNotifier extends StateNotifier<WarehouseState> {
       state = const WarehouseState.loading();
       warehouseList.clear();
       Response response = await _otherRequestRepository.warehouse();
-      superPrint(response.body);
       var result = jsonDecode(response.body);
-      Iterable dataList = result['result']['records'];
-      for (var element in dataList) {
-        warehouseList.add(Warehouse.fromJson(element));
+      superPrint(result);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          for (var element in dataList) {
+            warehouseList.add(Warehouse.fromJson(element));
+          }
+          state = WarehouseState.loadWarehouseData(warehouseList);
+        }
+      } else if (result.containsKey('error')) {
+        if (result['error']['data']['message'] == "Session expired") {
+          //Session Expired
+        } else {
+          superPrint(
+              "Warehouse Error ::: ${result['error']['data']['message']}");
+        }
       }
-      state = WarehouseState.loadWarehouseData(warehouseList);
     } catch (e) {
       superPrint(e.toString());
     }

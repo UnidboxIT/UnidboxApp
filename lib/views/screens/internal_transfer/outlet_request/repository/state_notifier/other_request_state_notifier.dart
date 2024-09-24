@@ -35,7 +35,7 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  Future<void> acceptOtherRequest(int productID, double qty, String reasonId,
+  Future<void> acceptOtherRequest(int productID, double qty, int reasonId,
       String otherCommet, BuildContext context) async {
     try {
       state = const OtherRequestState.acceptLoading();

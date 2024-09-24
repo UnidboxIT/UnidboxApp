@@ -54,6 +54,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   @override
   Widget build(BuildContext context) {
+    superPrint(widget.inHouseStockList);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(

@@ -30,7 +30,7 @@ class OtherRequestRepository {
   Future<Response> accepted(
     int productID,
     double qty,
-    String reasonId,
+    int reasonId,
     String otherComment,
   ) async {
     Map<String, dynamic> formData = {};
@@ -104,7 +104,7 @@ class OtherRequestRepository {
   Future<Response> outletRejectReason() async {
     Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/reason?fields=id,name,type&type=reject',
+      endpoint: 'joborder/reason',
       headers: CommonMethods.setHeaders(),
     );
 
