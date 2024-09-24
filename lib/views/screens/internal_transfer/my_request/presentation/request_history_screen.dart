@@ -11,6 +11,7 @@ import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../domain/my_request.dart';
 import '../repository/provider/my_request_provider.dart';
+import '../repository/state/my_request_history_state.dart';
 import '../repository/state/my_request_state.dart';
 import 'widgets/search_pending_request_widget.dart';
 
@@ -25,6 +26,7 @@ class RequestHistoryScreen extends ConsumerStatefulWidget {
 class _PendingRequestListScreenState
     extends ConsumerState<RequestHistoryScreen> {
   List<Map<String, dynamic>> requestedHistoryList = [];
+  List<Map<String, dynamic>> tempRequestedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   List<String> visibleCode = [];
   List<Map<String, dynamic>> dateFilteredData = [];
@@ -45,6 +47,7 @@ class _PendingRequestListScreenState
 
   loadRequestHistory() {
     requestedHistoryList.clear();
+    tempRequestedHistoryList.clear();
     for (var data in pendingRequestList) {
       for (var element in data.productLineList) {
         if (element.status.contains("done") ||
@@ -80,6 +83,7 @@ class _PendingRequestListScreenState
       setState(() {
         dateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
+        tempRequestedHistoryList.add(requestedHistoryMap);
         dateFilteredData.add(requestedHistoryMap);
       });
     }
@@ -129,6 +133,18 @@ class _PendingRequestListScreenState
         });
       }
     });
+    ref.listen(myRequestHistoryStateNotifierProvider, (pre, next) {
+      if (next is SearchMyRequestHistoyList) {
+        setState(() {
+          requestedHistoryList.clear();
+          dateFilteredData.clear();
+          requestedHistoryList.addAll(next.searchMyRequestHistoryList);
+          dateFilteredData.addAll(next.searchMyRequestHistoryList);
+        });
+        superPrint(next.searchMyRequestHistoryList);
+      }
+    });
+
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: const Color(0xffF6F6F6),
@@ -161,6 +177,17 @@ class _PendingRequestListScreenState
     );
   }
 
+  void handleTextChanged(String input) {
+    setState(() {
+      superPrint("Searh Text >>>> $input");
+      ref
+          .read(myRequestHistoryStateNotifierProvider.notifier)
+          .searchMyRequestHistoryData(
+              input, dateFilteredData, tempRequestedHistoryList);
+      // Example parsing logic: trying to convert input to an integer
+    });
+  }
+
   Widget pendingRequestWidget() {
     return Container(
       width: 100.w,
@@ -174,12 +201,16 @@ class _PendingRequestListScreenState
           dateFilterWidget(),
           SearchPendingRequestWidget(
             txtController: txtSearchController,
+            onChanged: handleTextChanged,
           ),
           Expanded(child: requestHistoryWidget()),
         ],
       ),
     );
   }
+
+  //  ref.read(myRequestHistoryStateNotifierProvider.notifier)
+  // .searchMyRequestHistoryData(query, []);
 
   Widget requestHistoryWidget(
       // List<Map<String, dynamic>> requestedMapList,

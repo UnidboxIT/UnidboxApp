@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../repository/provider/my_request_provider.dart';
 
 class SearchPendingRequestWidget extends ConsumerStatefulWidget {
   final TextEditingController txtController;
-  const SearchPendingRequestWidget({super.key, required this.txtController});
+  final Function(String)? onChanged;
+  const SearchPendingRequestWidget(
+      {super.key, required this.txtController, required this.onChanged});
 
   @override
   ConsumerState<SearchPendingRequestWidget> createState() =>
@@ -37,15 +37,7 @@ class _SearchOrderReceivingState
         ),
         child: TextField(
           controller: widget.txtController,
-          onChanged: (query) {
-            superPrint(query);
-            setState(() {
-              widget.txtController.text = query;
-              ref
-                  .read(myRequestStateNotifierProvider.notifier)
-                  .searchMyRequestData(query);
-            });
-          },
+          onChanged: widget.onChanged,
           style: const TextStyle(
             fontWeight: FontWeight.w700,
             color: Colors.black,

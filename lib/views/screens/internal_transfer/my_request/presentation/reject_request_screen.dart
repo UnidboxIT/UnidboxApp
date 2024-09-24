@@ -113,6 +113,12 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
     );
   }
 
+  void handleTextChanged(String input) {
+    setState(() {
+      // Example parsing logic: trying to convert input to an integer
+    });
+  }
+
   Widget rejectedRequestWidget() {
     return Container(
       width: 100.w,
@@ -126,6 +132,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
           //filterByDateWidget(context),
           SearchPendingRequestWidget(
             txtController: txtSearchController,
+            onChanged: handleTextChanged,
           ),
           Expanded(child: rejectedRequestListWidget()),
         ],

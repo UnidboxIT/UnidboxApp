@@ -257,6 +257,12 @@ class _PendingRequestListScreenState
     );
   }
 
+  void handleTextChanged(String input) {
+    setState(() {
+      // Example parsing logic: trying to convert input to an integer
+    });
+  }
+
   Widget pendingRequestWidget() {
     return Container(
       width: 100.w,
@@ -271,6 +277,7 @@ class _PendingRequestListScreenState
           // filterByDateWidget(context),
           SearchPendingRequestWidget(
             txtController: txtSearchController,
+            onChanged: handleTextChanged,
           ),
           requestLoading
               ? const SizedBox.shrink()

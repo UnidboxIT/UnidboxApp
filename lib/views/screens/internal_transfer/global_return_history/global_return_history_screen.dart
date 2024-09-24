@@ -70,6 +70,12 @@ class _GlobalReturnHistoryScreenState
     );
   }
 
+  void handleTextChanged(String input) {
+    setState(() {
+      // Example parsing logic: trying to convert input to an integer
+    });
+  }
+
   Widget pendingRequestWidget() {
     return Container(
       width: 100.w,
@@ -83,6 +89,7 @@ class _GlobalReturnHistoryScreenState
           FilterByDateWidget(isMyReturn: isMyReturn),
           SearchPendingRequestWidget(
             txtController: txtSearchController,
+            onChanged: handleTextChanged,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
