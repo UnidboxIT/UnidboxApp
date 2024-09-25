@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ReturnRequestState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -29,9 +29,9 @@ mixin _$ReturnRequestState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -39,9 +39,9 @@ mixin _$ReturnRequestState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -109,7 +109,7 @@ abstract class _$$IncrementReturnRequestQtyImplCopyWith<$Res> {
           $Res Function(_$IncrementReturnRequestQtyImpl) then) =
       __$$IncrementReturnRequestQtyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, int qty});
+  $Res call({int index, int qty});
 }
 
 /// @nodoc
@@ -132,7 +132,7 @@ class __$$IncrementReturnRequestQtyImplCopyWithImpl<$Res>
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
@@ -147,7 +147,7 @@ class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
   const _$IncrementReturnRequestQtyImpl(this.index, this.qty);
 
   @override
-  final String index;
+  final int index;
   @override
   final int qty;
 
@@ -178,9 +178,9 @@ class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -192,9 +192,9 @@ class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -205,9 +205,9 @@ class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -267,10 +267,10 @@ class _$IncrementReturnRequestQtyImpl implements IncrementReturnRequestQty {
 }
 
 abstract class IncrementReturnRequestQty implements ReturnRequestState {
-  const factory IncrementReturnRequestQty(final String index, final int qty) =
+  const factory IncrementReturnRequestQty(final int index, final int qty) =
       _$IncrementReturnRequestQtyImpl;
 
-  String get index;
+  int get index;
   int get qty;
   @JsonKey(ignore: true)
   _$$IncrementReturnRequestQtyImplCopyWith<_$IncrementReturnRequestQtyImpl>
@@ -284,7 +284,7 @@ abstract class _$$DecrementReturnRequestQtyImplCopyWith<$Res> {
           $Res Function(_$DecrementReturnRequestQtyImpl) then) =
       __$$DecrementReturnRequestQtyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, int qty});
+  $Res call({int index, int qty});
 }
 
 /// @nodoc
@@ -307,7 +307,7 @@ class __$$DecrementReturnRequestQtyImplCopyWithImpl<$Res>
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
@@ -322,7 +322,7 @@ class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
   const _$DecrementReturnRequestQtyImpl(this.index, this.qty);
 
   @override
-  final String index;
+  final int index;
   @override
   final int qty;
 
@@ -353,9 +353,9 @@ class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -367,9 +367,9 @@ class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -380,9 +380,9 @@ class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -442,10 +442,10 @@ class _$DecrementReturnRequestQtyImpl implements DecrementReturnRequestQty {
 }
 
 abstract class DecrementReturnRequestQty implements ReturnRequestState {
-  const factory DecrementReturnRequestQty(final String index, final int qty) =
+  const factory DecrementReturnRequestQty(final int index, final int qty) =
       _$DecrementReturnRequestQtyImpl;
 
-  String get index;
+  int get index;
   int get qty;
   @JsonKey(ignore: true)
   _$$DecrementReturnRequestQtyImplCopyWith<_$DecrementReturnRequestQtyImpl>
@@ -459,7 +459,7 @@ abstract class _$$AddReturnRequestQtyTextFieldValueImplCopyWith<$Res> {
           $Res Function(_$AddReturnRequestQtyTextFieldValueImpl) then) =
       __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String index, int qty});
+  $Res call({int index, int qty});
 }
 
 /// @nodoc
@@ -482,7 +482,7 @@ class __$$AddReturnRequestQtyTextFieldValueImplCopyWithImpl<$Res>
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == qty
           ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
@@ -498,7 +498,7 @@ class _$AddReturnRequestQtyTextFieldValueImpl
   const _$AddReturnRequestQtyTextFieldValueImpl(this.index, this.qty);
 
   @override
-  final String index;
+  final int index;
   @override
   final int qty;
 
@@ -530,9 +530,9 @@ class _$AddReturnRequestQtyTextFieldValueImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -544,9 +544,9 @@ class _$AddReturnRequestQtyTextFieldValueImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -557,9 +557,9 @@ class _$AddReturnRequestQtyTextFieldValueImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -620,10 +620,9 @@ class _$AddReturnRequestQtyTextFieldValueImpl
 
 abstract class AddReturnRequestQtyTextFieldValue implements ReturnRequestState {
   const factory AddReturnRequestQtyTextFieldValue(
-          final String index, final int qty) =
-      _$AddReturnRequestQtyTextFieldValueImpl;
+      final int index, final int qty) = _$AddReturnRequestQtyTextFieldValueImpl;
 
-  String get index;
+  int get index;
   int get qty;
   @JsonKey(ignore: true)
   _$$AddReturnRequestQtyTextFieldValueImplCopyWith<
@@ -669,9 +668,9 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -683,9 +682,9 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -696,9 +695,9 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -800,9 +799,9 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -814,9 +813,9 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -827,9 +826,9 @@ class _$ReturnRequestLoadingImpl implements ReturnRequestLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
@@ -957,9 +956,9 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String index, int qty) incrementQty,
-    required TResult Function(String index, int qty) decrementQty,
-    required TResult Function(String index, int qty)
+    required TResult Function(int index, int qty) incrementQty,
+    required TResult Function(int index, int qty) decrementQty,
+    required TResult Function(int index, int qty)
         addReturnRequestQtyTextFieldValue,
     required TResult Function() initial,
     required TResult Function() loading,
@@ -971,9 +970,9 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String index, int qty)? incrementQty,
-    TResult? Function(String index, int qty)? decrementQty,
-    TResult? Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult? Function(int index, int qty)? incrementQty,
+    TResult? Function(int index, int qty)? decrementQty,
+    TResult? Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
@@ -984,9 +983,9 @@ class _$ReturnRequestErrorImpl implements ReturnRequestError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String index, int qty)? incrementQty,
-    TResult Function(String index, int qty)? decrementQty,
-    TResult Function(String index, int qty)? addReturnRequestQtyTextFieldValue,
+    TResult Function(int index, int qty)? incrementQty,
+    TResult Function(int index, int qty)? decrementQty,
+    TResult Function(int index, int qty)? addReturnRequestQtyTextFieldValue,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,

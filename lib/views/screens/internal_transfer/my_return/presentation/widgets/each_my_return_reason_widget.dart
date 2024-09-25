@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
-import '../../../my_request/domain/return_request_reason.dart';
 import '../../../my_request/presentation/return_request_screen.dart';
 import '../../../my_request/repository/provider/my_request_provider.dart';
 import '../../../my_request/repository/state/return_request_state.dart';
@@ -15,9 +15,9 @@ import 'each_my_return_product_widget.dart';
 TextEditingController txtOtherComment = TextEditingController();
 
 class EachMyReturnReasonWidget extends ConsumerStatefulWidget {
-  final String reasonIndex;
-  final List<String> reasonIndexList;
-  final List<ReturnRequestReason> returnRequestReasonList;
+  final int reasonIndex;
+  final List<Map<String, dynamic>> reasonIndexList;
+  final List<ReasonsData> returnRequestReasonList;
   final double receiveQty;
   const EachMyReturnReasonWidget(
       {super.key,
@@ -45,7 +45,8 @@ class _EachReturnReasonWidgetState
     super.initState();
     txtOtherComment.clear();
     for (var data in widget.reasonIndexList) {
-      reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
+      int reasonID = data['reason_id'];
+      reasonQtyMap.update(reasonID, (value) => value, ifAbsent: () => 1);
       sumRecevieQty = reasonQtyMap.values
           .fold(0, (previousValue, element) => previousValue + element);
     }
@@ -201,12 +202,12 @@ class _EachReturnReasonWidgetState
             ],
           ),
           Visibility(
-              visible: widget.reasonIndex ==
-                  widget.returnRequestReasonList.last.reason,
+              visible:
+                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
               child: const SizedBox(height: 10)),
           Visibility(
-            visible: widget.reasonIndex ==
-                widget.returnRequestReasonList.last.reason,
+            visible:
+                widget.reasonIndex == widget.returnRequestReasonList.last.id,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(

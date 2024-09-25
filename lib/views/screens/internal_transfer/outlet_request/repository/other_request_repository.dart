@@ -34,7 +34,7 @@ class OtherRequestRepository {
     String otherComment,
   ) async {
     Map<String, dynamic> formData = {};
-    if (reasonId == "" && otherComment.isEmpty) {
+    if (reasonId == 0 && otherComment.isEmpty) {
       formData = {
         "state": "accepted",
         "qty": qty,

@@ -320,9 +320,9 @@ Widget eachProductLineWidget(
                                                             index]
                                                         .issueQty -
                                                     receiveQtyMap[product.id]!,
-                                                receiveQty:
-                                                    receiveQtyMap[product.id]!
-                                                        .toInt(),
+                                                receiveQty: productList[index]
+                                                    .receivedQty
+                                                    .toInt(),
                                               )),
                                     );
                             },

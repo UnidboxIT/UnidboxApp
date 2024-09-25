@@ -95,10 +95,10 @@ class _MyRequestsDetailScreenState
               if (element.status == 'requested') {
                 pendingRequestList.add(element);
               }
-              if (element.status == "rejected" && !element.removeReject ||
+              if (element.status == "rejected" && element.rejectedQty > 0 ||
                   (element.status != "requested" &&
                       element.qty > element.issueQty &&
-                      !element.removeReject)) {
+                      element.rejectedQty > 0)) {
                 rejectedList.add(element);
               }
             }
@@ -310,8 +310,10 @@ class _MyRequestsDetailScreenState
                     //     :
                     myRequestList[index]
                         .productLineList
-                        .where(
-                            (productLine) => productLine.status == "accepted")
+                        .where((productLine) => productLine.status == "accepted"
+                            // ||
+                            // productLine.status == "waiting_return_accept"
+                            )
                         .toList();
 
                 String currentDate = myRequestList[index].createDate;

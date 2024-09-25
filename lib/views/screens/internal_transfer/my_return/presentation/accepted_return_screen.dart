@@ -252,6 +252,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
               ? const SizedBox.shrink()
               : Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       warehouseWidget(),
                       const SizedBox(height: 10),

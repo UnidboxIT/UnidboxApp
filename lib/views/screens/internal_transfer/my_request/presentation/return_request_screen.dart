@@ -22,7 +22,7 @@ import '../repository/state/return_request_reason_state.dart';
 import '../repository/state/return_request_state.dart';
 import 'widgets/each_product_line_widget.dart';
 
-Map<String, int> reasonQtyMap = {};
+Map<int, int> reasonQtyMap = {};
 List returnRequestImageList = [];
 
 class ReturnRequestScreen extends ConsumerStatefulWidget {
@@ -52,7 +52,7 @@ class ReturnRequestScreen extends ConsumerStatefulWidget {
 
 class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
   List<ReasonsData> returnRequestReasonList = [];
-  List<String> reasonIndex = [];
+  List<Map<String, dynamic>> reasonIndex = [];
   bool requestLoading = false;
   @override
   void initState() {
@@ -280,9 +280,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  // int totalReturnReasonQty = reasonQtyMap.values.fold(
-                  //     0, (previousValue, element) => previousValue + element);
-                  // if (totalReturnReasonQty == widget.receiveReasonQty.toInt()) {
+                  superPrint(reasonIndex);
                   ref
                       .read(myRequestStateNotifierProvider.notifier)
                       .receivedByImageMyRequest(
@@ -293,6 +291,9 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                         txtOtherComment.text,
                         returnRequestImageList,
                       );
+                  // int totalReturnReasonQty = reasonQtyMap.values.fold(
+                  //     0, (previousValue, element) => previousValue + element);
+                  // if (totalReturnReasonQty == widget.receiveReasonQty.toInt()) {
                   //}
                 },
                 child: Container(
@@ -341,26 +342,43 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                       int sumRecevieQty = reasonQtyMap.values.fold(0,
                           (previousValue, element) => previousValue + element);
 
-                      superPrint(sumRecevieQty);
-                      if (!reasonIndex
-                          .contains(returnRequestReasonList[index].name)) {
+                      if (!reasonIndex.any((reason) =>
+                          reason['reason_id'] ==
+                          returnRequestReasonList[index].id)) {
                         if (widget.receiveReasonQty > sumRecevieQty) {
-                          reasonIndex.add(returnRequestReasonList[index].name);
+                          reasonIndex.add({
+                            'reason_id': returnRequestReasonList[index].id,
+                            'quantity': reasonQtyMap[
+                                    returnRequestReasonList[index].id] ??
+                                1,
+                            'note': returnRequestReasonList[index].name
+                          });
+                          for (var data in reasonIndex) {
+                            setState(() {
+                              int reasonID = data['reason_id'];
+                              reasonQtyMap.update(reasonID, (value) => value,
+                                  ifAbsent: () => 1);
+                            });
+                          }
                         }
                       } else {
-                        reasonQtyMap
-                            .remove(returnRequestReasonList[index].name);
-                        reasonIndex.remove(returnRequestReasonList[index].name);
+                        reasonQtyMap.remove(returnRequestReasonList[index].id);
+                        reasonIndex.removeWhere((reason) =>
+                            reason['reason_id'] ==
+                            returnRequestReasonList[index].id);
                       }
                     });
+
+                    superPrint(reasonQtyMap[returnRequestReasonList[index].id]);
                   },
                   child: Container(
                     color: Colors.transparent,
                     child: Row(
                       children: [
                         Icon(
-                          reasonIndex
-                                  .contains(returnRequestReasonList[index].name)
+                          reasonIndex.any((reason) =>
+                                  reason['reason_id'] ==
+                                  returnRequestReasonList[index].id)
                               ? Icons.check_box_outlined
                               : Icons.check_box_outline_blank,
                           size: 18,
@@ -376,11 +394,11 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                   ),
                 ),
                 Visibility(
-                  visible:
-                      reasonIndex.contains(returnRequestReasonList[index].name),
+                  visible: reasonIndex.any((reason) =>
+                      reason['reason_id'] == returnRequestReasonList[index].id),
                   child: EachReturnReasonWidget(
                       productID: widget.productLine.id,
-                      reasonIndex: returnRequestReasonList[index].name,
+                      reasonIndex: returnRequestReasonList[index].id,
                       reasonName: returnRequestReasonList[index].name,
                       reasonIndexList: reasonIndex,
                       returnRequestReasonList: returnRequestReasonList,
@@ -399,9 +417,9 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
 
 class EachReturnReasonWidget extends ConsumerStatefulWidget {
   final int productID;
-  final String reasonIndex;
+  final int reasonIndex;
   final String reasonName;
-  final List<String> reasonIndexList;
+  final List<Map<String, dynamic>> reasonIndexList;
   final List<ReasonsData> returnRequestReasonList;
   final double receiveQty;
   const EachReturnReasonWidget(
@@ -435,12 +453,12 @@ class _EachReturnReasonWidgetState
     super.initState();
     for (var data in widget.reasonIndexList) {
       setState(() {
-        reasonQtyMap.update(data, (value) => value, ifAbsent: () => 1);
+        int reasonID = data['reason_id'];
+        reasonQtyMap.update(reasonID, (value) => value, ifAbsent: () => 1);
         sumRecevieQty = reasonQtyMap.values
             .fold(0, (previousValue, element) => previousValue + element);
       });
     }
-
     superPrint(sumRecevieQty);
     superPrint(reasonQtyMap);
   }
@@ -479,28 +497,65 @@ class _EachReturnReasonWidgetState
     ref.listen(returnRequestStateNotifierProvider, (pre, next) {
       if (next is IncrementReturnRequestQty &&
           widget.reasonIndex == next.index) {
+        var existingReason = widget.reasonIndexList.firstWhere(
+            (item) => item['reason_id'] == next.index,
+            orElse: () => {});
+
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
         });
+        if (existingReason != {}) {
+          existingReason['quantity'] = next.qty;
+        } else {
+          widget.reasonIndexList.add({
+            'reason_id': widget.reasonIndex,
+            'quantity': next.qty,
+            'note': widget.reasonName,
+          });
+        }
       }
       if (next is DecrementReturnRequestQty &&
           widget.reasonIndex == next.index) {
+        var existingReason = widget.reasonIndexList.firstWhere(
+            (item) => item['reason_id'] == next.index,
+            orElse: () => {});
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
         });
+        if (existingReason != {}) {
+          existingReason['quantity'] = next.qty;
+        } else {
+          widget.reasonIndexList.add({
+            'reason_id': widget.reasonIndex,
+            'quantity': next.qty,
+            'note': widget.reasonName,
+          });
+        }
       }
 
       if (next is AddReturnRequestQtyTextFieldValue &&
           widget.reasonIndex == next.index) {
+        var existingReason = widget.reasonIndexList.firstWhere(
+            (item) => item['reason_id'] == next.index,
+            orElse: () => {});
         setState(() {
           totalQty = next.qty;
           reasonQtyMap.addAll({widget.reasonIndex: totalQty});
           txtQty.text = reasonQtyMap[next.index].toString();
         });
+        if (existingReason != {}) {
+          existingReason['quantity'] = next.qty;
+        } else {
+          widget.reasonIndexList.add({
+            'reason_id': widget.reasonIndex,
+            'quantity': next.qty,
+            'note': widget.reasonName,
+          });
+        }
       }
     });
 
@@ -683,12 +738,12 @@ class _EachReturnReasonWidgetState
             ],
           ),
           Visibility(
-              visible: widget.reasonIndex ==
-                  widget.returnRequestReasonList.last.name,
+              visible:
+                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
               child: const SizedBox(height: 10)),
           Visibility(
             visible:
-                widget.reasonIndex == widget.returnRequestReasonList.last.name,
+                widget.reasonIndex == widget.returnRequestReasonList.last.id,
             child: Container(
               width: 80.w,
               decoration: BoxDecoration(

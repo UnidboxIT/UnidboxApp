@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MyReturnReasonState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -30,7 +30,7 @@ mixin _$MyReturnReasonState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -42,7 +42,7 @@ mixin _$MyReturnReasonState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -113,7 +113,7 @@ abstract class _$$MyReturnReasonListImplCopyWith<$Res> {
           $Res Function(_$MyReturnReasonListImpl) then) =
       __$$MyReturnReasonListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ReturnRequestReason> myReturnReasonList});
+  $Res call({List<ReasonsData> myReturnReasonList});
 }
 
 /// @nodoc
@@ -133,7 +133,7 @@ class __$$MyReturnReasonListImplCopyWithImpl<$Res>
       null == myReturnReasonList
           ? _value._myReturnReasonList
           : myReturnReasonList // ignore: cast_nullable_to_non_nullable
-              as List<ReturnRequestReason>,
+              as List<ReasonsData>,
     ));
   }
 }
@@ -141,13 +141,12 @@ class __$$MyReturnReasonListImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MyReturnReasonListImpl implements MyReturnReasonList {
-  const _$MyReturnReasonListImpl(
-      final List<ReturnRequestReason> myReturnReasonList)
+  const _$MyReturnReasonListImpl(final List<ReasonsData> myReturnReasonList)
       : _myReturnReasonList = myReturnReasonList;
 
-  final List<ReturnRequestReason> _myReturnReasonList;
+  final List<ReasonsData> _myReturnReasonList;
   @override
-  List<ReturnRequestReason> get myReturnReasonList {
+  List<ReasonsData> get myReturnReasonList {
     if (_myReturnReasonList is EqualUnmodifiableListView)
       return _myReturnReasonList;
     // ignore: implicit_dynamic_type
@@ -182,7 +181,7 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -197,7 +196,7 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -212,7 +211,7 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -276,11 +275,10 @@ class _$MyReturnReasonListImpl implements MyReturnReasonList {
 }
 
 abstract class MyReturnReasonList implements MyReturnReasonState {
-  const factory MyReturnReasonList(
-          final List<ReturnRequestReason> myReturnReasonList) =
+  const factory MyReturnReasonList(final List<ReasonsData> myReturnReasonList) =
       _$MyReturnReasonListImpl;
 
-  List<ReturnRequestReason> get myReturnReasonList;
+  List<ReasonsData> get myReturnReasonList;
   @JsonKey(ignore: true)
   _$$MyReturnReasonListImplCopyWith<_$MyReturnReasonListImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -359,7 +357,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -374,7 +372,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -389,7 +387,7 @@ class _$IncrementReturnQtyImpl implements IncrementReturnQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -536,7 +534,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -551,7 +549,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -566,7 +564,7 @@ class _$DecrementReturnQtyImpl implements DecrementReturnQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -714,7 +712,7 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -729,7 +727,7 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -744,7 +742,7 @@ class _$AddQtyTextFieldValueImpl implements AddQtyTextFieldValue {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -856,7 +854,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -871,7 +869,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -886,7 +884,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -993,7 +991,7 @@ class _$MyReturnReasonLoadingImpl implements MyReturnReasonLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -1008,7 +1006,7 @@ class _$MyReturnReasonLoadingImpl implements MyReturnReasonLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -1023,7 +1021,7 @@ class _$MyReturnReasonLoadingImpl implements MyReturnReasonLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,
@@ -1155,7 +1153,7 @@ class _$MyReturnReasonErrorImpl implements MyReturnReasonError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ReturnRequestReason> myReturnReasonList)
+    required TResult Function(List<ReasonsData> myReturnReasonList)
         loadReturnRequestReason,
     required TResult Function(int index, int qty) incrementQty,
     required TResult Function(int index, int qty) decrementQty,
@@ -1170,7 +1168,7 @@ class _$MyReturnReasonErrorImpl implements MyReturnReasonError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult? Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult? Function(int index, int qty)? incrementQty,
     TResult? Function(int index, int qty)? decrementQty,
@@ -1185,7 +1183,7 @@ class _$MyReturnReasonErrorImpl implements MyReturnReasonError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> myReturnReasonList)?
+    TResult Function(List<ReasonsData> myReturnReasonList)?
         loadReturnRequestReason,
     TResult Function(int index, int qty)? incrementQty,
     TResult Function(int index, int qty)? decrementQty,

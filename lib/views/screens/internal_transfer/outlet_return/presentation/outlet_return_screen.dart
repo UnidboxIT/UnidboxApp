@@ -104,9 +104,9 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            if (data.id != userWarehouse.warehouseList[0]) {
-              warehouseList.add(data);
-            }
+            //if (data.id != userWarehouse.warehouseList[0]) {
+            warehouseList.add(data);
+            // }
           }
         });
       }
@@ -131,7 +131,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                   element.status == "return_issued") {
                 acceptedOutletReturnList.add(element);
               }
-              if (element.status == "returned") {
+              if (element.status == "returned" ||
+                  element.status == "waiting_return_accept") {
                 int warehouseId = data.isNewReturn
                     ? element.requestWarehouse[0]
                     : element.warehouseList[0];
@@ -256,10 +257,12 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
         borderRadius: BorderRadius.circular(25),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SearchOtherRequestWidget(),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 warehouseList.isEmpty
                     ? const SizedBox.shrink()

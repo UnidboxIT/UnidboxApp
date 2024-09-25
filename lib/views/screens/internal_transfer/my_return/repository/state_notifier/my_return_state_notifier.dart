@@ -49,7 +49,7 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
     int totalQty,
     double price,
     int uomID,
-    List<String> reasonIDList,
+    List<Map<String, dynamic>> reasonIDList,
     String comment,
     BuildContext context,
     WidgetRef ref,

@@ -134,7 +134,7 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       int productID,
       int qty,
       BuildContext context,
-      List<String> reasonIdList,
+      List reasonIdList,
       String otherComment,
       List imageList) async {
     try {

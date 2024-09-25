@@ -252,6 +252,7 @@ class _AcceptedOutletReturnScreenState
           const SearchOtherRequestWidget(),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 warehouseList.isEmpty
                     ? const SizedBox.shrink()

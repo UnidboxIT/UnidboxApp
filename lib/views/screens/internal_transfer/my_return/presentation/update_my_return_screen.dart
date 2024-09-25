@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/my_request.dart';
-import '../../my_request/domain/return_request_reason.dart';
 import '../../my_request/presentation/return_request_screen.dart';
 import '../repository/provider/my_return_provider.dart';
 import '../repository/state/my_return_reason_state.dart';
@@ -42,8 +42,8 @@ class UpdateMyReturnScreen extends ConsumerStatefulWidget {
 
 class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
     with WidgetsBindingObserver {
-  List<ReturnRequestReason> myReturnReason = [];
-  List<String> reasonIndex = [];
+  List<ReasonsData> myReturnReason = [];
+  List<Map<String, dynamic>> reasonIndex = [];
   bool isMyReturnUpdate = false;
   @override
   void initState() {
@@ -381,14 +381,31 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                   setState(() {
                     int sumRecevieQty = reasonQtyMap.values.fold(
                         0, (previousValue, element) => previousValue + element);
-                    if (!reasonIndex.contains(myReturnReason[index].reason)) {
-                      if (widget.receiveQty > sumRecevieQty) {
-                        reasonIndex.add(myReturnReason[index].reason);
-                      }
+                    if (!reasonIndex.any((reason) =>
+                        reason['reason_id'] == myReturnReason[index].id)) {
+                      // if (widget.receiveReasonQty > sumRecevieQty) {
+                      reasonIndex.add({
+                        'reason_id': myReturnReason[index].id,
+                        'quantity': reasonQtyMap[myReturnReason[index].id],
+                        'note': myReturnReason[index].name
+                      });
+                      superPrint(reasonIndex);
+                      //}
                     } else {
-                      reasonQtyMap.remove(myReturnReason[index].reason);
-                      reasonIndex.remove(myReturnReason[index].reason);
+                      reasonQtyMap.remove(myReturnReason[index].id);
+
+                      // Remove the map where the 'note' matches the name
+                      reasonIndex.removeWhere((reason) =>
+                          reason['note'] == myReturnReason[index].name);
                     }
+                    // if (!reasonIndex.contains(myReturnReason[index].id)) {
+                    //   if (widget.receiveQty > sumRecevieQty) {
+                    //     reasonIndex.add(myReturnReason[index].reason);
+                    //   }
+                    // } else {
+                    //   reasonQtyMap.remove(myReturnReason[index].reason);
+                    //   reasonIndex.remove(myReturnReason[index].reason);
+                    // }
                   });
                 },
                 child: Container(
@@ -396,14 +413,15 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                   child: Row(
                     children: [
                       Icon(
-                        reasonIndex.contains(myReturnReason[index].reason)
+                        reasonIndex.any((reason) =>
+                                reason['reason_id'] == myReturnReason[index].id)
                             ? Icons.check_box_outlined
                             : Icons.check_box_outline_blank,
                         size: 18,
                       ),
                       const SizedBox(width: 8),
                       textWidget(
-                        myReturnReason[index].reason,
+                        myReturnReason[index].name,
                         fontWeight: FontWeight.w700,
                         size: 14,
                       ),
@@ -412,9 +430,10 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                 ),
               ),
               Visibility(
-                visible: reasonIndex.contains(myReturnReason[index].reason),
+                visible: reasonIndex.any((reason) =>
+                    reason['reason_id'] == myReturnReason[index].id),
                 child: EachMyReturnReasonWidget(
-                    reasonIndex: myReturnReason[index].reason,
+                    reasonIndex: myReturnReason[index].id,
                     reasonIndexList: reasonIndex,
                     returnRequestReasonList: myReturnReason,
                     receiveQty: widget.receiveQty),

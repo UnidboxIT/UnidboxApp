@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../my_request/domain/return_request_reason.dart';
+import '../../../outlet_request/domain/outlet_reject_reason.dart';
 part 'my_return_reason_state.freezed.dart';
 
 extension Getters on MyReturnReasonState {
@@ -10,7 +10,7 @@ extension Getters on MyReturnReasonState {
 @freezed
 class MyReturnReasonState with _$MyReturnReasonState {
   const factory MyReturnReasonState.loadReturnRequestReason(
-      List<ReturnRequestReason> myReturnReasonList) = MyReturnReasonList;
+      List<ReasonsData> myReturnReasonList) = MyReturnReasonList;
   const factory MyReturnReasonState.incrementQty(int index, int qty) =
       IncrementReturnQty;
   const factory MyReturnReasonState.decrementQty(int index, int qty) =

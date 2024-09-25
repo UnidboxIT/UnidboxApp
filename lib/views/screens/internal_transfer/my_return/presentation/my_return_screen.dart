@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -130,7 +129,8 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
               if (element.status == 'return_accepted') {
                 acceptedReturnList.add(element);
               }
-              if (element.status == "returned") {
+              if (element.status == "returned" ||
+                  element.status == "waiting_return_accept") {
                 int warehouseId = data.isNewReturn
                     ? element.warehouseList[0]
                     : element.requestWarehouse[0];

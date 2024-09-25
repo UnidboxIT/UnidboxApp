@@ -39,6 +39,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
   TextEditingController txtTotalQty = TextEditingController();
   bool isUrgent = false;
   bool isOverQty = false;
+  List<InhouseStock> sortedStockList = [];
 
   @override
   void initState() {
@@ -54,7 +55,21 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
 
   @override
   Widget build(BuildContext context) {
-    superPrint(widget.inHouseStockList);
+    sortedStockList =
+        List.from(widget.inHouseStockList); // Create a modifiable copy
+    superPrint(sortedStockList);
+    sortedStockList.sort((a, b) {
+      if (a.warehouseList[0] == widget.userWarehouse.warehouseList[0] &&
+          b.warehouseList[0] != widget.userWarehouse.warehouseList[0]) {
+        return -1; // a comes before b
+      } else if (a.warehouseList[0] != widget.userWarehouse.warehouseList[0] &&
+          b.warehouseList[0] == widget.userWarehouse.warehouseList[0]) {
+        return 1; // b comes before a
+      } else {
+        return 0; // maintain their relative order if both are equal or neither matches
+      }
+    });
+    superPrint(sortedStockList);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -89,8 +104,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             ],
           ),
           const SizedBox(height: 10),
-          widget.inHouseStockList.isNotEmpty &&
-                  widget.inHouseStockList[0].warehouseList[0] !=
+          sortedStockList.isNotEmpty &&
+                  sortedStockList[0].warehouseList[0] !=
                       widget.userWarehouse.warehouseList[0]
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,8 +128,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                   ],
                 )
               : const SizedBox(),
-          widget.inHouseStockList.isNotEmpty &&
-                  widget.inHouseStockList[0].warehouseList[0] !=
+          sortedStockList.isNotEmpty &&
+                  sortedStockList[0].warehouseList[0] !=
                       widget.userWarehouse.warehouseList[0]
               ? const SizedBox(height: 10)
               : const SizedBox.shrink(),
@@ -122,14 +137,12 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                String location =
-                    widget.inHouseStockList[index].warehouseList[1];
-                double qty = widget.inHouseStockList[index].qty == 'null'
+                String location = sortedStockList[index].warehouseList[1];
+                double qty = sortedStockList[index].qty == 'null'
                     ? 0
-                    : double.parse(
-                        widget.inHouseStockList[index].qty.toString());
-                int id = widget.inHouseStockList[index].warehouseList[0];
-                if (widget.inHouseStockList[0].warehouseList[0] !=
+                    : double.parse(sortedStockList[index].qty.toString());
+                int id = sortedStockList[index].warehouseList[0];
+                if (sortedStockList[0].warehouseList[0] !=
                     widget.userWarehouse.warehouseList[0]) {
                   return eachInhouseStockNotContainWidget(
                       location, qty.toString(), id, context);
@@ -140,7 +153,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
               separatorBuilder: (context, index) {
                 return const SizedBox.shrink();
               },
-              itemCount: widget.inHouseStockList.length),
+              itemCount: sortedStockList.length),
           Container(
             height: 20,
             color: Colors.transparent,
@@ -158,7 +171,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     //   return const SizedBox.shrink();
     // } else
     if (double.parse(qty) <= 0 &&
-        widget.inHouseStockList[index].warehouseList[0] ==
+        sortedStockList[index].warehouseList[0] ==
             widget.userWarehouse.warehouseList[0]) {
       return Column(
         children: [
@@ -167,7 +180,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
             children: [
               Expanded(
                 flex: 4,
-                child: textWidget(widget.inHouseStockList[0].warehouseList[1],
+                child: textWidget(sortedStockList[0].warehouseList[1],
                     color: Colors.black, size: 14, textAlign: TextAlign.left),
               ),
               Expanded(
@@ -182,7 +195,7 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
         ],
       );
     } else if (double.parse(qty) <= 0 &&
-        widget.inHouseStockList[index].warehouseList[0] !=
+        sortedStockList[index].warehouseList[0] !=
             widget.userWarehouse.warehouseList[0]) {
       return const SizedBox.shrink();
     }

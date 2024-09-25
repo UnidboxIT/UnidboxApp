@@ -198,8 +198,11 @@ Widget eachMyReturnProductLineWidget(
                                 ? "Return Issued"
                                 : productList[index].status == "returned"
                                     ? "Pending"
-                                    : capitalizeFirstLetter(
-                                        productList[index].status),
+                                    : productList[index].status ==
+                                            "waiting_return_accept"
+                                        ? "Waiting Return Accept"
+                                        : capitalizeFirstLetter(
+                                            productList[index].status),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         size: 14,
@@ -239,7 +242,8 @@ Widget eachMyReturnProductLineWidget(
                   ),
                   // const Spacer(),
                   productList[index].status == "return_accepted" ||
-                          productList[index].status == "return_issued"
+                          productList[index].status == "return_issued" ||
+                          isNewReturn
                       ? const SizedBox.shrink()
                       : Consumer(builder: (context, ref, data) {
                           return SizedBox(

@@ -34,7 +34,7 @@ class MyReturnRepository {
   Future<Response> returnRequestReason() async {
     Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/reason?fields=id,name,type&type=return',
+      endpoint: 'joborder/reason',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -50,7 +50,7 @@ class MyReturnRepository {
     int totalQty,
     double price,
     int uomID,
-    List<String> reasonID,
+    List<Map<String, dynamic>> reasonID,
     String comment,
     bool isNewReturn,
   ) async {

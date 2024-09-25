@@ -51,8 +51,8 @@ class MyRequestRepository {
     return response;
   }
 
-  Future<Response> receivedByImage(int productID, int qty,
-      List<String> reasonIdList, String otherComment, List imageList) async {
+  Future<Response> receivedByImage(int productID, int qty, List reasonIdList,
+      String otherComment, List imageList) async {
     Map<String, dynamic> formData = {};
     if (otherComment.isNotEmpty) {
       formData = {
@@ -98,7 +98,7 @@ class MyRequestRepository {
   Future<Response> remove(int productID) async {
     Map<String, dynamic> formData = {
       "ids": [productID],
-      "remove_reject": true,
+      "state": "remove_reject",
     };
     superPrint(formData);
     Response response = await ApiService().post(
