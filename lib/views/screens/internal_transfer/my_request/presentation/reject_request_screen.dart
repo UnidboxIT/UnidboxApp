@@ -148,10 +148,10 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
         List<ProductLineId> productList =
             rejectRequestList[index].productLineList.where((productLine) {
           return productLine.status == "rejected" &&
-                  productLine.receivedQty > 0 ||
+                  productLine.rejectedQty > 0 ||
               (productLine.status != "requested" &&
                   productLine.qty > productLine.issueQty &&
-                  productLine.receivedQty > 0);
+                  productLine.rejectedQty > 0);
         }).toList();
         String requestWarehouse = rejectRequestList[index].requestToWh.isEmpty
             ? ""
