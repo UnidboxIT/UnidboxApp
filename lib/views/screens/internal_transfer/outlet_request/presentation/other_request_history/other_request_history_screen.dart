@@ -6,7 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_history/packed_product_history_screen.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/app_bar/global_app_bar.dart';
@@ -30,17 +29,17 @@ class _PendingRequestListScreenState
     extends ConsumerState<OtherRequestHistoryScreen> {
   List<Map<String, dynamic>> requestedHistoryList = [];
   List<Map<String, dynamic>> acceptedHistoryList = [];
-  List<Map<String, dynamic>> packedHistoryList = [];
+  // List<Map<String, dynamic>> packedHistoryList = [];
   Map<String, dynamic> requestedHistoryMap = {};
   Map<String, dynamic> acceptedHistoryMap = {};
-  Map<String, dynamic> packedHistoryMap = {};
+  // Map<String, dynamic> packedHistoryMap = {};
   List<String> visibleCode = [];
   List<OtherRequest> otherRequestList = [];
   bool requestLoading = false;
   String historyText = "";
   List<Map<String, dynamic>> dateFilteredData = [];
   List<Map<String, dynamic>> acceptedDateFilteredData = [];
-  List<Map<String, dynamic>> packedDateFilteredData = [];
+  // List<Map<String, dynamic>> packedDateFilteredData = [];
   String selectedDateRange = "";
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
@@ -86,7 +85,7 @@ class _PendingRequestListScreenState
                 .add(element);
           });
         }
-        if (element.status == "done" || element.status == "receiving") {
+        if (element.status == "done" || element.status == "issued") {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = element.warehouseList[1];
@@ -112,30 +111,30 @@ class _PendingRequestListScreenState
           });
         }
 
-        if (element.status == "packed") {
-          setState(() {
-            String date = data.createDate.substring(0, 10);
-            String warehouseName = element.warehouseList[1];
-            String productLineKey = data.name;
-            if (!packedHistoryMap.containsKey(date)) {
-              packedHistoryMap[date] = {
-                "id": data.id,
-                "date": data.createDate,
-                "product_line": {}
-              };
-            }
-            // Ensure each product line is unique per warehouse
-            if (!packedHistoryMap[date]['product_line']
-                .containsKey(productLineKey)) {
-              packedHistoryMap[date]['product_line'][productLineKey] = {
-                "warehouse_name": warehouseName,
-                "products": []
-              };
-            }
-            packedHistoryMap[date]['product_line'][productLineKey]['products']
-                .add(element);
-          });
-        }
+        // if (element.status == "packed") {
+        //   setState(() {
+        //     String date = data.createDate.substring(0, 10);
+        //     String warehouseName = element.warehouseList[1];
+        //     String productLineKey = data.name;
+        //     if (!packedHistoryMap.containsKey(date)) {
+        //       packedHistoryMap[date] = {
+        //         "id": data.id,
+        //         "date": data.createDate,
+        //         "product_line": {}
+        //       };
+        //     }
+        //     // Ensure each product line is unique per warehouse
+        //     if (!packedHistoryMap[date]['product_line']
+        //         .containsKey(productLineKey)) {
+        //       packedHistoryMap[date]['product_line'][productLineKey] = {
+        //         "warehouse_name": warehouseName,
+        //         "products": []
+        //       };
+        //     }
+        //     packedHistoryMap[date]['product_line'][productLineKey]['products']
+        //         .add(element);
+        //   });
+        // }
       }
     }
 
@@ -154,12 +153,12 @@ class _PendingRequestListScreenState
         superPrint(dateFilteredData);
       });
     }
-    if (packedHistoryMap.isNotEmpty) {
-      setState(() {
-        packedHistoryList.add(packedHistoryMap);
-        packedDateFilteredData.add(packedHistoryMap);
-      });
-    }
+    // if (packedHistoryMap.isNotEmpty) {
+    //   setState(() {
+    //     packedHistoryList.add(packedHistoryMap);
+    //     packedDateFilteredData.add(packedHistoryMap);
+    //   });
+    // }
   }
 
   loadSetVisiblity(String code) {
@@ -204,13 +203,13 @@ class _PendingRequestListScreenState
           otherRequestList = [];
           dateFilteredData = [];
           acceptedDateFilteredData = [];
-          packedDateFilteredData = [];
+          // packedDateFilteredData = [];
           acceptedHistoryList.clear();
           requestedHistoryList.clear();
-          packedHistoryList.clear();
+          // packedHistoryList.clear();
           requestedHistoryMap = {};
           acceptedHistoryMap = {};
-          packedHistoryMap = {};
+          // packedHistoryMap = {};
         });
       }
       if (next is OtherRequestList) {
@@ -237,9 +236,7 @@ class _PendingRequestListScreenState
                 globalAppBarWidget(
                   historyText == "accepted"
                       ? "Accepted History"
-                      : historyText == "packed"
-                          ? "Packed History"
-                          : "Issued History",
+                      : "Issued History",
                   () {
                     ref.read(bottomBarVisibilityProvider.notifier).state = true;
                     Navigator.of(context).pop();
@@ -339,37 +336,33 @@ class _PendingRequestListScreenState
                                 textAlign: TextAlign.center),
                           ),
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          color: Colors.grey,
-                          size: 18,
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: GestureDetector(
-                            onTap: requestLoading
-                                ? () {}
-                                : () {
-                                    setState(() {
-                                      historyText = "packed";
-                                      startDate = DateTime.now();
-                                      endDate = DateTime.now();
-                                      selectedDateRange =
-                                          "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
-                                      packedDateFilteredData.clear();
-                                      packedDateFilteredData
-                                          .add(packedHistoryMap);
-                                    });
-                                  },
-                            child: textWidget("Packed\nHistory",
-                                color: historyText == "packed"
-                                    ? AppColor.primary
-                                    : AppColor.pinkColor,
-                                fontWeight: FontWeight.w800,
-                                size: 14,
-                                textAlign: TextAlign.center),
-                          ),
-                        ),
+
+                        // Expanded(
+                        //   flex: 5,
+                        //   child: GestureDetector(
+                        //     onTap: requestLoading
+                        //         ? () {}
+                        //         : () {
+                        //             setState(() {
+                        //               historyText = "packed";
+                        //               startDate = DateTime.now();
+                        //               endDate = DateTime.now();
+                        //               selectedDateRange =
+                        //                   "${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(startDate))} - ${DateFormat('dd/MM/yyyy').parse(DateFormat('dd/MM/yyyy').format(endDate))}";
+                        //               packedDateFilteredData.clear();
+                        //               packedDateFilteredData
+                        //                   .add(packedHistoryMap);
+                        //             });
+                        //           },
+                        //     child: textWidget("Packed\nHistory",
+                        //         color: historyText == "packed"
+                        //             ? AppColor.primary
+                        //             : AppColor.pinkColor,
+                        //         fontWeight: FontWeight.w800,
+                        //         size: 14,
+                        //         textAlign: TextAlign.center),
+                        //   ),
+                        // ),
                         const Icon(
                           Icons.arrow_forward_ios_outlined,
                           color: Colors.grey,
@@ -418,12 +411,11 @@ class _PendingRequestListScreenState
                           requestedHistoryList: acceptedDateFilteredData
                           //acceptedHistoryList
                           )
-                      : historyText == "packed"
-                          ? PackedProductHistoryScreen(
-                              requestedHistoryList: packedDateFilteredData
-                              //packedHistoryList,
-                              )
-                          : requestHistoryWidget(),
+                      // : historyText == "packed"
+                      //     ? PackedProductHistoryScreen(
+                      //         requestedHistoryList: packedDateFilteredData
+                      //         )
+                      : requestHistoryWidget(),
                 ),
         ],
       ),
@@ -573,7 +565,7 @@ class _PendingRequestListScreenState
                                                             "done" ||
                                                         productList[subIndex]
                                                                 .status ==
-                                                            "receiving"
+                                                            "issued"
                                                     ? AppColor.orangeColor
                                                     : Colors.grey.shade300,
                                                 borderRadius:
@@ -590,7 +582,7 @@ class _PendingRequestListScreenState
                                                 productList[subIndex].status ==
                                                         "done"
                                                     ? -4.w
-                                                    : -9.w,
+                                                    : -6.w,
                                             child: Transform.rotate(
                                               angle: 80.1,
                                               child: textWidget(
@@ -836,14 +828,16 @@ class _PendingRequestListScreenState
       endDate = DateFormat('dd/MM/yyyy').parse(selectedDates[1]);
       dateFilteredData.clear();
       acceptedDateFilteredData.clear();
-      packedDateFilteredData.clear();
+      // packedDateFilteredData.clear();
       if (historyText == "accepted") {
         acceptedDateFilteredData =
             filterDataByDateRange(acceptedHistoryList, startDate, endDate);
-      } else if (historyText == "packed") {
-        packedDateFilteredData =
-            filterDataByDateRange(packedHistoryList, startDate, endDate);
-      } else {
+      }
+      // else if (historyText == "packed") {
+      //   packedDateFilteredData =
+      //       filterDataByDateRange(packedHistoryList, startDate, endDate);
+      // }
+      else {
         superPrint(requestedHistoryList);
         dateFilteredData =
             filterDataByDateRange(requestedHistoryList, startDate, endDate);

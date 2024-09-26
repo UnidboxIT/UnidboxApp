@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -16,12 +15,11 @@ Widget eachMyReturnProductLineWidget(
   String currentDate,
   bool isNewReturn,
   // String requestWarehouse,
-  List productList, {
+  List<dynamic> productList, {
   bool isPending = false,
   bool myRequestLoading = false,
   int acceptProductID = -1,
 }) {
-  superPrint(isNewReturn);
   return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -224,19 +222,31 @@ Widget eachMyReturnProductLineWidget(
                           color: AppColor.orangeColor,
                           size: 12.5,
                         ),
-                        textWidget(
-                          productList[index].reason == "false"
-                              ? ""
-                              : productList[index]
-                                  .reason
-                                  .replaceAll("[", "")
-                                  .replaceAll("]", "")
-                                  .replaceAll("'", ""),
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          textAlign: TextAlign.left,
-                          size: 14,
-                        )
+                        isNewReturn
+                            ? textWidget(
+                                productList[index].newReturnReasonList.isEmpty
+                                    ? ""
+                                    : productList[index]
+                                        .newReturnReasonList
+                                        .map((reason) => reason['name'])
+                                        .join(", "),
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                textAlign: TextAlign.left,
+                                size: 14,
+                              )
+                            : textWidget(
+                                productList[index].returnReasonList.isEmpty
+                                    ? ""
+                                    : productList[index]
+                                        .returnReasonList
+                                        .map((reason) => reason['name'])
+                                        .join(", "),
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                textAlign: TextAlign.left,
+                                size: 14,
+                              )
                       ],
                     ),
                   ),

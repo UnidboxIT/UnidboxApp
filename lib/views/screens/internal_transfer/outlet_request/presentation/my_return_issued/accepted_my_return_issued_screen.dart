@@ -117,14 +117,13 @@ class _AcceptedReturnScreenState
               }
             }
           }
-          superPrint(requestedMap);
+
           if (requestedMap.isNotEmpty) {
             requestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             for (var warehouseProduct in requestedMapList) {
               warehouseProduct.forEach((key, value) {
                 value['product_line'].forEach((productKey, productValue) {
-                  superPrint(productKey);
                   for (var productLineId in productValue['products']) {
                     // Access the id from each ProductLineId instance
                     idList.add(productLineId.id);
@@ -133,7 +132,6 @@ class _AcceptedReturnScreenState
               });
             }
           }
-          superPrint(idList, title: "ID List");
           acceptLoading = false;
           requestLoading = false;
         });
@@ -333,8 +331,8 @@ class _AcceptedReturnScreenState
                                           .read(myReturnStateNotifierProvider
                                               .notifier)
                                           .getAllMyReturn();
-                                      selectedWarehouseID = -1;
-                                      selectedWarehouseName = "";
+                                      //selectedWarehouseID = -1;
+                                      // selectedWarehouseName = "";
                                     });
                                   });
                                 },
@@ -354,9 +352,9 @@ class _AcceptedReturnScreenState
   Widget myReturnDataWidget(
     List<Map<int, dynamic>> requestedMapList,
   ) {
-    if (requestLoading) {
-      return const SizedBox.shrink();
-    }
+    // if (requestLoading) {
+    //   return const SizedBox.shrink();
+    // }
     if (requestedMapList.isEmpty || requestedMapList[0].containsKey(-1)) {
       return Container(
         alignment: Alignment.center,
@@ -402,7 +400,6 @@ class _AcceptedReturnScreenState
 
                       List<dynamic> productList =
                           productLineMap[productLineKey]['products'];
-                      superPrint(productList);
                       return Column(
                         children: [
                           Padding(

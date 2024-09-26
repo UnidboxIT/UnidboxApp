@@ -102,7 +102,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
           myReturnList = next.myReturnDataList;
           for (var data in myReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "returned") {
+              if (element.status == "returned" ||
+                  element.status == "waiting_return_accept") {
                 myReturnProductList.add(element);
               }
             }
@@ -124,7 +125,8 @@ class _MyTaskDetailScreenState extends ConsumerState<MyTaskDetailScreen> {
           outletReturnList = next.outletReturnList;
           for (var data in outletReturnList) {
             for (var element in data.productLineList) {
-              if (element.status == "returned") {
+              if (element.status == "returned" ||
+                  element.status == "waiting_return_accept") {
                 outletReturnProductList.add(element);
               }
             }

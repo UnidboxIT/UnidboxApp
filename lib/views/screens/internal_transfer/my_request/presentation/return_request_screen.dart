@@ -285,7 +285,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                       .read(myRequestStateNotifierProvider.notifier)
                       .receivedByImageMyRequest(
                         widget.productLine.id,
-                        widget.receiveQty.toInt(),
+                        widget.receiveReasonQty.toInt(),
                         context,
                         reasonIndex,
                         txtOtherComment.text,
@@ -559,148 +559,157 @@ class _EachReturnReasonWidgetState
       }
     });
 
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          textWidget(
-            "How many items is missing",
-            size: 11,
-          ),
-          Row(
-            children: [
-              addMinusIconButtonWidget(() {
-                ref
-                    .read(returnRequestStateNotifierProvider.notifier)
-                    .decrementTotalQty(widget.reasonIndex, totalQty);
-              }, CupertinoIcons.minus_circle_fill, AppColor.primary),
-              const SizedBox(width: 5),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isShowTextField = !isShowTextField;
-                    if (isShowTextField) {
-                      txtQty.text = reasonQtyMap[widget.reasonIndex].toString();
-                    }
-                  });
-                },
-                child: isShowTextField
-                    ? Container(
-                        height: 40,
-                        width: 20.w,
-                        decoration: BoxDecoration(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textWidget(
+          "How many items is missing",
+          size: 11,
+        ),
+        Row(
+          children: [
+            addMinusIconButtonWidget(() {
+              ref
+                  .read(returnRequestStateNotifierProvider.notifier)
+                  .decrementTotalQty(widget.reasonIndex, totalQty);
+            }, CupertinoIcons.minus_circle_fill, AppColor.primary),
+            const SizedBox(width: 5),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  isShowTextField = !isShowTextField;
+                  if (isShowTextField) {
+                    txtQty.text = reasonQtyMap[widget.reasonIndex].toString();
+                  }
+                });
+              },
+              child: isShowTextField
+                  ? Container(
+                      height: 40,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                          )
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller: txtQty,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        cursorColor: AppColor.primary,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            txtQty.text = value;
+                            ref
+                                .read(
+                                    returnRequestStateNotifierProvider.notifier)
+                                .addQtyTextFieldValue(widget.reasonIndex,
+                                    double.parse(txtQty.text).toInt());
+                          }
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                    )
+                  : Container(
+                      height: 38,
+                      width: 20.w,
+                      decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                            )
-                          ],
-                        ),
-                        child: TextFormField(
-                          controller: txtQty,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          cursorColor: AppColor.primary,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 10),
-                            fillColor: Colors.white,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              txtQty.text = value;
-                              ref
-                                  .read(returnRequestStateNotifierProvider
-                                      .notifier)
-                                  .addQtyTextFieldValue(widget.reasonIndex,
-                                      double.parse(txtQty.text).toInt());
-                            }
-                          },
-                          keyboardType: TextInputType.number,
-                        ),
-                      )
-                    : Container(
-                        height: 38,
-                        width: 20.w,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColor.dropshadowColor,
-                                  blurRadius: 3,
-                                  spreadRadius: 3),
-                            ]),
-                        alignment: Alignment.center,
-                        child: textWidget(
-                          reasonQtyMap[widget.reasonIndex].toString(),
-                          size: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                                color: AppColor.dropshadowColor,
+                                blurRadius: 3,
+                                spreadRadius: 3),
+                          ]),
+                      alignment: Alignment.center,
+                      child: textWidget(
+                        reasonQtyMap[widget.reasonIndex].toString(),
+                        size: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
-              ),
-              const SizedBox(width: 5),
-              addMinusIconButtonWidget(() {
-                setState(() {
-                  sumRecevieQty = reasonQtyMap.values.fold(
-                      0, (previousValue, element) => previousValue + element);
-                });
-                ref
-                    .read(returnRequestStateNotifierProvider.notifier)
-                    .incrementTotalQty(widget.reasonIndex, totalQty,
-                        widget.receiveQty.toInt(), sumRecevieQty);
-              }, CupertinoIcons.add_circled_solid, AppColor.primary),
-              const SizedBox(width: 5),
-              //camera
-              GestureDetector(
-                onTap: () {
-                  getImageFromCamera();
-                },
-                child: Container(
-                  width: 10.w,
-                  height: 35,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColor.pinkColor,
-                  ),
-                  child: const Icon(
-                    Icons.file_present_rounded,
-                    color: Colors.white,
-                    size: 30,
-                  ),
+                    ),
+            ),
+            const SizedBox(width: 5),
+            addMinusIconButtonWidget(() {
+              setState(() {
+                sumRecevieQty = reasonQtyMap.values.fold(
+                    0, (previousValue, element) => previousValue + element);
+              });
+              ref
+                  .read(returnRequestStateNotifierProvider.notifier)
+                  .incrementTotalQty(widget.reasonIndex, totalQty,
+                      widget.receiveQty.toInt(), sumRecevieQty);
+            }, CupertinoIcons.add_circled_solid, AppColor.primary),
+            const SizedBox(width: 5),
+            //camera
+            GestureDetector(
+              onTap: () {
+                getImageFromCamera();
+              },
+              child: Container(
+                width: 10.w,
+                height: 35,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: AppColor.pinkColor,
+                ),
+                child: const Icon(
+                  Icons.file_present_rounded,
+                  color: Colors.white,
+                  size: 30,
                 ),
               ),
-              const SizedBox(width: 10),
-              imageFile.path.isEmpty
-                  ? const SizedBox.shrink()
-                  : Container(
-                      width: 25.w,
-                      height: 8.h,
-                      alignment: Alignment.center,
+            ),
+            const SizedBox(width: 10),
+            imageFile.path.isEmpty
+                ? const SizedBox.shrink()
+                : Container(
+                    width: 25.w,
+                    height: 8.h,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColor.dropshadowColor,
+                              blurRadius: 3,
+                              spreadRadius: 3),
+                        ]),
+                    child: Container(
+                      height: 50.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
                           boxShadow: [
                             BoxShadow(
                                 color: AppColor.dropshadowColor,
@@ -708,7 +717,6 @@ class _EachReturnReasonWidgetState
                                 spreadRadius: 3),
                           ]),
                       child: Container(
-                        height: 50.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
@@ -716,69 +724,57 @@ class _EachReturnReasonWidgetState
                                   color: AppColor.dropshadowColor,
                                   blurRadius: 3,
                                   spreadRadius: 3),
-                            ]),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: AppColor.dropshadowColor,
-                                    blurRadius: 3,
-                                    spreadRadius: 3),
-                              ],
-                              image: DecorationImage(
-                                image: FileImage(
-                                  imageFile,
-                                ),
-                                fit: BoxFit.fill,
-                              )),
-                        ),
+                            ],
+                            image: DecorationImage(
+                              image: FileImage(
+                                imageFile,
+                              ),
+                              fit: BoxFit.fill,
+                            )),
                       ),
-                    )
-            ],
-          ),
-          Visibility(
-              visible:
-                  widget.reasonIndex == widget.returnRequestReasonList.last.id,
-              child: const SizedBox(height: 10)),
-          Visibility(
-            visible:
-                widget.reasonIndex == widget.returnRequestReasonList.last.id,
-            child: Container(
-              width: 80.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: AppColor.dropshadowColor,
-                      blurRadius: 3,
-                      spreadRadius: 3),
-                ],
+                    ),
+                  )
+          ],
+        ),
+        Visibility(
+            visible: widget.reasonName.trim() == "Others".trim(),
+            child: const SizedBox(height: 10)),
+        Visibility(
+          visible: widget.reasonName.trim() == "Others".trim(),
+          child: Container(
+            width: 80.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                    color: AppColor.dropshadowColor,
+                    blurRadius: 3,
+                    spreadRadius: 3),
+              ],
+            ),
+            child: TextField(
+              controller: txtOtherComment,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
               ),
-              child: TextField(
-                controller: txtOtherComment,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                ),
-                maxLines: 3,
-                decoration: InputDecoration(
-                  hintText: "Comments ....",
-                  fillColor: Colors.white,
-                  filled: true,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none,
-                  ),
+              maxLines: 3,
+              decoration: InputDecoration(
+                hintText: "Comments ....",
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

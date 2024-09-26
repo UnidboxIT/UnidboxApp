@@ -42,12 +42,7 @@ class _PendingRequestListScreenState
     requestedOutletReturnHistoryList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
-        if ((data.isNewReturn &&
-                !element.isReturn &&
-                element.status == "done") ||
-            (!data.isNewReturn &&
-                element.isReturn &&
-                element.status == "done")) {
+        if (element.status == "returned") {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.isNewReturn
@@ -266,13 +261,7 @@ class _PendingRequestListScreenState
                                               width: 5.w,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
-                                                color: productList[subIndex]
-                                                            .isReturn ||
-                                                        productLineMap[
-                                                                productLineKey]
-                                                            ['is_return']
-                                                    ? AppColor.orangeColor
-                                                    : Colors.grey.shade300,
+                                                color: AppColor.orangeColor,
                                                 borderRadius:
                                                     const BorderRadius.only(
                                                   bottomLeft:

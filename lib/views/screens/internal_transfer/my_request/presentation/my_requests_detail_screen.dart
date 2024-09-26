@@ -383,8 +383,13 @@ class _MyRequestsDetailScreenState
                             ),
                             Visibility(
                               visible: visibleCode.contains(requestCode),
-                              child: eachProductLineWidget(requestCode, name,
-                                  currentDate, requestWarehouse, productList,
+                              child: eachProductLineWidget(
+                                  requestCode,
+                                  name,
+                                  currentDate,
+                                  requestWarehouse,
+                                  productList,
+                                  myRequestList[index].isUrgentPicking,
                                   isPending: receivedLoading,
                                   myRequestLoading: myRequestLoading,
                                   acceptProductID: acceptProductID),

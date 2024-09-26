@@ -37,11 +37,13 @@ class ImportantReminderWidget extends ConsumerWidget {
               const SizedBox(height: 10),
               notiInfo.body.toString().isEmpty
                   ? SizedBox.fromSize()
-                  : textWidget(
-                      notiInfo.body.toString(),
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      size: 14,
+                  : Expanded(
+                      child: textWidget(
+                        notiInfo.body.toString(),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        size: 14,
+                      ),
                     ),
               isLoading
                   ? Container()

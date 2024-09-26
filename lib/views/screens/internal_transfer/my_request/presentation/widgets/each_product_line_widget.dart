@@ -19,6 +19,7 @@ Widget eachProductLineWidget(
     String currentDate,
     String requestWarehouse,
     List<ProductLineId> productList,
+    bool isUrgentPicking,
     {bool isPending = false,
     bool myRequestLoading = false,
     int acceptProductID = -1}) {
@@ -70,27 +71,91 @@ Widget eachProductLineWidget(
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.dropshadowColor,
-                                blurRadius: 3,
-                                spreadRadius: 3,
-                                offset: const Offset(0, 3),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: productList[index].imageUrl != "false"
-                                    ? NetworkImage(productList[index].imageUrl)
-                                    : const AssetImage(
-                                        'assets/images/app_icon.jpeg'),
-                                fit: BoxFit.cover),
-                          ),
-                          height: 14.5.h,
-                          width: 25.w,
-                        ),
+                        Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.centerLeft,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColor.dropshadowColor,
+                                      blurRadius: 3,
+                                      spreadRadius: 3,
+                                      offset: const Offset(0, 3),
+                                    )
+                                  ],
+                                  borderRadius: isUrgentPicking
+                                      ? const BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        )
+                                      : BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: productList[index].imageUrl !=
+                                              "false"
+                                          ? NetworkImage(
+                                              productList[index].imageUrl)
+                                          : const AssetImage(
+                                              'assets/images/app_icon.jpeg'),
+                                      fit: BoxFit.cover),
+                                ),
+                                height: 13.h,
+                                width: 22.w,
+                              ),
+                              isUrgentPicking
+                                  ? Positioned(
+                                      left: -3.w,
+                                      child: Container(
+                                        width: 4.w,
+                                        height: 13.h,
+                                        decoration: BoxDecoration(
+                                            color: AppColor.primary,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                            )),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              isUrgentPicking
+                                  ? Positioned(
+                                      left: -8.3.w,
+                                      child: Transform.rotate(
+                                        angle: 80.1,
+                                        child: textWidget(
+                                          "URGENT",
+                                          size: 12,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.white,
+                                          letterSpacing: 2,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ]),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: AppColor.dropshadowColor,
+                        //         blurRadius: 3,
+                        //         spreadRadius: 3,
+                        //         offset: const Offset(0, 3),
+                        //       )
+                        //     ],
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     image: DecorationImage(
+                        //         image: productList[index].imageUrl != "false"
+                        //             ? NetworkImage(productList[index].imageUrl)
+                        //             : const AssetImage(
+                        //                 'assets/images/app_icon.jpeg'),
+                        //         fit: BoxFit.cover),
+                        //   ),
+                        //   height: 14.5.h,
+                        //   width: 25.w,
+                        // ),
                         const SizedBox(height: 15),
                         textWidget(
                           "Request To",
@@ -280,7 +345,10 @@ Widget eachProductLineWidget(
                           size: 12.5,
                         ),
                         textWidget(
-                          capitalizeFirstLetter(productList[index].status),
+                          productList[index].status == "issued"
+                              ? "Receiving"
+                              : capitalizeFirstLetter(
+                                  productList[index].status),
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           size: 14,
@@ -340,7 +408,7 @@ Widget eachProductLineWidget(
                                       .read(myRequestStateNotifierProvider
                                           .notifier)
                                       .doneMyRequest(product.id,
-                                          product.receivedQty.toInt(), context);
+                                          product.issueQty.toInt(), context);
                             },
                             isBool: myRequestLoading &&
                                 product.id == acceptProductID,

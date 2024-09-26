@@ -15,7 +15,7 @@ Widget eachOutletReturnWidget(
     String name,
     String currentDate,
     bool isNewReturn,
-    List productList,
+    List<dynamic> productList,
     WidgetRef ref,
     BuildContext context,
     {bool isAcceptLoading = false,
@@ -199,19 +199,33 @@ Widget eachOutletReturnWidget(
                               color: AppColor.orangeColor,
                               size: 12.5,
                             ),
-                            textWidget(
-                              productList[index].reason == "false"
-                                  ? ""
-                                  : productList[index]
-                                      .reason
-                                      .replaceAll("[", "")
-                                      .replaceAll("]", "")
-                                      .replaceAll("'", ""),
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              textAlign: TextAlign.left,
-                              size: 14,
-                            ),
+                            isNewReturn
+                                ? textWidget(
+                                    productList[index]
+                                            .newReturnReasonList
+                                            .isEmpty
+                                        ? ""
+                                        : productList[index]
+                                            .newReturnReasonList
+                                            .map((reason) => reason['name'])
+                                            .join(", "),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    textAlign: TextAlign.left,
+                                    size: 14,
+                                  )
+                                : textWidget(
+                                    productList[index].returnReasonList.isEmpty
+                                        ? ""
+                                        : productList[index]
+                                            .returnReasonList
+                                            .map((reason) => reason['name'])
+                                            .join(", "),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    textAlign: TextAlign.left,
+                                    size: 14,
+                                  )
                           ],
                         ),
                       ),

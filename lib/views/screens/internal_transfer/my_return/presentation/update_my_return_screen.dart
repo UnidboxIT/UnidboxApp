@@ -381,31 +381,29 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                   setState(() {
                     int sumRecevieQty = reasonQtyMap.values.fold(
                         0, (previousValue, element) => previousValue + element);
+
                     if (!reasonIndex.any((reason) =>
                         reason['reason_id'] == myReturnReason[index].id)) {
-                      // if (widget.receiveReasonQty > sumRecevieQty) {
-                      reasonIndex.add({
-                        'reason_id': myReturnReason[index].id,
-                        'quantity': reasonQtyMap[myReturnReason[index].id],
-                        'note': myReturnReason[index].name
-                      });
-                      superPrint(reasonIndex);
-                      //}
+                      if (widget.receiveQty > sumRecevieQty) {
+                        reasonIndex.add({
+                          'reason_id': myReturnReason[index].id,
+                          'quantity':
+                              reasonQtyMap[myReturnReason[index].id] ?? 1,
+                          'note': myReturnReason[index].name
+                        });
+                        for (var data in reasonIndex) {
+                          setState(() {
+                            int reasonID = data['reason_id'];
+                            reasonQtyMap.update(reasonID, (value) => value,
+                                ifAbsent: () => 1);
+                          });
+                        }
+                      }
                     } else {
                       reasonQtyMap.remove(myReturnReason[index].id);
-
-                      // Remove the map where the 'note' matches the name
                       reasonIndex.removeWhere((reason) =>
-                          reason['note'] == myReturnReason[index].name);
+                          reason['reason_id'] == myReturnReason[index].id);
                     }
-                    // if (!reasonIndex.contains(myReturnReason[index].id)) {
-                    //   if (widget.receiveQty > sumRecevieQty) {
-                    //     reasonIndex.add(myReturnReason[index].reason);
-                    //   }
-                    // } else {
-                    //   reasonQtyMap.remove(myReturnReason[index].reason);
-                    //   reasonIndex.remove(myReturnReason[index].reason);
-                    // }
                   });
                 },
                 child: Container(
@@ -434,6 +432,7 @@ class _UpdateMyReturnScreenState extends ConsumerState<UpdateMyReturnScreen>
                     reason['reason_id'] == myReturnReason[index].id),
                 child: EachMyReturnReasonWidget(
                     reasonIndex: myReturnReason[index].id,
+                    reasonName: myReturnReason[index].name,
                     reasonIndexList: reasonIndex,
                     returnRequestReasonList: myReturnReason,
                     receiveQty: widget.receiveQty),

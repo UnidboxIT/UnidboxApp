@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/my_request.dart';
 import '../../../../../utils/constant/app_color.dart';
@@ -103,9 +102,9 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
         setState(() {
           List<Warehouse> whList = next.warehouseList;
           for (var data in whList) {
-            if (data.id != userWarehouse.warehouseList[0]) {
-              warehouseList.add(data);
-            }
+            // if (data.id != userWarehouse.warehouseList[0]) {
+            warehouseList.add(data);
+            // }
           }
         });
       }
@@ -172,11 +171,9 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             //requestedMapList.add(requestedMap);
           }
-          superPrint(requestedMap[selectedWarehouseID]);
         });
       }
     });
-    superPrint(requestedMapList);
 
     return SuperScaffold(
       topColor: AppColor.primary,
@@ -260,7 +257,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
   }
 
   Widget myReturnWidget() {
-    superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
       height: 75.h,
@@ -344,12 +340,10 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
                           itemBuilder: (context, productIndex) {
                             String productLineKey =
                                 productLineMap.keys.elementAt(productIndex);
-                            superPrint(productLineKey);
-                            superPrint(
-                                productLineMap[productLineKey]['products']);
+
                             List<dynamic> productList =
                                 productLineMap[productLineKey]['products'];
-                            superPrint(productList);
+
                             return Column(
                               children: [
                                 Padding(

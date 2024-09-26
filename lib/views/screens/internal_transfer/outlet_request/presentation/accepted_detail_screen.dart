@@ -139,7 +139,7 @@ class _OtherRequestsDetailScreenState
         }
       }
     }
-    superPrint(packedWarehouseMap);
+
     if (packedWarehouseMap.isNotEmpty) {
       if (packedWarehouseMap.keys.contains(selectedWarehouseID)) {
         selectedWarehouseID = selectedWarehouseID;
@@ -153,8 +153,6 @@ class _OtherRequestsDetailScreenState
       for (var warehouseProduct in requestedMapList) {
         warehouseProduct.forEach((key, value) {
           Map<dynamic, dynamic> productLine = value['product_line'];
-          superPrint(productLine);
-
           productLine.forEach((key, value) {
             if (value['is_urgent_picking']) {
               isUrgentIdList.add(value['id']);
@@ -175,50 +173,13 @@ class _OtherRequestsDetailScreenState
           if (productLine.isNotEmpty) {
             productLine.forEach((lineKey, lineValue) {
               hideSlideButton[key] = lineValue;
-              print('Product Line ID: $lineKey, Details: $lineValue');
-              superPrint(hideSlideButton[key]);
             });
           } else {
             hideSlideButton[key] = productLine;
-            print('Product Line is empty for warehouse $key');
           }
         }
       });
     }
-
-    superPrint(idList);
-    // superPrint(finalDeveilerMapList);
-    // superPrint(acceptedMapList);
-    // for (var map1 in finalDeveilerMapList) {
-    //   for (var map2 in acceptedMapList) {
-    //     superPrint(map1.keys);
-    //     for (var key1 in map1.keys) {
-    //       if (map2.containsKey(key1)) {
-    //         String productLineKey1 =
-    //             map1[key1]['product_line']['products'].keys.first;
-    //         String productLineKey2 =
-    //             map2[key1]['product_line']['products'].keys.first;
-    //         if (productLineKey1 == productLineKey2) {
-    //           setState(() {
-    //             isPackedProductEqual = true;
-    //           });
-    //           superPrint(
-    //               'The product lines are equal: $productLineKey1 && $isPackedProductEqual');
-    //         } else {
-    //           setState(() {
-    //             isPackedProductEqual = false;
-    //           });
-    //           superPrint(
-    //               'The product lines are not equal: $productLineKey1 != $productLineKey2 && $isPackedProductEqual');
-    //         }
-    //       } else {
-    //         setState(() {
-    //           isPackedProductEqual = false;
-    //         });
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   @override
@@ -291,13 +252,12 @@ class _OtherRequestsDetailScreenState
                 valueCopy["product_line"] = {};
                 packedWarehouseMap[key] = valueCopy;
               }
-              superPrint(packedWarehouseMap);
             });
           }
         });
       }
     });
-    superPrint(returnRequestedMap);
+
     ref.listen(otherRequestStateNotifierProvider, (pre, next) {
       if (next is OtherRequestLoading) {
         setState(() {
@@ -324,7 +284,6 @@ class _OtherRequestsDetailScreenState
   }
 
   Widget myrequestDetailWidget() {
-    superPrint(requestedMapList);
     return Column(
       children: [
         packedRequestWidget(),

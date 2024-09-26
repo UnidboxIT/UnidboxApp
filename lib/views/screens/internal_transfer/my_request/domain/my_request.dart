@@ -64,7 +64,8 @@ class ProductLineId {
   List requestWarehouse;
   bool isReturn;
   List productUomList;
-  String reason;
+  List<Map<String, dynamic>> returnReasonList;
+  List<Map<String, dynamic>> newReturnReasonList;
   String otherComment;
   bool isUrgent;
 
@@ -86,7 +87,8 @@ class ProductLineId {
       this.requestWarehouse = const [],
       this.isReturn = false,
       this.productUomList = const [],
-      this.reason = "",
+      this.returnReasonList = const [],
+      this.newReturnReasonList = const [],
       this.otherComment = "",
       this.isUrgent = false});
 
@@ -113,7 +115,12 @@ class ProductLineId {
       productUomList: json['product_uom_id'] == false
           ? []
           : List.from(json['product_uom_id']),
-      reason: json['reason'].toString(),
+      returnReasonList: json['return_reason'] == false
+          ? []
+          : List.from(json['return_reason']),
+      newReturnReasonList: json['new_return_reason'] == false
+          ? []
+          : List.from(json['new_return_reason']),
       otherComment: json['comment'].toString(),
       isUrgent: json['is_urgent'],
     );
