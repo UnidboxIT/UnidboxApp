@@ -6,7 +6,10 @@ import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/other_request.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
+import '../../../global_return_history/repository/provider/global_return_history_provider.dart';
+import '../../../global_return_history/repository/state/global_return_history_state.dart';
 import '../../../my_request/domain/my_request.dart';
+import '../../../my_return/presentation/my_return_history/my_return_history_screen.dart';
 import '../../../my_return/presentation/my_return_history/shimmer_myreturn_history.dart';
 import '../../repository/provider/outlet_return_provider.dart';
 import '../../repository/state/outlet_return_state.dart';
@@ -28,7 +31,7 @@ class _PendingRequestListScreenState
   List<String> visibleCode = [];
   List<OtherRequest> otherRequestList = [];
   bool requestLoading = false;
-  List<Map<String, dynamic>> outletReturnedFilteredData = [];
+  //List<Map<String, dynamic>> outletReturnedFilteredData = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +43,7 @@ class _PendingRequestListScreenState
 
   loadRequestHistory() {
     requestedOutletReturnHistoryList.clear();
+    tempReturnHistoryList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == "returned") {
@@ -74,9 +78,10 @@ class _PendingRequestListScreenState
     }
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
-        outletReturnedFilteredData.clear();
+        dateFilteredData.clear();
         requestedOutletReturnHistoryList.add(requestedHistoryMap);
-        outletReturnedFilteredData.add(requestedHistoryMap);
+        tempReturnHistoryList.add(requestedHistoryMap);
+        dateFilteredData.add(requestedHistoryMap);
       });
     }
   }
@@ -111,14 +116,26 @@ class _PendingRequestListScreenState
       }
       if (next is FilterDataByDateOutletReturn) {
         setState(() {
-          outletReturnedFilteredData = next.outletReturnedDateFilteredData;
-          superPrint(outletReturnedFilteredData);
+          dateFilteredData = next.outletReturnedDateFilteredData;
+          superPrint(dateFilteredData);
         });
+      }
+    });
+
+    ref.listen(globalReturnHistoryStateNotifierProvider, (pre, next) {
+      if (next is SearchGlobalReturnHistoyList) {
+        setState(() {
+          requestedHistoryList.clear();
+          dateFilteredData.clear();
+          requestedHistoryList.addAll(next.searchMyRequestHistoryList);
+          dateFilteredData.addAll(next.searchMyRequestHistoryList);
+        });
+        superPrint(next.searchMyRequestHistoryList);
       }
     });
     return requestLoading
         ? shimmerMyReturnHistoryWidget()
-        : requestHistoryWidget(outletReturnedFilteredData);
+        : requestHistoryWidget(dateFilteredData);
   }
 
   Widget requestHistoryWidget(

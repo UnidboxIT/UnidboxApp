@@ -11,6 +11,7 @@ import '../my_request/presentation/widgets/filter_by_date_widget.dart';
 import '../my_request/presentation/widgets/search_pending_request_widget.dart';
 import '../my_return/presentation/my_return_history/my_return_history_screen.dart';
 import '../outlet_return/presentation/outlet_return_history/outlet_return_history_screen.dart';
+import 'repository/provider/global_return_history_provider.dart';
 
 class GlobalReturnHistoryScreen extends ConsumerStatefulWidget {
   const GlobalReturnHistoryScreen({super.key});
@@ -27,12 +28,14 @@ class _GlobalReturnHistoryScreenState
   switchMyReturn() {
     setState(() {
       isMyReturn = true;
+      txtSearchController.clear();
     });
   }
 
   switchOutletReturn() {
     setState(() {
       isMyReturn = false;
+      txtSearchController.clear();
     });
   }
 
@@ -72,7 +75,10 @@ class _GlobalReturnHistoryScreenState
 
   void handleTextChanged(String input) {
     setState(() {
-      // Example parsing logic: trying to convert input to an integer
+      ref
+          .read(globalReturnHistoryStateNotifierProvider.notifier)
+          .searchGobalReturnHistoryData(
+              input, dateFilteredData, tempReturnHistoryList);
     });
   }
 

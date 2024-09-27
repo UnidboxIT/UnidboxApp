@@ -1,17 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/internal_transfer/global_return_history/repository/provider/global_return_history_provider.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../../../utils/constant/app_color.dart';
+import '../../../global_return_history/repository/state/global_return_history_state.dart';
 import '../../../my_request/domain/my_request.dart';
 import '../../repository/provider/my_return_provider.dart';
 import '../../repository/state/my_return_state.dart';
 import 'shimmer_myreturn_history.dart';
 
 List<Map<String, dynamic>> requestedHistoryList = [];
+List<Map<String, dynamic>> dateFilteredData = [];
+List<Map<String, dynamic>> tempReturnHistoryList = [];
 
 class MyReturnHistoryScreen extends ConsumerStatefulWidget {
   const MyReturnHistoryScreen({super.key});
@@ -27,7 +30,7 @@ class _PendingRequestListScreenState
   List<String> visibleCode = [];
   List<MyRequest> myRequestList = [];
   bool requestLoading = false;
-  List<Map<String, dynamic>> myReturnedDateFilteredData = [];
+  // List<Map<String, dynamic>> myReturnedDateFilteredData = [];
 
   @override
   void initState() {
@@ -40,6 +43,7 @@ class _PendingRequestListScreenState
 
   loadRequestHistory() {
     requestedHistoryList.clear();
+    tempReturnHistoryList.clear();
     for (var data in myRequestList) {
       for (var element in data.productLineList) {
         superPrint(data.isNewReturn);
@@ -76,9 +80,10 @@ class _PendingRequestListScreenState
     }
     if (requestedHistoryMap.isNotEmpty) {
       setState(() {
-        myReturnedDateFilteredData.clear();
+        dateFilteredData.clear();
         requestedHistoryList.add(requestedHistoryMap);
-        myReturnedDateFilteredData.add(requestedHistoryMap);
+        tempReturnHistoryList.add(requestedHistoryMap);
+        dateFilteredData.add(requestedHistoryMap);
       });
     }
   }
@@ -113,15 +118,27 @@ class _PendingRequestListScreenState
       }
       if (next is FilterDataByDateInMyReturn) {
         setState(() {
-          myReturnedDateFilteredData = next.myReturnedDateFilteredData;
-          superPrint(myReturnedDateFilteredData);
+          dateFilteredData = next.myReturnedDateFilteredData;
+          superPrint(dateFilteredData);
         });
+      }
+    });
+
+    ref.listen(globalReturnHistoryStateNotifierProvider, (pre, next) {
+      if (next is SearchGlobalReturnHistoyList) {
+        setState(() {
+          requestedHistoryList.clear();
+          dateFilteredData.clear();
+          requestedHistoryList.addAll(next.searchMyRequestHistoryList);
+          dateFilteredData.addAll(next.searchMyRequestHistoryList);
+        });
+        superPrint(next.searchMyRequestHistoryList);
       }
     });
 
     return requestLoading
         ? shimmerMyReturnHistoryWidget()
-        : requestHistoryWidget(myReturnedDateFilteredData);
+        : requestHistoryWidget(dateFilteredData);
   }
 
   Widget requestHistoryWidget(

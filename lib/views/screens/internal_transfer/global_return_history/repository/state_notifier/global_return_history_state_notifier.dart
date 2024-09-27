@@ -1,21 +1,21 @@
 import 'package:state_notifier/state_notifier.dart';
-import '../state/my_request_history_state.dart';
+import '../state/global_return_history_state.dart';
 
-class MyRequestHistoryStateNotifier
-    extends StateNotifier<MyRequestHistoryState> {
-  MyRequestHistoryStateNotifier()
-      : super(const MyRequestHistoryState.initial());
+class GlobalReturnStateNotifier
+    extends StateNotifier<GlobalReturnHistoryState> {
+  GlobalReturnStateNotifier() : super(const GlobalReturnHistoryState.initial());
 
-  void searchMyRequestHistoryData(
+  void searchGobalReturnHistoryData(
       String query,
       List<Map<String, dynamic>> searchMyRequestHistoryList,
       List<Map<String, dynamic>> tempSearchMyRequestHistoryList) {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> foundProducts =
           searchProducts(tempSearchMyRequestHistoryList, query);
-      state = MyRequestHistoryState.searchMyRequestHistoryValue(foundProducts);
+      state =
+          GlobalReturnHistoryState.searchMyRequestHistoryValue(foundProducts);
     } else {
-      state = MyRequestHistoryState.searchMyRequestHistoryValue(
+      state = GlobalReturnHistoryState.searchMyRequestHistoryValue(
           tempSearchMyRequestHistoryList);
     }
   }
