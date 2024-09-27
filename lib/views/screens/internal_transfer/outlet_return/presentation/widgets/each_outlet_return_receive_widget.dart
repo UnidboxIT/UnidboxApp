@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import '../../../../../../utils/constant/app_color.dart';
 import '../../../../../widgets/button/button_widget.dart';
 import '../../../../../widgets/text_widget.dart';
@@ -18,8 +19,11 @@ Widget eachOutletReturnWidget(
     List<dynamic> productList,
     WidgetRef ref,
     BuildContext context,
+    int userWarehouseID,
+    int selectedUserWarehouseID,
     {bool isAcceptLoading = false,
     int acceptProductID = -1}) {
+  superPrint(requestCode);
   return ListView.separated(
       itemCount: productList.length,
       physics: const NeverScrollableScrollPhysics(),
@@ -234,107 +238,112 @@ Widget eachOutletReturnWidget(
                 ],
               ),
               const SizedBox(height: 10),
-              productList[index].status == 'return_accepted' ||
-                      productList[index].status == 'return_issued'
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 35,
-                          width: 67.w,
-                          child: buttonWidget(
-                            "Receive",
-                            productList[index].status != 'return_issued'
-                                ? () {}
-                                : () {
-                                    isAcceptLoading &&
-                                            acceptProductID ==
-                                                productList[index].id
-                                        ? () {}
-                                        : ref
-                                            .read(outletReturnStateNotifier
-                                                .notifier)
-                                            .outletReturnReceived(
-                                                productList[index].id, context);
-                                  },
-                            isBool: isAcceptLoading &&
-                                acceptProductID == productList[index].id,
-                            bgColor:
+              selectedUserWarehouseID == userWarehouseID
+                  ? const SizedBox.shrink()
+                  : productList[index].status == 'return_accepted' ||
+                          productList[index].status == 'return_issued'
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 35,
+                              width: 67.w,
+                              child: buttonWidget(
+                                "Receive",
                                 productList[index].status != 'return_issued'
-                                    ? Colors.grey.shade400
-                                    : AppColor.pinkColor,
-                            fontColor: Colors.white,
-                            elevation: 0,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            showAttachmentImageDialog(
-                                context, productList[index].attachmentFile);
-                          },
-                          child: Container(
-                            width: 10.w,
-                            height: 35,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppColor.pinkColor,
+                                    ? () {}
+                                    : () {
+                                        isAcceptLoading &&
+                                                acceptProductID ==
+                                                    productList[index].id
+                                            ? () {}
+                                            : ref
+                                                .read(outletReturnStateNotifier
+                                                    .notifier)
+                                                .outletReturnReceived(
+                                                    productList[index].id,
+                                                    context);
+                                      },
+                                isBool: isAcceptLoading &&
+                                    acceptProductID == productList[index].id,
+                                bgColor:
+                                    productList[index].status != 'return_issued'
+                                        ? Colors.grey.shade400
+                                        : AppColor.pinkColor,
+                                fontColor: Colors.white,
+                                elevation: 0,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.file_present_rounded,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
+                            GestureDetector(
+                              onTap: () {
+                                showAttachmentImageDialog(
+                                    context, productList[index].attachmentFile);
+                              },
+                              child: Container(
+                                width: 10.w,
+                                height: 35,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: AppColor.pinkColor,
+                                ),
+                                child: const Icon(
+                                  Icons.file_present_rounded,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            )
+                          ],
                         )
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 35,
-                          width: 67.w,
-                          child: buttonWidget(
-                            "Accept",
-                            () {
-                              isAcceptLoading &&
-                                      acceptProductID == productList[index].id
-                                  ? () {}
-                                  : ref
-                                      .read(outletReturnStateNotifier.notifier)
-                                      .outletReturnAccepted(
-                                          productList[index].id, context);
-                            },
-                            isBool: isAcceptLoading &&
-                                acceptProductID == productList[index].id,
-                            bgColor: AppColor.pinkColor,
-                            fontColor: Colors.white,
-                            elevation: 0,
-                          ),
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 35,
+                              width: 67.w,
+                              child: buttonWidget(
+                                "Accept",
+                                () {
+                                  isAcceptLoading &&
+                                          acceptProductID ==
+                                              productList[index].id
+                                      ? () {}
+                                      : ref
+                                          .read(outletReturnStateNotifier
+                                              .notifier)
+                                          .outletReturnAccepted(
+                                              productList[index].id, context);
+                                },
+                                isBool: isAcceptLoading &&
+                                    acceptProductID == productList[index].id,
+                                bgColor: AppColor.pinkColor,
+                                fontColor: Colors.white,
+                                elevation: 0,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showAttachmentImageDialog(
+                                    context, productList[index].attachmentFile);
+                              },
+                              child: Container(
+                                width: 10.w,
+                                height: 35,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: AppColor.pinkColor,
+                                ),
+                                child: const Icon(
+                                  Icons.file_present_rounded,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            showAttachmentImageDialog(
-                                context, productList[index].attachmentFile);
-                          },
-                          child: Container(
-                            width: 10.w,
-                            height: 35,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppColor.pinkColor,
-                            ),
-                            child: const Icon(
-                              Icons.file_present_rounded,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
             ],
           ),
         );

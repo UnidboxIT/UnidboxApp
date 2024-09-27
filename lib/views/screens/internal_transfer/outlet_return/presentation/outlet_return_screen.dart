@@ -131,8 +131,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                   element.status == "return_issued") {
                 acceptedOutletReturnList.add(element);
               }
-              if (element.status == "returned" ||
-                  element.status == "waiting_return_accept") {
+              if (element.status == "waiting_return_accept") {
                 int warehouseId = data.isNewReturn
                     ? element.requestWarehouse[0]
                     : element.warehouseList[0];
@@ -420,6 +419,8 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               productList,
                                               ref,
                                               context,
+                                              selectedWarehouseID,
+                                              userWarehouse.warehouseList[0],
                                               isAcceptLoading: acceptLoading,
                                               acceptProductID: acceptProductID),
                                         )

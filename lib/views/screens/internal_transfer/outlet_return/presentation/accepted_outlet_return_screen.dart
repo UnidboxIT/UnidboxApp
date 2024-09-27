@@ -408,6 +408,8 @@ class _AcceptedOutletReturnScreenState
                                               productList,
                                               ref,
                                               context,
+                                              selectedWarehouseID,
+                                              userWarehouse.warehouseList[0],
                                               isAcceptLoading: acceptLoading,
                                               acceptProductID: acceptProductID),
                                         )
