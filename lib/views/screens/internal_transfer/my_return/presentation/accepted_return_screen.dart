@@ -240,7 +240,7 @@ class _AcceptedReturnScreenState extends ConsumerState<AcceptedReturnScreen> {
     superPrint(acceptedReturnList);
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),

@@ -11,6 +11,8 @@ import 'views/screens/internet_connection/state/connection_status.dart';
 import 'views/screens/notification_service/pushy_noti_service.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class AppScreen extends ConsumerStatefulWidget {
   const AppScreen({super.key});
 
@@ -30,15 +32,17 @@ class _AppScreenState extends ConsumerState<ConsumerStatefulWidget> {
     }
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'UnidboxApp',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: xCheckUserAuthorized(ref)
-              ? const MainScreen()
-              : const AuthLoginScreen());
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'UnidboxApp',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: xCheckUserAuthorized(ref)
+            ? const MainScreen()
+            : const AuthLoginScreen(),
+      );
     });
   }
 }

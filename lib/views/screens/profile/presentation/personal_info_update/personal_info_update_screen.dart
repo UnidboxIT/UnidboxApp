@@ -107,16 +107,19 @@ class _PersonalInfoUpdateScreenState
       topColor: AppColor.primary,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        body: Stack(
-          children: [
-            globalAppBarWidget("Personal Information", () {
-              Navigator.of(context).pop();
-            }),
-            Transform.translate(
-              offset: Offset(0, 15.h),
-              child: personalInfoUpdateWidget(context),
-            )
-          ],
+        body: PopScope(
+          onPopInvoked: (didPop) => true,
+          child: Stack(
+            children: [
+              globalAppBarWidget("Personal Information", () {
+                Navigator.of(context).pop();
+              }),
+              Transform.translate(
+                offset: Offset(0, 15.h),
+                child: personalInfoUpdateWidget(context),
+              )
+            ],
+          ),
         ),
       ),
     );

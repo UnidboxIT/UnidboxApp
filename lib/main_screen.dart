@@ -5,14 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:unidbox_app/views/screens/home/presentation/home_screen.dart';
+import 'package:unidbox_app/views/screens/job_order/presentation/job_order_screen.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'utils/constant/app_color.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
-import 'views/screens/system_navigation/home_navigation.dart';
-import 'views/screens/system_navigation/job_order_navigation.dart';
 import 'views/screens/system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 final shorebirdCodePush = ShorebirdCodePush();
@@ -27,10 +28,10 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   int currentIndex = 0;
   final List<GlobalKey<NavigatorState>> navigatorKeys = [
-    homeNavRouteState,
-    jobOrderNavRouteState,
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
   ];
-  Future<bool> _systemBackButtonPressed(bool didPop) {
+  Future<bool> _systemBackButtonPressed(bool didPop) async {
     if (navigatorKeys[currentIndex].currentState?.canPop() == true) {
       navigatorKeys[currentIndex]
           .currentState
@@ -41,42 +42,49 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     return Future.value(false);
   }
 
-  List<Widget> indexWidgets = <Widget>[
-    const HomeNavigationRoute(),
-    const JobOrderNavigationRoute(),
-    Container(),
-    const MessagesScreen(),
-    const ProfileScreen(),
-  ];
-
   Future<void> _checkForUpdates() async {
     // Check whether a patch is available to install.
     final isUpdateAvailable =
         await shorebirdCodePush.isNewPatchAvailableForDownload();
     await shorebirdCodePush.downloadUpdateIfAvailable();
     await Future.delayed(const Duration(milliseconds: 500));
-    // superPrint(isUpdateAvailable);
     if (isUpdateAvailable) {
-      // Download the new patch if it's available.
       alertDialog();
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ref.read(authStateNotifierControllerProvider.notifier).retrieveDomainName();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(bottomBarVisibilityProvider);
     WidgetsBinding.instance.addPostFrameCallback((tp) {
       _checkForUpdates();
     });
 
-    ref.watch(bottomBarVisibilityProvider);
-    final isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
+    bool isVisible = ref.watch(bottomBarVisibilityProvider.notifier).state;
+    List<Widget> indexWidgets = <Widget>[
+      Navigator(
+        key: navigatorKeys[0], // Navigator for Home
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(builder: (_) => const HomeScreen());
+        },
+      ),
+      Navigator(
+        key: navigatorKeys[1], // Navigator for Message
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(builder: (_) => const JobOrderScreen());
+        },
+      ),
+      Container(),
+      const MessagesScreen(),
+      const ProfileScreen(),
+    ];
+    superPrint(isVisible);
     return PopScope(
       canPop: false,
       onPopInvoked: _systemBackButtonPressed,
@@ -158,15 +166,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                                     : Colors.black.withOpacity(0.7),
                               )
                         : const SizedBox.shrink(),
-                  )
-                  // Container(
-                  //     width: 17.w,
-                  //     height: e.id != 2 ? 60 : 0,
-                  //     color: Colors.transparent,
-                  //     alignment: Alignment.center,
-                  //     child: e.unselectedIcon,
-                  //   ),
-                  ),
+                  )),
             )
             .toList(),
       ),

@@ -40,7 +40,7 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
   final SharedPreferences sharedPreferences;
   bool isSelected;
 
-  void signIn(String username, String password, WidgetRef ref,
+  Future<void> signIn(String username, String password, WidgetRef ref,
       BuildContext context, isCheck) async {
     try {
       state = const AuthState.loading();

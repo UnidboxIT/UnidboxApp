@@ -238,7 +238,7 @@ class _MyRequestsDetailScreenState
   Widget orderReceivingBodyWidget() {
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -255,6 +255,10 @@ class _MyRequestsDetailScreenState
                   )
                 : myrequestDetailWidget(),
           ),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          )
         ],
       ),
     );

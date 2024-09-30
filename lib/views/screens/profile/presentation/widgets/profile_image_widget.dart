@@ -16,6 +16,7 @@ import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/bottom_sheets/global_bottom_sheet.dart';
+import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 class ProfileImageWidget extends ConsumerStatefulWidget {
   final Profile profileData;
@@ -71,7 +72,10 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
     });
     return GestureDetector(
       onTap: () {
-        imageUploadBottomSheet(context);
+        ref.read(bottomBarVisibilityProvider.notifier).state = false;
+        imageUploadBottomSheet(context).then((_) {
+          ref.read(bottomBarVisibilityProvider.notifier).state = true;
+        });
       },
       child: Column(
         children: [
@@ -130,7 +134,7 @@ class _ProfileImageWidgetState extends ConsumerState<ProfileImageWidget> {
     );
   }
 
-  imageUploadBottomSheet(BuildContext context) {
+  Future<void> imageUploadBottomSheet(BuildContext context) {
     return globalBottomSheet(
         Container(
           height: 25.h,

@@ -45,18 +45,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 5), () async {
+
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(homeStateNotifierProvider.notifier).getAllMyTask();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(homeStateNotifierProvider.notifier).notiReminder();
     });
-
     Future.delayed(const Duration(milliseconds: 10), () async {
       await ref
           .read(otherRequestStateNotifierProvider.notifier)
           .getAllOtherRequest();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(myReturnStateNotifierProvider.notifier).getAllMyReturn();
+    });
+
+    Future.delayed(const Duration(milliseconds: 10), () async {
       await ref.read(outletReturnStateNotifier.notifier).getAlloutletReturn();
     });
+
     // Future.delayed(const Duration(milliseconds: 10), () {
     //   // final state = ref.read(homeStateNotifierProvider);
     //   // if (state is Initial) {

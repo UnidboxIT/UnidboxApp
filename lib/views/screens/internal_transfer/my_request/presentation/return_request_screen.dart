@@ -77,7 +77,30 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
       }
       if (next is ReturnRequestReasonList) {
         setState(() {
-          returnRequestReasonList = next.returnRequestReasonList;
+          for (var data in next.returnRequestReasonList) {
+            if (widget.productLine.issueQty > widget.receiveReasonQty ||
+                widget.productLine.issueQty == widget.receiveReasonQty) {
+              if (widget.productLine.issueQty >
+                      (widget.productLine.issueQty - widget.receiveReasonQty) &&
+                  (data.option == "return_do" || data.option == "scrap")) {
+                returnRequestReasonList.add(data);
+              } else if (widget.productLine.issueQty <
+                      (widget.productLine.issueQty - widget.receiveReasonQty) &&
+                  (data.option == "get_do" || data.option == "scrap_do")) {
+                returnRequestReasonList.add(data);
+              }
+            } else if (widget.receiveReasonQty > widget.productLine.issueQty) {
+              if (widget.productLine.issueQty > widget.receiveReasonQty &&
+                  (data.option == "return_do" || data.option == "scrap")) {
+                returnRequestReasonList.add(data);
+              } else if (widget.productLine.issueQty <
+                      widget.receiveReasonQty &&
+                  (data.option == "get_do" || data.option == "scrap_do")) {
+                returnRequestReasonList.add(data);
+              }
+            }
+          }
+          // returnRequestReasonList = next.returnRequestReasonList;
         });
       }
     });
@@ -280,21 +303,27 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  superPrint(reasonIndex);
+                  superPrint(
+                    widget.productLine.issueQty > widget.receiveReasonQty
+                        ? widget.productLine.issueQty.toInt() -
+                            widget.receiveReasonQty.toInt()
+                        : 0,
+                  );
                   ref
                       .read(myRequestStateNotifierProvider.notifier)
                       .receivedByImageMyRequest(
                         widget.productLine.id,
-                        widget.receiveReasonQty.toInt(),
+                        widget.productLine.issueQty > widget.receiveReasonQty ||
+                                widget.productLine.issueQty ==
+                                    widget.receiveReasonQty
+                            ? widget.productLine.issueQty.toInt() -
+                                widget.receiveReasonQty.toInt()
+                            : widget.receiveReasonQty.toInt(),
                         context,
                         reasonIndex,
                         txtOtherComment.text,
                         returnRequestImageList,
                       );
-                  // int totalReturnReasonQty = reasonQtyMap.values.fold(
-                  //     0, (previousValue, element) => previousValue + element);
-                  // if (totalReturnReasonQty == widget.receiveReasonQty.toInt()) {
-                  //}
                 },
                 child: Container(
                   height: 40,

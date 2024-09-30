@@ -122,7 +122,7 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
   Widget rejectedRequestWidget() {
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -135,6 +135,10 @@ class _RejectListScreenState extends ConsumerState<RejectRequestScreen> {
             onChanged: handleTextChanged,
           ),
           Expanded(child: rejectedRequestListWidget()),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          )
         ],
       ),
     );

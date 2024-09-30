@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pushy_flutter/pushy_flutter.dart';
+import '../../../app_screen.dart';
 import '../../../utils/commons/super_print.dart';
 import '../../global_provider_observe.dart';
 import '../internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
 import '../internal_transfer/my_return/presentation/my_return_screen.dart';
 import '../internal_transfer/outlet_request/presentation/other_request_detail_screen.dart';
 import '../internal_transfer/outlet_return/presentation/outlet_return_screen.dart';
-import '../system_navigation/home_navigation.dart';
 import '../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 
 String pushyToken = "";
@@ -35,7 +35,7 @@ Future pushyRegister(backgroundNotificationListener) async {
             (receivedMessage.contains("updated") ||
                 receivedMessage.contains("request"))) {
           Navigator.push(
-            homeNavRouteState.currentState!.context,
+            navigatorKey.currentState!.context,
             MaterialPageRoute(
                 builder: (builder) => const OtherRequestDetailScreen()),
           );
@@ -53,7 +53,7 @@ Future pushyRegister(backgroundNotificationListener) async {
             selectedFilterIndex = 3;
           }
           Navigator.of(
-            homeNavRouteState.currentState!.context,
+            navigatorKey.currentState!.context,
           ).push(MaterialPageRoute(
               builder: (context) => const MyRequestsDetailScreen(
                     isStockRequest: false,
@@ -61,13 +61,13 @@ Future pushyRegister(backgroundNotificationListener) async {
         } else if (currentIosRoute != '/myReturn' &&
             receivedMessage.contains("return_accepted")) {
           Navigator.of(
-            homeNavRouteState.currentState!.context,
+            navigatorKey.currentState!.context,
           ).push(
               MaterialPageRoute(builder: (context) => const MyReturnScreen()));
         } else if (currentIosRoute != '/outletReturn' &&
             returnRegExp.hasMatch(receivedMessage)) {
           Navigator.of(
-            homeNavRouteState.currentState!.context,
+            navigatorKey.currentState!.context,
           ).push(MaterialPageRoute(
               builder: (context) => const OutletReturnScreen()));
         }

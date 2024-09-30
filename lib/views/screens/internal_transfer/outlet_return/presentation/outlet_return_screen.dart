@@ -250,7 +250,7 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
   Widget outletReturnWidget() {
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -420,7 +420,11 @@ class _OutletReturnScreenState extends ConsumerState<OutletReturnScreen> {
                                               ref,
                                               context,
                                               selectedWarehouseID,
-                                              userWarehouse.warehouseList[0],
+                                              userWarehouse
+                                                      .warehouseList.isEmpty
+                                                  ? 0
+                                                  : userWarehouse
+                                                      .warehouseList[0],
                                               isAcceptLoading: acceptLoading,
                                               acceptProductID: acceptProductID),
                                         )

@@ -44,16 +44,18 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
       txtPassword.text = state.getString(AppKeys.password) ?? "";
       isCheck = state.getBool("isRemember") ?? false;
     });
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (!dialogShown) {
-    //     dialogShown = true; // Mark as shown
-    //     addDomainDialog().then((_) {
-    //       ref
-    //           .read(authStateNotifierControllerProvider.notifier)
-    //           .retrieveDomainName();
-    //     });
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!dialogShown) {
+        dialogShown = true; // Mark as shown
+        Future.delayed(const Duration(milliseconds: 10), () async {
+          addDomainDialog().then((_) {
+            ref
+                .read(authStateNotifierControllerProvider.notifier)
+                .retrieveDomainName();
+          });
+        });
+      }
+    });
     superPrint(isCheck);
   }
 
@@ -63,6 +65,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
         ConnectivityStatus.isConnected) {
       pushyRegister(backgroundNotificationListener);
     }
+
     ref.watch(authStateNotifierControllerProvider);
     ref.listen(authStateNotifierControllerProvider, (prev, next) {
       if (next is Loading) {
@@ -141,7 +144,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
                       ],
                     ),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         FocusManager.instance.primaryFocus!.unfocus();
                         ref
                             .read(authStateNotifierControllerProvider.notifier)

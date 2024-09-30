@@ -44,16 +44,19 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
       topColor: AppColor.primary,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            globalAppBarWidget("Change Password", () {
-              Navigator.of(context).pop();
-            }),
-            Transform.translate(
-              offset: Offset(0, 15.h),
-              child: changePasswordBodyWidget(),
-            ),
-          ],
+        body: PopScope(
+          onPopInvoked: (didPop) => true,
+          child: Stack(
+            children: [
+              globalAppBarWidget("Change Password", () {
+                Navigator.of(context).pop();
+              }),
+              Transform.translate(
+                offset: Offset(0, 15.h),
+                child: changePasswordBodyWidget(),
+              ),
+            ],
+          ),
         ),
       ),
     );

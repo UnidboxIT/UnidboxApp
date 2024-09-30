@@ -46,7 +46,7 @@ class _PendingRequestListScreenState
     tempReturnHistoryList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
-        if (element.status == "returned") {
+        if (element.status == "returned" || element.status == "done") {
           setState(() {
             String date = data.createDate.substring(0, 10);
             String warehouseName = data.isNewReturn

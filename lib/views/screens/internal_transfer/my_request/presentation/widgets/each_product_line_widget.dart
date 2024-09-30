@@ -283,10 +283,8 @@ Widget eachProductLineWidget(
                                         addMinusIconButtonWidget(() {
                                           superPrint(product.issueQty);
                                           if (productList[index].status ==
-                                                  'issued' &&
-                                              product.issueQty >
-                                                  receiveQtyMap[
-                                                      productList[index].id]!) {
+                                              'issued') {
+                                            // product.issueQty >receiveQtyMap[productList[index].id]!
                                             ref
                                                 .read(
                                                     myRequestStateNotifierProvider
@@ -384,10 +382,18 @@ Widget eachProductLineWidget(
                                                     requestWarehouse,
                                                 productLine: product,
                                                 currentWarehouse: name,
-                                                receiveReasonQty: productList[
-                                                            index]
-                                                        .issueQty -
-                                                    receiveQtyMap[product.id]!,
+                                                receiveReasonQty:
+                                                    productList[index]
+                                                                .issueQty >
+                                                            receiveQtyMap[
+                                                                product.id]!
+                                                        ? productList[index]
+                                                                .issueQty
+                                                                .toInt() -
+                                                            receiveQtyMap[
+                                                                product.id]!
+                                                        : receiveQtyMap[
+                                                            product.id]!,
                                                 receiveQty: productList[index]
                                                     .receivedQty
                                                     .toInt(),

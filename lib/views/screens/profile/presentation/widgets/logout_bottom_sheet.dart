@@ -8,7 +8,7 @@ import '../../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 
-logoutBottomSheet(context, ref) {
+Future<void> logoutBottomSheet(context, ref) {
   return globalBottomSheet(logoutBottomSheetWidget(ref, context), context);
 }
 
@@ -60,6 +60,7 @@ Widget logoutBottomSheetWidget(WidgetRef ref, context) {
             ref
                 .read(authStateNotifierControllerProvider.notifier)
                 .logout(context, ref);
+            // ref.read(bottomBarVisibilityProvider.notifier).state = true;
             // Get.put(LoginController()).logout();
           }),
         )

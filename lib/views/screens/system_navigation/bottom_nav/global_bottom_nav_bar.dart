@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../../app_screen.dart';
 import '../../inventory_tracker/presentation/inventory_tracker_screen.dart';
-import '../home_navigation.dart';
+
 import 'nav_bar.dart';
 
 Widget floatingActionBottomWidget(BuildContext context) {
   return FloatingActionButton(
     onPressed: () {
       Navigator.push(
-        homeNavRouteState.currentState!.context,
+        navigatorKey.currentState!.context,
         MaterialPageRoute(builder: (builder) => const InventoryTrackerScreen()),
       );
     },

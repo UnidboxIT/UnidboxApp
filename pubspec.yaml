@@ -1,7 +1,7 @@
 name: unidbox_app
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 3.0.0+6 #ios
+version: 4.0.0+8 #ios
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -41,7 +41,7 @@ dependencies:
   flutter_date_range_picker: ^0.1.1
   syncfusion_flutter_datepicker: ^26.2.8
   pushy_flutter: ^2.0.27
-  shorebird_code_push: ^1.1.4
+  shorebird_code_push: ^1.1.5
   restart_app: ^1.2.1
   barcode: ^2.2.8
   # flutter_launcher_icons: ^0.13.1

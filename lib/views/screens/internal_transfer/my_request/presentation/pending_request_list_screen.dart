@@ -108,7 +108,7 @@ class _PendingRequestListScreenState
   Widget pendingRequestWidget() {
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -160,6 +160,10 @@ class _PendingRequestListScreenState
                 },
                 itemCount: pendingRequestList.length),
           ),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          )
         ],
       ),
     );

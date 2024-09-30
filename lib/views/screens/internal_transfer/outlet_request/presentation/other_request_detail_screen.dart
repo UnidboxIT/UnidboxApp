@@ -309,7 +309,7 @@ class _OtherRequestsDetailScreenState
   Widget otherRequestWidget() {
     return Container(
       width: 100.w,
-      height: 75.h,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(25),
@@ -320,6 +320,10 @@ class _OtherRequestsDetailScreenState
           const SearchOtherRequestWidget(),
           outletRequestBreadcrumbHeadline(context, ""),
           Expanded(child: myrequestDetailWidget()),
+          Container(
+            height: 5.h,
+            color: Colors.transparent,
+          )
         ],
       ),
     );

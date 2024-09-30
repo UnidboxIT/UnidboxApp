@@ -24,28 +24,29 @@ class HomeAppBarWidget extends ConsumerWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 12),
       child: Row(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              textWidget(
-                time,
-                fontWeight: FontWeight.w700,
-                size: 14,
-                color: Colors.black.withOpacity(0.6),
-              ),
-              textWidget(
-                ref
-                    .watch(authStateNotifierControllerProvider.notifier)
-                    .getAdminInfo()
-                    .name,
-                fontWeight: FontWeight.w900,
-                color: Colors.black,
-                size: 25,
-              )
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                textWidget(
+                  time,
+                  fontWeight: FontWeight.w700,
+                  size: 14,
+                  color: Colors.black.withOpacity(0.6),
+                ),
+                textWidget(
+                  ref
+                      .watch(authStateNotifierControllerProvider.notifier)
+                      .getAdminInfo()
+                      .name,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.black,
+                  size: 25,
+                )
+              ],
+            ),
           ),
-          const Spacer(),
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(

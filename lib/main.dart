@@ -13,7 +13,6 @@ import 'package:unidbox_app/views/screens/internal_transfer/my_return/repository
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/presentation/other_request_detail_screen.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/repository/provider/other_request_provider.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_return/repository/provider/outlet_return_provider.dart';
-import 'package:unidbox_app/views/screens/system_navigation/home_navigation.dart';
 import 'views/global_provider_observe.dart';
 import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/internal_transfer/my_request/presentation/my_requests_detail_screen.dart';
@@ -95,7 +94,7 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
           receivedAction.body!.contains("updated") ||
       receivedAction.body!.contains("request")) {
     Navigator.push(
-      homeNavRouteState.currentState!.context,
+      navigatorKey.currentState!.context,
       MaterialPageRoute(builder: (builder) => const OtherRequestDetailScreen()),
     );
   } else if (currentRoute != '/myRequest' &&
@@ -104,13 +103,11 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
           receivedAction.body!.contains("issued"))) {
     if (regExp.hasMatch(receivedAction.body!)) {
       selectedFilterIndex = 1;
-    } else if (receivedAction.body!.contains("packed")) {
-      selectedFilterIndex = 2;
     } else if (receivedAction.body!.contains("issued")) {
-      selectedFilterIndex = 4;
+      selectedFilterIndex = 3;
     }
     Navigator.of(
-      homeNavRouteState.currentState!.context,
+      navigatorKey.currentState!.context,
     ).push(MaterialPageRoute(
         builder: (context) => const MyRequestsDetailScreen(
               isStockRequest: false,
@@ -118,13 +115,13 @@ Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
   } else if (currentRoute != '/myReturn' &&
       receivedAction.body!.contains("return_accepted")) {
     Navigator.of(
-      homeNavRouteState.currentState!.context,
+      navigatorKey.currentState!.context,
     ).push(MaterialPageRoute(builder: (context) => const MyReturnScreen()));
     //MyReturn
   } else if (currentRoute != '/outletReturn' &&
       returnRegExp.hasMatch(receivedAction.body!)) {
     Navigator.of(
-      homeNavRouteState.currentState!.context,
+      navigatorKey.currentState!.context,
     ).push(MaterialPageRoute(builder: (context) => const OutletReturnScreen()));
   }
 }

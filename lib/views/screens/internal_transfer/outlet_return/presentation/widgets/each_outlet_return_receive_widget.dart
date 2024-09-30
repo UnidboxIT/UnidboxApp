@@ -205,12 +205,10 @@ Widget eachOutletReturnWidget(
                             ),
                             isNewReturn
                                 ? textWidget(
-                                    productList[index]
-                                            .newReturnReasonList
-                                            .isEmpty
+                                    productList[index].returnReasonList.isEmpty
                                         ? ""
                                         : productList[index]
-                                            .newReturnReasonList
+                                            .returnReasonList
                                             .map((reason) => reason['name'])
                                             .join(", "),
                                     color: Colors.black,
