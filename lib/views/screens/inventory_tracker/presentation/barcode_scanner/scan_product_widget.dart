@@ -484,7 +484,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                       : Center(
                           child: SizedBox(
                               width: 40.w,
-                              height: 35,
+                              height: 42,
                               child: buttonWidget(
                                 "Request",
                                 () {

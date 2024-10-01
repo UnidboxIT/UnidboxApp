@@ -468,7 +468,7 @@ class _ProductWidgetState extends ConsumerState<ProductWidget> {
                             : Center(
                                 child: SizedBox(
                                     width: 40.w,
-                                    height: 35,
+                                    height: 42,
                                     child: buttonWidget(
                                       "Request",
                                       () {

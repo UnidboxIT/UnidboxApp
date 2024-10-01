@@ -54,7 +54,7 @@ Widget requestButtonWidgetInProductList(String text, VoidCallback onPressed,
           borderRadius: BorderRadius.circular(8),
         ),
         elevation: elevation,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
     child: isBool
         ? Center(
             child: CupertinoActivityIndicator(

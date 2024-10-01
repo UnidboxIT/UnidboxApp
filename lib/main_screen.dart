@@ -56,7 +56,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(authStateNotifierControllerProvider.notifier).retrieveDomainName();
+    //ref.read(authStateNotifierControllerProvider.notifier).retrieveDomainName();
   }
 
   @override

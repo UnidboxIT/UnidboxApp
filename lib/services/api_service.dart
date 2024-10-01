@@ -4,8 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import '../utils/commons/super_print.dart';
 
-String baseUrl = "";
-// String baseUrl = "http://128.199.107.219:8073//";
+//Production Sever
+// String baseUrl = "http://68.183.187.187:8069/";
+//UAT Sever
+String baseUrl = "http://128.199.107.219:8073/";
 
 class ApiService {
   Future<Response> post({

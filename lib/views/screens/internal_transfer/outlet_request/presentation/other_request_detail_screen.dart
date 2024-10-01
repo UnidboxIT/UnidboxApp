@@ -138,6 +138,7 @@ class _OtherRequestsDetailScreenState
           requestedMap.forEach((key, value) {
             value['product_line'] = {};
           });
+          productLineInfosList.clear();
 
           for (var data in otherRequestList) {
             for (var element in data.productLineList) {
@@ -170,6 +171,7 @@ class _OtherRequestsDetailScreenState
               }
             }
           }
+
           if (requestedMap.isNotEmpty) {
             if (requestedMap.keys.contains(selectedWarehouseID)) {
               selectedWarehouseID = selectedWarehouseID;
@@ -180,7 +182,6 @@ class _OtherRequestsDetailScreenState
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             setState(() {
               superPrint(requestedMap);
-              productLineInfosList.clear();
               requestedMap.forEach((outerKey, outerValue) {
                 var productLine = outerValue['product_line'];
                 if (productLine.isNotEmpty) {
@@ -447,7 +448,7 @@ class _OtherRequestsDetailScreenState
                   orElse: () => ProductLineInfo(
                       warehouseID, '', 0), // Default if not found
                 );
-                // superPrint(productLineInfos);
+                superPrint(productLineInfo.length);
                 // superPrint(productLineInfo.productLineKey);
 
                 return Container(

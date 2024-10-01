@@ -44,18 +44,18 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
       txtPassword.text = state.getString(AppKeys.password) ?? "";
       isCheck = state.getBool("isRemember") ?? false;
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!dialogShown) {
-        dialogShown = true; // Mark as shown
-        Future.delayed(const Duration(milliseconds: 10), () async {
-          addDomainDialog().then((_) {
-            ref
-                .read(authStateNotifierControllerProvider.notifier)
-                .retrieveDomainName();
-          });
-        });
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (!dialogShown) {
+    //     dialogShown = true; // Mark as shown
+    //     Future.delayed(const Duration(milliseconds: 10), () async {
+    //       addDomainDialog().then((_) {
+    //         ref
+    //             .read(authStateNotifierControllerProvider.notifier)
+    //             .retrieveDomainName();
+    //       });
+    //     });
+    //   }
+    // });
     superPrint(isCheck);
   }
 
