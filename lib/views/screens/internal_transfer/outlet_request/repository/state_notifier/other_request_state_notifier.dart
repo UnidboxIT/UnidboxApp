@@ -150,33 +150,72 @@ class OtherRequestStateNotifier extends StateNotifier<OtherRequestState> {
     }
   }
 
-  bool productIdContainsQuery = false;
-  searchOtherRequestData(String query) {
+  void searchOutletRequestSearchData(
+      String query,
+      List<Map<int, dynamic>> searchMyRequestHistoryList,
+      List<Map<int, dynamic>> tempSearchMyRequestHistoryList) {
     if (query.isNotEmpty) {
-      List<OtherRequest> searchRequest = otherRequestList.where((request) {
-        final nameContainsQuery =
-            request.name.toLowerCase().contains(query.toLowerCase());
-        final userIdContainsQuery = request.userId[1]
-            .toString()
-            .toLowerCase()
-            .contains(query.toLowerCase());
-
-        for (var data in request.productLineList) {
-          productIdContainsQuery = data.productIdList[1]
-              .toString()
-              .trim()
-              .toLowerCase()
-              .contains(query.toLowerCase());
-          superPrint(data.productIdList[1]);
-        }
-
-        return nameContainsQuery ||
-            userIdContainsQuery ||
-            productIdContainsQuery;
-      }).toList();
-      state = OtherRequestState.searchOtherRequestValue(searchRequest);
+      List<Map<int, dynamic>> foundProducts =
+          searchProducts(tempSearchMyRequestHistoryList, query);
+      state = OtherRequestState.searchOtherRequestValue(foundProducts);
     } else {
-      getAllOtherRequest();
+      state = OtherRequestState.searchOtherRequestValue(
+          tempSearchMyRequestHistoryList);
     }
+  }
+
+  List<Map<int, dynamic>> searchProducts(
+      List<Map<int, dynamic>> data, String searchValue) {
+    superPrint(data);
+    List<Map<int, dynamic>> results = [];
+    for (var entry in data) {
+      entry.forEach((date, value) {
+        Map<String, dynamic> valueMap = value as Map<String, dynamic>;
+        Map<dynamic, dynamic> productLine = valueMap['product_line'];
+        Map<String, dynamic> matchingProducts = {};
+        productLine.forEach((key, productInfo) {
+          if (key
+              .toString()
+              .toLowerCase()
+              .startsWith(searchValue.toLowerCase())) {
+            matchingProducts[key] =
+                productInfo; // Add matching product line by key
+          }
+
+          for (var data in productInfo['products']) {
+            if (data.productIdList[4]
+                    .toString()
+                    .trim()
+                    .toLowerCase()
+                    .contains(searchValue.toLowerCase()) ||
+                data.productIdList[1]
+                    .toString()
+                    .trim()
+                    .toLowerCase()
+                    .contains(searchValue.toLowerCase()) ||
+                data.productIdList[2]
+                    .toString()
+                    .trim()
+                    .toLowerCase()
+                    .contains(searchValue.toLowerCase())) {
+              matchingProducts[key] = productInfo;
+              break;
+            }
+          }
+        });
+
+        if (matchingProducts.isNotEmpty) {
+          results.add({
+            date: {
+              'warehouse_name': valueMap['warehouse_name'],
+              'name': valueMap['name'],
+              'date': valueMap['date'],
+              'product_line': matchingProducts,
+            },
+          });
+        }
+      });
+    }
+    return results;
   }
 }

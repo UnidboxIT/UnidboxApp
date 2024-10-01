@@ -38,14 +38,7 @@ class _SearchOrderReceivingState
           cursorColor: Colors.grey,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           textInputAction: TextInputAction.done,
-          onChanged: (query) async {
-            // txtSearchMyRequest.text = query;
-            // setState(() {
-            //   ref
-            //       .read(otherRequestStateNotifierProvider.notifier)
-            //       .searchOtherRequestData(query);
-            // });
-          },
+          onChanged: (query) async {},
           decoration: InputDecoration(
             hintText: "Search",
             hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),

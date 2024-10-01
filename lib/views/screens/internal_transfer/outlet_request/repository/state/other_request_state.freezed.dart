@@ -26,7 +26,7 @@ mixin _$OtherRequestState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -42,7 +42,7 @@ mixin _$OtherRequestState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -57,7 +57,7 @@ mixin _$OtherRequestState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -210,7 +210,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -229,7 +229,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -247,7 +247,7 @@ class _$OtherRequestListImpl implements OtherRequestList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -406,7 +406,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -425,7 +425,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -443,7 +443,7 @@ class _$IncrementQtyImpl implements IncrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -603,7 +603,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -622,7 +622,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -640,7 +640,7 @@ class _$DecrementQtyImpl implements DecrementQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -792,7 +792,7 @@ class _$IsDataExitImpl implements IsDataExit {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -811,7 +811,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -829,7 +829,7 @@ class _$IsDataExitImpl implements IsDataExit {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -953,7 +953,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -972,7 +972,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -990,7 +990,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -1110,7 +1110,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -1129,7 +1129,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -1147,7 +1147,7 @@ class _$OtherRequestLoadingImpl implements OtherRequestLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -1266,7 +1266,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -1285,7 +1285,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -1303,7 +1303,7 @@ class _$AcceptLoadingImpl implements AcceptLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -1383,7 +1383,7 @@ abstract class _$$SearchOtherRequestListImplCopyWith<$Res> {
           $Res Function(_$SearchOtherRequestListImpl) then) =
       __$$SearchOtherRequestListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<OtherRequest> searchOtherRequestList});
+  $Res call({List<Map<int, dynamic>> searchOtherRequestList});
 }
 
 /// @nodoc
@@ -1404,7 +1404,7 @@ class __$$SearchOtherRequestListImplCopyWithImpl<$Res>
       null == searchOtherRequestList
           ? _value._searchOtherRequestList
           : searchOtherRequestList // ignore: cast_nullable_to_non_nullable
-              as List<OtherRequest>,
+              as List<Map<int, dynamic>>,
     ));
   }
 }
@@ -1413,12 +1413,12 @@ class __$$SearchOtherRequestListImplCopyWithImpl<$Res>
 
 class _$SearchOtherRequestListImpl implements SearchOtherRequestList {
   const _$SearchOtherRequestListImpl(
-      final List<OtherRequest> searchOtherRequestList)
+      final List<Map<int, dynamic>> searchOtherRequestList)
       : _searchOtherRequestList = searchOtherRequestList;
 
-  final List<OtherRequest> _searchOtherRequestList;
+  final List<Map<int, dynamic>> _searchOtherRequestList;
   @override
-  List<OtherRequest> get searchOtherRequestList {
+  List<Map<int, dynamic>> get searchOtherRequestList {
     if (_searchOtherRequestList is EqualUnmodifiableListView)
       return _searchOtherRequestList;
     // ignore: implicit_dynamic_type
@@ -1461,7 +1461,7 @@ class _$SearchOtherRequestListImpl implements SearchOtherRequestList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -1480,7 +1480,7 @@ class _$SearchOtherRequestListImpl implements SearchOtherRequestList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -1498,7 +1498,7 @@ class _$SearchOtherRequestListImpl implements SearchOtherRequestList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -1569,10 +1569,10 @@ class _$SearchOtherRequestListImpl implements SearchOtherRequestList {
 
 abstract class SearchOtherRequestList implements OtherRequestState {
   const factory SearchOtherRequestList(
-          final List<OtherRequest> searchOtherRequestList) =
+          final List<Map<int, dynamic>> searchOtherRequestList) =
       _$SearchOtherRequestListImpl;
 
-  List<OtherRequest> get searchOtherRequestList;
+  List<Map<int, dynamic>> get searchOtherRequestList;
   @JsonKey(ignore: true)
   _$$SearchOtherRequestListImplCopyWith<_$SearchOtherRequestListImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1652,7 +1652,7 @@ class _$AcceptProductIDImpl implements AcceptProductID {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -1671,7 +1671,7 @@ class _$AcceptProductIDImpl implements AcceptProductID {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -1689,7 +1689,7 @@ class _$AcceptProductIDImpl implements AcceptProductID {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,
@@ -1839,7 +1839,7 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() acceptLoading,
-    required TResult Function(List<OtherRequest> searchOtherRequestList)
+    required TResult Function(List<Map<int, dynamic>> searchOtherRequestList)
         searchOtherRequestValue,
     required TResult Function(int productID) acceptProductID,
     required TResult Function(String? error) error,
@@ -1858,7 +1858,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? acceptLoading,
-    TResult? Function(List<OtherRequest> searchOtherRequestList)?
+    TResult? Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult? Function(int productID)? acceptProductID,
     TResult? Function(String? error)? error,
@@ -1876,7 +1876,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? acceptLoading,
-    TResult Function(List<OtherRequest> searchOtherRequestList)?
+    TResult Function(List<Map<int, dynamic>> searchOtherRequestList)?
         searchOtherRequestValue,
     TResult Function(int productID)? acceptProductID,
     TResult Function(String? error)? error,

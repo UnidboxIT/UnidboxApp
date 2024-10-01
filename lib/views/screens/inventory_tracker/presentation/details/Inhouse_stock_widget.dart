@@ -119,13 +119,15 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                     ),
                     Expanded(
                       flex: 3,
-                      child: textWidget(
-                          widget.productDetail.quantity.toInt().toString(),
+                      child: textWidget("0",
                           color: Colors.black,
                           size: 14,
                           textAlign: TextAlign.center),
                     ),
-                    const Expanded(flex: 4, child: SizedBox())
+                    const Expanded(
+                      flex: 4,
+                      child: SizedBox(),
+                    )
                   ],
                 )
               : const SizedBox(),

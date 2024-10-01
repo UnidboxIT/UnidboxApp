@@ -13,6 +13,7 @@ import '../../../../user_warehouse/state/user_warehouse_state.dart';
 import '../../../../widgets/app_bar/global_app_bar.dart';
 import '../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../my_request/domain/my_request.dart';
+import '../../my_request/presentation/widgets/search_pending_request_widget.dart';
 import '../../my_request/repository/state/warehouse_state.dart';
 import '../domain/other_request.dart';
 import '../domain/warehouse.dart';
@@ -22,12 +23,11 @@ import 'other_request_history/other_request_history_screen.dart';
 import 'outlet_request_breadcumbs_heacline/outlet_request_breadcrumbs_headline_widget.dart';
 import 'accepted_list_screen.dart';
 import 'widgets/each_other_request_product_widget.dart';
-import 'widgets/search_other_request_widget.dart';
 
 class ProductLineInfo {
-  final int outerKey; // The main key like 4 or 3
-  final String productLineKey; // The product line key like "D502/24/00237"
-  final int length; // Length of the list
+  final int outerKey;
+  final String productLineKey;
+  final int length;
 
   ProductLineInfo(this.outerKey, this.productLineKey, this.length);
 }
@@ -53,6 +53,8 @@ class _OtherRequestsDetailScreenState
   int selectedWarehouseID = 0;
   Map<int, dynamic> requestedMap = {};
   List<Map<int, dynamic>> requestedMapList = [];
+  List<Map<int, dynamic>> tempRequestedMapList = [];
+  List<Map<int, dynamic>> searchRequestedMapList = [];
   int acceptProductID = -1;
   bool acceptLoading = false;
   bool isWarehouseLoading = false;
@@ -64,6 +66,7 @@ class _OtherRequestsDetailScreenState
   int totalProducts = 0;
   String productLineKey = "";
   ProductLineInfo productLineInfo = ProductLineInfo(0, "", 0);
+  TextEditingController txtSearchOutletRequestData = TextEditingController();
 
   @override
   void initState() {
@@ -135,6 +138,7 @@ class _OtherRequestsDetailScreenState
           otherRequestList = next.otherRequestList;
           // requestedMap.clear();
           requestedMapList.clear();
+          tempRequestedMapList.clear();
           requestedMap.forEach((key, value) {
             value['product_line'] = {};
           });
@@ -179,6 +183,8 @@ class _OtherRequestsDetailScreenState
               selectedWarehouseID = requestedMap.keys.first;
             }
             requestedMapList
+                .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
+            tempRequestedMapList
                 .add({selectedWarehouseID: requestedMap[selectedWarehouseID]});
             setState(() {
               superPrint(requestedMap);
@@ -238,11 +244,13 @@ class _OtherRequestsDetailScreenState
 
       if (next is SearchOtherRequestList) {
         setState(() {
-          otherRequestList = [];
-          acceptProductList.clear();
-          otherRequestList = next.searchOtherRequestList;
+          searchRequestedMapList.clear();
+          requestedMapList.clear();
+          searchRequestedMapList.addAll(next.searchOtherRequestList);
+          requestedMapList.addAll(next.searchOtherRequestList);
         });
-        superPrint(otherRequestList);
+        superPrint(requestedMapList);
+        superPrint(searchRequestedMapList);
       }
     });
 
@@ -307,6 +315,18 @@ class _OtherRequestsDetailScreenState
     );
   }
 
+  void handleTextChanged(String input) {
+    setState(() {
+      ref
+          .read(otherRequestStateNotifierProvider.notifier)
+          .searchOutletRequestSearchData(
+            input,
+            requestedMapList,
+            tempRequestedMapList,
+          );
+    });
+  }
+
   Widget otherRequestWidget() {
     return Container(
       width: 100.w,
@@ -318,7 +338,10 @@ class _OtherRequestsDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SearchOtherRequestWidget(),
+          SearchPendingRequestWidget(
+            txtController: txtSearchOutletRequestData,
+            onChanged: handleTextChanged,
+          ),
           outletRequestBreadcrumbHeadline(context, ""),
           Expanded(child: myrequestDetailWidget()),
           Container(
@@ -461,6 +484,7 @@ class _OtherRequestsDetailScreenState
                           Map<String, dynamic> value =
                               requestedMap[selectedWarehouseID] ?? {};
                           requestedMapList.clear();
+                          tempRequestedMapList.clear();
                           if (requestedMap.containsKey(selectedWarehouseID)) {
                             requestedMap[selectedWarehouseID] = {
                               "warehouse_name": value['warehouse_name'],
@@ -470,6 +494,10 @@ class _OtherRequestsDetailScreenState
                             };
                           }
                           requestedMapList.add({
+                            selectedWarehouseID:
+                                requestedMap[selectedWarehouseID]
+                          });
+                          tempRequestedMapList.add({
                             selectedWarehouseID:
                                 requestedMap[selectedWarehouseID]
                           });
@@ -540,8 +568,13 @@ class _OtherRequestsDetailScreenState
                       setState(() {
                         selectedWarehouseID = -1;
                         requestedMapList.clear();
+                        tempRequestedMapList.clear();
                         if (requestedMap.isNotEmpty) {
                           requestedMapList.add(requestedMap);
+                          tempRequestedMapList.add({
+                            selectedWarehouseID:
+                                requestedMap[selectedWarehouseID]
+                          });
                         }
                       });
                     },
