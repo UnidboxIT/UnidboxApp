@@ -498,18 +498,15 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               .map(
                 (e) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          left: 8, top: 4, bottom: 4, right: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: textWidget(e, size: 12),
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 8, top: 4, bottom: 4, right: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(25),
                     ),
+                    child: textWidget(e, size: 12),
                   ),
                 ),
               )

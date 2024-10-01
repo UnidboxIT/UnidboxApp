@@ -236,14 +236,14 @@ class _OtherRequestsDetailScreenState
         });
       }
 
-      // if (next is SearchOtherRequestList) {
-      //   setState(() {
-      //     otherRequestList = [];
-      //     acceptProductList.clear();
-      //     otherRequestList = next.searchOtherRequestList;
-      //   });
-      //   superPrint(otherRequestList);
-      // }
+      if (next is SearchOtherRequestList) {
+        setState(() {
+          otherRequestList = [];
+          acceptProductList.clear();
+          otherRequestList = next.searchOtherRequestList;
+        });
+        superPrint(otherRequestList);
+      }
     });
 
     return SuperScaffold(
@@ -448,7 +448,7 @@ class _OtherRequestsDetailScreenState
                   orElse: () => ProductLineInfo(
                       warehouseID, '', 0), // Default if not found
                 );
-                superPrint(productLineInfo.length);
+                // superPrint(productLineInfo.length);
                 // superPrint(productLineInfo.productLineKey);
 
                 return Container(

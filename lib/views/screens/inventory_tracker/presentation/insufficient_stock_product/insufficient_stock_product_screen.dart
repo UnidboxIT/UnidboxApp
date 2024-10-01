@@ -253,7 +253,7 @@ class _InsufficientStockProductScreenState
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: textWidget(fullName,
-              maxLine: 4,
+              maxLine: 3,
               textOverflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
               size: 13,

@@ -516,7 +516,7 @@ class _SearchProductScreenState extends ConsumerState<SearchProductScreen> {
                                                                 .symmetric(
                                                                 horizontal: 8),
                                                         child: textWidget(name,
-                                                            maxLine: 4,
+                                                            maxLine: 3,
                                                             textOverflow:
                                                                 TextOverflow
                                                                     .ellipsis,

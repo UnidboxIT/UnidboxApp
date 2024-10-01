@@ -119,7 +119,8 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                     ),
                     Expanded(
                       flex: 3,
-                      child: textWidget("0",
+                      child: textWidget(
+                          widget.productDetail.quantity.toInt().toString(),
                           color: Colors.black,
                           size: 14,
                           textAlign: TextAlign.center),
@@ -144,6 +145,9 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
                 int id = sortedStockList[index].warehouseList[0];
                 if (sortedStockList[0].warehouseList[0] !=
                     widget.userWarehouse.warehouseList[0]) {
+                  superPrint(widget.userWarehouse.warehouseList[0],
+                      title: "USER WAREHOUSE");
+                  superPrint(sortedStockList[0].warehouseList[0]);
                   return eachInhouseStockNotContainWidget(
                       location, qty.toString(), id, context);
                 }

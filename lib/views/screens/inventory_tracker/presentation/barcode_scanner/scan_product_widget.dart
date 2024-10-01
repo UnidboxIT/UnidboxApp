@@ -334,7 +334,7 @@ class _ProductWidgetState extends ConsumerState<ScanProductScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: textWidget(name,
-                                      maxLine: 4,
+                                      maxLine: 3,
                                       textOverflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       size: 13,

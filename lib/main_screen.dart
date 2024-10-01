@@ -10,7 +10,6 @@ import 'package:unidbox_app/views/screens/home/presentation/home_screen.dart';
 import 'package:unidbox_app/views/screens/job_order/presentation/job_order_screen.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'utils/constant/app_color.dart';
-import 'views/screens/auth/repository/auth_state_notifier.dart';
 import 'views/screens/messages/presentation/messages_screen.dart';
 import 'views/screens/profile/presentation/profile_screen.dart';
 import 'views/screens/system_navigation/bottom_nav/global_bottom_nav_bar.dart';
