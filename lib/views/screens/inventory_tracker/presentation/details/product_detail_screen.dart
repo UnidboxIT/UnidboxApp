@@ -19,6 +19,7 @@ import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
+import '../../../../../utils/constant/app_constant.dart';
 import '../../../../user_warehouse/domain/user_warehouse.dart';
 import '../../../../user_warehouse/provider/user_warehouse_provider.dart';
 import '../../../../user_warehouse/state/user_warehouse_state.dart';
@@ -264,17 +265,27 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                         .read(stockOrderStateNotifierProvider
                                             .notifier)
                                         .addProductToCart(checkOutDataMap);
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            CheckOutOrderDetailScreen(
-                                          stockOrderList: stockOrderList,
-                                          productDetail: productDetail,
+                                    ref
+                                        .read(checkoutOrderStateNotifierProvider
+                                            .notifier)
+                                        .checkOutOrder(
+                                            admin.companyId,
+                                            admin.partnerId,
+                                            stockOrderList,
+                                            context,
+                                            ref)
+                                        .then((_) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              CheckOutOrderDetailScreen(
+                                            stockOrderList: stockOrderList,
+                                            productDetail: productDetail,
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    });
                                   }),
                                   const SizedBox(width: 10),
                                 ],
