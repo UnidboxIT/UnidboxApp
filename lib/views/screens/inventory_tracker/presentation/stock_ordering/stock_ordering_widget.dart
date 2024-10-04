@@ -48,30 +48,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                 ]
               },
               widget.productDetail);
-          // ref.read(stockOrderStateNotifierProvider.notifier).incrementTotalQty(
-          //       widget.stockOrderList[0].id,
-          //       widget.stockOrderList[0].name[1],
-          //       totalQty,
-          //       {
-          //         widget.stockOrderList.first.name[1]: [
-          //           {
-          //             'product_id': widget.productDetail.id,
-          //             'name': widget.productDetail.fullName,
-          //             'product_qty': 1,
-          //             'product_uom': widget.productDetail.uomList[0],
-          //             'price_unit': widget.productDetail.price,
-          //             "image": widget.productDetail.imageUrl,
-          //             "sku": widget.productDetail.defaultCode,
-          //           }
-          //         ]
-          //       },
-          //       widget.productDetail.id,
-          //       widget.productDetail.fullName,
-          //       widget.productDetail.uomList[0],
-          //       widget.productDetail.price,
-          //       widget.productDetail.imageUrl,
-          //       widget.productDetail.defaultCode,
-          //     );
         });
       });
     }
@@ -171,19 +147,9 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
           ? null
           : () {
               ref
-                  .read(stockOrderStateNotifierProvider.notifier)
-                  .incrementTotalQty(
-                    vendorId,
-                    vendor,
-                    totalQty,
-                    checkOutDataMap,
-                    widget.productDetail.id,
-                    widget.productDetail.fullName,
-                    widget.productDetail.uomList[0],
-                    widget.productDetail.price,
-                    widget.productDetail.imageUrl,
-                    widget.productDetail.defaultCode,
-                  );
+                  .read(addOrderCartStateNotifier.notifier)
+                  .incrementAddOrderCart(vendorId, vendor, totalQty,
+                      checkOutMap, widget.productDetail);
             },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -219,64 +185,45 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
             const SizedBox(width: 10),
             Expanded(
                 flex: 5,
-                child: totalQty.containsKey(vendorId) &&
-                        totalQty[vendorId]! >= 1
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          addMinusIconButtonWidget(() {
-                            ref
-                                .read(stockOrderStateNotifierProvider.notifier)
-                                .decrementTotalQty(
-                                  vendorId,
-                                  vendor,
-                                  totalQty,
-                                  checkOutDataMap,
-                                  widget.productDetail.id,
-                                  widget.productDetail.fullName,
-                                  widget.productDetail.uomList[0],
-                                  widget.productDetail.price,
-                                  widget.productDetail.imageUrl,
-                                  widget.productDetail.defaultCode,
-                                );
-                          }, CupertinoIcons.minus_circle_fill, vendorId),
-                          const SizedBox(width: 10),
-                          textWidget(
-                            totalQty[vendorId].toString(),
-                            size: 18,
-                            color: totalQty.containsKey(vendorId) &&
-                                    totalQty[vendorId]! >= 1
-                                ? Colors.white
-                                : Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          const SizedBox(width: 10),
-                          addMinusIconButtonWidget(() {
-                            ref
-                                .read(addOrderCartStateNotifier.notifier)
-                                .incrementAddOrderCart(
-                                    vendorId,
-                                    vendor,
-                                    totalQty,
-                                    checkOutMap,
-                                    widget.productDetail); // ref
-                            //     .read(stockOrderStateNotifierProvider.notifier)
-                            //     .incrementTotalQty(
-                            //       vendorId,
-                            //       vendor,
-                            //       totalQty,
-                            //       checkOutDataMap,
-                            //       widget.productDetail.id,
-                            //       widget.productDetail.fullName,
-                            //       widget.productDetail.uomList[0],
-                            //       widget.productDetail.price,
-                            //       widget.productDetail.imageUrl,
-                            //       widget.productDetail.defaultCode,
-                            //     );
-                          }, CupertinoIcons.add_circled_solid, vendorId),
-                        ],
-                      )
-                    : const SizedBox.shrink())
+                child:
+                    totalQty.containsKey(vendorId) && totalQty[vendorId]! >= 1
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              addMinusIconButtonWidget(() {
+                                ref
+                                    .read(addOrderCartStateNotifier.notifier)
+                                    .decrementAddOrderCart(
+                                        vendorId,
+                                        vendor,
+                                        totalQty,
+                                        checkOutMap,
+                                        widget.productDetail);
+                              }, CupertinoIcons.minus_circle_fill, vendorId),
+                              const SizedBox(width: 10),
+                              textWidget(
+                                totalQty[vendorId].toString(),
+                                size: 18,
+                                color: totalQty.containsKey(vendorId) &&
+                                        totalQty[vendorId]! >= 1
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              const SizedBox(width: 10),
+                              addMinusIconButtonWidget(() {
+                                ref
+                                    .read(addOrderCartStateNotifier.notifier)
+                                    .incrementAddOrderCart(
+                                        vendorId,
+                                        vendor,
+                                        totalQty,
+                                        checkOutMap,
+                                        widget.productDetail); // ref
+                              }, CupertinoIcons.add_circled_solid, vendorId),
+                            ],
+                          )
+                        : const SizedBox.shrink())
           ],
         ),
       ),

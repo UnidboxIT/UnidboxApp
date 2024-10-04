@@ -17,8 +17,8 @@ class StockOrderingState with _$StockOrderingState {
       DecrementStockOrderQty;
   // const factory StockOrderingState.addOrder(
   //     List<Map<String, dynamic>> orderLine) = OrderLines;
-  const factory StockOrderingState.checkOut(
-      Map<String, List<Map<String, dynamic>>> checkoutMap) = CheckOutMap;
+  // const factory StockOrderingState.checkOut(
+  //     Map<String, List<Map<String, dynamic>>> checkoutMap) = CheckOutMap;
   // const factory StockOrderingState.backupOrderList(
   //     List<Map<String, dynamic>> orderLine) = BackupOrderList;
   const factory StockOrderingState.backupCheckOut(

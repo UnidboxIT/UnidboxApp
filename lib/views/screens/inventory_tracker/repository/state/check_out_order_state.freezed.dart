@@ -50,7 +50,7 @@ mixin _$CheckOutOrderState {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,7 +59,7 @@ mixin _$CheckOutOrderState {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,7 +68,7 @@ mixin _$CheckOutOrderState {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -200,7 +200,7 @@ class _$SuccessfulImpl implements Successful {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) {
     return success(this);
   }
@@ -212,7 +212,7 @@ class _$SuccessfulImpl implements Successful {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) {
     return success?.call(this);
   }
@@ -224,7 +224,7 @@ class _$SuccessfulImpl implements Successful {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -353,7 +353,7 @@ class _$CalculateTotalPriceImpl implements CalculateTotalPrice {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) {
     return calculateTotalPrice(this);
   }
@@ -365,7 +365,7 @@ class _$CalculateTotalPriceImpl implements CalculateTotalPrice {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) {
     return calculateTotalPrice?.call(this);
   }
@@ -377,7 +377,7 @@ class _$CalculateTotalPriceImpl implements CalculateTotalPrice {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) {
     if (calculateTotalPrice != null) {
@@ -479,7 +479,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) {
     return initial(this);
   }
@@ -491,7 +491,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -503,7 +503,7 @@ class _$InitialImpl implements Initial {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -599,7 +599,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) {
     return loading(this);
   }
@@ -611,7 +611,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -623,7 +623,7 @@ class _$CheckOutLoadingImpl implements CheckOutLoading {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -638,20 +638,20 @@ abstract class CheckOutLoading implements CheckOutOrderState {
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
+abstract class _$$CheckOutErrorImplCopyWith<$Res> {
+  factory _$$CheckOutErrorImplCopyWith(
+          _$CheckOutErrorImpl value, $Res Function(_$CheckOutErrorImpl) then) =
+      __$$CheckOutErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CheckOutOrderStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+class __$$CheckOutErrorImplCopyWithImpl<$Res>
+    extends _$CheckOutOrderStateCopyWithImpl<$Res, _$CheckOutErrorImpl>
+    implements _$$CheckOutErrorImplCopyWith<$Res> {
+  __$$CheckOutErrorImplCopyWithImpl(
+      _$CheckOutErrorImpl _value, $Res Function(_$CheckOutErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -659,7 +659,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? error = freezed,
   }) {
-    return _then(_$ErrorImpl(
+    return _then(_$CheckOutErrorImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -670,8 +670,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl({this.error});
+class _$CheckOutErrorImpl implements CheckOutError {
+  const _$CheckOutErrorImpl({this.error});
 
   @override
   final String? error;
@@ -685,7 +685,7 @@ class _$ErrorImpl implements Error {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl &&
+            other is _$CheckOutErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -695,8 +695,8 @@ class _$ErrorImpl implements Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
-      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+  _$$CheckOutErrorImplCopyWith<_$CheckOutErrorImpl> get copyWith =>
+      __$$CheckOutErrorImplCopyWithImpl<_$CheckOutErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -745,7 +745,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(CalculateTotalPrice value) calculateTotalPrice,
     required TResult Function(Initial value) initial,
     required TResult Function(CheckOutLoading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(CheckOutError value) error,
   }) {
     return error(this);
   }
@@ -757,7 +757,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult? Function(Initial value)? initial,
     TResult? Function(CheckOutLoading value)? loading,
-    TResult? Function(Error value)? error,
+    TResult? Function(CheckOutError value)? error,
   }) {
     return error?.call(this);
   }
@@ -769,7 +769,7 @@ class _$ErrorImpl implements Error {
     TResult Function(CalculateTotalPrice value)? calculateTotalPrice,
     TResult Function(Initial value)? initial,
     TResult Function(CheckOutLoading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(CheckOutError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -779,11 +779,11 @@ class _$ErrorImpl implements Error {
   }
 }
 
-abstract class Error implements CheckOutOrderState {
-  const factory Error({final String? error}) = _$ErrorImpl;
+abstract class CheckOutError implements CheckOutOrderState {
+  const factory CheckOutError({final String? error}) = _$CheckOutErrorImpl;
 
   String? get error;
   @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+  _$$CheckOutErrorImplCopyWith<_$CheckOutErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

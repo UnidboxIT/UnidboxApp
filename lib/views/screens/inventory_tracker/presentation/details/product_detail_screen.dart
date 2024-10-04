@@ -12,6 +12,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/stock_o
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/inventory_app_bar_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/widgets/stock_button_widget.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/check_out_order_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/product_detail_state.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/stock_ordering_state.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
@@ -28,6 +29,7 @@ import '../../domain/stock_order.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
+import '../../repository/state/stock_order/add_order_cart_state.dart';
 import '../stock_ordering/check_out_order_detail_screen.dart';
 import '../update_product/product_detail_update.dart';
 import 'show_barcode_generate_popup.dart';
@@ -50,21 +52,23 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Products productDetail = Products();
   List<InhouseStock> inHouseStockList = [];
-
   List<StockOrder> stockOrderList = [];
   bool isLoading = false;
   bool isInHouseLoading = false;
   String stockName = "In-house Stock";
   Map<int, int> totalStockOrderQty = {};
   List<Map<String, dynamic>> orderLineList = [];
-  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
+  Map<int, List<Map<String, dynamic>>> checkOutDataMap = {};
   bool isWarehouseLoading = false;
   UserWarehouse userWarehouse = UserWarehouse();
+  bool isAddToOrderLoading = false;
 
   @override
   void initState() {
     super.initState();
     loadData();
+    checkOutDataMap.clear();
+    orderLineList.clear();
   }
 
   void loadData() {
@@ -82,9 +86,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .getStockOrder(int.parse(widget.productID), ref, context);
-        ref
-            .read(stockOrderStateNotifierProvider.notifier)
-            .retrieveOrderFormDataList();
       }
     });
   }
@@ -148,25 +149,58 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       if (next is StockOrderingList) {
         stockOrderList = next.stockOrdering;
       }
-      if (next is IncrementStockOrderQty) {
-        setState(() {
-          totalStockOrderQty = next.qty;
-        });
-      }
-      if (next is DecrementStockOrderQty) {
-        setState(() {
-          totalStockOrderQty = next.qty;
-        });
-      }
 
-      if (next is CheckOutMap) {
-        setState(() {
-          checkOutDataMap = next.checkoutMap;
-        });
-      }
       if (next is ClearTotalQty) {
         setState(() {
           totalStockOrderQty = next.totalQty;
+        });
+      }
+    });
+
+    ref.listen(addOrderCartStateNotifier, (pre, next) {
+      if (next is IncrementOrderCartQty) {
+        setState(() {
+          totalStockOrderQty = next.qty;
+          superPrint(totalStockOrderQty);
+        });
+      }
+      if (next is DecrementOrderCartQty) {
+        setState(() {
+          totalStockOrderQty = next.qty;
+        });
+      }
+      if (next is CheckOutMap) {
+        setState(() {
+          checkOutDataMap = next.checkoutMap;
+          checkOutDataMap.forEach((key, valueList) {
+            for (var item in valueList) {
+              orderLineList.add({
+                'product_id': item['product_id'],
+                'name': item['name'],
+                'product_qty': item['product_qty'],
+                'product_uom': item['product_uom'],
+                'price_unit': item['price_unit'],
+              });
+            }
+          });
+        });
+      }
+    });
+
+    ref.listen(checkoutOrderStateNotifierProvider, (pre, next) {
+      if (next is CheckOutLoading) {
+        setState(() {
+          isAddToOrderLoading = true;
+        });
+      }
+      if (next is Successful) {
+        setState(() {
+          isAddToOrderLoading = false;
+        });
+      }
+      if (next is CheckOutError) {
+        setState(() {
+          isAddToOrderLoading = false;
         });
       }
     });
@@ -261,32 +295,32 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                   buttonWidget("Add To Order", () {
                                     superPrint(orderLineList);
                                     superPrint(checkOutDataMap);
-                                    ref
-                                        .read(stockOrderStateNotifierProvider
-                                            .notifier)
-                                        .addProductToCart(checkOutDataMap);
+                                    // ref
+                                    //     .read(stockOrderStateNotifierProvider
+                                    //         .notifier)
+                                    //     .addProductToCart(checkOutDataMap);
                                     ref
                                         .read(checkoutOrderStateNotifierProvider
                                             .notifier)
                                         .checkOutOrder(
-                                            admin.companyId,
-                                            admin.partnerId,
-                                            stockOrderList,
-                                            context,
-                                            ref)
+                                          admin.companyId,
+                                          admin.partnerId,
+                                          orderLineList,
+                                          context,
+                                          ref,
+                                          stockOrderList.first,
+                                        )
                                         .then((_) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (_) =>
                                               CheckOutOrderDetailScreen(
-                                            stockOrderList: stockOrderList,
-                                            productDetail: productDetail,
-                                          ),
+                                                  productDetail: productDetail),
                                         ),
                                       );
                                     });
-                                  }),
+                                  }, isBool: isAddToOrderLoading),
                                   const SizedBox(width: 10),
                                 ],
                               ),

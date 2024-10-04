@@ -10,7 +10,6 @@ import 'package:unidbox_app/views/screens/inventory_tracker/presentation/barcode
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
-import '../../domain/stock_order.dart';
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/check_out_order_state.dart';
 import '../../repository/state/stock_order/stock_ordering_state.dart';
@@ -18,10 +17,9 @@ import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
 
 class CheckOutOrderDetailScreen extends ConsumerStatefulWidget {
-  final List<StockOrder> stockOrderList;
+  //final List<StockOrder> stockOrderList;
   final Products productDetail;
-  const CheckOutOrderDetailScreen(
-      {super.key, required this.stockOrderList, required this.productDetail});
+  const CheckOutOrderDetailScreen({super.key, required this.productDetail});
 
   @override
   ConsumerState<CheckOutOrderDetailScreen> createState() =>
@@ -39,7 +37,7 @@ class _CheckOutOrderDetailScreenState
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
-      ref.read(stockOrderStateNotifierProvider.notifier).showAllOrderFormData();
+      // ref.read(stockOrderStateNotifierProvider.notifier).showAllOrderFormData();
       ref.read(orderFormReasonStateNotifier.notifier).getOrderFormReason();
     });
   }
@@ -123,39 +121,39 @@ class _CheckOutOrderDetailScreenState
                         width: 30.w,
                         child: buttonWidget("Submit", () {
                           //clear form data local storage
-                          ref
-                              .read(stockOrderStateNotifierProvider.notifier)
-                              .clearAllOrderForm();
-                          if (widget.stockOrderList.isNotEmpty) {
-                            ref
-                                .read(stockOrderStateNotifierProvider.notifier)
-                                .incrementTotalQty(
-                                  widget.stockOrderList[0].id,
-                                  widget.stockOrderList[0].name[1],
-                                  {widget.stockOrderList.first.id: 0},
-                                  {
-                                    widget.stockOrderList.first.name[1]: [
-                                      {
-                                        'product_id': widget.productDetail.id,
-                                        'name': widget.productDetail.fullName,
-                                        'product_qty': 1,
-                                        'product_uom':
-                                            widget.productDetail.uomList[0],
-                                        'price_unit':
-                                            widget.productDetail.price,
-                                        "image": widget.productDetail.imageUrl,
-                                        "sku": widget.productDetail.defaultCode,
-                                      }
-                                    ]
-                                  },
-                                  widget.productDetail.id,
-                                  widget.productDetail.fullName,
-                                  widget.productDetail.uomList[0],
-                                  widget.productDetail.price,
-                                  widget.productDetail.imageUrl,
-                                  widget.productDetail.defaultCode,
-                                );
-                          }
+                          // ref
+                          //     .read(stockOrderStateNotifierProvider.notifier)
+                          //     .clearAllOrderForm();
+                          // if (widget.stockOrderList.isNotEmpty) {
+                          //   ref
+                          //       .read(stockOrderStateNotifierProvider.notifier)
+                          //       .incrementTotalQty(
+                          //         widget.stockOrderList[0].id,
+                          //         widget.stockOrderList[0].name[1],
+                          //         {widget.stockOrderList.first.id: 0},
+                          //         {
+                          //           widget.stockOrderList.first.name[1]: [
+                          //             {
+                          //               'product_id': widget.productDetail.id,
+                          //               'name': widget.productDetail.fullName,
+                          //               'product_qty': 1,
+                          //               'product_uom':
+                          //                   widget.productDetail.uomList[0],
+                          //               'price_unit':
+                          //                   widget.productDetail.price,
+                          //               "image": widget.productDetail.imageUrl,
+                          //               "sku": widget.productDetail.defaultCode,
+                          //             }
+                          //           ]
+                          //         },
+                          //         widget.productDetail.id,
+                          //         widget.productDetail.fullName,
+                          //         widget.productDetail.uomList[0],
+                          //         widget.productDetail.price,
+                          //         widget.productDetail.imageUrl,
+                          //         widget.productDetail.defaultCode,
+                          //       );
+                          // }
                           Navigator.of(context).pop();
                           superPrint(checkOutDataMap);
                           // ref

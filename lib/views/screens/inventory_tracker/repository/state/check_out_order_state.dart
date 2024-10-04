@@ -12,5 +12,5 @@ class CheckOutOrderState with _$CheckOutOrderState {
       CalculateTotalPrice;
   const factory CheckOutOrderState.initial() = Initial;
   const factory CheckOutOrderState.loading() = CheckOutLoading;
-  const factory CheckOutOrderState.error({String? error}) = Error;
+  const factory CheckOutOrderState.error({String? error}) = CheckOutError;
 }

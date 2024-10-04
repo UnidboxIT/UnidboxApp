@@ -84,7 +84,6 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (_) => CheckOutOrderDetailScreen(
-                            stockOrderList: const [],
                             productDetail: Products(),
                           ),
                         ),
