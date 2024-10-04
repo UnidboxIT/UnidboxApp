@@ -13,14 +13,14 @@ import '../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_stat
 String pushyToken = "";
 
 Future pushyRegister(backgroundNotificationListener) async {
-  Pushy.listen();
   Pushy.toggleInAppBanner(true);
   Pushy.setNotificationIcon('ic_launcher');
   try {
-    // Register the user for push notifications
-    Pushy.setNotificationListener(backgroundNotificationListener);
     pushyToken = await Pushy.register();
     superPrint(pushyToken);
+    //Pushy.listen();
+    // Register the user for push notifications
+    Pushy.setNotificationListener(backgroundNotificationListener);
     if (Platform.isIOS) {
       Pushy.setNotificationClickListener((Map<String, dynamic> data) {
         final currentIosRoute = globalProviderObserver.container!

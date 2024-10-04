@@ -51,10 +51,10 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
           Admin adminData = Admin.fromJson(result['result']);
           saveLogin(adminData.sessionId, result['result']);
           // if (context.mounted) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const MainScreen()));
           // }
           state = const AuthState.success();
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainScreen()));
         } else {
           CommonMethods.customizedAlertDialog(
             result['result']['error'],
@@ -62,8 +62,11 @@ class AuthStateNotifierController extends StateNotifier<AuthState> {
           );
           state = AuthState.error(result['result']['error'].toString());
         }
+      } else {
+        state = AuthState.error(result['result']['error'].toString());
       }
     } catch (e) {
+      state = AuthState.error(e.toString());
       state = const AuthState.error('Could not place order');
     }
   }

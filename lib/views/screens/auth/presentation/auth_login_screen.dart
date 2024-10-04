@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pushy_flutter/pushy_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
@@ -38,6 +39,7 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
   @override
   void initState() {
     super.initState();
+    Pushy.listen();
     final state = ref.read(sharedPreferencesProvider);
     setState(() {
       txtUserID.text = state.getString(AppKeys.userName) ?? "";
@@ -61,10 +63,14 @@ class _AuthLoginScreenState extends ConsumerState<AuthLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (ref.watch(connectivityStatusProviders) ==
-        ConnectivityStatus.isConnected) {
-      pushyRegister(backgroundNotificationListener);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((tp) async {
+      pushyToken = await Pushy.register();
+      superPrint("HERE 1 >>>> $pushyToken");
+      if (ref.watch(connectivityStatusProviders) ==
+          ConnectivityStatus.isConnected) {
+        pushyRegister(backgroundNotificationListener);
+      }
+    });
 
     ref.watch(authStateNotifierControllerProvider);
     ref.listen(authStateNotifierControllerProvider, (prev, next) {

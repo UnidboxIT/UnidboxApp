@@ -68,6 +68,7 @@ class ProductLineId {
   List<Map<String, dynamic>> newReturnReasonList;
   String otherComment;
   bool isUrgent;
+  List userList;
 
   ProductLineId(
       {this.id = 0,
@@ -90,7 +91,8 @@ class ProductLineId {
       this.returnReasonList = const [],
       this.newReturnReasonList = const [],
       this.otherComment = "",
-      this.isUrgent = false});
+      this.isUrgent = false,
+      this.userList = const []});
 
   factory ProductLineId.fromJson(Map<String, dynamic> json) {
     return ProductLineId(
@@ -123,6 +125,7 @@ class ProductLineId {
           : List.from(json['new_return_reason']),
       otherComment: json['comment'].toString(),
       isUrgent: json['is_urgent'],
+      userList: json['user'] == false ? [] : List.from(json['user']),
     );
   }
 }

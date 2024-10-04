@@ -7,11 +7,19 @@ import '../../notification_service/pushy_noti_service.dart';
 
 class AuthRepository {
   Future<http.Response> login(String username, String password) async {
-    Map<String, dynamic> formData = {
-      "employeeid": username,
-      "password": password,
-      "device_token": pushyToken,
-    };
+    Map<String, dynamic> formData = {};
+    if (pushyToken.isEmpty) {
+      formData = {
+        "employeeid": username,
+        "password": password,
+      };
+    } else {
+      formData = {
+        "employeeid": username,
+        "password": password,
+        "device_token": pushyToken,
+      };
+    }
 
     superPrint(formData);
     http.Response response = await ApiService().post(

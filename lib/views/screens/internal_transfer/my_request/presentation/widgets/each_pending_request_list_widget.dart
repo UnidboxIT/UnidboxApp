@@ -295,7 +295,7 @@ Widget eachPendingRequestListWidget(
                             size: 12.5,
                           ),
                           textWidget(
-                            name,
+                            productList[index].userList[1],
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             size: 14,
