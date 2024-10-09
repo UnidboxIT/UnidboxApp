@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
+import '../../../order_receiving/domain/order_receiving.dart';
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/check_out_order_state.dart';
 import '../../repository/state/stock_order/stock_ordering_state.dart';
@@ -30,8 +30,9 @@ class _CheckOutOrderDetailScreenState
     extends ConsumerState<CheckOutOrderDetailScreen> {
   double totalPrice = 0.0;
   bool isSubmit = false;
+  List<OrderReceiving> orderFormDataList = [];
   //List<Map<String, dynamic>> orderLineList = [];
-  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
+  // Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +40,9 @@ class _CheckOutOrderDetailScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       // ref.read(stockOrderStateNotifierProvider.notifier).showAllOrderFormData();
       ref.read(orderFormReasonStateNotifier.notifier).getOrderFormReason();
+    });
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref.read(stockOrderStateNotifierProvider.notifier).getAllOrderForm();
     });
   }
 
@@ -58,21 +62,21 @@ class _CheckOutOrderDetailScreenState
     });
 
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
-      if (next is BackupCheckOut) {
+      if (next is OrderFormDataList) {
         setState(() {
-          checkOutDataMap = next.checkoutMap;
+          orderFormDataList = next.orderFormDataList;
         });
       }
     });
-    superPrint(checkOutDataMap);
-    for (var checkOutMap in checkOutDataMap.entries) {
-      double entryTotalPrice = checkOutMap.value.fold(
-        0.0,
-        (sum, product) =>
-            sum + (product['product_qty'] * product['price_unit']),
-      );
-      totalPrice += entryTotalPrice;
-    }
+
+    // for (var checkOutMap in checkOutDataMap.entries) {
+    //   double entryTotalPrice = checkOutMap.value.fold(
+    //     0.0,
+    //     (sum, product) =>
+    //         sum + (product['product_qty'] * product['price_unit']),
+    //   );
+    //   totalPrice += entryTotalPrice;
+    // }
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.primary,
@@ -155,7 +159,7 @@ class _CheckOutOrderDetailScreenState
                           //       );
                           // }
                           Navigator.of(context).pop();
-                          superPrint(checkOutDataMap);
+
                           // ref
                           //     .read(checkoutOrderStateNotifierProvider.notifier)
                           //     .checkOutOrder(admin.companyId, admin.partnerId,
@@ -190,15 +194,16 @@ class _CheckOutOrderDetailScreenState
       child: ListView.separated(
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            var entry = checkOutDataMap.entries.elementAt(index);
-            String companyName = entry.key;
-            List<Map<String, dynamic>> products = entry.value;
-            return stackOrderLineWidget(companyName, products);
+            // var entry = checkOutDataMap.entries.elementAt(index);
+            // String companyName = entry.key;
+            //  List<Map<String, dynamic>> products = entry.value;
+            return stackOrderLineWidget(
+                "companyName", orderFormDataList[index].productList);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 0);
           },
-          itemCount: checkOutDataMap.length),
+          itemCount: orderFormDataList.length),
     );
   }
 }

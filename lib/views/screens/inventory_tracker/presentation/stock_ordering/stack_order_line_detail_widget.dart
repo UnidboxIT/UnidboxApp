@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/return_request_reason.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/good_return_state.dart';
+import 'package:unidbox_app/views/screens/order_receiving/domain/order_receiving.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
@@ -13,7 +14,7 @@ import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/stock_order/order_form_reason_state.dart';
 
 Widget stackOrderLineWidget(
-    String vendorName, List<Map<String, dynamic>> orderLineList) {
+    String vendorName, List<OrderReceivingProduct> orderLineList) {
   Map<String, List<Map<int, bool>>> storeGoodReturnMap = {};
 
   return Consumer(
@@ -43,14 +44,23 @@ Widget stackOrderLineWidget(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, eachIndex) {
-                        int productID = orderLineList[eachIndex]['product_id'];
-                        String productImage = orderLineList[eachIndex]['image'];
-                        String productName = orderLineList[eachIndex]['name'];
-                        String productSku = orderLineList[eachIndex]['sku'];
-                        double productPrice =
-                            orderLineList[eachIndex]['price_unit'];
+                        int productID = orderLineList[eachIndex].products[0];
+                        String productImage = "";
+                        String productName =
+                            orderLineList[eachIndex].products[1];
+                        String productSku =
+                            orderLineList[eachIndex].defaultCode;
+                        double productPrice = orderLineList[eachIndex].price;
                         String qty =
-                            orderLineList[eachIndex]['product_qty'].toString();
+                            orderLineList[eachIndex].quantity.toString();
+                        // int productID = orderLineList[eachIndex]['product_id'];
+                        // String productImage = orderLineList[eachIndex]['image'];
+                        // String productName = orderLineList[eachIndex]['name'];
+                        // String productSku = orderLineList[eachIndex]['sku'];
+                        // double productPrice =
+                        //     orderLineList[eachIndex]['price_unit'];
+                        // String qty =
+                        //     orderLineList[eachIndex]['product_qty'].toString();
                         return Stack(
                           clipBehavior: Clip.none,
                           children: [

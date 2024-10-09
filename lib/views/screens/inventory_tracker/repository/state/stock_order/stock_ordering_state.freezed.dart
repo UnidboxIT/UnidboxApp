@@ -19,8 +19,8 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -33,8 +33,8 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -46,8 +46,8 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -60,10 +60,7 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -74,8 +71,7 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -86,8 +82,7 @@ mixin _$StockOrderingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -190,8 +185,8 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -207,8 +202,8 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -223,8 +218,8 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -243,10 +238,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -260,8 +252,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -275,8 +266,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -302,81 +292,82 @@ abstract class StockOrderingList implements StockOrderingState {
 }
 
 /// @nodoc
-abstract class _$$IncrementStockOrderQtyImplCopyWith<$Res> {
-  factory _$$IncrementStockOrderQtyImplCopyWith(
-          _$IncrementStockOrderQtyImpl value,
-          $Res Function(_$IncrementStockOrderQtyImpl) then) =
-      __$$IncrementStockOrderQtyImplCopyWithImpl<$Res>;
+abstract class _$$OrderFormDataListImplCopyWith<$Res> {
+  factory _$$OrderFormDataListImplCopyWith(_$OrderFormDataListImpl value,
+          $Res Function(_$OrderFormDataListImpl) then) =
+      __$$OrderFormDataListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, int> qty});
+  $Res call({List<OrderReceiving> orderFormDataList});
 }
 
 /// @nodoc
-class __$$IncrementStockOrderQtyImplCopyWithImpl<$Res>
-    extends _$StockOrderingStateCopyWithImpl<$Res, _$IncrementStockOrderQtyImpl>
-    implements _$$IncrementStockOrderQtyImplCopyWith<$Res> {
-  __$$IncrementStockOrderQtyImplCopyWithImpl(
-      _$IncrementStockOrderQtyImpl _value,
-      $Res Function(_$IncrementStockOrderQtyImpl) _then)
+class __$$OrderFormDataListImplCopyWithImpl<$Res>
+    extends _$StockOrderingStateCopyWithImpl<$Res, _$OrderFormDataListImpl>
+    implements _$$OrderFormDataListImplCopyWith<$Res> {
+  __$$OrderFormDataListImplCopyWithImpl(_$OrderFormDataListImpl _value,
+      $Res Function(_$OrderFormDataListImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? qty = null,
+    Object? orderFormDataList = null,
   }) {
-    return _then(_$IncrementStockOrderQtyImpl(
-      null == qty
-          ? _value._qty
-          : qty // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
+    return _then(_$OrderFormDataListImpl(
+      null == orderFormDataList
+          ? _value._orderFormDataList
+          : orderFormDataList // ignore: cast_nullable_to_non_nullable
+              as List<OrderReceiving>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
-  const _$IncrementStockOrderQtyImpl(final Map<int, int> qty) : _qty = qty;
+class _$OrderFormDataListImpl implements OrderFormDataList {
+  const _$OrderFormDataListImpl(final List<OrderReceiving> orderFormDataList)
+      : _orderFormDataList = orderFormDataList;
 
-  final Map<int, int> _qty;
+  final List<OrderReceiving> _orderFormDataList;
   @override
-  Map<int, int> get qty {
-    if (_qty is EqualUnmodifiableMapView) return _qty;
+  List<OrderReceiving> get orderFormDataList {
+    if (_orderFormDataList is EqualUnmodifiableListView)
+      return _orderFormDataList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_qty);
+    return EqualUnmodifiableListView(_orderFormDataList);
   }
 
   @override
   String toString() {
-    return 'StockOrderingState.incrementStockOrderQty(qty: $qty)';
+    return 'StockOrderingState.loadPendingReceivingData(orderFormDataList: $orderFormDataList)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$IncrementStockOrderQtyImpl &&
-            const DeepCollectionEquality().equals(other._qty, _qty));
+            other is _$OrderFormDataListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._orderFormDataList, _orderFormDataList));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_orderFormDataList));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$IncrementStockOrderQtyImplCopyWith<_$IncrementStockOrderQtyImpl>
-      get copyWith => __$$IncrementStockOrderQtyImplCopyWithImpl<
-          _$IncrementStockOrderQtyImpl>(this, _$identity);
+  _$$OrderFormDataListImplCopyWith<_$OrderFormDataListImpl> get copyWith =>
+      __$$OrderFormDataListImplCopyWithImpl<_$OrderFormDataListImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -385,15 +376,15 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     required TResult Function() loading,
     required TResult Function(String? error) error,
   }) {
-    return incrementStockOrderQty(qty);
+    return loadPendingReceivingData(orderFormDataList);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -401,15 +392,15 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
   }) {
-    return incrementStockOrderQty?.call(qty);
+    return loadPendingReceivingData?.call(orderFormDataList);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -418,8 +409,8 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     TResult Function(String? error)? error,
     required TResult orElse(),
   }) {
-    if (incrementStockOrderQty != null) {
-      return incrementStockOrderQty(qty);
+    if (loadPendingReceivingData != null) {
+      return loadPendingReceivingData(orderFormDataList);
     }
     return orElse();
   }
@@ -428,40 +419,35 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
   }) {
-    return incrementStockOrderQty(this);
+    return loadPendingReceivingData(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
   }) {
-    return incrementStockOrderQty?.call(this);
+    return loadPendingReceivingData?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -469,206 +455,21 @@ class _$IncrementStockOrderQtyImpl implements IncrementStockOrderQty {
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
-    if (incrementStockOrderQty != null) {
-      return incrementStockOrderQty(this);
+    if (loadPendingReceivingData != null) {
+      return loadPendingReceivingData(this);
     }
     return orElse();
   }
 }
 
-abstract class IncrementStockOrderQty implements StockOrderingState {
-  const factory IncrementStockOrderQty(final Map<int, int> qty) =
-      _$IncrementStockOrderQtyImpl;
+abstract class OrderFormDataList implements StockOrderingState {
+  const factory OrderFormDataList(
+      final List<OrderReceiving> orderFormDataList) = _$OrderFormDataListImpl;
 
-  Map<int, int> get qty;
+  List<OrderReceiving> get orderFormDataList;
   @JsonKey(ignore: true)
-  _$$IncrementStockOrderQtyImplCopyWith<_$IncrementStockOrderQtyImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DecrementStockOrderQtyImplCopyWith<$Res> {
-  factory _$$DecrementStockOrderQtyImplCopyWith(
-          _$DecrementStockOrderQtyImpl value,
-          $Res Function(_$DecrementStockOrderQtyImpl) then) =
-      __$$DecrementStockOrderQtyImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Map<int, int> qty});
-}
-
-/// @nodoc
-class __$$DecrementStockOrderQtyImplCopyWithImpl<$Res>
-    extends _$StockOrderingStateCopyWithImpl<$Res, _$DecrementStockOrderQtyImpl>
-    implements _$$DecrementStockOrderQtyImplCopyWith<$Res> {
-  __$$DecrementStockOrderQtyImplCopyWithImpl(
-      _$DecrementStockOrderQtyImpl _value,
-      $Res Function(_$DecrementStockOrderQtyImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? qty = null,
-  }) {
-    return _then(_$DecrementStockOrderQtyImpl(
-      null == qty
-          ? _value._qty
-          : qty // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$DecrementStockOrderQtyImpl implements DecrementStockOrderQty {
-  const _$DecrementStockOrderQtyImpl(final Map<int, int> qty) : _qty = qty;
-
-  final Map<int, int> _qty;
-  @override
-  Map<int, int> get qty {
-    if (_qty is EqualUnmodifiableMapView) return _qty;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_qty);
-  }
-
-  @override
-  String toString() {
-    return 'StockOrderingState.decremenStockOrderQty(qty: $qty)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DecrementStockOrderQtyImpl &&
-            const DeepCollectionEquality().equals(other._qty, _qty));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DecrementStockOrderQtyImplCopyWith<_$DecrementStockOrderQtyImpl>
-      get copyWith => __$$DecrementStockOrderQtyImplCopyWithImpl<
-          _$DecrementStockOrderQtyImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
-    required TResult Function(
-            Map<String, List<Map<String, dynamic>>> checkoutMap)
-        backupCheckOut,
-    required TResult Function(Map<int, int> totalQty) clearTotalQty,
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String? error) error,
-  }) {
-    return decremenStockOrderQty(qty);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
-    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
-        backupCheckOut,
-    TResult? Function(Map<int, int> totalQty)? clearTotalQty,
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(String? error)? error,
-  }) {
-    return decremenStockOrderQty?.call(qty);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
-    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
-        backupCheckOut,
-    TResult Function(Map<int, int> totalQty)? clearTotalQty,
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String? error)? error,
-    required TResult orElse(),
-  }) {
-    if (decremenStockOrderQty != null) {
-      return decremenStockOrderQty(qty);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
-    required TResult Function(BackupCheckOut value) backupCheckOut,
-    required TResult Function(ClearTotalQty value) clearTotalQty,
-    required TResult Function(Initial value) initial,
-    required TResult Function(StockOrderingLoading value) loading,
-    required TResult Function(Error value) error,
-  }) {
-    return decremenStockOrderQty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
-    TResult? Function(BackupCheckOut value)? backupCheckOut,
-    TResult? Function(ClearTotalQty value)? clearTotalQty,
-    TResult? Function(Initial value)? initial,
-    TResult? Function(StockOrderingLoading value)? loading,
-    TResult? Function(Error value)? error,
-  }) {
-    return decremenStockOrderQty?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
-    TResult Function(BackupCheckOut value)? backupCheckOut,
-    TResult Function(ClearTotalQty value)? clearTotalQty,
-    TResult Function(Initial value)? initial,
-    TResult Function(StockOrderingLoading value)? loading,
-    TResult Function(Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (decremenStockOrderQty != null) {
-      return decremenStockOrderQty(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DecrementStockOrderQty implements StockOrderingState {
-  const factory DecrementStockOrderQty(final Map<int, int> qty) =
-      _$DecrementStockOrderQtyImpl;
-
-  Map<int, int> get qty;
-  @JsonKey(ignore: true)
-  _$$DecrementStockOrderQtyImplCopyWith<_$DecrementStockOrderQtyImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$OrderFormDataListImplCopyWith<_$OrderFormDataListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -746,8 +547,8 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -763,8 +564,8 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -779,8 +580,8 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -799,10 +600,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -816,8 +614,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -831,8 +628,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -930,8 +726,8 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -947,8 +743,8 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -963,8 +759,8 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -983,10 +779,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -1000,8 +793,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -1015,8 +807,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -1080,8 +871,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -1097,8 +888,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1113,8 +904,8 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1133,10 +924,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -1150,8 +938,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -1165,8 +952,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -1225,8 +1011,8 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -1242,8 +1028,8 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1258,8 +1044,8 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1278,10 +1064,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -1295,8 +1078,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -1310,8 +1092,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,
@@ -1395,8 +1176,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
-    required TResult Function(Map<int, int> qty) incrementStockOrderQty,
-    required TResult Function(Map<int, int> qty) decremenStockOrderQty,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
     required TResult Function(
             Map<String, List<Map<String, dynamic>>> checkoutMap)
         backupCheckOut,
@@ -1412,8 +1193,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult? Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult? Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult? Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1428,8 +1209,8 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
-    TResult Function(Map<int, int> qty)? incrementStockOrderQty,
-    TResult Function(Map<int, int> qty)? decremenStockOrderQty,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
     TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
         backupCheckOut,
     TResult Function(Map<int, int> totalQty)? clearTotalQty,
@@ -1448,10 +1229,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(StockOrderingList value) loadStockOrdering,
-    required TResult Function(IncrementStockOrderQty value)
-        incrementStockOrderQty,
-    required TResult Function(DecrementStockOrderQty value)
-        decremenStockOrderQty,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
     required TResult Function(BackupCheckOut value) backupCheckOut,
     required TResult Function(ClearTotalQty value) clearTotalQty,
     required TResult Function(Initial value) initial,
@@ -1465,8 +1243,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(StockOrderingList value)? loadStockOrdering,
-    TResult? Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult? Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult? Function(BackupCheckOut value)? backupCheckOut,
     TResult? Function(ClearTotalQty value)? clearTotalQty,
     TResult? Function(Initial value)? initial,
@@ -1480,8 +1257,7 @@ class _$ErrorImpl implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(StockOrderingList value)? loadStockOrdering,
-    TResult Function(IncrementStockOrderQty value)? incrementStockOrderQty,
-    TResult Function(DecrementStockOrderQty value)? decremenStockOrderQty,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
     TResult Function(BackupCheckOut value)? backupCheckOut,
     TResult Function(ClearTotalQty value)? clearTotalQty,
     TResult Function(Initial value)? initial,

@@ -7,6 +7,7 @@ import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory
 import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../../auth/repository/auth_state_notifier.dart';
+import '../../../../order_receiving/domain/order_receiving.dart';
 import '../../state/stock_order/stock_ordering_state.dart';
 
 class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
@@ -45,6 +46,25 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     } catch (e) {
       state = StockOrderingState.error(error: e.toString());
       superPrint(e);
+    }
+  }
+
+  List<OrderReceiving> orderFormList = [];
+  Future<void> getAllOrderForm() async {
+    state = const StockOrderingState.loading();
+    try {
+      Response response = await _inventoryTrackerRepository.orderForm();
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      orderFormList.clear();
+      Iterable dataList = result['result']['records'];
+      for (var element in dataList) {
+        orderFormList.add(OrderReceiving.fromJson(element));
+      }
+      state = StockOrderingState.loadPendingReceivingData(orderFormList);
+      superPrint(response.body);
+    } catch (e) {
+      superPrint(e.toString());
     }
   }
 
