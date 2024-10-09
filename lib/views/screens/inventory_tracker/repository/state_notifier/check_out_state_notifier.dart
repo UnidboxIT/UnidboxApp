@@ -16,12 +16,6 @@ class CheckOutStateNotifier extends StateNotifier<CheckOutOrderState> {
 
   final InventoryTrackerRepository _inventoryTrackerRepository;
 
-  List orderList = [];
-
-  void addOrder(var orderLine) {
-    orderList.add(orderLine);
-  }
-
   Future<void> checkOutOrder(int companyID, int partnerId, List orderLine,
       BuildContext context, WidgetRef ref, StockOrder stockOrder) async {
     try {

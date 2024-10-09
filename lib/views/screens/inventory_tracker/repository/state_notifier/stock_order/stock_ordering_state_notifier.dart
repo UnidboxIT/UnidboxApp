@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
 import '../../../../../../utils/commons/common_method.dart';
@@ -11,12 +10,10 @@ import '../../../../auth/repository/auth_state_notifier.dart';
 import '../../state/stock_order/stock_ordering_state.dart';
 
 class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
-  StockOrderingStateNotifier(
-      this._inventoryTrackerRepository, this._sharedPreferences)
+  StockOrderingStateNotifier(this._inventoryTrackerRepository)
       : super(const StockOrderingState.initial());
 
   final InventoryTrackerRepository _inventoryTrackerRepository;
-  final SharedPreferences _sharedPreferences;
 
   List<StockOrder> stockOrderList = [];
   Future<void> getStockOrder(

@@ -58,17 +58,22 @@ class _InhouseStockWidgetState extends ConsumerState<InhouseStockWidget> {
     sortedStockList =
         List.from(widget.inHouseStockList); // Create a modifiable copy
     superPrint(sortedStockList);
-    sortedStockList.sort((a, b) {
-      if (a.warehouseList[0] == widget.userWarehouse.warehouseList[0] &&
-          b.warehouseList[0] != widget.userWarehouse.warehouseList[0]) {
-        return -1; // a comes before b
-      } else if (a.warehouseList[0] != widget.userWarehouse.warehouseList[0] &&
-          b.warehouseList[0] == widget.userWarehouse.warehouseList[0]) {
-        return 1; // b comes before a
-      } else {
-        return 0; // maintain their relative order if both are equal or neither matches
-      }
-    });
+    if (sortedStockList.isNotEmpty) {
+      sortedStockList.sort((a, b) {
+        if (widget.userWarehouse.warehouseList.isNotEmpty &&
+            a.warehouseList[0] == widget.userWarehouse.warehouseList[0] &&
+            b.warehouseList[0] != widget.userWarehouse.warehouseList[0]) {
+          return -1; // a comes before b
+        } else if (a.warehouseList[0] !=
+                widget.userWarehouse.warehouseList[0] &&
+            b.warehouseList[0] == widget.userWarehouse.warehouseList[0]) {
+          return 1; // b comes before a
+        } else {
+          return 0; // maintain their relative order if both are equal or neither matches
+        }
+      });
+    }
+
     superPrint(sortedStockList);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

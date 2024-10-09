@@ -1,4 +1,4 @@
-package com.mobile.unidbox
+package com.unidboxapp.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
