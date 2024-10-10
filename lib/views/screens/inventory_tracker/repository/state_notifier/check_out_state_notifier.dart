@@ -25,8 +25,9 @@ class CheckOutStateNotifier extends StateNotifier<CheckOutOrderState> {
           partnerId,
           DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           orderLine);
+      superPrint(response.body);
       var result = jsonDecode(response.body);
-
+      superPrint(result);
       if (result['result']['message'] == "success") {
         // successfullyBottomSheet(
         //         "Order Submitted!", "Find order in delivery orders", () {

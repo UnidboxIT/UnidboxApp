@@ -171,6 +171,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       }
       if (next is CheckOutMap) {
         setState(() {
+          orderLineList = [];
           checkOutDataMap = next.checkoutMap;
           checkOutDataMap.forEach((key, valueList) {
             for (var item in valueList) {

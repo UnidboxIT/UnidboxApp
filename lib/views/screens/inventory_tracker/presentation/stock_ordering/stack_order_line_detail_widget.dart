@@ -45,7 +45,7 @@ Widget stackOrderLineWidget(
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, eachIndex) {
                         int productID = orderLineList[eachIndex].products[0];
-                        String productImage = "";
+                        String productImage = orderLineList[eachIndex].imageUrl;
                         String productName =
                             orderLineList[eachIndex].products[1];
                         String productSku =

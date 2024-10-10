@@ -9,6 +9,8 @@ import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
 
+int stockOrderID = 0;
+
 class StockOrderingWidget extends ConsumerStatefulWidget {
   final List<StockOrder> stockOrderList;
   final Products productDetail;
@@ -25,10 +27,11 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   Map<int, int> totalQty = {};
   List<Map<String, dynamic>> orderLineList = [];
   Map<int, List<Map<String, dynamic>>> checkOutMap = {};
-  Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
+
   @override
   void initState() {
     super.initState();
+    checkOutMap.clear();
     if (widget.stockOrderList.isNotEmpty) {
       setState(() {
         Future.delayed(const Duration(milliseconds: 10), () {
@@ -47,7 +50,8 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                   }
                 ]
               },
-              widget.productDetail);
+              widget.productDetail,
+              false);
         });
       });
     }
@@ -119,7 +123,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
               itemBuilder: (context, index) {
                 String vendor = widget.stockOrderList[index].name[1];
                 String price = widget.stockOrderList[index].price.toString();
-                int stockOrderID = widget.stockOrderList[index].id;
+                stockOrderID = widget.stockOrderList[index].id;
                 int companyId = widget.stockOrderList[index].company[0];
                 int partnerId = widget.stockOrderList[index].name[0];
 
@@ -149,7 +153,7 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
               ref
                   .read(addOrderCartStateNotifier.notifier)
                   .incrementAddOrderCart(vendorId, vendor, totalQty,
-                      checkOutMap, widget.productDetail);
+                      checkOutMap, widget.productDetail, true);
             },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -219,7 +223,8 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
                                         vendor,
                                         totalQty,
                                         checkOutMap,
-                                        widget.productDetail); // ref
+                                        widget.productDetail,
+                                        false); // ref
                               }, CupertinoIcons.add_circled_solid, vendorId),
                             ],
                           )

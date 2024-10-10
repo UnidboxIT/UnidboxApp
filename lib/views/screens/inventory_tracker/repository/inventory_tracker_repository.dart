@@ -135,6 +135,7 @@ class InventoryTrackerRepository {
       "company_id": companyID,
       "partner_id": partnerID,
       "date": dateTime,
+      "state": "draft",
       "order_line": orderLine,
     };
     superPrint(formData);

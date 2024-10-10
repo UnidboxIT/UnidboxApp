@@ -87,6 +87,9 @@ class _CheckOutOrderDetailScreenState
             height: 100.h,
             child: Stack(children: [
               inventoryAppBarWidget("Order Form", () {
+                ref
+                    .read(stockOrderStateNotifierProvider.notifier)
+                    .getStockOrder(widget.productDetail.id, ref, context);
                 Navigator.of(context).pop();
               }, () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -195,10 +198,10 @@ class _CheckOutOrderDetailScreenState
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
             // var entry = checkOutDataMap.entries.elementAt(index);
-            // String companyName = entry.key;
+            String companyName = orderFormDataList[index].orderProduct[1];
             //  List<Map<String, dynamic>> products = entry.value;
             return stackOrderLineWidget(
-                "companyName", orderFormDataList[index].productList);
+                companyName, orderFormDataList[index].productList);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 0);

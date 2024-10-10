@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 
 import '../../services/api_service.dart';
 import '../../utils/commons/common_method.dart';
@@ -12,7 +13,7 @@ class UserWarehouseRepository {
           'joborder/user/${admin.uid}?fields=id,name,mobile_user_access,warehouse_id',
       headers: CommonMethods.setHeaders(),
     );
-
+    superPrint(baseUrl);
     return response;
   }
 }

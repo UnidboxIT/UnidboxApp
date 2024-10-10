@@ -36,6 +36,7 @@ class OrderReceivingProduct {
   String defaultCode;
   double quantity;
   double price;
+  String imageUrl;
 
   OrderReceivingProduct({
     this.id = 0,
@@ -43,6 +44,7 @@ class OrderReceivingProduct {
     this.defaultCode = "",
     this.quantity = 0.0,
     this.price = 0.0,
+    this.imageUrl = "",
   });
 
   factory OrderReceivingProduct.fromJson(Map<String, dynamic> json) {
@@ -52,6 +54,7 @@ class OrderReceivingProduct {
       defaultCode: json['code'],
       quantity: json['quantity'],
       price: json['price'],
+      imageUrl: json['image_url'],
     );
   }
 }
