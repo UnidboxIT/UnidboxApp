@@ -28,6 +28,7 @@ mixin _$StockOrderingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +42,7 @@ mixin _$StockOrderingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +56,7 @@ mixin _$StockOrderingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +69,7 @@ mixin _$StockOrderingState {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,6 +81,7 @@ mixin _$StockOrderingState {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -88,6 +93,7 @@ mixin _$StockOrderingState {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,6 +200,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return loadStockOrdering(stockOrdering);
   }
@@ -210,6 +217,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return loadStockOrdering?.call(stockOrdering);
   }
@@ -226,6 +234,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (loadStockOrdering != null) {
@@ -244,6 +253,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return loadStockOrdering(this);
   }
@@ -258,6 +268,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return loadStockOrdering?.call(this);
   }
@@ -272,6 +283,7 @@ class _$StockOrderingListImpl implements StockOrderingList {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (loadStockOrdering != null) {
@@ -375,6 +387,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return loadPendingReceivingData(orderFormDataList);
   }
@@ -391,6 +404,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return loadPendingReceivingData?.call(orderFormDataList);
   }
@@ -407,6 +421,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (loadPendingReceivingData != null) {
@@ -425,6 +440,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return loadPendingReceivingData(this);
   }
@@ -439,6 +455,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return loadPendingReceivingData?.call(this);
   }
@@ -453,6 +470,7 @@ class _$OrderFormDataListImpl implements OrderFormDataList {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (loadPendingReceivingData != null) {
@@ -556,6 +574,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return backupCheckOut(checkoutMap);
   }
@@ -572,6 +591,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return backupCheckOut?.call(checkoutMap);
   }
@@ -588,6 +608,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (backupCheckOut != null) {
@@ -606,6 +627,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return backupCheckOut(this);
   }
@@ -620,6 +642,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return backupCheckOut?.call(this);
   }
@@ -634,6 +657,7 @@ class _$BackupCheckOutImpl implements BackupCheckOut {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (backupCheckOut != null) {
@@ -735,6 +759,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return clearTotalQty(totalQty);
   }
@@ -751,6 +776,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return clearTotalQty?.call(totalQty);
   }
@@ -767,6 +793,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (clearTotalQty != null) {
@@ -785,6 +812,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return clearTotalQty(this);
   }
@@ -799,6 +827,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return clearTotalQty?.call(this);
   }
@@ -813,6 +842,7 @@ class _$ClearTotalQtyImpl implements ClearTotalQty {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (clearTotalQty != null) {
@@ -880,6 +910,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return initial();
   }
@@ -896,6 +927,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return initial?.call();
   }
@@ -912,6 +944,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -930,6 +963,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return initial(this);
   }
@@ -944,6 +978,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return initial?.call(this);
   }
@@ -958,6 +993,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1020,6 +1056,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return loading();
   }
@@ -1036,6 +1073,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return loading?.call();
   }
@@ -1052,6 +1090,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1070,6 +1109,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return loading(this);
   }
@@ -1084,6 +1124,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return loading?.call(this);
   }
@@ -1098,6 +1139,7 @@ class _$StockOrderingLoadingImpl implements StockOrderingLoading {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1185,6 +1227,7 @@ class _$ErrorImpl implements Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String success) success,
   }) {
     return error(this.error);
   }
@@ -1201,6 +1244,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
   }) {
     return error?.call(this.error);
   }
@@ -1217,6 +1261,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String success)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1235,6 +1280,7 @@ class _$ErrorImpl implements Error {
     required TResult Function(Initial value) initial,
     required TResult Function(StockOrderingLoading value) loading,
     required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
   }) {
     return error(this);
   }
@@ -1249,6 +1295,7 @@ class _$ErrorImpl implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(StockOrderingLoading value)? loading,
     TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
   }) {
     return error?.call(this);
   }
@@ -1263,6 +1310,7 @@ class _$ErrorImpl implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(StockOrderingLoading value)? loading,
     TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1279,4 +1327,183 @@ abstract class Error implements StockOrderingState {
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StockOrderingSuccessImplCopyWith<$Res> {
+  factory _$$StockOrderingSuccessImplCopyWith(_$StockOrderingSuccessImpl value,
+          $Res Function(_$StockOrderingSuccessImpl) then) =
+      __$$StockOrderingSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String success});
+}
+
+/// @nodoc
+class __$$StockOrderingSuccessImplCopyWithImpl<$Res>
+    extends _$StockOrderingStateCopyWithImpl<$Res, _$StockOrderingSuccessImpl>
+    implements _$$StockOrderingSuccessImplCopyWith<$Res> {
+  __$$StockOrderingSuccessImplCopyWithImpl(_$StockOrderingSuccessImpl _value,
+      $Res Function(_$StockOrderingSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? success = null,
+  }) {
+    return _then(_$StockOrderingSuccessImpl(
+      null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StockOrderingSuccessImpl implements StockOrderingSuccess {
+  const _$StockOrderingSuccessImpl(this.success);
+
+  @override
+  final String success;
+
+  @override
+  String toString() {
+    return 'StockOrderingState.success(success: $success)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StockOrderingSuccessImpl &&
+            (identical(other.success, success) || other.success == success));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, success);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StockOrderingSuccessImplCopyWith<_$StockOrderingSuccessImpl>
+      get copyWith =>
+          __$$StockOrderingSuccessImplCopyWithImpl<_$StockOrderingSuccessImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<StockOrder> stockOrdering) loadStockOrdering,
+    required TResult Function(List<OrderReceiving> orderFormDataList)
+        loadPendingReceivingData,
+    required TResult Function(
+            Map<String, List<Map<String, dynamic>>> checkoutMap)
+        backupCheckOut,
+    required TResult Function(Map<int, int> totalQty) clearTotalQty,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String success) success,
+  }) {
+    return success(this.success);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<StockOrder> stockOrdering)? loadStockOrdering,
+    TResult? Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
+    TResult? Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        backupCheckOut,
+    TResult? Function(Map<int, int> totalQty)? clearTotalQty,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String success)? success,
+  }) {
+    return success?.call(this.success);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<StockOrder> stockOrdering)? loadStockOrdering,
+    TResult Function(List<OrderReceiving> orderFormDataList)?
+        loadPendingReceivingData,
+    TResult Function(Map<String, List<Map<String, dynamic>>> checkoutMap)?
+        backupCheckOut,
+    TResult Function(Map<int, int> totalQty)? clearTotalQty,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String success)? success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this.success);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(StockOrderingList value) loadStockOrdering,
+    required TResult Function(OrderFormDataList value) loadPendingReceivingData,
+    required TResult Function(BackupCheckOut value) backupCheckOut,
+    required TResult Function(ClearTotalQty value) clearTotalQty,
+    required TResult Function(Initial value) initial,
+    required TResult Function(StockOrderingLoading value) loading,
+    required TResult Function(Error value) error,
+    required TResult Function(StockOrderingSuccess value) success,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(StockOrderingList value)? loadStockOrdering,
+    TResult? Function(OrderFormDataList value)? loadPendingReceivingData,
+    TResult? Function(BackupCheckOut value)? backupCheckOut,
+    TResult? Function(ClearTotalQty value)? clearTotalQty,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(StockOrderingLoading value)? loading,
+    TResult? Function(Error value)? error,
+    TResult? Function(StockOrderingSuccess value)? success,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(StockOrderingList value)? loadStockOrdering,
+    TResult Function(OrderFormDataList value)? loadPendingReceivingData,
+    TResult Function(BackupCheckOut value)? backupCheckOut,
+    TResult Function(ClearTotalQty value)? clearTotalQty,
+    TResult Function(Initial value)? initial,
+    TResult Function(StockOrderingLoading value)? loading,
+    TResult Function(Error value)? error,
+    TResult Function(StockOrderingSuccess value)? success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StockOrderingSuccess implements StockOrderingState {
+  const factory StockOrderingSuccess(final String success) =
+      _$StockOrderingSuccessImpl;
+
+  String get success;
+  @JsonKey(ignore: true)
+  _$$StockOrderingSuccessImplCopyWith<_$StockOrderingSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

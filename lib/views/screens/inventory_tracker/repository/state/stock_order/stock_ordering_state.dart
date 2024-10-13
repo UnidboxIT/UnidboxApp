@@ -14,16 +14,6 @@ class StockOrderingState with _$StockOrderingState {
       List<StockOrder> stockOrdering) = StockOrderingList;
   const factory StockOrderingState.loadPendingReceivingData(
       List<OrderReceiving> orderFormDataList) = OrderFormDataList;
-  // const factory StockOrderingState.incrementStockOrderQty(Map<int, int> qty) =
-  //     IncrementStockOrderQty;
-  // const factory StockOrderingState.decremenStockOrderQty(Map<int, int> qty) =
-  //     DecrementStockOrderQty;
-  // const factory StockOrderingState.addOrder(
-  //     List<Map<String, dynamic>> orderLine) = OrderLines;
-  // const factory StockOrderingState.checkOut(
-  //     Map<String, List<Map<String, dynamic>>> checkoutMap) = CheckOutMap;
-  // const factory StockOrderingState.backupOrderList(
-  //     List<Map<String, dynamic>> orderLine) = BackupOrderList;
   const factory StockOrderingState.backupCheckOut(
       Map<String, List<Map<String, dynamic>>> checkoutMap) = BackupCheckOut;
   const factory StockOrderingState.clearTotalQty(Map<int, int> totalQty) =
@@ -31,4 +21,6 @@ class StockOrderingState with _$StockOrderingState {
   const factory StockOrderingState.initial() = Initial;
   const factory StockOrderingState.loading() = StockOrderingLoading;
   const factory StockOrderingState.error({String? error}) = Error;
+  const factory StockOrderingState.success(String success) =
+      StockOrderingSuccess;
 }

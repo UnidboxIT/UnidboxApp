@@ -12,7 +12,6 @@ import '../../../../widgets/button/button_widget.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../order_receiving/domain/order_receiving.dart';
 import '../../repository/provider/stock_order_provider.dart';
-import '../../repository/state/check_out_order_state.dart';
 import '../../repository/state/stock_order/stock_ordering_state.dart';
 import '../widgets/inventory_app_bar_widget copy.dart';
 import 'stack_order_line_detail_widget.dart';
@@ -51,22 +50,12 @@ class _CheckOutOrderDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(checkoutOrderStateNotifierProvider, (pre, next) {
-      if (next is CheckOutLoading) {
-        setState(() {
-          isSubmit = true;
-        });
-      }
-      if (next is Successful) {
-        setState(() {
-          isSubmit = false;
-        });
-      }
-    });
+
 
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
       if (next is OrderFormDataList) {
         setState(() {
+          isSubmit = false;
           orderFormDataList = next.orderFormDataList;
           for (var checkOutMap in orderFormDataList) {
             purchaseID.add(checkOutMap.id);
@@ -76,6 +65,21 @@ class _CheckOutOrderDetailScreenState
             }
           }
           superPrint(purchaseID);
+        });
+      }
+      if (next is StockOrderingLoading) {
+        setState(() {
+          isSubmit = true;
+        });
+      }
+      if (next is StockOrderingSuccess) {
+        setState(() {
+          isSubmit = false;
+        });
+      }
+      if (next is Error) {
+        setState(() {
+          isSubmit = false;
         });
       }
     });
@@ -140,45 +144,10 @@ class _CheckOutOrderDetailScreenState
                           child: buttonWidget("Submit", () {
                             ref
                                 .read(stockOrderStateNotifierProvider.notifier)
-                                .submitPurchaseOrder(context, purchaseID);
-                            //clear form data local storage
+                                .viewPurchasePdfFile(context,"2577");
                             // ref
                             //     .read(stockOrderStateNotifierProvider.notifier)
-                            //     .clearAllOrderForm();
-                            // if (widget.stockOrderList.isNotEmpty) {
-                            //   ref
-                            //       .read(stockOrderStateNotifierProvider.notifier)
-                            //       .incrementTotalQty(
-                            //         widget.stockOrderList[0].id,
-                            //         widget.stockOrderList[0].name[1],
-                            //         {widget.stockOrderList.first.id: 0},
-                            //         {
-                            //           widget.stockOrderList.first.name[1]: [
-                            //             {
-                            //               'product_id': widget.productDetail.id,
-                            //               'name': widget.productDetail.fullName,
-                            //               'product_qty': 1,
-                            //               'product_uom':
-                            //                   widget.productDetail.uomList[0],
-                            //               'price_unit':
-                            //                   widget.productDetail.price,
-                            //               "image": widget.productDetail.imageUrl,
-                            //               "sku": widget.productDetail.defaultCode,
-                            //             }
-                            //           ]
-                            //         },
-                            //         widget.productDetail.id,
-                            //         widget.productDetail.fullName,
-                            //         widget.productDetail.uomList[0],
-                            //         widget.productDetail.price,
-                            //         widget.productDetail.imageUrl,
-                            //         widget.productDetail.defaultCode,
-                            //       );
-                            // }
-                            // ref
-                            //     .read(checkoutOrderStateNotifierProvider.notifier)
-                            //     .checkOutOrder(admin.companyId, admin.partnerId,
-                            //         widget.orderLineList, context, ref);
+                            //     .submitPurchaseOrder(context, purchaseID);
                           }, isBool: isSubmit),
                         ),
                         const SizedBox(width: 10),
@@ -210,9 +179,11 @@ class _CheckOutOrderDetailScreenState
       child: ListView.separated(
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
+            superPrint(orderFormDataList[index].orderProduct);
             // var entry = checkOutDataMap.entries.elementAt(index);
             String vendorName = orderFormDataList[index].orderProduct[1];
-            int vendorID = orderFormDataList[index].orderProduct[0];
+            //int vendorID = orderFormDataList[index].orderProduct[0];
+            int vendorID = orderFormDataList[index].id;
             //  List<Map<String, dynamic>> products = entry.value;
             return stackOrderLineWidget(
                 vendorID, vendorName, orderFormDataList[index].productList);

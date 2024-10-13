@@ -53,6 +53,19 @@ class InventoryTrackerRepository {
     return response;
   }
 
+//get purchase order with pdf view
+  Future<Response> pdfViewPurchase(String purchasedID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'report/pdf/purchase.report_purchaseorder/$purchasedID',
+      headers: {
+        'content-type':"application/pdf",
+        'X-Openerp-Session-Id': apiToken
+      }
+    );
+    return response;
+  }
+
   Future<Response> products(String categoryID, int pageNumber) async {
     http.Response response = await ApiService().get(
       url: baseUrl,

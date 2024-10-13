@@ -13,17 +13,16 @@ import '../../../internal_transfer/my_request/presentation/widgets/each_product_
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/stock_order/order_form_reason_state.dart';
 
-Widget stackOrderLineWidget(
-  int vendorID,
-    String vendorName, List<OrderReceivingProduct> orderLineList) {
+Widget stackOrderLineWidget(int vendorID, String vendorName,
+    List<OrderReceivingProduct> orderLineList) {
   Map<int, List<Map<int, bool>>> storeGoodReturnMap = {};
 
   return Consumer(
     builder: (context, ref, child) {
+      superPrint("VENDOR ID ::: $vendorID");
       final state = ref.watch(goodReturnStateNotifier);
       if (state is IsGoodReturnMap) {
         storeGoodReturnMap = state.isGoodReturnMap;
-        superPrint(storeGoodReturnMap);
       }
       if (state is ClearSelectedGoodReturn) {
         storeGoodReturnMap.clear();
@@ -54,21 +53,14 @@ Widget stackOrderLineWidget(
                         double productPrice = orderLineList[eachIndex].price;
                         String qty =
                             orderLineList[eachIndex].quantity.toString();
-                        // int productID = orderLineList[eachIndex]['product_id'];
-                        // String productImage = orderLineList[eachIndex]['image'];
-                        // String productName = orderLineList[eachIndex]['name'];
-                        // String productSku = orderLineList[eachIndex]['sku'];
-                        // double productPrice =
-                        //     orderLineList[eachIndex]['price_unit'];
-                        // String qty =
-                        //     orderLineList[eachIndex]['product_qty'].toString();
+
                         return Stack(
                           clipBehavior: Clip.none,
                           children: [
                             Container(
                               height:
-                                  storeGoodReturnMap.containsKey(vendorName) &&
-                                          storeGoodReturnMap[vendorName]!.any(
+                                  storeGoodReturnMap.containsKey(vendorID) &&
+                                          storeGoodReturnMap[vendorID]!.any(
                                               (productMap) =>
                                                   productMap
                                                       .containsKey(productID) &&
@@ -94,10 +86,9 @@ Widget stackOrderLineWidget(
                                       Map<int, List<Map<int, bool>>>
                                           goodReturnMap =
                                           Map.of(storeGoodReturnMap);
-                                      if (goodReturnMap
-                                          .containsKey(vendorName)) {
+                                      if (goodReturnMap.containsKey(vendorID)) {
                                         List<Map<int, bool>> productMapList =
-                                            List.of(goodReturnMap[vendorName]!);
+                                            List.of(goodReturnMap[vendorID]!);
                                         bool productExists = productMapList.any(
                                             (productMap) => productMap
                                                 .containsKey(productID));
@@ -136,9 +127,9 @@ Widget stackOrderLineWidget(
                                         children: [
                                           Icon(
                                             storeGoodReturnMap.containsKey(
-                                                        vendorName) &&
+                                                        vendorID) &&
                                                     storeGoodReturnMap[
-                                                            vendorName]!
+                                                            vendorID]!
                                                         .any((productMap) =>
                                                             productMap
                                                                 .containsKey(
@@ -151,9 +142,9 @@ Widget stackOrderLineWidget(
                                                     .check_box_outline_blank_outlined,
                                             color: storeGoodReturnMap
                                                         .containsKey(
-                                                            vendorName) &&
+                                                            vendorID) &&
                                                     storeGoodReturnMap[
-                                                            vendorName]!
+                                                            vendorID]!
                                                         .any((productMap) =>
                                                             productMap
                                                                 .containsKey(
@@ -178,8 +169,8 @@ Widget stackOrderLineWidget(
                                   ),
                                   Visibility(
                                       visible: storeGoodReturnMap
-                                              .containsKey(vendorName) &&
-                                          storeGoodReturnMap[vendorName]!.any(
+                                              .containsKey(vendorID) &&
+                                          storeGoodReturnMap[vendorID]!.any(
                                               (productMap) =>
                                                   productMap
                                                       .containsKey(productID) &&
@@ -189,8 +180,8 @@ Widget stackOrderLineWidget(
                                           productName, context)),
                                   Visibility(
                                       visible: storeGoodReturnMap
-                                              .containsKey(vendorName) &&
-                                          storeGoodReturnMap[vendorName]!.any(
+                                              .containsKey(vendorID) &&
+                                          storeGoodReturnMap[vendorID]!.any(
                                               (productMap) =>
                                                   productMap
                                                       .containsKey(productID) &&
@@ -199,15 +190,15 @@ Widget stackOrderLineWidget(
                                       child: const SizedBox(height: 10)),
                                   Visibility(
                                       visible: storeGoodReturnMap
-                                              .containsKey(vendorName) &&
-                                          storeGoodReturnMap[vendorName]!.any(
+                                              .containsKey(vendorID) &&
+                                          storeGoodReturnMap[vendorID]!.any(
                                               (productMap) =>
                                                   productMap
                                                       .containsKey(productID) &&
                                                   productMap[productID] ==
                                                       true),
                                       child: dropdownOrderFormReturnWidget(
-                                          productID.toString()))
+                                          vendorID.toString()))
                                 ],
                               ),
                             ),
@@ -375,7 +366,7 @@ Widget addMinusOrderFormIconButtonWidget(IconData iconData) {
   );
 }
 
-Widget dropdownOrderFormReturnWidget(String productID) {
+Widget dropdownOrderFormReturnWidget(String purchaseID) {
   Map<String, int> orderReasonQty = {};
   Map<String, dynamic> orderFormReasonMap = {};
   List<ReturnRequestReason> orderFormReasonList = [];
@@ -393,9 +384,8 @@ Widget dropdownOrderFormReturnWidget(String productID) {
     }
     if (state is SelectedOrderFormReturnReason) {
       orderFormReasonMap = state.orderFormReasonMap;
-      superPrint(orderFormReasonMap);
     }
-    superPrint(orderFormReasonMap[productID]);
+
     return Row(
       children: [
         Container(
@@ -439,12 +429,12 @@ Widget dropdownOrderFormReturnWidget(String productID) {
                           ),
                         ))
                     .toList(),
-                value: orderFormReasonMap[productID],
+                value: orderFormReasonMap[purchaseID],
                 onChanged: (values) {
                   ref
                       .read(orderFormReasonStateNotifier.notifier)
                       .addOrderFormReason(
-                          productID, values!, orderFormReasonMap);
+                          purchaseID, values!, orderFormReasonMap);
                 }),
           ),
         ),
@@ -454,7 +444,7 @@ Widget dropdownOrderFormReturnWidget(String productID) {
             addMinusIconButtonWidget(() {
               ref
                   .read(orderFormReasonStateNotifier.notifier)
-                  .decrementOrderFormQty(orderReasonQty, productID);
+                  .decrementOrderFormQty(orderReasonQty, purchaseID);
             }, CupertinoIcons.minus_circle_fill, Colors.white),
             Container(
               width: 15.w,
@@ -466,7 +456,7 @@ Widget dropdownOrderFormReturnWidget(String productID) {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: textWidget(
-                '${orderReasonQty[productID] ?? 1} ',
+                '${orderReasonQty[purchaseID] ?? 1} ',
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 size: 14,
@@ -475,7 +465,7 @@ Widget dropdownOrderFormReturnWidget(String productID) {
             addMinusIconButtonWidget(() {
               ref
                   .read(orderFormReasonStateNotifier.notifier)
-                  .incrementOrderFormQty(orderReasonQty, productID);
+                  .incrementOrderFormQty(orderReasonQty, purchaseID);
             }, CupertinoIcons.add_circled_solid, Colors.white),
           ],
         )

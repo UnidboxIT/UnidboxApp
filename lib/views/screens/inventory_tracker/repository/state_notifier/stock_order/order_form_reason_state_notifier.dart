@@ -30,24 +30,22 @@ class OrderFormReasonStateNotifier extends StateNotifier<OrderFormReasonState> {
     }
   }
 
-  incrementOrderFormQty(Map<String, int> qty, String productID) {
+  incrementOrderFormQty(Map<String, int> qty, String purchaseID) {
     Map<String, int> mutableQtyMap = Map.from(qty);
-    if (qty.containsKey(productID)) {
-      mutableQtyMap[productID] = mutableQtyMap[productID]! + 1;
+    if (qty.containsKey(purchaseID)) {
+      mutableQtyMap[purchaseID] = mutableQtyMap[purchaseID]! + 1;
     } else {
-      mutableQtyMap[productID] = 2;
+      mutableQtyMap[purchaseID] = 2;
     }
     state = OrderFormReasonState.incrementOrderFormQty(mutableQtyMap);
   }
 
-  decrementOrderFormQty(Map<String, int> qty, String productID) {
+  decrementOrderFormQty(Map<String, int> qty, String purchaseID) {
     Map<String, int> mutableQtyMap = Map.from(qty);
-    if (qty.containsKey(productID)) {
-      if (mutableQtyMap[productID]! > 1) {
-        mutableQtyMap[productID] = mutableQtyMap[productID]! - 1;
+    if (qty.containsKey(purchaseID)) {
+      if (mutableQtyMap[purchaseID]! > 1) {
+        mutableQtyMap[purchaseID] = mutableQtyMap[purchaseID]! - 1;
       }
-    } else {
-      mutableQtyMap[productID] = -2;
     }
     state = OrderFormReasonState.decrementOrderFormQty(mutableQtyMap);
   }
