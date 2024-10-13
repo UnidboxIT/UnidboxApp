@@ -48,11 +48,11 @@ class RackStateNotifier extends StateNotifier<RackState> {
   }
 
   Future<void> updateProductDetail(String productID, List rackList,
-      String retailPrice, String costPrice, BuildContext context, ref) async {
+      String retailPrice, BuildContext context, ref) async {
     try {
       state = const RackState.updateLoading();
       Response response = await _inventoryTrackerRepository.updateProduct(
-          productID, rackList, retailPrice, costPrice);
+          productID, rackList, retailPrice);
       var result = jsonDecode(response.body);
 
       if (result['result']['code'] == 200) {

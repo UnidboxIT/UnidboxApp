@@ -54,7 +54,7 @@ class OrderReceivingProduct {
       defaultCode: json['code'],
       quantity: json['quantity'],
       price: json['price'],
-      imageUrl: json['image_url'],
+      imageUrl: json['image_url'] == false ? "" : json['image_url'],
     );
   }
 }

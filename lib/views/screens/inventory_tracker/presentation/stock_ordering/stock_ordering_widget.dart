@@ -1,21 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:unidbox_app/utils/commons/super_print.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/stock_order_provider.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/add_order_cart_state.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../domain/product.dart';
+import '../../repository/state/stock_order/stock_ordering_state.dart';
 
 int stockOrderID = 0;
 
 class StockOrderingWidget extends ConsumerStatefulWidget {
-  final List<StockOrder> stockOrderList;
   final Products productDetail;
-  const StockOrderingWidget(
-      {super.key, required this.stockOrderList, required this.productDetail});
+  const StockOrderingWidget({super.key, required this.productDetail});
 
   @override
   ConsumerState<StockOrderingWidget> createState() =>
@@ -27,34 +26,17 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
   Map<int, int> totalQty = {};
   List<Map<String, dynamic>> orderLineList = [];
   Map<int, List<Map<String, dynamic>>> checkOutMap = {};
+  List<StockOrder> stockOrderList = [];
 
   @override
   void initState() {
     super.initState();
     checkOutMap.clear();
-    if (widget.stockOrderList.isNotEmpty) {
-      setState(() {
-        Future.delayed(const Duration(milliseconds: 10), () {
-          ref.read(addOrderCartStateNotifier.notifier).incrementAddOrderCart(
-              widget.stockOrderList[0].id,
-              widget.stockOrderList[0].name[1],
-              totalQty,
-              {
-                widget.stockOrderList.first.name[0]: [
-                  {
-                    'product_id': widget.productDetail.id,
-                    'name': widget.productDetail.name,
-                    'product_qty': 1,
-                    'product_uom': widget.productDetail.uomList[0],
-                    'price_unit': widget.productDetail.price,
-                  }
-                ]
-              },
-              widget.productDetail,
-              false);
-        });
-      });
-    }
+    Future.delayed(const Duration(milliseconds: 10), () {
+      ref
+          .read(stockOrderStateNotifierProvider.notifier)
+          .getStockOrder(widget.productDetail.id, ref, context);
+    });
   }
 
   @override
@@ -63,7 +45,6 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
       if (next is IncrementOrderCartQty) {
         setState(() {
           totalQty = next.qty;
-          superPrint(totalQty);
         });
       }
       if (next is DecrementOrderCartQty) {
@@ -82,6 +63,44 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
       //     totalQty = next.totalQty;
       //   });
       // }
+    });
+
+    ref.listen(stockOrderStateNotifierProvider, (pre, next) {
+      if (next is StockOrderingLoading) {
+        setState(() {
+          stockOrderList = [];
+        });
+      }
+      if (next is StockOrderingList) {
+        setState(() {
+          stockOrderList = next.stockOrdering;
+          if (stockOrderList.isNotEmpty) {
+            setState(() {
+              Future.delayed(const Duration(milliseconds: 10), () {
+                ref
+                    .read(addOrderCartStateNotifier.notifier)
+                    .incrementAddOrderCart(
+                        stockOrderList[0].name[0],
+                        stockOrderList[0].name[1],
+                        totalQty,
+                        {
+                          stockOrderList.first.name[0]: [
+                            {
+                              'product_id': widget.productDetail.id,
+                              'name': widget.productDetail.name,
+                              'product_qty': 1,
+                              'product_uom': widget.productDetail.uomList[0],
+                              'price_unit': widget.productDetail.price,
+                            }
+                          ]
+                        },
+                        widget.productDetail,
+                        false);
+              });
+            });
+          }
+        });
+      }
     });
 
     return Padding(
@@ -119,13 +138,14 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
           ),
           const SizedBox(height: 10),
           ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                String vendor = widget.stockOrderList[index].name[1];
-                String price = widget.stockOrderList[index].price.toString();
-                stockOrderID = widget.stockOrderList[index].id;
-                int companyId = widget.stockOrderList[index].company[0];
-                int partnerId = widget.stockOrderList[index].name[0];
+                String vendor = stockOrderList[index].name[1];
+                String price = stockOrderList[index].price.toString();
+                stockOrderID = stockOrderList[index].name[0];
+                int companyId = stockOrderList[index].company[0];
+                int partnerId = stockOrderList[index].name[0];
 
                 return eachStockOrderingWidget(
                   vendor,
@@ -138,7 +158,8 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 10);
               },
-              itemCount: widget.stockOrderList.length)
+              itemCount: stockOrderList.length),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -152,8 +173,13 @@ class _StockOrderingWidgetState extends ConsumerState<StockOrderingWidget> {
           : () {
               ref
                   .read(addOrderCartStateNotifier.notifier)
-                  .incrementAddOrderCart(vendorId, vendor, totalQty,
-                      checkOutMap, widget.productDetail, true);
+                  .clearAddOrderMap()
+                  .then((_) {
+                ref
+                    .read(addOrderCartStateNotifier.notifier)
+                    .incrementAddOrderCart(vendorId, vendor, totalQty,
+                        checkOutMap, widget.productDetail, true);
+              });
             },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),

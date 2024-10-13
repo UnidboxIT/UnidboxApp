@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
@@ -31,6 +32,7 @@ class _CheckOutOrderDetailScreenState
   double totalPrice = 0.0;
   bool isSubmit = false;
   List<OrderReceiving> orderFormDataList = [];
+  List<int> purchaseID = [];
   //List<Map<String, dynamic>> orderLineList = [];
   // Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
   @override
@@ -44,6 +46,7 @@ class _CheckOutOrderDetailScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(stockOrderStateNotifierProvider.notifier).getAllOrderForm();
     });
+    purchaseID.clear();
   }
 
   @override
@@ -65,120 +68,130 @@ class _CheckOutOrderDetailScreenState
       if (next is OrderFormDataList) {
         setState(() {
           orderFormDataList = next.orderFormDataList;
+          for (var checkOutMap in orderFormDataList) {
+            purchaseID.add(checkOutMap.id);
+            for (var data in checkOutMap.productList) {
+              double entryTotalPrice = data.price * data.quantity;
+              totalPrice += entryTotalPrice;
+            }
+          }
+          superPrint(purchaseID);
         });
       }
     });
 
-    // for (var checkOutMap in checkOutDataMap.entries) {
-    //   double entryTotalPrice = checkOutMap.value.fold(
-    //     0.0,
-    //     (sum, product) =>
-    //         sum + (product['product_qty'] * product['price_unit']),
-    //   );
-    //   totalPrice += entryTotalPrice;
-    // }
     return SuperScaffold(
       topColor: AppColor.primary,
       botColor: AppColor.primary,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SizedBox(
-            width: 100.w,
-            height: 100.h,
-            child: Stack(children: [
-              inventoryAppBarWidget("Order Form", () {
-                ref
-                    .read(stockOrderStateNotifierProvider.notifier)
-                    .getStockOrder(widget.productDetail.id, ref, context);
-                Navigator.of(context).pop();
-              }, () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const BarCodeScannerScreen()));
-              }, CupertinoIcons.qrcode_viewfinder),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  width: 100.w,
-                  height: 10.h,
-                  alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    color: AppColor.primary,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+        body: PopScope(
+          onPopInvoked: (_) =>
+              ref.read(addOrderCartStateNotifier.notifier).clearAddOrderMap(),
+          child: SizedBox(
+              width: 100.w,
+              height: 100.h,
+              child: Stack(children: [
+                inventoryAppBarWidget(
+                  "Order Form",
+                  () {
+                    ref
+                        .read(addOrderCartStateNotifier.notifier)
+                        .clearAddOrderMap();
+                    Navigator.of(context).pop();
+                  },
+                  () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BarCodeScannerScreen()));
+                  },
+                  CupertinoIcons.qrcode_viewfinder,
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: 100.w,
+                    height: 10.h,
+                    alignment: Alignment.topCenter,
+                    padding: const EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      color: AppColor.primary,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        textWidget("Subtotal : ",
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            size: 16),
+                        const SizedBox(width: 5),
+                        textWidget(
+                            "\$ ${CommonMethods.twoDecimalPrice(totalPrice)}",
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            size: 16),
+                        const Spacer(),
+                        SizedBox(
+                          height: 45,
+                          width: 30.w,
+                          child: buttonWidget("Submit", () {
+                            ref
+                                .read(stockOrderStateNotifierProvider.notifier)
+                                .submitPurchaseOrder(context, purchaseID);
+                            //clear form data local storage
+                            // ref
+                            //     .read(stockOrderStateNotifierProvider.notifier)
+                            //     .clearAllOrderForm();
+                            // if (widget.stockOrderList.isNotEmpty) {
+                            //   ref
+                            //       .read(stockOrderStateNotifierProvider.notifier)
+                            //       .incrementTotalQty(
+                            //         widget.stockOrderList[0].id,
+                            //         widget.stockOrderList[0].name[1],
+                            //         {widget.stockOrderList.first.id: 0},
+                            //         {
+                            //           widget.stockOrderList.first.name[1]: [
+                            //             {
+                            //               'product_id': widget.productDetail.id,
+                            //               'name': widget.productDetail.fullName,
+                            //               'product_qty': 1,
+                            //               'product_uom':
+                            //                   widget.productDetail.uomList[0],
+                            //               'price_unit':
+                            //                   widget.productDetail.price,
+                            //               "image": widget.productDetail.imageUrl,
+                            //               "sku": widget.productDetail.defaultCode,
+                            //             }
+                            //           ]
+                            //         },
+                            //         widget.productDetail.id,
+                            //         widget.productDetail.fullName,
+                            //         widget.productDetail.uomList[0],
+                            //         widget.productDetail.price,
+                            //         widget.productDetail.imageUrl,
+                            //         widget.productDetail.defaultCode,
+                            //       );
+                            // }
+                            // ref
+                            //     .read(checkoutOrderStateNotifierProvider.notifier)
+                            //     .checkOutOrder(admin.companyId, admin.partnerId,
+                            //         widget.orderLineList, context, ref);
+                          }, isBool: isSubmit),
+                        ),
+                        const SizedBox(width: 10),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      textWidget("Subtotal : ",
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          size: 16),
-                      const SizedBox(width: 5),
-                      textWidget(
-                          "\$ ${CommonMethods.twoDecimalPrice(totalPrice)}",
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          size: 16),
-                      const Spacer(),
-                      SizedBox(
-                        height: 45,
-                        width: 30.w,
-                        child: buttonWidget("Submit", () {
-                          //clear form data local storage
-                          // ref
-                          //     .read(stockOrderStateNotifierProvider.notifier)
-                          //     .clearAllOrderForm();
-                          // if (widget.stockOrderList.isNotEmpty) {
-                          //   ref
-                          //       .read(stockOrderStateNotifierProvider.notifier)
-                          //       .incrementTotalQty(
-                          //         widget.stockOrderList[0].id,
-                          //         widget.stockOrderList[0].name[1],
-                          //         {widget.stockOrderList.first.id: 0},
-                          //         {
-                          //           widget.stockOrderList.first.name[1]: [
-                          //             {
-                          //               'product_id': widget.productDetail.id,
-                          //               'name': widget.productDetail.fullName,
-                          //               'product_qty': 1,
-                          //               'product_uom':
-                          //                   widget.productDetail.uomList[0],
-                          //               'price_unit':
-                          //                   widget.productDetail.price,
-                          //               "image": widget.productDetail.imageUrl,
-                          //               "sku": widget.productDetail.defaultCode,
-                          //             }
-                          //           ]
-                          //         },
-                          //         widget.productDetail.id,
-                          //         widget.productDetail.fullName,
-                          //         widget.productDetail.uomList[0],
-                          //         widget.productDetail.price,
-                          //         widget.productDetail.imageUrl,
-                          //         widget.productDetail.defaultCode,
-                          //       );
-                          // }
-                          Navigator.of(context).pop();
-
-                          // ref
-                          //     .read(checkoutOrderStateNotifierProvider.notifier)
-                          //     .checkOutOrder(admin.companyId, admin.partnerId,
-                          //         widget.orderLineList, context, ref);
-                        }, isBool: isSubmit),
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
                 ),
-              ),
-              Transform.translate(
-                offset: Offset(0, 14.h),
-                child: orderLineDetailWidget(),
-              ),
-            ])),
+                Transform.translate(
+                  offset: Offset(0, 14.h),
+                  child: orderLineDetailWidget(),
+                ),
+              ])),
+        ),
       ),
     );
   }
@@ -198,10 +211,11 @@ class _CheckOutOrderDetailScreenState
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
             // var entry = checkOutDataMap.entries.elementAt(index);
-            String companyName = orderFormDataList[index].orderProduct[1];
+            String vendorName = orderFormDataList[index].orderProduct[1];
+            int vendorID = orderFormDataList[index].orderProduct[0];
             //  List<Map<String, dynamic>> products = entry.value;
             return stackOrderLineWidget(
-                companyName, orderFormDataList[index].productList);
+                vendorID, vendorName, orderFormDataList[index].productList);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 0);

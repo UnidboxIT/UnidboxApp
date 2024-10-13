@@ -38,6 +38,21 @@ class InventoryTrackerRepository {
     return response;
   }
 
+  Future<Response> orderFormSubmit(List<int> purchaseIDList) async {
+    Map<String, dynamic> formData = {
+      "state": "purchase",
+      "ids": purchaseIDList
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+        url: baseUrl,
+        endpoint: 'joborder/purchase-order/update',
+        headers: CommonMethods.setHeaders(),
+        formData: formData);
+
+    return response;
+  }
+
   Future<Response> products(String categoryID, int pageNumber) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
@@ -168,12 +183,12 @@ class InventoryTrackerRepository {
     return response;
   }
 
-  Future<Response> updateProduct(String productID, List rackList,
-      String salePrice, String costPrice) async {
+  Future<Response> updateProduct(
+      String productID, List rackList, String salePrice) async {
     Map<String, dynamic> formData = {
       "racks": rackList,
       "sale_price": salePrice,
-      "cost_price": costPrice
+      //"cost_price": costPrice
     };
     superPrint(formData);
     http.Response response = await ApiService().post(

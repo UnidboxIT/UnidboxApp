@@ -65,4 +65,6 @@ class OrderFormReasonStateNotifier extends StateNotifier<OrderFormReasonState> {
     state =
         OrderFormReasonState.selectedOrderFormReturnReason(mutableReasonMap);
   }
+
+  orderFormSubmit() {}
 }

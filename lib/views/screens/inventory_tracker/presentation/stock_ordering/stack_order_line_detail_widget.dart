@@ -14,8 +14,9 @@ import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/stock_order/order_form_reason_state.dart';
 
 Widget stackOrderLineWidget(
+  int vendorID,
     String vendorName, List<OrderReceivingProduct> orderLineList) {
-  Map<String, List<Map<int, bool>>> storeGoodReturnMap = {};
+  Map<int, List<Map<int, bool>>> storeGoodReturnMap = {};
 
   return Consumer(
     builder: (context, ref, child) {
@@ -90,7 +91,7 @@ Widget stackOrderLineWidget(
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Map<String, List<Map<int, bool>>>
+                                      Map<int, List<Map<int, bool>>>
                                           goodReturnMap =
                                           Map.of(storeGoodReturnMap);
                                       if (goodReturnMap
@@ -106,18 +107,18 @@ Widget stackOrderLineWidget(
                                                   .containsKey(productID));
 
                                           if (productMapList.isEmpty) {
-                                            goodReturnMap.remove(vendorName);
+                                            goodReturnMap.remove(vendorID);
                                           } else {
-                                            goodReturnMap[vendorName] =
+                                            goodReturnMap[vendorID] =
                                                 productMapList;
                                           }
                                         } else {
                                           productMapList.add({productID: true});
-                                          goodReturnMap[vendorName] =
+                                          goodReturnMap[vendorID] =
                                               productMapList;
                                         }
                                       } else {
-                                        goodReturnMap[vendorName] = [
+                                        goodReturnMap[vendorID] = [
                                           {productID: true}
                                         ];
                                       }

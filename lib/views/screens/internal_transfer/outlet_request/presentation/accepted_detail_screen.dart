@@ -66,13 +66,12 @@ class _OtherRequestsDetailScreenState
   }
 
   Future<void> loadWarehouseData() async {
+    finalDeveilerMapList.clear();
+    requestedMapList.clear();
     packedWarehouseMap.forEach((key, value) {
       value['product_line'] = {};
     });
 
-    //acceptedMapList.clear();
-    finalDeveilerMapList.clear();
-    requestedMapList.clear();
     for (var data in otherRequestList) {
       for (var element in data.productLineList) {
         if (element.status == 'accepted') {
@@ -434,14 +433,6 @@ class _OtherRequestsDetailScreenState
                                     .getAllOtherRequest();
                                 isSwipeLoading = false;
                               });
-
-                              // if (!isPackedProductEqual) {
-                              // } else {
-                              //   isSwipeLoading = false;
-                              //   CommonMethods.customizedAlertDialog(
-                              //       "Please packed all your requested product",
-                              //       context);
-                              // }
                             } else {
                               isSwipeLoading = false;
                               CommonMethods.customizedAlertDialog(

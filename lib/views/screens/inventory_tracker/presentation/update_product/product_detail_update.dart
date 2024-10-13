@@ -34,7 +34,7 @@ class _ProductDetailUpdateScreenState
     extends ConsumerState<ProductDetailUpdateScreen> {
   TextEditingController txtSearch = TextEditingController();
   TextEditingController txtRetailPrice = TextEditingController();
-  TextEditingController txtCostPrice = TextEditingController();
+  // TextEditingController txtCostPrice = TextEditingController();
   List<Racks> racksList = [];
   List<Racks> selectedRacks = [];
   List selectedRackIdList = [];
@@ -49,7 +49,7 @@ class _ProductDetailUpdateScreenState
   loadData() {
     setState(() {
       txtRetailPrice.text = widget.retailPrice;
-      txtCostPrice.text = widget.costPrice;
+      //  txtCostPrice.text = widget.costPrice;
     });
 
     Future.delayed(const Duration(milliseconds: 10), () {
@@ -130,7 +130,7 @@ class _ProductDetailUpdateScreenState
           const SizedBox(height: 10),
           eachTextFieldWidget("Retail Price", txtRetailPrice, ""),
           const SizedBox(height: 10),
-          eachTextFieldWidget("Cost Price", txtCostPrice, ""),
+          // eachTextFieldWidget("Cost Price", txtCostPrice, ""),
           const Spacer(),
           SizedBox(
               width: 30.w,
@@ -146,7 +146,7 @@ class _ProductDetailUpdateScreenState
                       widget.productID,
                       selectedRackIdList,
                       txtRetailPrice.text,
-                      txtCostPrice.text,
+                      // txtCostPrice.text,
                       context,
                       ref,
                     );

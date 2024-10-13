@@ -293,35 +293,43 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                       fontWeight: FontWeight.bold,
                                       size: 17),
                                   const Spacer(),
-                                  buttonWidget("Add To Order", () {
-                                    superPrint(orderLineList);
-                                    superPrint(checkOutDataMap);
-                                    // ref
-                                    //     .read(stockOrderStateNotifierProvider
-                                    //         .notifier)
-                                    //     .addProductToCart(checkOutDataMap);
-                                    ref
-                                        .read(checkoutOrderStateNotifierProvider
-                                            .notifier)
-                                        .checkOutOrder(
-                                          admin.companyId,
-                                          admin.partnerId,
-                                          orderLineList,
+                                  SizedBox(
+                                    height: 40,
+                                    child: buttonWidget("Add To Order", () {
+                                      ref
+                                          .read(
+                                              checkoutOrderStateNotifierProvider
+                                                  .notifier)
+                                          .checkOutOrder(
+                                            admin.companyId,
+                                            stockOrderID,
+                                            orderLineList,
+                                            context,
+                                            ref,
+                                            stockOrderList.first,
+                                          )
+                                          .then((_) {
+                                        Navigator.push(
                                           context,
-                                          ref,
-                                          stockOrderList.first,
-                                        )
-                                        .then((_) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) =>
-                                              CheckOutOrderDetailScreen(
-                                                  productDetail: productDetail),
-                                        ),
-                                      );
-                                    });
-                                  }, isBool: isAddToOrderLoading),
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                CheckOutOrderDetailScreen(
+                                                    productDetail:
+                                                        productDetail),
+                                          ),
+                                        ).then((_) {
+                                          ref
+                                              .read(
+                                                  stockOrderStateNotifierProvider
+                                                      .notifier)
+                                              .getStockOrder(productDetail.id,
+                                                  ref, context);
+                                        });
+                                      });
+                                    },
+                                        isBool: isAddToOrderLoading,
+                                        textAlign: TextAlign.left),
+                                  ),
                                   const SizedBox(width: 10),
                                 ],
                               ),
@@ -395,10 +403,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                           productDetail: productDetail,
                           userWarehouse: userWarehouse,
                         )
-                      : StockOrderingWidget(
-                          stockOrderList: stockOrderList,
-                          productDetail: productDetail),
-                )
+                      : StockOrderingWidget(productDetail: productDetail),
+                ),
+               
               ],
             ),
     );

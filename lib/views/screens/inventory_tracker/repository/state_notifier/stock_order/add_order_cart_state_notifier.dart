@@ -56,6 +56,11 @@ class AddOrderCartStateNotifier extends StateNotifier<AddOrderCartState> {
     state = AddOrderCartState.incrementOrderCart(mutableQtyMap);
   }
 
+  Future<void> clearAddOrderMap() async {
+    state = const AddOrderCartState.incrementOrderCart({});
+    state = const AddOrderCartState.checkOutMap({});
+  }
+
   decrementAddOrderCart(
     int vendorId,
     String vendorName,
@@ -91,12 +96,11 @@ class AddOrderCartStateNotifier extends StateNotifier<AddOrderCartState> {
           break;
         }
       }
-      // If the product does not exist, add it to the list
+     
       if (!productExists) {
         existingProducts.add(newProductEntry);
       }
     } else {
-      // Vendor doesn't exist, so create a new entry for this vendor
       orderFormValueMap[vendorId] = [newProductEntry];
     }
     state = AddOrderCartState.checkOutMap(orderFormValueMap);

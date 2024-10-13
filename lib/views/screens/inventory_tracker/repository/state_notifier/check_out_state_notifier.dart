@@ -38,6 +38,7 @@ class CheckOutStateNotifier extends StateNotifier<CheckOutOrderState> {
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .clearTotalQty(stockOrder);
+
         // });
       } else {
         successfullyBottomSheet("Order Submitted Fail!", result['message'], () {

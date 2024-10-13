@@ -339,7 +339,7 @@ class _ReturnRequestScreenState extends ConsumerState<ReturnRequestScreen> {
                           ),
                         )
                       : const Text(
-                          "Submit Return",
+                          "Submit",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 18,
