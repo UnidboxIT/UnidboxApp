@@ -31,4 +31,28 @@ class PendingReceivingStateNotifier
       superPrint(e.toString());
     }
   }
+
+  Future<void> receiveByID(int purchaseID, List receivedLine) async {
+    state = const PendingReceivingState.loading();
+    try {
+      Response response =
+          await _orderReceivingRepository.receiveByID(purchaseID, receivedLine);
+      superPrint(response.body);
+
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          getAllPendingReceiving();
+          state = const PendingReceivingState.success();
+        } else {
+          state = const PendingReceivingState.error();
+        }
+      } else {
+        state = const PendingReceivingState.error();
+      }
+    } catch (e) {
+      state = const PendingReceivingState.error();
+      superPrint(e.toString());
+    }
+  }
 }

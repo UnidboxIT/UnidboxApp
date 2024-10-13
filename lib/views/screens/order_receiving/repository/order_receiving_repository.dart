@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/constant/app_constant.dart';
 
 import '../../../../services/api_service.dart';
@@ -10,7 +11,7 @@ class OrderReceivingRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total&user_id=${admin.uid}&state=purchase',
+          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total,amount_untaxed,amount_tax&user_id=${admin.uid}&state=purchase',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -38,6 +39,21 @@ class OrderReceivingRepository {
     Response response = await ApiService().post(
         url: baseUrl,
         endpoint: 'joborder/purchase-order/update/$purchaseID',
+        headers: CommonMethods.setHeaders(),
+        formData: formData);
+
+    return response;
+  }
+
+  Future<Response> receiveByID(int purchaseID, List receivedLine) async {
+    Map<String, dynamic> formData = {
+      "state": "done",
+      "receive_line": receivedLine,
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+        url: baseUrl,
+        endpoint: 'joborder/purchase-receive/update/$purchaseID',
         headers: CommonMethods.setHeaders(),
         formData: formData);
 

@@ -204,15 +204,31 @@ class _PendingReceivingScreenState
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             OrderReceivedDetailScreen(
-                                                orderCode: "P02/23/00012",
-                                                name: widget
-                                                    .pendingOrderReceivingList[
-                                                        index]
-                                                    .orderProduct[1],
-                                                productList: widget
-                                                    .pendingOrderReceivingList[
-                                                        index]
-                                                    .productList),
+                                          purchaseID: widget
+                                              .pendingOrderReceivingList[index]
+                                              .id,
+                                          orderCode: widget
+                                              .pendingOrderReceivingList[index]
+                                              .name,
+                                          name: widget
+                                              .pendingOrderReceivingList[index]
+                                              .orderProduct[1],
+                                          totalAmount: widget
+                                              .pendingOrderReceivingList[index]
+                                              .amountTotal
+                                              .toString(),
+                                          productList: widget
+                                              .pendingOrderReceivingList[index]
+                                              .productList,
+                                          creditAmount: widget
+                                              .pendingOrderReceivingList[index]
+                                              .creditAmount
+                                              .toString(),
+                                          netAmount: widget
+                                              .pendingOrderReceivingList[index]
+                                              .netAmount
+                                              .toString(),
+                                        ),
                                       ),
                                     );
                                   },

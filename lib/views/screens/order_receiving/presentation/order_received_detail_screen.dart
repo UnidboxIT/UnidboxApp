@@ -20,15 +20,23 @@ import '../domain/order_receiving.dart';
 import 'widgets/app_bar_order_detail_widget.dart';
 
 class OrderReceivedDetailScreen extends ConsumerStatefulWidget {
+  final int purchaseID;
   final String orderCode;
   final String name;
+  final String totalAmount;
+  final String creditAmount;
+  final String netAmount;
   final List<OrderReceivingProduct> productList;
 
   const OrderReceivedDetailScreen(
       {super.key,
+      required this.purchaseID,
       required this.orderCode,
       required this.name,
-      required this.productList});
+      required this.totalAmount,
+      required this.productList,
+      required this.creditAmount,
+      required this.netAmount});
 
   @override
   ConsumerState<OrderReceivedDetailScreen> createState() =>
@@ -42,6 +50,8 @@ class _OrderReceivedDetailScreenState
   String base64Image = "";
   List<ReturnRequestReason> productRemarkList = [];
   Map<String, dynamic> productRemarkMap = {};
+
+  List receivedLine = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -51,6 +61,14 @@ class _OrderReceivedDetailScreenState
           .read(productReceivedRemarkStateNotifierProvider.notifier)
           .getProductReceivedRemark();
     });
+    receivedLine.clear();
+    for (var data in widget.productList) {
+      receivedLine.add({
+        "id": data.id,
+        "product_id": data.products,
+        "quantity": data.quantity
+      });
+    }
   }
 
   @override
@@ -106,15 +124,16 @@ class _OrderReceivedDetailScreenState
           productServiceWidget(),
           productReceivedListViewWidget(),
           const SizedBox(height: 20),
-          amountWidget(
-              "Total Amount", "100", CupertinoIcons.money_dollar_circle),
+          amountWidget("Total Amount", widget.totalAmount,
+              CupertinoIcons.money_dollar_circle),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              amountWidget("Credit Amount", widget.creditAmount,
+                  Icons.money_off_csred_outlined),
               amountWidget(
-                  "Credit Amount", "30", Icons.money_off_csred_outlined),
-              amountWidget("Net Amount", "50", Icons.payment_outlined),
+                  "Net Amount", widget.netAmount, Icons.payment_outlined),
             ],
           ),
           const SizedBox(height: 20),
@@ -122,7 +141,11 @@ class _OrderReceivedDetailScreenState
             width: 40.w,
             child: buttonWidget(
               "OK",
-              () {},
+              () {
+                ref
+                    .read(pendingOrderReceivingStateNotifierProvider.notifier)
+                    .receiveByID(widget.purchaseID, receivedLine);
+              },
             ),
           )
         ],

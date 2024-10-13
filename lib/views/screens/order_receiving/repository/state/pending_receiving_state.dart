@@ -14,4 +14,6 @@ class PendingReceivingState with _$PendingReceivingState {
   const factory PendingReceivingState.loading() = PendingReceivingLoading;
   const factory PendingReceivingState.error({String? error}) =
       PendingReceivingError;
+  const factory PendingReceivingState.success({String? success}) =
+      PendingReceivingSuccess;
 }

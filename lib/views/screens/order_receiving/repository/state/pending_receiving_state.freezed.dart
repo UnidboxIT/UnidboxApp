@@ -23,6 +23,7 @@ mixin _$PendingReceivingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +33,7 @@ mixin _$PendingReceivingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +43,7 @@ mixin _$PendingReceivingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +54,7 @@ mixin _$PendingReceivingState {
     required TResult Function(Initial value) initial,
     required TResult Function(PendingReceivingLoading value) loading,
     required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +63,7 @@ mixin _$PendingReceivingState {
     TResult? Function(Initial value)? initial,
     TResult? Function(PendingReceivingLoading value)? loading,
     TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +72,7 @@ mixin _$PendingReceivingState {
     TResult Function(Initial value)? initial,
     TResult Function(PendingReceivingLoading value)? loading,
     TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -173,6 +179,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
   }) {
     return loadPendingReceivingData(pendingReceivingDataList);
   }
@@ -185,6 +192,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
   }) {
     return loadPendingReceivingData?.call(pendingReceivingDataList);
   }
@@ -197,6 +205,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
     required TResult orElse(),
   }) {
     if (loadPendingReceivingData != null) {
@@ -213,6 +222,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     required TResult Function(Initial value) initial,
     required TResult Function(PendingReceivingLoading value) loading,
     required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
   }) {
     return loadPendingReceivingData(this);
   }
@@ -224,6 +234,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     TResult? Function(Initial value)? initial,
     TResult? Function(PendingReceivingLoading value)? loading,
     TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
   }) {
     return loadPendingReceivingData?.call(this);
   }
@@ -235,6 +246,7 @@ class _$PendingReceivingDataImpl implements PendingReceivingData {
     TResult Function(Initial value)? initial,
     TResult Function(PendingReceivingLoading value)? loading,
     TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (loadPendingReceivingData != null) {
@@ -298,6 +310,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
   }) {
     return initial();
   }
@@ -310,6 +323,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
   }) {
     return initial?.call();
   }
@@ -322,6 +336,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -338,6 +353,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(Initial value) initial,
     required TResult Function(PendingReceivingLoading value) loading,
     required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
   }) {
     return initial(this);
   }
@@ -349,6 +365,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(PendingReceivingLoading value)? loading,
     TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
   }) {
     return initial?.call(this);
   }
@@ -360,6 +377,7 @@ class _$InitialImpl implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(PendingReceivingLoading value)? loading,
     TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -420,6 +438,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
   }) {
     return loading();
   }
@@ -432,6 +451,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
   }) {
     return loading?.call();
   }
@@ -444,6 +464,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -460,6 +481,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     required TResult Function(Initial value) initial,
     required TResult Function(PendingReceivingLoading value) loading,
     required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
   }) {
     return loading(this);
   }
@@ -471,6 +493,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     TResult? Function(Initial value)? initial,
     TResult? Function(PendingReceivingLoading value)? loading,
     TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
   }) {
     return loading?.call(this);
   }
@@ -482,6 +505,7 @@ class _$PendingReceivingLoadingImpl implements PendingReceivingLoading {
     TResult Function(Initial value)? initial,
     TResult Function(PendingReceivingLoading value)? loading,
     TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -567,6 +591,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
   }) {
     return error(this.error);
   }
@@ -579,6 +604,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
   }) {
     return error?.call(this.error);
   }
@@ -591,6 +617,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -607,6 +634,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     required TResult Function(Initial value) initial,
     required TResult Function(PendingReceivingLoading value) loading,
     required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
   }) {
     return error(this);
   }
@@ -618,6 +646,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     TResult? Function(Initial value)? initial,
     TResult? Function(PendingReceivingLoading value)? loading,
     TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
   }) {
     return error?.call(this);
   }
@@ -629,6 +658,7 @@ class _$PendingReceivingErrorImpl implements PendingReceivingError {
     TResult Function(Initial value)? initial,
     TResult Function(PendingReceivingLoading value)? loading,
     TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -645,5 +675,165 @@ abstract class PendingReceivingError implements PendingReceivingState {
   String? get error;
   @JsonKey(ignore: true)
   _$$PendingReceivingErrorImplCopyWith<_$PendingReceivingErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PendingReceivingSuccessImplCopyWith<$Res> {
+  factory _$$PendingReceivingSuccessImplCopyWith(
+          _$PendingReceivingSuccessImpl value,
+          $Res Function(_$PendingReceivingSuccessImpl) then) =
+      __$$PendingReceivingSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? success});
+}
+
+/// @nodoc
+class __$$PendingReceivingSuccessImplCopyWithImpl<$Res>
+    extends _$PendingReceivingStateCopyWithImpl<$Res,
+        _$PendingReceivingSuccessImpl>
+    implements _$$PendingReceivingSuccessImplCopyWith<$Res> {
+  __$$PendingReceivingSuccessImplCopyWithImpl(
+      _$PendingReceivingSuccessImpl _value,
+      $Res Function(_$PendingReceivingSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? success = freezed,
+  }) {
+    return _then(_$PendingReceivingSuccessImpl(
+      success: freezed == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PendingReceivingSuccessImpl implements PendingReceivingSuccess {
+  const _$PendingReceivingSuccessImpl({this.success});
+
+  @override
+  final String? success;
+
+  @override
+  String toString() {
+    return 'PendingReceivingState.success(success: $success)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PendingReceivingSuccessImpl &&
+            (identical(other.success, success) || other.success == success));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, success);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PendingReceivingSuccessImplCopyWith<_$PendingReceivingSuccessImpl>
+      get copyWith => __$$PendingReceivingSuccessImplCopyWithImpl<
+          _$PendingReceivingSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<OrderReceiving> pendingReceivingDataList)
+        loadPendingReceivingData,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
+  }) {
+    return success(this.success);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<OrderReceiving> pendingReceivingDataList)?
+        loadPendingReceivingData,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
+  }) {
+    return success?.call(this.success);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<OrderReceiving> pendingReceivingDataList)?
+        loadPendingReceivingData,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this.success);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PendingReceivingData value)
+        loadPendingReceivingData,
+    required TResult Function(Initial value) initial,
+    required TResult Function(PendingReceivingLoading value) loading,
+    required TResult Function(PendingReceivingError value) error,
+    required TResult Function(PendingReceivingSuccess value) success,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PendingReceivingData value)? loadPendingReceivingData,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(PendingReceivingLoading value)? loading,
+    TResult? Function(PendingReceivingError value)? error,
+    TResult? Function(PendingReceivingSuccess value)? success,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PendingReceivingData value)? loadPendingReceivingData,
+    TResult Function(Initial value)? initial,
+    TResult Function(PendingReceivingLoading value)? loading,
+    TResult Function(PendingReceivingError value)? error,
+    TResult Function(PendingReceivingSuccess value)? success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PendingReceivingSuccess implements PendingReceivingState {
+  const factory PendingReceivingSuccess({final String? success}) =
+      _$PendingReceivingSuccessImpl;
+
+  String? get success;
+  @JsonKey(ignore: true)
+  _$$PendingReceivingSuccessImplCopyWith<_$PendingReceivingSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
