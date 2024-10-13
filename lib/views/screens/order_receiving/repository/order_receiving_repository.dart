@@ -10,7 +10,7 @@ class OrderReceivingRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state&user_id=${admin.uid}&state=purchase',
+          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total&user_id=${admin.uid}&state=purchase',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -21,9 +21,24 @@ class OrderReceivingRepository {
   Future<Response> productReceivedRemark() async {
     Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/reason?fields=id,name,type&type=receive',
+      endpoint: 'joborder/reason',
       headers: CommonMethods.setHeaders(),
     );
+
+    return response;
+  }
+
+  Future<Response> uploadInvoice(purchaseID, String invoiceNo) async {
+    Map<String, dynamic> formData = {
+      "state": "purchase",
+      "invoice_no": invoiceNo,
+      "inv_attachments": []
+    };
+    Response response = await ApiService().post(
+        url: baseUrl,
+        endpoint: 'joborder/purchase-order/update/$purchaseID',
+        headers: CommonMethods.setHeaders(),
+        formData: formData);
 
     return response;
   }

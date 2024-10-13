@@ -20,8 +20,10 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       : super(const StockOrderingState.initial());
 
   final InventoryTrackerRepository _inventoryTrackerRepository;
-
+  String localFilePath = "";
   List<StockOrder> stockOrderList = [];
+  List<OrderReceiving> orderFormList = [];
+
   Future<void> getStockOrder(
       int productID, WidgetRef ref, BuildContext context) async {
     try {
@@ -54,7 +56,6 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     }
   }
 
-  List<OrderReceiving> orderFormList = [];
   Future<void> getAllOrderForm() async {
     state = const StockOrderingState.loading();
     try {
@@ -85,7 +86,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       if (result['result']['code'] == 200) {
         successfullyBottomSheet(
             "Order Submitted!", "Find order in delivery orders", () {
-          viewPurchasePdfFile(context,result['result']['id'][0]);
+          viewPurchasePdfFile(context, result['result']['id'][0]);
           Navigator.of(context).pop();
           getAllOrderForm();
         }, context);
@@ -103,30 +104,33 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       superPrint(e.toString());
     }
   }
-  String localFilePath="";
-  Future<void> viewPurchasePdfFile(BuildContext context,String purchaseOrderID) async {
+
+  Future<void> viewPurchasePdfFile(
+      BuildContext context, String purchaseOrderID) async {
     try {
       state = const StockOrderingState.loading();
       Response response =
           await _inventoryTrackerRepository.pdfViewPurchase(purchaseOrderID);
-superPrint(response.headers);
+      superPrint(response.headers);
       final contentType = response.headers['content-type'];
       superPrint(contentType);
-        if (response.statusCode == 200) {
-          if (contentType != null && contentType.contains('application/pdf')) {
-            final dir = await getApplicationDocumentsDirectory();
-            final file = File('${dir.path}/purchase_order.pdf');
-            await file.writeAsBytes(response.bodyBytes);
-            localFilePath = file.path;
-            superPrint(localFilePath);
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                PurchaseOrderPdfViewScreen(filePath: localFilePath)));
-          } else{
-          final Map<String, dynamic> jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+      if (response.statusCode == 200) {
+        if (contentType != null && contentType.contains('application/pdf')) {
+          final dir = await getApplicationDocumentsDirectory();
+          final file = File('${dir.path}/purchase_order.pdf');
+          await file.writeAsBytes(response.bodyBytes);
+          localFilePath = file.path;
+          superPrint(localFilePath);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  PurchaseOrderPdfViewScreen(filePath: localFilePath)));
+        } else {
+          final Map<String, dynamic> jsonResponse =
+              json.decode(utf8.decode(response.bodyBytes));
           superPrint(jsonResponse['error']['message'] ?? 'Unknown error');
-          }
         }
-        state =const StockOrderingState.success("Success");
+      }
+      state = const StockOrderingState.success("Success");
     } catch (e) {
       state = StockOrderingState.error(error: e.toString());
       superPrint(e.toString());

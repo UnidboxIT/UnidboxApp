@@ -15,6 +15,7 @@ import 'order_received_detail_screen.dart';
 import 'widgets/receiving_product_line_widget.dart';
 import 'dart:math' as math;
 import 'widgets/shimmer_order_receiving_widget.dart';
+import 'package:intl/intl.dart';
 
 class PendingReceivingScreen extends ConsumerStatefulWidget {
   final bool isPendingLoading;
@@ -74,16 +75,18 @@ class _PendingReceivingScreenState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            eachOrderNoWidget("P02/23/00012", "22 Oct 2023"),
+                            eachOrderNoWidget(widget.pendingOrderReceivingList[index]
+                                .name, DateFormat('dd MMM yyyy').format(DateTime.parse(widget.pendingOrderReceivingList[index].dateOrder))),
                             const SizedBox(height: 10),
                             textWidget(
-                              "Amax Machinery Pte Ltd",
+                              widget.pendingOrderReceivingList[index]
+                                  .orderProduct[1],
                               color: AppColor.orangeColor,
                               fontWeight: FontWeight.w600,
                               size: 14,
                             ),
                             const SizedBox(height: 5),
-                            eachOrderAmountWidget("\$128.50"),
+                            eachOrderAmountWidget("\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
                             const SizedBox(height: 5),
                           ],
                         ),
@@ -118,7 +121,8 @@ class _PendingReceivingScreenState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   eachOrderNoWidget(
-                                      "P02/23/00012", "22 Oct 2023"),
+                                      widget.pendingOrderReceivingList[index]
+                                          .name, DateFormat('dd MMM yyyy').format(DateTime.parse(widget.pendingOrderReceivingList[index].dateOrder))),
                                   const SizedBox(height: 10),
                                   textWidget(
                                     widget.pendingOrderReceivingList[index]
@@ -128,9 +132,9 @@ class _PendingReceivingScreenState
                                     size: 14,
                                   ),
                                   const SizedBox(height: 5),
-                                  eachOrderAmountWidget("\$128.50"),
+                                  eachOrderAmountWidget("\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
                                   const SizedBox(height: 10),
-                                  invoiceNumberOrderWidget(),
+                                  invoiceNumberOrderWidget("${widget.pendingOrderReceivingList[index].amountTotal}"),
                                   const SizedBox(height: 10),
                                   doNumberOrderWidget(),
                                 ],
@@ -246,7 +250,8 @@ class _PendingReceivingScreenState
     );
   }
 
-  Widget invoiceNumberOrderWidget() {
+  Widget invoiceNumberOrderWidget(String totalAmount) {
+    txtAmount.text="\$ $totalAmount";
     return Column(
       children: [
         Row(

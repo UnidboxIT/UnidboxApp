@@ -21,7 +21,7 @@ class InventoryTrackerRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state&user_id=${admin.uid}&state=draft',
+          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total&user_id=${admin.uid}&state=draft',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -56,13 +56,12 @@ class InventoryTrackerRepository {
 //get purchase order with pdf view
   Future<Response> pdfViewPurchase(String purchasedID) async {
     http.Response response = await ApiService().get(
-      url: baseUrl,
-      endpoint: 'report/pdf/purchase.report_purchaseorder/$purchasedID',
-      headers: {
-        'content-type':"application/pdf",
-        'X-Openerp-Session-Id': apiToken
-      }
-    );
+        url: baseUrl,
+        endpoint: 'report/pdf/purchase.report_purchaseorder/$purchasedID',
+        headers: {
+          'content-type': "application/pdf",
+          'X-Openerp-Session-Id': apiToken
+        });
     return response;
   }
 
