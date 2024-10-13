@@ -28,7 +28,8 @@ class OrderReceivingRepository {
     return response;
   }
 
-  Future<Response> uploadInvoice(purchaseID, String invoiceNo) async {
+  Future<Response> uploadInvoice(
+      int purchaseID, String invoiceNo, String base64Image) async {
     Map<String, dynamic> formData = {
       "state": "purchase",
       "invoice_no": invoiceNo,

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
+import 'package:unidbox_app/views/screens/order_receiving/repository/provider/order_receiving_provider.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/commons/super_print.dart';
@@ -75,8 +76,11 @@ class _PendingReceivingScreenState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            eachOrderNoWidget(widget.pendingOrderReceivingList[index]
-                                .name, DateFormat('dd MMM yyyy').format(DateTime.parse(widget.pendingOrderReceivingList[index].dateOrder))),
+                            eachOrderNoWidget(
+                                widget.pendingOrderReceivingList[index].name,
+                                DateFormat('dd MMM yyyy').format(DateTime.parse(
+                                    widget.pendingOrderReceivingList[index]
+                                        .dateOrder))),
                             const SizedBox(height: 10),
                             textWidget(
                               widget.pendingOrderReceivingList[index]
@@ -86,7 +90,8 @@ class _PendingReceivingScreenState
                               size: 14,
                             ),
                             const SizedBox(height: 5),
-                            eachOrderAmountWidget("\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
+                            eachOrderAmountWidget(
+                                "\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
                             const SizedBox(height: 5),
                           ],
                         ),
@@ -122,7 +127,11 @@ class _PendingReceivingScreenState
                                 children: [
                                   eachOrderNoWidget(
                                       widget.pendingOrderReceivingList[index]
-                                          .name, DateFormat('dd MMM yyyy').format(DateTime.parse(widget.pendingOrderReceivingList[index].dateOrder))),
+                                          .name,
+                                      DateFormat('dd MMM yyyy').format(
+                                          DateTime.parse(widget
+                                              .pendingOrderReceivingList[index]
+                                              .dateOrder))),
                                   const SizedBox(height: 10),
                                   textWidget(
                                     widget.pendingOrderReceivingList[index]
@@ -132,11 +141,17 @@ class _PendingReceivingScreenState
                                     size: 14,
                                   ),
                                   const SizedBox(height: 5),
-                                  eachOrderAmountWidget("\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
+                                  eachOrderAmountWidget(
+                                      "\$ ${widget.pendingOrderReceivingList[index].amountTotal}"),
                                   const SizedBox(height: 10),
-                                  invoiceNumberOrderWidget("${widget.pendingOrderReceivingList[index].amountTotal}"),
+                                  invoiceNumberOrderWidget(
+                                      widget
+                                          .pendingOrderReceivingList[index].id,
+                                      "${widget.pendingOrderReceivingList[index].amountTotal}"),
                                   const SizedBox(height: 10),
-                                  doNumberOrderWidget(),
+                                  doNumberOrderWidget(
+                                    widget.pendingOrderReceivingList[index].id,
+                                  ),
                                 ],
                               ),
                             ),
@@ -250,8 +265,8 @@ class _PendingReceivingScreenState
     );
   }
 
-  Widget invoiceNumberOrderWidget(String totalAmount) {
-    txtAmount.text="\$ $totalAmount";
+  Widget invoiceNumberOrderWidget(int purchaseID, String totalAmount) {
+    txtAmount.text = "\$ $totalAmount";
     return Column(
       children: [
         Row(
@@ -265,7 +280,7 @@ class _PendingReceivingScreenState
                 angle: 90 * pi / 180,
                 child: IconButton(
                   onPressed: () {
-                    imageUploadBottomSheet(context);
+                    imageUploadBottomSheet(purchaseID, context);
                   },
                   icon: Icon(
                     Icons.attach_file_rounded,
@@ -335,7 +350,7 @@ class _PendingReceivingScreenState
     );
   }
 
-  Widget doNumberOrderWidget() {
+  Widget doNumberOrderWidget(int purchaseID) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -347,7 +362,7 @@ class _PendingReceivingScreenState
             angle: 90 * pi / 180,
             child: IconButton(
               onPressed: () {
-                imageUploadBottomSheet(context);
+                imageUploadBottomSheet(purchaseID, context);
               },
               icon: Icon(
                 Icons.attach_file_rounded,
@@ -360,7 +375,7 @@ class _PendingReceivingScreenState
     );
   }
 
-  imageUploadBottomSheet(BuildContext context) {
+  imageUploadBottomSheet(int purchaseID, BuildContext context) {
     return globalBottomSheet(
         Container(
           height: 25.h,
@@ -382,10 +397,10 @@ class _PendingReceivingScreenState
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               imageIconWidget(() {
-                pickImage(ImageSource.gallery, context, ref);
+                pickImage(purchaseID, ImageSource.gallery, context, ref);
               }, "Upload", Icons.logout),
               imageIconWidget(() {
-                pickImage(ImageSource.camera, context, ref);
+                pickImage(purchaseID, ImageSource.camera, context, ref);
               }, "Use camera", Icons.camera_enhance),
             ],
           ),
@@ -432,16 +447,17 @@ class _PendingReceivingScreenState
     );
   }
 
-  Future<void> pickImage(ImageSource source, context, WidgetRef ref) async {
+  Future<void> pickImage(
+      int purchaseID, ImageSource source, context, WidgetRef ref) async {
     try {
       final pickedFile = await picker.pickImage(source: source);
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
         base64Image = await imageToBase64(imageFile);
         Navigator.of(context).pop();
-        // ref
-        //     .read(profileStateNotifierProvider.notifier)
-        //     .imageUpload(base64Image, context);
+        ref
+            .read(uploadInvoiceNoStateNotifierProvider.notifier)
+            .uploadInvoiceByID(purchaseID, txtInvoiceNumber.text, base64Image);
       } else {
         superPrint('No image selected.');
       }
