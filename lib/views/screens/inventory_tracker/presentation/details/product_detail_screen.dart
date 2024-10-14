@@ -246,7 +246,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     superPrint("Here");
                     superPrint(productDetail.rackIdList);
                   });
-                }, Icons.edit_document, context, productDetail),
+                }, Icons.edit_document, context, productDetail, userWarehouse),
                 Transform.translate(
                   offset: Offset(0, 15.h),
                   child: productDetailBodyWidget(productDetail),
@@ -405,7 +405,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                         )
                       : StockOrderingWidget(productDetail: productDetail),
                 ),
-               
               ],
             ),
     );

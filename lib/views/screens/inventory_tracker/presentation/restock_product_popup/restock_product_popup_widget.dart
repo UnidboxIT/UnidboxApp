@@ -1,19 +1,19 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentation/widgets/each_my_return_product_widget.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
-
 import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
+import '../../repository/provider/restock_ordering_provider.dart';
 
 Future<void> restockProductPopUpWidget(
-    BuildContext context, Products productDetail) {
+    BuildContext context, Products productDetail, UserWarehouse userWarehouse) {
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
   return showModalBottomSheet(
@@ -167,7 +167,18 @@ Future<void> restockProductPopUpWidget(
                       ],
                     ),
                     const Spacer(),
-                    SizedBox(width: 30.w, child: buttonWidget("Save", () {})),
+                    SizedBox(
+                        width: 30.w,
+                        child: buttonWidget("Save", () {
+                          ref
+                              .read(restockOrderStateNotifierProvider.notifier)
+                              .restockOrder(
+                                  context,
+                                  productDetail.id,
+                                  productDetail.uomList[0],
+                                  1,
+                                  userWarehouse.warehouseList[0]);
+                        })),
                     SizedBox(height: 6.h)
                   ],
                 ),

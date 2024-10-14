@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import '../../../../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../domain/product.dart';
@@ -95,7 +96,8 @@ Widget productDetailAppBarWidget(
     VoidCallback iconOnPressed,
     IconData iconData,
     BuildContext context,
-    Products productDetail) {
+    Products productDetail,
+    UserWarehouse userWarehouse) {
   return Container(
     height: 20.h,
     width: 100.w,
@@ -155,7 +157,8 @@ Widget productDetailAppBarWidget(
               const SizedBox(width: 10),
               IconButton(
                 onPressed: () {
-                  restockProductPopUpWidget(context, productDetail);
+                  restockProductPopUpWidget(
+                      context, productDetail, userWarehouse);
                 },
                 icon: const Icon(
                   Icons.drive_folder_upload_outlined,

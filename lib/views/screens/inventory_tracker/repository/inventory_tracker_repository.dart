@@ -176,6 +176,29 @@ class InventoryTrackerRepository {
     return response;
   }
 
+  Future<Response> restockOrder(
+    int productID,
+    int productUom,
+    int productMinQty,
+    int warehouseID,
+  ) async {
+    Map<String, dynamic> formData = {
+      "product_id": productID,
+      "product_uom": productUom,
+      "product_min_qty": productMinQty,
+      "warehouse_id": warehouseID
+    };
+    superPrint(formData);
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock/reordering',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
   Future<Response> stockOrder(int productID) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
