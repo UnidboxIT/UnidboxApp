@@ -6,6 +6,8 @@ class OrderReceiving {
   double netAmount;
   List orderProduct;
   String name;
+  String invoiceNo;
+  String deliveryNo;
   List<OrderReceivingProduct> productList;
 
   OrderReceiving({
@@ -16,6 +18,8 @@ class OrderReceiving {
     this.netAmount = 0.0,
     this.orderProduct = const [],
     this.name = "",
+    this.invoiceNo = "",
+    this.deliveryNo = "",
     this.productList = const [],
   });
 
@@ -34,6 +38,8 @@ class OrderReceiving {
       netAmount: json['amount_untaxed'],
       orderProduct: json['partner_id'],
       name: json['name'],
+      invoiceNo: json['invoice_no'].toString(),
+      deliveryNo: json['delivery_no'].toString(),
       productList: productList,
     );
   }

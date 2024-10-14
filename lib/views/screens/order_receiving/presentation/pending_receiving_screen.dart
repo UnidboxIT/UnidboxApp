@@ -228,6 +228,12 @@ class _PendingReceivingScreenState
                                               .pendingOrderReceivingList[index]
                                               .netAmount
                                               .toString(),
+                                          invoiceNo: widget
+                                              .pendingOrderReceivingList[index]
+                                              .invoiceNo,
+                                          deliveryNo: widget
+                                              .pendingOrderReceivingList[index]
+                                              .deliveryNo,
                                         ),
                                       ),
                                     );

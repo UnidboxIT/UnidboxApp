@@ -26,6 +26,8 @@ class OrderReceivedDetailScreen extends ConsumerStatefulWidget {
   final String totalAmount;
   final String creditAmount;
   final String netAmount;
+  final String invoiceNo;
+  final String deliveryNo;
   final List<OrderReceivingProduct> productList;
 
   const OrderReceivedDetailScreen(
@@ -36,6 +38,8 @@ class OrderReceivedDetailScreen extends ConsumerStatefulWidget {
       required this.totalAmount,
       required this.productList,
       required this.creditAmount,
+      required this.invoiceNo,
+      required this.deliveryNo,
       required this.netAmount});
 
   @override
@@ -116,11 +120,17 @@ class _OrderReceivedDetailScreenState
       child: Column(
         children: [
           const SizedBox(height: 5),
-          invoiceAndDoNumberWidget("Invoice Number".toUpperCase(),
-              "I02/23/00012", Icons.edit_document, () {}),
+          invoiceAndDoNumberWidget(
+              "Invoice Number".toUpperCase(),
+              widget.invoiceNo == "false" ? "" : widget.invoiceNo,
+              Icons.edit_document,
+              () {}),
           const SizedBox(height: 20),
-          invoiceAndDoNumberWidget("DO Number".toUpperCase(), "D02/23/00012",
-              Icons.handyman_rounded, () {}),
+          invoiceAndDoNumberWidget(
+              "DO Number".toUpperCase(),
+              widget.deliveryNo == "false" ? "" : widget.deliveryNo,
+              Icons.handyman_rounded,
+              () {}),
           productServiceWidget(),
           productReceivedListViewWidget(),
           const SizedBox(height: 20),

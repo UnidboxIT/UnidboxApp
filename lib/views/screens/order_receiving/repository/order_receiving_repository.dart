@@ -11,7 +11,7 @@ class OrderReceivingRepository {
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total,amount_untaxed,amount_tax&user_id=${admin.uid}&state=purchase',
+          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total,amount_untaxed,amount_tax,invoice_no,delivery_no&user_id=${admin.uid}&state=purchase',
       headers: CommonMethods.setHeaders(),
     );
 
