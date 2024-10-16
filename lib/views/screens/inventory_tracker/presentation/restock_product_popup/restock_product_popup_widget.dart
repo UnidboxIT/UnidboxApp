@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/my_return/presentation/widgets/each_my_return_product_widget.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/restock_order_state/restock_order_state.dart';
 import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
@@ -16,6 +17,7 @@ Future<void> restockProductPopUpWidget(
     BuildContext context, Products productDetail, UserWarehouse userWarehouse) {
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
+  bool isRestock = false;
   return showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.black.withOpacity(0.1),
@@ -37,6 +39,16 @@ Future<void> restockProductPopUpWidget(
               .bottom, // To ensure the sheet is above the keyboard
         ),
         child: Consumer(builder: (context, ref, child) {
+          final state = ref.watch(restockOrderStateNotifierProvider);
+          if (state is RestockOrderLoading) {
+            isRestock = true;
+          }
+          if (state is RestockOrderSuccess) {
+            isRestock = false;
+          }
+          if (state is RestockOrderError) {
+            isRestock = false;
+          }
           return Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: BackdropFilter(
@@ -178,7 +190,7 @@ Future<void> restockProductPopUpWidget(
                                   productDetail.uomList[0],
                                   1,
                                   userWarehouse.warehouseList[0]);
-                        })),
+                        }, isBool: isRestock)),
                     SizedBox(height: 6.h)
                   ],
                 ),

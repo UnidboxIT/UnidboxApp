@@ -31,16 +31,18 @@ class RestockOrderStateNotifier extends StateNotifier<RestockOrderState> {
       superPrint(response.body);
       var result = jsonDecode(response.body);
       superPrint(result);
+
       if (result['result']['message'] == "success") {
-        // successfullyBottomSheet(
-        //         "Order Submitted!", "Find order in delivery orders", () {
-        //   Navigator.of(context).pop();
-        // }, context)
-        //     .then((_) {
-        //   Navigator.of(context).pop();
-        // });
+        successfullyBottomSheet("Auto Restock Confirmed",
+                "Restock details will be auto send to\ndefault vendor", () {
+          Navigator.of(context).pop();
+        }, context)
+            .then((_) {
+          Navigator.of(context).pop();
+        });
       } else {
-        successfullyBottomSheet("Order Submitted Fail!", result['message'], () {
+        successfullyBottomSheet("Auto Restock Confirmed", result['message'],
+            () {
           Navigator.of(context).pop();
         }, context);
       }
