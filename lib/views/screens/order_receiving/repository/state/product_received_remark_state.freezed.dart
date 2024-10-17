@@ -18,8 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProductReceivedRemarkState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -31,7 +30,7 @@ mixin _$ProductReceivedRemarkState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -42,7 +41,7 @@ mixin _$ProductReceivedRemarkState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -115,7 +114,7 @@ abstract class _$$ProductReceivedRemarkListImplCopyWith<$Res> {
           $Res Function(_$ProductReceivedRemarkListImpl) then) =
       __$$ProductReceivedRemarkListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ReturnRequestReason> productReceivedRemarkList});
+  $Res call({List<ReasonsData> productReceivedRemarkList});
 }
 
 /// @nodoc
@@ -137,7 +136,7 @@ class __$$ProductReceivedRemarkListImplCopyWithImpl<$Res>
       null == productReceivedRemarkList
           ? _value._productReceivedRemarkList
           : productReceivedRemarkList // ignore: cast_nullable_to_non_nullable
-              as List<ReturnRequestReason>,
+              as List<ReasonsData>,
     ));
   }
 }
@@ -146,12 +145,12 @@ class __$$ProductReceivedRemarkListImplCopyWithImpl<$Res>
 
 class _$ProductReceivedRemarkListImpl implements ProductReceivedRemarkList {
   const _$ProductReceivedRemarkListImpl(
-      final List<ReturnRequestReason> productReceivedRemarkList)
+      final List<ReasonsData> productReceivedRemarkList)
       : _productReceivedRemarkList = productReceivedRemarkList;
 
-  final List<ReturnRequestReason> _productReceivedRemarkList;
+  final List<ReasonsData> _productReceivedRemarkList;
   @override
-  List<ReturnRequestReason> get productReceivedRemarkList {
+  List<ReasonsData> get productReceivedRemarkList {
     if (_productReceivedRemarkList is EqualUnmodifiableListView)
       return _productReceivedRemarkList;
     // ignore: implicit_dynamic_type
@@ -186,8 +185,7 @@ class _$ProductReceivedRemarkListImpl implements ProductReceivedRemarkList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -202,7 +200,7 @@ class _$ProductReceivedRemarkListImpl implements ProductReceivedRemarkList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -216,7 +214,7 @@ class _$ProductReceivedRemarkListImpl implements ProductReceivedRemarkList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -280,10 +278,10 @@ class _$ProductReceivedRemarkListImpl implements ProductReceivedRemarkList {
 
 abstract class ProductReceivedRemarkList implements ProductReceivedRemarkState {
   const factory ProductReceivedRemarkList(
-          final List<ReturnRequestReason> productReceivedRemarkList) =
+          final List<ReasonsData> productReceivedRemarkList) =
       _$ProductReceivedRemarkListImpl;
 
-  List<ReturnRequestReason> get productReceivedRemarkList;
+  List<ReasonsData> get productReceivedRemarkList;
   @JsonKey(ignore: true)
   _$$ProductReceivedRemarkListImplCopyWith<_$ProductReceivedRemarkListImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -370,8 +368,7 @@ class _$SelectedProductReceivedRemarkImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -386,7 +383,7 @@ class _$SelectedProductReceivedRemarkImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -401,7 +398,7 @@ class _$SelectedProductReceivedRemarkImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -514,8 +511,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -530,7 +526,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -544,7 +540,7 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -652,8 +648,7 @@ class _$ProducReceivedRemarkLoadingImpl implements ProducReceivedRemarkLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -668,7 +663,7 @@ class _$ProducReceivedRemarkLoadingImpl implements ProducReceivedRemarkLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -682,7 +677,7 @@ class _$ProducReceivedRemarkLoadingImpl implements ProducReceivedRemarkLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -818,8 +813,7 @@ class _$ProducReceivedRemarkErrorImpl implements ProducReceivedRemarkError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<ReturnRequestReason> productReceivedRemarkList)
+    required TResult Function(List<ReasonsData> productReceivedRemarkList)
         loadProductReceivedRemark,
     required TResult Function(
             Map<String, dynamic> selectedProductReceivedRemark)
@@ -834,7 +828,7 @@ class _$ProducReceivedRemarkErrorImpl implements ProducReceivedRemarkError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult? Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult? Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,
@@ -848,7 +842,7 @@ class _$ProducReceivedRemarkErrorImpl implements ProducReceivedRemarkError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ReturnRequestReason> productReceivedRemarkList)?
+    TResult Function(List<ReasonsData> productReceivedRemarkList)?
         loadProductReceivedRemark,
     TResult Function(Map<String, dynamic> selectedProductReceivedRemark)?
         selectedProductReceivedRemark,

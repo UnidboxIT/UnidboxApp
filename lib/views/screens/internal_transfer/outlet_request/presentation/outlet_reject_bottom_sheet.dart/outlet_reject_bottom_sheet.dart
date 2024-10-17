@@ -54,7 +54,12 @@ class OutletRejectWidget extends ConsumerStatefulWidget {
 
 class _OutletRejectWidgetState extends ConsumerState<OutletRejectWidget> {
   ReasonsData selectedRejectReason = ReasonsData(
-      id: 0, name: '', newRequest: false, option: '', reject: false);
+      id: 0,
+      name: '',
+      newRequest: false,
+      option: '',
+      reject: false,
+      purchase: false);
   TextEditingController txtOtherRemark = TextEditingController();
   bool isOther = false;
   int acceptProductID = -1;

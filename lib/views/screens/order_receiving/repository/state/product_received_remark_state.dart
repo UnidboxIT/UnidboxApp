@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../internal_transfer/my_request/domain/return_request_reason.dart';
+import '../../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 part 'product_received_remark_state.freezed.dart';
 
 extension Getters on ProductReceivedRemarkState {
@@ -10,8 +10,7 @@ extension Getters on ProductReceivedRemarkState {
 @freezed
 class ProductReceivedRemarkState with _$ProductReceivedRemarkState {
   const factory ProductReceivedRemarkState.loadProductReceivedRemark(
-          List<ReturnRequestReason> productReceivedRemarkList) =
-      ProductReceivedRemarkList;
+      List<ReasonsData> productReceivedRemarkList) = ProductReceivedRemarkList;
   const factory ProductReceivedRemarkState.selectedProductReceivedRemark(
           Map<String, dynamic> selectedProductReceivedRemark) =
       SelectedProductReceivedRemark;

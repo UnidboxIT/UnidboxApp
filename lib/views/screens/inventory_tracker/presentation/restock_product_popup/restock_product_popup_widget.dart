@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/constant/app_color.dart';
@@ -13,11 +14,14 @@ import '../../domain/product.dart';
 import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/restock_ordering_provider.dart';
 
+TextEditingController txtQty = TextEditingController();
 Future<void> restockProductPopUpWidget(
     BuildContext context, Products productDetail, UserWarehouse userWarehouse) {
+  txtQty.clear();
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
   bool isRestock = false;
+  // txtQty.text = productDetail.
   return showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.black.withOpacity(0.1),
@@ -48,6 +52,15 @@ Future<void> restockProductPopUpWidget(
           }
           if (state is RestockOrderError) {
             isRestock = false;
+          }
+          if (state is IncrementRestockOrderQty) {
+            txtQty.text = state.qty.toString();
+          }
+          if (state is DecrementRestockOrderQty) {
+            txtQty.text = state.qty.toString();
+          }
+          if (state is SetRestockTextFieldValue) {
+            txtQty.text = state.qty.toString();
           }
           return Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -115,16 +128,67 @@ Future<void> restockProductPopUpWidget(
                         textWidget("Min"),
                         const SizedBox(width: 10),
                         addMinusIconButtonWidget(
-                          () {},
+                          () {
+                            ref
+                                .read(
+                                    restockOrderStateNotifierProvider.notifier)
+                                .restockDecrementQty(int.parse(txtQty.text));
+                          },
                           CupertinoIcons.minus_circle_fill,
                           Colors.green.withOpacity(0.4),
                           size: 40,
                         ),
                         const SizedBox(width: 15),
-                        textWidget("3", size: 20, fontWeight: FontWeight.bold),
+                        SizedBox(
+                          height: 45,
+                          width: 28.w,
+                          child: TextFormField(
+                            controller: txtQty,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            cursorColor: AppColor.primary,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                txtQty.text = value;
+                                ref
+                                    .read(restockOrderStateNotifierProvider
+                                        .notifier)
+                                    .setTextFieldWhValue(
+                                        int.parse(txtQty.text));
+                              }
+                            },
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
                         const SizedBox(width: 15),
                         addMinusIconButtonWidget(
-                          () {},
+                          () {
+                            ref
+                                .read(
+                                    restockOrderStateNotifierProvider.notifier)
+                                .restockIncremetQty(int.parse(txtQty.text));
+                          },
                           CupertinoIcons.add_circled_solid,
                           AppColor.primary,
                           size: 40,
@@ -188,7 +252,7 @@ Future<void> restockProductPopUpWidget(
                                   context,
                                   productDetail.id,
                                   productDetail.uomList[0],
-                                  1,
+                                  int.parse(txtQty.text),
                                   userWarehouse.warehouseList[0]);
                         }, isBool: isRestock)),
                     SizedBox(height: 6.h)

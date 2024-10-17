@@ -18,32 +18,35 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RestockOrderState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -57,6 +60,8 @@ mixin _$RestockOrderState {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +72,7 @@ mixin _$RestockOrderState {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,6 +83,7 @@ mixin _$RestockOrderState {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,7 +114,7 @@ abstract class _$$IncrementRestockOrderQtyImplCopyWith<$Res> {
           $Res Function(_$IncrementRestockOrderQtyImpl) then) =
       __$$IncrementRestockOrderQtyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, int> qty});
+  $Res call({int qty});
 }
 
 /// @nodoc
@@ -127,9 +134,9 @@ class __$$IncrementRestockOrderQtyImplCopyWithImpl<$Res>
   }) {
     return _then(_$IncrementRestockOrderQtyImpl(
       null == qty
-          ? _value._qty
+          ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
+              as int,
     ));
   }
 }
@@ -137,15 +144,10 @@ class __$$IncrementRestockOrderQtyImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
-  const _$IncrementRestockOrderQtyImpl(final Map<int, int> qty) : _qty = qty;
+  const _$IncrementRestockOrderQtyImpl(this.qty);
 
-  final Map<int, int> _qty;
   @override
-  Map<int, int> get qty {
-    if (_qty is EqualUnmodifiableMapView) return _qty;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_qty);
-  }
+  final int qty;
 
   @override
   String toString() {
@@ -157,12 +159,11 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IncrementRestockOrderQtyImpl &&
-            const DeepCollectionEquality().equals(other._qty, _qty));
+            (identical(other.qty, qty) || other.qty == qty));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
+  int get hashCode => Object.hash(runtimeType, qty);
 
   @JsonKey(ignore: true)
   @override
@@ -174,12 +175,13 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return incrementRestockOrder(qty);
   }
@@ -187,12 +189,13 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return incrementRestockOrder?.call(qty);
   }
@@ -200,12 +203,13 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (incrementRestockOrder != null) {
@@ -225,6 +229,8 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return incrementRestockOrder(this);
   }
@@ -238,6 +244,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return incrementRestockOrder?.call(this);
   }
@@ -251,6 +258,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (incrementRestockOrder != null) {
@@ -261,10 +269,10 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
 }
 
 abstract class IncrementRestockOrderQty implements RestockOrderState {
-  const factory IncrementRestockOrderQty(final Map<int, int> qty) =
+  const factory IncrementRestockOrderQty(final int qty) =
       _$IncrementRestockOrderQtyImpl;
 
-  Map<int, int> get qty;
+  int get qty;
   @JsonKey(ignore: true)
   _$$IncrementRestockOrderQtyImplCopyWith<_$IncrementRestockOrderQtyImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -277,7 +285,7 @@ abstract class _$$DecrementRestockOrderQtyImplCopyWith<$Res> {
           $Res Function(_$DecrementRestockOrderQtyImpl) then) =
       __$$DecrementRestockOrderQtyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, int> qty});
+  $Res call({int qty});
 }
 
 /// @nodoc
@@ -297,9 +305,9 @@ class __$$DecrementRestockOrderQtyImplCopyWithImpl<$Res>
   }) {
     return _then(_$DecrementRestockOrderQtyImpl(
       null == qty
-          ? _value._qty
+          ? _value.qty
           : qty // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
+              as int,
     ));
   }
 }
@@ -307,15 +315,10 @@ class __$$DecrementRestockOrderQtyImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
-  const _$DecrementRestockOrderQtyImpl(final Map<int, int> qty) : _qty = qty;
+  const _$DecrementRestockOrderQtyImpl(this.qty);
 
-  final Map<int, int> _qty;
   @override
-  Map<int, int> get qty {
-    if (_qty is EqualUnmodifiableMapView) return _qty;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_qty);
-  }
+  final int qty;
 
   @override
   String toString() {
@@ -327,12 +330,11 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DecrementRestockOrderQtyImpl &&
-            const DeepCollectionEquality().equals(other._qty, _qty));
+            (identical(other.qty, qty) || other.qty == qty));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_qty));
+  int get hashCode => Object.hash(runtimeType, qty);
 
   @JsonKey(ignore: true)
   @override
@@ -344,12 +346,13 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return decremenRestockOrder(qty);
   }
@@ -357,12 +360,13 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return decremenRestockOrder?.call(qty);
   }
@@ -370,12 +374,13 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (decremenRestockOrder != null) {
@@ -395,6 +400,8 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return decremenRestockOrder(this);
   }
@@ -408,6 +415,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return decremenRestockOrder?.call(this);
   }
@@ -421,6 +429,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (decremenRestockOrder != null) {
@@ -431,10 +440,10 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
 }
 
 abstract class DecrementRestockOrderQty implements RestockOrderState {
-  const factory DecrementRestockOrderQty(final Map<int, int> qty) =
+  const factory DecrementRestockOrderQty(final int qty) =
       _$DecrementRestockOrderQtyImpl;
 
-  Map<int, int> get qty;
+  int get qty;
   @JsonKey(ignore: true)
   _$$DecrementRestockOrderQtyImplCopyWith<_$DecrementRestockOrderQtyImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -478,12 +487,13 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return initial();
   }
@@ -491,12 +501,13 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return initial?.call();
   }
@@ -504,12 +515,13 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -529,6 +541,8 @@ class _$InitialImpl implements Initial {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return initial(this);
   }
@@ -542,6 +556,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return initial?.call(this);
   }
@@ -555,6 +570,7 @@ class _$InitialImpl implements Initial {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -607,12 +623,13 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return loading();
   }
@@ -620,12 +637,13 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return loading?.call();
   }
@@ -633,12 +651,13 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -658,6 +677,8 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return loading(this);
   }
@@ -671,6 +692,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return loading?.call(this);
   }
@@ -684,6 +706,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -762,12 +785,13 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return error(this.error);
   }
@@ -775,12 +799,13 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return error?.call(this.error);
   }
@@ -788,12 +813,13 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -813,6 +839,8 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return error(this);
   }
@@ -826,6 +854,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return error?.call(this);
   }
@@ -839,6 +868,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -923,12 +953,13 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, int> qty) incrementRestockOrder,
-    required TResult Function(Map<int, int> qty) decremenRestockOrder,
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
   }) {
     return success(this.success);
   }
@@ -936,12 +967,13 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult? Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
   }) {
     return success?.call(this.success);
   }
@@ -949,12 +981,13 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, int> qty)? incrementRestockOrder,
-    TResult Function(Map<int, int> qty)? decremenRestockOrder,
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -974,6 +1007,8 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     required TResult Function(RestockOrderLoading value) loading,
     required TResult Function(RestockOrderError value) error,
     required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
   }) {
     return success(this);
   }
@@ -987,6 +1022,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult? Function(RestockOrderLoading value)? loading,
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
   }) {
     return success?.call(this);
   }
@@ -1000,6 +1036,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult Function(RestockOrderLoading value)? loading,
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1017,4 +1054,175 @@ abstract class RestockOrderSuccess implements RestockOrderState {
   @JsonKey(ignore: true)
   _$$RestockOrderSuccessImplCopyWith<_$RestockOrderSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetRestockTextFieldValueImplCopyWith<$Res> {
+  factory _$$SetRestockTextFieldValueImplCopyWith(
+          _$SetRestockTextFieldValueImpl value,
+          $Res Function(_$SetRestockTextFieldValueImpl) then) =
+      __$$SetRestockTextFieldValueImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int qty});
+}
+
+/// @nodoc
+class __$$SetRestockTextFieldValueImplCopyWithImpl<$Res>
+    extends _$RestockOrderStateCopyWithImpl<$Res,
+        _$SetRestockTextFieldValueImpl>
+    implements _$$SetRestockTextFieldValueImplCopyWith<$Res> {
+  __$$SetRestockTextFieldValueImplCopyWithImpl(
+      _$SetRestockTextFieldValueImpl _value,
+      $Res Function(_$SetRestockTextFieldValueImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? qty = null,
+  }) {
+    return _then(_$SetRestockTextFieldValueImpl(
+      null == qty
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
+  const _$SetRestockTextFieldValueImpl(this.qty);
+
+  @override
+  final int qty;
+
+  @override
+  String toString() {
+    return 'RestockOrderState.setResotckTextFieldValue(qty: $qty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetRestockTextFieldValueImpl &&
+            (identical(other.qty, qty) || other.qty == qty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, qty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SetRestockTextFieldValueImplCopyWith<_$SetRestockTextFieldValueImpl>
+      get copyWith => __$$SetRestockTextFieldValueImplCopyWithImpl<
+          _$SetRestockTextFieldValueImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
+  }) {
+    return setResotckTextFieldValue(qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
+  }) {
+    return setResotckTextFieldValue?.call(qty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
+    required TResult orElse(),
+  }) {
+    if (setResotckTextFieldValue != null) {
+      return setResotckTextFieldValue(qty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(IncrementRestockOrderQty value)
+        incrementRestockOrder,
+    required TResult Function(DecrementRestockOrderQty value)
+        decremenRestockOrder,
+    required TResult Function(Initial value) initial,
+    required TResult Function(RestockOrderLoading value) loading,
+    required TResult Function(RestockOrderError value) error,
+    required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
+  }) {
+    return setResotckTextFieldValue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(IncrementRestockOrderQty value)? incrementRestockOrder,
+    TResult? Function(DecrementRestockOrderQty value)? decremenRestockOrder,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(RestockOrderLoading value)? loading,
+    TResult? Function(RestockOrderError value)? error,
+    TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+  }) {
+    return setResotckTextFieldValue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(IncrementRestockOrderQty value)? incrementRestockOrder,
+    TResult Function(DecrementRestockOrderQty value)? decremenRestockOrder,
+    TResult Function(Initial value)? initial,
+    TResult Function(RestockOrderLoading value)? loading,
+    TResult Function(RestockOrderError value)? error,
+    TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    required TResult orElse(),
+  }) {
+    if (setResotckTextFieldValue != null) {
+      return setResotckTextFieldValue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SetRestockTextFieldValue implements RestockOrderState {
+  const factory SetRestockTextFieldValue(final int qty) =
+      _$SetRestockTextFieldValueImpl;
+
+  int get qty;
+  @JsonKey(ignore: true)
+  _$$SetRestockTextFieldValueImplCopyWith<_$SetRestockTextFieldValueImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

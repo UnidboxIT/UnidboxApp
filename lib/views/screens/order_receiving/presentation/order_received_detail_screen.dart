@@ -15,7 +15,7 @@ import 'package:unidbox_app/views/widgets/button/button_widget.dart';
 import 'package:unidbox_app/views/widgets/text_widget.dart';
 import '../../../../utils/commons/super_print.dart';
 import '../../../widgets/bottom_sheets/global_bottom_sheet.dart';
-import '../../internal_transfer/my_request/domain/return_request_reason.dart';
+import '../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import '../domain/order_receiving.dart';
 import 'widgets/app_bar_order_detail_widget.dart';
 
@@ -52,7 +52,7 @@ class _OrderReceivedDetailScreenState
   File imageFile = File("");
   final ImagePicker picker = ImagePicker();
   String base64Image = "";
-  List<ReturnRequestReason> productRemarkList = [];
+  List<ReasonsData> productRemarkList = [];
   Map<String, dynamic> productRemarkMap = {};
 
   List receivedLine = [];
@@ -462,7 +462,7 @@ class _OrderReceivedDetailScreenState
                 .map((item) => DropdownMenuItem(
                       value: item,
                       child: Text(
-                        item.reason,
+                        item.name,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w700,

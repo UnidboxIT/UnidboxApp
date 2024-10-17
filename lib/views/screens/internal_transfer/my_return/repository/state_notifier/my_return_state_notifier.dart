@@ -8,7 +8,6 @@ import '../../../../../../utils/commons/super_print.dart';
 import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../../inventory_tracker/domain/product.dart';
 import '../../../my_request/domain/my_request.dart';
-import '../../../my_request/domain/return_request_reason.dart';
 import '../../presentation/make_new_my_return_screen.dart';
 import '../../presentation/search_make_new_return_product_screen.dart';
 import '../my_return_repository.dart';
@@ -20,7 +19,6 @@ class MyReturnStateNotifier extends StateNotifier<MyReturnState> {
 
   final MyReturnRepository _myRequestRepository;
   List<MyRequest> myReturnList = [];
-  List<ReturnRequestReason> returnRequestReasonList = [];
   List<Products> scanProductList = [];
   List<Products> searchProductList = [];
 

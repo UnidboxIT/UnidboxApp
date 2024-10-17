@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/services/api_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
@@ -50,8 +51,6 @@ class _CheckOutOrderDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-
-
     ref.listen(stockOrderStateNotifierProvider, (pre, next) {
       if (next is OrderFormDataList) {
         setState(() {
@@ -142,9 +141,15 @@ class _CheckOutOrderDetailScreenState
                           height: 45,
                           width: 30.w,
                           child: buttonWidget("Submit", () {
+                            superPrint("$baseUrl"
+                                "report/pdf/purchase.report_purchaseorder/2577");
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => PurchaseOrderPdfViewScreen(
+                            //         imageUrl: "$baseUrl"
+                            //             "report/pdf/purchase.report_purchaseorder/2577")));
                             ref
                                 .read(stockOrderStateNotifierProvider.notifier)
-                                .viewPurchasePdfFile(context,"2577");
+                                .viewPurchasePdfFile(context, "2577");
                             // ref
                             //     .read(stockOrderStateNotifierProvider.notifier)
                             //     .submitPurchaseOrder(context, purchaseID);

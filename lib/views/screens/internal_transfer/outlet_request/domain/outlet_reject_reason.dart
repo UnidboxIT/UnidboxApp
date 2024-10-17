@@ -4,12 +4,14 @@ class ReasonsData {
   bool newRequest;
   String option;
   bool reject;
+  bool purchase;
   ReasonsData(
       {required this.id,
       required this.name,
       required this.newRequest,
       required this.option,
-      required this.reject});
+      required this.reject,
+      required this.purchase});
 
   factory ReasonsData.fromJson(Map<String, dynamic> json) {
     return ReasonsData(
@@ -18,6 +20,7 @@ class ReasonsData {
       newRequest: json['new_request'] ?? false,
       option: json['option'].toString(),
       reject: json['reject'] ?? false,
+      purchase: json['purchase'] ?? false,
     );
   }
 }

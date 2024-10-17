@@ -40,17 +40,34 @@ class RestockOrderStateNotifier extends StateNotifier<RestockOrderState> {
             .then((_) {
           Navigator.of(context).pop();
         });
+        state = RestockOrderState.success(
+            success: result['result']['message'].toString());
       } else {
         successfullyBottomSheet("Auto Restock Confirmed", result['message'],
             () {
           Navigator.of(context).pop();
         }, context);
+        state = RestockOrderState.error(error: result['message'].toString());
       }
-      state = RestockOrderState.success(
-          success: result['result']['message'].toString());
     } catch (e) {
       state = RestockOrderState.error(error: e.toString());
       superPrint(e);
     }
+  }
+
+  restockIncremetQty(int qty) {
+    qty++;
+    state = RestockOrderState.incrementRestockOrder(qty);
+  }
+
+  restockDecrementQty(int qty) {
+    if (qty > 1) {
+      qty--;
+      state = RestockOrderState.decremenRestockOrder(qty);
+    }
+  }
+
+  setTextFieldWhValue(int qty) {
+    state = RestockOrderState.setResotckTextFieldValue(qty);
   }
 }

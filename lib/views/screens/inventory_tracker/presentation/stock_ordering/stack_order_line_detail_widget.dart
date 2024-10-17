@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
-import 'package:unidbox_app/views/screens/internal_transfer/my_request/domain/return_request_reason.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/state/stock_order/good_return_state.dart';
 import 'package:unidbox_app/views/screens/order_receiving/domain/order_receiving.dart';
 import '../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
 import '../../../internal_transfer/my_request/presentation/widgets/each_product_line_widget.dart';
+import '../../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/stock_order/order_form_reason_state.dart';
 
@@ -369,7 +369,7 @@ Widget addMinusOrderFormIconButtonWidget(IconData iconData) {
 Widget dropdownOrderFormReturnWidget(String purchaseID) {
   Map<String, int> orderReasonQty = {};
   Map<String, dynamic> orderFormReasonMap = {};
-  List<ReturnRequestReason> orderFormReasonList = [];
+  List<ReasonsData> orderFormReasonList = [];
 
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(orderFormReasonStateNotifier);
@@ -421,7 +421,7 @@ Widget dropdownOrderFormReturnWidget(String purchaseID) {
                     .map((item) => DropdownMenuItem(
                           value: item,
                           child: Text(
-                            item.reason,
+                            item.name,
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,

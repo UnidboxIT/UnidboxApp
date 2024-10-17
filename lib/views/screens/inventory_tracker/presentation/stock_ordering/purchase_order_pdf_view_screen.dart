@@ -1,19 +1,25 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
 
 class PurchaseOrderPdfViewScreen extends StatefulWidget {
-  final String filePath;
-  const PurchaseOrderPdfViewScreen({super.key, required this.filePath});
+  final Uint8List imageUrl;
+  const PurchaseOrderPdfViewScreen({super.key, required this.imageUrl});
 
   @override
-  State<PurchaseOrderPdfViewScreen> createState() => _PurchaseOrderPdfViewScreenState();
+  State<PurchaseOrderPdfViewScreen> createState() =>
+      _PurchaseOrderPdfViewScreenState();
 }
 
-class _PurchaseOrderPdfViewScreenState extends State<PurchaseOrderPdfViewScreen> {
+class _PurchaseOrderPdfViewScreenState
+    extends State<PurchaseOrderPdfViewScreen> {
   @override
   Widget build(BuildContext context) {
-    return SuperScaffold(child: Scaffold(body: Container(child: PDFView(filePath: widget.filePath,),),));
+    return SuperScaffold(
+        child: Scaffold(
+      body: Container(
+        child: Image.memory(widget.imageUrl),
+      ),
+    ));
   }
 }

@@ -4,14 +4,14 @@ import 'package:http/http.dart';
 import 'package:unidbox_app/views/screens/order_receiving/repository/order_receiving_repository.dart';
 import 'package:unidbox_app/views/screens/order_receiving/repository/state/product_received_remark_state.dart';
 import '../../../../../../utils/commons/super_print.dart';
-import '../../../internal_transfer/my_request/domain/return_request_reason.dart';
+import '../../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 
 class ProductReceivedRemarkStateNotifier
     extends StateNotifier<ProductReceivedRemarkState> {
   ProductReceivedRemarkStateNotifier(this._orderReceivingRepository)
       : super(const ProductReceivedRemarkState.initial());
   final OrderReceivingRepository _orderReceivingRepository;
-  List<ReturnRequestReason> productRemarkList = [];
+  List<ReasonsData> productRemarkList = [];
 
   Future<void> getProductReceivedRemark() async {
     try {
@@ -23,7 +23,7 @@ class ProductReceivedRemarkStateNotifier
       var result = jsonDecode(response.body);
       Iterable dataList = result['result']['records'];
       for (var element in dataList) {
-        productRemarkList.add(ReturnRequestReason.fromJson(element));
+        productRemarkList.add(ReasonsData.fromJson(element));
       }
       state = ProductReceivedRemarkState.loadProductReceivedRemark(
           productRemarkList);
