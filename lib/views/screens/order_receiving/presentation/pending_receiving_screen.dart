@@ -37,10 +37,12 @@ class _PendingReceivingScreenState
   final ImagePicker picker = ImagePicker();
   String base64Image = "";
   //TextEditingController txtInvoiceNumber = TextEditingController();
-  TextEditingController txtAmount = TextEditingController();
-  TextEditingController txtDoNumber = TextEditingController();
+  // TextEditingController txtAmount = TextEditingController();
+  // TextEditingController txtDoNumber = TextEditingController();
   List<int> visiblityIndex = [];
-  final Map<int, TextEditingController> controllers = {};
+  final Map<int, TextEditingController> txtInvoiceNumber = {};
+  final Map<int, TextEditingController> txtDoNumber = {};
+  final Map<int, TextEditingController> txtAmount = {};
 
   @override
   void initState() {
@@ -49,7 +51,9 @@ class _PendingReceivingScreenState
 
   @override
   void dispose() {
-    controllers.forEach((key, controller) => controller.dispose());
+    txtInvoiceNumber.forEach((key, controller) => controller.dispose());
+    txtDoNumber.forEach((key, controller) => controller.dispose());
+    txtAmount.forEach((key, controller) => controller.dispose());
     super.dispose();
   }
 
@@ -61,9 +65,19 @@ class _PendingReceivingScreenState
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             itemBuilder: (context, index) {
-              if (!controllers
+              if (!txtInvoiceNumber
                   .containsKey(widget.pendingOrderReceivingList[index].id)) {
-                controllers[widget.pendingOrderReceivingList[index].id] =
+                txtInvoiceNumber[widget.pendingOrderReceivingList[index].id] =
+                    TextEditingController();
+              }
+              if (!txtDoNumber
+                  .containsKey(widget.pendingOrderReceivingList[index].id)) {
+                txtDoNumber[widget.pendingOrderReceivingList[index].id] =
+                    TextEditingController();
+              }
+              if (!txtAmount
+                  .containsKey(widget.pendingOrderReceivingList[index].id)) {
+                txtAmount[widget.pendingOrderReceivingList[index].id] =
                     TextEditingController();
               }
               return !visiblityIndex.contains(index)
@@ -164,8 +178,10 @@ class _PendingReceivingScreenState
                                           .invoiceNo),
                                   const SizedBox(height: 10),
                                   doNumberOrderWidget(
-                                    widget.pendingOrderReceivingList[index].id,
-                                  ),
+                                      widget
+                                          .pendingOrderReceivingList[index].id,
+                                      widget.pendingOrderReceivingList[index]
+                                          .deliveryNo),
                                 ],
                               ),
                             ),
@@ -303,7 +319,9 @@ class _PendingReceivingScreenState
 
   Widget invoiceNumberOrderWidget(
       int purchaseID, String totalAmount, String invoiceNumber) {
-    txtAmount.text = "\$ $totalAmount";
+    txtAmount[purchaseID]?.text = "\$ $totalAmount";
+    txtInvoiceNumber[purchaseID]?.text =
+        invoiceNumber == "false" ? "" : invoiceNumber;
     return Column(
       children: [
         Row(
@@ -311,7 +329,8 @@ class _PendingReceivingScreenState
           children: [
             Expanded(flex: 4, child: textWidget("Invoice Number :", size: 13)),
             Expanded(
-                flex: 6, child: eachTextFieldWidget(controllers[purchaseID]!)),
+                flex: 6,
+                child: eachTextFieldWidget(txtInvoiceNumber[purchaseID]!)),
             Expanded(
               flex: 2,
               child: Transform.rotate(
@@ -344,7 +363,8 @@ class _PendingReceivingScreenState
                     textWidget("(GST Excluded)", size: 11)
                   ],
                 )),
-            Expanded(flex: 6, child: eachTextFieldWidget(txtAmount)),
+            Expanded(
+                flex: 6, child: eachTextFieldWidget(txtAmount[purchaseID]!)),
             Expanded(flex: 2, child: SizedBox.fromSize())
           ],
         ))
@@ -389,12 +409,13 @@ class _PendingReceivingScreenState
     );
   }
 
-  Widget doNumberOrderWidget(int purchaseID) {
+  Widget doNumberOrderWidget(int purchaseID, String doNumber) {
+    txtDoNumber[purchaseID]?.text = doNumber == "false" ? "" : doNumber;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(flex: 4, child: textWidget("DO Number :", size: 13)),
-        Expanded(flex: 6, child: eachTextFieldWidget(txtDoNumber)),
+        Expanded(flex: 6, child: eachTextFieldWidget(txtDoNumber[purchaseID]!)),
         Expanded(
           flex: 2,
           child: Transform.rotate(
@@ -498,11 +519,19 @@ class _PendingReceivingScreenState
         imageFile = File(pickedFile.path);
         base64Image = await imageToBase64(imageFile);
         Navigator.of(context).pop();
-        ref
-            .read(uploadInvoiceNoStateNotifierProvider.notifier)
-            .uploadInvoiceByID(purchaseID, controllers[purchaseID]!.text,
-                base64Image, pickedFile.name,
-                isDoNumber: isDoNumber);
+        if (isDoNumber) {
+          ref
+              .read(uploadInvoiceNoStateNotifierProvider.notifier)
+              .uploadInvoiceByID(purchaseID, txtDoNumber[purchaseID]!.text,
+                  base64Image, pickedFile.name,
+                  isDoNumber: isDoNumber);
+        } else {
+          ref
+              .read(uploadInvoiceNoStateNotifierProvider.notifier)
+              .uploadInvoiceByID(purchaseID, txtInvoiceNumber[purchaseID]!.text,
+                  base64Image, pickedFile.name,
+                  isDoNumber: isDoNumber);
+        }
       } else {
         superPrint('No image selected.');
       }
