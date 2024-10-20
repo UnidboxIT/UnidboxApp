@@ -58,12 +58,14 @@ class _OrderReceivedDetailScreenState
   List receivedLine = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(productReceivedRemarkStateNotifierProvider.notifier)
           .getProductReceivedRemark();
+      ref
+          .read(pendingOrderReceivingStateNotifierProvider.notifier)
+          .getReceiveDetailByID(widget.purchaseID);
     });
     receivedLine.clear();
     for (var data in widget.productList) {
@@ -81,6 +83,11 @@ class _OrderReceivedDetailScreenState
       if (next is ProductReceivedRemarkList) {
         setState(() {
           productRemarkList = next.productReceivedRemarkList;
+        });
+      }
+      if (next is SelectedProductReceivedRemark) {
+        setState(() {
+          productRemarkMap = next.selectedProductReceivedRemark;
         });
       }
     });
@@ -154,7 +161,7 @@ class _OrderReceivedDetailScreenState
               () {
                 ref
                     .read(pendingOrderReceivingStateNotifierProvider.notifier)
-                    .receiveByID(widget.purchaseID, receivedLine);
+                    .receiveByIDWithDone(widget.purchaseID, receivedLine);
               },
             ),
           )
@@ -470,12 +477,15 @@ class _OrderReceivedDetailScreenState
                       ),
                     ))
                 .toList(),
-            value: productRemarkMap[widget.productList[index].products[0]],
+            value: productRemarkMap[
+                widget.productList[index].products[0].toString()],
             onChanged: (values) {
               ref
                   .read(productReceivedRemarkStateNotifierProvider.notifier)
-                  .addOrderFormReason(widget.productList[index].products[0],
-                      values!, productRemarkMap);
+                  .addOrderFormReason(
+                      widget.productList[index].products[0].toString(),
+                      values!,
+                      productRemarkMap);
             }),
       ),
     );

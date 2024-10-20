@@ -14,6 +14,7 @@ class PendingReceivingStateNotifier
       : super(const PendingReceivingState.initial());
   final OrderReceivingRepository _orderReceivingRepository;
   List<OrderReceiving> pendingOrderList = [];
+  OrderReceivingDetail orderReceivingDetail = OrderReceivingDetail();
   Future<void> getAllPendingReceiving() async {
     state = const PendingReceivingState.loading();
     try {
@@ -32,7 +33,7 @@ class PendingReceivingStateNotifier
     }
   }
 
-  Future<void> receiveByID(int purchaseID, List receivedLine) async {
+  Future<void> receiveByIDWithDone(int purchaseID, List receivedLine) async {
     state = const PendingReceivingState.loading();
     try {
       Response response =
@@ -52,6 +53,25 @@ class PendingReceivingStateNotifier
       }
     } catch (e) {
       state = const PendingReceivingState.error();
+      superPrint(e.toString());
+    }
+  }
+
+  Future<void> getReceiveDetailByID(int purchaseID) async {
+    try {
+      Response response =
+          await _orderReceivingRepository.getReceiveByID(purchaseID);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      if (result.containsKey('result')) {
+        if (result['result']['code'] == 200) {
+          Iterable dataList = result['result']['records'];
+          superPrint(result['result']['records'][0]);
+          orderReceivingDetail = OrderReceivingDetail.fromJson(dataList.first);
+          superPrint(orderReceivingDetail);
+        } else {}
+      } else {}
+    } catch (e) {
       superPrint(e.toString());
     }
   }

@@ -76,10 +76,12 @@ class ImportantReminderWidget extends ConsumerWidget {
   Widget buildReminderTextWidget(Noti noti) {
     if (noti.trackingValueList.isNotEmpty) {
       return textWidget(
-        "${noti.trackingValueList[0].fieldDesc} :  ${noti.trackingValueList[0].oldValue} -> ${noti.trackingValueList[0].newValue}",
-      );
+          "${noti.trackingValueList[0].fieldDesc} :  ${noti.trackingValueList[0].oldValue} -> ${noti.trackingValueList[0].newValue}",
+          maxLine: 5,
+          textOverflow: TextOverflow.ellipsis);
     } else {
-      return textWidget(noti.body);
+      return textWidget(noti.body,
+          maxLine: 5, textOverflow: TextOverflow.ellipsis);
     }
   }
 

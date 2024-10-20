@@ -26,7 +26,9 @@ class ProductReceivedRemarkStateNotifier
         productRemarkList.add(ReasonsData.fromJson(element));
       }
       state = ProductReceivedRemarkState.loadProductReceivedRemark(
-          productRemarkList);
+          productRemarkList
+              .where((e) => e.option == "other" && e.purchase == true)
+              .toList());
     } catch (e) {
       superPrint(e.toString());
     }

@@ -73,3 +73,50 @@ class OrderReceivingProduct {
     );
   }
 }
+
+class OrderReceivingDetail {
+  int id;
+  String dateOrder;
+  //double amountTotal;
+  // double creditAmount;
+  // double netAmount;
+  List orderProduct;
+  String name;
+  // String invoiceNo;
+  // String deliveryNo;
+  List<OrderReceivingProduct> productList;
+
+  OrderReceivingDetail({
+    this.id = 0,
+    this.dateOrder = "",
+    //this.amountTotal = 0.0,
+    // this.creditAmount = 0.0,
+    // this.netAmount = 0.0,
+    this.orderProduct = const [],
+    this.name = "",
+    // this.invoiceNo = "",
+    // this.deliveryNo = "",
+    this.productList = const [],
+  });
+
+  factory OrderReceivingDetail.fromJson(Map<String, dynamic> json) {
+    List<OrderReceivingProduct> productList = [];
+    if (json['move_lines'] != null) {
+      for (var data in json['move_lines']) {
+        productList.add(OrderReceivingProduct.fromJson(data));
+      }
+    }
+    return OrderReceivingDetail(
+      id: json['id'],
+      dateOrder: json['date_order'],
+      // amountTotal: json['amount_total'],
+      // creditAmount: json['amount_tax'],
+      // netAmount: json['amount_untaxed'],
+      orderProduct: json['partner_id'],
+      name: json['name'],
+      // invoiceNo: json['invoice_no'].toString(),
+      // deliveryNo: json['delivery_no'].toString(),
+      productList: productList,
+    );
+  }
+}

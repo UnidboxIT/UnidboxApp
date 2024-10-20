@@ -17,7 +17,7 @@ import '../../repository/provider/restock_ordering_provider.dart';
 TextEditingController txtQty = TextEditingController();
 Future<void> restockProductPopUpWidget(
     BuildContext context, Products productDetail, UserWarehouse userWarehouse) {
-  txtQty.clear();
+  txtQty.text = "0";
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
   bool isRestock = false;
@@ -111,9 +111,11 @@ Future<void> restockProductPopUpWidget(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        textWidget("Min in stock: 3", size: 14),
+                        textWidget("Min in stock: 0", size: 14),
                         const SizedBox(width: 20),
-                        textWidget("Current stock: 5", size: 14),
+                        textWidget(
+                            "Current stock: ${productDetail.quantity.toInt()}",
+                            size: 14),
                       ],
                     ),
                     const SizedBox(height: 20),

@@ -22,7 +22,6 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
       if (myRequestList.isEmpty) {
         state = const MyRequestState.myRequestDataLoading();
       }
-
       Response response = await _myRequestRepository.myrequest();
       var result = jsonDecode(response.body);
       superPrint(result);
@@ -38,7 +37,10 @@ class MyRequestStateNotifier extends StateNotifier<MyRequestState> {
     }
   }
 
-  Future<void> removeRejectProduct(int productID, BuildContext context) async {
+  Future<void> removeRejectProduct(
+    int productID,
+    BuildContext context,
+  ) async {
     try {
       state = const MyRequestState.loading();
       state = MyRequestState.receivedProductID(productID);

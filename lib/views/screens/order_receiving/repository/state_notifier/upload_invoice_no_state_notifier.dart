@@ -12,14 +12,13 @@ class UploadInvoiceNoStateNotifier extends StateNotifier<UploadInvoiceNoState> {
   final OrderReceivingRepository _orderReceivingRepository;
 
   Future<void> uploadInvoiceByID(
-      int purchaseID, String invoiceNo, String base64Image) async {
+      int purchaseID, String invoiceNo, String base64Image, String fileName,
+      {bool isDoNumber = false}) async {
     state = const UploadInvoiceNoState.loading();
     try {
       Response response = await _orderReceivingRepository.uploadInvoice(
-        purchaseID,
-        invoiceNo,
-        base64Image,
-      );
+          purchaseID, invoiceNo, base64Image, fileName,
+          isDoNumber: isDoNumber);
       superPrint(response.body);
       var result = jsonDecode(response.body);
       state = const UploadInvoiceNoState.success();

@@ -36,14 +36,21 @@ class _PendingReceivingScreenState
   File imageFile = File("");
   final ImagePicker picker = ImagePicker();
   String base64Image = "";
-  TextEditingController txtInvoiceNumber = TextEditingController();
+  //TextEditingController txtInvoiceNumber = TextEditingController();
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtDoNumber = TextEditingController();
   List<int> visiblityIndex = [];
+  final Map<int, TextEditingController> controllers = {};
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controllers.forEach((key, controller) => controller.dispose());
+    super.dispose();
   }
 
   @override
@@ -54,6 +61,11 @@ class _PendingReceivingScreenState
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             itemBuilder: (context, index) {
+              if (!controllers
+                  .containsKey(widget.pendingOrderReceivingList[index].id)) {
+                controllers[widget.pendingOrderReceivingList[index].id] =
+                    TextEditingController();
+              }
               return !visiblityIndex.contains(index)
                   ? GestureDetector(
                       onTap: () {
@@ -147,7 +159,9 @@ class _PendingReceivingScreenState
                                   invoiceNumberOrderWidget(
                                       widget
                                           .pendingOrderReceivingList[index].id,
-                                      "${widget.pendingOrderReceivingList[index].amountTotal}"),
+                                      "${widget.pendingOrderReceivingList[index].amountTotal}",
+                                      widget.pendingOrderReceivingList[index]
+                                          .invoiceNo),
                                   const SizedBox(height: 10),
                                   doNumberOrderWidget(
                                     widget.pendingOrderReceivingList[index].id,
@@ -287,7 +301,8 @@ class _PendingReceivingScreenState
     );
   }
 
-  Widget invoiceNumberOrderWidget(int purchaseID, String totalAmount) {
+  Widget invoiceNumberOrderWidget(
+      int purchaseID, String totalAmount, String invoiceNumber) {
     txtAmount.text = "\$ $totalAmount";
     return Column(
       children: [
@@ -295,14 +310,16 @@ class _PendingReceivingScreenState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(flex: 4, child: textWidget("Invoice Number :", size: 13)),
-            Expanded(flex: 6, child: eachTextFieldWidget(txtInvoiceNumber)),
+            Expanded(
+                flex: 6, child: eachTextFieldWidget(controllers[purchaseID]!)),
             Expanded(
               flex: 2,
               child: Transform.rotate(
                 angle: 90 * pi / 180,
                 child: IconButton(
                   onPressed: () {
-                    imageUploadBottomSheet(purchaseID, context);
+                    FocusManager.instance.primaryFocus!.unfocus();
+                    imageUploadBottomSheet(purchaseID, context, false);
                   },
                   icon: Icon(
                     Icons.attach_file_rounded,
@@ -384,7 +401,8 @@ class _PendingReceivingScreenState
             angle: 90 * pi / 180,
             child: IconButton(
               onPressed: () {
-                imageUploadBottomSheet(purchaseID, context);
+                FocusManager.instance.primaryFocus!.unfocus();
+                imageUploadBottomSheet(purchaseID, context, true);
               },
               icon: Icon(
                 Icons.attach_file_rounded,
@@ -397,7 +415,8 @@ class _PendingReceivingScreenState
     );
   }
 
-  imageUploadBottomSheet(int purchaseID, BuildContext context) {
+  imageUploadBottomSheet(
+      int purchaseID, BuildContext context, bool isDoNumber) {
     return globalBottomSheet(
         Container(
           height: 25.h,
@@ -419,10 +438,12 @@ class _PendingReceivingScreenState
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               imageIconWidget(() {
-                pickImage(purchaseID, ImageSource.gallery, context, ref);
+                pickImage(
+                    purchaseID, ImageSource.gallery, context, ref, isDoNumber);
               }, "Upload", Icons.logout),
               imageIconWidget(() {
-                pickImage(purchaseID, ImageSource.camera, context, ref);
+                pickImage(
+                    purchaseID, ImageSource.camera, context, ref, isDoNumber);
               }, "Use camera", Icons.camera_enhance),
             ],
           ),
@@ -469,8 +490,8 @@ class _PendingReceivingScreenState
     );
   }
 
-  Future<void> pickImage(
-      int purchaseID, ImageSource source, context, WidgetRef ref) async {
+  Future<void> pickImage(int purchaseID, ImageSource source, context,
+      WidgetRef ref, bool isDoNumber) async {
     try {
       final pickedFile = await picker.pickImage(source: source);
       if (pickedFile != null) {
@@ -479,7 +500,9 @@ class _PendingReceivingScreenState
         Navigator.of(context).pop();
         ref
             .read(uploadInvoiceNoStateNotifierProvider.notifier)
-            .uploadInvoiceByID(purchaseID, txtInvoiceNumber.text, base64Image);
+            .uploadInvoiceByID(purchaseID, controllers[purchaseID]!.text,
+                base64Image, pickedFile.name,
+                isDoNumber: isDoNumber);
       } else {
         superPrint('No image selected.');
       }

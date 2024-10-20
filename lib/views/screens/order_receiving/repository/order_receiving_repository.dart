@@ -30,12 +30,23 @@ class OrderReceivingRepository {
   }
 
   Future<Response> uploadInvoice(
-      int purchaseID, String invoiceNo, String base64Image) async {
-    Map<String, dynamic> formData = {
-      "state": "purchase",
-      "invoice_no": invoiceNo,
-      "inv_attachments": []
-    };
+      int purchaseID, String invoiceNo, String base64Image, String fileName,
+      {bool isDoNumber = false}) async {
+    Map<String, dynamic> formData = {};
+    if (isDoNumber) {
+      formData = {
+        "state": "purchase",
+        "delivery_no": invoiceNo,
+        "del_attachments": [fileName, base64Image]
+      };
+    } else {
+      formData = {
+        "state": "purchase",
+        "invoice_no": invoiceNo,
+        "inv_attachments": [fileName, base64Image]
+      };
+    }
+    superPrint(formData);
     Response response = await ApiService().post(
         url: baseUrl,
         endpoint: 'joborder/purchase-order/update/$purchaseID',
@@ -56,6 +67,16 @@ class OrderReceivingRepository {
         endpoint: 'joborder/purchase-receive/update/$purchaseID',
         headers: CommonMethods.setHeaders(),
         formData: formData);
+
+    return response;
+  }
+
+  Future<Response> getReceiveByID(int purchaseID) async {
+    Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/stock-receive/$purchaseID',
+      headers: CommonMethods.setHeaders(),
+    );
 
     return response;
   }

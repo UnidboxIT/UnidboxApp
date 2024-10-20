@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../../internal_transfer/my_request/domain/return_request_reason.dart';
 import '../../../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 part 'order_form_reason_state.freezed.dart';
 

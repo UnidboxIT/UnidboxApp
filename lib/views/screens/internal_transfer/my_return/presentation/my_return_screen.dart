@@ -120,7 +120,6 @@ class _OutletReturnScreenState extends ConsumerState<MyReturnScreen> {
       if (next is MyReturnDataList) {
         setState(() {
           myReturnList = next.myReturnDataList;
-
           requestedMap.clear();
           requestedMapList.clear();
           for (var data in myReturnList) {
