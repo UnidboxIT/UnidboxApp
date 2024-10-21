@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:unidbox_app/views/screens/inventory_tracker/repository/provider/restock_ordering_provider.dart';
 import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import '../../../../../../../../utils/constant/app_color.dart';
 import '../../../../widgets/text_widget.dart';
@@ -97,7 +99,8 @@ Widget productDetailAppBarWidget(
     IconData iconData,
     BuildContext context,
     Products productDetail,
-    UserWarehouse userWarehouse) {
+    UserWarehouse userWarehouse,
+    WidgetRef ref) {
   return Container(
     height: 20.h,
     width: 100.w,
@@ -157,6 +160,10 @@ Widget productDetailAppBarWidget(
               const SizedBox(width: 10),
               IconButton(
                 onPressed: () {
+                  ref
+                      .read(restockOrderStateNotifierProvider.notifier)
+                      .getReorder(
+                          productDetail.id, userWarehouse.warehouseList[0]);
                   restockProductPopUpWidget(
                       context, productDetail, userWarehouse);
                 },

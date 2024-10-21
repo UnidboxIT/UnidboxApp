@@ -246,7 +246,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                     superPrint("Here");
                     superPrint(productDetail.rackIdList);
                   });
-                }, Icons.edit_document, context, productDetail, userWarehouse),
+                }, Icons.edit_document, context, productDetail, userWarehouse,
+                    ref),
                 Transform.translate(
                   offset: Offset(0, 15.h),
                   child: productDetailBodyWidget(productDetail),

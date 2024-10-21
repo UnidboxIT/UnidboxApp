@@ -19,4 +19,7 @@ class RestockOrderState with _$RestockOrderState {
 
   const factory RestockOrderState.setResotckTextFieldValue(int qty) =
       SetRestockTextFieldValue;
+
+  const factory RestockOrderState.minMaxRestockQty(
+      double minQty, double maxQty) = MinMaxRestockQty;
 }

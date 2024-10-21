@@ -25,6 +25,7 @@ mixin _$RestockOrderState {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$RestockOrderState {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +49,7 @@ mixin _$RestockOrderState {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +65,7 @@ mixin _$RestockOrderState {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,6 +77,7 @@ mixin _$RestockOrderState {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -84,6 +89,7 @@ mixin _$RestockOrderState {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -182,6 +188,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return incrementRestockOrder(qty);
   }
@@ -196,6 +203,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return incrementRestockOrder?.call(qty);
   }
@@ -210,6 +218,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (incrementRestockOrder != null) {
@@ -231,6 +240,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return incrementRestockOrder(this);
   }
@@ -245,6 +255,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return incrementRestockOrder?.call(this);
   }
@@ -259,6 +270,7 @@ class _$IncrementRestockOrderQtyImpl implements IncrementRestockOrderQty {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (incrementRestockOrder != null) {
@@ -353,6 +365,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return decremenRestockOrder(qty);
   }
@@ -367,6 +380,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return decremenRestockOrder?.call(qty);
   }
@@ -381,6 +395,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (decremenRestockOrder != null) {
@@ -402,6 +417,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return decremenRestockOrder(this);
   }
@@ -416,6 +432,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return decremenRestockOrder?.call(this);
   }
@@ -430,6 +447,7 @@ class _$DecrementRestockOrderQtyImpl implements DecrementRestockOrderQty {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (decremenRestockOrder != null) {
@@ -494,6 +512,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return initial();
   }
@@ -508,6 +527,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return initial?.call();
   }
@@ -522,6 +542,7 @@ class _$InitialImpl implements Initial {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -543,6 +564,7 @@ class _$InitialImpl implements Initial {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return initial(this);
   }
@@ -557,6 +579,7 @@ class _$InitialImpl implements Initial {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return initial?.call(this);
   }
@@ -571,6 +594,7 @@ class _$InitialImpl implements Initial {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -630,6 +654,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return loading();
   }
@@ -644,6 +669,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return loading?.call();
   }
@@ -658,6 +684,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -679,6 +706,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return loading(this);
   }
@@ -693,6 +721,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return loading?.call(this);
   }
@@ -707,6 +736,7 @@ class _$RestockOrderLoadingImpl implements RestockOrderLoading {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -792,6 +822,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return error(this.error);
   }
@@ -806,6 +837,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return error?.call(this.error);
   }
@@ -820,6 +852,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -841,6 +874,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return error(this);
   }
@@ -855,6 +889,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return error?.call(this);
   }
@@ -869,6 +904,7 @@ class _$RestockOrderErrorImpl implements RestockOrderError {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -960,6 +996,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return success(this.success);
   }
@@ -974,6 +1011,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return success?.call(this.success);
   }
@@ -988,6 +1026,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1009,6 +1048,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return success(this);
   }
@@ -1023,6 +1063,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return success?.call(this);
   }
@@ -1037,6 +1078,7 @@ class _$RestockOrderSuccessImpl implements RestockOrderSuccess {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1131,6 +1173,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     required TResult Function(String? error) error,
     required TResult Function(String? success) success,
     required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
   }) {
     return setResotckTextFieldValue(qty);
   }
@@ -1145,6 +1188,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     TResult? Function(String? error)? error,
     TResult? Function(String? success)? success,
     TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
   }) {
     return setResotckTextFieldValue?.call(qty);
   }
@@ -1159,6 +1203,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     TResult Function(String? error)? error,
     TResult Function(String? success)? success,
     TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (setResotckTextFieldValue != null) {
@@ -1180,6 +1225,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     required TResult Function(RestockOrderSuccess value) success,
     required TResult Function(SetRestockTextFieldValue value)
         setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
   }) {
     return setResotckTextFieldValue(this);
   }
@@ -1194,6 +1240,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     TResult? Function(RestockOrderError value)? error,
     TResult? Function(RestockOrderSuccess value)? success,
     TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
   }) {
     return setResotckTextFieldValue?.call(this);
   }
@@ -1208,6 +1255,7 @@ class _$SetRestockTextFieldValueImpl implements SetRestockTextFieldValue {
     TResult Function(RestockOrderError value)? error,
     TResult Function(RestockOrderSuccess value)? success,
     TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
     required TResult orElse(),
   }) {
     if (setResotckTextFieldValue != null) {
@@ -1225,4 +1273,187 @@ abstract class SetRestockTextFieldValue implements RestockOrderState {
   @JsonKey(ignore: true)
   _$$SetRestockTextFieldValueImplCopyWith<_$SetRestockTextFieldValueImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MinMaxRestockQtyImplCopyWith<$Res> {
+  factory _$$MinMaxRestockQtyImplCopyWith(_$MinMaxRestockQtyImpl value,
+          $Res Function(_$MinMaxRestockQtyImpl) then) =
+      __$$MinMaxRestockQtyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double minQty, double maxQty});
+}
+
+/// @nodoc
+class __$$MinMaxRestockQtyImplCopyWithImpl<$Res>
+    extends _$RestockOrderStateCopyWithImpl<$Res, _$MinMaxRestockQtyImpl>
+    implements _$$MinMaxRestockQtyImplCopyWith<$Res> {
+  __$$MinMaxRestockQtyImplCopyWithImpl(_$MinMaxRestockQtyImpl _value,
+      $Res Function(_$MinMaxRestockQtyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? minQty = null,
+    Object? maxQty = null,
+  }) {
+    return _then(_$MinMaxRestockQtyImpl(
+      null == minQty
+          ? _value.minQty
+          : minQty // ignore: cast_nullable_to_non_nullable
+              as double,
+      null == maxQty
+          ? _value.maxQty
+          : maxQty // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MinMaxRestockQtyImpl implements MinMaxRestockQty {
+  const _$MinMaxRestockQtyImpl(this.minQty, this.maxQty);
+
+  @override
+  final double minQty;
+  @override
+  final double maxQty;
+
+  @override
+  String toString() {
+    return 'RestockOrderState.minMaxRestockQty(minQty: $minQty, maxQty: $maxQty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MinMaxRestockQtyImpl &&
+            (identical(other.minQty, minQty) || other.minQty == minQty) &&
+            (identical(other.maxQty, maxQty) || other.maxQty == maxQty));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, minQty, maxQty);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MinMaxRestockQtyImplCopyWith<_$MinMaxRestockQtyImpl> get copyWith =>
+      __$$MinMaxRestockQtyImplCopyWithImpl<_$MinMaxRestockQtyImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int qty) incrementRestockOrder,
+    required TResult Function(int qty) decremenRestockOrder,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? error) error,
+    required TResult Function(String? success) success,
+    required TResult Function(int qty) setResotckTextFieldValue,
+    required TResult Function(double minQty, double maxQty) minMaxRestockQty,
+  }) {
+    return minMaxRestockQty(minQty, maxQty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int qty)? incrementRestockOrder,
+    TResult? Function(int qty)? decremenRestockOrder,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? error)? error,
+    TResult? Function(String? success)? success,
+    TResult? Function(int qty)? setResotckTextFieldValue,
+    TResult? Function(double minQty, double maxQty)? minMaxRestockQty,
+  }) {
+    return minMaxRestockQty?.call(minQty, maxQty);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int qty)? incrementRestockOrder,
+    TResult Function(int qty)? decremenRestockOrder,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? error)? error,
+    TResult Function(String? success)? success,
+    TResult Function(int qty)? setResotckTextFieldValue,
+    TResult Function(double minQty, double maxQty)? minMaxRestockQty,
+    required TResult orElse(),
+  }) {
+    if (minMaxRestockQty != null) {
+      return minMaxRestockQty(minQty, maxQty);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(IncrementRestockOrderQty value)
+        incrementRestockOrder,
+    required TResult Function(DecrementRestockOrderQty value)
+        decremenRestockOrder,
+    required TResult Function(Initial value) initial,
+    required TResult Function(RestockOrderLoading value) loading,
+    required TResult Function(RestockOrderError value) error,
+    required TResult Function(RestockOrderSuccess value) success,
+    required TResult Function(SetRestockTextFieldValue value)
+        setResotckTextFieldValue,
+    required TResult Function(MinMaxRestockQty value) minMaxRestockQty,
+  }) {
+    return minMaxRestockQty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(IncrementRestockOrderQty value)? incrementRestockOrder,
+    TResult? Function(DecrementRestockOrderQty value)? decremenRestockOrder,
+    TResult? Function(Initial value)? initial,
+    TResult? Function(RestockOrderLoading value)? loading,
+    TResult? Function(RestockOrderError value)? error,
+    TResult? Function(RestockOrderSuccess value)? success,
+    TResult? Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult? Function(MinMaxRestockQty value)? minMaxRestockQty,
+  }) {
+    return minMaxRestockQty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(IncrementRestockOrderQty value)? incrementRestockOrder,
+    TResult Function(DecrementRestockOrderQty value)? decremenRestockOrder,
+    TResult Function(Initial value)? initial,
+    TResult Function(RestockOrderLoading value)? loading,
+    TResult Function(RestockOrderError value)? error,
+    TResult Function(RestockOrderSuccess value)? success,
+    TResult Function(SetRestockTextFieldValue value)? setResotckTextFieldValue,
+    TResult Function(MinMaxRestockQty value)? minMaxRestockQty,
+    required TResult orElse(),
+  }) {
+    if (minMaxRestockQty != null) {
+      return minMaxRestockQty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MinMaxRestockQty implements RestockOrderState {
+  const factory MinMaxRestockQty(final double minQty, final double maxQty) =
+      _$MinMaxRestockQtyImpl;
+
+  double get minQty;
+  double get maxQty;
+  @JsonKey(ignore: true)
+  _$$MinMaxRestockQtyImplCopyWith<_$MinMaxRestockQtyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

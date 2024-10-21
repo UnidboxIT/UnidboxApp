@@ -55,6 +55,33 @@ class RestockOrderStateNotifier extends StateNotifier<RestockOrderState> {
     }
   }
 
+  Future<void> getReorder(int productID, int userWarehouseID) async {
+    try {
+      state = const RestockOrderState.loading();
+      Response response = await _inventoryTrackerRepository.restockOrderByID(
+          productID, userWarehouseID);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+
+      result['result']['records'][0]['product_max_qty'];
+      superPrint(result['result']['records'][0]['product_max_qty']);
+      superPrint(result['result']['records'][0]['product_min_qty']);
+      state = RestockOrderState.minMaxRestockQty(
+          result['result']['records'][0]['product_min_qty'],
+          result['result']['records'][0]['product_max_qty']);
+
+      // if (result['result']['message'] == "success") {
+      //   state = RestockOrderState.success(
+      //       success: result['result']['message'].toString());
+      // } else {
+      //   state = RestockOrderState.error(error: result['message'].toString());
+      // }
+    } catch (e) {
+      state = RestockOrderState.error(error: e.toString());
+      superPrint(e);
+    }
+  }
+
   restockIncremetQty(int qty) {
     qty++;
     state = RestockOrderState.incrementRestockOrder(qty);

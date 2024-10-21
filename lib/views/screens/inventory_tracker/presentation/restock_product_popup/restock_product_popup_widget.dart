@@ -21,6 +21,8 @@ Future<void> restockProductPopUpWidget(
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
   bool isRestock = false;
+  double minQty = 0.0;
+  double maxQty = 0.0;
   // txtQty.text = productDetail.
   return showModalBottomSheet(
     isScrollControlled: true,
@@ -61,6 +63,11 @@ Future<void> restockProductPopUpWidget(
           }
           if (state is SetRestockTextFieldValue) {
             txtQty.text = state.qty.toString();
+          }
+          if (state is MinMaxRestockQty) {
+            minQty = state.minQty;
+            maxQty = state.maxQty;
+            isRestock = false;
           }
           return Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -111,10 +118,9 @@ Future<void> restockProductPopUpWidget(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        textWidget("Min in stock: 0", size: 14),
+                        textWidget("Min in stock: ${minQty.toInt()}", size: 14),
                         const SizedBox(width: 20),
-                        textWidget(
-                            "Current stock: ${productDetail.quantity.toInt()}",
+                        textWidget("Current stock: ${maxQty.toInt()}",
                             size: 14),
                       ],
                     ),

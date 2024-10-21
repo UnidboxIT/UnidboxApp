@@ -197,6 +197,15 @@ class InventoryTrackerRepository {
     return response;
   }
 
+  Future<Response> restockOrderByID(int productID,int userWarehouseID) async {
+    http.Response response = await ApiService().get(
+      url: baseUrl,
+      endpoint: 'joborder/stock/reordering/$productID?warehouse_id=$userWarehouseID',
+      headers: CommonMethods.setHeaders(),
+    );
+    return response;
+  }
+
   Future<Response> stockOrder(int productID) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
