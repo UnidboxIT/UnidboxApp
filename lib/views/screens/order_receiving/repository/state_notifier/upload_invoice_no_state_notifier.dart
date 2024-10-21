@@ -20,7 +20,7 @@ class UploadInvoiceNoStateNotifier extends StateNotifier<UploadInvoiceNoState> {
           purchaseID, invoiceNo, base64Image, fileName,
           isDoNumber: isDoNumber);
       superPrint(response.body);
-      var result = jsonDecode(response.body);
+      // var result = jsonDecode(response.body);
       state = const UploadInvoiceNoState.success();
       superPrint(response.body);
     } catch (e) {

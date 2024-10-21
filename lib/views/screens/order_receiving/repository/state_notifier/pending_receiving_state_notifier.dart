@@ -15,10 +15,13 @@ class PendingReceivingStateNotifier
   final OrderReceivingRepository _orderReceivingRepository;
   List<OrderReceiving> pendingOrderList = [];
   OrderReceivingDetail orderReceivingDetail = OrderReceivingDetail();
-  Future<void> getAllPendingReceiving() async {
-    state = const PendingReceivingState.loading();
+  Future<void> getAllPendingReceiving(String status) async {
+    if (pendingOrderList.isEmpty) {
+      state = const PendingReceivingState.loading();
+    }
     try {
-      Response response = await _orderReceivingRepository.pendingReceiving();
+      Response response =
+          await _orderReceivingRepository.pendingReceiving(status);
       superPrint(response.body);
       var result = jsonDecode(response.body);
       pendingOrderList.clear();
@@ -33,17 +36,22 @@ class PendingReceivingStateNotifier
     }
   }
 
-  Future<void> receiveByIDWithDone(int purchaseID, List receivedLine) async {
+  Future<void> receiveByIDWithDone(int purchaseID, List receivedLine,
+      String fileName, String base64Image) async {
     state = const PendingReceivingState.loading();
     try {
-      Response response =
-          await _orderReceivingRepository.receiveByID(purchaseID, receivedLine);
+      Response response = await _orderReceivingRepository.receiveByID(
+        purchaseID,
+        receivedLine,
+        fileName,
+        base64Image,
+      );
       superPrint(response.body);
 
       var result = jsonDecode(response.body);
       if (result.containsKey('result')) {
         if (result['result']['code'] == 200) {
-          getAllPendingReceiving();
+          getAllPendingReceiving("purchase");
           state = const PendingReceivingState.success();
         } else {
           state = const PendingReceivingState.error();

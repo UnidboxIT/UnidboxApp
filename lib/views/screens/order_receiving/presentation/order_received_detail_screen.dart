@@ -17,6 +17,7 @@ import '../../../../utils/commons/super_print.dart';
 import '../../../widgets/bottom_sheets/global_bottom_sheet.dart';
 import '../../internal_transfer/outlet_request/domain/outlet_reject_reason.dart';
 import '../domain/order_receiving.dart';
+import 'camera_order_receiving_screen.dart';
 import 'widgets/app_bar_order_detail_widget.dart';
 
 class OrderReceivedDetailScreen extends ConsumerStatefulWidget {
@@ -159,9 +160,12 @@ class _OrderReceivedDetailScreenState
             child: buttonWidget(
               "OK",
               () {
-                ref
-                    .read(pendingOrderReceivingStateNotifierProvider.notifier)
-                    .receiveByIDWithDone(widget.purchaseID, receivedLine);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CameraOrderReceivingScreen()));
+                // ref
+                //     .read(pendingOrderReceivingStateNotifierProvider.notifier)
+                //     .receiveByIDWithDone(
+                //         widget.purchaseID, receivedLine, fileName, base64Image);
               },
             ),
           )

@@ -35,7 +35,7 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
     Future.delayed(const Duration(milliseconds: 10), () {
       ref
           .read(pendingOrderReceivingStateNotifierProvider.notifier)
-          .getAllPendingReceiving();
+          .getAllPendingReceiving("purchase");
     });
   }
 
@@ -133,6 +133,12 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
                     onTap: () {
                       setState(() {
                         selectedTitle = 0;
+                        Future.delayed(const Duration(milliseconds: 10), () {
+                          ref
+                              .read(pendingOrderReceivingStateNotifierProvider
+                                  .notifier)
+                              .getAllPendingReceiving("purchase");
+                        });
                       });
                     },
                     child: titleReceivingWidget(receiveTitleList[0], 0)),
@@ -140,6 +146,12 @@ class _OrderReceivingScreenState extends ConsumerState<OrderReceivingScreen> {
                     onTap: () {
                       setState(() {
                         selectedTitle = 1;
+                        Future.delayed(const Duration(milliseconds: 10), () {
+                          ref
+                              .read(pendingOrderReceivingStateNotifierProvider
+                                  .notifier)
+                              .getAllPendingReceiving("done");
+                        });
                       });
                     },
                     child: titleReceivingWidget(receiveTitleList[1], 1))

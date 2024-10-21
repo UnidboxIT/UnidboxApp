@@ -6,12 +6,12 @@ import '../../../../services/api_service.dart';
 import '../../../../utils/commons/common_method.dart';
 
 class OrderReceivingRepository {
-  Future<Response> pendingReceiving() async {
+  Future<Response> pendingReceiving(String status) async {
     //reason_ids,
     Response response = await ApiService().get(
       url: baseUrl,
       endpoint:
-          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total,amount_untaxed,amount_tax,invoice_no,delivery_no&user_id=${admin.uid}&state=purchase',
+          'joborder/purchase?fields=id,partner_id,date_order,invoice_ids,order_line,amount_total,effective_date,invoice_status,state,name,amount_total,amount_untaxed,amount_tax,invoice_no,delivery_no&user_id=${admin.uid}&state=$status',
       headers: CommonMethods.setHeaders(),
     );
 
@@ -56,10 +56,12 @@ class OrderReceivingRepository {
     return response;
   }
 
-  Future<Response> receiveByID(int purchaseID, List receivedLine) async {
+  Future<Response> receiveByID(int purchaseID, List receivedLine,
+      String fileName, String base64Image) async {
     Map<String, dynamic> formData = {
       "state": "done",
       "receive_line": receivedLine,
+      "receive_attachment": [fileName, base64Image]
     };
     superPrint(formData);
     Response response = await ApiService().post(
