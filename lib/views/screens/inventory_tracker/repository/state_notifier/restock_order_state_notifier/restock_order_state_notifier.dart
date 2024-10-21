@@ -55,6 +55,48 @@ class RestockOrderStateNotifier extends StateNotifier<RestockOrderState> {
     }
   }
 
+  Future<void> updateRestockOrder(
+    BuildContext context,
+    int productID,
+    int productUom,
+    int minQty,
+    int warehouseID,
+  ) async {
+    try {
+      state = const RestockOrderState.loading();
+      Response response = await _inventoryTrackerRepository.updateRestockOrder(
+        productID,
+        productUom,
+        minQty,
+        warehouseID,
+      );
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      superPrint(result);
+
+      if (result['result']['message'] == "success") {
+        successfullyBottomSheet("Auto Restock Confirmed",
+                "Restock details will be auto send to\ndefault vendor", () {
+          Navigator.of(context).pop();
+        }, context)
+            .then((_) {
+          Navigator.of(context).pop();
+        });
+        state = RestockOrderState.success(
+            success: result['result']['message'].toString());
+      } else {
+        successfullyBottomSheet("Auto Restock Confirmed", result['message'],
+            () {
+          Navigator.of(context).pop();
+        }, context);
+        state = RestockOrderState.error(error: result['message'].toString());
+      }
+    } catch (e) {
+      state = RestockOrderState.error(error: e.toString());
+      superPrint(e);
+    }
+  }
+
   Future<void> getReorder(int productID, int userWarehouseID) async {
     try {
       state = const RestockOrderState.loading();

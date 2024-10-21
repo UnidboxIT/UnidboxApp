@@ -21,8 +21,8 @@ Future<void> restockProductPopUpWidget(
   int selectedBox =
       productDetail.uomList.isNotEmpty ? productDetail.uomList[0] : 0;
   bool isRestock = false;
-  double minQty = 0.0;
-  double maxQty = 0.0;
+  double minQty = -1;
+  double maxQty = -1;
   // txtQty.text = productDetail.
   return showModalBottomSheet(
     isScrollControlled: true,
@@ -67,6 +67,7 @@ Future<void> restockProductPopUpWidget(
           if (state is MinMaxRestockQty) {
             minQty = state.minQty;
             maxQty = state.maxQty;
+            txtQty.text = minQty.toStringAsFixed(0);
             isRestock = false;
           }
           return Padding(
@@ -118,9 +119,12 @@ Future<void> restockProductPopUpWidget(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        textWidget("Min in stock: ${minQty.toInt()}", size: 14),
+                        textWidget(
+                            "Min in stock: ${minQty == -1 ? "0" : minQty.toInt()}",
+                            size: 14),
                         const SizedBox(width: 20),
-                        textWidget("Current stock: ${maxQty.toInt()}",
+                        textWidget(
+                            "Current stock: ${maxQty == -1 ? "0" : maxQty.toInt()}",
                             size: 14),
                       ],
                     ),
@@ -254,14 +258,27 @@ Future<void> restockProductPopUpWidget(
                     SizedBox(
                         width: 30.w,
                         child: buttonWidget("Save", () {
-                          ref
-                              .read(restockOrderStateNotifierProvider.notifier)
-                              .restockOrder(
-                                  context,
-                                  productDetail.id,
-                                  productDetail.uomList[0],
-                                  int.parse(txtQty.text),
-                                  userWarehouse.warehouseList[0]);
+                          if (minQty == -1 && maxQty == -1) {
+                            ref
+                                .read(
+                                    restockOrderStateNotifierProvider.notifier)
+                                .restockOrder(
+                                    context,
+                                    productDetail.id,
+                                    productDetail.uomList[0],
+                                    int.parse(txtQty.text),
+                                    userWarehouse.warehouseList[0]);
+                          } else {
+                            ref
+                                .read(
+                                    restockOrderStateNotifierProvider.notifier)
+                                .updateRestockOrder(
+                                    context,
+                                    productDetail.id,
+                                    productDetail.uomList[0],
+                                    int.parse(txtQty.text),
+                                    userWarehouse.warehouseList[0]);
+                          }
                         }, isBool: isRestock)),
                     SizedBox(height: 6.h)
                   ],

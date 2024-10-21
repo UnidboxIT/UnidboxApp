@@ -197,10 +197,33 @@ class InventoryTrackerRepository {
     return response;
   }
 
-  Future<Response> restockOrderByID(int productID,int userWarehouseID) async {
+  Future<Response> updateRestockOrder(
+    int productID,
+    int productUom,
+    int productMinQty,
+    int warehouseID,
+  ) async {
+    Map<String, dynamic> formData = {
+      "product_uom": productUom,
+      "product_min_qty": productMinQty,
+      "warehouse_id": warehouseID
+    };
+    superPrint(formData);
+    http.Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/stock-reordering/update/$productID',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
+  Future<Response> restockOrderByID(int productID, int userWarehouseID) async {
     http.Response response = await ApiService().get(
       url: baseUrl,
-      endpoint: 'joborder/stock/reordering/$productID?warehouse_id=$userWarehouseID',
+      endpoint:
+          'joborder/stock/reordering/$productID?warehouse_id=$userWarehouseID',
       headers: CommonMethods.setHeaders(),
     );
     return response;
