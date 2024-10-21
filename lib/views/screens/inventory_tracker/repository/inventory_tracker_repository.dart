@@ -156,12 +156,16 @@ class InventoryTrackerRepository {
     List orderLine,
   ) async {
     Map<String, dynamic> formData = {
-      "user_id": admin.uid,
-      "company_id": companyID,
-      "partner_id": partnerID,
-      "date": dateTime,
-      "state": "draft",
-      "order_line": orderLine,
+      "data": [
+        {
+          "user_id": admin.uid,
+          "company_id": companyID,
+          "partner_id": partnerID,
+          "date": dateTime,
+          "state": "draft",
+          "order_line": orderLine,
+        }
+      ]
     };
     superPrint(formData);
     http.Response response = await ApiService().post(

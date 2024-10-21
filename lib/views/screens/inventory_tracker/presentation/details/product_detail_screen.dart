@@ -30,7 +30,6 @@ import '../../repository/provider/inhouse_stock_provider.dart';
 import '../../repository/provider/product_detail_provider.dart';
 import '../../repository/state/inhouse_stock_state.dart';
 import '../../repository/state/stock_order/add_order_cart_state.dart';
-import '../stock_ordering/check_out_order_detail_screen.dart';
 import '../update_product/product_detail_update.dart';
 import 'show_barcode_generate_popup.dart';
 
@@ -308,24 +307,15 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                             context,
                                             ref,
                                             stockOrderList.first,
+                                            productDetail,
                                           )
                                           .then((_) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                CheckOutOrderDetailScreen(
-                                                    productDetail:
-                                                        productDetail),
-                                          ),
-                                        ).then((_) {
-                                          ref
-                                              .read(
-                                                  stockOrderStateNotifierProvider
-                                                      .notifier)
-                                              .getStockOrder(productDetail.id,
-                                                  ref, context);
-                                        });
+                                        ref
+                                            .read(
+                                                stockOrderStateNotifierProvider
+                                                    .notifier)
+                                            .getStockOrder(
+                                                productDetail.id, ref, context);
                                       });
                                     },
                                         isBool: isAddToOrderLoading,
