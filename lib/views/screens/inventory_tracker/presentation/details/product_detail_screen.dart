@@ -307,6 +307,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                             context,
                                             ref,
                                             stockOrderList.first,
+                                            userWarehouse,
                                             productDetail,
                                           )
                                           .then((_) {

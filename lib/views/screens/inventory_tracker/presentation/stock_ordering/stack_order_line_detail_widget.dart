@@ -13,13 +13,15 @@ import '../../../internal_transfer/outlet_request/domain/outlet_reject_reason.da
 import '../../repository/provider/stock_order_provider.dart';
 import '../../repository/state/stock_order/order_form_reason_state.dart';
 
+Map<String, int> orderReasonQty = {};
+Map<String, dynamic> orderFormReasonMap = {};
+List<ReasonsData> orderFormReasonList = [];
+Map<int, List<Map<int, bool>>> storeGoodReturnMap = {};
 Widget stackOrderLineWidget(int vendorID, String vendorName,
     List<OrderReceivingProduct> orderLineList) {
-  Map<int, List<Map<int, bool>>> storeGoodReturnMap = {};
-
   return Consumer(
     builder: (context, ref, child) {
-      superPrint("VENDOR ID ::: $vendorID");
+      superPrint("VENDOR ID ::: $storeGoodReturnMap");
       final state = ref.watch(goodReturnStateNotifier);
       if (state is IsGoodReturnMap) {
         storeGoodReturnMap = state.isGoodReturnMap;
@@ -27,6 +29,14 @@ Widget stackOrderLineWidget(int vendorID, String vendorName,
       if (state is ClearSelectedGoodReturn) {
         storeGoodReturnMap.clear();
       }
+
+      final returReasonState = ref.watch(orderFormReasonStateNotifier);
+      if (returReasonState is OrderFormReasonList) {
+        orderFormReasonList = [];
+        orderFormReasonMap = {};
+        orderFormReasonList = returReasonState.orderFormReasonList;
+      }
+
       return Container(
         color: Colors.transparent,
         child: Stack(
@@ -367,10 +377,6 @@ Widget addMinusOrderFormIconButtonWidget(IconData iconData) {
 }
 
 Widget dropdownOrderFormReturnWidget(String purchaseID) {
-  Map<String, int> orderReasonQty = {};
-  Map<String, dynamic> orderFormReasonMap = {};
-  List<ReasonsData> orderFormReasonList = [];
-
   return Consumer(builder: (context, ref, child) {
     final state = ref.watch(orderFormReasonStateNotifier);
     if (state is IncrementOrderFormReason) {

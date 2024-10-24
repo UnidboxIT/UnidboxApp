@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
+import 'package:unidbox_app/views/user_warehouse/domain/user_warehouse.dart';
 import '../../../../../utils/commons/super_print.dart';
 import '../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../domain/stock_order.dart';
@@ -26,6 +27,7 @@ class CheckOutStateNotifier extends StateNotifier<CheckOutOrderState> {
       BuildContext context,
       WidgetRef ref,
       StockOrder stockOrder,
+      UserWarehouse userWarehouse,
       Products productDetail) async {
     try {
       state = const CheckOutOrderState.loading();
@@ -38,20 +40,15 @@ class CheckOutStateNotifier extends StateNotifier<CheckOutOrderState> {
       var result = jsonDecode(response.body);
       superPrint(result);
       if (result['result']['message'] == "success") {
-        // successfullyBottomSheet(
-        //         "Order Submitted!", "Find order in delivery orders", () {
-        //   Navigator.of(context).pop();
-        // }, context)
-        //     .then((_) {
-        //   Navigator.of(context).pop();
         ref
             .read(stockOrderStateNotifierProvider.notifier)
             .clearTotalQty(stockOrder);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                CheckOutOrderDetailScreen(productDetail: productDetail),
+            builder: (_) => CheckOutOrderDetailScreen(
+              productDetail: productDetail,
+            ),
           ),
         );
         state =

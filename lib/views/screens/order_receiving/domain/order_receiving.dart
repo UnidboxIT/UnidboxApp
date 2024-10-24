@@ -52,6 +52,7 @@ class OrderReceivingProduct {
   double quantity;
   double price;
   String imageUrl;
+  int productUom;
 
   OrderReceivingProduct({
     this.id = 0,
@@ -60,17 +61,18 @@ class OrderReceivingProduct {
     this.quantity = 0.0,
     this.price = 0.0,
     this.imageUrl = "",
+    this.productUom = 0,
   });
 
   factory OrderReceivingProduct.fromJson(Map<String, dynamic> json) {
     return OrderReceivingProduct(
-      id: json['id'],
-      products: List.from(json['product_id']),
-      defaultCode: json['code'],
-      quantity: json['quantity'],
-      price: json['price'],
-      imageUrl: json['image_url'] == false ? "" : json['image_url'],
-    );
+        id: json['id'],
+        products: List.from(json['product_id']),
+        defaultCode: json['code'],
+        quantity: json['quantity'],
+        price: json['price'],
+        imageUrl: json['image_url'] == false ? "" : json['image_url'],
+        productUom: json['product_uom']);
   }
 }
 

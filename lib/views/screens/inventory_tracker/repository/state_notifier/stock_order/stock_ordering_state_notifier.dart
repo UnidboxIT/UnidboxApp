@@ -3,13 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/stock_order.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/repository/inventory_tracker_repository.dart';
+import 'package:unidbox_app/views/screens/order_receiving/presentation/order_receiving_screen.dart';
 import '../../../../../../utils/commons/common_method.dart';
 import '../../../../../../utils/commons/super_print.dart';
 import '../../../../../widgets/bottom_sheets/successfully_bottom_sheet.dart';
 import '../../../../auth/repository/auth_state_notifier.dart';
 import '../../../../order_receiving/domain/order_receiving.dart';
+import '../../../../system_navigation/show_bottom_navbar_provider/show_bottom_navbar_state_provider.dart';
 import '../../state/stock_order/stock_ordering_state.dart';
 
 class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
@@ -54,7 +57,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
   }
 
   Future<void> getAllOrderForm() async {
-    state = const StockOrderingState.loading();
+    // state = const StockOrderingState.loading();
     try {
       Response response = await _inventoryTrackerRepository.orderForm();
       superPrint(response.body);
@@ -72,7 +75,7 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
   }
 
   Future<void> submitPurchaseOrder(
-      BuildContext context, List<int> purchaseOrderID) async {
+      BuildContext context, List<int> purchaseOrderID, WidgetRef ref) async {
     try {
       state = const StockOrderingState.loading();
       Response response =
@@ -83,8 +86,13 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
       if (result['result']['code'] == 200) {
         successfullyBottomSheet(
             "Order Submitted!", "Find order in delivery orders", () {
-          //viewPurchasePdfFile(context, result['result']['id'][0]);
           Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const OrderReceivingScreen(),
+            ),
+          );
+          ref.read(bottomBarVisibilityProvider.notifier).state = false;
           getAllOrderForm();
         }, context);
         state =
@@ -96,58 +104,58 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
         state = StockOrderingState.error(
             error: result['result']['message'].toString());
       }
+      state =
+          StockOrderingState.success(result['result']['message'].toString());
     } catch (e) {
       state = StockOrderingState.error(error: e.toString());
       superPrint(e.toString());
     }
   }
 
-  Future<void> viewPurchasePdfFile(
-      BuildContext context, String purchaseOrderID) async {
+  Future<void> returnReasonOrderForm(
+    int partnerId,
+    String returnReason,
+    List orderLine,
+    BuildContext context,
+    WidgetRef ref,
+    int warehouseID,
+  ) async {
+    state = const StockOrderingState.loading();
     try {
-      state = const StockOrderingState.loading();
       Response response =
-          await _inventoryTrackerRepository.pdfViewPurchase(purchaseOrderID);
-      String decodedString = String.fromCharCodes(response.bodyBytes);
-      print(decodedString);
-
-      // String jsonString = utf8.decode(response.bodyBytes);
-      // var jsonData = jsonDecode(jsonString);
-      // String base64Image = jsonData['image'];
-      // Uint8List imageBytes = base64Decode(base64Image);
-      // Navigator.of(context).push(MaterialPageRoute(
-      //     builder: (context) =>
-      //         PurchaseOrderPdfViewScreen(imageUrl: imageBytes)));
-      // superPrint(result);
-      // if (response.statusCode == 200) {
-      //   final dir = await getApplicationDocumentsDirectory();
-      //   String jsonString = utf8.decode(response.bodyBytes);
-      //   superPrint("JSON string: $jsonString");
-      //   final pdf = pw.Document();
-      //   pdf.addPage(
-      //     pw.Page(
-      //       build: (pw.Context context) => pw.Center(
-      //         child: pw.Text(jsonString),
-      //       ),
-      //     ),
-      //   );
-      //   superPrint(pdf);
-      //   final pdfFile = File('${dir.path}/generated_purchase_order.pdf');
-      //   await pdfFile.writeAsBytes(await pdf.save());
-      //   superPrint("Generated PDF saved at: ${pdfFile.path}");
-      //   localFilePath = pdfFile.path;
-      //   // Navigator.of(context).push(MaterialPageRoute(
-      //   //     builder: (context) =>
-      //   //         PurchaseOrderPdfViewScreen(filePath: localFilePath)));
-      //   state = const StockOrderingState.success("Success");
-      // } else {
-      //   state = const StockOrderingState.error(error: 'Failed to load PDF.');
+          await _inventoryTrackerRepository.returnReasonInOrderForm(
+              partnerId,
+              returnReason,
+              warehouseID,
+              DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+              orderLine);
+      superPrint(response.body);
+      var result = jsonDecode(response.body);
+      // orderFormList.clear();
+      // Iterable dataList = result['result']['records'];
+      // for (var element in dataList) {
+      //   orderFormList.add(OrderReceiving.fromJson(element));
       // }
+      state = const StockOrderingState.success("");
+      superPrint(response.body);
     } catch (e) {
-      state = StockOrderingState.error(error: e.toString());
       superPrint(e.toString());
     }
   }
+
+  // Future<void> viewPurchasePdfFile(
+  //     BuildContext context, String purchaseOrderID) async {
+  //   try {
+  //     state = const StockOrderingState.loading();
+  //     Response response =
+  //         await _inventoryTrackerRepository.pdfViewPurchase(purchaseOrderID);
+  //     String decodedString = String.fromCharCodes(response.bodyBytes);
+  //     print(decodedString);
+  //   } catch (e) {
+  //     state = StockOrderingState.error(error: e.toString());
+  //     superPrint(e.toString());
+  //   }
+  // }
 
   clearTotalQty(StockOrder stockOrder) {
     state = StockOrderingState.clearTotalQty({stockOrder.id: 1});

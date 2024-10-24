@@ -54,14 +54,14 @@ class InventoryTrackerRepository {
   }
 
 //get purchase order with pdf view
-  Future<Response> pdfViewPurchase(String purchasedID) async {
-    http.Response response = await ApiService().get(
-      url: baseUrl,
-      endpoint: 'report/pdf/purchase.report_purchaseorder/$purchasedID',
-      headers: CommonMethods.setHeaders(),
-    );
-    return response;
-  }
+  // Future<Response> pdfViewPurchase(String purchasedID) async {
+  //   http.Response response = await ApiService().get(
+  //     url: baseUrl,
+  //     endpoint: 'report/pdf/purchase.report_purchaseorder/$purchasedID',
+  //     headers: CommonMethods.setHeaders(),
+  //   );
+  //   return response;
+  // }
 
   Future<Response> products(String categoryID, int pageNumber) async {
     http.Response response = await ApiService().get(
@@ -149,6 +149,33 @@ class InventoryTrackerRepository {
     return response;
   }
 
+  Future<Response> returnReasonInOrderForm(
+    int partnerID,
+    String returnReason,
+    int warehouseID,
+    String dateTime,
+    List orderLine,
+  ) async {
+    Map<String, dynamic> formData = {
+      "user_id": admin.uid,
+      "partner_id": partnerID,
+      "date": dateTime,
+      "return_type": "Other",
+      "other_reason": returnReason,
+      "warehouse_id": warehouseID,
+      "return_lines": orderLine,
+    };
+    superPrint(formData);
+    Response response = await ApiService().post(
+      url: baseUrl,
+      endpoint: 'joborder/purchase-order/return',
+      headers: CommonMethods.setHeaders(),
+      formData: formData,
+    );
+
+    return response;
+  }
+
   Future<Response> checkout(
     int companyID,
     int partnerID,
@@ -156,16 +183,12 @@ class InventoryTrackerRepository {
     List orderLine,
   ) async {
     Map<String, dynamic> formData = {
-      "data": [
-        {
-          "user_id": admin.uid,
-          "company_id": companyID,
-          "partner_id": partnerID,
-          "date": dateTime,
-          "state": "draft",
-          "order_line": orderLine,
-        }
-      ]
+      "user_id": admin.uid,
+      "company_id": companyID,
+      "partner_id": partnerID,
+      "date": dateTime,
+      "state": "draft",
+      "order_line": orderLine,
     };
     superPrint(formData);
     http.Response response = await ApiService().post(
