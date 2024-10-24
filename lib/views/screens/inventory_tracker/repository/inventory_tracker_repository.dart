@@ -38,11 +38,9 @@ class InventoryTrackerRepository {
     return response;
   }
 
-  Future<Response> orderFormSubmit(List<int> purchaseIDList) async {
-    Map<String, dynamic> formData = {
-      "state": "purchase",
-      "ids": purchaseIDList
-    };
+  Future<Response> orderFormSubmit(
+      List<Map<String, dynamic>> purchaseOrderID) async {
+    Map<String, dynamic> formData = {"data": purchaseOrderID};
     superPrint(formData);
     Response response = await ApiService().post(
         url: baseUrl,
@@ -150,20 +148,10 @@ class InventoryTrackerRepository {
   }
 
   Future<Response> returnReasonInOrderForm(
-    int partnerID,
-    String returnReason,
-    int warehouseID,
-    String dateTime,
     List orderLine,
   ) async {
     Map<String, dynamic> formData = {
-      "user_id": admin.uid,
-      "partner_id": partnerID,
-      "date": dateTime,
-      "return_type": "Other",
-      "other_reason": returnReason,
-      "warehouse_id": warehouseID,
-      "return_lines": orderLine,
+      "data": orderLine,
     };
     superPrint(formData);
     Response response = await ApiService().post(

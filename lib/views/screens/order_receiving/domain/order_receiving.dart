@@ -4,7 +4,7 @@ class OrderReceiving {
   double amountTotal;
   double creditAmount;
   double netAmount;
-  List orderProduct;
+  List partnerIDList;
   String name;
   String invoiceNo;
   String deliveryNo;
@@ -16,7 +16,7 @@ class OrderReceiving {
     this.amountTotal = 0.0,
     this.creditAmount = 0.0,
     this.netAmount = 0.0,
-    this.orderProduct = const [],
+    this.partnerIDList = const [],
     this.name = "",
     this.invoiceNo = "",
     this.deliveryNo = "",
@@ -36,7 +36,7 @@ class OrderReceiving {
       amountTotal: json['amount_total'],
       creditAmount: json['amount_tax'],
       netAmount: json['amount_untaxed'],
-      orderProduct: json['partner_id'],
+      partnerIDList: json['partner_id'],
       name: json['name'],
       invoiceNo: json['invoice_no'].toString(),
       deliveryNo: json['delivery_no'].toString(),

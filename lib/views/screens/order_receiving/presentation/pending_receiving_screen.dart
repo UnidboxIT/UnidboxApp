@@ -110,7 +110,7 @@ class _PendingReceivingScreenState
                             const SizedBox(height: 10),
                             textWidget(
                               widget.pendingOrderReceivingList[index]
-                                  .orderProduct[1],
+                                  .partnerIDList[1],
                               color: AppColor.orangeColor,
                               fontWeight: FontWeight.w600,
                               size: 14,
@@ -161,7 +161,7 @@ class _PendingReceivingScreenState
                                   const SizedBox(height: 10),
                                   textWidget(
                                     widget.pendingOrderReceivingList[index]
-                                        .orderProduct[1],
+                                        .partnerIDList[1],
                                     color: AppColor.orangeColor,
                                     fontWeight: FontWeight.w600,
                                     size: 14,
@@ -242,7 +242,7 @@ class _PendingReceivingScreenState
                                               .name,
                                           name: widget
                                               .pendingOrderReceivingList[index]
-                                              .orderProduct[1],
+                                              .partnerIDList[1],
                                           totalAmount: widget
                                               .pendingOrderReceivingList[index]
                                               .amountTotal

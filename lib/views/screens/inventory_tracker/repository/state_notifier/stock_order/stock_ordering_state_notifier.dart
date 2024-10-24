@@ -74,8 +74,8 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     }
   }
 
-  Future<void> submitPurchaseOrder(
-      BuildContext context, List<int> purchaseOrderID, WidgetRef ref) async {
+  Future<void> submitPurchaseOrder(BuildContext context,
+      List<Map<String, dynamic>> purchaseOrderID, WidgetRef ref) async {
     try {
       state = const StockOrderingState.loading();
       Response response =
@@ -112,25 +112,14 @@ class StockOrderingStateNotifier extends StateNotifier<StockOrderingState> {
     }
   }
 
-  Future<void> returnReasonOrderForm(
-    int partnerId,
-    String returnReason,
-    List orderLine,
-    BuildContext context,
-    WidgetRef ref,
-    int warehouseID,
-  ) async {
+  Future<void> returnReasonOrderForm(List orderLine) async {
     state = const StockOrderingState.loading();
     try {
       Response response =
-          await _inventoryTrackerRepository.returnReasonInOrderForm(
-              partnerId,
-              returnReason,
-              warehouseID,
-              DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-              orderLine);
+          await _inventoryTrackerRepository.returnReasonInOrderForm(orderLine);
       superPrint(response.body);
       var result = jsonDecode(response.body);
+      getAllOrderForm();
       // orderFormList.clear();
       // Iterable dataList = result['result']['records'];
       // for (var element in dataList) {

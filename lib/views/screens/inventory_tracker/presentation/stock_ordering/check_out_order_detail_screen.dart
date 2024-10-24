@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:unidbox_app/services/api_service.dart';
 import 'package:unidbox_app/utils/commons/common_method.dart';
 import 'package:unidbox_app/utils/commons/super_print.dart';
 import 'package:unidbox_app/utils/commons/super_scaffold.dart';
+import 'package:unidbox_app/utils/constant/app_constant.dart';
 import 'package:unidbox_app/views/screens/internal_transfer/outlet_request/domain/warehouse.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/domain/product.dart';
 import 'package:unidbox_app/views/screens/inventory_tracker/presentation/barcode_scanner/barcode_scanner_screen.dart';
@@ -41,8 +43,9 @@ class _CheckOutOrderDetailScreenState
   double totalPrice = 0.0;
   bool isSubmit = false;
   List<OrderReceiving> orderFormDataList = [];
-  List<int> purchaseID = [];
+
   List<OrderReceiving> returnOrderLine = [];
+  List<OrderReceiving> orderReceivingList = [];
   UserWarehouse userWarehouse = UserWarehouse();
   //List<Map<String, dynamic>> orderLineList = [];
   // Map<String, List<Map<String, dynamic>>> checkOutDataMap = {};
@@ -60,7 +63,6 @@ class _CheckOutOrderDetailScreenState
     Future.delayed(const Duration(milliseconds: 10), () {
       ref.read(userWarehouseStateNotifierProvider.notifier).getUserWarehouse();
     });
-    purchaseID.clear();
   }
 
   @override
@@ -77,14 +79,13 @@ class _CheckOutOrderDetailScreenState
         setState(() {
           orderFormDataList = next.orderFormDataList;
           for (var checkOutMap in orderFormDataList) {
-            purchaseID.add(checkOutMap.id);
+            // purchaseID.add(checkOutMap.id);
             for (var data in checkOutMap.productList) {
               double entryTotalPrice = data.price * data.quantity;
               totalPrice += entryTotalPrice;
             }
           }
           isSubmit = false;
-          superPrint(purchaseID);
         });
       }
       if (next is StockOrderingLoading) {
@@ -163,19 +164,21 @@ class _CheckOutOrderDetailScreenState
                           width: 30.w,
                           child: buttonWidget("Submit", () {
                             returnOrderLine.clear();
+                            orderReceivingList.clear();
+                            List<Map<String, dynamic>> orderLineList = [];
+                            List<Map<String, dynamic>> purchaseID = [];
                             String returReason = "";
                             int returnPurchaseID = 0;
-
                             for (var entry in storeGoodReturnMap.entries) {
                               int orderId = entry.key; // Order ID from map
                               List<Map<int, bool>> productList = entry.value;
                               returnPurchaseID = orderId;
                               superPrint(orderId);
-                              // Find matching order in the list
                               var matchingOrder =
                                   orderFormDataList.firstWhere((order) {
                                 return order.id == orderId;
                               }, orElse: () => OrderReceiving());
+
                               for (var productEntry in productList) {
                                 int productIdFromMap = productEntry.keys.first;
                                 var productListMatch = matchingOrder.productList
@@ -193,39 +196,76 @@ class _CheckOutOrderDetailScreenState
                                 returnOrderLine.add(matchingOrder);
                               }
                             }
-                            List<Map<String, dynamic>> orderLineList = [];
-                            for (var data in returnOrderLine) {
-                              for (var product in data.productList) {
-                                orderLineList.add({
-                                  "product_id": product.id,
-                                  "name": product.products[1],
-                                  "product_qty": product.quantity,
-                                  "product_uom": product.productUom
-                                });
-                              }
-                            }
-                            superPrint(orderLineList);
+                            var unMatchingOrder =
+                                orderFormDataList.firstWhere((order) {
+                              return order.id != returnPurchaseID;
+                            }, orElse: () => OrderReceiving());
+                            orderReceivingList.add(unMatchingOrder);
                             List<String> allReturnReason = [];
                             orderFormReasonMap.forEach((key, reasonsData) {
                               allReturnReason.add(reasonsData.name);
                             });
                             returReason = allReturnReason.join(", ");
-                            superPrint(returReason);
-                            // ref
-                            //     .read(stockOrderStateNotifierProvider.notifier)
-                            //     .submitPurchaseOrder(context, purchaseID, ref);
-                            if (storeGoodReturnMap != {}) {
-                              // ref
-                              //     .read(
-                              //         stockOrderStateNotifierProvider.notifier)
-                              //     .returnReasonOrderForm(
-                              //         returnPurchaseID,
-                              //         returReason,
-                              //         orderLineList,
-                              //         context,
-                              //         ref,
-                              //         userWarehouse.warehouseList[0]);
+
+                            for (var data in returnOrderLine) {
+                              for (var product in data.productList) {
+                                orderLineList.add(
+                                  {
+                                    "purchase_id": returnPurchaseID,
+                                    "partner_id": data.partnerIDList[0],
+                                    "user_id": admin.uid,
+                                    "date": DateFormat('yyyy-MM-dd HH:mm:ss')
+                                        .format(DateTime.now()),
+                                    "return_type": "Other",
+                                    "other_reason": returReason,
+                                    "warehouse_id":
+                                        userWarehouse.warehouseList[0],
+                                    "return_lines": [
+                                      {
+                                        "product_id": product.id,
+                                        "name": product.products[1],
+                                        "product_qty": product.quantity,
+                                        "product_uom": product.productUom
+                                      }
+                                    ]
+                                  },
+                                );
+                              }
                             }
+
+                            for (var data in orderReceivingList) {
+                              for (var product in data.productList) {
+                                purchaseID.add({
+                                  "id": data.id,
+                                  "state": "purchase",
+                                  "order_line": [
+                                    {
+                                      "id": product.id,
+                                      "product_id": product.products[0],
+                                      "name": product.products[1],
+                                      "product_qty": product.quantity,
+                                      "product_uom": product.productUom,
+                                      "price_unit": product.price,
+                                    }
+                                  ]
+                                });
+                              }
+                            }
+
+                            superPrint(orderLineList);
+                            ref
+                                .read(stockOrderStateNotifierProvider.notifier)
+                                .submitPurchaseOrder(context, purchaseID, ref)
+                                .then((_) {
+                              if (storeGoodReturnMap != {}) {
+                                ref
+                                    .read(stockOrderStateNotifierProvider
+                                        .notifier)
+                                    .returnReasonOrderForm(
+                                      orderLineList,
+                                    );
+                              }
+                            });
                           }, isBool: isSubmit),
                         ),
                         const SizedBox(width: 10),
@@ -257,9 +297,9 @@ class _CheckOutOrderDetailScreenState
       child: ListView.separated(
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            superPrint(orderFormDataList[index].orderProduct);
+            superPrint(orderFormDataList[index].partnerIDList);
             // var entry = checkOutDataMap.entries.elementAt(index);
-            String vendorName = orderFormDataList[index].orderProduct[1];
+            String vendorName = orderFormDataList[index].partnerIDList[1];
             //int vendorID = orderFormDataList[index].orderProduct[0];
             int vendorID = orderFormDataList[index].id;
             //  List<Map<String, dynamic>> products = entry.value;
